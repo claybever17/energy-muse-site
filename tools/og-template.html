@@ -1,0 +1,140 @@
+<!doctype html><html><head><meta charset="utf-8"><title>OG image generator</title>
+<style>
+@font-face{font-family:'Fraunces';src:url(../assets/fonts/fraunces_300.woff2) format('woff2');font-weight:300}
+@font-face{font-family:'Fraunces';src:url(../assets/fonts/fraunces_400.woff2) format('woff2');font-weight:400}
+@font-face{font-family:'Instrument Sans';src:url(../assets/fonts/instrument_600.woff2) format('woff2');font-weight:600}
+body{margin:0;background:#222;display:grid;place-items:center;min-height:100vh}
+#out{width:1200px;height:630px;outline:1px solid #444}
+</style></head><body>
+<canvas id="out" width="2400" height="1260"></canvas>
+<script src="../assets/three.min.js"></script>
+<script>
+window.addEventListener('error',e=>{window.__err=(e.message||'')+' @'+e.lineno;});
+// ---- offscreen 3D render of the device (2x for crispness) ----
+const W=2400,H=1260;
+const glCanvas=document.createElement('canvas');
+const renderer=new THREE.WebGLRenderer({canvas:glCanvas,antialias:true,alpha:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(1);renderer.setSize(W,H,false);
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.18;
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(32,W/H,0.1,100);
+function makeEnv(){
+  const cv=document.createElement('canvas');cv.width=64;cv.height=256;const x=cv.getContext('2d');
+  const base=x.createLinearGradient(0,0,0,256);
+  base.addColorStop(0,'#3a4250');base.addColorStop(.5,'#20252e');base.addColorStop(1,'#0d1016');
+  x.fillStyle=base;x.fillRect(0,0,64,256);
+  function strip(cy,h,a){const s=x.createLinearGradient(0,cy-h,0,cy+h);s.addColorStop(0,'rgba(255,251,243,0)');s.addColorStop(.5,'rgba(255,251,243,'+a+')');s.addColorStop(1,'rgba(255,251,243,0)');x.fillStyle=s;x.fillRect(0,cy-h,64,h*2);}
+  strip(46,26,0.95);strip(150,20,0.5);
+  const t=new THREE.CanvasTexture(cv);t.mapping=THREE.EquirectangularReflectionMapping;t.colorSpace=THREE.SRGBColorSpace;
+  const p=new THREE.PMREMGenerator(renderer);const e=p.fromEquirectangular(t).texture;t.dispose();p.dispose();return e;
+}
+scene.environment=makeEnv();
+scene.add(new THREE.HemisphereLight(0xdfe6f0,0x2a2f38,0.5));
+const key=new THREE.DirectionalLight(0xfff2e0,1.7);key.position.set(2.2,3.6,2.4);scene.add(key);
+key.castShadow=true;key.shadow.mapSize.set(1024,1024);key.shadow.radius=6;key.shadow.bias=-0.0004;
+key.shadow.camera.left=-1.8;key.shadow.camera.right=1.8;key.shadow.camera.top=1.8;key.shadow.camera.bottom=-1.8;
+const fill=new THREE.DirectionalLight(0xbcd0f0,0.55);fill.position.set(-2.8,1.4,2.2);scene.add(fill);
+const rim=new THREE.DirectionalLight(0xffffff,1.0);rim.position.set(-1.2,2.4,-2.6);scene.add(rim);
+
+const device=new THREE.Group();scene.add(device);
+const SLAB=2.0;
+const matGlass=new THREE.MeshPhysicalMaterial({color:0xaebdcc,metalness:0,roughness:0.05,transparent:true,opacity:0.13,clearcoat:1,clearcoatRoughness:0.04,envMapIntensity:1.25,depthWrite:false});
+const matBlackGloss=new THREE.MeshPhysicalMaterial({color:0x0b0d11,metalness:0.22,roughness:0.12,clearcoat:1,clearcoatRoughness:0.05,envMapIntensity:1.5});
+const matBlack=new THREE.MeshPhysicalMaterial({color:0x0d0f13,metalness:0.3,roughness:0.2,clearcoat:0.8,clearcoatRoughness:0.15,envMapIntensity:1.2});
+const matDisc=new THREE.MeshStandardMaterial({color:0x0b0e13,metalness:0.3,roughness:0.45});
+const matGold=new THREE.MeshStandardMaterial({color:0xE3B45E,metalness:1.0,roughness:0.24,envMapIntensity:2.2,emissive:0x35270c,emissiveIntensity:0.5});
+const matRing=new THREE.MeshStandardMaterial({color:0xe6eaee,metalness:0.95,roughness:0.2,envMapIntensity:1.6});
+const matChrome=new THREE.MeshStandardMaterial({color:0xdfe3e6,metalness:1.0,roughness:0.14,envMapIntensity:1.8});
+const matSteel=new THREE.MeshStandardMaterial({color:0xb8bdc2,metalness:1.0,roughness:0.28,envMapIntensity:1.4});
+function part(geo,mat,x,y,z){const m=new THREE.Mesh(geo,mat);m.position.set(x||0,y||0,z||0);m.castShadow=true;m.receiveShadow=true;device.add(m);return m;}
+part(new THREE.BoxGeometry(SLAB,0.09,SLAB),matBlack,0,0,0);
+part(new THREE.BoxGeometry(SLAB*1.004,0.014,SLAB*1.004),matSteel,0,0.052,0);
+part(new THREE.BoxGeometry(SLAB,0.035,SLAB),matBlack,0,0.077,0);
+part(new THREE.CylinderGeometry(0.73,0.73,0.04,120),matBlack,0,0.077,0);
+part(new THREE.CylinderGeometry(0.71,0.71,0.024,120),matDisc,0,0.096,0);
+const ringM=new THREE.Mesh(new THREE.TorusGeometry(0.70,0.008,16,160),matRing);ringM.rotation.x=Math.PI/2;ringM.position.y=0.112;device.add(ringM);
+(function(){const turns=36,N=3600,r0=0.012,rMax=0.665,A=turns*Math.PI*2;const pts=[];
+  for(let i=0;i<=N;i++){const a=i/N*A,u=a/A;const f=0.9*u+0.1*(1-Math.pow(1-u,6));const r=r0+(rMax-r0)*f;
+    pts.push(new THREE.Vector3(Math.cos(a)*r,0,Math.sin(a)*r));}
+  const g=new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),3400,0.0046,8,false);
+  const m=new THREE.Mesh(g,matGold);m.position.y=0.115;device.add(m);})();
+function bolt(x,z){const g=new THREE.Group();
+  const sh=new THREE.Mesh(new THREE.CylinderGeometry(0.028,0.028,0.34,20),matChrome);sh.position.y=0.06;g.add(sh);
+  const wa=new THREE.Mesh(new THREE.CylinderGeometry(0.094,0.094,0.012,32),matSteel);wa.position.y=0.212;g.add(wa);
+  const hT=new THREE.Mesh(new THREE.CylinderGeometry(0.080,0.086,0.046,6),matChrome);hT.position.y=0.242;hT.rotation.y=0.3;g.add(hT);
+  const dome=new THREE.Mesh(new THREE.SphereGeometry(0.072,24,14,0,Math.PI*2,0,Math.PI/2),matChrome);
+  dome.scale.set(1,0.42,1);dome.position.y=0.265;g.add(dome);
+  g.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});
+  g.position.set(x,0,z);device.add(g);}
+const bo=0.85;bolt(bo,bo);bolt(-bo,bo);bolt(bo,-bo);bolt(-bo,-bo);
+// closed lid with window
+const H1=1.0,R=0.06;
+const s=new THREE.Shape();
+s.moveTo(-H1+R,-H1);s.lineTo(H1-R,-H1);s.quadraticCurveTo(H1,-H1,H1,-H1+R);s.lineTo(H1,H1-R);
+s.quadraticCurveTo(H1,H1,H1-R,H1);s.lineTo(-H1+R,H1);s.quadraticCurveTo(-H1,H1,-H1,H1-R);
+s.lineTo(-H1,-H1+R);s.quadraticCurveTo(-H1,-H1,-H1+R,-H1);
+const holePath=new THREE.Path();holePath.absarc(0,0,0.72,0,Math.PI*2,true);s.holes.push(holePath);
+const lidGeo=new THREE.ExtrudeGeometry(s,{depth:0.05,bevelEnabled:true,bevelThickness:0.008,bevelSize:0.008,bevelSegments:2,curveSegments:72});
+lidGeo.rotateX(-Math.PI/2);lidGeo.translate(0,-0.025,0);
+const lid=new THREE.Group();
+const lidPlate=new THREE.Mesh(lidGeo,matBlackGloss);lidPlate.castShadow=true;lidPlate.receiveShadow=true;lid.add(lidPlate);
+const sheet=new THREE.Mesh(new THREE.BoxGeometry(SLAB*0.995,0.016,SLAB*0.995),matGlass);sheet.position.y=0.042;lid.add(sheet);
+(function(){const cv=document.createElement('canvas');cv.width=640;cv.height=140;const x=cv.getContext('2d');
+  x.fillStyle='#9aabae';x.font='italic 600 64px Georgia';x.textBaseline='middle';x.textAlign='center';x.fillText('energy muse',320,78);
+  const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;
+  const pl=new THREE.Mesh(new THREE.PlaneGeometry(0.56,0.123),new THREE.MeshBasicMaterial({map:t,transparent:true,opacity:0.92}));
+  pl.position.set(0,0.054,0.865);pl.rotation.x=-Math.PI/2;lid.add(pl);})();
+lid.position.y=0.16;device.add(lid);
+
+// composition: device on the right, hero angle
+device.position.set(0.78,-0.05,0);
+device.rotation.y=-0.78;device.rotation.x=0.5;
+camera.position.set(0,1.62,3.7);camera.lookAt(0.1,0,0);
+
+// ---- composite: bg + 3D + type ----
+const out=document.getElementById('out');
+const ctx=out.getContext('2d');
+function draw(){
+  renderer.render(scene,camera);
+  // background: navy with copper radial glow behind the device
+  ctx.fillStyle='#0a1017';ctx.fillRect(0,0,W,H);
+  let rg=ctx.createRadialGradient(W*0.68,H*0.42,60,W*0.68,H*0.42,W*0.5);
+  rg.addColorStop(0,'rgba(169,104,62,0.34)');rg.addColorStop(0.55,'rgba(169,104,62,0.10)');rg.addColorStop(1,'rgba(169,104,62,0)');
+  ctx.fillStyle=rg;ctx.fillRect(0,0,W,H);
+  let rg2=ctx.createRadialGradient(W*0.18,H*0.95,60,W*0.18,H*0.95,W*0.45);
+  rg2.addColorStop(0,'rgba(20,40,70,0.5)');rg2.addColorStop(1,'rgba(20,40,70,0)');
+  ctx.fillStyle=rg2;ctx.fillRect(0,0,W,H);
+  // the device render
+  ctx.drawImage(glCanvas,0,0,W,H);
+  // type (2x scale)
+  ctx.textBaseline='alphabetic';
+  ctx.fillStyle='#EFE7D9';
+  ctx.font='400 44px "Instrument Sans"';
+  ctx.save();ctx.font='400 46px Georgia';ctx.fillStyle='#EFE7D9';
+  // wordmark, letterspaced
+  const wm='ENERGY MUSE';let wx=112;const wy=150;
+  ctx.font='300 54px Fraunces';
+  for(const ch of wm){ctx.fillText(ch,wx,wy);wx+=ctx.measureText(ch).width+14;}
+  ctx.restore();
+  // eyebrow
+  ctx.fillStyle='#C08A4E';ctx.font='600 30px "Instrument Sans"';
+  const eb='THE FREQUENCY GENERATOR';let ex=116;const ey=452;
+  for(const ch of eb){ctx.fillText(ch,ex,ey);ex+=ctx.measureText(ch).width+7;}
+  // headline
+  ctx.fillStyle='#EFE7D9';ctx.font='300 150px Fraunces';
+  ctx.fillText('Frequency,',100,610);
+  ctx.fillText('made tangible.',100,760);
+  // sub
+  ctx.fillStyle='#9BA9BE';ctx.font='400 40px "Instrument Sans"';
+  ctx.fillText('A guided energy tool — real copper, real craft.',106,850);
+  // footer url
+  ctx.fillStyle='#6E7C90';ctx.font='600 28px "Instrument Sans"';
+  ctx.fillText('energymuse.com',112,1170);
+  window.__og=out.toDataURL('image/jpeg',0.90);
+  window.__ogReady=true;
+}
+document.fonts.load('300 54px Fraunces').then(()=>document.fonts.load('600 30px "Instrument Sans"')).then(()=>document.fonts.load('400 40px "Instrument Sans"')).then(()=>{requestAnimationFrame(()=>requestAnimationFrame(draw));});
+</script>
+</body></html>
