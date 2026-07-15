@@ -88,10 +88,12 @@ const sheet=new THREE.Mesh(new THREE.BoxGeometry(SLAB*0.995,0.016,SLAB*0.995),ma
   pl.position.set(0,0.054,0.865);pl.rotation.x=-Math.PI/2;lid.add(pl);})();
 lid.position.y=0.16;device.add(lid);
 
-// composition: device on the right, hero angle
-device.position.set(0.78,-0.05,0);
-device.rotation.y=-0.78;device.rotation.x=0.5;
-camera.position.set(0,1.62,3.7);camera.lookAt(0.1,0,0);
+// composition: device on the right, hero angle — or centered when ?clean=1
+const CLEAN=new URLSearchParams(location.search).get('clean')==='1';
+if(CLEAN){device.position.set(0,-0.02,0);device.rotation.y=-0.78;device.rotation.x=0.55;
+  camera.position.set(0,1.7,3.4);camera.lookAt(0,0,0);}
+else{device.position.set(0.78,-0.05,0);device.rotation.y=-0.78;device.rotation.x=0.5;
+  camera.position.set(0,1.62,3.7);camera.lookAt(0.1,0,0);}
 
 // ---- composite: bg + 3D + type ----
 const out=document.getElementById('out');
@@ -100,7 +102,8 @@ function draw(){
   renderer.render(scene,camera);
   // background: navy with copper radial glow behind the device
   ctx.fillStyle='#0a1017';ctx.fillRect(0,0,W,H);
-  let rg=ctx.createRadialGradient(W*0.68,H*0.42,60,W*0.68,H*0.42,W*0.5);
+  const gx=CLEAN?0.5:0.68;
+  let rg=ctx.createRadialGradient(W*gx,H*0.42,60,W*gx,H*0.42,W*0.5);
   rg.addColorStop(0,'rgba(169,104,62,0.34)');rg.addColorStop(0.55,'rgba(169,104,62,0.10)');rg.addColorStop(1,'rgba(169,104,62,0)');
   ctx.fillStyle=rg;ctx.fillRect(0,0,W,H);
   let rg2=ctx.createRadialGradient(W*0.18,H*0.95,60,W*0.18,H*0.95,W*0.45);
@@ -108,6 +111,7 @@ function draw(){
   ctx.fillStyle=rg2;ctx.fillRect(0,0,W,H);
   // the device render
   ctx.drawImage(glCanvas,0,0,W,H);
+  if(CLEAN){window.__og=out.toDataURL('image/jpeg',0.85);window.__ogReady=true;return;}
   // type (2x scale)
   ctx.textBaseline='alphabetic';
   ctx.fillStyle='#EFE7D9';

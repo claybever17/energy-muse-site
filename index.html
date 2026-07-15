@@ -1,312 +1,541 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Energy Muse — The Frequency Generator</title>
-<meta name="description" content="Frequency, made tangible. A guided energy tool — real copper, real craft. Scroll to look inside the Energy Muse frequency generator.">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Energy Muse">
-<meta property="og:title" content="Energy Muse — The Frequency Generator">
-<meta property="og:description" content="Frequency, made tangible. A guided energy tool — real copper, real craft. Scroll to look inside.">
+<title>Energy Muse &#8212; Guided Energy for Real Life</title>
+<meta name="description" content="Guided energy for real life. Crystal jewelry, natural stones, frequency tools and trusted guidance.">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Energy Muse">
+<meta property="og:title" content="Energy Muse &mdash; Guided Energy for Real Life">
+<meta property="og:description" content="Crystal jewelry, natural stones, frequency tools and trusted guidance &mdash; energy, made personal.">
 <meta property="og:url" content="https://energy-muse-workingfolder.vercel.app/">
 <meta property="og:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
-<meta property="og:image:width" content="2400">
-<meta property="og:image:height" content="1260">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Energy Muse — The Frequency Generator">
-<meta name="twitter:description" content="Frequency, made tangible. A guided energy tool — real copper, real craft.">
 <meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <style>
-@font-face{font-family:'Fraunces';src:url(assets/fonts/fraunces_300.woff2) format('woff2');font-weight:300}
-@font-face{font-family:'Fraunces';src:url(assets/fonts/fraunces_400.woff2) format('woff2');font-weight:400}
-@font-face{font-family:'Instrument Sans';src:url(assets/fonts/instrument_400.woff2) format('woff2');font-weight:400}
-@font-face{font-family:'Instrument Sans';src:url(assets/fonts/instrument_600.woff2) format('woff2');font-weight:600}
-:root{--navy:#0a1017;--paper:#f3ece1;--copper:#c08a4e;--ink:#ece6da;--soft:#9fb0be}
-*{box-sizing:border-box;margin:0}
-body{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-serif;overflow-x:hidden}
-.stage{position:relative;height:460vh}
-.sticky{position:sticky;top:0;height:100vh;overflow:hidden}
-#c{position:absolute;inset:0;width:100%;height:100%;display:block}
-.bg{position:absolute;inset:0;background:radial-gradient(120% 90% at 68% 40%,rgba(192,138,78,.16),transparent 55%),radial-gradient(90% 80% at 30% 100%,rgba(20,40,70,.4),transparent 60%),var(--navy);z-index:0}
-.veil{position:absolute;inset:0;z-index:2;background:#0a1017;opacity:0;pointer-events:none}
-.caps{position:absolute;inset:0;z-index:3;pointer-events:none}
-.cap{position:absolute;left:0;right:0;padding:0 8vw;opacity:0;transition:opacity .5s ease,transform .6s cubic-bezier(.16,1,.3,1);transform:translateY(20px);text-shadow:0 2px 24px rgba(7,12,18,.85),0 0 60px rgba(7,12,18,.55)}
-.cap.in{opacity:1;transform:none}
-.cap .eye{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--copper);font-weight:600}
-.cap h2{font-family:'Fraunces';font-weight:300;font-size:clamp(34px,6vw,74px);line-height:1.02;letter-spacing:-.02em;margin-top:16px;text-wrap:balance}
-.cap p{margin-top:18px;max-width:34ch;color:var(--soft);font-size:clamp(15px,1.6vw,18px);line-height:1.6}
-.cap.c0{top:32%;max-width:820px}
-.cap.c1{top:30%;left:auto;right:0;text-align:right;max-width:none}
-.cap.c1 p{margin-left:auto}
-.cap.c2{top:30%}
-.cap.c3{top:auto;bottom:7%;text-align:center}
-.cap.c3 p,.cap.c3 .specs{margin-left:auto;margin-right:auto}
-.specs{display:flex;gap:0;margin-top:26px;border:1px solid #223247;border-radius:2px;max-width:520px}
-.spec{padding:14px 20px;flex:1}.spec+.spec{border-left:1px solid #223247}
-.spec .k{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);font-weight:600}
-.spec .v{font-family:'Fraunces';font-size:18px;margin-top:4px}
-.cue{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:4;color:var(--soft);font-size:11px;letter-spacing:.24em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px;transition:opacity .4s}
-.cue .bar{width:1px;height:38px;background:linear-gradient(var(--copper),transparent)}
-.nav{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:22px 8vw;font-size:13px;letter-spacing:.04em}
-.nav .brand{font-family:'Fraunces';font-size:20px;letter-spacing:.3em}
-.nav a{color:var(--soft);text-decoration:none;margin-left:22px}
-.end{height:60vh;display:grid;place-items:center;text-align:center;padding:0 8vw;background:linear-gradient(var(--navy),#0d1622)}
-.end h3{font-family:'Fraunces';font-weight:300;font-size:clamp(28px,4vw,44px)}
-.btn{display:inline-block;margin-top:24px;background:var(--copper);color:#1a1206;padding:14px 28px;border-radius:2px;font-weight:600;text-decoration:none;font-size:14px}
+/* ===== Fonts: Fraunces (display serif) + Instrument Sans (grotesk body) ===== */
+@font-face{font-family:'Fraunces';src:url(assets/fonts/fraunces_300.woff2) format('woff2');font-weight:300;font-style:normal;font-display:swap;}
+@font-face{font-family:'Fraunces';src:url(assets/fonts/fraunces_400.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:'Fraunces';src:url(assets/fonts/fraunces_600.woff2) format('woff2');font-weight:600;font-style:normal;font-display:swap;}
+@font-face{font-family:'Instrument Sans';src:url(assets/fonts/instrument_400.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:'Instrument Sans';src:url(assets/fonts/instrument_500.woff2) format('woff2');font-weight:500;font-style:normal;font-display:swap;}
+@font-face{font-family:'Instrument Sans';src:url(assets/fonts/instrument_600.woff2) format('woff2');font-weight:600;font-style:normal;font-display:swap;}
+
+/* ===== Tokens ===== */
+:root{
+  --paper:#F3ECE1; --surface:#FAF6EE; --ink:#211D18; --ink-soft:#463F35; --stone:#8A8072;
+  --copper:#A9683E; --copper-lo:#8F5330; --copper-hi:#C4855A;
+  --navy:#0B1320; --navy-2:#111C2E; --navy-line:#26344A; --navy-text:#EFE7D9; --navy-soft:#B4C0D0;
+  --line:#E4DACA; --tint:#EBE2D3;
+  --bg:var(--paper); --fg:var(--ink); --card:var(--surface); --hair:var(--line); --accent:var(--copper);
+  --maxw:1240px; --gutter:clamp(22px,5vw,72px); --step:clamp(84px,10vw,150px);
+  --serif:'Fraunces',Georgia,serif; --sans:'Instrument Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#0C1420; --surface:#121E30; --ink:#EFE7D9; --ink-soft:#C3CAD6; --stone:#93A0B2;
+    --copper:#C4855A; --copper-lo:#A9683E; --copper-hi:#D89E70;
+    --line:#243247; --tint:#101B2B;
+    --bg:var(--paper); --fg:var(--ink); --card:var(--surface); --hair:var(--line); --accent:var(--copper);
+  }
+}
+:root[data-theme="light"]{
+  --paper:#F3ECE1; --surface:#FAF6EE; --ink:#211D18; --ink-soft:#463F35; --stone:#8A8072;
+  --copper:#A9683E; --copper-lo:#8F5330; --copper-hi:#C4855A; --line:#E4DACA; --tint:#EBE2D3;
+  --bg:var(--paper); --fg:var(--ink); --card:var(--surface); --hair:var(--line); --accent:var(--copper);
+}
+:root[data-theme="dark"]{
+  --paper:#0C1420; --surface:#121E30; --ink:#EFE7D9; --ink-soft:#C3CAD6; --stone:#93A0B2;
+  --copper:#C4855A; --copper-lo:#A9683E; --copper-hi:#D89E70; --line:#243247; --tint:#101B2B;
+  --bg:var(--paper); --fg:var(--ink); --card:var(--surface); --hair:var(--line); --accent:var(--copper);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;letter-spacing:.005em;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;line-height:1.03;text-wrap:balance;letter-spacing:-.015em;}
+p{margin:0;}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter);}
+.eyebrow{font-family:var(--sans);font-weight:600;font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);}
+.eyebrow.muted{color:var(--stone);}
+.section{padding-block:var(--step);}
+.lead{color:var(--ink-soft);}
+em.hl{font-style:italic;font-family:var(--serif);color:var(--copper);font-weight:400;}
+
+/* ===== Buttons ===== */
+.btn{display:inline-flex;align-items:center;gap:.6em;font-family:var(--sans);font-weight:600;font-size:14px;
+  letter-spacing:.02em;padding:15px 30px;border-radius:1px;cursor:pointer;border:1px solid transparent;
+  transition:transform .2s,background .25s,color .25s,border-color .25s;}
+.btn-primary{background:var(--ink);color:var(--paper);}
+.btn-primary:hover{background:var(--copper);color:#fff;}
+.btn-copper{background:var(--copper);color:#fff;}
+.btn-copper:hover{background:var(--copper-lo);}
+.btn-ghost{background:transparent;color:var(--fg);border-color:color-mix(in srgb,var(--fg) 40%,transparent);}
+.btn-ghost:hover{border-color:var(--fg);}
+.btn-light{background:transparent;color:var(--navy-text);border:1px solid var(--navy-soft);}
+.btn-light:hover{background:var(--navy-text);color:var(--navy);}
+.btn:active{transform:translateY(1px);}
+.link{display:inline-flex;align-items:center;gap:.45em;font-weight:600;font-size:13.5px;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--accent);}
+.link .a{transition:transform .25s;}.link:hover .a{transform:translateX(5px);}
+
+/* ===== Announcement + nav ===== */
+.announce{background:var(--navy);color:var(--navy-text);font-size:12.5px;letter-spacing:.03em;text-align:center;
+  padding:10px 16px;display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;}
+.announce a{color:var(--copper-hi);font-weight:600;}
+header.nav{position:sticky;top:0;z-index:60;transition:background .3s,border-color .3s,color .3s;
+  border-bottom:1px solid transparent;}
+header.nav.solid{background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);border-color:var(--hair);}
+.nav-in{display:flex;align-items:center;gap:26px;height:72px;}
+.brand{font-family:var(--serif);font-weight:400;font-size:22px;letter-spacing:.30em;}
+.nav-links{display:flex;gap:24px;margin-inline:auto;font-family:var(--sans);font-size:13.5px;letter-spacing:.03em;}
+.nav-links a{padding:8px 0;border-bottom:1.5px solid transparent;color:var(--ink-soft);transition:.2s;}
+.nav-links a:hover{color:var(--fg);border-color:var(--copper);}
+.nav-utils{display:flex;gap:16px;font-size:12.5px;letter-spacing:.05em;color:var(--ink-soft);align-items:center;}
+.nav-utils .bag{color:var(--fg);font-weight:600;}
+.themebtn{background:none;border:1px solid var(--hair);color:var(--stone);border-radius:2px;width:32px;height:32px;
+  cursor:pointer;display:grid;place-items:center;font-size:13px;}
+.themebtn:hover{border-color:var(--accent);color:var(--accent);}
+/* hero has its own dark context for nav */
+.at-hero header.nav .brand,.at-hero header.nav .nav-links a,.at-hero header.nav .nav-utils{color:#EFE7D9;}
+.at-hero header.nav .nav-utils .bag{color:#fff;}
+.at-hero header.nav .themebtn{border-color:#33415A;color:#9BA9BE;}
+
+/* ===== HERO (committed dark editorial) ===== */
+.hero{position:relative;background:var(--navy);color:var(--navy-text);overflow:hidden;min-height:92vh;display:flex;align-items:center;}
+.hero-bg{position:absolute;inset:0;z-index:0;
+  background:radial-gradient(120% 90% at 72% 42%,rgba(169,104,62,.26),transparent 55%),
+             radial-gradient(90% 80% at 20% 100%,rgba(20,40,70,.5),transparent 60%),var(--navy);}
+.hero-grain{position:absolute;inset:0;z-index:1;opacity:.05;pointer-events:none;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+.hero-grid{position:relative;z-index:3;width:100%;display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(28px,5vw,72px);align-items:center;}
+.hero-media{position:relative;aspect-ratio:4/4.6;border-radius:3px;overflow:hidden;background:#0d1520;}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:50% 42%;}
+.hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(7,12,18,.35));}
+.hero-ring{position:absolute;right:-56px;bottom:-56px;width:200px;height:200px;pointer-events:none;opacity:.9;}
+.hero-ring circle{fill:none;stroke:#E7D4C6;opacity:.8;}
+.hero-copy{max-width:660px;padding-block:clamp(60px,10vh,120px);}
+.hero .eyebrow{color:var(--copper-hi);display:block;overflow:hidden;}
+.hero h1{font-size:clamp(48px,7.5vw,104px);line-height:.99;letter-spacing:-.02em;font-weight:400;text-shadow:0 2px 30px rgba(7,12,18,.6);margin-top:22px;}
+.hero h1 .line{display:block;overflow:hidden;}
+.hero h1 .line span{display:block;transform:translateY(105%);}
+.hero .sub{font-family:var(--serif);font-weight:400;font-style:normal;font-size:clamp(19px,2.3vw,26px);
+  color:#D9C6B4;margin-top:26px;max-width:30ch;line-height:1.25;}
+.hero p.body{margin-top:22px;color:var(--navy-soft);max-width:46ch;font-size:17px;text-shadow:0 1px 18px rgba(7,12,18,.55);}
+.hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px;}
+.hero .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:30px;}
+.chip{font-size:12.5px;letter-spacing:.03em;padding:8px 15px;border:1px solid #2C3B54;border-radius:100px;
+  color:#C3CAD6;cursor:pointer;transition:.2s;}
+.chip:hover{border-color:var(--copper);color:#fff;}
+.scroll-cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:3;color:var(--navy-soft);
+  font-size:11px;letter-spacing:.24em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.scroll-cue .bar{width:1px;height:40px;background:linear-gradient(var(--copper),transparent);}
+/* load anim */
+.hero .anim{opacity:0;transform:translateY(16px);transition:opacity .9s ease,transform .9s ease;}
+.loaded .hero .anim{opacity:1;transform:none;}
+.loaded .hero h1 .line span{transform:none;transition:transform 1s cubic-bezier(.16,1,.3,1);}
+.hero h1 .line:nth-child(1) span{transition-delay:.15s;}
+.hero h1 .line:nth-child(2) span{transition-delay:.28s;}
+.hero .eyebrow{transition-delay:.05s;}
+.hero .sub{transition-delay:.5s;}.hero p.body{transition-delay:.6s;}
+.hero .cta-row{transition-delay:.7s;}.hero .chips{transition-delay:.8s;}
+
+/* ===== Marquee trust ===== */
+.trust{border-block:1px solid var(--hair);background:var(--tint);}
+.trust-in{display:grid;grid-template-columns:repeat(3,1fr);}
+.trust-item{padding:26px 24px;display:flex;gap:12px;align-items:center;justify-content:center;text-align:center;
+  font-size:14px;color:var(--ink-soft);letter-spacing:.01em;}
+.trust-item+.trust-item{border-left:1px solid var(--hair);}
+.trust-item svg{flex:none;color:var(--copper);}
+
+/* ===== Section head ===== */
+.head{max-width:760px;margin:0 auto clamp(42px,5vw,64px);text-align:center;}
+.head.left{text-align:left;margin-inline:0;}
+.head h2{font-size:clamp(32px,4.6vw,54px);margin-top:16px;font-weight:400;}
+.head p{margin-top:16px;color:var(--ink-soft);}
+
+/* ===== Intention finder ===== */
+.int-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+.int{position:relative;border-radius:2px;overflow:hidden;aspect-ratio:3/4.1;cursor:pointer;background:var(--navy);
+  display:flex;align-items:flex-end;isolation:isolate;}
+.int img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 32%;z-index:0;filter:saturate(.96);
+  transition:transform .8s cubic-bezier(.16,1,.3,1);}
+.int::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(11,19,32,0) 34%,rgba(11,19,32,.82));}
+.int-ring{position:absolute;inset:0;z-index:2;display:grid;place-items:center;opacity:0;transition:opacity .5s;}
+.int-ring svg{width:64%;}.int-ring circle{fill:none;stroke:var(--copper-hi);opacity:.85;}
+.int:hover img{transform:scale(1.07);}.int:hover .int-ring{opacity:.85;}
+.int-label{position:relative;z-index:3;color:#fff;padding:0 16px 18px;width:100%;}
+.int-label .n{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#E6C9AE;}
+.int-label .t{font-family:var(--serif);font-weight:400;font-size:20px;margin-top:5px;line-height:1.05;}
+.int-cta{text-align:center;margin-top:40px;}
+
+/* ===== Ways ===== */
+.band{background:var(--tint);border-block:1px solid var(--hair);}
+.ways{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
+.way{display:flex;flex-direction:column;gap:16px;}
+.way .thumb{aspect-ratio:5/4;border-radius:2px;overflow:hidden;background:var(--navy);position:relative;}
+.way .thumb img{width:100%;height:100%;object-fit:cover;object-position:50% 38%;}
+.way .thumb.quiz{display:grid;place-items:center;}
+.way .thumb.quiz svg{width:130px;}.way .thumb.quiz circle{fill:none;stroke:var(--copper-hi);}
+.way h3{font-size:26px;font-weight:400;}
+.way h3 em{font-style:italic;color:var(--copper);}
+.way p{font-size:14.5px;color:var(--ink-soft);}
+.way .link{margin-top:auto;}
+
+/* ===== Split ===== */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5.5vw,84px);align-items:center;}
+.split.rev .media{order:-1;}
+.split .media{position:relative;aspect-ratio:4/3.2;border-radius:2px;overflow:hidden;background:var(--navy);}
+.split .media img{width:100%;height:100%;object-fit:cover;object-position:50% 35%;}
+.split .copy .eyebrow{display:block;margin-bottom:18px;}
+.split h2{font-size:clamp(30px,4vw,50px);font-weight:400;}
+.split .copy p{margin-top:20px;color:var(--ink-soft);max-width:48ch;}
+.split .copy .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px;}
+
+/* ===== Frequency (dark rigorous) ===== */
+.freq{background:var(--navy);color:var(--navy-text);position:relative;overflow:hidden;}
+.freq .eyebrow{color:var(--copper-hi);}
+.freq h2{color:var(--navy-text);}
+.freq .copy p{color:var(--navy-soft);}
+.freq .media{background:#070C15;}
+.specs{display:flex;gap:0;margin-top:30px;border:1px solid var(--navy-line);border-radius:2px;overflow:hidden;}
+.spec{padding:16px 20px;flex:1;}
+.spec+.spec{border-left:1px solid var(--navy-line);}
+.spec .k{color:var(--navy-soft);letter-spacing:.16em;text-transform:uppercase;font-size:10px;display:block;font-weight:600;}
+.spec .v{font-family:var(--serif);font-weight:400;font-size:19px;margin-top:4px;}
+.freq-note{font-size:12px;color:var(--navy-soft);margin-top:24px;max-width:52ch;line-height:1.5;}
+
+/* ===== Ritual ===== */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;}
+.step{text-align:center;}
+.step .rn{width:70px;height:70px;margin:0 auto 22px;position:relative;display:grid;place-items:center;}
+.step .rn svg{position:absolute;inset:0;}.step .rn circle{fill:none;stroke:var(--copper);}
+.step .rn span{font-family:var(--serif);font-weight:400;font-size:24px;color:var(--fg);}
+.step h3{font-size:23px;font-weight:400;}
+.step p{margin-top:12px;color:var(--ink-soft);font-size:15px;max-width:32ch;margin-inline:auto;}
+
+/* ===== Quotes ===== */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.quote{background:var(--card);border:1px solid var(--hair);border-radius:2px;padding:34px 30px;display:flex;flex-direction:column;gap:20px;}
+.quote .mark{font-family:var(--serif);font-size:52px;line-height:.4;color:var(--copper);height:22px;}
+.quote p{font-family:var(--serif);font-weight:300;font-size:21px;line-height:1.38;}
+.quote .who{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);margin-top:auto;}
+
+/* ===== Final ===== */
+.final{text-align:center;position:relative;background:var(--tint);border-block:1px solid var(--hair);}
+.final h2{font-size:clamp(36px,5.6vw,72px);max-width:15ch;margin:14px auto 0;font-weight:400;letter-spacing:-.02em;}
+.final p{margin-top:18px;color:var(--ink-soft);}
+.final .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px;}
+
+/* ===== Email ===== */
+.email{background:var(--navy);color:var(--navy-text);}
+.email-in{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;}
+.email h3{font-family:var(--serif);font-weight:300;font-size:clamp(26px,3.4vw,40px);color:var(--navy-text);}
+.email p{color:var(--navy-soft);margin-top:12px;max-width:42ch;}
+.email form{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
+.email input{background:transparent;border:1px solid var(--navy-line);color:var(--navy-text);padding:15px 16px;border-radius:1px;
+  font-family:var(--sans);font-size:15px;min-width:250px;}
+.email input::placeholder{color:#6E7C90;}
+.email input:focus{outline:2px solid var(--copper);outline-offset:1px;border-color:var(--copper);}
+
+/* ===== Footer ===== */
+footer.site{background:var(--tint);border-top:1px solid var(--hair);}
+.foot-grid{display:grid;grid-template-columns:1.7fr repeat(4,1fr);gap:32px;padding-block:64px 44px;}
+.foot-brand .b{font-family:var(--serif);font-weight:400;font-size:22px;letter-spacing:.28em;}
+.foot-brand p{margin-top:18px;color:var(--ink-soft);font-size:14px;max-width:34ch;}
+.foot-col h4{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin:0 0 16px;}
+.foot-col a{display:block;font-size:14px;color:var(--ink-soft);padding:5px 0;transition:.2s;}
+.foot-col a:hover{color:var(--copper);}
+.foot-bottom{border-top:1px solid var(--hair);padding-block:24px;font-size:11.5px;color:var(--stone);display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap;line-height:1.5;}
+
+/* ===== Reveal ===== */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+.reveal.in{opacity:1;transform:none;}
+.reveal.d1{transition-delay:.08s;}.reveal.d2{transition-delay:.16s;}.reveal.d3{transition-delay:.24s;}
+
+/* ===== Responsive ===== */
+@media (max-width:1000px){
+  .hero{min-height:auto;padding-block:40px;}
+  .hero-grid{display:flex;flex-direction:column;}
+  .hero-media{order:-1;aspect-ratio:16/11;width:100%;}
+  .hero-copy{padding-block:20px 40px;max-width:none;}
+  .scroll-cue{display:none;}
+  .int-grid{grid-template-columns:repeat(3,1fr);}
+  .ways{grid-template-columns:repeat(2,1fr);}
+  .split,.split.rev{grid-template-columns:1fr;}.split.rev .media{order:0;}
+  .steps,.quotes{grid-template-columns:1fr;}
+  .email-in{grid-template-columns:1fr;}.email form{justify-content:flex-start;}
+  .foot-grid{grid-template-columns:1fr 1fr;}
+  .nav-links{display:none;}
+  .trust-in{grid-template-columns:1fr;}.trust-item+.trust-item{border-left:0;border-top:1px solid var(--hair);}
+  .specs{flex-wrap:wrap;}.spec{flex-basis:100%;}.spec+.spec{border-left:0;border-top:1px solid var(--navy-line);}
+}
 @media (max-width:560px){
-  .specs{flex-wrap:wrap}
-  .spec{flex-basis:100%;border-left:0!important;border-top:1px solid #223247}
-  .spec:first-child{border-top:0}
-  .cap p{max-width:none}
+  .int-grid{grid-template-columns:repeat(2,1fr);}.ways{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr;}.quotes{grid-template-columns:1fr;}
 }
-@media (max-width:700px){
-  .cap.c0,.cap.c1,.cap.c2{top:9%}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .reveal,.hero .anim{opacity:1;transform:none;transition:none;}
+  .hero h1 .line span{transform:none;}
+  .int img{transition:none;}
 }
-</style></head>
-<body>
-<div class="nav"><div class="brand">ENERGY&nbsp;MUSE</div><div><a href="#">Frequency Tools</a><a href="#">Shop</a></div></div>
-<section class="stage" id="stage">
-  <div class="sticky">
-    <div class="bg"></div>
-    <canvas id="c"></canvas>
-    <div class="veil" id="veil"></div>
-    <div class="caps">
-      <div class="cap c0" data-lo="0" data-hi="0.16">
-        <div class="eye">The Frequency Generator</div>
-        <h2>Frequency,<br>made tangible.</h2>
-        <p>A physical object, tuned to a specified frequency and built to be understood. Scroll to look inside.</p>
+</style>
+
+<div class="announce anim">
+  <span>New to Energy Muse? Find your first ritual in a few simple questions.</span>
+  <a href="#quiz">Take the Energy Quiz &rarr;</a>
+</div>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <div class="brand">ENERGY&nbsp;MUSE</div>
+    <nav class="nav-links">
+      <a href="#">Start Here</a><a href="gems/">Shop</a><a href="#intention">By Intention</a>
+      <a href="#learn">Learn</a><a href="#heather">With Heather</a><a href="#veza">Veza</a><a href="#about">About</a>
+    </nav>
+    <div class="nav-utils">
+      <a href="#">Search</a><a href="#">Account</a><a href="#" class="bag">Bag (0)</a>
+      <button class="themebtn" id="themebtn" aria-label="Toggle light or dark theme" title="Toggle theme">&#9680;</button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-grain" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow anim">Guided Energy for Real Life</span>
+      <h1><span class="line"><span>Energy,</span></span><span class="line"><span>made <em class="hl">personal.</em></span></span></h1>
+      <p class="sub anim">Feel more like yourself &mdash; one small ritual at a time.</p>
+      <p class="body anim">Crystal jewelry, natural stones, frequency tools and trusted guidance, brought
+        together to help you choose what fits your life. No experience or belief system required.</p>
+      <div class="cta-row anim">
+        <a href="#quiz" class="btn btn-copper">Find My Energy Match</a>
+        <a href="#intention" class="btn btn-light">Explore by Intention</a>
       </div>
-      <div class="cap c1" data-lo="0.20" data-hi="0.40">
-        <div class="eye">Sealed by hand</div>
-        <h2>Glass, copper,<br>and four bolts.</h2>
-        <p>A tinted glass cover, machined black plates and chrome hardware — the materials that make the energy world tangible.</p>
+      <div class="chips anim" aria-label="Shop by intention">
+        <span class="chip">Protection</span><span class="chip">Abundance</span>
+        <span class="chip">Grounding &amp; Calm</span><span class="chip">Love &amp; Self-Worth</span>
+        <span class="chip">Clarity &amp; Intuition</span>
       </div>
-      <div class="cap c2" data-lo="0.44" data-hi="0.66">
-        <div class="eye">Inside</div>
-        <h2>A single<br>copper coil.</h2>
-        <p>One continuous spiral, tuned to a specified frequency and set behind a silver ring. This is the heart of the tool.</p>
-      </div>
-      <div class="cap c3" data-lo="0.80" data-hi="1.01">
-        <div class="eye">Made real</div>
-        <h2>Yours to use.</h2>
-        <div class="specs">
-          <div class="spec"><div class="k">Material</div><div class="v">Copper coil</div></div>
-          <div class="spec"><div class="k">Placement</div><div class="v">Room · desk</div></div>
-          <div class="spec"><div class="k">Setup</div><div class="v">Under 5 min</div></div>
-        </div>
-      </div>
+    </div>
+    <div class="hero-media anim">
+      <img src="assets/img/hero.jpg" alt="A quiet everyday moment: meditating at home beside an Energy Muse tool">
+      <svg class="hero-ring" viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="100" cy="100" r="94" stroke-width="1.3"/><circle cx="100" cy="100" r="70" stroke-width="1.3"/>
+        <circle cx="100" cy="100" r="46" stroke-width="1.3"/><circle cx="100" cy="100" r="22" stroke-width="1.3"/>
+      </svg>
+    </div>
+  </div>
+  <div class="scroll-cue anim" aria-hidden="true"><span>Scroll</span><span class="bar"></span></div>
+</section>
+
+<!-- ===== TRUST ===== -->
+<section class="trust">
+  <div class="wrap"><div class="trust-in">
+    <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.9 6 6.6.6-5 4.3 1.5 6.5L12 16.9 5.9 20.4 7.4 12.9l-5-4.3L9 8z"/></svg> Founder-led for more than two decades</div>
+    <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l8 4.5v9L12 20l-8-4.5v-9z"/><path d="M12 11l8-4.5M12 11v9M12 11L4 6.5"/></svg> Real materials and thoughtful craft</div>
+    <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.4 8.4 0 01-.9 3.8A8.5 8.5 0 0112.5 20a8.4 8.4 0 01-3.8-.9L3 20l1.9-5.7a8.4 8.4 0 01-.9-3.8A8.5 8.5 0 018.7 3 8.4 8.4 0 0112.5 2H13a8.5 8.5 0 018 8z"/></svg> Guidance before and after you buy</div>
+  </div></div>
+</section>
+
+<!-- ===== INTENTION ===== -->
+<section class="section" id="intention">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Start with the feeling</span>
+      <h2>Start with how you want to feel.</h2>
+      <p class="lead">You don't need to know the name of a crystal or the meaning of a frequency. Begin with the energy you want more of today.</p>
+    </div>
+    <div class="int-grid reveal"><a class="int" href="gems/"><img src="assets/img/protection.jpg" alt="Protection intention"><div class="int-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" stroke-width="1.1"/><circle cx="60" cy="60" r="38" stroke-width="1.1"/><circle cx="60" cy="60" r="24" stroke-width="1.1"/><circle cx="60" cy="60" r="11" stroke-width="1.1"/></svg></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div></a><a class="int" href="gems/"><img src="assets/img/wealth.jpg" alt="Abundance intention"><div class="int-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" stroke-width="1.1"/><circle cx="60" cy="60" r="38" stroke-width="1.1"/><circle cx="60" cy="60" r="24" stroke-width="1.1"/><circle cx="60" cy="60" r="11" stroke-width="1.1"/></svg></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div></a><a class="int" href="gems/"><img src="assets/img/calm.jpg" alt="Grounding and Calm intention"><div class="int-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" stroke-width="1.1"/><circle cx="60" cy="60" r="38" stroke-width="1.1"/><circle cx="60" cy="60" r="24" stroke-width="1.1"/><circle cx="60" cy="60" r="11" stroke-width="1.1"/></svg></div><div class="int-label"><div class="n">Steadiness &middot; a slower pace</div><div class="t">Grounding &amp; Calm</div></div></a><a class="int" href="gems/"><img src="assets/img/jewelry.jpg" alt="Love and Self-Worth intention"><div class="int-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" stroke-width="1.1"/><circle cx="60" cy="60" r="38" stroke-width="1.1"/><circle cx="60" cy="60" r="24" stroke-width="1.1"/><circle cx="60" cy="60" r="11" stroke-width="1.1"/></svg></div><div class="int-label"><div class="n">Tenderness &middot; self-worth</div><div class="t">Love &amp; Self-Worth</div></div></a><a class="int" href="gems/"><img src="assets/img/clarity.jpg" alt="Clarity and Intuition intention"><div class="int-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" stroke-width="1.1"/><circle cx="60" cy="60" r="38" stroke-width="1.1"/><circle cx="60" cy="60" r="24" stroke-width="1.1"/><circle cx="60" cy="60" r="11" stroke-width="1.1"/></svg></div><div class="int-label"><div class="n">Focus &middot; inner knowing</div><div class="t">Clarity &amp; Intuition</div></div></a></div>
+    <div class="int-cta"><a href="#quiz" class="link">Not sure? Take the quiz <span class="a">&rarr;</span></a></div>
+  </div>
+</section>
+
+<!-- ===== WAYS ===== -->
+<section class="section band">
+  <div class="wrap">
+    <div class="head reveal"><span class="eyebrow">Four ways in</span><h2>Your first step can be simple.</h2></div>
+    <div class="ways">
+      <div class="way reveal"><div class="thumb"><img src="assets/img/bracelets.jpg" alt="Stacked crystal bracelets on a wrist"></div>
+        <h3><em>Wear</em> it.</h3><p>Crystal jewelry keeps an intention close, in a form that fits everyday life.</p>
+        <a class="link" href="#jewelry">Shop Jewelry <span class="a">&rarr;</span></a></div>
+      <div class="way reveal d1"><div class="thumb"><img src="assets/img/wealth.jpg" alt="A hand holding a pyrite stone"></div>
+        <h3><em>Place</em> it.</h3><p>Natural stones become a visual cue in your home, workspace or ritual.</p>
+        <a class="link" href="gems/">Shop Crystals <span class="a">&rarr;</span></a></div>
+      <div class="way reveal d2"><div class="thumb"><img src="assets/img/calm.jpg" alt="A copper-coil frequency tool"></div>
+        <h3><em>Tune</em> the space.</h3><p>Frequency tools offer a structured, material-led way to shape a room.</p>
+        <a class="link" href="generator/">Explore Frequency <span class="a">&rarr;</span></a></div>
+      <div class="way reveal d3"><div class="thumb quiz"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" stroke-width="1.2"/><circle cx="60" cy="60" r="38" stroke-width="1.2"/><circle cx="60" cy="60" r="24" stroke-width="1.2"/><circle cx="60" cy="60" r="11" stroke-width="1.2"/></svg></div>
+        <h3><em>Let us</em> guide you.</h3><p>The Energy Quiz narrows the choices to a practical starting point.</p>
+        <a class="link" href="#quiz">Take the Quiz <span class="a">&rarr;</span></a></div>
     </div>
   </div>
 </section>
-<section class="end">
-  <div><h3>Guided energy, made tangible.</h3><a class="btn" href="#">Shop Frequency Tools</a></div>
+
+<!-- ===== QUIZ ===== -->
+<section class="section" id="quiz">
+  <div class="wrap split">
+    <div class="media reveal"><img src="assets/img/clarity.jpg" alt="A woman resting a clear quartz point to her brow"></div>
+    <div class="copy reveal d1">
+      <span class="eyebrow">The Energy Quiz</span>
+      <h2>Not sure where to begin? That's exactly what the quiz is for.</h2>
+      <p>Tell us what you want more of, how you like to practice and what kind of tool fits your life. In a few minutes you'll get a personalized starting point, a simple ritual, and products chosen around your intention.</p>
+      <div class="cta-row"><a href="#" class="btn btn-copper">Find My Energy Match</a></div>
+    </div>
+  </div>
 </section>
-<div class="cue" id="cue"><span>Scroll</span><span class="bar"></span></div>
 
-<script src="assets/three.min.js"></script>
+<!-- ===== JEWELRY ===== -->
+<section class="section band" id="jewelry">
+  <div class="wrap split rev">
+    <div class="media reveal"><img src="assets/img/jewelry.jpg" alt="Stacked crystal-bead bracelets in warm tones"></div>
+    <div class="copy reveal d1">
+      <span class="eyebrow">Wear the intention</span>
+      <h2>A ritual you don't have to remember.</h2>
+      <p>A piece of jewelry can be more than something beautiful. It's the cue you touch before a hard conversation, the reminder you notice in a busy day, the object you choose when you want to begin again.</p>
+      <div class="cta-row"><a href="#" class="btn btn-primary">Shop Crystal Jewelry</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOUNDERS ===== -->
+<section class="section" id="about">
+  <div class="wrap split">
+    <div class="media reveal"><img src="assets/img/founders.jpg" alt="Founders Heather Askinosie and Timmi Jandro"></div>
+    <div class="copy reveal d1">
+      <span class="eyebrow">Twenty years of knowing</span>
+      <h2>A modern practice, built on more than two decades.</h2>
+      <p>Energy Muse began with one necklace and a belief that the objects we choose can help us stay connected to what matters. Heather Askinosie and Timmi Jandro have spent more than twenty years turning that belief into tools, education and rituals people can actually use. The materials evolve. The purpose hasn't changed.</p>
+      <div class="cta-row"><a href="#" class="btn btn-ghost">Our Story</a><a href="#" class="btn btn-ghost">Meet Heather &amp; Timmi</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FREQUENCY ===== -->
+<section class="section freq" id="frequency">
+  <div class="wrap split rev">
+    <div class="media reveal"><img src="assets/img/generator-render.jpg" alt="The Energy Muse frequency generator: gold spiral coil in a glossy black plate" style="object-position:50% 50%"></div>
+    <div class="copy reveal d1">
+      <span class="eyebrow">Clear &middot; Material &middot; Specific</span>
+      <h2>Frequency, made tangible.</h2>
+      <p>Energy Muse frequency tools are physical objects tuned to specified frequencies and designed for intentional use in your space. We make the category easier to understand by showing the material, the setup, the recommended routine and what you can realistically expect.</p>
+      <div class="specs">
+        <div class="spec"><span class="k">Material</span><span class="v">Copper coil</span></div>
+        <div class="spec"><span class="k">Placement</span><span class="v">Room &middot; desk</span></div>
+        <div class="spec"><span class="k">Setup</span><span class="v">Under 5 min</span></div>
+      </div>
+      <div class="cta-row" style="margin-top:28px"><a href="generator/" class="btn btn-copper">Shop Frequency Tools</a><a href="generator/" class="btn btn-light">How They Work</a></div>
+      <p class="freq-note">Frequency tools are not medical devices and are not a substitute for healthcare. They are designed as objects for intentional practice and environmental use; experiences vary.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RITUAL ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="head reveal"><span class="eyebrow">Small rituals. Real life.</span><h2>A practice that fits a real day.</h2>
+      <p class="lead">A ritual works best when it's easy enough to repeat. Three steps are all you need to begin.</p></div>
+    <div class="steps reveal">
+      <div class="step"><div class="rn"><svg viewBox="0 0 70 70" aria-hidden="true"><circle cx="35" cy="35" r="33" stroke-width="1.2"/><circle cx="35" cy="35" r="22" stroke-width="1.2"/></svg><span>1</span></div><h3>Choose the intention</h3><p>Name the feeling, boundary or quality you want to return to.</p></div>
+      <div class="step"><div class="rn"><svg viewBox="0 0 70 70" aria-hidden="true"><circle cx="35" cy="35" r="33" stroke-width="1.2"/><circle cx="35" cy="35" r="22" stroke-width="1.2"/></svg><span>2</span></div><h3>Choose one tool</h3><p>Wear it, place it or use it at a consistent moment in your day.</p></div>
+      <div class="step"><div class="rn"><svg viewBox="0 0 70 70" aria-hidden="true"><circle cx="35" cy="35" r="33" stroke-width="1.2"/><circle cx="35" cy="35" r="22" stroke-width="1.2"/></svg><span>3</span></div><h3>Keep it simple</h3><p>A ritual works best when it is easy enough to repeat.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LEARN ===== -->
+<section class="section" id="learn2">
+  <div class="wrap split">
+    <div class="copy reveal">
+      <span class="eyebrow">The Learning Center</span>
+      <h2>Understand the tool. Make the practice your own.</h2>
+      <p>Explore beginner guides, crystal meanings, care instructions, frequency explainers and founder-led
+        teaching. Learn only what you need now &mdash; and come back when you are ready for the next layer.</p>
+      <div class="cta-row"><a href="#" class="btn btn-ghost">Visit the Learning Center</a></div>
+    </div>
+    <div class="copy reveal d1">
+      <span class="eyebrow">Veza &mdash; coming soon</span>
+      <h2>Personal guidance is becoming even more personal.</h2>
+      <p>Veza is the coming Energy Muse companion designed to help you discover the tools that fit you,
+        understand how to use them and stay connected to a practice that evolves with your life.</p>
+      <div class="cta-row"><a href="#veza" class="btn btn-copper">Join the Veza Waitlist</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== QUOTES ===== -->
+<section class="section band">
+  <div class="wrap">
+    <div class="head reveal"><span class="eyebrow muted">How it fits real lives</span><h2>Meaning you can wear every day.</h2></div>
+    <div class="quotes reveal">
+      <div class="quote"><div class="mark">&ldquo;</div><p>The first time I felt like I didn't have to understand everything before I could begin.</p><div class="who">Claire &middot; new to crystals</div></div>
+      <div class="quote"><div class="mark">&ldquo;</div><p>Beautiful enough to wear every day, meaningful enough to notice.</p><div class="who">Brooke &middot; everyday wear</div></div>
+      <div class="quote"><div class="mark">&ldquo;</div><p>The instructions made the product feel approachable instead of mysterious.</p><div class="who">Reese &middot; frequency tools</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL ===== -->
+<section class="section final">
+  <div class="wrap reveal">
+    <span class="eyebrow">Your next step</span>
+    <h2>You already know what you want more of.</h2>
+    <p class="lead">Start with your intention. We'll guide you from there.</p>
+    <div class="cta-row"><a href="#quiz" class="btn btn-primary">Find My Energy Match</a><a href="#intention" class="btn btn-ghost">Shop by Intention</a></div>
+  </div>
+</section>
+
+<!-- ===== EMAIL ===== -->
+<section class="section email" id="veza">
+  <div class="wrap email-in">
+    <div><h3>A calmer way to stay connected.</h3><p>New rituals, founder guidance, product education and early access &mdash; sent with intention, not noise.</p></div>
+    <form onsubmit="return false"><input type="email" placeholder="Email address" aria-label="Email address"><button class="btn btn-copper" type="submit">Join the List</button></form>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site" id="learn">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand"><div class="b">ENERGY&nbsp;MUSE</div>
+        <p>Guided energy for real life. Crystal jewelry, natural stones, frequency tools and personal guidance &mdash; created to help you choose with confidence and build a practice that fits.</p></div>
+      <div class="foot-col"><h4>Start Here</h4><a href="#">Energy Quiz</a><a href="#">Beginner's Guide</a><a href="#">How It Works</a></div>
+      <div class="foot-col"><h4>Shop</h4><a href="#">Jewelry</a><a href="#">Crystals</a><a href="#">Frequency Tools</a><a href="#">Kits &amp; Sets</a><a href="#">By Intention</a></div>
+      <div class="foot-col"><h4>Learn</h4><a href="#">Crystal Guide</a><a href="#">Frequency Guide</a><a href="#">Rituals</a><a href="#">With Heather</a></div>
+      <div class="foot-col"><h4>Help</h4><a href="#">Contact</a><a href="#">Shipping</a><a href="#">Returns</a><a href="#">FAQ</a><a href="#">Accessibility</a></div>
+    </div>
+    <div class="foot-bottom"><span>&copy; 2026 Energy Muse. All rights reserved.</span>
+      <span>Energy Muse products and content are intended for personal rituals and general wellbeing. They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease. Individual experiences vary.</span></div>
+  </div>
+</footer>
+
 <script>
-window.addEventListener('error',e=>{window.__err=(e.message||'')+' @'+e.lineno;});
-const canvas=document.getElementById('c');
-const isMobile=matchMedia('(pointer:coarse)').matches||Math.min(screen.width,innerWidth)<700;
-const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
-renderer.setPixelRatio(Math.min(devicePixelRatio,isMobile?1.5:2));
-renderer.outputColorSpace=THREE.SRGBColorSpace;
-renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.18;
-renderer.shadowMap.enabled=!isMobile;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-const scene=new THREE.Scene();
-const camera=new THREE.PerspectiveCamera(32,innerWidth/innerHeight,0.1,100);
-
-function makeEnv(){
-  const cv=document.createElement('canvas');cv.width=64;cv.height=256;const x=cv.getContext('2d');
-  const base=x.createLinearGradient(0,0,0,256);
-  base.addColorStop(0,'#3a4250');base.addColorStop(.5,'#20252e');base.addColorStop(1,'#0d1016');
-  x.fillStyle=base;x.fillRect(0,0,64,256);
-  function strip(cy,h,a){const s=x.createLinearGradient(0,cy-h,0,cy+h);s.addColorStop(0,'rgba(255,251,243,0)');s.addColorStop(.5,'rgba(255,251,243,'+a+')');s.addColorStop(1,'rgba(255,251,243,0)');x.fillStyle=s;x.fillRect(0,cy-h,64,h*2);}
-  strip(46,26,0.95);strip(150,20,0.5);
-  const t=new THREE.CanvasTexture(cv);t.mapping=THREE.EquirectangularReflectionMapping;t.colorSpace=THREE.SRGBColorSpace;
-  const p=new THREE.PMREMGenerator(renderer);const e=p.fromEquirectangular(t).texture;t.dispose();p.dispose();return e;
-}
-scene.environment=makeEnv();
-scene.add(new THREE.HemisphereLight(0xdfe6f0,0x2a2f38,0.5));
-const key=new THREE.DirectionalLight(0xfff2e0,1.7);key.position.set(2.2,3.6,2.4);scene.add(key);
-key.castShadow=true;key.shadow.mapSize.set(1024,1024);key.shadow.radius=6;key.shadow.bias=-0.0004;
-key.shadow.camera.left=-1.8;key.shadow.camera.right=1.8;key.shadow.camera.top=1.8;key.shadow.camera.bottom=-1.8;
-key.shadow.camera.near=0.5;key.shadow.camera.far=10;
-const fill=new THREE.DirectionalLight(0xbcd0f0,0.55);fill.position.set(-2.8,1.4,2.2);scene.add(fill);
-const rim=new THREE.DirectionalLight(0xffffff,1.0);rim.position.set(-1.2,2.4,-2.6);scene.add(rim);
-
-const device=new THREE.Group();scene.add(device);
-const SLAB=2.0;
-const matGlass=new THREE.MeshPhysicalMaterial({color:0xaebdcc,metalness:0,roughness:0.05,transparent:true,opacity:0.13,clearcoat:1,clearcoatRoughness:0.04,envMapIntensity:1.25,depthWrite:false});
-const matBlackGloss=new THREE.MeshPhysicalMaterial({color:0x0b0d11,metalness:0.22,roughness:0.12,clearcoat:1,clearcoatRoughness:0.05,envMapIntensity:1.5,transparent:true,opacity:1});
-const matBlack=new THREE.MeshPhysicalMaterial({color:0x0d0f13,metalness:0.3,roughness:0.2,clearcoat:0.8,clearcoatRoughness:0.15,envMapIntensity:1.2});
-const matDisc=new THREE.MeshStandardMaterial({color:0x0b0e13,metalness:0.3,roughness:0.45});
-const matGold=new THREE.MeshStandardMaterial({color:0xE3B45E,metalness:1.0,roughness:0.24,envMapIntensity:2.2,emissive:0x35270c,emissiveIntensity:0.5});
-const matRing=new THREE.MeshStandardMaterial({color:0xe6eaee,metalness:0.95,roughness:0.2,envMapIntensity:1.6});
-const matChrome=new THREE.MeshStandardMaterial({color:0xdfe3e6,metalness:1.0,roughness:0.14,envMapIntensity:1.8});
-const matSteel=new THREE.MeshStandardMaterial({color:0xb8bdc2,metalness:1.0,roughness:0.28,envMapIntensity:1.4});
-function part(geo,mat,x,y,z,parent){const m=new THREE.Mesh(geo,mat);m.position.set(x||0,y||0,z||0);m.castShadow=true;m.receiveShadow=true;(parent||device).add(m);return m;}
-
-const base=new THREE.Group();device.add(base);
-// flat, wide stack — proportions from the product photo (coil face ~70% of plate width)
-part(new THREE.BoxGeometry(SLAB,0.09,SLAB),matBlack,0,0,0,base);                       // bottom slab
-part(new THREE.BoxGeometry(SLAB*1.004,0.014,SLAB*1.004),matSteel,0,0.052,0,base);      // lamination line
-part(new THREE.BoxGeometry(SLAB,0.035,SLAB),matBlack,0,0.077,0,base);                  // upper base layer
-part(new THREE.CylinderGeometry(0.73,0.73,0.04,120),matBlack,0,0.077,0,base);          // recess well
-part(new THREE.CylinderGeometry(0.71,0.71,0.024,120),matDisc,0,0.096,0,base);          // coil disc
-const ring=new THREE.Mesh(new THREE.TorusGeometry(0.70,0.008,16,160),matRing);ring.rotation.x=Math.PI/2;ring.position.y=0.112;ring.castShadow=true;base.add(ring);
+/* ============ orchestration: reveal + nav + theme ============ */
 (function(){
-  // spiral winds all the way to a small open curl at the center (like the product):
-  // pitch is ~1.5x wider for the innermost turns, easing to uniform fine pitch outward
-  const turns=36,N=isMobile?2200:3600,r0=0.012,rMax=0.665,A=turns*Math.PI*2;const pts=[];
-  for(let i=0;i<=N;i++){
-    const a=i/N*A,u=a/A;
-    const f=0.9*u+0.1*(1-Math.pow(1-u,6));
-    const r=r0+(rMax-r0)*f;
-    pts.push(new THREE.Vector3(Math.cos(a)*r,0,Math.sin(a)*r));
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  document.documentElement.classList.add('js');
+  requestAnimationFrame(function(){document.body.classList.add('loaded');});
+  var btn=document.getElementById('themebtn');
+  if(btn)btn.addEventListener('click',function(){
+    var r=document.documentElement,c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+    r.setAttribute('data-theme',c==='dark'?'light':'dark');});
+  var els=[].slice.call(document.querySelectorAll('.reveal'));
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14});
+    els.forEach(function(e){io.observe(e);});
+  } else els.forEach(function(e){e.classList.add('in');});
+  // nav: solid after hero; toggle at-hero context
+  var hero=document.getElementById('top'),nav=document.querySelector('header.nav');
+  document.body.classList.add('at-hero');
+  function onScroll(){
+    var past=window.scrollY>(hero?hero.offsetHeight-90:400);
+    nav.classList.toggle('solid',window.scrollY>40);
+    document.body.classList.toggle('at-hero',!past);
   }
-  const g=new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),isMobile?2000:3400,0.0046,isMobile?6:8,false);
-  const m=new THREE.Mesh(g,matGold);m.position.y=0.115;m.castShadow=true;m.receiveShadow=true;base.add(m);})();
-// bloom glow over the coil + soft under-glow beneath the floating device
-function radialTex(rgb){const cv=document.createElement('canvas');cv.width=cv.height=256;const x=cv.getContext('2d');
-  const g=x.createRadialGradient(128,128,10,128,128,128);
-  g.addColorStop(0,'rgba('+rgb+',0.85)');g.addColorStop(0.45,'rgba('+rgb+',0.28)');g.addColorStop(1,'rgba('+rgb+',0)');
-  x.fillStyle=g;x.fillRect(0,0,256,256);
-  const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;return t;}
-const coilGlow=new THREE.Sprite(new THREE.SpriteMaterial({map:radialTex('232,188,102'),transparent:true,opacity:0.15,blending:THREE.AdditiveBlending,depthWrite:false}));
-coilGlow.scale.set(1.75,1.75,1);coilGlow.position.y=0.13;base.add(coilGlow);
-const underGlow=new THREE.Sprite(new THREE.SpriteMaterial({map:radialTex('169,104,62'),transparent:true,opacity:0.10,blending:THREE.AdditiveBlending,depthWrite:false}));
-underGlow.scale.set(4.6,4.6,1);underGlow.position.y=-0.85;device.add(underGlow);
-function bolt(x,z){const g=new THREE.Group();
-  const sh=new THREE.Mesh(new THREE.CylinderGeometry(0.028,0.028,0.34,20),matChrome);sh.position.y=0.06;g.add(sh);
-  const wa=new THREE.Mesh(new THREE.CylinderGeometry(0.094,0.094,0.012,32),matSteel);wa.position.y=0.212;g.add(wa);
-  // hex head with a rounded (domed) top, like the photo
-  const hT=new THREE.Mesh(new THREE.CylinderGeometry(0.080,0.086,0.046,6),matChrome);hT.position.y=0.242;hT.rotation.y=0.3;g.add(hT);
-  const dome=new THREE.Mesh(new THREE.SphereGeometry(0.072,24,14,0,Math.PI*2,0,Math.PI/2),matChrome);
-  dome.scale.set(1,0.42,1);dome.position.y=0.265;g.add(dome);
-  const hB=new THREE.Mesh(new THREE.CylinderGeometry(0.066,0.070,0.042,6),matChrome);hB.position.y=-0.066;hB.rotation.y=0.3;g.add(hB);
-  const domeB=new THREE.Mesh(new THREE.SphereGeometry(0.060,24,14,0,Math.PI*2,0,Math.PI/2),matChrome);
-  domeB.scale.set(1,-0.4,1);domeB.position.y=-0.087;g.add(domeB);
-  g.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});
-  g.position.set(x,0,z);base.add(g);}
-const bo=0.85;bolt(bo,bo);bolt(-bo,bo);bolt(bo,-bo);bolt(-bo,-bo);
-
-// lid = glossy black plate with circular window + clear glass sheet + branding
-const topAssembly=new THREE.Group();
-const lidMats=[]; // [material, baseOpacity] pairs faded during the reveal
-(function(){
-  const H=1.0,R=0.06; // rounded square
-  const s=new THREE.Shape();
-  s.moveTo(-H+R,-H);s.lineTo(H-R,-H);s.quadraticCurveTo(H,-H,H,-H+R);s.lineTo(H,H-R);
-  s.quadraticCurveTo(H,H,H-R,H);s.lineTo(-H+R,H);s.quadraticCurveTo(-H,H,-H,H-R);
-  s.lineTo(-H,-H+R);s.quadraticCurveTo(-H,-H,-H+R,-H);
-  const hole=new THREE.Path();hole.absarc(0,0,0.72,0,Math.PI*2,true);s.holes.push(hole);
-  const geo=new THREE.ExtrudeGeometry(s,{depth:0.05,bevelEnabled:true,bevelThickness:0.008,bevelSize:0.008,bevelSegments:2,curveSegments:72});
-  geo.rotateX(-Math.PI/2);geo.translate(0,-0.025,0);
-  const plate=new THREE.Mesh(geo,matBlackGloss);plate.castShadow=true;plate.receiveShadow=true;topAssembly.add(plate);
-  lidMats.push([matBlackGloss,1]);
-  const sheet=new THREE.Mesh(new THREE.BoxGeometry(SLAB*0.995,0.016,SLAB*0.995),matGlass);
-  sheet.position.y=0.042;topAssembly.add(sheet);
-  lidMats.push([matGlass,0.13]);
-  // branding centered below the coil window, like the product photo
-  const cv=document.createElement('canvas');cv.width=640;cv.height=140;const x=cv.getContext('2d');
-  x.fillStyle='#9aabae';x.font='italic 600 64px Georgia';x.textBaseline='middle';x.textAlign='center';x.fillText('energy muse',320,78);
-  const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;
-  const brandMat=new THREE.MeshBasicMaterial({map:t,transparent:true,opacity:0.92});
-  const pl=new THREE.Mesh(new THREE.PlaneGeometry(0.56,0.123),brandMat);
-  pl.position.set(0,0.054,0.865);pl.rotation.x=-Math.PI/2;pl.rotation.z=0.0;topAssembly.add(pl);
-  lidMats.push([brandMat,0.92]);
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
 })();
-topAssembly.position.y=0.16;device.add(topAssembly);
 
-// ---------- choreography ----------
-const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-let scrollP=0, targetP=0, mx=0,my=0,tmx=0,tmy=0;
-if(!isMobile)addEventListener('pointermove',e=>{tmx=e.clientX/innerWidth-0.5;tmy=e.clientY/innerHeight-0.5;});
-function lerp(a,b,t){return a+(b-a)*t;}
-function clamp01(v){return v<0?0:v>1?1:v;}
-function smooth(e0,e1,x){const t=clamp01((x-e0)/(e1-e0));return t*t*(3-2*t);}
-const V=THREE.Vector3;
-const camHero=new V(0,1.78,4.05),lookHero=new V(0,0.0,0);
-const camTop=new V(0.02,3.5,0.46),lookTop=new V(0,0.10,0);
-const camEnd=new V(0.02,1.95,0.30),lookEnd=new V(0,0.10,0); // finale: glide in past the bolts
-const veil=document.getElementById('veil');
-let viewK=1; // widen framing on narrow (portrait) screens
-function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;
-  viewK=Math.max(1,Math.min(1.85,1.22/camera.aspect));
-  camera.updateProjectionMatrix();}
-addEventListener('resize',resize);resize();
 
-const clock=new THREE.Clock();
-function frame(){
-  const t=clock.getElapsedTime();
-  // smoothed scroll: animation eases toward the scroll position (butter on phones)
-  scrollP+=(targetP-scrollP)*(reduce?1:0.09);
-  if(Math.abs(targetP-scrollP)<0.0004)scrollP=targetP;
-  const p=scrollP;
-  mx+=(tmx-mx)*0.05;my+=(tmy-my)*0.05;
-  // ---- beats ----
-  // A 0.00-0.18  hero: closed, floating, gentle sway      (cap c0, text left  -> device right)
-  // B 0.18-0.42  materials: closed, camera starts overhead (cap c1, text right -> device left)
-  // C 0.44-0.68  reveal: camera top-down, lid lifts+fades  (cap c2, text left  -> device right)
-  // E 0.72-1.00  finale: glide in past the bolts, come to rest, veil to a ghosted spiral (cap c3)
-  const camT=smooth(0.18,0.58,p);
-  const endT=smooth(0.72,0.96,p);
-  let cx=lerp(lerp(camHero.x,camTop.x,camT),camEnd.x,endT);
-  let cy=lerp(lerp(camHero.y,camTop.y,camT),camEnd.y,endT);
-  let cz=lerp(lerp(camHero.z,camTop.z,camT),camEnd.z,endT);
-  const lk=new V(
-    lerp(lerp(lookHero.x,lookTop.x,camT),lookEnd.x,endT),
-    lerp(lerp(lookHero.y,lookTop.y,camT),lookEnd.y,endT),
-    lerp(lerp(lookHero.z,lookTop.z,camT),lookEnd.z,endT));
-  // widen framing on portrait screens by pulling the camera out along its axis
-  camera.position.set(lk.x+(cx-lk.x)*viewK,lk.y+(cy-lk.y)*viewK,lk.z+(cz-lk.z)*viewK);
-  camera.lookAt(lk);
-  // device travel: keep the object opposite the active caption (damped on narrow screens)
-  const dxK=Math.min(1,camera.aspect*0.72);
-  let dx=0.52;
-  dx+=(-1.02)*smooth(0.16,0.24,p);   // -> -0.50 for caption right
-  dx+=( 0.95)*smooth(0.40,0.48,p);   // -> +0.45 for caption left
-  dx+=(-0.45)*smooth(0.66,0.76,p);   // -> 0 centered for the finale
-  dx*=dxK;
-  const endTd=smooth(0.72,0.96,p);
-  let dz=(-0.16)*smooth(0.68,0.82,p); // slight settle upward as we glide in
-  dz+=0.46*Math.max(0,Math.min(1,(1.05-camera.aspect)*2))*smooth(0.18,0.58,p)*(1-endTd); // portrait: clear the caption in top-down beats
-  // float + sway only in hero
-  const heroFade=1-smooth(0.14,0.24,p);
-  const bob=reduce?0:Math.sin(t*0.9)*0.035*heroFade;
-  // portrait: sit the device in the lower half so captions own the top of the screen
-  const portK=Math.max(0,Math.min(1,(1.05-camera.aspect)*2));
-  const dy=-0.72*portK*(1-camT);
-  device.position.set(dx,bob+dy,dz);
-  const idleSpin=reduce?0:Math.sin(t*0.22)*0.30*heroFade; // gentle sway, logo stays near front
-  const rest=1-endT; // rotation comes to rest at the end
-  device.rotation.y=-0.78+idleSpin+camT*0.3+mx*0.35*(1-camT*0.6)*rest;
-  device.rotation.x=lerp(0.5,0.12,camT)+my*0.12*(1-camT)*rest;
-  // lid lifts, slides up-screen and dissolves in the reveal beat (exploded view)
-  const lift=smooth(0.44,0.62,p);
-  topAssembly.position.y=0.16+lift*0.5;
-  topAssembly.position.z=-1.35*lift;           // slide off toward top of frame
-  topAssembly.rotation.x=-0.12*lift;           // slight peel
-  const lidFade=1-smooth(0.0,0.6,lift);
-  lidMats.forEach(mo=>{mo[0].opacity=mo[1]*lidFade;});
-  topAssembly.visible=lidFade>0.02;
-  // finale veil: the scene dims to a ghosted spiral behind the closing caption
-  veil.style.opacity=(0.86*endT).toFixed(3);
-  renderer.render(scene,camera);
-  requestAnimationFrame(frame);
-}
-frame();
-
-// ---------- scroll wiring ----------
-const stage=document.getElementById('stage');
-const caps=[].slice.call(document.querySelectorAll('.cap'));
-const cue=document.getElementById('cue');
-function onScroll(){
-  const rect=stage.getBoundingClientRect();
-  const total=stage.offsetHeight-innerHeight;
-  targetP=clamp01(-rect.top/total);
-  caps.forEach(c=>{const lo=+c.dataset.lo,hi=+c.dataset.hi;c.classList.toggle('in',targetP>=lo&&targetP<hi);});
-  cue.style.opacity=targetP>0.04?0:1;
-}
-addEventListener('scroll',onScroll,{passive:true});onScroll();
-window.__ready=true;window.__setP=v=>{targetP=scrollP=clamp01(v);caps.forEach(c=>{const lo=+c.dataset.lo,hi=+c.dataset.hi;c.classList.toggle('in',targetP>=lo&&targetP<hi);});};
 </script>
-</body></html>

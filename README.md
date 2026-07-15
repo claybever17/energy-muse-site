@@ -6,14 +6,15 @@ personalized guidance, and the coming Veza app).
 
 ## Pages
 
-| File | What it is |
-|---|---|
-| `index.html` | **Frequency Generator showcase** — Apple-style scroll page. A hand-built three.js replica of the real product (glossy black plate, gold spiral coil in a circular window, domed chrome bolts) that floats, then opens on scroll to reveal the coil. Clean, editable source; assets in `assets/`. |
-| `home-v1.html` | Homepage mockup v1 — light/approachable direction (brand's own Tenor Sans + Assistant, copper "resonance ring" motif, real site photography). Self-contained single file. |
-| `home-v2.html` | Homepage mockup v2 — elevated editorial direction (Fraunces + Instrument Sans, dark hero with WebGL copper coil). Self-contained single file. |
+| Route | File | What it is |
+|---|---|---|
+| `/` | `index.html` | **Landing** — the elevated editorial homepage (Fraunces + Instrument Sans, dark WebGL copper-coil hero, intention finder, brand copy from the creative brief). |
+| `/generator` | `generator/index.html` | **Frequency Generator showcase** — Apple-style scroll page. Hand-built three.js replica of the real product that floats, then opens on scroll to reveal the gold coil. |
+| `/gems` | `gems/index.html` | **The Stone Gallery** — 3D store experiment. 8 intention categories (Wellness, Wealth, Protection, Calm, Love, Spirituality, Fresh Start, Power); click a card for a drag-to-rotate 3D viewer. **GLB pipeline:** drop `assets/gems/<slug>.glb` and that stone automatically upgrades from procedural placeholder to the real scan (chip flips to "3D scan"). `calm.glb` (agate geode) is the working example. |
+| — | `home-v1.html` | Frozen mockup v1 (light direction, single-file). |
+| — | `home-v2.html` | Frozen mockup v2 (source of the current landing, single-file). |
 
-`home-v1/v2` are single-file builds (images/fonts inlined as data URIs) because they were
-first shipped as sandboxed artifacts. `index.html` is the maintained, readable source.
+Slugs for GLB drops: `wellness, wealth, protection, calm, love, spirituality, fresh-start, power`.
 
 ## Run locally
 
