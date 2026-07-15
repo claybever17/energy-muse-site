@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /Users/clay/Downloads/ | grep -i \"energy\\\\|wireframe\\\\|muse\")",
+      "Bash(find /Users/clay -maxdepth 4 \\\\\\( -iname \"*energy*muse*\" -o -iname \"*wireframe*\" -o -iname \"*Creative Brief*\" \\\\\\) 2>/dev/null; echo \"---working folder---\"; ls -la /Users/clay/energy-muse-workingfolder/ 2>/dev/null)",
+      "Bash(python3 -c \"import fitz; print\\('pymupdf available'\\)\")",
+      "Bash(python3 -m pip install --quiet pymupdf)",
+      "Bash(python3 -c \"import fitz; print\\('pymupdf OK', fitz.__doc__ or ''\\)\")",
+      "Bash(python3 -)",
+      "Bash(curl -sL -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36\" \"https://energymuse.com/\" -o em_home.html)",
+      "Bash(echo \"exit=$? bytes=$\\(wc -c < em_home.html \\)\")",
+      "Skill(artifact-design)",
+      "Skill(artifact-design:*)",
+      "Bash(gh auth *)",
+      "Bash(vercel whoami *)",
+      "Bash(git config *)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit -q -m 'Energy Muse rebrand: 3D frequency-generator showcase + homepage mockups *)",
+      "Bash(git count-objects *)"
+    ]
+  }
+}
