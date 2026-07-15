@@ -22,7 +22,7 @@ body{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-
 .cap.c1{top:30%;left:auto;right:0;text-align:right;max-width:none}
 .cap.c1 p{margin-left:auto}
 .cap.c2{top:30%}
-.cap.c3{top:auto;bottom:9%;text-align:center}
+.cap.c3{top:auto;bottom:7%;text-align:center}
 .cap.c3 p,.cap.c3 .specs{margin-left:auto;margin-right:auto}
 .specs{display:flex;gap:0;margin-top:26px;border:1px solid #223247;border-radius:2px;max-width:520px}
 .spec{padding:14px 20px;flex:1}.spec+.spec{border-left:1px solid #223247}
@@ -222,7 +222,7 @@ function frame(){
   dx+=(-1.02)*smooth(0.16,0.24,p);   // -> -0.50 for caption right
   dx+=( 0.95)*smooth(0.40,0.48,p);   // -> +0.45 for caption left
   dx+=(-0.45)*smooth(0.66,0.76,p);   // -> 0 centered for specs
-  const dz=(-0.46)*smooth(0.66,0.76,p); // nudge coil to upper half for bottom caption
+  const dz=(-0.62)*smooth(0.66,0.76,p); // nudge coil to upper half for bottom caption
   // float + turntable only in hero
   const heroFade=1-smooth(0.14,0.24,p);
   const bob=reduce?0:Math.sin(t*0.9)*0.035*heroFade;
