@@ -12,6 +12,7 @@ body{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-
 .sticky{position:sticky;top:0;height:100vh;overflow:hidden}
 #c{position:absolute;inset:0;width:100%;height:100%;display:block}
 .bg{position:absolute;inset:0;background:radial-gradient(120% 90% at 68% 40%,rgba(192,138,78,.16),transparent 55%),radial-gradient(90% 80% at 30% 100%,rgba(20,40,70,.4),transparent 60%),var(--navy);z-index:0}
+.veil{position:absolute;inset:0;z-index:2;background:#0a1017;opacity:0;pointer-events:none}
 .caps{position:absolute;inset:0;z-index:3;pointer-events:none}
 .cap{position:absolute;left:0;right:0;padding:0 8vw;opacity:0;transition:opacity .5s ease,transform .6s cubic-bezier(.16,1,.3,1);transform:translateY(20px);text-shadow:0 2px 24px rgba(7,12,18,.85),0 0 60px rgba(7,12,18,.55)}
 .cap.in{opacity:1;transform:none}
@@ -36,6 +37,15 @@ body{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-
 .end{height:60vh;display:grid;place-items:center;text-align:center;padding:0 8vw;background:linear-gradient(var(--navy),#0d1622)}
 .end h3{font-family:'Fraunces';font-weight:300;font-size:clamp(28px,4vw,44px)}
 .btn{display:inline-block;margin-top:24px;background:var(--copper);color:#1a1206;padding:14px 28px;border-radius:2px;font-weight:600;text-decoration:none;font-size:14px}
+@media (max-width:560px){
+  .specs{flex-wrap:wrap}
+  .spec{flex-basis:100%;border-left:0!important;border-top:1px solid #223247}
+  .spec:first-child{border-top:0}
+  .cap p{max-width:none}
+}
+@media (max-width:700px){
+  .cap.c0,.cap.c1,.cap.c2{top:9%}
+}
 </style></head>
 <body>
 <div class="nav"><div class="brand">ENERGY&nbsp;MUSE</div><div><a href="#">Frequency Tools</a><a href="#">Shop</a></div></div>
@@ -43,6 +53,7 @@ body{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-
   <div class="sticky">
     <div class="bg"></div>
     <canvas id="c"></canvas>
+    <div class="veil" id="veil"></div>
     <div class="caps">
       <div class="cap c0" data-lo="0" data-hi="0.16">
         <div class="eye">The Frequency Generator</div>
@@ -59,7 +70,7 @@ body{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-
         <h2>A single<br>copper coil.</h2>
         <p>One continuous spiral, tuned to a specified frequency and set behind a silver ring. This is the heart of the tool.</p>
       </div>
-      <div class="cap c3" data-lo="0.72" data-hi="1.01">
+      <div class="cap c3" data-lo="0.80" data-hi="1.01">
         <div class="eye">Made real</div>
         <h2>Yours to use.</h2>
         <div class="specs">
@@ -80,11 +91,12 @@ body{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-
 <script>
 window.addEventListener('error',e=>{window.__err=(e.message||'')+' @'+e.lineno;});
 const canvas=document.getElementById('c');
-const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
-renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+const isMobile=matchMedia('(pointer:coarse)').matches||Math.min(screen.width,innerWidth)<700;
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(devicePixelRatio,isMobile?1.5:2));
 renderer.outputColorSpace=THREE.SRGBColorSpace;
 renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.18;
-renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.shadowMap.enabled=!isMobile;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 const scene=new THREE.Scene();
 const camera=new THREE.PerspectiveCamera(32,innerWidth/innerHeight,0.1,100);
 
@@ -130,14 +142,14 @@ const ring=new THREE.Mesh(new THREE.TorusGeometry(0.70,0.008,16,160),matRing);ri
 (function(){
   // spiral winds all the way to a small open curl at the center (like the product):
   // pitch is ~1.5x wider for the innermost turns, easing to uniform fine pitch outward
-  const turns=36,N=3600,r0=0.012,rMax=0.665,A=turns*Math.PI*2;const pts=[];
+  const turns=36,N=isMobile?2200:3600,r0=0.012,rMax=0.665,A=turns*Math.PI*2;const pts=[];
   for(let i=0;i<=N;i++){
     const a=i/N*A,u=a/A;
     const f=0.9*u+0.1*(1-Math.pow(1-u,6));
     const r=r0+(rMax-r0)*f;
     pts.push(new THREE.Vector3(Math.cos(a)*r,0,Math.sin(a)*r));
   }
-  const g=new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),3400,0.0046,8,false);
+  const g=new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),isMobile?2000:3400,0.0046,isMobile?6:8,false);
   const m=new THREE.Mesh(g,matGold);m.position.y=0.115;m.castShadow=true;m.receiveShadow=true;base.add(m);})();
 // bloom glow over the coil + soft under-glow beneath the floating device
 function radialTex(rgb){const cv=document.createElement('canvas');cv.width=cv.height=256;const x=cv.getContext('2d');
@@ -193,43 +205,68 @@ topAssembly.position.y=0.16;device.add(topAssembly);
 
 // ---------- choreography ----------
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-let scrollP=0, mx=0,my=0,tmx=0,tmy=0;
-addEventListener('pointermove',e=>{tmx=e.clientX/innerWidth-0.5;tmy=e.clientY/innerHeight-0.5;});
+let scrollP=0, targetP=0, mx=0,my=0,tmx=0,tmy=0;
+if(!isMobile)addEventListener('pointermove',e=>{tmx=e.clientX/innerWidth-0.5;tmy=e.clientY/innerHeight-0.5;});
 function lerp(a,b,t){return a+(b-a)*t;}
 function clamp01(v){return v<0?0:v>1?1:v;}
 function smooth(e0,e1,x){const t=clamp01((x-e0)/(e1-e0));return t*t*(3-2*t);}
 const V=THREE.Vector3;
 const camHero=new V(0,1.78,4.05),lookHero=new V(0,0.0,0);
 const camTop=new V(0.02,3.5,0.46),lookTop=new V(0,0.10,0);
-function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
+const camEnd=new V(0.02,1.95,0.30),lookEnd=new V(0,0.10,0); // finale: glide in past the bolts
+const veil=document.getElementById('veil');
+let viewK=1; // widen framing on narrow (portrait) screens
+function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;
+  viewK=Math.max(1,Math.min(1.85,1.22/camera.aspect));
+  camera.updateProjectionMatrix();}
 addEventListener('resize',resize);resize();
 
 const clock=new THREE.Clock();
 function frame(){
-  const t=clock.getElapsedTime();const p=scrollP;
+  const t=clock.getElapsedTime();
+  // smoothed scroll: animation eases toward the scroll position (butter on phones)
+  scrollP+=(targetP-scrollP)*(reduce?1:0.09);
+  if(Math.abs(targetP-scrollP)<0.0004)scrollP=targetP;
+  const p=scrollP;
   mx+=(tmx-mx)*0.05;my+=(tmy-my)*0.05;
   // ---- beats ----
-  // A 0.00-0.18  hero: closed, floating, slow turntable   (cap c0, text left  -> device right)
+  // A 0.00-0.18  hero: closed, floating, gentle sway      (cap c0, text left  -> device right)
   // B 0.18-0.42  materials: closed, camera starts overhead (cap c1, text right -> device left)
   // C 0.44-0.68  reveal: camera top-down, lid lifts+fades  (cap c2, text left  -> device right)
-  // D 0.72-1.00  specs: coil centered upper half           (cap c3, text bottom center)
+  // E 0.72-1.00  finale: glide in past the bolts, come to rest, veil to a ghosted spiral (cap c3)
   const camT=smooth(0.18,0.58,p);
-  camera.position.set(lerp(camHero.x,camTop.x,camT),lerp(camHero.y,camTop.y,camT),lerp(camHero.z,camTop.z,camT));
-  const lk=new V(lerp(lookHero.x,lookTop.x,camT),lerp(lookHero.y,lookTop.y,camT),lerp(lookHero.z,lookTop.z,camT));
+  const endT=smooth(0.72,0.96,p);
+  let cx=lerp(lerp(camHero.x,camTop.x,camT),camEnd.x,endT);
+  let cy=lerp(lerp(camHero.y,camTop.y,camT),camEnd.y,endT);
+  let cz=lerp(lerp(camHero.z,camTop.z,camT),camEnd.z,endT);
+  const lk=new V(
+    lerp(lerp(lookHero.x,lookTop.x,camT),lookEnd.x,endT),
+    lerp(lerp(lookHero.y,lookTop.y,camT),lookEnd.y,endT),
+    lerp(lerp(lookHero.z,lookTop.z,camT),lookEnd.z,endT));
+  // widen framing on portrait screens by pulling the camera out along its axis
+  camera.position.set(lk.x+(cx-lk.x)*viewK,lk.y+(cy-lk.y)*viewK,lk.z+(cz-lk.z)*viewK);
   camera.lookAt(lk);
-  // device travel: keep the object opposite the active caption
+  // device travel: keep the object opposite the active caption (damped on narrow screens)
+  const dxK=Math.min(1,camera.aspect*0.72);
   let dx=0.52;
   dx+=(-1.02)*smooth(0.16,0.24,p);   // -> -0.50 for caption right
   dx+=( 0.95)*smooth(0.40,0.48,p);   // -> +0.45 for caption left
-  dx+=(-0.45)*smooth(0.66,0.76,p);   // -> 0 centered for specs
-  const dz=(-0.62)*smooth(0.66,0.76,p); // nudge coil to upper half for bottom caption
-  // float + turntable only in hero
+  dx+=(-0.45)*smooth(0.66,0.76,p);   // -> 0 centered for the finale
+  dx*=dxK;
+  const endTd=smooth(0.72,0.96,p);
+  let dz=(-0.16)*smooth(0.68,0.82,p); // slight settle upward as we glide in
+  dz+=0.46*Math.max(0,Math.min(1,(1.05-camera.aspect)*2))*smooth(0.18,0.58,p)*(1-endTd); // portrait: clear the caption in top-down beats
+  // float + sway only in hero
   const heroFade=1-smooth(0.14,0.24,p);
   const bob=reduce?0:Math.sin(t*0.9)*0.035*heroFade;
-  device.position.set(dx,bob,dz);
+  // portrait: sit the device in the lower half so captions own the top of the screen
+  const portK=Math.max(0,Math.min(1,(1.05-camera.aspect)*2));
+  const dy=-0.72*portK*(1-camT);
+  device.position.set(dx,bob+dy,dz);
   const idleSpin=reduce?0:Math.sin(t*0.22)*0.30*heroFade; // gentle sway, logo stays near front
-  device.rotation.y=-0.78+idleSpin+camT*0.3+mx*0.35*(1-camT*0.6);
-  device.rotation.x=lerp(0.5,0.12,camT)+my*0.12*(1-camT);
+  const rest=1-endT; // rotation comes to rest at the end
+  device.rotation.y=-0.78+idleSpin+camT*0.3+mx*0.35*(1-camT*0.6)*rest;
+  device.rotation.x=lerp(0.5,0.12,camT)+my*0.12*(1-camT)*rest;
   // lid lifts, slides up-screen and dissolves in the reveal beat (exploded view)
   const lift=smooth(0.44,0.62,p);
   topAssembly.position.y=0.16+lift*0.5;
@@ -238,6 +275,8 @@ function frame(){
   const lidFade=1-smooth(0.0,0.6,lift);
   lidMats.forEach(mo=>{mo[0].opacity=mo[1]*lidFade;});
   topAssembly.visible=lidFade>0.02;
+  // finale veil: the scene dims to a ghosted spiral behind the closing caption
+  veil.style.opacity=(0.86*endT).toFixed(3);
   renderer.render(scene,camera);
   requestAnimationFrame(frame);
 }
@@ -250,11 +289,11 @@ const cue=document.getElementById('cue');
 function onScroll(){
   const rect=stage.getBoundingClientRect();
   const total=stage.offsetHeight-innerHeight;
-  scrollP=clamp01(-rect.top/total);
-  caps.forEach(c=>{const lo=+c.dataset.lo,hi=+c.dataset.hi;c.classList.toggle('in',scrollP>=lo&&scrollP<hi);});
-  cue.style.opacity=scrollP>0.04?0:1;
+  targetP=clamp01(-rect.top/total);
+  caps.forEach(c=>{const lo=+c.dataset.lo,hi=+c.dataset.hi;c.classList.toggle('in',targetP>=lo&&targetP<hi);});
+  cue.style.opacity=targetP>0.04?0:1;
 }
 addEventListener('scroll',onScroll,{passive:true});onScroll();
-window.__ready=true;window.__setP=v=>{scrollP=clamp01(v);caps.forEach(c=>{const lo=+c.dataset.lo,hi=+c.dataset.hi;c.classList.toggle('in',scrollP>=lo&&scrollP<hi);});};
+window.__ready=true;window.__setP=v=>{targetP=scrollP=clamp01(v);caps.forEach(c=>{const lo=+c.dataset.lo,hi=+c.dataset.hi;c.classList.toggle('in',targetP>=lo&&targetP<hi);});};
 </script>
 </body></html>
