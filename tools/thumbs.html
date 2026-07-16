@@ -85,20 +85,6 @@ function buildTourmaline(){
   rods.forEach(r=>{const rod=new THREE.Mesh(new THREE.CylinderGeometry(r[3],r[3]*1.06,r[4],6),tm);
     rod.position.set(r[0],r[1],r[2]);rod.rotation.z=r[5];g.add(rod);});
   g.position.y=0.1;return g;}
-const texLoader=new THREE.TextureLoader();
-const PHOTO={spirituality:{img:'../assets/img/products/trapiche.png',aspect:846/1024,thick:0.10,rim:0x6a4d7d}};
-function buildPhotoSlab(cfg){
-  const g=new THREE.Group();
-  const tex=cfg.texture||texLoader.load(cfg.img);tex.colorSpace=THREE.SRGBColorSpace;
-  const W=1.5,H=W*cfg.aspect,T=cfg.thick;
-  const mat=new THREE.MeshPhysicalMaterial({map:tex,transparent:true,alphaTest:0.4,roughness:0.26,metalness:0,
-    clearcoat:0.9,clearcoatRoughness:0.12,envMapIntensity:1.15});
-  const front=new THREE.Mesh(new THREE.PlaneGeometry(W,H),mat);front.position.z=T/2;g.add(front);
-  const back=new THREE.Mesh(new THREE.PlaneGeometry(W,H),mat);back.rotation.y=Math.PI;back.position.z=-T/2;g.add(back);
-  const rim=new THREE.Mesh(new THREE.CylinderGeometry(W*0.435,W*0.435,T,6,1,true),
-    new THREE.MeshPhysicalMaterial({color:cfg.rim,transparent:true,opacity:0.85,roughness:0.3,clearcoat:0.8,envMapIntensity:1.2,side:THREE.DoubleSide}));
-  rim.rotation.x=Math.PI/2;g.add(rim);
-  return g;}
 const BUILDERS={spirituality:buildAmethyst,wealth:buildPyrite,'fresh-start':buildQuartzPyramid,protection:buildTourmaline};
 
 function fit(obj){
@@ -110,12 +96,7 @@ function fit(obj){
 
 function loadModel(slug){
   return new Promise(res=>{
-    if(PHOTO[slug]){
-      texLoader.load(PHOTO[slug].img,tx=>{
-        const m=buildPhotoSlab(Object.assign({},PHOTO[slug],{texture:tx}));
-        res(fit(m));
-      });
-    } else if(HASGLB.includes(slug)){
+    if(HASGLB.includes(slug)){
       loader.load(`../assets/gems/${slug}.glb`,g=>res(fit(g.scene)),undefined,
         ()=>res(fit(BUILDERS[slug]?BUILDERS[slug]():genericStone(COLORS[slug]))));
     } else {
