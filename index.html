@@ -89,7 +89,7 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper);font-weight
   text-transform:uppercase;color:var(--accent);}
 .link .a{transition:transform .25s;}.link:hover .a{transform:translateX(5px);}
 
-@media (min-width:1000px){.hero h1 .line span{white-space:nowrap;}}
+@media (min-width:841px){.hero h1 .line span{white-space:nowrap;}}
 /* ===== Announcement + nav ===== */
 header.nav{position:sticky;top:0;z-index:60;transition:background .3s,border-color .3s,color .3s;
   border-bottom:1px solid transparent;}
@@ -225,12 +225,54 @@ header.nav.solid{background:color-mix(in srgb,var(--bg) 90%,transparent);backdro
 .step h3{font-size:23px;font-weight:400;}
 .step p{margin-top:12px;color:var(--ink-soft);font-size:15px;max-width:32ch;margin-inline:auto;}
 
-/* ===== Quotes ===== */
-.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-.quote{background:var(--card);border:1px solid var(--hair);border-radius:2px;padding:34px 30px;display:flex;flex-direction:column;gap:20px;}
-.quote .mark{font-family:var(--serif);font-size:52px;line-height:.4;color:var(--copper);height:22px;}
-.quote p{font-family:var(--serif);font-weight:300;font-size:21px;line-height:1.38;}
-.quote .who{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);margin-top:auto;}
+/* ===== Duo cards (Learn + Veza) ===== */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.duo-card{border:1px solid var(--hair);border-radius:8px;background:var(--card);padding:clamp(30px,4vw,52px);
+  display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden;}
+.duo-card h2{font-size:clamp(26px,2.6vw,36px);}
+.guide-list{list-style:none;margin:8px 0 0;padding:0;}
+.guide-list li+li{border-top:1px solid var(--hair);}
+.guide-list a{display:flex;align-items:baseline;gap:12px;padding:15px 2px;transition:.2s;}
+.guide-list a span{font-family:var(--serif);font-size:18px;}
+.guide-list a em{font-style:normal;color:var(--stone);font-size:13px;flex:1;}
+.guide-list a i{font-style:normal;color:var(--accent);transform:translateX(0);transition:transform .25s;}
+.guide-list a:hover i{transform:translateX(5px);}
+.guide-list a:hover span{color:var(--accent);}
+.duo-card.veza{background:var(--navy);color:var(--navy-text);border-color:transparent;}
+.duo-card.veza h2{color:var(--navy-text);}
+.duo-card.veza p{color:var(--navy-soft);max-width:44ch;}
+.duo-card.veza .eyebrow{color:var(--copper-hi);}
+.veza-rings{position:absolute;right:-70px;top:-70px;width:270px;height:270px;pointer-events:none;}
+.veza-rings circle{fill:none;stroke:#C4855A;opacity:.4;}
+.veza-form{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;position:relative;z-index:1;}
+.veza-form input{background:transparent;border:1px solid var(--navy-line);color:var(--navy-text);padding:14px 16px;
+  border-radius:var(--radius);font-family:var(--sans);font-size:15px;min-width:220px;flex:1;}
+.veza-form input::placeholder{color:#6E7C90;}
+.veza-form input:focus{outline:2px solid var(--copper);outline-offset:1px;}
+.veza-note{font-size:12px;color:var(--navy-soft);letter-spacing:.04em;}
+/* ===== Reels (9:16 stories) ===== */
+.reels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;max-width:920px;margin:0 auto;}
+.reel{position:relative;aspect-ratio:9/16;border-radius:16px;overflow:hidden;margin:0;cursor:pointer;
+  border:1px solid var(--hair);background:
+  radial-gradient(90% 70% at 50% 20%,color-mix(in srgb,var(--copper) 14%,transparent),transparent 70%),
+  linear-gradient(180deg,var(--tint),color-mix(in srgb,var(--navy) 12%,var(--tint)));
+  transition:transform .3s cubic-bezier(.16,1,.3,1);}
+.reel:hover{transform:translateY(-4px);}
+.reel-rings{position:absolute;left:50%;top:42%;width:70%;transform:translate(-50%,-50%);pointer-events:none;}
+.reel-rings circle{fill:none;stroke:var(--copper);opacity:.35;}
+.reel-play{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;
+  border:1px solid var(--copper);}
+.reel-play::after{content:"";position:absolute;left:55%;top:50%;transform:translate(-50%,-50%);
+  border-left:11px solid var(--copper);border-top:7px solid transparent;border-bottom:7px solid transparent;}
+.reel-soon{position:absolute;left:0;right:0;top:60%;text-align:center;font-size:10.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--stone);font-weight:600;}
+.reel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;}
+.reel.live video{display:block;}
+.reel.live .reel-rings,.reel.live .reel-play,.reel.live .reel-soon{display:none;}
+.reel figcaption{position:absolute;left:0;right:0;bottom:0;padding:44px 16px 14px;z-index:2;
+  background:linear-gradient(transparent,rgba(10,16,23,.62));display:flex;flex-direction:column;gap:2px;}
+.reel figcaption strong{font-family:var(--serif);font-weight:400;font-size:17px;color:#fff;}
+.reel figcaption span{font-size:11.5px;letter-spacing:.08em;color:#D8DEE8;}
 
 /* ===== Final ===== */
 .final{text-align:center;position:relative;background:var(--tint);border-block:1px solid var(--hair);}
@@ -279,7 +321,17 @@ footer.site{background:var(--tint);border-top:1px solid var(--hair);}
 .reveal.d1{transition-delay:.08s;}.reveal.d2{transition-delay:.16s;}.reveal.d3{transition-delay:.24s;}
 
 /* ===== Responsive ===== */
-@media (max-width:1000px){
+@media (max-width:1100px){
+  .nav-in{gap:16px;}
+  .nav-links{gap:15px;font-size:12.5px;}
+  .nav-utils{gap:12px;}
+}
+@media (max-width:840px){
+  .duo{grid-template-columns:1fr;}
+  .reels{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:none;}
+  .reel figcaption{padding:30px 10px 10px;}
+  .reel figcaption strong{font-size:14px;}
+  .reel figcaption span{font-size:10px;}
   .hero{min-height:auto;padding-block:40px;}
   .hero-grid{display:flex;flex-direction:column;}
   .hero-media{order:-1;aspect-ratio:16/11;width:100%;}
@@ -468,22 +520,33 @@ footer.site{background:var(--tint);border-top:1px solid var(--hair);}
   </div>
 </section>
 
-<!-- ===== LEARN ===== -->
+<!-- ===== LEARN + VEZA ===== -->
 <section class="section" id="learn2">
-  <div class="wrap split">
-    <div class="copy reveal">
+  <div class="wrap duo">
+    <div class="duo-card reveal">
       <span class="eyebrow">The Learning Center</span>
       <h2>Understand the tool. Make the practice your own.</h2>
-      <p>Explore beginner guides, crystal meanings, care instructions, frequency explainers and founder-led
-        teaching. Learn only what you need now &mdash; and come back when you are ready for the next layer.</p>
-      <div class="cta-row"><a href="#" class="btn btn-ghost">Visit the Learning Center</a></div>
+      <ul class="guide-list">
+        <li><a href="#"><span>New to Energy Muse</span><em>first steps &amp; simple rituals</em><i>&rarr;</i></a></li>
+        <li><a href="#"><span>Crystal Guide</span><em>meanings, care, everyday use</em><i>&rarr;</i></a></li>
+        <li><a href="#"><span>Frequency Guide</span><em>setup, comparisons, FAQs</em><i>&rarr;</i></a></li>
+        <li><a href="#"><span>Learn with Heather</span><em>founder-led teaching</em><i>&rarr;</i></a></li>
+      </ul>
     </div>
-    <div class="copy reveal d1">
+    <div class="duo-card veza reveal d1">
+      <svg class="veza-rings" viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="100" cy="100" r="96" stroke-width="1"/><circle cx="100" cy="100" r="72" stroke-width="1"/>
+        <circle cx="100" cy="100" r="48" stroke-width="1"/><circle cx="100" cy="100" r="24" stroke-width="1"/>
+      </svg>
       <span class="eyebrow">Veza &mdash; coming soon</span>
       <h2>Personal guidance is becoming even more personal.</h2>
-      <p>Veza is the coming Energy Muse companion designed to help you discover the tools that fit you,
-        understand how to use them and stay connected to a practice that evolves with your life.</p>
-      <div class="cta-row"><a href="#veza" class="btn btn-copper">Join the Veza Waitlist</a></div>
+      <p>Veza is the coming Energy Muse companion &mdash; discover the tools that fit you, learn how
+        to use them, and keep a practice that evolves with your life.</p>
+      <form class="veza-form" onsubmit="return false">
+        <input type="email" placeholder="Email address" aria-label="Email address">
+        <button class="btn btn-copper" type="submit">Join the Waitlist</button>
+      </form>
+      <span class="veza-note">Early previews and launch access. No noise.</span>
     </div>
   </div>
 </section>
@@ -492,10 +555,28 @@ footer.site{background:var(--tint);border-top:1px solid var(--hair);}
 <section class="section band">
   <div class="wrap">
     <div class="head reveal"><span class="eyebrow muted">How it fits real lives</span><h2>Meaning you can wear every day.</h2></div>
-    <div class="quotes reveal">
-      <div class="quote"><div class="mark">&ldquo;</div><p>The first time I felt like I didn't have to understand everything before I could begin.</p><div class="who">Claire &middot; new to crystals</div></div>
-      <div class="quote"><div class="mark">&ldquo;</div><p>Beautiful enough to wear every day, meaningful enough to notice.</p><div class="who">Brooke &middot; everyday wear</div></div>
-      <div class="quote"><div class="mark">&ldquo;</div><p>The instructions made the product feel approachable instead of mysterious.</p><div class="who">Reese &middot; frequency tools</div></div>
+    <div class="reels reveal">
+      <figure class="reel" data-video="assets/video/story-1.mp4">
+        <svg class="reel-rings" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="80" stroke-width="1"/><circle cx="100" cy="100" r="56" stroke-width="1"/><circle cx="100" cy="100" r="32" stroke-width="1"/></svg>
+        <div class="reel-play" aria-hidden="true"></div>
+        <span class="reel-soon">Film coming soon</span>
+        <video muted loop playsinline preload="none"></video>
+        <figcaption><strong>Claire</strong><span>her first ritual</span></figcaption>
+      </figure>
+      <figure class="reel" data-video="assets/video/story-2.mp4">
+        <svg class="reel-rings" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="80" stroke-width="1"/><circle cx="100" cy="100" r="56" stroke-width="1"/><circle cx="100" cy="100" r="32" stroke-width="1"/></svg>
+        <div class="reel-play" aria-hidden="true"></div>
+        <span class="reel-soon">Film coming soon</span>
+        <video muted loop playsinline preload="none"></video>
+        <figcaption><strong>Brooke</strong><span>meaning she wears daily</span></figcaption>
+      </figure>
+      <figure class="reel" data-video="assets/video/story-3.mp4">
+        <svg class="reel-rings" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="80" stroke-width="1"/><circle cx="100" cy="100" r="56" stroke-width="1"/><circle cx="100" cy="100" r="32" stroke-width="1"/></svg>
+        <div class="reel-play" aria-hidden="true"></div>
+        <span class="reel-soon">Film coming soon</span>
+        <video muted loop playsinline preload="none"></video>
+        <figcaption><strong>Reese</strong><span>the generator, set up</span></figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -561,6 +642,18 @@ footer.site{background:var(--tint);border-top:1px solid var(--hair);}
 })();
 
 
+
+// reels: auto-upgrade placeholders when real films are dropped in assets/video/
+document.querySelectorAll('.reel[data-video]').forEach(function(r){
+  var src=r.getAttribute('data-video');
+  fetch(src,{method:'HEAD'}).then(function(res){
+    if(!res.ok)return;
+    var v=r.querySelector('video');v.src=src;r.classList.add('live');
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){v.play().catch(function(){});}else{v.pause();}});},{threshold:.4});
+    io.observe(r);
+  }).catch(function(){});
+});
 </script>
 
 <div class="skins" role="radiogroup" aria-label="Choose a look">
