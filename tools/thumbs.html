@@ -21,7 +21,7 @@ renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.
 const scene=new THREE.Scene();
 scene.background=new THREE.Color(0x101826);
 const camera=new THREE.PerspectiveCamera(34,1,0.05,50);
-camera.position.set(0.55,0.75,2.55);camera.lookAt(0,0,0);
+camera.position.set(0.5,0.7,3.05);camera.lookAt(0,0,0);
 (function env(){
   const cv=document.createElement('canvas');cv.width=64;cv.height=256;const x=cv.getContext('2d');
   const base=x.createLinearGradient(0,0,0,256);
@@ -90,7 +90,7 @@ const BUILDERS={spirituality:buildAmethyst,wealth:buildPyrite,'fresh-start':buil
 function fit(obj){
   const box=new THREE.Box3().setFromObject(obj);
   const size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());
-  const s=1.7/Math.max(size.x,size.y,size.z);
+  const s=1.15/Math.max(size.x,size.y,size.z);
   obj.position.sub(center).multiplyScalar(s);obj.scale.setScalar(s);
   const wrap=new THREE.Group();wrap.add(obj);return wrap;}
 

@@ -11,7 +11,8 @@ body{margin:0;background:#222;display:grid;place-items:center;min-height:100vh}
 <script>
 window.addEventListener('error',e=>{window.__err=(e.message||'')+' @'+e.lineno;});
 // ---- offscreen 3D render of the device (2x for crispness) ----
-const W=2400,H=1260;
+const CLEANQ=new URLSearchParams(location.search).get('clean')==='1';
+const W=CLEANQ?1600:2400,H=CLEANQ?1280:1260;
 const glCanvas=document.createElement('canvas');
 const renderer=new THREE.WebGLRenderer({canvas:glCanvas,antialias:true,alpha:true,preserveDrawingBuffer:true});
 renderer.setPixelRatio(1);renderer.setSize(W,H,false);
@@ -91,12 +92,13 @@ lid.position.y=0.16;device.add(lid);
 // composition: device on the right, hero angle — or centered when ?clean=1
 const CLEAN=new URLSearchParams(location.search).get('clean')==='1';
 if(CLEAN){device.position.set(0,-0.02,0);device.rotation.y=-0.78;device.rotation.x=0.55;
-  camera.position.set(0,1.7,3.4);camera.lookAt(0,0,0);}
+  camera.position.set(0,1.52,3.15);camera.lookAt(0,0.02,0);}
 else{device.position.set(0.78,-0.05,0);device.rotation.y=-0.78;device.rotation.x=0.5;
   camera.position.set(0,1.62,3.7);camera.lookAt(0.1,0,0);}
 
 // ---- composite: bg + 3D + type ----
 const out=document.getElementById('out');
+out.width=W;out.height=H;
 const ctx=out.getContext('2d');
 function draw(){
   renderer.render(scene,camera);
