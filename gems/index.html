@@ -127,11 +127,11 @@ import {GLTFLoader} from '../assets/jsm/loaders/GLTFLoader.js';
    photo: front-facing product PNG (tilt-card viewer)
    scan:  assets/gems/<slug>.glb (WebGL viewer + thumb jpg) ---- */
 const GEMS=[
- {slug:'calm',        name:'Agate Geode Slice', cat:'Calm',      color:0xA9C0DA, price:'$48.88', scan:true,
+ {slug:'calm',        name:'Agate Geode Slice', cat:'Calm',      color:0xA9C0DA, price:'$48.88', scan:true, yaw:-1.35, pitch:0.05,
   desc:'A real Energy Muse stone, scanned in 3D. Banded, slow-formed agate — a soft visual pause for desk or shelf.'},
  {slug:'protection',  name:'Black Tourmaline',  cat:'Protection',color:0x5A6472, price:'$8.88', scan:true,
   desc:'The classic boundary stone, scanned in 3D — striated black crystal for entries, desks and thresholds.'},
- {slug:'wellness',    name:'Quantum Quattro Crystal', cat:'Wellness', color:0x3EAFA5, price:'$229.88', scan:true,
+ {slug:'wellness',    name:'Quantum Quattro Crystal', cat:'Wellness', color:0x3EAFA5, price:'$229.88', scan:true, yaw:4.2, pitch:0.15,
   desc:'A real Energy Muse specimen, scanned in 3D — shattuckite, dioptase, malachite and smoky quartz in quartz.'},
  {slug:'spirituality',name:'Amethyst Cluster',  cat:'Spirituality', color:0x8656B8, price:'$34.88', photo:true,
   desc:'Natural amethyst points on a copper stand — the classic meditative crystal for clarity and quiet attention.'},
@@ -247,7 +247,7 @@ function openViewer(g){
     mode='gl';canvas.classList.remove('off');tiltpad.classList.add('off');
     document.getElementById('vhint').textContent='Drag to rotate';
     document.getElementById('vsrc').textContent='3D scan of the actual stone.';
-    rx=-0.15;ry=0.6;vx=vy=0;
+    rx=(g.pitch!==undefined?g.pitch:-0.15);ry=(g.yaw!==undefined?g.yaw:0.6);vx=vy=0;
     scene.remove(holder);holder=new THREE.Group();scene.add(holder);
     vload.classList.add('on');
     loader.load(`../assets/gems/${g.slug}.glb`,gltf=>{

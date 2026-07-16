@@ -107,7 +107,19 @@ function loadModel(slug){
 
 const sheet=document.getElementById('sheet');
 const ctx=sheet.getContext('2d');
+const Q=new URLSearchParams(location.search);
+const ONLY=Q.get('only'),YAW=parseFloat(Q.get('yaw')||'0.5'),PITCH=parseFloat(Q.get('pitch')||'-0.05');
 (async()=>{
+  if(ONLY){
+    scene.remove(holder);holder=new THREE.Group();scene.add(holder);
+    const m=await loadModel(ONLY);
+    holder.add(m);holder.rotation.y=YAW;holder.rotation.x=PITCH;
+    renderer.render(scene,camera);
+    sheet.width=512;sheet.height=512;
+    ctx.drawImage(rcan,0,0,512,512);
+    window.__sprite=sheet.toDataURL('image/jpeg',0.88);
+    window.__ready=true;return;
+  }
   for(let i=0;i<ORDER.length;i++){
     const slug=ORDER[i];
     scene.remove(holder);holder=new THREE.Group();scene.add(holder);
