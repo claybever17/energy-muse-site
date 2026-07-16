@@ -85,7 +85,13 @@ header.nav{position:sticky;top:0;z-index:60;transition:background .3s,border-col
   border-bottom:1px solid transparent;}
 header.nav.solid{background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);border-color:var(--hair);}
 .nav-in{display:flex;align-items:center;gap:26px;height:72px;}
-.brand{font-family:var(--serif);font-weight:400;font-size:22px;letter-spacing:.30em;}
+.brand{display:flex;align-items:center;}
+.brand img{height:26px;display:block;}
+.brand .l-light{display:none;}
+.at-hero .brand .l-dark{display:none;}.at-hero .brand .l-light{display:block;}
+@media (prefers-color-scheme:dark){.brand .l-dark{display:none;}.brand .l-light{display:block!important;}}
+:root[data-theme="light"] .brand .l-dark{display:block;}:root[data-theme="light"] body:not(.at-hero) .brand .l-light{display:none;}
+:root[data-theme="dark"] .brand .l-dark{display:none!important;}:root[data-theme="dark"] .brand .l-light{display:block!important;}
 .nav-links{display:flex;gap:24px;margin-inline:auto;font-family:var(--sans);font-size:13.5px;letter-spacing:.03em;}
 .nav-links a{padding:8px 0;border-bottom:1.5px solid transparent;color:var(--ink-soft);transition:.2s;}
 .nav-links a:hover{color:var(--fg);border-color:var(--copper);}
@@ -112,14 +118,14 @@ header.nav.solid{background:color-mix(in srgb,var(--bg) 90%,transparent);backdro
 .hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(7,12,18,.35));}
 .hero-ring{position:absolute;right:-56px;bottom:-56px;width:200px;height:200px;pointer-events:none;opacity:.9;}
 .hero-ring circle{fill:none;stroke:#E7D4C6;opacity:.8;}
-.hero-copy{max-width:660px;padding-block:clamp(60px,10vh,120px);}
+.hero-copy{max-width:640px;padding-block:clamp(70px,12vh,140px);}
 .hero .eyebrow{color:var(--copper-hi);display:block;overflow:hidden;}
-.hero h1{font-size:clamp(48px,7.5vw,104px);line-height:.99;letter-spacing:-.02em;font-weight:400;text-shadow:0 2px 30px rgba(7,12,18,.6);margin-top:22px;}
+.hero h1{font-size:clamp(40px,5.2vw,76px);line-height:1.04;letter-spacing:-.018em;font-weight:400;text-shadow:0 2px 30px rgba(7,12,18,.6);margin-top:24px;}
 .hero h1 .line{display:block;overflow:hidden;}
 .hero h1 .line span{display:block;transform:translateY(105%);}
-.hero .sub{font-family:var(--serif);font-weight:400;font-style:normal;font-size:clamp(19px,2.3vw,26px);
+.hero .sub{font-family:var(--sans);font-weight:500;font-style:normal;font-size:clamp(18px,1.9vw,23px);line-height:1.4;
   color:#D9C6B4;margin-top:26px;max-width:30ch;line-height:1.25;}
-.hero p.body{margin-top:22px;color:var(--navy-soft);max-width:46ch;font-size:17px;text-shadow:0 1px 18px rgba(7,12,18,.55);}
+.hero p.body{margin-top:24px;color:var(--navy-soft);max-width:48ch;font-size:16.5px;line-height:1.7;text-shadow:0 1px 18px rgba(7,12,18,.55);}
 .hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px;}
 .hero .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:30px;}
 .chip{font-size:12.5px;letter-spacing:.03em;padding:8px 15px;border:1px solid #2C3B54;border-radius:100px;
@@ -240,6 +246,7 @@ header.nav.solid{background:color-mix(in srgb,var(--bg) 90%,transparent);backdro
 footer.site{background:var(--tint);border-top:1px solid var(--hair);}
 .foot-grid{display:grid;grid-template-columns:1.7fr repeat(4,1fr);gap:32px;padding-block:64px 44px;}
 .foot-brand .b{font-family:var(--serif);font-weight:400;font-size:22px;letter-spacing:.28em;}
+@media (prefers-color-scheme:dark){.foot-logo{content:url(assets/img/logo-light.png);}}
 .foot-brand p{margin-top:18px;color:var(--ink-soft);font-size:14px;max-width:34ch;}
 .foot-col h4{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin:0 0 16px;}
 .foot-col a{display:block;font-size:14px;color:var(--ink-soft);padding:5px 0;transition:.2s;}
@@ -287,7 +294,7 @@ footer.site{background:var(--tint);border-top:1px solid var(--hair);}
 
 <header class="nav">
   <div class="wrap nav-in">
-    <div class="brand">ENERGY&nbsp;MUSE</div>
+    <a class="brand" href="./"><img class="l-dark" src="assets/img/logo.png" alt="Energy Muse"><img class="l-light" src="assets/img/logo-light.png" alt="Energy Muse"></a>
     <nav class="nav-links">
       <a href="#">Start Here</a><a href="gems/">Shop</a><a href="#intention">By Intention</a>
       <a href="#learn">Learn</a><a href="#heather">With Heather</a><a href="#veza">Veza</a><a href="#about">About</a>
@@ -306,18 +313,14 @@ footer.site{background:var(--tint);border-top:1px solid var(--hair);}
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="eyebrow anim">Guided Energy for Real Life</span>
-      <h1><span class="line"><span>Energy,</span></span><span class="line"><span>made <em class="hl">personal.</em></span></span></h1>
-      <p class="sub anim">Feel more like yourself &mdash; one small ritual at a time.</p>
-      <p class="body anim">Crystal jewelry, natural stones, frequency tools and trusted guidance, brought
-        together to help you choose what fits your life. No experience or belief system required.</p>
+      <h1><span class="line"><span>Energy, made <em class="hl">personal.</em></span></span></h1>
+      <p class="sub anim">Find the tools, guidance and rituals that fit the way you want to feel.</p>
+      <p class="body anim">From Frequency Generators to crystal jewelry and natural stones, Energy Muse brings
+        together modern tools, trusted guidance and more than two decades of practice. Start with an
+        intention. We will help you understand what fits, how products can work together and how to begin.</p>
       <div class="cta-row anim">
         <a href="#quiz" class="btn btn-copper">Find My Energy Match</a>
-        <a href="#intention" class="btn btn-light">Explore by Intention</a>
-      </div>
-      <div class="chips anim" aria-label="Shop by intention">
-        <span class="chip">Protection</span><span class="chip">Abundance</span>
-        <span class="chip">Grounding &amp; Calm</span><span class="chip">Love &amp; Self-Worth</span>
-        <span class="chip">Clarity &amp; Intuition</span>
+        <a href="generator/" class="btn btn-light">Explore Frequency Generators</a>
       </div>
     </div>
     <div class="hero-media anim">
@@ -499,7 +502,7 @@ footer.site{background:var(--tint);border-top:1px solid var(--hair);}
 <footer class="site" id="learn">
   <div class="wrap">
     <div class="foot-grid">
-      <div class="foot-brand"><div class="b">ENERGY&nbsp;MUSE</div>
+      <div class="foot-brand"><img src="assets/img/logo.png" alt="Energy Muse" style="height:26px" class="foot-logo">
         <p>Guided energy for real life. Crystal jewelry, natural stones, frequency tools and personal guidance &mdash; created to help you choose with confidence and build a practice that fits.</p></div>
       <div class="foot-col"><h4>Start Here</h4><a href="#">Energy Quiz</a><a href="#">Beginner's Guide</a><a href="#">How It Works</a></div>
       <div class="foot-col"><h4>Shop</h4><a href="#">Jewelry</a><a href="#">Crystals</a><a href="#">Frequency Tools</a><a href="#">Kits &amp; Sets</a><a href="#">By Intention</a></div>
