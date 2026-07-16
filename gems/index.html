@@ -13,41 +13,51 @@
 body{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 6vw;font-size:13px;letter-spacing:.04em;background:#FBF8F2;border-bottom:1px solid #E4DACA}
-.nav .brand{font-family:'Fraunces';font-size:20px;letter-spacing:.3em}
+.nav .brand{display:flex;align-items:center;flex-shrink:0}
+.nav .brand img{height:32px;width:auto;display:block}
 .nav .links a{color:#4E5A70;margin-left:22px}
 .nav .links a:hover{color:#1D2739}
-.hero{padding:9vh 6vw 6vh;max-width:1280px;margin:0 auto}
+.hero{padding:9vh 6vw 5vh;max-width:1280px;margin:0 auto}
 .eye{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--copper);font-weight:600}
 h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-spacing:-.02em;line-height:1;margin-top:14px;text-wrap:balance}
 .hero p{margin-top:16px;color:var(--soft);max-width:52ch;font-size:16.5px;line-height:1.6}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:0 6vw 10vh;max-width:1280px;margin:0 auto}
-@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:460px){.grid{grid-template-columns:1fr}}
+/* ===== even product grid (wireframe) ===== */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:0 6vw 10vh;max-width:1280px;margin:0 auto}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr);gap:12px}}
 .card{position:relative;border:1px solid var(--line);border-radius:3px;background:var(--panel);cursor:pointer;
   padding:0 0 18px;overflow:hidden;transition:transform .25s cubic-bezier(.16,1,.3,1),border-color .25s}
 .card:hover{transform:translateY(-4px);border-color:var(--copper)}
-.tile{aspect-ratio:1/1;display:grid;place-items:center;position:relative}
-.tile svg{width:44%;opacity:.9;filter:drop-shadow(0 18px 24px rgba(0,0,0,.45))}
+.tile{aspect-ratio:1/1;display:grid;place-items:center;position:relative;overflow:hidden}
+.tile::before{content:"";position:absolute;inset:0;background:radial-gradient(58% 58% at 50% 46%,var(--glow) 0%,transparent 70%);opacity:.22}
+.tile .pimg{position:relative;z-index:1;max-width:72%;max-height:76%;width:auto;height:auto;object-fit:contain;
+  filter:drop-shadow(0 22px 26px rgba(0,0,0,.5));transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.card:hover .pimg{transform:scale(1.045) translateY(-3px)}
 .tile .timg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
-.tile::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 42%,var(--glow) 0%,transparent 70%);opacity:.35}
-.card .meta{padding:0 18px}
-.card h3{font-family:'Fraunces';font-weight:400;font-size:21px}
-.card .cat{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--copper);font-weight:600;margin-bottom:6px}
+.card .meta{padding:16px 18px 0}
+.card h3{font-family:'Fraunces';font-weight:400;font-size:20px}
+.card .cat{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--copper);font-weight:600;margin-bottom:6px}
 .card .price{color:var(--soft);font-size:13.5px;margin-top:5px}
 .card .chip{position:absolute;top:12px;right:12px;z-index:3;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
-  font-weight:600;padding:5px 9px;border-radius:100px;border:1px solid var(--line);color:var(--soft);background:rgba(10,16,23,.62);backdrop-filter:blur(6px)}
-.card .chip.ph{top:auto;bottom:12px;left:50%;right:auto;transform:translateX(-50%);border:1px dashed #3a4c66;color:#8b9bb0}
-.card .chip.live{color:#8ad0a2;border-color:#2c4a38}
-.card.featured{grid-column:span 2}
-.card.featured .tile{aspect-ratio:2/1}
-@media(max-width:460px){.card.featured{grid-column:span 1}.card.featured .tile{aspect-ratio:1/1}}
-/* ---- viewer ---- */
-.viewer{position:fixed;inset:0;z-index:50;background:rgba(7,11,17,.9);backdrop-filter:blur(10px);
+  font-weight:600;padding:5px 9px;border-radius:100px;border:1px solid #2c4a38;color:#8ad0a2;background:rgba(10,16,23,.62);backdrop-filter:blur(6px);display:none}
+.card .chip.live{display:block}
+/* ===== viewer ===== */
+.viewer{position:fixed;inset:0;z-index:50;background:rgba(7,11,17,.92);backdrop-filter:blur(10px);
   display:none;align-items:stretch;justify-content:center}
 .viewer.open{display:flex}
 .v-in{position:relative;width:100%;max-width:1280px;display:grid;grid-template-columns:1.5fr 1fr;gap:0}
+.v-stage{position:relative;overflow:hidden}
 #vc{width:100%;height:100%;display:block;touch-action:none;cursor:grab}
 #vc:active{cursor:grabbing}
+/* front-facing photo tilt card */
+.tiltpad{position:absolute;inset:0;display:grid;place-items:center;touch-action:none;perspective:1100px}
+.tiltpad.off,#vc.off{display:none}
+.tiltcard{position:relative;will-change:transform;transform-style:preserve-3d}
+.tiltcard img{display:block;max-width:min(60vw,520px);max-height:60vh;width:auto;height:auto;
+  filter:drop-shadow(var(--sx,0px) var(--sy,26px) 34px rgba(0,0,0,.55))}
+.tiltcard .glare{position:absolute;inset:-8%;z-index:2;pointer-events:none;mix-blend-mode:screen;opacity:.5;
+  background:radial-gradient(40% 34% at var(--gx,50%) var(--gy,28%),rgba(255,248,235,.5),transparent 62%)}
+@media(max-width:900px){.tiltcard img{max-width:76vw;max-height:44vh}}
 .v-side{padding:11vh 5vw 6vh 0;display:flex;flex-direction:column;gap:14px;justify-content:center}
 .v-side h2{font-family:'Fraunces';font-weight:300;font-size:clamp(30px,3.6vw,52px);letter-spacing:-.02em}
 .v-side p{color:var(--soft);line-height:1.6;max-width:38ch}
@@ -58,29 +68,27 @@ h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-
 .v-close{position:absolute;top:20px;right:24px;z-index:2;background:none;border:1px solid var(--line);color:var(--soft);
   width:40px;height:40px;border-radius:100px;font-size:16px;cursor:pointer}
 .v-close:hover{color:var(--ink);border-color:var(--copper)}
-.v-load{position:absolute;left:0;top:0;bottom:0;right:40%;display:grid;place-items:center;color:var(--soft);
+.v-load{position:absolute;inset:0;display:grid;place-items:center;color:var(--soft);
   font-size:11px;letter-spacing:.26em;text-transform:uppercase;pointer-events:none;opacity:0;transition:opacity .3s}
 .v-load.on{opacity:1}
-.v-hint{position:absolute;bottom:22px;left:0;right:40%;text-align:center;color:var(--soft);font-size:10.5px;
+.v-hint{position:absolute;bottom:22px;left:0;right:0;text-align:center;color:var(--soft);font-size:10.5px;
   letter-spacing:.22em;text-transform:uppercase;pointer-events:none}
 @media(max-width:900px){
-  .v-in{grid-template-columns:1fr;grid-template-rows:1.2fr 1fr}
+  .v-in{grid-template-columns:1fr;grid-template-rows:1.15fr 1fr}
   .v-side{padding:0 6vw 5vh}
-  .v-load{right:0;bottom:40%}
-  .v-hint{right:0;bottom:42%}
 }
-@media(max-width:700px){.nav{padding:12px 5vw}.blogo{height:24px!important}.nav .links a{margin-left:14px}}
-.foot{border-top:1px solid var(--line);padding:26px 6vw;font-size:11.5px;color:var(--soft);line-height:1.5;max-width:none}
+@media(max-width:700px){.nav{padding:12px 5vw}.nav .brand img{height:24px}.nav .links a{margin-left:14px}}
+.foot{border-top:1px solid var(--line);padding:26px 6vw;font-size:11.5px;color:var(--soft);line-height:1.5}
 </style></head><body>
 <div class="nav">
-  <a class="brand" href="../" style="display:flex;align-items:center;flex-shrink:0"><img class="blogo" src="../assets/img/logo.png" alt="Energy Muse" style="height:32px;width:auto;display:block"></a>
+  <a class="brand" href="../"><img src="../assets/img/logo.png" alt="Energy Muse"></a>
   <div class="links"><a href="../generator/">The Generator</a><a href="../">Home</a><a href="#">Bag (0)</a></div>
 </div>
 <section class="hero">
   <div class="eye">The Stone Gallery</div>
   <h1>Choose by the energy<br>you want more of.</h1>
-  <p>Natural stones, explored in 3D. Turn each piece over as if it were in your hand — then bring
-    the intention into your space. New stones are added as they are scanned.</p>
+  <p>Natural stones from the Energy Muse collection. Pick a piece up, turn it toward the light —
+    then bring the intention into your space. New 3D scans are added as stones are captured.</p>
 </section>
 <div class="grid" id="grid"></div>
 <div class="foot">Energy Muse products and content are intended for personal rituals and general wellbeing.
@@ -91,10 +99,13 @@ h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-
 <div class="viewer" id="viewer" role="dialog" aria-modal="true">
   <button class="v-close" id="vclose" aria-label="Close viewer">&times;</button>
   <div class="v-in">
-    <div style="position:relative">
+    <div class="v-stage">
       <canvas id="vc"></canvas>
+      <div class="tiltpad off" id="tiltpad">
+        <div class="tiltcard" id="tiltcard"><img id="tiltimg" alt=""><div class="glare"></div></div>
+      </div>
       <div class="v-load" id="vload">Loading stone</div>
-      <div class="v-hint">Drag to rotate</div>
+      <div class="v-hint" id="vhint">Drag to rotate</div>
     </div>
     <div class="v-side">
       <div class="eye" id="vcat"></div>
@@ -112,45 +123,43 @@ h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-
 import * as THREE from 'three';
 import {GLTFLoader} from '../assets/jsm/loaders/GLTFLoader.js';
 
-/* ---- catalog: drop assets/gems/<slug>.glb and it auto-replaces the placeholder ---- */
+/* ---- catalog: real Energy Muse products.
+   photo: front-facing product PNG (tilt-card viewer)
+   scan:  assets/gems/<slug>.glb (WebGL viewer + thumb jpg) ---- */
 const GEMS=[
- {slug:'calm',        name:'Agate Geode Slice', cat:'Calm',         color:0xA9C0DA, price:'$48.88', featured:true,
-  desc:'A real Energy Muse stone, scanned in 3D. Banded, slow-formed agate \u2014 a soft visual pause for desk or shelf.'},
- {slug:'spirituality',name:'Amethyst Cluster',  cat:'Spirituality', color:0x8656B8, price:'$34.88',
-  desc:'Natural amethyst points on matrix \u2014 the classic meditative crystal for clarity and quiet attention.'},
- {slug:'wealth',      name:'Pyrite Cube',       cat:'Wealth',       color:0xC9A54E, price:'$24.88',
-  desc:'A naturally cubic pyrite crystal \u2014 bright, metallic and grounded. Kept where plans are made.'},
- {slug:'protection',  name:'Black Tourmaline',  cat:'Protection',   color:0x383E47, price:'$8.88',
-  desc:'The classic boundary stone \u2014 striated black crystal for entries, desks and thresholds.'},
- {slug:'fresh-start', name:'Clear Quartz Pyramid', cat:'Fresh Start', color:0xE8EDF2, price:'$18.88',
-  desc:'A polished quartz pyramid \u2014 a bright, clean point of focus for beginning again.'},
- {slug:'love',        name:'Rhodochrosite Point', cat:'Love',       color:0xE08098, price:'$48.88',
+ {slug:'calm',        name:'Agate Geode Slice', cat:'Calm',      color:0xA9C0DA, price:'$48.88', scan:true,
+  desc:'A real Energy Muse stone, scanned in 3D. Banded, slow-formed agate — a soft visual pause for desk or shelf.'},
+ {slug:'protection',  name:'Black Tourmaline',  cat:'Protection',color:0x5A6472, price:'$8.88', scan:true,
+  desc:'The classic boundary stone, scanned in 3D — striated black crystal for entries, desks and thresholds.'},
+ {slug:'wellness',    name:'Quantum Quattro Crystal', cat:'Wellness', color:0x3EAFA5, price:'$229.88', scan:true,
+  desc:'A real Energy Muse specimen, scanned in 3D — shattuckite, dioptase, malachite and smoky quartz in quartz.'},
+ {slug:'spirituality',name:'Amethyst Cluster',  cat:'Spirituality', color:0x8656B8, price:'$34.88', photo:true,
+  desc:'Natural amethyst points on a copper stand — the classic meditative crystal for clarity and quiet attention.'},
+ {slug:'wealth',      name:'Pyrite Cube',       cat:'Wealth',    color:0xC9A54E, price:'$24.88', photo:true,
+  desc:'A naturally cubic pyrite crystal — bright, metallic and grounded. Kept where plans are made.'},
+ {slug:'love',        name:'Rhodochrosite Point', cat:'Love',    color:0xE08098, price:'$48.88', photo:true,
   desc:'A tender rose-banded point for compassion, self-worth and the relationships you nurture.'},
- {slug:'wellness',    name:'Quantum Quattro Crystal', cat:'Wellness', color:0x3EAFA5, price:'$229.88',
-  desc:'A real Energy Muse specimen, scanned in 3D \u2014 shattuckite, dioptase, malachite and smoky quartz grown together in quartz.'},
- {slug:'power',       name:"Tiger's Eye Diamond", cat:'Power',      color:0x9A6633, price:'$39.88',
-  desc:'Banded gold and brown, cut to a faceted diamond \u2014 confidence and grounded strength.'},
+ {slug:'fresh-start', name:'Clear Quartz Pyramid', cat:'Fresh Start', color:0xE8EDF2, price:'$18.88', photo:true,
+  desc:'A polished quartz pyramid — a bright, clean point of focus for beginning again.'},
+ {slug:'power',       name:"Tiger's Eye Diamond", cat:'Power',   color:0x9A6633, price:'$39.88', photo:true,
+  desc:'Banded gold and brown, cut to a faceted diamond — confidence and grounded strength.'},
 ];
 
-/* ---- gallery cards (cheap CSS/SVG tiles — real 3D lives in the viewer) ---- */
-const crystalSVG=c=>`<svg viewBox="0 0 100 120" fill="none"><path d="M50 4 74 30 66 96 50 116 34 96 26 30Z" fill="#${c.toString(16).padStart(6,'0')}" fill-opacity=".8" stroke="rgba(255,255,255,.35)" stroke-width="1.4"/><path d="M50 4 42 62 50 116M50 4 58 62 50 116M26 30 42 62 58 62 74 30" stroke="rgba(255,255,255,.28)" stroke-width="1"/></svg>`;
+/* ---- even grid ---- */
 const grid=document.getElementById('grid');
-const hasGLB={}; // filled by HEAD checks
-GEMS.forEach((g,i)=>{
-  const el=document.createElement('div');el.className='card'+(g.featured?' featured':'');el.style.setProperty('--glow','#'+g.color.toString(16).padStart(6,'0'));
-  el.innerHTML=`<span class="chip ph" id="chip-${g.slug}">Placeholder</span>
-    <div class="tile">${crystalSVG(g.color)}<img class="timg" src="../assets/img/thumbs/${g.slug}.jpg" alt="" onerror="this.remove()"></div>
+GEMS.forEach(g=>{
+  const el=document.createElement('div');el.className='card';
+  el.style.setProperty('--glow','#'+g.color.toString(16).padStart(6,'0'));
+  el.innerHTML=`<span class="chip${g.scan?' live':''}">3D scan</span>
+    <div class="tile">${g.scan
+      ?`<img class="timg" src="../assets/img/thumbs/${g.slug}.jpg" alt="">`
+      :`<img class="pimg" src="../assets/img/products/${g.slug}.png" alt="" loading="lazy">`}</div>
     <div class="meta"><div class="cat">${g.cat}</div><h3>${g.name}</h3><div class="price">${g.price}</div></div>`;
   el.addEventListener('click',()=>openViewer(g));
   grid.appendChild(el);
-  fetch(`../assets/gems/${g.slug}.glb`,{method:'HEAD'}).then(r=>{
-    hasGLB[g.slug]=r.ok;
-    const chip=document.getElementById('chip-'+g.slug);
-    if(r.ok){chip.textContent='3D scan';chip.classList.add('live');chip.classList.remove('ph');}
-  }).catch(()=>{hasGLB[g.slug]=false;});
 });
 
-/* ---- one shared viewer ---- */
+/* ---- WebGL viewer (scanned stones) ---- */
 const canvas=document.getElementById('vc');
 const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));
@@ -172,125 +181,104 @@ camera.position.set(0,0.4,3.1);camera.lookAt(0,0,0);
 scene.add(new THREE.HemisphereLight(0xdfe6f0,0x22262e,0.65));
 const key=new THREE.DirectionalLight(0xfff2e0,1.6);key.position.set(2.2,3.2,2.4);scene.add(key);
 const rim=new THREE.DirectionalLight(0xcfe0ff,0.7);rim.position.set(-2.2,1.4,-2.2);scene.add(rim);
-
 let holder=new THREE.Group();scene.add(holder);
 const loader=new GLTFLoader();
-
-/* ---- procedural stand-ins; GLBs replace them when dropped in assets/gems/ ---- */
-function jitter(geo,amp,fy){const p=geo.attributes.position;const v=new THREE.Vector3();
+function fallbackStone(color){
+  const geo=new THREE.IcosahedronGeometry(0.8,1);
+  const p=geo.attributes.position;const v=new THREE.Vector3();
   for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i);
-    const s=1+amp*Math.sin(v.x*7.1)*Math.cos(v.y*5.3+v.z*3.7);
-    p.setXYZ(i,v.x*s,v.y*s*(fy||1),v.z*s);}
-  geo.computeVertexNormals();return geo;}
-function genericStone(color){
-  const mat=new THREE.MeshPhysicalMaterial({color,metalness:0.05,roughness:0.18,transparent:true,opacity:0.92,
-    clearcoat:0.8,clearcoatRoughness:0.15,envMapIntensity:1.3,flatShading:true,emissive:color,emissiveIntensity:0.06});
-  return new THREE.Mesh(jitter(new THREE.IcosahedronGeometry(0.8,1),0.16,1.25),mat);}
-function crystalPoint(r,hBody,hTip,mat){const g=new THREE.Group();
-  const body=new THREE.Mesh(new THREE.CylinderGeometry(r,r*0.92,hBody,6),mat);body.position.y=hBody/2;g.add(body);
-  const tip=new THREE.Mesh(new THREE.ConeGeometry(r,hTip,6),mat);tip.position.y=hBody+hTip/2;g.add(tip);return g;}
-function buildAmethyst(){
-  const g=new THREE.Group();
-  const rock=new THREE.MeshStandardMaterial({color:0x8a8f96,roughness:0.9,flatShading:true});
-  const base=new THREE.Mesh(jitter(new THREE.IcosahedronGeometry(0.72,1),0.18,0.5),rock);
-  base.scale.y=0.42;base.position.y=-0.32;g.add(base);
-  const amy=new THREE.MeshPhysicalMaterial({color:0x8656B8,metalness:0,roughness:0.12,transparent:true,opacity:0.9,
-    clearcoat:1,clearcoatRoughness:0.08,envMapIntensity:1.6,flatShading:true,emissive:0x2a1440,emissiveIntensity:0.35});
-  const spots=[[0,0,0,.20,.55],[.3,.05,.1,.13,.38],[-.28,.02,.14,.12,.34],[.12,.03,-.26,.14,.4],
-               [-.16,.04,-.22,.11,.3],[.34,.02,-.14,.10,.26],[-.36,.03,-.02,.10,.3],[.02,.05,.3,.12,.3]];
-  spots.forEach(sp=>{const c=crystalPoint(sp[3],sp[4],sp[3]*1.7,amy);
-    c.position.set(sp[0],-0.18,sp[2]);
-    c.rotation.set((Math.random()-0.5)*0.5,Math.random()*Math.PI,(Math.random()-0.5)*0.5);g.add(c);});
-  g.position.y=0.05;return g;}
-function buildPyrite(){
-  const g=new THREE.Group();
-  const py=new THREE.MeshStandardMaterial({color:0xC9A54E,metalness:1.0,roughness:0.32,envMapIntensity:1.8,flatShading:true});
-  const cubes=[[0,0,0,.62,0.3],[.42,-.28,.18,.34,0.8],[-.38,-.3,-.12,.3,0.4],[.1,-.42,-.34,.26,1.1]];
-  cubes.forEach(c=>{const m=new THREE.Mesh(new THREE.BoxGeometry(c[3],c[3],c[3]),py);
-    m.position.set(c[0],c[1]*0.6,c[2]);m.rotation.set(c[4],c[4]*1.7,c[4]*0.6);g.add(m);});
-  g.position.y=0.15;return g;}
-function buildQuartzPyramid(){
-  const mat=new THREE.MeshPhysicalMaterial({color:0xF2F5F8,metalness:0,roughness:0.06,transparent:true,opacity:0.55,
-    clearcoat:1,clearcoatRoughness:0.04,envMapIntensity:1.7,flatShading:true,emissive:0x40454e,emissiveIntensity:0.12});
-  const g=new THREE.Group();
-  const p=new THREE.Mesh(new THREE.ConeGeometry(0.72,0.95,4),mat);p.position.y=0.12;p.rotation.y=Math.PI/4;g.add(p);
-  return g;}
-function buildTourmaline(){
-  const g=new THREE.Group();
-  const tm=new THREE.MeshPhysicalMaterial({color:0x23262c,metalness:0.15,roughness:0.32,clearcoat:0.9,
-    clearcoatRoughness:0.25,envMapIntensity:1.3,flatShading:true});
-  const rods=[[0,0,0,.20,1.15,0],[.26,-.06,.06,.13,.86,.18],[-.24,-.1,-.04,.12,.72,-.22],[.05,-.12,-.24,.11,.6,.3]];
-  rods.forEach(r=>{const rod=new THREE.Mesh(new THREE.CylinderGeometry(r[3],r[3]*1.06,r[4],6),tm);
-    rod.position.set(r[0],r[1],r[2]);rod.rotation.z=r[5];rod.rotation.x=(Math.random()-.5)*.2;g.add(rod);
-    const tip=new THREE.Mesh(new THREE.ConeGeometry(r[3],r[3]*1.1,6),tm);
-    tip.position.set(r[0]+Math.sin(r[5])*r[4]/2*-1,r[1]+Math.cos(r[5])*r[4]/2+r[3]*0.5,r[2]);tip.rotation.z=r[5];g.add(tip);});
-  g.position.y=0.1;return g;}
-const BUILDERS={spirituality:buildAmethyst,wealth:buildPyrite,'fresh-start':buildQuartzPyramid,protection:buildTourmaline};
-function placeholder(g){
-  const b=BUILDERS[g.slug];
-  return b?b():genericStone(g.color);}
-/* normalize any loaded GLB: center it, fit to view */
+    const s=1+0.16*Math.sin(v.x*7.1)*Math.cos(v.y*5.3+v.z*3.7);
+    p.setXYZ(i,v.x*s,v.y*s*1.25,v.z*s);}
+  geo.computeVertexNormals();
+  return new THREE.Mesh(geo,new THREE.MeshPhysicalMaterial({color,metalness:0.05,roughness:0.18,
+    clearcoat:0.8,envMapIntensity:1.3,flatShading:true}));}
 function fit(obj){
   const box=new THREE.Box3().setFromObject(obj);
   const size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());
   const s=1.7/Math.max(size.x,size.y,size.z);
   obj.position.sub(center).multiplyScalar(s);obj.scale.setScalar(s);
-  const wrap=new THREE.Group();wrap.add(obj);return wrap;
-}
+  const wrap=new THREE.Group();wrap.add(obj);return wrap;}
 const vload=document.getElementById('vload');
-function show(g){
-  scene.remove(holder);holder=new THREE.Group();scene.add(holder);
-  document.getElementById('vsrc').textContent='Placeholder preview — 3D scan coming.';
-  if(hasGLB[g.slug]){
-    vload.classList.add('on');
-    loader.load(`../assets/gems/${g.slug}.glb`,gltf=>{
-      holder.clear();holder.add(fit(gltf.scene));
-      vload.classList.remove('on');
-      document.getElementById('vsrc').textContent='3D scan of the actual stone.';
-    },undefined,()=>{holder.clear();holder.add(placeholder(g));vload.classList.remove('on');});
-  } else {
-    holder.add(placeholder(g));
-  }
-}
 
-/* drag-rotate with inertia + gentle auto-spin */
-let dragging=false,px=0,py=0,vx=0,vy=0,rx=-0.15,ry=0.6;
+/* ---- photo tilt card (front-facing pseudo-3D) ---- */
+const tiltpad=document.getElementById('tiltpad');
+const tiltcard=document.getElementById('tiltcard');
+const tiltimg=document.getElementById('tiltimg');
+let tRX=0,tRY=0,cRX=0,cRY=0,tiltActive=false,pointerOn=false;
+tiltpad.addEventListener('pointermove',e=>{
+  const r=tiltpad.getBoundingClientRect();
+  const nx=(e.clientX-r.left)/r.width-0.5, ny=(e.clientY-r.top)/r.height-0.5;
+  tRY=nx*22; tRX=-ny*16; pointerOn=true;
+});
+tiltpad.addEventListener('pointerleave',()=>{pointerOn=false;});
+tiltpad.addEventListener('pointerdown',e=>{tiltpad.setPointerCapture(e.pointerId);});
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* ---- open/close ---- */
+let mode=null,dragging=false,px=0,py=0,vx=0,vy=0,rx=-0.15,ry=0.6,open=false;
 canvas.addEventListener('pointerdown',e=>{dragging=true;px=e.clientX;py=e.clientY;canvas.setPointerCapture(e.pointerId);});
 canvas.addEventListener('pointermove',e=>{if(!dragging)return;
   vx=(e.clientX-px)*0.005;vy=(e.clientY-py)*0.005;ry+=vx;rx+=vy;px=e.clientX;py=e.clientY;});
 canvas.addEventListener('pointerup',()=>dragging=false);
 canvas.addEventListener('pointercancel',()=>dragging=false);
-
 const viewer=document.getElementById('viewer');
-let open=false;
 function openViewer(g){
   document.getElementById('vcat').textContent=g.cat;
   document.getElementById('vname').textContent=g.name;
   document.getElementById('vdesc').textContent=g.desc;
   document.getElementById('vprice').textContent=g.price;
-  rx=-0.15;ry=0.6;vx=vy=0;
-  show(g);viewer.classList.add('open');open=true;resize();
+  if(g.scan){
+    mode='gl';canvas.classList.remove('off');tiltpad.classList.add('off');
+    document.getElementById('vhint').textContent='Drag to rotate';
+    document.getElementById('vsrc').textContent='3D scan of the actual stone.';
+    rx=-0.15;ry=0.6;vx=vy=0;
+    scene.remove(holder);holder=new THREE.Group();scene.add(holder);
+    vload.classList.add('on');
+    loader.load(`../assets/gems/${g.slug}.glb`,gltf=>{
+      holder.clear();holder.add(fit(gltf.scene));vload.classList.remove('on');
+    },undefined,()=>{holder.clear();holder.add(fit(fallbackStone(g.color)));vload.classList.remove('on');});
+  } else {
+    mode='photo';canvas.classList.add('off');tiltpad.classList.remove('off');
+    document.getElementById('vhint').textContent='Move to turn it in the light';
+    document.getElementById('vsrc').textContent='Photograph of the actual stone.';
+    tiltimg.src=`../assets/img/products/${g.slug}.png`;
+    tRX=tRY=cRX=cRY=0;
+  }
+  viewer.classList.add('open');open=true;resize();
 }
-document.getElementById('vclose').addEventListener('click',()=>{viewer.classList.remove('open');open=false;});
-viewer.addEventListener('click',e=>{if(e.target===viewer){viewer.classList.remove('open');open=false;}});
-addEventListener('keydown',e=>{if(e.key==='Escape'){viewer.classList.remove('open');open=false;}});
+function closeViewer(){viewer.classList.remove('open');open=false;}
+document.getElementById('vclose').addEventListener('click',closeViewer);
+viewer.addEventListener('click',e=>{if(e.target===viewer)closeViewer();});
+addEventListener('keydown',e=>{if(e.key==='Escape')closeViewer();});
 
 function resize(){
-  const r=canvas.getBoundingClientRect();if(!r.width)return;
+  const r=canvas.parentElement.getBoundingClientRect();if(!r.width)return;
   renderer.setSize(r.width,r.height,false);
   camera.aspect=r.width/r.height;camera.updateProjectionMatrix();
 }
 addEventListener('resize',resize);
 
-const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-(function loop(){
+let t0=performance.now();
+(function loop(now){
   requestAnimationFrame(loop);
   if(!open)return;
-  if(!dragging){ry+=vx;rx+=vy;vx*=0.95;vy*=0.95;if(!reduce)ry+=0.004;}
-  rx=Math.max(-1.3,Math.min(1.3,rx));
-  holder.rotation.set(rx,ry,0);
-  renderer.render(scene,camera);
-})();
+  if(mode==='gl'){
+    if(!dragging){ry+=vx;rx+=vy;vx*=0.95;vy*=0.95;if(!reduce)ry+=0.004;}
+    rx=Math.max(-1.3,Math.min(1.3,rx));
+    holder.rotation.set(rx,ry,0);
+    renderer.render(scene,camera);
+  } else if(mode==='photo'){
+    const t=(now-t0)/1000;
+    let gx=tRX,gy=tRY;
+    if(!pointerOn&&!reduce){gy=Math.sin(t*0.7)*7;gx=Math.cos(t*0.5)*4;}
+    cRX+=(gx-cRX)*0.08;cRY+=(gy-cRY)*0.08;
+    tiltcard.style.transform=`rotateX(${cRX}deg) rotateY(${cRY}deg)`;
+    tiltcard.style.setProperty('--sx',(-cRY*1.6)+'px');
+    tiltcard.style.setProperty('--sy',(26+cRX*1.2)+'px');
+    tiltcard.style.setProperty('--gx',(50+cRY*2.4)+'%');
+    tiltcard.style.setProperty('--gy',(28-cRX*2.2)+'%');
+  }
+})(t0);
 window.__ready=true;
 </script>
 </body></html>
