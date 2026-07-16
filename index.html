@@ -91,9 +91,6 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper);font-weight
 
 @media (min-width:1000px){.hero h1 .line span{white-space:nowrap;}}
 /* ===== Announcement + nav ===== */
-.announce{background:var(--navy);color:var(--navy-text);font-size:12.5px;letter-spacing:.03em;text-align:center;
-  padding:10px 16px;display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;}
-.announce a{color:var(--copper-hi);font-weight:600;}
 header.nav{position:sticky;top:0;z-index:60;transition:background .3s,border-color .3s,color .3s;
   border-bottom:1px solid transparent;}
 header.nav.solid{background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);border-color:var(--hair);}
@@ -298,7 +295,8 @@ footer.site{background:var(--tint);border-top:1px solid var(--hair);}
   .steps,.quotes{grid-template-columns:1fr;}
   .email-in{grid-template-columns:1fr;}.email form{justify-content:flex-start;}
   .foot-grid{grid-template-columns:1fr 1fr;}
-  .nav-links{display:none;}
+  .nav-links a{display:none;}
+  .nav-links a.keep{display:block;font-weight:600;}
   .trust-in{grid-template-columns:1fr;}.trust-item+.trust-item{border-left:0;border-top:1px solid var(--hair);}
   .specs{flex-wrap:wrap;}.spec{flex-basis:100%;}.spec+.spec{border-left:0;border-top:1px solid var(--navy-line);}
 }
@@ -314,16 +312,12 @@ footer.site{background:var(--tint);border-top:1px solid var(--hair);}
 }
 </style>
 
-<div class="announce anim">
-  <span>New to Energy Muse? Find your first ritual in a few simple questions.</span>
-  <a href="#quiz">Take the Energy Quiz &rarr;</a>
-</div>
 
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="./"><img class="blogo" src="assets/img/logo.png" alt="Energy Muse"></a>
     <nav class="nav-links">
-      <a href="#">Start Here</a><a href="gems/">Shop</a><a href="#intention">By Intention</a>
+      <a href="#">Start Here</a><a href="gems/" class="keep">Shop</a><a href="#intention">By Intention</a>
       <a href="#learn">Learn</a><a href="#heather">With Heather</a><a href="#veza">Veza</a><a href="#about">About</a>
     </nav>
     <div class="nav-utils">
