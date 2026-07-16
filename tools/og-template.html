@@ -10,6 +10,8 @@ body{margin:0;background:#222;display:grid;place-items:center;min-height:100vh}
 <script src="../assets/three.min.js"></script>
 <script>
 window.addEventListener('error',e=>{window.__err=(e.message||'')+' @'+e.lineno;});
+const BRAND=new URLSearchParams(location.search).get('brand')==='1';
+const logoImg=new Image();logoImg.src='../assets/img/logo.png';
 // ---- offscreen 3D render of the device (2x for crispness) ----
 const CLEANQ=new URLSearchParams(location.search).get('clean')==='1';
 const W=CLEANQ?1600:2400,H=CLEANQ?1280:1260;
@@ -100,7 +102,36 @@ else{device.position.set(0.78,-0.05,0);device.rotation.y=-0.78;device.rotation.x
 const out=document.getElementById('out');
 out.width=W;out.height=H;
 const ctx=out.getContext('2d');
+function drawBrand(){
+  // ivory brand card: rings, logo, headline, eyebrow, url
+  ctx.fillStyle='#FBF8F2';ctx.fillRect(0,0,W,H);
+  const rg=ctx.createRadialGradient(W/2,H*0.46,80,W/2,H*0.46,W*0.42);
+  rg.addColorStop(0,'rgba(169,104,62,0.10)');rg.addColorStop(1,'rgba(169,104,62,0)');
+  ctx.fillStyle=rg;ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='rgba(169,104,62,0.14)';
+  [200,320,450,590,740].forEach((r,i)=>{ctx.lineWidth=2.2-i*0.3;ctx.beginPath();ctx.arc(W/2,H*0.44,r,0,Math.PI*2);ctx.stroke();});
+  const lw=620,lh=lw*(logoImg.height/logoImg.width);
+  ctx.drawImage(logoImg,W/2-lw/2,H*0.30-lh/2,lw,lh);
+  ctx.textBaseline='alphabetic';
+  const t1='Energy, made ',t2='personal.';
+  ctx.font='300 118px Fraunces';const w1=ctx.measureText(t1).width;
+  ctx.font='italic 300 118px Fraunces';const w2=ctx.measureText(t2).width;
+  let hx=W/2-(w1+w2)/2;const hy=H*0.60;
+  ctx.fillStyle='#1D2739';ctx.font='300 118px Fraunces';ctx.fillText(t1,hx,hy);
+  ctx.fillStyle='#A9683E';ctx.font='italic 300 118px Fraunces';ctx.fillText(t2,hx+w1,hy);
+  ctx.fillStyle='#A9683E';ctx.font='600 30px "Instrument Sans"';
+  const eb='GUIDED ENERGY FOR REAL LIFE';
+  let ew=0;for(const ch of eb)ew+=ctx.measureText(ch).width+8;
+  let ex=W/2-ew/2;const ey=H*0.70;
+  for(const ch of eb){ctx.fillText(ch,ex,ey);ex+=ctx.measureText(ch).width+8;}
+  ctx.fillStyle='#8D8778';ctx.font='600 30px "Instrument Sans"';
+  const url='energymuse.com';const uw=ctx.measureText(url).width;
+  ctx.fillText(url,W/2-uw/2,H*0.92);
+  window.__og=out.toDataURL('image/jpeg',0.90);
+  window.__ogReady=true;
+}
 function draw(){
+  if(BRAND){drawBrand();return;}
   renderer.render(scene,camera);
   // background: navy with copper radial glow behind the device
   ctx.fillStyle='#0a1017';ctx.fillRect(0,0,W,H);
@@ -118,12 +149,7 @@ function draw(){
   ctx.textBaseline='alphabetic';
   ctx.fillStyle='#EFE7D9';
   ctx.font='400 44px "Instrument Sans"';
-  ctx.save();ctx.font='400 46px Georgia';ctx.fillStyle='#EFE7D9';
-  // wordmark, letterspaced
-  const wm='ENERGY MUSE';let wx=112;const wy=150;
-  ctx.font='300 54px Fraunces';
-  for(const ch of wm){ctx.fillText(ch,wx,wy);wx+=ctx.measureText(ch).width+14;}
-  ctx.restore();
+  ctx.drawImage(logoImg,112,86,438,99);
   // eyebrow
   ctx.fillStyle='#C08A4E';ctx.font='600 30px "Instrument Sans"';
   const eb='THE FREQUENCY GENERATOR';let ex=116;const ey=452;
@@ -141,6 +167,6 @@ function draw(){
   window.__og=out.toDataURL('image/jpeg',0.90);
   window.__ogReady=true;
 }
-document.fonts.load('300 54px Fraunces').then(()=>document.fonts.load('600 30px "Instrument Sans"')).then(()=>document.fonts.load('400 40px "Instrument Sans"')).then(()=>{requestAnimationFrame(()=>requestAnimationFrame(draw));});
+Promise.all([document.fonts.load('600 30px "Instrument Sans"'),document.fonts.load('400 40px "Instrument Sans"'),document.fonts.load('300 150px Fraunces'),logoImg.decode()]).then(()=>{requestAnimationFrame(()=>requestAnimationFrame(draw));});
 </script>
 </body></html>

@@ -1,3 +1,5 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Energy Muse &#8212; Guided Energy for Real Life</title>
 <meta name="description" content="Guided energy for real life. Crystal jewelry, natural stones, frequency tools and trusted guidance.">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Energy Muse">
@@ -7,6 +9,8 @@
 <meta property="og:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/img/favicon.png">
+<link rel="apple-touch-icon" href="assets/img/touch-icon.png">
 <script>document.documentElement.dataset.skin=localStorage.getItem("em-skin")||"ivory";</script>
 <style>
 /* ===== Fonts: Fraunces (display serif) + Instrument Sans (grotesk body) ===== */
@@ -95,11 +99,12 @@ header.nav{position:sticky;top:0;z-index:60;transition:background .3s,border-col
 header.nav.solid{background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);border-color:var(--hair);}
 .nav-in{display:flex;align-items:center;gap:26px;height:72px;}
 .brand{display:flex;align-items:center;}
+.blogo{height:36px;display:block;}
 .brand img{height:36px;display:block;}
 .brand .l-light{display:none;}
 :root[data-skin="midnight"] .brand .l-dark{display:none;}
 :root[data-skin="midnight"] .brand .l-light{display:block;}
-:root[data-skin="midnight"] .foot-logo{content:url(assets/img/logo-light.png);}
+
 .nav-links{display:flex;gap:24px;margin-inline:auto;font-family:var(--sans);font-size:13.5px;letter-spacing:.03em;}
 .nav-links a{padding:8px 0;border-bottom:1.5px solid transparent;color:var(--ink-soft);transition:.2s;}
 .nav-links a:hover{color:var(--fg);border-color:var(--copper);}
@@ -108,6 +113,11 @@ header.nav.solid{background:color-mix(in srgb,var(--bg) 90%,transparent);backdro
 .themebtn{background:none;border:1px solid var(--hair);color:var(--stone);border-radius:2px;width:32px;height:32px;
   cursor:pointer;display:grid;place-items:center;font-size:13px;}
 .themebtn:hover{border-color:var(--accent);color:var(--accent);}
+:root[data-skin="midnight"] header.nav{background:#FBF8F2;border-bottom:1px solid #E4DACA;}
+:root[data-skin="midnight"] header.nav .nav-links a{color:#4E5A70;}
+:root[data-skin="midnight"] header.nav .nav-links a:hover{color:#1D2739;border-color:#A9683E;}
+:root[data-skin="midnight"] header.nav .nav-utils{color:#4E5A70;}
+:root[data-skin="midnight"] header.nav .nav-utils .bag{color:#1D2739;}
 /* hero has its own dark context for nav */
 .at-hero header.nav .brand,.at-hero header.nav .nav-links a,.at-hero header.nav .nav-utils{color:var(--hero-ink);}
 .at-hero header.nav .nav-utils .bag{color:var(--hero-ink);}
@@ -139,9 +149,6 @@ header.nav.solid{background:color-mix(in srgb,var(--bg) 90%,transparent);backdro
 .chip{font-size:12.5px;letter-spacing:.03em;padding:8px 15px;border:1px solid #2C3B54;border-radius:100px;
   color:#C3CAD6;cursor:pointer;transition:.2s;}
 .chip:hover{border-color:var(--copper);color:#fff;}
-.scroll-cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:3;color:var(--hero-soft);
-  font-size:11px;letter-spacing:.24em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px;}
-.scroll-cue .bar{width:1px;height:40px;background:linear-gradient(var(--copper),transparent);}
 /* load anim */
 .hero .anim{opacity:0;transform:translateY(16px);transition:opacity .9s ease,transform .9s ease;}
 .loaded .hero .anim{opacity:1;transform:none;}
@@ -285,8 +292,7 @@ footer.site{background:var(--tint);border-top:1px solid var(--hair);}
   .hero-grid{display:flex;flex-direction:column;}
   .hero-media{order:-1;aspect-ratio:16/11;width:100%;}
   .hero-copy{padding-block:20px 40px;max-width:none;}
-  .scroll-cue{display:none;}
-  .int-grid{grid-template-columns:repeat(3,1fr);}
+    .int-grid{grid-template-columns:repeat(3,1fr);}
   .ways{grid-template-columns:repeat(2,1fr);}
   .split,.split.rev{grid-template-columns:1fr;}.split.rev .media{order:0;}
   .steps,.quotes{grid-template-columns:1fr;}
@@ -315,7 +321,7 @@ footer.site{background:var(--tint);border-top:1px solid var(--hair);}
 
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="./"><img class="l-dark" src="assets/img/logo.png" alt="Energy Muse"><img class="l-light" src="assets/img/logo-light.png" alt="Energy Muse"></a>
+    <a class="brand" href="./"><img class="blogo" src="assets/img/logo.png" alt="Energy Muse"></a>
     <nav class="nav-links">
       <a href="#">Start Here</a><a href="gems/">Shop</a><a href="#intention">By Intention</a>
       <a href="#learn">Learn</a><a href="#heather">With Heather</a><a href="#veza">Veza</a><a href="#about">About</a>
@@ -351,7 +357,6 @@ footer.site{background:var(--tint);border-top:1px solid var(--hair);}
       </svg>
     </div>
   </div>
-  <div class="scroll-cue anim" aria-hidden="true"><span>Scroll</span><span class="bar"></span></div>
 </section>
 
 <!-- ===== TRUST ===== -->
@@ -522,7 +527,7 @@ footer.site{background:var(--tint);border-top:1px solid var(--hair);}
 <footer class="site" id="learn">
   <div class="wrap">
     <div class="foot-grid">
-      <div class="foot-brand"><img src="assets/img/logo.png" alt="Energy Muse" style="height:34px" class="foot-logo">
+      <div class="foot-brand"><img class="blogo" src="assets/img/logo.png" alt="Energy Muse" style="height:34px">
         <p>Guided energy for real life. Crystal jewelry, natural stones, frequency tools and personal guidance &mdash; created to help you choose with confidence and build a practice that fits.</p></div>
       <div class="foot-col"><h4>Start Here</h4><a href="#">Energy Quiz</a><a href="#">Beginner's Guide</a><a href="#">How It Works</a></div>
       <div class="foot-col"><h4>Shop</h4><a href="#">Jewelry</a><a href="#">Crystals</a><a href="#">Frequency Tools</a><a href="#">Kits &amp; Sets</a><a href="#">By Intention</a></div>
