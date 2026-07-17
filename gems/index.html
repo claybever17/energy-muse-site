@@ -96,6 +96,15 @@ h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-
   clip-path:polygon(9px 0,calc(100% - 9px) 0,100% 9px,100% calc(100% - 9px),calc(100% - 9px) 100%,9px 100%,0 calc(100% - 9px),0 9px);
   font-weight:600;font-size:14px;width:max-content;cursor:not-allowed}
 .v-note{font-size:11.5px;color:var(--soft);letter-spacing:.06em}
+/* trust gallery: real photos of the actual product line */
+.v-thumbs{display:flex;gap:8px;flex-wrap:wrap}
+.vt{position:relative;width:56px;height:56px;border-radius:6px;overflow:hidden;border:1px solid var(--line);
+  background:#0d1420;cursor:pointer;padding:0;transition:border-color .25s,transform .25s,box-shadow .25s}
+.vt img{width:100%;height:100%;object-fit:cover;display:block;background:#fff}
+.vt:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--copper) 55%,transparent)}
+.vt.on{border-color:var(--copper);box-shadow:0 0 0 1px var(--copper),0 6px 16px rgba(0,0,0,.4)}
+.vt span{position:absolute;left:0;right:0;bottom:0;font-size:9px;letter-spacing:.14em;text-align:center;
+  background:rgba(10,16,23,.72);color:#8ad0a2;padding:2px 0;font-weight:600}
 .v-close{position:absolute;top:20px;right:24px;z-index:2;background:none;border:1px solid var(--line);color:var(--soft);
   width:40px;height:40px;border-radius:100px;font-size:16px;cursor:pointer}
 .v-close:hover{color:var(--ink);border-color:var(--copper)}
@@ -167,6 +176,7 @@ h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-
       <h2 id="vname"></h2>
       <p id="vdesc"></p>
       <div class="v-price" id="vprice"></div>
+      <div class="v-thumbs" id="vthumbs"></div>
       <span class="v-btn">Add to Bag &mdash; coming soon</span>
       <span class="v-note" id="vsrc"></span>
     </div>
@@ -215,6 +225,28 @@ const GEMS=[
  {slug:'himalayan',   name:'Himalayan Quartz Cluster', cat:'Fresh Start', color:0xEDEFF2, price:'$399.88', photo:true,
   desc:'A statement cluster from high-altitude veins \u2014 many points, one clear intention.'},
 ];
+
+
+/* ---- trust galleries: audited real product photos (Shopify CDN).
+   calm has its 3D scan only. imgSize() picks a CDN rendition. ---- */
+const GALLERY={
+ 'protection':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/black_tourmaline_crystal.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/black_tourmaline_crystal_cropped.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/products/blacktourmaline-energymuse.png'],
+ 'wellness':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/QuantumQuattroCrystal.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/QuantumQuattroCrystal_2.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/QuantumQuattroSphere_3.png'],
+ 'spirituality':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/AmethystClusteronCopperStand.png'],
+ 'wealth':['https://cdn.shopify.com/s/files/1/0159/0942/1110/products/pyritecube-energymuse_f318e0ca-d4a5-4cd5-a7d4-8c9e8fe5e8f5.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/products/pyritecubes-energymuse_0701051f-f416-4f18-9a51-02c23337da59.jpg'],
+ 'love':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/rhodochrosite_point_edited.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/rhodochrosite_point-1_edited.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/rhodochrosite_point-3_edited.png'],
+ 'fresh-start':['https://cdn.shopify.com/s/files/1/0159/0942/1110/products/clearquartzpyramid-energymuse-2.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/clearquartzpyramidinhand_energymuse_1.jpg'],
+ 'power':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/Tiger_sEyeDiamond.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/Tiger_sEyeDiamond.jpg'],
+ 'trapiche':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/TrapicheAmethystSlice_2.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/TrapicheAmethystSlice.png'],
+ 'blue-agate':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/BlueSkyAgatePoint.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/BlueSkyAgatePoint_2.png'],
+ 'rose-heart':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/rosequartzheart-energymuse.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/rqheart_energymuse.jpg'],
+ 'malachite':['https://cdn.shopify.com/s/files/1/0159/0942/1110/products/malachitepoint-energymuse.png'],
+ 'merkaba':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/clear_quartz_merkaba.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/clear_quartz_merkaba_inhand_cropped.jpg'],
+ 'labradorite':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/LabradoriteWandonStand.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/CrystalWands_2.jpg'],
+ 'blue-opal':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/OwyheeBlueOpalTouchstone.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/OwyheeBlueOpalTouchstone_2.jpg','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/OwyheeBlueOpalTouchstone_1.jpg'],
+ 'himalayan':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/HimalayanQuartzClusters.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/HimalayanQuartzClusters_2.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/HimalayanQuartzClusters_3.png'],
+};
+const imgSize=(u,s)=>u.startsWith('http')?u.replace(/(\.(?:jpg|jpeg|png))$/i,'_'+s+'x$1'):u;
 
 /* ---- even grid ---- */
 const grid=document.getElementById('grid');
@@ -293,28 +325,50 @@ canvas.addEventListener('pointermove',e=>{if(!dragging)return;
 canvas.addEventListener('pointerup',()=>dragging=false);
 canvas.addEventListener('pointercancel',()=>dragging=false);
 const viewer=document.getElementById('viewer');
+function showScan(g){
+  mode='gl';canvas.classList.remove('off');tiltpad.classList.add('off');
+  document.getElementById('vhint').textContent='Drag to rotate';
+  document.getElementById('vsrc').textContent='3D scan of the actual stone.';
+  rx=(g.pitch!==undefined?g.pitch:-0.15);ry=(g.yaw!==undefined?g.yaw:0.6);vx=vy=0;
+  scene.remove(holder);holder=new THREE.Group();scene.add(holder);
+  vload.classList.add('on');
+  loader.load(`../assets/gems/${g.slug}.glb`,gltf=>{
+    holder.clear();holder.add(fit(gltf.scene));vload.classList.remove('on');
+  },undefined,()=>{holder.clear();holder.add(fit(fallbackStone(g.color)));vload.classList.remove('on');});
+}
+function showPhoto(src,label){
+  mode='photo';canvas.classList.add('off');tiltpad.classList.remove('off');
+  document.getElementById('vhint').textContent='Move to turn it in the light';
+  document.getElementById('vsrc').textContent=label||'Photograph of the actual stone.';
+  tiltimg.src=src;
+  tRX=tRY=cRX=cRY=0;
+}
 function openViewer(g){
   document.getElementById('vcat').textContent=g.cat;
   document.getElementById('vname').textContent=g.name;
   document.getElementById('vdesc').textContent=g.desc;
   document.getElementById('vprice').textContent=g.price;
-  if(g.scan){
-    mode='gl';canvas.classList.remove('off');tiltpad.classList.add('off');
-    document.getElementById('vhint').textContent='Drag to rotate';
-    document.getElementById('vsrc').textContent='3D scan of the actual stone.';
-    rx=(g.pitch!==undefined?g.pitch:-0.15);ry=(g.yaw!==undefined?g.yaw:0.6);vx=vy=0;
-    scene.remove(holder);holder=new THREE.Group();scene.add(holder);
-    vload.classList.add('on');
-    loader.load(`../assets/gems/${g.slug}.glb`,gltf=>{
-      holder.clear();holder.add(fit(gltf.scene));vload.classList.remove('on');
-    },undefined,()=>{holder.clear();holder.add(fit(fallbackStone(g.color)));vload.classList.remove('on');});
-  } else {
-    mode='photo';canvas.classList.add('off');tiltpad.classList.remove('off');
-    document.getElementById('vhint').textContent='Move to turn it in the light';
-    document.getElementById('vsrc').textContent='Photograph of the actual stone.';
-    tiltimg.src=`../assets/img/products/${g.slug}.png`;
-    tRX=tRY=cRX=cRY=0;
-  }
+  // views: the scan (or cutout) first, then the audited real photos
+  const views=[];
+  if(g.scan)views.push({kind:'scan',thumb:`../assets/img/thumbs/${g.slug}.jpg`});
+  else views.push({kind:'photo',src:`../assets/img/products/${g.slug}.png`,thumb:`../assets/img/products/${g.slug}.png`});
+  (GALLERY[g.slug]||[]).forEach(u=>views.push({kind:'photo',src:imgSize(u,1000),thumb:imgSize(u,160),
+    label:'Photograph of the actual product line.'}));
+  const twrap=document.getElementById('vthumbs');
+  twrap.innerHTML='';
+  twrap.style.display=views.length>1?'flex':'none';
+  views.forEach((v,i)=>{
+    const b=document.createElement('button');
+    b.className='vt'+(i===0?' on':'');
+    b.innerHTML=`<img src="${v.thumb}" alt="" loading="lazy">${v.kind==='scan'?'<span>3D</span>':''}`;
+    b.addEventListener('click',()=>{
+      twrap.querySelectorAll('.vt').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      v.kind==='scan'?showScan(g):showPhoto(v.src,v.label);
+    });
+    twrap.appendChild(b);
+  });
+  views[0].kind==='scan'?showScan(g):showPhoto(views[0].src);
   viewer.classList.add('open');open=true;resize();
 }
 function closeViewer(){viewer.classList.remove('open');open=false;}
