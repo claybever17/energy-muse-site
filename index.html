@@ -335,7 +335,8 @@ body.menu-open{overflow:hidden;}
 /* floating framed print: ivory mat + tilt + glare + parallax (JS drives the vars) */
 .t3d{position:absolute;inset:0;z-index:1;border-radius:10px;overflow:hidden;background:var(--surface);
   padding:clamp(8px,1.1vw,14px);box-shadow:var(--shadow-lg);will-change:transform;
-  transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));}
+  transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) rotate(var(--rz,0deg));}
+.media.rect .t3d{--rz:-1.2deg;} /* the founders print sits slightly askew, like it was laid down by hand */
 .t3d img{border-radius:5px;transform:translateY(var(--py,0px)) scale(1.12);}
 /* frame shapes: arched "open door" or straight, each with an offset copper echo */
 .media.arch .t3d{border-radius:999px 999px 12px 12px;}
@@ -349,7 +350,13 @@ body.menu-open{overflow:hidden;}
   background:radial-gradient(46% 36% at var(--gx,50%) var(--gy,20%),rgba(255,250,240,.30),transparent 64%);}
 .t3d:hover .glare{opacity:1;}
 @media (hover:none){.t3d img{transform:none;}}
+.split .copy{position:relative;}
 .split .copy .eyebrow{display:block;margin-bottom:18px;}
+/* ghost numeral: the "20+" behind the founders story */
+.big-num{position:absolute;top:-58px;right:-8px;z-index:-1;font-family:var(--serif);font-weight:300;
+  font-size:clamp(120px,14vw,190px);line-height:1;color:transparent;pointer-events:none;user-select:none;
+  -webkit-text-stroke:1.2px color-mix(in srgb,var(--copper) 38%,transparent);letter-spacing:-.04em;}
+.big-num i{font-style:normal;font-size:.55em;vertical-align:.28em;}
 .split h2{font-size:clamp(30px,4vw,50px);font-weight:400;}
 .split .copy p{margin-top:20px;color:var(--ink-soft);max-width:48ch;}
 .split .copy .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px;}
@@ -765,10 +772,12 @@ footer.site{background:
   <div class="wrap split">
     <div class="media rect reveal" style="aspect-ratio:3/2"><div class="t3d"><img src="assets/img/founders.jpg" alt="Founders Heather Askinosie and Timmi Jandro" style="object-position:50% 25%"><span class="glare"></span></div><span class="plab">Heather &amp; Timmi</span></div>
     <div class="copy reveal d1">
+      <span class="big-num" aria-hidden="true">20<i>+</i></span>
       <span class="eyebrow">Twenty years of knowing</span>
       <h2>A modern practice, built on more than two decades.</h2>
+      <svg class="mini-wave" viewBox="0 0 220 24" aria-hidden="true"><path d="M0,12 C18,2 38,22 55,12 C72,2 92,22 110,12 C128,2 148,22 165,12 C182,2 202,22 220,12"/></svg>
       <p>Energy Muse began with one necklace and a belief that the objects we choose can help us stay connected to what matters. Heather Askinosie and Timmi Jandro have spent more than twenty years turning that belief into tools, education and rituals people can actually use. The materials evolve. The purpose hasn't changed.</p>
-      <div class="cta-row"><a href="#" class="btn btn-ghost">Our Story</a><a href="#" class="btn btn-ghost">Meet Heather &amp; Timmi</a></div>
+      <div class="cta-row"><a href="#" class="btn btn-primary">Our Story</a><a href="#" class="btn btn-ghost">Meet Heather &amp; Timmi</a></div>
     </div>
   </div>
 </section>
