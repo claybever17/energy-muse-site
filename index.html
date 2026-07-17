@@ -97,8 +97,9 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper);font-weight
 .btn{display:inline-flex;align-items:center;gap:.6em;font-family:var(--sans);font-weight:600;font-size:14px;
   letter-spacing:.02em;padding:15px 30px;border-radius:var(--radius);cursor:pointer;border:1px solid transparent;
   transition:transform .2s,background .25s,color .25s,border-color .25s;}
-/* solid buttons are cut like subtle gems: emerald-cut corners, faceted gradient, bevel light, sheen sweep */
-.btn-primary,.btn-copper{position:relative;overflow:hidden;isolation:isolate;
+/* solid buttons are cut like subtle gems: emerald-cut corners, faceted gradient, bevel light, sheen sweep.
+   border-radius stays 0 in every skin — the cut IS the shape (a pill + cut reads as a rimmed capsule). */
+.btn-primary,.btn-copper{position:relative;overflow:hidden;isolation:isolate;border-radius:0;
   clip-path:polygon(9px 0,calc(100% - 9px) 0,100% 9px,100% calc(100% - 9px),calc(100% - 9px) 100%,9px 100%,0 calc(100% - 9px),0 9px);}
 .btn-primary::before,.btn-copper::before{content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(115deg,rgba(255,255,255,.13) 0 24%,transparent 25% 55%,rgba(255,255,255,.07) 56% 74%,transparent 75%);}
@@ -155,8 +156,8 @@ header.nav.solid::after{opacity:1;}
   filter:drop-shadow(0 1px 1px rgba(29,39,57,.14)) drop-shadow(0 5px 12px rgba(29,39,57,.09));
   transition:transform .5s cubic-bezier(.16,1,.3,1),filter .5s;}
 /* the mark swings to rest as the page loads */
-.loaded .brand .blogo{animation:markIn 1.6s cubic-bezier(.16,1,.3,1);}
-@keyframes markIn{0%{--m-rot:-24deg}100%{--m-rot:0deg}}
+.loaded .brand .blogo{animation:markIn 3.4s cubic-bezier(.16,1,.3,1);}
+@keyframes markIn{0%{--m-rot:-32deg}100%{--m-rot:0deg}}
 .brand:hover .blogo{transform:rotateX(7deg) rotateY(-9deg) scale(1.03);
   filter:drop-shadow(0 2px 2px rgba(29,39,57,.26)) drop-shadow(0 16px 28px rgba(29,39,57,.22));}
 .nav-links{display:flex;gap:24px;font-family:var(--sans);font-size:13.5px;letter-spacing:.03em;}
