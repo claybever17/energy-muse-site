@@ -11,7 +11,11 @@ Static prototype site, no build step, no framework. Three pages:
 - Keep code readable: external assets in `assets/`, no inlining, no minified app code.
 - Brand vision: **"the fanciest resort-hotel of crystals"** — quiet luxury, no promo
   noise, materials-forward. When in doubt, remove elements rather than add.
-- The navy logo always sits on a white/ivory strip. Never recolor the logo.
+- Logo is now VECTOR (assets/img/logo.svg + mark.svg; inline sprite `#em-logo` on the
+  landing). The wordmark rides `currentColor` and adapts per skin — midnight gets a dark
+  nav with a light wordmark. Mark colors stay brand-fixed (teal #44b891 / swirl #e0e0e0);
+  only tune them via the `--logo-*` vars. The old "never recolor" rule applied to the
+  navy PNG, which other pages (gems/generator/tools) still use on ivory strips.
 - "Rigorous" voice for anything about the frequency generator — precise, zero mystical
   language; the non-medical-device disclaimer stays on device/shop pages.
 - Copy comes from the creative brief PDF (see HANDOFF.md → Source documents); don't
