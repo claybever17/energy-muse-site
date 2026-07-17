@@ -238,7 +238,18 @@ const matGlass=new THREE.MeshPhysicalMaterial({color:0xaebdcc,metalness:0,roughn
 const matBlackGloss=new THREE.MeshPhysicalMaterial({color:0x0b0d11,metalness:0.22,roughness:0.12,clearcoat:1,clearcoatRoughness:0.05,envMapIntensity:1.5,transparent:true,opacity:1});
 const matBlack=new THREE.MeshPhysicalMaterial({color:0x0d0f13,metalness:0.3,roughness:0.2,clearcoat:0.8,clearcoatRoughness:0.15,envMapIntensity:1.2});
 const matDisc=new THREE.MeshStandardMaterial({color:0x0b0e13,metalness:0.3,roughness:0.45});
-const matGold=new THREE.MeshStandardMaterial({color:0xE3B45E,metalness:1.0,roughness:0.24,envMapIntensity:2.2,emissive:0x35270c,emissiveIntensity:0.5});
+const matGold=new THREE.MeshStandardMaterial({color:0xE3B45E,metalness:1.0,roughness:0.24,envMapIntensity:2.2,emissive:0x8a5c1e,emissiveIntensity:0.5});
+// coil current: a bright band that travels the length of the spiral (rides the tube UVs)
+const currentTex=(function(){
+  const cv=document.createElement('canvas');cv.width=512;cv.height=2;const x=cv.getContext('2d');
+  const g=x.createLinearGradient(0,0,512,0);
+  g.addColorStop(0,'#4e4e4e');g.addColorStop(0.455,'#4e4e4e');g.addColorStop(0.5,'#ffffff');
+  g.addColorStop(0.545,'#4e4e4e');g.addColorStop(1,'#4e4e4e');
+  x.fillStyle=g;x.fillRect(0,0,512,2);
+  const t=new THREE.CanvasTexture(cv);t.wrapS=THREE.RepeatWrapping;t.wrapT=THREE.ClampToEdgeWrapping;
+  return t;
+})();
+matGold.emissiveMap=currentTex;
 const matRing=new THREE.MeshStandardMaterial({color:0xe6eaee,metalness:0.95,roughness:0.2,envMapIntensity:1.6});
 const matChrome=new THREE.MeshStandardMaterial({color:0xdfe3e6,metalness:1.0,roughness:0.14,envMapIntensity:1.8});
 const matSteel=new THREE.MeshStandardMaterial({color:0xb8bdc2,metalness:1.0,roughness:0.28,envMapIntensity:1.4});
@@ -394,6 +405,14 @@ function frame(){
     lerp(lerp(lookHero.z,lookTop.z,camT),lookEnd.z,endT));
   // widen framing on portrait screens by pulling the camera out along its axis
   camera.position.set(lk.x+(cx-lk.x)*viewK,lk.y+(cy-lk.y)*viewK,lk.z+(cz-lk.z)*viewK);
+  // beat B: the camera swings a gentle arc around the device — filmed, not posed
+  const orb=0.30*smooth(0.16,0.28,p)*(1-smooth(0.36,0.52,p));
+  if(orb!==0){
+    const ox=camera.position.x-lk.x,oz=camera.position.z-lk.z;
+    const ca=Math.cos(orb),sa=Math.sin(orb);
+    camera.position.x=lk.x+ox*ca-oz*sa;
+    camera.position.z=lk.z+ox*sa+oz*ca;
+  }
   // at rest the frame breathes: a slow orbital drift once the stone has landed
   const drift=reduce?0:smooth(0.96,1,p);
   if(drift>0){camera.position.x+=Math.sin(t*0.22)*0.06*drift;camera.position.y+=Math.cos(t*0.17)*0.035*drift;}
@@ -430,6 +449,9 @@ function frame(){
   // the coil wakes when the lid comes off, then hands over to the crystal glow
   let glowO=0.15+0.22*smooth(0.50,0.64,p)*(1-smooth(0.68,0.80,p));
   matGold.emissiveIntensity=0.5+0.6*smooth(0.48,0.62,p)*(1-smooth(0.66,0.82,p));
+  // coil current: the bright band sweeps the spiral — faster while the coil wakes,
+  // a slow steady pulse once the stone is charging on it
+  if(!reduce)currentTex.offset.x=-t*(0.08+0.10*smooth(0.48,0.66,p));
   // finale light: the studio warms as the stone arrives
   key.intensity=1.7+0.25*endT;
   key.color.setRGB(1,0.95-0.05*endT,0.88-0.12*endT);
