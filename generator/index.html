@@ -158,7 +158,7 @@ body{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-
         <h2>Glass, copper,<br>and four bolts.</h2>
         <p>A tinted glass cover, machined black plates and chrome hardware — the materials that make the energy world tangible.</p>
       </div>
-      <div class="cap c2" data-lo="0.44" data-hi="0.66">
+      <div class="cap c2" data-lo="0.44" data-hi="0.58">
         <div class="eye">Inside</div>
         <h2>A single<br>copper coil.</h2>
         <p>One continuous spiral, tuned to a specified frequency and set behind a silver ring. This is the heart of the generator.</p>
@@ -347,7 +347,7 @@ let crystal=null,crystalH=0.6,crystalReady=false,crystalLoadStarted=false;
 const rippleMat=new THREE.MeshBasicMaterial({color:0xE3B45E,transparent:true,opacity:0,
   side:THREE.DoubleSide,depthWrite:false,blending:THREE.AdditiveBlending});
 const ripple=new THREE.Mesh(new THREE.RingGeometry(0.55,0.585,64),rippleMat);
-ripple.rotation.x=-Math.PI/2;ripple.position.y=0.135;device.add(ripple);
+ripple.rotation.x=-Math.PI/2;ripple.position.y=0.218;device.add(ripple);
 // charging motes: faint copper light rising off the coil once the stone has settled
 let motes,moteMat,moteSeed;
 (function(){
@@ -357,7 +357,7 @@ let motes,moteMat,moteSeed;
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));
   moteMat=new THREE.PointsMaterial({color:0xE8C9A0,size:0.016,transparent:true,opacity:0,
     blending:THREE.AdditiveBlending,depthWrite:false});
-  motes=new THREE.Points(g,moteMat);motes.position.y=0.13;device.add(motes);
+  motes=new THREE.Points(g,moteMat);motes.position.y=0.21;device.add(motes);
 })();
 // touchdown dust: a ring of sparks kicked outward across the plate when the stone lands
 let dust,dustMat,dustSeed;
@@ -366,7 +366,7 @@ let dust,dustMat,dustSeed;
   for(let i=0;i<N;i++){
     const a=(i/N)*Math.PI*2+Math.random()*0.35,sp=0.7+Math.random()*0.6;
     dustSeed.push({a,sp,up:0.06+Math.random()*0.12});
-    pos[i*3]=Math.cos(a)*0.5;pos[i*3+1]=0.16;pos[i*3+2]=Math.sin(a)*0.5;
+    pos[i*3]=Math.cos(a)*0.5;pos[i*3+1]=0.225;pos[i*3+2]=Math.sin(a)*0.5;
   }
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));
   dustMat=new THREE.PointsMaterial({color:0xF2D9AE,size:0.022,transparent:true,opacity:0,
@@ -468,21 +468,22 @@ function frame(){
   const rest=1-endT; // rotation comes to rest at the end
   device.rotation.y=-0.78+idleSpin+camT*0.3+mx*0.35*(1-camT*0.6)*rest;
   device.rotation.x=lerp(0.5,0.12,camT)+my*0.12*(1-camT)*rest;
-  // first the four bolts unscrew, rise and drift away…
-  const bT=smooth(0.40,0.52,p);
-  const bFade=1-smooth(0.47,0.56,p);
+  // the four bolts unscrew and drift away — then thread back home before the finale,
+  // so the device reads as sealed: you set a stone ON it, you don't open it
+  const bT=smooth(0.40,0.52,p)*(1-smooth(0.76,0.85,p));
+  const bFade=1-smooth(0.47,0.56,p)*(1-smooth(0.76,0.84,p));
   boltChrome.opacity=bFade;boltSteel.opacity=bFade;
   bolts.forEach((g,i)=>{
-    g.rotation.y=-bT*Math.PI*(1.25+i*0.14);      // each backs out at its own pace
-    g.position.y=Math.pow(bT,1.4)*(0.34+i*0.06);
+    g.rotation.y=-bT*Math.PI*(1.25+i*0.14);      // each backs out (and rethreads) at its own pace
+    g.position.y=Math.pow(Math.max(bT,0),1.4)*(0.34+i*0.06);
     g.visible=bFade>0.02;
   });
-  // …then the lid lifts, slides up-screen and dissolves (exploded view)
-  const lift=smooth(0.48,0.66,p);
-  topAssembly.position.y=0.16+lift*0.5;
-  topAssembly.position.z=-1.35*lift;           // slide off toward top of frame
-  topAssembly.rotation.x=-0.12*lift;           // slight peel
-  const lidFade=1-smooth(0.0,0.6,lift);
+  // the lid lifts away for the reveal, then settles back into place
+  const lidOut=smooth(0.46,0.62,p)*(1-smooth(0.70,0.80,p));
+  topAssembly.position.y=0.16+lidOut*0.5;
+  topAssembly.position.z=-1.35*lidOut;         // slide off toward top of frame
+  topAssembly.rotation.x=-0.12*lidOut;         // slight peel
+  const lidFade=1-smooth(0.0,0.6,lidOut);
   lidMats.forEach(mo=>{mo[0].opacity=mo[1]*lidFade;});
   topAssembly.visible=lidFade>0.02;
   // the coil wakes when the lid comes off, then hands over to the crystal glow
@@ -492,9 +493,9 @@ function frame(){
   // a slow steady pulse once the stone is charging on it
   if(!reduce)currentTex.offset.x=-t*(0.08+0.10*smooth(0.48,0.66,p));
   // the designation dial ticks past while the open coil holds the frame
-  const dOp=smooth(0.66,0.70,p)*(1-smooth(0.755,0.79,p));
+  const dOp=smooth(0.585,0.625,p)*(1-smooth(0.675,0.71,p));
   if(dOp>0.005){
-    const dprog=Math.min(0.999,Math.max(0,(p-0.66)/0.10));
+    const dprog=Math.min(0.999,Math.max(0,(p-0.585)/0.095));
     dialV.textContent=[639,963,1111][Math.floor(dprog*3)];
     dialEl.style.opacity=dOp.toFixed(3);
   } else dialEl.style.opacity=0;
@@ -503,31 +504,31 @@ function frame(){
   key.color.setRGB(1,0.95-0.05*endT,0.88-0.12*endT);
   // crystal finale: the stone descends, settles on the coil, and the ring answers
   if(crystalReady){
-    const cT=smooth(0.78,0.93,p);
+    const cT=smooth(0.84,0.955,p);              // the stone arrives only once the device is sealed again
     crystal.visible=cT>0.001;
-    const restY=0.125+crystalH/2;
+    const restY=0.215+crystalH/2;               // resting on the glass, coil glowing beneath
     const drop=1-Math.pow(1-cT,2.1);            // ease-out fall
     crystal.position.y=2.3-(2.3-restY)*drop;
     crystal.rotation.y=1.2+(1-cT)*2.0;          // slow spin that settles as it lands
-    const lp=smooth(0.93,1.0,p);                // touchdown pulse
+    const lp=smooth(0.955,1.0,p);               // touchdown pulse
     const sq=Math.sin(Math.min(lp*3,1)*Math.PI)*0.07;  // settle squash: a breath of weight
     crystal.scale.set(1+sq*0.6,1-sq,1+sq*0.6);
-    rippleMat.opacity=cT>0.9?(1-lp)*0.5:0;
+    rippleMat.opacity=cT>0.92?(1-lp)*0.5:0;
     ripple.scale.setScalar(0.6+lp*1.5);
     // dust: sparks skid outward across the plate with the ripple
-    dustMat.opacity=(cT>0.9?(1-lp):0)*0.85;
+    dustMat.opacity=(cT>0.92?(1-lp):0)*0.85;
     if(dustMat.opacity>0.01){
       const pa=dust.geometry.attributes.position;
       dustSeed.forEach((s,i)=>{
         const r=0.5+lp*s.sp*0.55;
         pa.array[i*3]=Math.cos(s.a)*r;
-        pa.array[i*3+1]=0.15+lp*s.up*(1-lp*0.6);
+        pa.array[i*3+1]=0.222+lp*s.up*(1-lp*0.6);
         pa.array[i*3+2]=Math.sin(s.a)*r;
       });
       pa.needsUpdate=true;
     }
     // charging idle: once settled, the coil breathes and light motes rise off it
-    const landed=smooth(0.955,0.995,p);
+    const landed=smooth(0.972,0.998,p);
     const breathe=reduce?0.5:(0.5+0.5*Math.sin(t*1.3));
     glowO+=0.14*lp+landed*0.14*breathe;
     moteMat.opacity=landed*0.5;
