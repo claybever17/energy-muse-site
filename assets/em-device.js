@@ -1,9 +1,8 @@
-/* em-device.js — live floating frequency generator for the landing.
+/* em-device.js — live floating frequency generator (ES module).
    Ported from generator/index.html (closed-lid device; coil visible through the
-   lid window). Uses the global THREE (assets/three.min.js, UMD r160).
-   Usage: EMDevice.mount(canvas) -> starts rendering when canvas is on screen. */
-(function(){
-'use strict';
+   lid window). Imports 'three' via the page importmap (assets/three.module.min.js).
+   Usage: import {mount} from ...; mount(canvas,{zoom}) -> renders while on screen. */
+import * as THREE from 'three';
 
 function build(canvas){
   var isMobile=matchMedia('(pointer:coarse)').matches||Math.min(screen.width,innerWidth)<700;
@@ -111,8 +110,8 @@ function build(canvas){
   return {renderer:renderer,scene:scene,camera:camera,device:device,isMobile:isMobile};
 }
 
-function mount(canvas){
-  if(!window.THREE)return null;
+function mount(canvas,opts){
+  opts=opts||{};var zoom=opts.zoom||1;
   var ctx;
   try{ctx=build(canvas);}catch(e){return null;}
   var renderer=ctx.renderer,scene=ctx.scene,camera=ctx.camera,device=ctx.device;
@@ -126,7 +125,7 @@ function mount(canvas){
     renderer.setSize(r.width,r.height,false);
     camera.aspect=r.width/r.height;
     var viewK=Math.max(1,Math.min(1.7,1.18/camera.aspect));
-    camera.position.set(0,1.62*viewK,3.9*viewK);
+    camera.position.set(0,1.62*viewK/zoom,3.9*viewK/zoom);
     camera.lookAt(0,-0.06,0);
     camera.updateProjectionMatrix();
   }
@@ -157,5 +156,4 @@ function mount(canvas){
   return ctx;
 }
 
-window.EMDevice={mount:mount};
-})();
+export {mount};
