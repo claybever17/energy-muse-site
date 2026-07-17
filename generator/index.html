@@ -153,8 +153,9 @@ body{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-
 </section>
 <div class="cue" id="cue"><span>Scroll</span><span class="bar"></span></div>
 
-<script src="../assets/three.min.js"></script>
-<script>
+<script type="importmap">{"imports":{"three":"../assets/three.module.min.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
 window.addEventListener('error',e=>{window.__err=(e.message||'')+' @'+e.lineno;});
 const canvas=document.getElementById('c');
 const isMobile=matchMedia('(pointer:coarse)').matches||Math.min(screen.width,innerWidth)<700;
@@ -269,6 +270,29 @@ const lidMats=[]; // [material, baseOpacity] pairs faded during the reveal
 })();
 topAssembly.position.y=0.16;device.add(topAssembly);
 
+// ---------- crystal finale: a real scanned stone descends and settles on the coil ----------
+let crystal=null,crystalH=0.6,crystalReady=false,crystalLoadStarted=false;
+const rippleMat=new THREE.MeshBasicMaterial({color:0xE3B45E,transparent:true,opacity:0,
+  side:THREE.DoubleSide,depthWrite:false,blending:THREE.AdditiveBlending});
+const ripple=new THREE.Mesh(new THREE.RingGeometry(0.55,0.585,64),rippleMat);
+ripple.rotation.x=-Math.PI/2;ripple.position.y=0.135;device.add(ripple);
+function loadCrystal(){
+  if(crystalLoadStarted)return;crystalLoadStarted=true;
+  import('../assets/jsm/loaders/GLTFLoader.js').then(m=>{
+    new m.GLTFLoader().load('../assets/gems/wellness.glb',gltf=>{
+      const obj=gltf.scene;
+      const box=new THREE.Box3().setFromObject(obj);
+      const size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());
+      const s=0.62/Math.max(size.x,size.y,size.z);
+      obj.position.sub(center).multiplyScalar(s);obj.scale.setScalar(s);
+      obj.traverse(o=>{if(o.isMesh)o.castShadow=true;});
+      crystalH=size.y*s;
+      crystal=new THREE.Group();crystal.add(obj);crystal.visible=false;
+      device.add(crystal);crystalReady=true;
+    });
+  }).catch(()=>{});
+}
+
 // ---------- choreography ----------
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 let scrollP=0, targetP=0, mx=0,my=0,tmx=0,tmy=0;
@@ -279,7 +303,7 @@ function smooth(e0,e1,x){const t=clamp01((x-e0)/(e1-e0));return t*t*(3-2*t);}
 const V=THREE.Vector3;
 const camHero=new V(0,1.78,4.05),lookHero=new V(0,0.0,0);
 const camTop=new V(0.02,3.5,0.46),lookTop=new V(0,0.10,0);
-const camEnd=new V(0.02,1.95,0.30),lookEnd=new V(0,0.10,0); // finale: glide in past the bolts
+const camEnd=new V(0.08,1.62,2.0),lookEnd=new V(0,0.26,0); // finale: glide in past the bolts, settle on the stone
 const veil=document.getElementById('veil');
 let viewK=1; // widen framing on narrow (portrait) screens
 function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;
@@ -341,8 +365,21 @@ function frame(){
   const lidFade=1-smooth(0.0,0.6,lift);
   lidMats.forEach(mo=>{mo[0].opacity=mo[1]*lidFade;});
   topAssembly.visible=lidFade>0.02;
-  // finale veil: the scene dims to a ghosted spiral behind the closing caption
-  veil.style.opacity=(0.86*endT).toFixed(3);
+  // crystal finale: the stone descends, settles on the coil, and the ring answers
+  if(crystalReady){
+    const cT=smooth(0.78,0.93,p);
+    crystal.visible=cT>0.001;
+    const restY=0.125+crystalH/2;
+    const drop=1-Math.pow(1-cT,2.1);            // ease-out fall
+    crystal.position.y=2.3-(2.3-restY)*drop;
+    crystal.rotation.y=1.2+(1-cT)*2.0;          // slow spin that settles as it lands
+    const lp=smooth(0.93,1.0,p);                // touchdown pulse
+    rippleMat.opacity=cT>0.9?(1-lp)*0.5:0;
+    ripple.scale.setScalar(0.6+lp*1.5);
+    coilGlow.material.opacity=0.15+0.18*lp;     // the coil warms under the stone
+  }
+  // finale veil: kept faint so the landing stays visible behind the closing caption
+  veil.style.opacity=(0.30*endT).toFixed(3);
   renderer.render(scene,camera);
   requestAnimationFrame(frame);
 }
@@ -356,10 +393,11 @@ function onScroll(){
   const rect=stage.getBoundingClientRect();
   const total=stage.offsetHeight-innerHeight;
   targetP=clamp01(-rect.top/total);
+  if(targetP>0.12)loadCrystal(); // fetch the stone once the reader commits to the scroll
   caps.forEach(c=>{const lo=+c.dataset.lo,hi=+c.dataset.hi;c.classList.toggle('in',targetP>=lo&&targetP<hi);});
   cue.style.opacity=targetP>0.04?0:1;
 }
 addEventListener('scroll',onScroll,{passive:true});onScroll();
-window.__ready=true;window.__setP=v=>{targetP=scrollP=clamp01(v);caps.forEach(c=>{const lo=+c.dataset.lo,hi=+c.dataset.hi;c.classList.toggle('in',targetP>=lo&&targetP<hi);});};
+window.__ready=true;window.__setP=v=>{targetP=scrollP=clamp01(v);if(v>0.12)loadCrystal();caps.forEach(c=>{const lo=+c.dataset.lo,hi=+c.dataset.hi;c.classList.toggle('in',targetP>=lo&&targetP<hi);});};
 </script>
 </body></html>
