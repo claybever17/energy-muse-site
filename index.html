@@ -194,7 +194,7 @@ header.nav.solid::after{opacity:1;}
 .mobmenu-foot{display:flex;gap:22px;font-size:13px;letter-spacing:.04em;color:var(--ink-soft);padding-top:20px;}
 .mobmenu-foot a{color:var(--ink-soft);}.mobmenu-foot a:hover{color:var(--copper);}
 .mobmenu-rings{position:absolute;right:-90px;bottom:-90px;width:340px;height:340px;pointer-events:none;opacity:.5;}
-.mobmenu-rings circle{fill:none;stroke:var(--copper);opacity:.5;}
+.mobmenu-rings{color:var(--copper);}
 body.menu-open{overflow:hidden;}
 /* midnight: the vector logo adapts (light wordmark), so the nav finally gets to stay dark */
 :root[data-skin="midnight"]{--logo-body:#1B2C52;}
@@ -222,7 +222,7 @@ body.menu-open{overflow:hidden;}
   transform:translate(18px,18px);}
 .hero-ring{position:absolute;right:-56px;bottom:-56px;width:210px;height:210px;pointer-events:none;opacity:.9;z-index:3;
   animation:spin 60s linear infinite;transform-origin:50% 50%;}
-.hero-ring circle{fill:none;stroke:color-mix(in srgb,var(--copper) 60%,#fff);opacity:.8;}
+.hero-ring{color:color-mix(in srgb,var(--copper) 65%,#fff);}
 /* museum caption tag: type living on the image border */
 .plab{position:absolute;z-index:4;left:26px;bottom:-14px;background:var(--surface);color:var(--ink-soft);
   font-family:var(--serif);font-style:italic;font-size:14px;letter-spacing:.02em;line-height:1;
@@ -292,7 +292,7 @@ body.menu-open{overflow:hidden;}
   transition:transform .8s cubic-bezier(.16,1,.3,1);}
 .int::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(11,19,32,0) 34%,rgba(11,19,32,.82));}
 .int-ring{position:absolute;inset:0;z-index:2;display:grid;place-items:center;opacity:0;transition:opacity .5s;}
-.int-ring svg{width:64%;}.int-ring circle{fill:none;stroke:var(--copper-hi);opacity:.85;}
+.int-ring svg{width:64%;color:var(--copper-hi);}
 .int:hover img{transform:scale(1.07);}.int:hover .int-ring{opacity:.85;}
 .int-label{position:relative;z-index:3;color:#fff;padding:0 16px 18px;width:100%;}
 .int-label .n{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#E6C9AE;}
@@ -317,7 +317,7 @@ body.menu-open{overflow:hidden;}
 .way .thumb.quiz{display:grid;place-items:center;background:
   radial-gradient(120% 100% at 50% 0%,color-mix(in srgb,var(--copper) 14%,var(--navy)),var(--navy));}
 .way .thumb.quiz svg{width:130px;animation:spin 90s linear infinite;transform-origin:50% 50%;}
-.way .thumb.quiz circle{fill:none;stroke:var(--copper-hi);}
+.way .thumb.quiz svg{color:var(--copper-hi);}
 .way h3{font-size:26px;font-weight:400;}
 .way h3 em{font-style:italic;color:var(--copper);}
 .way p{font-size:14.5px;color:var(--ink-soft);}
@@ -415,7 +415,7 @@ body.menu-open{overflow:hidden;}
 .duo-card.veza p{color:var(--navy-soft);max-width:44ch;}
 .duo-card.veza .eyebrow{color:var(--copper-hi);}
 .veza-rings{position:absolute;right:-70px;top:-70px;width:270px;height:270px;pointer-events:none;}
-.veza-rings circle{fill:none;stroke:#C4855A;opacity:.4;}
+.veza-rings{color:#C4855A;opacity:.45;}
 .veza-form{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;position:relative;z-index:1;}
 .veza-form input{background:transparent;border:1px solid var(--navy-line);color:var(--navy-text);padding:14px 16px;
   border-radius:var(--radius);font-family:var(--sans);font-size:15px;min-width:220px;flex:1;}
@@ -431,7 +431,7 @@ body.menu-open{overflow:hidden;}
   box-shadow:var(--shadow);transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s cubic-bezier(.16,1,.3,1);}
 .reel:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);}
 .reel-rings{position:absolute;left:50%;top:42%;width:70%;transform:translate(-50%,-50%);pointer-events:none;}
-.reel-rings circle{fill:none;stroke:var(--copper);opacity:.35;}
+.reel-rings{color:var(--copper);opacity:.35;}
 .reel-play{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;
   border:1px solid var(--copper);}
 .reel-play::after{content:"";position:absolute;left:55%;top:50%;transform:translate(-50%,-50%);
@@ -453,8 +453,8 @@ body.menu-open{overflow:hidden;}
   var(--tint);}
 .final-gem{position:relative;width:min(280px,56vw);aspect-ratio:1/1;margin:0 auto 10px;}
 .final-gem .gem-rings{position:absolute;inset:6%;animation:spin 75s linear infinite;transform-origin:50% 50%;}
-.final-gem .gem-rings circle{fill:none;stroke:var(--copper);opacity:.4;transition:opacity 1s;}
-.final-gem.live .gem-rings circle{opacity:.22;}
+.final-gem .gem-rings{color:var(--copper);opacity:.4;transition:opacity 1s;}
+.final-gem.live .gem-rings{opacity:.22;}
 .final-gem canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block;z-index:2;
   opacity:0;transition:opacity 1.2s ease;}
 .final-gem.live canvas{opacity:1;}
@@ -485,7 +485,7 @@ footer.site{background:
 .foot-mark{position:absolute;right:var(--gutter);top:64px;width:112px;height:112px;pointer-events:none;}
 @media (min-width:841px){.foot-grid{padding-right:170px;}}
 .foot-mark svg{position:absolute;inset:-26%;animation:spin 85s linear infinite;transform-origin:50% 50%;}
-.foot-mark svg circle{fill:none;stroke:var(--copper);opacity:.35;}
+.foot-mark svg{color:var(--copper);opacity:.35;}
 .foot-mark img{position:absolute;inset:16%;width:68%;height:68%;object-fit:contain;
   animation:floatY2 8s ease-in-out infinite;
   filter:drop-shadow(0 2px 3px rgba(29,39,57,.22)) drop-shadow(0 16px 26px rgba(29,39,57,.24))
@@ -593,6 +593,11 @@ footer.site{background:
       <path d="M562.31,174.98c0,6.82,7.12,7.1,9.02,8.21.45.26-.11,2.13-.69,2.13l-39.83.04c-3.59-3.78,8.71-1.22,8.69-11.45l-.09-42.17c0-4.05-2.61-6.94-5.83-8.51l-4.92-2.4c-.33-.24-.51-1.91-.09-2.09l1.91-.83c10.78-1.76,20.05-5.63,30.69-9.84l.28,17.68c4.79-6.12,5.87-13.16,15.4-16.22,4.27-1.37,9.62-.91,12.73,2.8,4.5,5.35,4.41,14.22-.05,19.62s-11.9,4.08-15.78-.94c-1.24-1.61-3.54-3.68-5.2-4.59-3.53.24-6.23,3.97-6.24,7.52v41.03Z"/>
     </g>
   </symbol>
+  <symbol id="em-markline" viewBox="0 0 231.33 238.67">
+    <path d="M190.5,189.78c-31.47,34.37-81.82,42.71-122.32,21.22-27.62-14.65-46.73-41.52-52.64-69.96-7.48-36.05,4.02-73.41,32.42-99.17,21.07-19.11,47.83-27.9,76.41-25.64,20.11,1.59,39.11,9.16,54.56,21.91,3.46,2.86,6.54,5.38,9.57,8.56,38.14,40.05,39.83,101.74,1.99,143.08ZM78.79,179.9c5.79,7.06,13.04,11.43,22.12,13.24,19.2,3.84,38.84-.55,55.55-10.91,29.03-17.98,42.78-50.33,39.88-84.29-3.17-37.1-31.15-67.2-68.24-72.09-4.79-.63-9.09-.96-14.66.35,20.78,4.81,36.06,16.44,35.82,41.81-.11,11.35-1.96,22.44-9.2,31.49-7.28,9.09-15.29,13.33-25.03,19.07-10.51,6.2-20.7,12.26-30.15,19.94-13.07,10.62-16.61,28.55-6.09,41.39ZM64.19,125.46c4.91-4.01,9.64-7.75,14.76-11.43,11.66-8.38,21.05-14.26,23.07-30.52.17-7.96-2.49-16.33-8.68-22-10.58-9.68-26.8-9.43-37.85.02-27.94,23.93-29.6,71.37-3.11,97.33l-.32-8.07c-.4-10.18,4.14-18.82,12.12-25.33Z" fill="none" stroke="currentColor" stroke-width="1.3" vector-effect="non-scaling-stroke"/>
+    <path d="M78.79,179.9c-10.52-12.84-6.98-30.77,6.09-41.39,9.44-7.68,19.64-13.74,30.15-19.94,9.73-5.74,17.75-9.98,25.03-19.07,7.24-9.05,9.09-20.14,9.2-31.49.25-25.38-15.03-37-35.82-41.81,5.57-1.31,9.86-.98,14.66-.35,37.09,4.89,65.07,34.99,68.24,72.09,2.9,33.96-10.85,66.3-39.88,84.29-16.71,10.36-36.35,14.74-55.55,10.91-9.07-1.81-16.33-6.18-22.12-13.24Z" fill="none" stroke="currentColor" stroke-width="1.3" vector-effect="non-scaling-stroke"/>
+    <path d="M64.19,125.46c-7.98,6.51-12.52,15.15-12.12,25.33l.32,8.07c-26.49-25.96-24.83-73.4,3.11-97.33,11.04-9.46,27.26-9.71,37.85-.02,6.2,5.67,8.85,14.04,8.68,22-2.03,16.26-11.41,22.14-23.07,30.52-5.12,3.68-9.86,7.43-14.76,11.43Z" fill="none" stroke="currentColor" stroke-width="1.3" vector-effect="non-scaling-stroke"/>
+  </symbol>
 </svg>
 
 <header class="nav">
@@ -615,10 +620,7 @@ footer.site{background:
 
 <!-- ===== MOBILE MENU ===== -->
 <div class="mobmenu" id="mobmenu" role="dialog" aria-modal="true" aria-label="Menu">
-  <svg class="mobmenu-rings" viewBox="0 0 200 200" aria-hidden="true">
-    <circle cx="100" cy="100" r="96" stroke-width="1"/><circle cx="100" cy="100" r="72" stroke-width="1"/>
-    <circle cx="100" cy="100" r="48" stroke-width="1"/><circle cx="100" cy="100" r="24" stroke-width="1"/>
-  </svg>
+  <svg class="mobmenu-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
   <div class="mobmenu-top">
     <svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse" style="height:26px"><use href="#em-logo"/></svg>
     <button class="mobmenu-close" id="mobclose" aria-label="Close menu">&times;</button>
@@ -655,10 +657,7 @@ footer.site{background:
     <div class="hero-media anim">
       <img src="assets/img/hero.jpg" alt="A quiet everyday moment: meditating at home beside an Energy Muse tool">
       <span class="plab">A practice at home</span>
-      <svg class="hero-ring" viewBox="0 0 200 200" aria-hidden="true">
-        <circle cx="100" cy="100" r="94" stroke-width="1.3"/><circle cx="100" cy="100" r="70" stroke-width="1.3"/>
-        <circle cx="100" cy="100" r="46" stroke-width="1.3"/><circle cx="100" cy="100" r="22" stroke-width="1.3"/>
-      </svg>
+      <svg class="hero-ring" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
     </div>
   </div>
 </section>
@@ -680,7 +679,7 @@ footer.site{background:
       <h2>Start with how you want to feel.</h2>
       <p class="lead">You don't need to know the name of a crystal or the meaning of a frequency. Begin with the energy you want more of today.</p>
     </div>
-    <div class="int-grid reveal"><a class="int" href="gems/"><img src="assets/img/protection.jpg" alt="Protection intention"><div class="int-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" stroke-width="1.1"/><circle cx="60" cy="60" r="38" stroke-width="1.1"/><circle cx="60" cy="60" r="24" stroke-width="1.1"/><circle cx="60" cy="60" r="11" stroke-width="1.1"/></svg></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div></a><a class="int" href="gems/"><img src="assets/img/wealth.jpg" alt="Abundance intention"><div class="int-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" stroke-width="1.1"/><circle cx="60" cy="60" r="38" stroke-width="1.1"/><circle cx="60" cy="60" r="24" stroke-width="1.1"/><circle cx="60" cy="60" r="11" stroke-width="1.1"/></svg></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div></a><a class="int" href="gems/"><img src="assets/img/calm.jpg" alt="Grounding and Calm intention"><div class="int-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" stroke-width="1.1"/><circle cx="60" cy="60" r="38" stroke-width="1.1"/><circle cx="60" cy="60" r="24" stroke-width="1.1"/><circle cx="60" cy="60" r="11" stroke-width="1.1"/></svg></div><div class="int-label"><div class="n">Steadiness &middot; a slower pace</div><div class="t">Grounding &amp; Calm</div></div></a><a class="int" href="gems/"><img src="assets/img/jewelry.jpg" alt="Love and Self-Worth intention"><div class="int-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" stroke-width="1.1"/><circle cx="60" cy="60" r="38" stroke-width="1.1"/><circle cx="60" cy="60" r="24" stroke-width="1.1"/><circle cx="60" cy="60" r="11" stroke-width="1.1"/></svg></div><div class="int-label"><div class="n">Tenderness &middot; self-worth</div><div class="t">Love &amp; Self-Worth</div></div></a><a class="int" href="gems/"><img src="assets/img/clarity.jpg" alt="Clarity and Intuition intention"><div class="int-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" stroke-width="1.1"/><circle cx="60" cy="60" r="38" stroke-width="1.1"/><circle cx="60" cy="60" r="24" stroke-width="1.1"/><circle cx="60" cy="60" r="11" stroke-width="1.1"/></svg></div><div class="int-label"><div class="n">Focus &middot; inner knowing</div><div class="t">Clarity &amp; Intuition</div></div></a></div>
+    <div class="int-grid reveal"><a class="int" href="gems/"><img src="assets/img/protection.jpg" alt="Protection intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div></a><a class="int" href="gems/"><img src="assets/img/wealth.jpg" alt="Abundance intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div></a><a class="int" href="gems/"><img src="assets/img/calm.jpg" alt="Grounding and Calm intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Steadiness &middot; a slower pace</div><div class="t">Grounding &amp; Calm</div></div></a><a class="int" href="gems/"><img src="assets/img/jewelry.jpg" alt="Love and Self-Worth intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Tenderness &middot; self-worth</div><div class="t">Love &amp; Self-Worth</div></div></a><a class="int" href="gems/"><img src="assets/img/clarity.jpg" alt="Clarity and Intuition intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Focus &middot; inner knowing</div><div class="t">Clarity &amp; Intuition</div></div></a></div>
     <div class="int-cta"><a href="#quiz" class="link">Not sure? Take the quiz <span class="a">&rarr;</span></a></div>
   </div>
 </section>
@@ -699,7 +698,7 @@ footer.site{background:
       <div class="way reveal d2"><div class="thumb"><img src="assets/img/calm.jpg" alt="A copper-coil frequency tool"></div>
         <h3><em>Tune</em> the space.</h3><p>Frequency tools offer a structured, material-led way to shape a room.</p>
         <a class="link" href="generator/">Explore Frequency <span class="a">&rarr;</span></a></div>
-      <div class="way reveal d3"><div class="thumb quiz"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" stroke-width="1.2"/><circle cx="60" cy="60" r="38" stroke-width="1.2"/><circle cx="60" cy="60" r="24" stroke-width="1.2"/><circle cx="60" cy="60" r="11" stroke-width="1.2"/></svg></div>
+      <div class="way reveal d3"><div class="thumb quiz"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div>
         <h3><em>Let us</em> guide you.</h3><p>The Energy Quiz narrows the choices to a practical starting point.</p>
         <a class="link" href="#quiz">Take the Quiz <span class="a">&rarr;</span></a></div>
     </div>
@@ -799,10 +798,7 @@ footer.site{background:
       </ul>
     </div>
     <div class="duo-card veza reveal d1">
-      <svg class="veza-rings" viewBox="0 0 200 200" aria-hidden="true">
-        <circle cx="100" cy="100" r="96" stroke-width="1"/><circle cx="100" cy="100" r="72" stroke-width="1"/>
-        <circle cx="100" cy="100" r="48" stroke-width="1"/><circle cx="100" cy="100" r="24" stroke-width="1"/>
-      </svg>
+      <svg class="veza-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
       <span class="eyebrow">Veza &mdash; coming soon</span>
       <h2>Personal guidance is becoming even more personal.</h2>
       <p>Veza is the coming Energy Muse companion &mdash; discover the tools that fit you, learn how
@@ -822,21 +818,21 @@ footer.site{background:
     <div class="head reveal"><span class="eyebrow muted">How it fits real lives</span><h2>Meaning you can wear every day.</h2></div>
     <div class="reels reveal">
       <figure class="reel" data-video="assets/video/story-1.mp4">
-        <svg class="reel-rings" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="80" stroke-width="1"/><circle cx="100" cy="100" r="56" stroke-width="1"/><circle cx="100" cy="100" r="32" stroke-width="1"/></svg>
+        <svg class="reel-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
         <div class="reel-play" aria-hidden="true"></div>
         <span class="reel-soon">Film coming soon</span>
         <video muted loop playsinline preload="none"></video>
         <figcaption><strong>Claire</strong><span>her first ritual</span></figcaption>
       </figure>
       <figure class="reel" data-video="assets/video/story-2.mp4">
-        <svg class="reel-rings" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="80" stroke-width="1"/><circle cx="100" cy="100" r="56" stroke-width="1"/><circle cx="100" cy="100" r="32" stroke-width="1"/></svg>
+        <svg class="reel-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
         <div class="reel-play" aria-hidden="true"></div>
         <span class="reel-soon">Film coming soon</span>
         <video muted loop playsinline preload="none"></video>
         <figcaption><strong>Brooke</strong><span>meaning she wears daily</span></figcaption>
       </figure>
       <figure class="reel" data-video="assets/video/story-3.mp4">
-        <svg class="reel-rings" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="80" stroke-width="1"/><circle cx="100" cy="100" r="56" stroke-width="1"/><circle cx="100" cy="100" r="32" stroke-width="1"/></svg>
+        <svg class="reel-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
         <div class="reel-play" aria-hidden="true"></div>
         <span class="reel-soon">Film coming soon</span>
         <video muted loop playsinline preload="none"></video>
@@ -850,7 +846,7 @@ footer.site{background:
 <section class="section final">
   <div class="wrap reveal">
     <div class="final-gem" aria-hidden="true">
-      <svg class="gem-rings" viewBox="0 0 200 200"><circle cx="100" cy="100" r="92" stroke-width="1"/><circle cx="100" cy="100" r="66" stroke-width="1"/><circle cx="100" cy="100" r="40" stroke-width="1"/></svg>
+      <svg class="gem-rings" viewBox="0 0 231.33 238.67"><use href="#em-markline"/></svg>
       <canvas id="gem-canvas"></canvas>
       <div class="gem-ground"></div>
     </div>
@@ -873,7 +869,7 @@ footer.site{background:
 <footer class="site" id="learn">
   <div class="wrap foot-wrap">
     <div class="foot-mark" aria-hidden="true">
-      <svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="94" stroke-width="1"/><circle cx="100" cy="100" r="70" stroke-width="1"/><circle cx="100" cy="100" r="46" stroke-width="1"/></svg>
+      <svg viewBox="0 0 231.33 238.67"><use href="#em-markline"/></svg>
       <img src="assets/img/mark.svg" alt="">
     </div>
     <div class="foot-grid">
