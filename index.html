@@ -131,8 +131,12 @@ header.nav{position:sticky;top:0;z-index:60;transition:background .3s,border-col
   border-bottom:1px solid transparent;}
 header.nav.solid{background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);border-color:var(--hair);}
 .nav-in{display:flex;align-items:center;gap:26px;height:72px;}
-.brand{display:flex;align-items:center;flex-shrink:0;}
-.blogo{height:36px;width:auto;max-width:none;display:block;}
+.brand{display:flex;align-items:center;flex-shrink:0;perspective:640px;}
+.blogo{height:36px;width:auto;max-width:none;display:block;transform-origin:50% 60%;
+  filter:drop-shadow(0 1px 1px rgba(29,39,57,.14)) drop-shadow(0 5px 12px rgba(29,39,57,.09));
+  transition:transform .5s cubic-bezier(.16,1,.3,1),filter .5s;}
+.brand:hover .blogo{transform:rotateX(7deg) rotateY(-9deg) scale(1.03);
+  filter:drop-shadow(0 2px 2px rgba(29,39,57,.26)) drop-shadow(0 16px 28px rgba(29,39,57,.22));}
 .nav-links{display:flex;gap:24px;margin-inline:auto;font-family:var(--sans);font-size:13.5px;letter-spacing:.03em;}
 .nav-links a{padding:8px 0;border-bottom:1.5px solid transparent;color:var(--ink-soft);transition:.2s;}
 .nav-links a:hover{color:var(--fg);border-color:var(--copper);}
@@ -283,11 +287,17 @@ body.menu-open{overflow:hidden;}
 /* ===== Split ===== */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5.5vw,84px);align-items:center;}
 .split.rev .media{order:-1;}
-.split .media{position:relative;aspect-ratio:4/3.2;border-radius:6px;overflow:hidden;background:var(--navy);
-  box-shadow:var(--shadow-lg);}
-.split .media img{width:100%;height:100%;object-fit:cover;object-position:50% 35%;filter:var(--imgf);
-  transition:transform 1s cubic-bezier(.16,1,.3,1);}
-.split:hover .media img{transform:scale(1.04);}
+.split .media{position:relative;aspect-ratio:4/3.2;border-radius:6px;overflow:visible;background:transparent;}
+.split .media img{width:100%;height:100%;object-fit:cover;object-position:50% 35%;filter:var(--imgf);}
+/* floating framed print: ivory mat + tilt + glare + parallax (JS drives the vars) */
+.t3d{position:absolute;inset:0;border-radius:10px;overflow:hidden;background:var(--surface);
+  padding:clamp(8px,1.1vw,14px);box-shadow:var(--shadow-lg);will-change:transform;
+  transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));}
+.t3d img{border-radius:5px;transform:translateY(var(--py,0px)) scale(1.12);}
+.t3d .glare{position:absolute;inset:0;pointer-events:none;z-index:2;mix-blend-mode:screen;opacity:0;transition:opacity .45s;
+  background:radial-gradient(46% 36% at var(--gx,50%) var(--gy,20%),rgba(255,250,240,.30),transparent 64%);}
+.t3d:hover .glare{opacity:1;}
+@media (hover:none){.t3d img{transform:none;}}
 .split .copy .eyebrow{display:block;margin-bottom:18px;}
 .split h2{font-size:clamp(30px,4vw,50px);font-weight:400;}
 .split .copy p{margin-top:20px;color:var(--ink-soft);max-width:48ch;}
@@ -582,7 +592,7 @@ footer.site{background:var(--tint);border-top:1px solid var(--hair);}
 <!-- ===== QUIZ ===== -->
 <section class="section" id="quiz">
   <div class="wrap split">
-    <div class="media reveal" style="aspect-ratio:4/4.4"><img src="assets/img/clarity.jpg" alt="A woman resting a clear quartz point to her brow"></div>
+    <div class="media reveal" style="aspect-ratio:4/4.4"><div class="t3d"><img src="assets/img/clarity.jpg" alt="A woman resting a clear quartz point to her brow"><span class="glare"></span></div></div>
     <div class="copy reveal d1">
       <span class="eyebrow">The Energy Quiz</span>
       <h2>Not sure where to begin? That's exactly what the quiz is for.</h2>
@@ -595,7 +605,7 @@ footer.site{background:var(--tint);border-top:1px solid var(--hair);}
 <!-- ===== JEWELRY ===== -->
 <section class="section band" id="jewelry">
   <div class="wrap split rev">
-    <div class="media reveal" style="aspect-ratio:4/4.4"><img src="assets/img/jewelry.jpg" alt="Stacked crystal-bead bracelets in warm tones"></div>
+    <div class="media reveal" style="aspect-ratio:4/4.4"><div class="t3d"><img src="assets/img/jewelry.jpg" alt="Stacked crystal-bead bracelets in warm tones"><span class="glare"></span></div></div>
     <div class="copy reveal d1">
       <span class="eyebrow">Wear the intention</span>
       <h2>A ritual you don't have to remember.</h2>
@@ -608,7 +618,7 @@ footer.site{background:var(--tint);border-top:1px solid var(--hair);}
 <!-- ===== FOUNDERS ===== -->
 <section class="section" id="about">
   <div class="wrap split">
-    <div class="media reveal" style="aspect-ratio:3/2"><img src="assets/img/founders.jpg" alt="Founders Heather Askinosie and Timmi Jandro" style="object-position:50% 25%"></div>
+    <div class="media reveal" style="aspect-ratio:3/2"><div class="t3d"><img src="assets/img/founders.jpg" alt="Founders Heather Askinosie and Timmi Jandro" style="object-position:50% 25%"><span class="glare"></span></div></div>
     <div class="copy reveal d1">
       <span class="eyebrow">Twenty years of knowing</span>
       <h2>A modern practice, built on more than two decades.</h2>
@@ -787,6 +797,47 @@ footer.site{background:var(--tint);border-top:1px solid var(--hair);}
 })();
 
 
+
+// framed photos: pointer tilt + glare (fine pointers) and scroll parallax
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var fine=matchMedia('(pointer:fine)').matches;
+  var cards=[].slice.call(document.querySelectorAll('.t3d'));
+  if(!cards.length)return;
+  if(fine&&!reduce)cards.forEach(function(el){
+    var rx=0,ry=0,tx=0,ty=0,gx=50,gy=20,tgx=50,tgy=20,raf=null;
+    function loop(){
+      rx+=(tx-rx)*0.10;ry+=(ty-ry)*0.10;gx+=(tgx-gx)*0.12;gy+=(tgy-gy)*0.12;
+      el.style.setProperty('--rx',rx.toFixed(3)+'deg');
+      el.style.setProperty('--ry',ry.toFixed(3)+'deg');
+      el.style.setProperty('--gx',gx.toFixed(2)+'%');
+      el.style.setProperty('--gy',gy.toFixed(2)+'%');
+      if(Math.abs(tx-rx)>0.02||Math.abs(ty-ry)>0.02||Math.abs(tgx-gx)>0.25)raf=requestAnimationFrame(loop);
+      else raf=null;
+    }
+    function kick(){if(!raf)raf=requestAnimationFrame(loop);}
+    el.addEventListener('pointermove',function(e){
+      var r=el.getBoundingClientRect();
+      var nx=(e.clientX-r.left)/r.width-0.5, ny=(e.clientY-r.top)/r.height-0.5;
+      tx=-ny*5;ty=nx*6;tgx=50+nx*64;tgy=22+ny*54;kick();
+    });
+    el.addEventListener('pointerleave',function(){tx=ty=0;tgx=50;tgy=20;kick();});
+  });
+  if(!reduce){
+    var ticking=false;
+    function upd(){
+      ticking=false;var vh=innerHeight;
+      cards.forEach(function(el){
+        var r=el.getBoundingClientRect();
+        var c=(r.top+r.height/2-vh/2)/vh;
+        var y=Math.max(-1,Math.min(1,c))*-16;
+        el.style.setProperty('--py',y.toFixed(1)+'px');
+      });
+    }
+    addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(upd);}},{passive:true});
+    addEventListener('resize',upd);upd();
+  }
+})();
 
 // live 3D generator: lazy-boot three.js only when the frequency section nears the viewport
 (function(){
