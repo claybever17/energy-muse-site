@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Energy Muse — The Stone Gallery</title>
-<meta name="description" content="Shop natural stones by the energy you want more of — explored in 3D.">
+<title>Energy Muse — The Crystal Gallery</title>
+<meta name="description" content="Shop natural crystals by the energy you want more of — explored in 3D.">
 <link rel="icon" type="image/png" sizes="64x64" href="../assets/img/favicon.png">
 <link rel="apple-touch-icon" href="../assets/img/touch-icon.png">
 <style>
@@ -149,13 +149,13 @@ h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-
 </div>
 <section class="hero">
   <svg class="hero-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
-  <div class="eye">The Stone Gallery</div>
+  <div class="eye">The Crystal Gallery</div>
   <h1>Choose by the <em class="hl gemword">energy</em><br>you want more of.</h1>
-  <p>Natural stones from the Energy Muse collection. Pick a piece up, turn it toward the light —
-    then bring the intention into your space. New 3D scans are added as stones are captured.</p>
+  <p>Natural crystals from the Energy Muse collection. Pick a piece up, turn it toward the light —
+    then bring the intention into your space. New 3D scans are added as crystals are captured.</p>
 </section>
 <div class="grid" id="grid"></div>
-<div class="foot">Energy Muse products and content are intended for personal rituals and general wellbeing.
+<div class="foot">Energy Muse products and content are intended for personal practice and general wellbeing.
   They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease.
   Individual experiences vary.</div>
 
@@ -168,7 +168,7 @@ h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-
       <div class="tiltpad off" id="tiltpad">
         <div class="tiltcard" id="tiltcard"><img id="tiltimg" alt=""><div class="glare"></div></div>
       </div>
-      <div class="v-load" id="vload">Loading stone</div>
+      <div class="v-load" id="vload">Loading crystal</div>
       <div class="v-hint" id="vhint">Drag to rotate</div>
     </div>
     <div class="v-side">
@@ -193,9 +193,9 @@ import {GLTFLoader} from '../assets/jsm/loaders/GLTFLoader.js';
    scan:  assets/gems/<slug>.glb (WebGL viewer + thumb jpg) ---- */
 const GEMS=[
  {slug:'calm',        name:'Agate Geode Slice', cat:'Calm',      color:0xA9C0DA, price:'$48.88', scan:true, yaw:-1.35, pitch:0.05,
-  desc:'A real Energy Muse stone, scanned in 3D. Banded, slow-formed agate — a soft visual pause for desk or shelf.'},
+  desc:'A real Energy Muse crystal, scanned in 3D. Banded, slow-formed agate — a soft visual pause for desk or shelf.'},
  {slug:'protection',  name:'Black Tourmaline',  cat:'Protection',color:0x5A6472, price:'$8.88', scan:true,
-  desc:'The classic boundary stone, scanned in 3D — striated black crystal for entries, desks and thresholds.'},
+  desc:'The classic boundary crystal, scanned in 3D — striated black crystal for entries, desks and thresholds.'},
  {slug:'wellness',    name:'Quantum Quattro Crystal', cat:'Wellness', color:0x3EAFA5, price:'$229.88', scan:true, yaw:4.2, pitch:0.15,
   desc:'A real Energy Muse specimen, scanned in 3D — shattuckite, dioptase, malachite and smoky quartz in quartz.'},
  {slug:'spirituality',name:'Amethyst Cluster',  cat:'Spirituality', color:0x8656B8, price:'$34.88', photo:true,
@@ -213,9 +213,9 @@ const GEMS=[
  {slug:'blue-agate',  name:'Blue Sky Agate Point', cat:'Calm',   color:0x9FC6E8, price:'$48.88', photo:true,
   desc:'Soft blue banding in a standing point \u2014 a quiet horizon for desk or bedside.'},
  {slug:'rose-heart',  name:'Rose Quartz Heart',  cat:'Love',     color:0xF0B7C8, price:'$12.88', photo:true,
-  desc:'The classic stone of gentle affection, carved into a hand-sized heart.'},
+  desc:'The classic crystal of gentle affection, carved into a hand-sized heart.'},
  {slug:'malachite',   name:'Malachite Crystal Point', cat:'Protection', color:0x2E8B57, price:'$34.88', photo:true,
-  desc:'Deep green banding in a polished point \u2014 a strong, grounding guardian stone.'},
+  desc:'Deep green banding in a polished point \u2014 a strong, grounding guardian crystal.'},
  {slug:'merkaba',     name:'Clear Quartz Merkaba', cat:'Spirituality', color:0xDCE6F0, price:'$14.88', photo:true,
   desc:'Sacred geometry cut in clear quartz \u2014 a small, precise object of focus.'},
  {slug:'labradorite', name:'Labradorite Wand',   cat:'Power',    color:0x5B7B9A, price:'$27.92', photo:true,
@@ -328,7 +328,7 @@ const viewer=document.getElementById('viewer');
 function showScan(g){
   mode='gl';canvas.classList.remove('off');tiltpad.classList.add('off');
   document.getElementById('vhint').textContent='Drag to rotate';
-  document.getElementById('vsrc').textContent='3D scan of the actual stone.';
+  document.getElementById('vsrc').textContent='3D scan of the actual crystal.';
   rx=(g.pitch!==undefined?g.pitch:-0.15);ry=(g.yaw!==undefined?g.yaw:0.6);vx=vy=0;
   scene.remove(holder);holder=new THREE.Group();scene.add(holder);
   vload.classList.add('on');
@@ -339,7 +339,7 @@ function showScan(g){
 function showPhoto(src,label){
   mode='photo';canvas.classList.add('off');tiltpad.classList.remove('off');
   document.getElementById('vhint').textContent='Move to turn it in the light';
-  document.getElementById('vsrc').textContent=label||'Photograph of the actual stone.';
+  document.getElementById('vsrc').textContent=label||'Photograph of the actual crystal.';
   tiltimg.src=src;
   tRX=tRY=cRX=cRY=0;
 }

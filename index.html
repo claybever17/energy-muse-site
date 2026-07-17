@@ -1,10 +1,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Energy Muse &#8212; Guided Energy for Real Life</title>
-<meta name="description" content="Guided energy for real life. Crystal jewelry, natural stones, frequency tools and trusted guidance.">
+<meta name="description" content="Guided energy for real life. Crystal jewelry, natural crystals, frequency and trusted guidance.">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Energy Muse">
 <meta property="og:title" content="Energy Muse &mdash; Guided Energy for Real Life">
-<meta property="og:description" content="Crystal jewelry, natural stones, frequency tools and trusted guidance &mdash; energy, made personal.">
+<meta property="og:description" content="Crystal jewelry, natural crystals, frequency and trusted guidance &mdash; energy, made personal.">
 <meta property="og:url" content="https://energy-muse-workingfolder.vercel.app/">
 <meta property="og:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -432,6 +432,14 @@ body.menu-open{overflow:hidden;}
 .guide-list a i{font-style:normal;color:var(--accent);transform:translateX(0);transition:transform .25s;}
 .guide-list a:hover i{transform:translateX(5px);}
 .guide-list a:hover span{color:var(--accent);}
+/* hand-drawn line glyphs, kin to the mark outline */
+.guide-list .gi{width:27px;height:27px;flex:none;align-self:center;color:var(--copper);
+  stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;
+  transition:transform .35s cubic-bezier(.16,1,.3,1);}
+.guide-list a:hover .gi{transform:translateY(-2px) rotate(-4deg);}
+/* veza: a small phone drawn in the same hand, signal rising from it */
+.veza-phone{position:absolute;right:30px;bottom:22px;width:86px;height:120px;color:var(--copper-hi);
+  stroke:currentColor;stroke-width:1.3;stroke-linecap:round;opacity:.75;pointer-events:none;}
 .duo-card.veza{background:var(--navy);color:var(--navy-text);border-color:transparent;}
 .duo-card.veza h2{color:var(--navy-text);}
 .duo-card.veza p{color:var(--navy-soft);max-width:44ch;}
@@ -452,8 +460,23 @@ body.menu-open{overflow:hidden;}
   border:1px solid var(--hair);background:
   radial-gradient(90% 70% at 50% 20%,color-mix(in srgb,var(--copper) 14%,transparent),transparent 70%),
   linear-gradient(180deg,var(--tint),color-mix(in srgb,var(--navy) 12%,var(--tint)));
-  box-shadow:var(--shadow);transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s cubic-bezier(.16,1,.3,1);}
-.reel:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);}
+  box-shadow:var(--shadow);opacity:var(--dim,1);
+  transform:rotateY(var(--ry,0deg)) scale(var(--s,1));
+  transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s cubic-bezier(.16,1,.3,1),opacity .4s;}
+.reel:hover{transform:rotateY(var(--ry,0deg)) scale(var(--s,1)) translateY(-6px);box-shadow:var(--shadow-lg);opacity:1;}
+/* depth row: the story reels recede either side of the hero film and drift with the scroll */
+@media (min-width:841px){
+  .reels{display:flex;justify-content:center;align-items:center;gap:22px;max-width:none;
+    perspective:1300px;transform:translateX(var(--reelsx,0px));}
+  .reel{flex:0 0 auto;width:272px;}
+  .reel:nth-child(3){z-index:2;}
+  .reel:nth-child(2),.reel:nth-child(4){width:224px;--s:.9;--dim:.78;}
+  .reel:nth-child(2){--ry:9deg;}
+  .reel:nth-child(4){--ry:-9deg;}
+  .reel:nth-child(1),.reel:nth-child(5){width:188px;--s:.76;--dim:.5;}
+  .reel:nth-child(1){--ry:14deg;}
+  .reel:nth-child(5){--ry:-14deg;}
+}
 .reel-rings{position:absolute;left:50%;top:42%;width:70%;transform:translate(-50%,-50%);pointer-events:none;}
 .reel-rings{color:var(--copper);opacity:.35;}
 .reel-play{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;
@@ -558,6 +581,7 @@ footer.site{background:
 @media (max-width:840px){
   .duo{grid-template-columns:1fr;}
   .reels{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:none;}
+  .reel:nth-child(n+4){display:none;}
   .reel figcaption{padding:30px 10px 10px;}
   .reel figcaption strong{font-size:14px;}
   .reel figcaption span{font-size:10px;}
@@ -682,8 +706,8 @@ footer.site{background:
     <div class="hero-copy">
       <span class="eyebrow anim">Guided Energy for Real Life</span>
       <h1><span class="line"><span>Energy, made <em class="hl gemword">personal.</em></span></span></h1>
-      <p class="sub anim">Find the tools, guidance and rituals that fit the way you want to feel.</p>
-      <p class="body anim">From Frequency Generators to crystal jewelry and natural stones, Energy Muse brings
+      <p class="sub anim">Find the tools, guidance and practices that fit the way you want to feel.</p>
+      <p class="body anim">From Frequency Generators to crystal jewelry and natural crystals, Energy Muse brings
         together modern tools, trusted guidance and more than two decades of practice. Start with an
         intention. We will help you understand what fits, how products can work together and how to begin.</p>
       <div class="cta-row anim">
@@ -703,7 +727,7 @@ footer.site{background:
 <section class="trust">
   <div class="wrap"><div class="trust-in">
     <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.9 6 6.6.6-5 4.3 1.5 6.5L12 16.9 5.9 20.4 7.4 12.9l-5-4.3L9 8z"/></svg> Founder-led for more than two decades</div>
-    <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l8 4.5v9L12 20l-8-4.5v-9z"/><path d="M12 11l8-4.5M12 11v9M12 11L4 6.5"/></svg> Real materials and thoughtful craft</div>
+    <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l8 4.5v9L12 20l-8-4.5v-9z"/><path d="M12 11l8-4.5M12 11v9M12 11L4 6.5"/></svg> Real materials and true craftsmanship</div>
     <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.4 8.4 0 01-.9 3.8A8.5 8.5 0 0112.5 20a8.4 8.4 0 01-3.8-.9L3 20l1.9-5.7a8.4 8.4 0 01-.9-3.8A8.5 8.5 0 018.7 3 8.4 8.4 0 0112.5 2H13a8.5 8.5 0 018 8z"/></svg> Guidance before and after you buy</div>
   </div></div>
 </section>
@@ -729,11 +753,11 @@ footer.site{background:
       <div class="way reveal"><div class="thumb"><img src="assets/img/bracelets.jpg" alt="Stacked crystal bracelets on a wrist"></div>
         <h3><em>Wear</em> it.</h3><p>Crystal jewelry keeps an intention close, in a form that fits everyday life.</p>
         <a class="link" href="#jewelry">Shop Jewelry <span class="a">&rarr;</span></a></div>
-      <div class="way reveal d1"><div class="thumb"><img src="assets/img/wealth.jpg" alt="A hand holding a pyrite stone"></div>
-        <h3><em>Place</em> it.</h3><p>Natural stones become a visual cue in your home, workspace or ritual.</p>
+      <div class="way reveal d1"><div class="thumb"><img src="assets/img/wealth.jpg" alt="A hand holding a pyrite crystal"></div>
+        <h3><em>Place</em> it.</h3><p>Natural crystals become a visual cue in your home, workspace or practice.</p>
         <a class="link" href="gems/">Shop Crystals <span class="a">&rarr;</span></a></div>
       <div class="way reveal d2"><div class="thumb"><img src="assets/img/calm.jpg" alt="A copper-coil frequency tool"></div>
-        <h3><em>Tune</em> the space.</h3><p>Frequency tools offer a structured, material-led way to shape a room.</p>
+        <h3><em>Tune</em> the space.</h3><p>Frequency generators offer a structured, material-led way to shape a room.</p>
         <a class="link" href="generator/">Explore Frequency <span class="a">&rarr;</span></a></div>
       <div class="way reveal d3"><div class="thumb quiz"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div>
         <h3><em>Let us</em> guide you.</h3><p>The Energy Quiz narrows the choices to a practical starting point.</p>
@@ -749,7 +773,7 @@ footer.site{background:
     <div class="copy reveal d1">
       <span class="eyebrow">The Energy Quiz</span>
       <h2>Not sure where to begin? That's exactly what the quiz is for.</h2>
-      <p>Tell us what you want more of, how you like to practice and what kind of tool fits your life. In a few minutes you'll get a personalized starting point, a simple ritual, and products chosen around your intention.</p>
+      <p>Tell us what you want more of, how you like to practice and what kind of tool fits your life. In a few minutes you'll get a personalized starting point, a simple practice, and products chosen around your intention.</p>
       <div class="cta-row"><a href="#" class="btn btn-copper">Find My Energy Match</a></div>
     </div>
   </div>
@@ -761,7 +785,7 @@ footer.site{background:
     <div class="media arch reveal" style="aspect-ratio:4/4.4"><div class="t3d"><img src="assets/img/jewelry.jpg" alt="Stacked crystal-bead bracelets in warm tones"><span class="glare"></span></div><span class="plab">Intention, layered</span></div>
     <div class="copy reveal d1">
       <span class="eyebrow">Wear the intention</span>
-      <h2>A ritual you don't have to remember.</h2>
+      <h2>A practice you don't have to remember.</h2>
       <p>A piece of jewelry can be more than something beautiful. It's the cue you touch before a hard conversation, the reminder you notice in a busy day, the object you choose when you want to begin again.</p>
       <div class="cta-row"><a href="#" class="btn btn-primary">Shop Crystal Jewelry</a></div>
     </div>
@@ -777,7 +801,7 @@ footer.site{background:
       <span class="eyebrow">Twenty years of knowing</span>
       <h2>A modern practice, built on more than two decades.</h2>
       <svg class="mini-wave" viewBox="0 0 220 24" aria-hidden="true"><path d="M0,12 C18,2 38,22 55,12 C72,2 92,22 110,12 C128,2 148,22 165,12 C182,2 202,22 220,12"/></svg>
-      <p>Energy Muse began with one necklace and a belief that the objects we choose can help us stay connected to what matters. Heather Askinosie and Timmi Jandro have spent more than twenty years turning that belief into tools, education and rituals people can actually use. The materials evolve. The purpose hasn't changed.</p>
+      <p>Energy Muse began with one necklace and a belief that the objects we choose can help us stay connected to what matters. Heather Askinosie and Timmi Jandro have spent more than twenty years turning that belief into tools, education and practices people can actually use. The materials evolve. The purpose hasn't changed.</p>
       <div class="cta-row"><a href="#" class="btn btn-primary">Our Story</a><a href="#" class="btn btn-ghost">Meet Heather &amp; Timmi</a></div>
     </div>
   </div>
@@ -794,14 +818,14 @@ footer.site{background:
       <span class="eyebrow">Clear &middot; Material &middot; Specific</span>
       <h2>Frequency, made <em class="hl gemword">tangible.</em></h2>
       <svg class="mini-wave" viewBox="0 0 220 24" aria-hidden="true"><path d="M0,12 C18,2 38,22 55,12 C72,2 92,22 110,12 C128,2 148,22 165,12 C182,2 202,22 220,12"/></svg>
-      <p>Energy Muse frequency tools are physical objects tuned to specified frequencies and designed for intentional use in your space. We make the category easier to understand by showing the material, the setup, the recommended routine and what you can realistically expect.</p>
+      <p>Energy Muse frequency generators are physical objects tuned to specified frequencies and designed for intentional use in your space. We make the category easier to understand by showing the material, the setup, the recommended routine and what you can realistically expect.</p>
       <div class="specs">
         <div class="spec"><span class="k">Material</span><span class="v">Copper coil</span></div>
         <div class="spec"><span class="k">Placement</span><span class="v">Room &middot; desk</span></div>
         <div class="spec"><span class="k">Setup</span><span class="v">Under 5 min</span></div>
       </div>
-      <div class="cta-row" style="margin-top:28px"><a href="generator/" class="btn btn-copper">Shop Frequency Tools</a><a href="generator/" class="btn btn-light">How They Work</a></div>
-      <p class="freq-note">Frequency tools are not medical devices and are not a substitute for healthcare. They are designed as objects for intentional practice and environmental use; experiences vary.</p>
+      <div class="cta-row" style="margin-top:28px"><a href="generator/" class="btn btn-copper">Shop Frequency</a><a href="generator/" class="btn btn-light">How They Work</a></div>
+      <p class="freq-note">Frequency generators are not medical devices and are not a substitute for healthcare. They are designed as objects for intentional practice and environmental use; experiences vary.</p>
     </div>
   </div>
 </section>
@@ -809,8 +833,8 @@ footer.site{background:
 <!-- ===== RITUAL ===== -->
 <section class="section">
   <div class="wrap">
-    <div class="head reveal"><span class="eyebrow">Small rituals. Real life.</span><h2>A practice that fits a real day.</h2>
-      <p class="lead">A ritual works best when it's easy enough to repeat. Three steps are all you need to begin.</p></div>
+    <div class="head reveal"><span class="eyebrow">Small practices. Real life.</span><h2>A practice that fits a real day.</h2>
+      <p class="lead">A practice works best when it's easy enough to repeat. Three steps are all you need to begin.</p></div>
     <div class="steps-zone reveal">
       <svg class="steps-wave" viewBox="0 0 1200 100" preserveAspectRatio="none" aria-hidden="true">
         <path pathLength="1" d="M0,50 C90,14 200,86 300,50 C360,28 440,28 500,50 C590,84 710,16 800,50 C860,72 940,72 1000,50 C1080,22 1150,60 1200,50"/>
@@ -818,7 +842,7 @@ footer.site{background:
       <div class="steps">
       <div class="step"><div class="rn"><svg viewBox="0 0 70 70" aria-hidden="true"><circle cx="35" cy="35" r="33" stroke-width="1.2"/><circle cx="35" cy="35" r="22" stroke-width="1.2"/></svg><span>1</span></div><h3>Choose the intention</h3><p>Name the feeling, boundary or quality you want to return to.</p></div>
       <div class="step"><div class="rn"><svg viewBox="0 0 70 70" aria-hidden="true"><circle cx="35" cy="35" r="33" stroke-width="1.2"/><circle cx="35" cy="35" r="22" stroke-width="1.2"/></svg><span>2</span></div><h3>Choose one tool</h3><p>Wear it, place it or use it at a consistent moment in your day.</p></div>
-      <div class="step"><div class="rn"><svg viewBox="0 0 70 70" aria-hidden="true"><circle cx="35" cy="35" r="33" stroke-width="1.2"/><circle cx="35" cy="35" r="22" stroke-width="1.2"/></svg><span>3</span></div><h3>Keep it simple</h3><p>A ritual works best when it is easy enough to repeat.</p></div>
+      <div class="step"><div class="rn"><svg viewBox="0 0 70 70" aria-hidden="true"><circle cx="35" cy="35" r="33" stroke-width="1.2"/><circle cx="35" cy="35" r="22" stroke-width="1.2"/></svg><span>3</span></div><h3>Keep it simple</h3><p>A practice works best when it is easy enough to repeat.</p></div>
       </div>
     </div>
   </div>
@@ -831,10 +855,18 @@ footer.site{background:
       <span class="eyebrow">The Learning Center</span>
       <h2>Understand the tool. Make the practice your own.</h2>
       <ul class="guide-list">
-        <li><a href="#"><span>New to Energy Muse</span><em>first steps &amp; simple rituals</em><i>&rarr;</i></a></li>
-        <li><a href="#"><span>Crystal Guide</span><em>meanings, care, everyday use</em><i>&rarr;</i></a></li>
-        <li><a href="#"><span>Frequency Guide</span><em>setup, comparisons, FAQs</em><i>&rarr;</i></a></li>
-        <li><a href="#"><span>Learn with Heather</span><em>founder-led teaching</em><i>&rarr;</i></a></li>
+        <li><a href="#">
+          <svg class="gi" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 27 V15 a9 9 0 0 1 18 0 V27" fill="none"/><path d="M11 27 V16.5 a5 5 0 0 1 10 0 V27" fill="none" opacity=".55"/></svg>
+          <span>New to Energy Muse</span><em>first steps &amp; simple practices</em><i>&rarr;</i></a></li>
+        <li><a href="#">
+          <svg class="gi" viewBox="0 0 32 32" aria-hidden="true"><path d="M10 27 L10 14 L14 7 L18 14 L18 27 Z" fill="none"/><path d="M18 27 L18 17 L22 12 L26 17 L26 27" fill="none" opacity=".55"/><path d="M14 7 L14 27" fill="none" opacity=".35"/></svg>
+          <span>Crystal Guide</span><em>meanings, care, everyday use</em><i>&rarr;</i></a></li>
+        <li><a href="#">
+          <svg class="gi" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 16 m0 -1 a1 1 0 0 1 1 1 a2.2 2.2 0 0 1 -2.6 2 a3.8 3.8 0 0 1 -2.4 -4.4 a5.6 5.6 0 0 1 6.4 -3.8 a7.4 7.4 0 0 1 5 8.4 a9.2 9.2 0 0 1 -10.4 6.6 a11 11 0 0 1 -8 -12.4" fill="none"/></svg>
+          <span>Frequency Guide</span><em>setup, comparisons, FAQs</em><i>&rarr;</i></a></li>
+        <li><a href="#">
+          <svg class="gi" viewBox="0 0 32 32" aria-hidden="true"><path d="M22 8 C14 10 9 16 9 22 a7 7 0 0 0 13.6 2.4 C25 18 25 12 22 8 Z" fill="none"/><path d="M13 22 a4.5 4.5 0 0 0 6 4" fill="none" opacity=".5"/></svg>
+          <span>Learn with Heather</span><em>founder-led teaching</em><i>&rarr;</i></a></li>
       </ul>
     </div>
     <div class="duo-card veza reveal d1">
@@ -848,6 +880,13 @@ footer.site{background:
         <button class="btn btn-copper" type="submit">Join the Waitlist</button>
       </form>
       <span class="veza-note">Early previews and launch access. No noise.</span>
+      <svg class="veza-phone" viewBox="0 0 86 120" aria-hidden="true">
+        <rect x="18" y="34" width="50" height="82" rx="9" fill="none"/>
+        <path d="M36 108 h14" fill="none" opacity=".6"/>
+        <path d="M26 74 c5 -8 9 4 14 -3 c5 -7 9 5 14 -2 c4 -6 6 -1 8 -3" fill="none"/>
+        <path d="M43 22 a14 14 0 0 1 14 14" fill="none" opacity=".45"/>
+        <path d="M43 10 a26 26 0 0 1 26 26" fill="none" opacity=".28"/>
+      </svg>
     </div>
   </div>
 </section>
@@ -857,12 +896,12 @@ footer.site{background:
   <div class="wrap">
     <div class="head reveal"><span class="eyebrow muted">How it fits real lives</span><h2>Meaning you can wear every day.</h2></div>
     <div class="reels reveal">
-      <figure class="reel" data-video="assets/video/story-1.mp4">
+      <figure class="reel" data-video="assets/video/story-4.mp4">
         <svg class="reel-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
         <div class="reel-play" aria-hidden="true"></div>
         <span class="reel-soon">Film coming soon</span>
         <video muted loop playsinline preload="none"></video>
-        <figcaption><strong>Claire</strong><span>her first ritual</span></figcaption>
+        <figcaption><strong>Morgan</strong><span>the practice, kept</span></figcaption>
       </figure>
       <figure class="reel" data-video="assets/video/story-2.mp4">
         <svg class="reel-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
@@ -871,12 +910,26 @@ footer.site{background:
         <video muted loop playsinline preload="none"></video>
         <figcaption><strong>Brooke</strong><span>meaning she wears daily</span></figcaption>
       </figure>
+      <figure class="reel" data-video="assets/video/story-1.mp4">
+        <svg class="reel-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
+        <div class="reel-play" aria-hidden="true"></div>
+        <span class="reel-soon">Film coming soon</span>
+        <video muted loop playsinline preload="none"></video>
+        <figcaption><strong>Claire</strong><span>her first practice</span></figcaption>
+      </figure>
       <figure class="reel" data-video="assets/video/story-3.mp4">
         <svg class="reel-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
         <div class="reel-play" aria-hidden="true"></div>
         <span class="reel-soon">Film coming soon</span>
         <video muted loop playsinline preload="none"></video>
         <figcaption><strong>Reese</strong><span>the generator, set up</span></figcaption>
+      </figure>
+      <figure class="reel" data-video="assets/video/story-5.mp4">
+        <svg class="reel-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
+        <div class="reel-play" aria-hidden="true"></div>
+        <span class="reel-soon">Film coming soon</span>
+        <video muted loop playsinline preload="none"></video>
+        <figcaption><strong>Willow</strong><span>a collection, alive</span></figcaption>
       </figure>
     </div>
   </div>
@@ -901,7 +954,7 @@ footer.site{background:
 <section class="section email" id="veza">
   <svg class="email-mark" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
   <div class="wrap email-in">
-    <div><h3>A calmer way to stay connected.</h3><p>New rituals, founder guidance, product education and early access &mdash; sent with intention, not noise.</p></div>
+    <div><h3>A calmer way to stay connected.</h3><p>New practices, founder guidance, product education and early access &mdash; sent with intention, not noise.</p></div>
     <form onsubmit="return false"><input type="email" placeholder="Email address" aria-label="Email address"><button class="btn btn-copper" type="submit">Join the List</button></form>
   </div>
 </section>
@@ -915,14 +968,14 @@ footer.site{background:
     </div>
     <div class="foot-grid">
       <div class="foot-brand"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse" style="height:34px"><use href="#em-logo"/></svg>
-        <p>Guided energy for real life. Crystal jewelry, natural stones, frequency tools and personal guidance &mdash; created to help you choose with confidence and build a practice that fits.</p></div>
+        <p>Guided energy for real life. Crystal jewelry, natural crystals, frequency and personal guidance &mdash; created to help you choose with confidence and build a practice that fits.</p></div>
       <div class="foot-col"><h4>Start Here</h4><a href="#">Energy Quiz</a><a href="#">Beginner's Guide</a><a href="#">How It Works</a></div>
-      <div class="foot-col"><h4>Shop</h4><a href="#">Jewelry</a><a href="#">Crystals</a><a href="#">Frequency Tools</a><a href="#">Kits &amp; Sets</a><a href="#">By Intention</a></div>
-      <div class="foot-col"><h4>Learn</h4><a href="#">Crystal Guide</a><a href="#">Frequency Guide</a><a href="#">Rituals</a><a href="#">With Heather</a></div>
+      <div class="foot-col"><h4>Shop</h4><a href="#">Jewelry</a><a href="#">Crystals</a><a href="#">Frequency</a><a href="#">Kits &amp; Sets</a><a href="#">By Intention</a></div>
+      <div class="foot-col"><h4>Learn</h4><a href="#">Crystal Guide</a><a href="#">Frequency Guide</a><a href="#">Practices</a><a href="#">With Heather</a></div>
       <div class="foot-col"><h4>Help</h4><a href="#">Contact</a><a href="#">Shipping</a><a href="#">Returns</a><a href="#">FAQ</a><a href="#">Accessibility</a></div>
     </div>
     <div class="foot-bottom"><span>&copy; 2026 Energy Muse. All rights reserved.</span>
-      <span>Energy Muse products and content are intended for personal rituals and general wellbeing. They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease. Individual experiences vary.</span></div>
+      <span>Energy Muse products and content are intended for personal practice and general wellbeing. They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease. Individual experiences vary.</span></div>
   </div>
 </footer>
 
@@ -996,6 +1049,7 @@ footer.site{background:
   });
   if(!reduce){
     var ticking=false;
+    var reelRow=document.querySelector('.reels');
     function upd(){
       ticking=false;var vh=innerHeight;
       cards.forEach(function(el){
@@ -1004,6 +1058,11 @@ footer.site{background:
         var y=Math.max(-1,Math.min(1,c))*-16;
         el.style.setProperty('--py',y.toFixed(1)+'px');
       });
+      if(reelRow){
+        var rr=reelRow.getBoundingClientRect();
+        var rc=(rr.top+rr.height/2-vh/2)/vh;
+        reelRow.style.setProperty('--reelsx',(Math.max(-1,Math.min(1,rc))*90).toFixed(1)+'px');
+      }
     }
     addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(upd);}},{passive:true});
     addEventListener('resize',upd);upd();
