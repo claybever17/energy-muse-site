@@ -31,8 +31,9 @@ vercel deploy --prod --scope claybever17s-projects
 # command; sometimes it takes two invocations (link, then promote).
 ```
 
-> Vercel's Git auto-deploy is NOT connected. Either deploy via CLI as above, or connect
-> the repo once in the Vercel dashboard (Settings → Git) so pushes auto-ship.
+> Vercel's Git auto-deploy IS connected (since July 2026): `git push origin main`
+> auto-builds and promotes production at energy-muse-workingfolder.vercel.app.
+> The CLI route above still works but is no longer required.
 
 ### Source documents (bring these!)
 
