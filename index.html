@@ -555,8 +555,9 @@ footer.site{background:
   border:1px solid var(--hair);box-shadow:0 10px 40px rgba(10,16,23,.18);}
 .skin{display:flex;align-items:center;gap:8px;padding:6px;border-radius:100px;border:1px solid transparent;
   background:none;cursor:pointer;transition:border-color .25s,padding .25s;}
-.skin .dot{width:22px;height:22px;border-radius:50%;flex:none;
-  background:linear-gradient(135deg,var(--d1) 50%,var(--d2) 50%);border:1px solid rgba(20,25,35,.18);}
+.skin .dot{width:22px;height:22px;border-radius:50%;flex:none;background:var(--d1);
+  border:1px solid rgba(20,25,35,.18);display:grid;place-items:center;overflow:hidden;}
+.skin .dot svg{width:80%;height:80%;color:var(--d2);display:block;}
 .skin .lbl{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
   color:var(--ink-soft);max-width:0;overflow:hidden;white-space:nowrap;transition:max-width .35s ease;}
 .skin:hover .lbl,.skin.active .lbl{max-width:90px;}
@@ -621,6 +622,11 @@ footer.site{background:
   .hero .cta-row{justify-content:center;}
   .hero .cta-row .btn{width:min(300px,100%);justify-content:center;padding:13px 22px;font-size:13.5px;}
   .big-num{display:none;}
+  /* calm the small screen: captions, echo outlines and the corner mark are desktop-only */
+  .plab{display:none;}
+  .hero-ring{display:none;}
+  .split .media.arch::after,.split .media.rect::after{display:none;}
+  .media.rect .t3d{--rz:0deg;}
   .mobmenu-top{position:relative;justify-content:flex-end;}
   .mobmenu-top .blogo{position:absolute;left:50%;transform:translateX(-50%);}
   .guide-list a em{display:none;}
@@ -724,7 +730,7 @@ footer.site{background:
         together modern tools, trusted guidance and more than two decades of practice. Start with an
         intention. We will help you understand what fits, how products can work together and how to begin.</p>
       <div class="cta-row anim">
-        <a href="#quiz" class="btn btn-copper">Find My Energy Match</a>
+        <a href="quiz/" class="btn btn-copper">Find My Energy Match</a>
         <a href="generator/" class="btn btn-light">Explore Frequency Generators</a>
       </div>
     </div>
@@ -754,7 +760,7 @@ footer.site{background:
       <p class="lead">You don't need to know the name of a crystal or the meaning of a frequency. Begin with the energy you want more of today.</p>
     </div>
     <div class="int-grid reveal"><a class="int" href="gems/"><img src="assets/img/protection.jpg" alt="Protection intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div></a><a class="int" href="gems/"><img src="assets/img/wealth.jpg" alt="Abundance intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div></a><a class="int" href="gems/"><img src="assets/img/calm.jpg" alt="Grounding and Calm intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Steadiness &middot; a slower pace</div><div class="t">Grounding &amp; Calm</div></div></a><a class="int" href="gems/"><img src="assets/img/jewelry.jpg" alt="Love and Self-Worth intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Tenderness &middot; self-worth</div><div class="t">Love &amp; Self-Worth</div></div></a><a class="int" href="gems/"><img src="assets/img/clarity.jpg" alt="Clarity and Intuition intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Focus &middot; inner knowing</div><div class="t">Clarity &amp; Intuition</div></div></a></div>
-    <div class="int-cta"><a href="#quiz" class="link">Not sure? Take the quiz <span class="a">&rarr;</span></a></div>
+    <div class="int-cta"><a href="quiz/" class="link">Not sure? Take the quiz <span class="a">&rarr;</span></a></div>
   </div>
 </section>
 
@@ -774,7 +780,7 @@ footer.site{background:
         <a class="link" href="generator/">Explore Frequency <span class="a">&rarr;</span></a></div>
       <div class="way reveal d3"><div class="thumb quiz"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div>
         <h3><em>Let us</em> guide you.</h3><p>The Energy Quiz narrows the choices to a practical starting point.</p>
-        <a class="link" href="#quiz">Take the Quiz <span class="a">&rarr;</span></a></div>
+        <a class="link" href="quiz/">Take the Quiz <span class="a">&rarr;</span></a></div>
     </div>
   </div>
 </section>
@@ -787,7 +793,7 @@ footer.site{background:
       <span class="eyebrow">The Energy Quiz</span>
       <h2>Not sure where to begin? That's exactly what the quiz is for.</h2>
       <p>Tell us what you want more of, how you like to practice and what kind of tool fits your life. In a few minutes you'll get a personalized starting point, a simple practice, and products chosen around your intention.</p>
-      <div class="cta-row"><a href="#" class="btn btn-copper">Find My Energy Match</a></div>
+      <div class="cta-row"><a href="quiz/" class="btn btn-copper">Find My Energy Match</a></div>
     </div>
   </div>
 </section>
@@ -952,7 +958,7 @@ footer.site{background:
     <span class="eyebrow">Your next step</span>
     <h2>You already know what you want more of.</h2>
     <p class="lead">Start with your intention. We'll guide you from there.</p>
-    <div class="cta-row"><a href="#quiz" class="btn btn-primary">Find My Energy Match</a><a href="#intention" class="btn btn-ghost">Shop by Intention</a></div>
+    <div class="cta-row"><a href="quiz/" class="btn btn-primary">Find My Energy Match</a><a href="#intention" class="btn btn-ghost">Shop by Intention</a></div>
   </div>
 </section>
 
@@ -974,7 +980,7 @@ footer.site{background:
     <div class="foot-grid">
       <div class="foot-brand"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse" style="height:34px"><use href="#em-logo"/></svg>
         <p>Guided energy for real life. Crystal jewelry, natural crystals, frequency and personal guidance &mdash; created to help you choose with confidence and build a practice that fits.</p></div>
-      <div class="foot-col"><h4>Start Here</h4><a href="#">Energy Quiz</a><a href="#">Beginner's Guide</a><a href="#">How It Works</a></div>
+      <div class="foot-col"><h4>Start Here</h4><a href="quiz/">Energy Quiz</a><a href="#">Beginner's Guide</a><a href="#">How It Works</a></div>
       <div class="foot-col"><h4>Shop</h4><a href="#">Jewelry</a><a href="#">Crystals</a><a href="#">Frequency</a><a href="#">Kits &amp; Sets</a><a href="#">By Intention</a></div>
       <div class="foot-col"><h4>Learn</h4><a href="#">Crystal Guide</a><a href="#">Frequency Guide</a><a href="#">Practices</a><a href="#">With Heather</a></div>
       <div class="foot-col"><h4>Help</h4><a href="#">Contact</a><a href="#">Shipping</a><a href="#">Returns</a><a href="#">FAQ</a><a href="#">Accessibility</a></div>
@@ -1118,9 +1124,9 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 </script>
 
 <div class="skins" role="radiogroup" aria-label="Choose a look">
-  <button class="skin" data-skin="ivory" style="--d1:#FBF8F2;--d2:#A9683E" aria-label="Ivory look"><span class="dot"></span><span class="lbl">Ivory</span></button>
-  <button class="skin" data-skin="midnight" style="--d1:#0B1320;--d2:#C4855A" aria-label="Midnight look"><span class="dot"></span><span class="lbl">Midnight</span></button>
-  <button class="skin" data-skin="sage" style="--d1:#E9EFE4;--d2:#257E6F" aria-label="Sage look"><span class="dot"></span><span class="lbl">Sage</span></button>
+  <button class="skin" data-skin="ivory" style="--d1:#FBF8F2;--d2:#A9683E" aria-label="Ivory look"><span class="dot"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></span><span class="lbl">Ivory</span></button>
+  <button class="skin" data-skin="midnight" style="--d1:#0B1320;--d2:#C4855A" aria-label="Midnight look"><span class="dot"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></span><span class="lbl">Midnight</span></button>
+  <button class="skin" data-skin="sage" style="--d1:#E9EFE4;--d2:#257E6F" aria-label="Sage look"><span class="dot"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></span><span class="lbl">Sage</span></button>
 </div>
 <script>
 (function(){

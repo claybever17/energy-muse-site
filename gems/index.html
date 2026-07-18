@@ -62,6 +62,12 @@ h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-
 .grid .card:nth-child(3n+1) .pimg{animation-duration:6.5s;animation-delay:-4s}
 .grid .card:nth-child(4n) .pimg{animation-duration:9s;animation-delay:-1s}
 .tile .timg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+/* some tiles stay honest product photography: a white card, not a cutout */
+.tile .fimg{position:absolute;inset:12px;width:calc(100% - 24px);height:calc(100% - 24px);z-index:1;
+  background:#fff;border-radius:8px;object-fit:contain;padding:7%;
+  box-shadow:0 3px 9px rgba(0,0,0,.35),0 14px 28px rgba(0,0,0,.3);
+  transition:transform .45s cubic-bezier(.16,1,.3,1)}
+.card:hover .fimg{transform:scale(1.035) translateY(-3px)}
 .card .meta{padding:16px 18px 0}
 .card h3{font-family:'Fraunces';font-weight:400;font-size:20px}
 .card .cat{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--copper);font-weight:600;margin-bottom:6px}
@@ -145,7 +151,7 @@ h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-
 
 <div class="nav">
   <a class="brand" href="../"><svg viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo"/></svg></a>
-  <div class="links"><a href="../generator/">The Generator</a><a href="../">Home</a><a href="#">Bag (0)</a></div>
+  <div class="links"><a href="../quiz/">The Quiz</a><a href="../generator/">The Generator</a><a href="../">Home</a><a href="#">Bag (0)</a></div>
 </div>
 <section class="hero">
   <svg class="hero-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
@@ -198,7 +204,7 @@ const GEMS=[
   desc:'The classic boundary crystal, scanned in 3D — striated black crystal for entries, desks and thresholds.'},
  {slug:'wellness',    name:'Quantum Quattro Crystal', cat:'Wellness', color:0x3EAFA5, price:'$229.88', scan:true, yaw:4.2, pitch:0.15,
   desc:'A real Energy Muse specimen, scanned in 3D — shattuckite, dioptase, malachite and smoky quartz in quartz.'},
- {slug:'spirituality',name:'Amethyst Cluster',  cat:'Spirituality', color:0x8656B8, price:'$34.88', photo:true,
+ {slug:'spirituality',name:'Amethyst Cluster',  cat:'Spirituality', color:0x8656B8, price:'$34.88', photo:true, flat:true,
   desc:'Natural amethyst points on a copper stand — the classic meditative crystal for clarity and quiet attention.'},
  {slug:'wealth',      name:'Pyrite Cube',       cat:'Wealth',    color:0xC9A54E, price:'$24.88', photo:true,
   desc:'A naturally cubic pyrite crystal — bright, metallic and grounded. Kept where plans are made.'},
@@ -208,7 +214,7 @@ const GEMS=[
   desc:'A polished quartz pyramid — a bright, clean point of focus for beginning again.'},
  {slug:'power',       name:"Tiger's Eye Diamond", cat:'Power',   color:0x9A6633, price:'$39.88', photo:true,
   desc:'Banded gold and brown, cut to a faceted diamond — confidence and grounded strength.'},
- {slug:'trapiche',    name:'Trapiche Amethyst Slice', cat:'Spirituality', color:0x9A7BB8, price:'$39.88', photo:true,
+ {slug:'trapiche',    name:'Trapiche Amethyst Slice', cat:'Spirituality', color:0x9A7BB8, price:'$39.88', photo:true, flat:true,
   desc:'A rare star-patterned amethyst slice \u2014 six rays formed over millions of years.'},
  {slug:'blue-agate',  name:'Blue Sky Agate Point', cat:'Calm',   color:0x9FC6E8, price:'$48.88', photo:true,
   desc:'Soft blue banding in a standing point \u2014 a quiet horizon for desk or bedside.'},
@@ -218,11 +224,11 @@ const GEMS=[
   desc:'Deep green banding in a polished point \u2014 a strong, grounding guardian crystal.'},
  {slug:'merkaba',     name:'Clear Quartz Merkaba', cat:'Spirituality', color:0xDCE6F0, price:'$14.88', photo:true,
   desc:'Sacred geometry cut in clear quartz \u2014 a small, precise object of focus.'},
- {slug:'labradorite', name:'Labradorite Wand',   cat:'Power',    color:0x5B7B9A, price:'$27.92', photo:true,
+ {slug:'labradorite', name:'Labradorite Wand',   cat:'Power',    color:0x5B7B9A, price:'$27.92', photo:true, flat:true,
   desc:'Flashes of blue and gold in a polished wand, presented on its own stand.'},
- {slug:'blue-opal',   name:'Owyhee Blue Opal',   cat:'Wellness', color:0x8FB8D8, price:'$24.88', photo:true,
+ {slug:'blue-opal',   name:'Owyhee Blue Opal',   cat:'Wellness', color:0x8FB8D8, price:'$24.88', photo:true, flat:true,
   desc:'A soft blue touchstone \u2014 smooth in the palm, easy to carry through the day.'},
- {slug:'himalayan',   name:'Himalayan Quartz Cluster', cat:'Fresh Start', color:0xEDEFF2, price:'$399.88', photo:true,
+ {slug:'himalayan',   name:'Himalayan Quartz Cluster', cat:'Fresh Start', color:0xEDEFF2, price:'$399.88', photo:true, flat:true,
   desc:'A statement cluster from high-altitude veins \u2014 many points, one clear intention.'},
 ];
 
@@ -256,6 +262,8 @@ GEMS.forEach(g=>{
   el.innerHTML=`<span class="chip${g.scan?' live':''}">3D scan</span>
     <div class="tile">${g.scan
       ?`<img class="timg" src="../assets/img/thumbs/${g.slug}.jpg" alt="">`
+      :g.flat&&(GALLERY[g.slug]||[])[0]
+      ?`<img class="fimg" src="${imgSize(GALLERY[g.slug][0],600)}" alt="" loading="lazy">`
       :`<img class="pimg" src="../assets/img/products/${g.slug}.png" alt="" loading="lazy">`}</div>
     <div class="meta"><div class="cat">${g.cat}</div><h3>${g.name}</h3><div class="price">${g.price}</div></div>`;
   el.addEventListener('click',()=>openViewer(g));
