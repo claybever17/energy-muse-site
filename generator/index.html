@@ -91,6 +91,13 @@ body{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-
 .gen:hover img{transform:translateY(-4px) scale(1.04)}
 .gen strong{font-size:13.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);font-weight:600}
 .gen .gprice{font-family:'Fraunces';font-size:18px;color:#f0e7d8;margin-top:2px}
+.gadd{margin-top:10px;border:none;cursor:pointer;font-family:inherit;font-weight:600;font-size:12px;
+  letter-spacing:.04em;color:#fff;padding:10px 18px;
+  background:linear-gradient(160deg,#daa268,#c08a4e 45%,#9a6c3a);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(0,0,0,.22);
+  clip-path:polygon(7px 0,calc(100% - 7px) 0,100% 7px,100% calc(100% - 7px),calc(100% - 7px) 100%,7px 100%,0 calc(100% - 7px),0 7px);
+  transition:transform .25s,filter .3s}
+.gadd:hover{transform:translateY(-2px);filter:brightness(1.08)}
 @media (max-width:760px){.gens{grid-template-columns:1fr;max-width:340px}}
 .end-mark{position:absolute;right:-90px;bottom:-110px;width:340px;height:340px;color:var(--copper);opacity:.3;
   animation:spin 90s linear infinite;transform-origin:50% 50%;pointer-events:none}
@@ -116,7 +123,8 @@ body{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-
   .nav a{margin-left:14px}
   .cap.c0,.cap.c1,.cap.c2{top:9%}
 }
-</style></head>
+</style>
+<script src="../assets/em-bag.js" defer></script></head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
@@ -141,7 +149,7 @@ body{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-
   </symbol>
 </svg>
 
-<div class="nav"><a class="brand" href="../" style="display:flex;align-items:center;flex-shrink:0"><svg viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo"/></svg></a><div><a href="../quiz/">The Quiz</a><a href="../gems/">The Crystal Gallery</a><a href="../">Home</a></div></div>
+<div class="nav"><a class="brand" href="../" style="display:flex;align-items:center;flex-shrink:0"><svg viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo"/></svg></a><div><a href="../quiz/">The Quiz</a><a href="../gems/">The Crystal Gallery</a><a href="../">Home</a><a href="#" class="bag">Bag (0)</a></div></div>
 <section class="stage" id="stage">
   <div class="sticky">
     <div class="bg"></div>
@@ -191,18 +199,21 @@ body{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-
         <img src="https://cdn.shopify.com/s/files/1/0159/0942/1110/files/639HzFrequencyGenerator_1800x1800_9b252a60-6cdd-4f5f-b8a8-b9a3789e61d0_600x.png" alt="639Hz Frequency Generator" loading="lazy">
         <strong>Emotional Balance</strong>
         <span class="gprice">$99.88</span>
+        <button class="gadd" data-hz="639" type="button">Add to Bag</button>
       </a>
       <a class="gen" href="https://energymuse.com/products/963hz-frequency-generator" target="_blank" rel="noopener">
         <span class="hz">963<em>Hz</em></span>
         <img src="https://cdn.shopify.com/s/files/1/0159/0942/1110/files/963HzFrequencyGenerator-mockup_19a65c8a-da71-4e1b-991c-7ce29e3ed2da_600x.png" alt="963Hz Frequency Generator" loading="lazy">
         <strong>Mental Focus</strong>
         <span class="gprice">$99.88</span>
+        <button class="gadd" data-hz="963" type="button">Add to Bag</button>
       </a>
       <a class="gen" href="https://energymuse.com/products/1111hz-frequency-generator" target="_blank" rel="noopener">
         <span class="hz">1111<em>Hz</em></span>
         <img src="https://cdn.shopify.com/s/files/1/0159/0942/1110/files/1111HzFrequencyGenerator_600x.png" alt="1111Hz Frequency Generator" loading="lazy">
         <strong>Manifestation Mastery</strong>
         <span class="gprice">$99.88</span>
+        <button class="gadd" data-hz="1111" type="button">Add to Bag</button>
       </a>
     </div>
     <a class="btn" href="https://energymuse.com/collections/energy-tools" target="_blank" rel="noopener">Shop All Energy Tools</a>
@@ -560,5 +571,22 @@ function onScroll(){
 }
 addEventListener('scroll',onScroll,{passive:true});onScroll();
 window.__ready=true;window.__setP=v=>{targetP=scrollP=clamp01(v);if(v>0.12)loadCrystal();caps.forEach(c=>{const lo=+c.dataset.lo,hi=+c.dataset.hi;c.classList.toggle('in',targetP>=lo&&targetP<hi);});};
+</script>
+
+<script>
+(function(){
+  var G={
+    '639':{name:'639Hz Frequency Generator',img:'https://cdn.shopify.com/s/files/1/0159/0942/1110/files/639HzFrequencyGenerator_1800x1800_9b252a60-6cdd-4f5f-b8a8-b9a3789e61d0_600x.png'},
+    '963':{name:'963Hz Frequency Generator',img:'https://cdn.shopify.com/s/files/1/0159/0942/1110/files/963HzFrequencyGenerator-mockup_19a65c8a-da71-4e1b-991c-7ce29e3ed2da_600x.png'},
+    '1111':{name:'1111Hz Frequency Generator',img:'https://cdn.shopify.com/s/files/1/0159/0942/1110/files/1111HzFrequencyGenerator_600x.png'}
+  };
+  document.querySelectorAll('.gadd').forEach(function(b){
+    b.addEventListener('click',function(e){
+      e.preventDefault();e.stopPropagation();
+      var hz=b.getAttribute('data-hz');
+      if(window.EMBag&&G[hz])EMBag.add({id:'gen-'+hz,name:G[hz].name,price:99.88,img:G[hz].img,link:'/generator/'});
+    });
+  });
+})();
 </script>
 </body></html>
