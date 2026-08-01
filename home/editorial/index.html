@@ -136,16 +136,19 @@ header.nav.solid{border-bottom-color:var(--hair)}
 .trust-author em{font-family:var(--serif);font-style:italic;color:#EFE0CC}
 
 /* ============ 3 · INTENTION index ============ */
-.idx{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--hair)}
-.idx a{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:clamp(16px,3vw,42px);
-  padding:22px 4px;border-bottom:1px solid var(--hair);transition:padding-left .35s cubic-bezier(.16,1,.3,1),background .35s}
-.idx a:hover{padding-left:18px;background:linear-gradient(90deg,color-mix(in srgb,var(--copper) 7%,transparent),transparent 60%)}
-.idx .num{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--copper);width:2ch}
-.idx .nm{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4.4vw,56px);line-height:1;letter-spacing:-.02em}
-.idx .tag{font-size:13px;color:var(--stone);letter-spacing:.04em;text-align:right;max-width:22ch}
-.idx .thumb{width:60px;height:60px;overflow:hidden;flex:none;filter:grayscale(.2)}
-.idx .thumb img{width:100%;height:100%;object-fit:cover}
-.idx .arrow{color:var(--copper);font-size:20px;opacity:0;transform:translateX(-6px);transition:.3s}
+.idx{border-top:1px solid var(--hair)}
+.idx a{display:grid;grid-template-columns:2ch 84px 1fr auto;align-items:center;gap:clamp(18px,2.6vw,36px);
+  padding:clamp(20px,2.3vw,30px) 6px;border-bottom:1px solid var(--hair);position:relative;
+  transition:padding-left .35s cubic-bezier(.16,1,.3,1),background .35s}
+.idx a:hover{padding-left:16px;background:linear-gradient(90deg,color-mix(in srgb,var(--copper) 6%,transparent),transparent 55%)}
+.idx .num{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--copper)}
+.idx .thumb{width:84px;height:84px;overflow:hidden;border-radius:4px;filter:grayscale(.12)}
+.idx .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.idx a:hover .thumb img{transform:scale(1.08)}
+.idx .main{display:flex;flex-direction:column;gap:6px;min-width:0}
+.idx .nm{font-family:var(--serif);font-weight:300;font-size:clamp(30px,3.9vw,50px);line-height:.98;letter-spacing:-.02em}
+.idx .tag{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone)}
+.idx .arrow{color:var(--copper);font-size:24px;opacity:0;transform:translateX(-8px);transition:.3s;justify-self:end}
 .idx a:hover .arrow{opacity:1;transform:none}
 .idx-foot{margin-top:34px}
 
@@ -282,7 +285,7 @@ footer.site{background:var(--ink);color:var(--paper);padding-block:clamp(50px,6v
 }
 @media(max-width:600px){
   .ways{grid-template-columns:1fr}
-  .idx .tag{display:none}.idx a{grid-template-columns:auto 1fr auto}
+  .idx a{grid-template-columns:auto 1fr auto}
   .foot-grid{grid-template-columns:1fr 1fr}
   .hero .body{display:none}
   .mast-top{justify-content:center}.mast-top span:not(.c){display:none}
@@ -415,11 +418,11 @@ body.menu-open{overflow:hidden}
       <p style="color:var(--ink-soft);margin-top:18px;max-width:52ch">You don't need to know the name of a crystal or the science behind a frequency generator. Just start with the energy you want more of — we'll take it from there.</p>
     </div>
     <div class="idx reveal">
-      <a href="../../intention/protection/"><span class="num">i</span><span class="thumb"><img src="../../assets/img/protection.jpg" alt=""></span><span class="nm">Protection</span><span class="tag">Boundaries · grounded confidence</span><span class="arrow">→</span></a>
-      <a href="../../intention/abundance/"><span class="num">ii</span><span class="thumb"><img src="../../assets/img/wealth.jpg" alt=""></span><span class="nm">Abundance</span><span class="tag">Momentum · opportunity</span><span class="arrow">→</span></a>
-      <a href="../../intention/calm/"><span class="num">iii</span><span class="thumb"><img src="../../assets/img/calm.jpg" alt=""></span><span class="nm">Calm</span><span class="tag">Steadiness · nervous-system ease</span><span class="arrow">→</span></a>
-      <a href="../../intention/connection/"><span class="num">iv</span><span class="thumb"><img src="../../assets/img/jewelry.jpg" alt=""></span><span class="nm">Love</span><span class="tag">Heart-opening · connection</span><span class="arrow">→</span></a>
-      <a href="../../intention/clarity/"><span class="num">v</span><span class="thumb"><img src="../../assets/img/clarity.jpg" alt=""></span><span class="nm">Clarity</span><span class="tag">Focus · intuition</span><span class="arrow">→</span></a>
+      <a href="../../intention/protection/"><span class="num">i</span><span class="thumb"><img src="../../assets/img/protection.jpg" alt=""></span><span class="main"><span class="nm">Protection</span><span class="tag">Boundaries · grounded confidence</span></span><span class="arrow">→</span></a>
+      <a href="../../intention/abundance/"><span class="num">ii</span><span class="thumb"><img src="../../assets/img/wealth.jpg" alt=""></span><span class="main"><span class="nm">Abundance</span><span class="tag">Momentum · opportunity</span></span><span class="arrow">→</span></a>
+      <a href="../../intention/calm/"><span class="num">iii</span><span class="thumb"><img src="../../assets/img/calm.jpg" alt=""></span><span class="main"><span class="nm">Calm</span><span class="tag">Steadiness · nervous-system ease</span></span><span class="arrow">→</span></a>
+      <a href="../../intention/connection/"><span class="num">iv</span><span class="thumb"><img src="../../assets/img/jewelry.jpg" alt=""></span><span class="main"><span class="nm">Love</span><span class="tag">Heart-opening · connection</span></span><span class="arrow">→</span></a>
+      <a href="../../intention/clarity/"><span class="num">v</span><span class="thumb"><img src="../../assets/img/clarity.jpg" alt=""></span><span class="main"><span class="nm">Clarity</span><span class="tag">Focus · intuition</span></span><span class="arrow">→</span></a>
     </div>
     <div class="idx-foot reveal"><a href="../../quiz/" class="tlink">Take the Energy Quiz <span class="a">→</span></a></div>
   </div>

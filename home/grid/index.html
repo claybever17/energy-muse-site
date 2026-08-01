@@ -125,17 +125,15 @@ header.nav{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--p
 .trust-author em{font-family:var(--serif);font-style:italic;color:#EFE0CC}
 
 /* ============ 3 · INTENTION bento ============ */
-.bento{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:200px;gap:0;border-top:1px solid var(--hair)}
-.bento a{position:relative;overflow:hidden;border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);display:flex;flex-direction:column;justify-content:flex-end;min-width:0}
+.bento{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--hair)}
+.bento a{position:relative;overflow:hidden;aspect-ratio:1;border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);display:flex;flex-direction:column;justify-content:flex-end;min-width:0}
+.bento a:last-child{border-right:0}
 .bento a img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1);filter:grayscale(.15)}
 .bento a::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,19,32,0) 40%,rgba(11,19,32,.8))}
 .bento a:hover img{transform:scale(1.06)}
 .bento .lab{position:relative;z-index:2;color:#fff;padding:18px}
 .bento .lab .n{display:block;font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.16em;color:#E6C9AE}
 .bento .lab .t{display:block;font-family:var(--serif);font-weight:300;font-size:26px;margin-top:4px}
-.bento .b-lg{grid-column:span 3;grid-row:span 2}
-.bento .b-md{grid-column:span 3}
-.bento .b-sm{grid-column:span 2}
 .head-block{padding:clamp(40px,5vw,72px) clamp(28px,4vw,60px);display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:end;border-bottom:1px solid var(--hair)}
 .head-block h2{font-size:clamp(32px,4.4vw,56px);font-weight:600;letter-spacing:-.025em}
 .head-block p{color:var(--ink-soft);max-width:46ch}
@@ -280,9 +278,8 @@ footer.site{background:var(--ink);color:var(--paper)}
   .hero-media{min-height:300px}
   .trust-grid{grid-template-columns:1fr}.trust-cell{border-right:0;border-bottom:1px solid var(--hair-dk)}
   .head-block{grid-template-columns:1fr;gap:16px}
-  .bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:180px}
-  .bento .b-lg,.bento .b-md,.bento .b-sm{grid-column:span 1;grid-row:span 1}
-  .bento a:last-child{grid-column:1/-1}
+  .bento{grid-template-columns:repeat(2,1fr)}
+  .bento a:last-child{grid-column:1/-1;aspect-ratio:16/7}
   .qbar{grid-template-columns:repeat(2,1fr)}
   .qbar a{border-right:1px solid var(--hair)}
   .qbar a:nth-child(2n){border-right:0}
