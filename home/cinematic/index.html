@@ -1,0 +1,499 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Energy Muse — Guided Energy for Real Life</title>
+<meta name="description" content="Energy, made personal. Intention-based jewelry, crystals, and frequency generators, with guidance before and after you buy.">
+<link rel="icon" type="image/svg+xml" href="../../assets/img/mark.svg">
+<link rel="icon" type="image/png" sizes="64x64" href="../../assets/img/favicon.png">
+<link rel="apple-touch-icon" href="../../assets/img/touch-icon.png">
+<script type="importmap">{"imports":{"three":"../../assets/three.module.min.js"}}</script>
+<style>
+/* ============================================================
+   IMMERSIVE / DARK CINEMATIC  —  homepage version 4
+   Full-bleed dark. Imagery edge-to-edge under gradient scrims,
+   the scanned crystal and the device enlarged and foregrounded,
+   generous cinematic type, glow accents. Buttons: frosted glass
+   with a copper glow on hover.
+   ============================================================ */
+@font-face{font-family:'Fraunces';src:url(../../assets/fonts/fraunces_300.woff2) format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:'Fraunces';src:url(../../assets/fonts/fraunces_400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Fraunces';src:url(../../assets/fonts/fraunces_600.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url(../../assets/fonts/instrument_400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url(../../assets/fonts/instrument_500.woff2) format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url(../../assets/fonts/instrument_600.woff2) format('woff2');font-weight:600;font-display:swap}
+
+:root{
+  --bg:#0A111C; --bg-2:#0E1826; --panel:#101D2E; --ink:#F1EADF; --ink-soft:#AEB9C8; --stone:#7C879A;
+  --copper:#C4855A; --copper-hi:#E0A878; --copper-lo:#A9683E; --line:#233247; --glow:rgba(196,133,90,.5);
+  --serif:'Fraunces',Georgia,serif; --sans:'Instrument Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --maxw:1280px; --gutter:clamp(22px,5vw,72px);
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--serif);font-weight:300;margin:0;line-height:1.02;letter-spacing:-.015em;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:2px solid var(--copper-hi);outline-offset:3px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter)}
+.sec{padding-block:clamp(64px,9vw,140px)}
+.eyebrow{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--copper-hi)}
+em.it{font-style:italic;font-family:var(--serif);color:var(--copper-hi);font-weight:300}
+.lead{color:var(--ink-soft)}
+
+/* buttons: frosted glass + copper glow */
+.btn{display:inline-flex;align-items:center;gap:.55em;font-family:var(--sans);font-weight:600;font-size:12.5px;letter-spacing:.1em;
+  text-transform:uppercase;padding:16px 32px;border-radius:3px;cursor:pointer;border:1px solid var(--line);
+  background:rgba(255,255,255,.04);backdrop-filter:blur(6px);color:var(--ink);transition:.3s}
+.btn:hover{border-color:var(--copper);box-shadow:0 0 0 1px var(--copper),0 12px 40px var(--glow);transform:translateY(-2px)}
+.btn-glow{background:linear-gradient(160deg,var(--copper-hi),var(--copper) 48%,var(--copper-lo));border-color:transparent;color:#1a1206;
+  box-shadow:0 10px 34px var(--glow)}
+.btn-glow:hover{box-shadow:0 0 0 1px var(--copper-hi),0 16px 48px var(--glow);border-color:transparent}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+
+/* ============ announcement ============ */
+.ann{background:rgba(255,255,255,.03);border-bottom:1px solid var(--line);color:var(--ink-soft);font-size:12px;letter-spacing:.05em;backdrop-filter:blur(6px)}
+.ann-in{max-width:var(--maxw);margin:0 auto;padding:9px var(--gutter);display:flex;align-items:center;justify-content:center;gap:14px;position:relative}
+.ann a{font-weight:600;color:var(--ink);border-bottom:1px solid var(--copper);padding-bottom:1px}
+.ann .x{position:absolute;right:calc(var(--gutter) - 6px);top:50%;transform:translateY(-50%);background:none;border:0;color:var(--stone);cursor:pointer;font-size:15px;padding:6px}
+body.ann-off .ann{display:none}
+@media(max-width:640px){.ann-in{font-size:11px;gap:8px;padding-inline:40px}}
+
+/* ============ nav ============ */
+header.nav{position:sticky;top:0;z-index:60;background:transparent;transition:background .35s,backdrop-filter .35s,border-color .35s;border-bottom:1px solid transparent}
+header.nav.solid{background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+.nav-in{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter);height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.blogo{height:46px;width:auto;color:var(--ink);aspect-ratio:1167/247.5;display:block}
+.nav-links{display:flex;gap:30px;font-size:13px}
+.nav-links a{color:var(--ink-soft);transition:color .2s}.nav-links a:hover{color:var(--copper-hi)}
+.nav-utils{display:flex;gap:18px;align-items:center;font-size:12.5px;color:var(--ink-soft)}
+.nav-utils .bag{color:var(--ink);font-weight:600}
+.burger{display:none;width:40px;height:40px;border:1px solid var(--line);background:none;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;border-radius:3px}
+.burger span{width:17px;height:1.5px;background:var(--ink);display:block}
+
+/* ============ 1 · HERO (full-bleed cinematic) ============ */
+.hero{position:relative;min-height:94vh;display:flex;align-items:center;overflow:hidden;margin-top:-77px;padding-top:77px}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.hero-bg::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(90deg,var(--bg) 8%,rgba(10,17,28,.7) 42%,rgba(10,17,28,.25) 72%,rgba(10,17,28,.55)),
+  linear-gradient(0deg,var(--bg),transparent 40%)}
+.hero-glow{position:absolute;z-index:1;right:6%;top:34%;width:520px;height:520px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(196,133,90,.28),transparent 62%);filter:blur(20px)}
+.hero-in{position:relative;z-index:2;max-width:680px}
+.hero h1{font-size:clamp(48px,7.8vw,112px);line-height:.96;font-weight:300;letter-spacing:-.02em}
+.hero h1 em{display:block}
+.hero .sub{font-family:var(--serif);font-style:italic;font-size:clamp(21px,2.6vw,32px);color:var(--copper-hi);margin-top:24px}
+.hero .body{color:var(--ink-soft);max-width:46ch;margin-top:22px}
+.hero .cta-row{margin-top:38px}
+.scrollcue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;color:var(--stone);font-size:10px;letter-spacing:.24em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px}
+.scrollcue .ln{width:1px;height:34px;background:linear-gradient(var(--copper),transparent);animation:cue 2.4s ease-in-out infinite}
+@keyframes cue{0%,100%{opacity:.3;transform:scaleY(.7);transform-origin:top}50%{opacity:1;transform:scaleY(1)}}
+
+/* ============ 2 · TRUST ============ */
+.trust{border-block:1px solid var(--line);background:var(--bg-2)}
+.trust-in{max-width:var(--maxw);margin:0 auto;padding:34px var(--gutter);display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.trust-item .k{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--copper-hi)}
+.trust-item .d{font-size:13px;color:var(--ink-soft);margin-top:6px}
+.trust-author{border-top:1px solid var(--line);text-align:center;font-size:13px;color:var(--stone);padding:15px var(--gutter);max-width:var(--maxw);margin:0 auto}
+.trust-author em{font-family:var(--serif);font-style:italic;color:var(--copper-hi)}
+
+/* section head */
+.head{max-width:720px;margin:0 auto clamp(40px,5vw,64px);text-align:center}
+.head .eyebrow{display:block;margin-bottom:16px}
+.head h2{font-size:clamp(34px,5vw,64px);font-weight:300}
+.head p{color:var(--ink-soft);margin-top:16px}
+
+/* ============ 3 · INTENTION (dark image tiles) ============ */
+.itiles{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.itile{position:relative;aspect-ratio:3/4.2;overflow:hidden;border-radius:8px;border:1px solid var(--line);display:flex;align-items:flex-end;isolation:isolate}
+.itile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 32%;transition:transform .8s cubic-bezier(.16,1,.3,1);filter:brightness(.82)}
+.itile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 34%,rgba(6,11,20,.9));z-index:1}
+.itile:hover img{transform:scale(1.08);filter:brightness(.95)}
+.itile .gl{position:absolute;inset:0;z-index:2;box-shadow:inset 0 0 0 1px transparent;transition:box-shadow .4s,opacity .4s;opacity:0;
+  background:radial-gradient(80% 50% at 50% 100%,var(--glow),transparent 70%)}
+.itile:hover .gl{opacity:.6}
+.itile .lab{position:relative;z-index:3;padding:18px;width:100%}
+.itile .lab .n{display:block;font-family:var(--sans);font-weight:600;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--copper-hi)}
+.itile .lab .t{display:block;font-family:var(--serif);font-weight:300;font-size:23px;margin-top:4px}
+
+/* ============ 4 · WAYS ============ */
+.ways{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.way{padding:30px 26px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(180deg,var(--panel),var(--bg-2));
+  transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .4s,box-shadow .4s;min-height:220px;display:flex;flex-direction:column}
+.way:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--copper) 50%,transparent);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.way .wn{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--copper-hi)}
+.way h3{font-size:25px;margin-top:14px;font-weight:300}
+.way h3 em{font-style:italic;color:var(--copper-hi)}
+.way p{font-size:14px;color:var(--ink-soft);margin-top:10px}
+.way .lk{margin-top:auto;padding-top:16px;font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--copper-hi)}
+
+/* ============ split features ============ */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px);align-items:center}
+.split.rev .s-media{order:-1}
+.s-media{position:relative;aspect-ratio:4/4.6;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.s-media img{width:100%;height:100%;object-fit:cover}
+.s-media::after{content:"";position:absolute;inset:0;box-shadow:inset 0 -60px 90px rgba(6,11,20,.7)}
+.s-copy h2{font-size:clamp(32px,4.4vw,56px);font-weight:300}
+.s-copy .eyebrow{display:block;margin-bottom:18px}
+.s-copy .body{color:var(--ink-soft);margin-top:20px;max-width:48ch}
+.s-copy .cta-row{margin-top:30px}
+.bignum{font-family:var(--serif);font-weight:300;font-size:clamp(80px,10vw,140px);line-height:.8;color:transparent;
+  -webkit-text-stroke:1px color-mix(in srgb,var(--copper) 55%,transparent);margin-bottom:8px}
+.bignum i{font-style:normal;font-size:.5em;vertical-align:.5em}
+
+/* ============ FREQUENCY (device foregrounded) ============ */
+.freq{background:radial-gradient(120% 90% at 76% 30%,rgba(196,133,90,.14),transparent 56%),var(--bg)}
+.freq .stage{position:relative;width:min(560px,90%);aspect-ratio:1/1;margin:0 auto}
+.freq .stage .halo{position:absolute;inset:-8%;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 60%);filter:blur(30px);opacity:.5}
+.freq .stage .live3d{position:absolute;inset:0}
+.freq .stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .8s ease}
+.freq .stage .live3d.live img{opacity:0}
+.freq .stage canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block;opacity:0;transition:opacity 1.2s ease}
+.freq .stage .live3d.live canvas{opacity:1}
+.specs{display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap}
+.spec{padding:14px 22px;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.02)}
+.spec .k{display:block;font-family:var(--sans);font-weight:600;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone)}
+.spec .v{display:block;font-family:var(--serif);font-size:18px;margin-top:4px}
+.freq-note{font-size:11.5px;color:var(--stone);max-width:56ch;margin:22px auto 0;text-align:center;line-height:1.55}
+
+/* ============ PRACTICE ============ */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.step{padding:30px 26px;border:1px solid var(--line);border-radius:10px;background:var(--bg-2)}
+.step .sn{font-family:var(--serif);font-weight:300;font-size:40px;color:var(--copper-hi);line-height:1}
+.step h3{font-size:22px;margin-top:12px;font-weight:400}
+.step p{color:var(--ink-soft);font-size:14px;margin-top:10px}
+
+/* ============ LEARN + VEZA ============ */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.duo-card{padding:clamp(30px,4vw,52px);border:1px solid var(--line);border-radius:12px;background:var(--bg-2);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden}
+.duo-card h2{font-size:clamp(26px,2.8vw,38px);font-weight:300}
+.duo-card .body{color:var(--ink-soft);font-size:15px;max-width:44ch}
+.duo-card.veza{background:radial-gradient(120% 100% at 100% 0%,rgba(196,133,90,.16),transparent 55%),var(--panel)}
+.veza-mark{position:absolute;right:-70px;top:-70px;width:250px;height:250px;color:var(--copper);opacity:.3;pointer-events:none}
+.veza-form{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;position:relative;z-index:1}
+.veza-form input{flex:1;min-width:200px;background:rgba(255,255,255,.03);border:1px solid var(--line);color:var(--ink);padding:14px 16px;border-radius:3px;font-family:var(--sans);font-size:15px}
+.veza-form input:focus{outline:none;border-color:var(--copper)}
+.learn-list{list-style:none;padding:0;margin:4px 0 0}
+.learn-list li{border-top:1px solid var(--line)}
+.learn-list a{display:flex;justify-content:space-between;align-items:center;padding:14px 2px;font-family:var(--serif);font-weight:300;font-size:18px;transition:color .2s}
+.learn-list a i{font-style:normal;color:var(--copper-hi);transition:transform .25s}
+.learn-list a:hover{color:var(--copper-hi)}.learn-list a:hover i{transform:translateX(5px)}
+
+/* ============ SOCIAL PROOF ============ */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.quote{padding:30px 28px;border:1px solid var(--line);border-radius:10px;background:var(--bg-2);display:flex;flex-direction:column;gap:16px}
+.quote .mk{font-family:var(--serif);font-size:48px;color:var(--copper-hi);line-height:.4;height:22px}
+.quote blockquote{font-family:var(--serif);font-weight:300;font-style:italic;font-size:19px;line-height:1.45;color:var(--ink)}
+.quote .who{font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin-top:auto}
+
+/* ============ FINAL (crystal hero, full-bleed) ============ */
+.final{position:relative;text-align:center;overflow:hidden;background:var(--bg);padding-block:clamp(60px,8vw,120px)}
+.final .halo{position:absolute;left:50%;top:34%;transform:translate(-50%,-50%);width:640px;height:640px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(196,133,90,.2),transparent 62%);filter:blur(30px)}
+.final-gem{position:relative;width:min(380px,74vw);aspect-ratio:1/1;margin:0 auto 10px;z-index:1}
+.final-gem .gm{position:absolute;inset:4%;color:var(--copper);opacity:.4;animation:spin 75s linear infinite;transform-origin:50% 50%}
+@keyframes spin{to{transform:rotate(360deg)}}
+.final-gem canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block;opacity:0;transition:opacity 1.4s ease;z-index:2}
+.final-gem.live canvas{opacity:1}.final-gem.live .gm{opacity:.22}
+.final h2{position:relative;z-index:1;font-size:clamp(40px,6.4vw,88px);font-weight:300;letter-spacing:-.02em;max-width:15ch;margin:8px auto 0}
+.final .body{position:relative;z-index:1;color:var(--ink-soft);margin:16px auto 0;max-width:44ch}
+.final .cta-row{position:relative;z-index:1;justify-content:center;margin-top:32px}
+
+/* ============ EMAIL ============ */
+.email{border-top:1px solid var(--line);background:var(--bg-2)}
+.email-in{display:grid;grid-template-columns:1fr auto;gap:34px;align-items:center}
+.email h3{font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.4vw,44px)}
+.email p{color:var(--ink-soft);margin-top:12px;max-width:42ch}
+.email form{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.email input{background:rgba(255,255,255,.03);border:1px solid var(--line);color:var(--ink);padding:15px 16px;border-radius:3px;font-family:var(--sans);font-size:15px;min-width:260px}
+.email input:focus{outline:none;border-color:var(--copper)}
+
+/* ============ FOOTER ============ */
+footer.site{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp(50px,6vw,80px) 30px}
+.foot-grid{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter);display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:32px}
+.foot-brand .blogo{height:34px;color:var(--ink)}
+.foot-brand p{color:var(--stone);font-size:14px;margin-top:18px;max-width:34ch}
+.foot-col h4{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);margin-bottom:14px}
+.foot-col a{display:block;color:var(--ink-soft);font-size:14px;padding:5px 0;transition:color .2s}
+.foot-col a:hover{color:var(--copper-hi)}
+.foot-bottom{max-width:var(--maxw);margin:40px auto 0;padding:22px var(--gutter) 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap;font-size:11.5px;color:var(--stone);line-height:1.5}
+
+/* ============ reveal ============ */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}
+
+/* ============ responsive ============ */
+@media(max-width:980px){
+  .nav-links{display:none}.burger{display:flex}
+  .trust-in{grid-template-columns:1fr;gap:16px}
+  .itiles{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
+  .itiles .itile{flex:0 0 calc(33.333% - 10px)}
+  .ways{grid-template-columns:repeat(2,1fr)}
+  .split,.split.rev{grid-template-columns:1fr}.split.rev .s-media{order:0}
+  .steps{grid-template-columns:1fr}
+  .duo{grid-template-columns:1fr}
+  .quotes{grid-template-columns:1fr}
+  .email-in{grid-template-columns:1fr}.email form{justify-content:flex-start}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .itiles .itile{flex:0 0 calc(50% - 7px)}
+  .ways{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .hero .body{display:none}
+  .blogo{height:34px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.scrollcue .ln,.veza-mark,.final-gem .gm{animation:none}}
+
+/* mobile menu */
+.mobmenu{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;flex-direction:column;padding:20px var(--gutter) 40px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .35s,transform .35s,visibility .35s}
+.mobmenu.open{opacity:1;visibility:visible;transform:none}
+.mobmenu-top{display:flex;justify-content:space-between;align-items:center;height:60px}
+.mobmenu-top .blogo{height:30px}
+.mobmenu-close{width:40px;height:40px;border:1px solid var(--line);background:none;font-size:22px;cursor:pointer;color:var(--ink);border-radius:3px}
+.mobmenu nav{display:flex;flex-direction:column;margin-top:20px;flex:1;justify-content:center;gap:2px}
+.mobmenu nav a{font-family:var(--serif);font-weight:300;font-size:30px;padding:12px 0;border-bottom:1px solid var(--line)}
+body.menu-open{overflow:hidden}
+</style>
+</head>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <symbol id="em-logo" viewBox="0 0 1167 247.5">
+    <g><path fill="#8FA6C4" d="M189.69,194.19c-31.47,34.37-81.82,42.71-122.32,21.22-27.62-14.65-46.73-41.52-52.64-69.96-7.48-36.05,4.02-73.41,32.42-99.17,21.07-19.11,47.83-27.9,76.41-25.64,20.11,1.59,39.11,9.16,54.56,21.91,3.46,2.86,6.54,5.38,9.57,8.56,38.14,40.05,39.83,101.74,1.99,143.08ZM77.98,184.32c5.79,7.06,13.04,11.43,22.12,13.24,19.2,3.84,38.84-.55,55.55-10.91,29.03-17.98,42.78-50.33,39.88-84.29-3.17-37.1-31.15-67.2-68.24-72.09-4.79-.63-9.09-.96-14.66.35,20.78,4.81,36.06,16.44,35.82,41.81-.11,11.35-1.96,22.44-9.2,31.49-7.28,9.09-15.29,13.33-25.03,19.07-10.51,6.2-20.7,12.26-30.15,19.94-13.07,10.62-16.61,28.55-6.09,41.39ZM63.38,129.87c4.91-4.01,9.64-7.75,14.76-11.43,11.66-8.38,21.05-14.26,23.07-30.52.17-7.96-2.49-16.33-8.68-22-10.58-9.68-26.8-9.43-37.85.02-27.94,23.93-29.6,71.37-3.11,97.33l-.32-8.07c-.4-10.18,4.14-18.82,12.12-25.33Z"/><path fill="#e0e0e0" d="M77.98,184.32c-10.52-12.84-6.98-30.77,6.09-41.39,9.44-7.68,19.64-13.74,30.15-19.94,9.73-5.74,17.75-9.98,25.03-19.07,7.24-9.05,9.09-20.14,9.2-31.49.25-25.38-15.03-37-35.82-41.81,5.57-1.31,9.86-.98,14.66-.35,37.09,4.89,65.07,34.99,68.24,72.09,2.9,33.96-10.85,66.3-39.88,84.29-16.71,10.36-36.35,14.74-55.55,10.91-9.07-1.81-16.33-6.18-22.12-13.24Z"/><path fill="#44b891" d="M63.38,129.87c-7.98,6.51-12.52,15.15-12.12,25.33l.32,8.07c-26.49-25.96-24.83-73.4,3.11-97.33,11.04-9.46,27.26-9.71,37.85-.02,6.2,5.67,8.85,14.04,8.68,22-2.03,16.26-11.41,22.14-23.07,30.52-5.12,3.68-9.86,7.43-14.76,11.43Z"/></g>
+    <g fill="currentColor">
+      <path d="M853.79,172.48c.04,12.44,10.53,8.33,8,12.82l-38.17.09-1.52-1.1c-1.43-1.03,8.86-2.2,8.84-8.8l-.18-46.59c-.01-3.38-2.56-7.1-4.6-8.51-6.19-4.3-12.17-.82-18.36,4.64v49.09c-.01,8.77,8.79,8.19,8.34,9.45l-.63,1.75-39.77.02c-.09-.57-.2-2.19.24-2.3l2.23-.54c2.64-.64,6.37-2.6,6.38-6.38l.07-45.32c0-2.41-2.23-5.31-4.07-6.4l-6.07-3.59-.37-1.55c-.11-.44,1.26-.84,1.76-.99,10.81-2.01,19.86-5.81,30.84-10.22l.52,13.9,10.92-7.76c6.57-4.66,14.63-6.26,22.49-4.29,6.22,1.56,10.09,6.57,12.61,12.48,9.9-8.84,20-15.02,32.59-12.76,7.78,1.39,13.91,7.97,13.98,16.17l.44,47.45c.02,4.95,2.46,9.02,7.62,9.41.33.19,1.55,1.27,1.19,1.53l-1.61,1.15-38.06.03c-2.96-3.73,7.89-1.69,7.85-10.67l-.19-45.55c-.01-3.49-2.2-7.21-4.48-8.72-6.64-4.41-13.25-1.01-18.99,5.39l.17,46.68Z"/>
+      <path d="M666.82,195.28c-10.35,8.51-32.92,8.94-46.78,7.11-6.33-.84-12.42-1.77-17.48-6.06-1.96-1.67-2.22-5.78-1.23-8.54.75-2.08,3.65-4.06,6.51-5.71-1.66-1.42-4.37-3.76-4.99-5.85-3.54-11.87,8.75-18.04,20.28-21.39-7.08-2.13-12.85-5.05-16.97-10.61-6.77-9.15-4.63-21.64,4.42-28.65,6.17-4.77,13.78-6.92,21.73-7.35,2.46-13.51,15.31-28.02,26.59-23.29,5.04,2.11,6.3,7.47,5.35,12.41-1.06,5.57-5.59,9.39-11.69,7.82l-7.01-3.1c-2.34-1.04-4.97-1.42-7.27-.27-1.89.94-3.29,3.85-3.59,6.46,16.48-.1,32.46,9.08,31.66,25.07-.71,14.2-16.07,22.83-29.4,22.7-5.82-.05-12.54.55-17.62,2.46-.81.3-2.92,1.97-2.42,2.54l2.41,2.74,34.37.19c6.39,1.11,12.61,2.27,16.38,7.86,4.82,7.13,3.79,17.66-3.27,23.46ZM635.13,153.52c9.16-.27,10.41-23.53,5.77-37.93-.79-2.46-3.87-4.29-5.83-4.45-8.56-.7-9.51,11.12-9.48,21.11s.86,21.52,9.54,21.26ZM653.13,187.56l-8.61-1.4-23.26-.69-8.22-1.17c-2.42-.34-5.07,3.22-5.33,5.34-1.12,9.11,14.52,10.89,25.5,10.87,9.64-.02,24.4-.77,24.16-8.02-.07-1.99-1.71-4.51-4.24-4.92Z"/>
+      <path d="M400.83,119.53c-5.74-2.2-11.01.12-14.85,3.83l-2.43,2.34v48.34c0,8.15,10.4,9.22,8.98,10.25l-1.44,1.05h-38.94c-1.35-4.03,5.85-2.49,7.38-6.58,2.12-5.64,1.14-10.95,1.13-16.69l-.07-21.64c-.01-4.5,1.02-9.44-1.66-13.58s-10.56-5.7-9.4-6.92l1.56-1.64c10.35-1.9,19.71-5.1,29.29-9.52.7-.14,2.71.02,3.06.43l.15,12.69c9.8-8.62,22.53-15.91,34.73-11.55,7.06,2.52,11.72,9.16,11.75,16.78l.17,47.41c.03,7.85,8.26,7.51,8.88,9.06.22.54-.91,1.49-1.52,1.73l-38.84.04-.14-1.8c-.07-.84,8.61-1.26,8.6-8.32l-.05-45.47c0-4.18-2.47-8.77-6.32-10.25Z"/>
+      <path d="M991.57,108.87l.18,61.36c.01,3.99,4.32,6.3,7.42,7.15l1.62.44c.46.13.9,1.87.42,1.91l-2.31.23c-6.71.67-13.05,2.49-19.41,4.64l-9.82,3.33-.72-13.56c-9.75,8.3-20.69,14.44-32.87,10.94-7.54-2.16-13.62-8.37-13.75-16.4l-.67-40.33c-.08-4.66-9.54-6.45-10.6-10.42,11.27-2.1,20.92-5.26,31.11-9.67.41-.1,2.47-.08,2.46.46l-.03,2.42-.11,8.16.08,27.48.05,7.23c.04,5.27-.34,10.55.87,15.66,1.41,5.99,6.96,8.71,13.14,7.68,4.01-.67,7.8-3.9,10.27-7.31l.03-37.27c0-11.74-11.6-9.86-11.17-14.91,10.46-2.21,20.18-4.82,29.84-9.16.84-.38,2.71-.37,3.96-.07Z"/>
+      <path d="M519.08,156.82c.79.41,1.5.95,1.96,1.51-6.37,17.65-18.11,27.08-37.09,26.51-15.61-.46-30.45-9.59-36.3-24.45-5.67-14.4-1.51-30.72,9.09-41.5s27.28-14.91,41.88-9.58c13.28,4.85,21.9,17.03,21.5,31.21h-50.99c-.14,15.31,11.62,27.45,26.87,27.85,9.42.25,17.65-3.09,23.08-11.55ZM498.31,137.43c.79-11.92-1.73-26.75-11.82-27.75-14.44-1.43-17.7,13.84-17.47,27.81l29.3-.06Z"/>
+      <path d="M1143.53,166.73c4.47-1.92,6.42-6.47,10.96-9.02-.9,8.13-5.57,14.92-11.16,19.88-9.33,8.28-22.26,10.04-34.17,7.14-18.1-4.4-31.15-19.93-29.99-39.02.88-14.36,9.53-26.64,21.36-32.62,13.57-6.87,29.48-6.05,41.22,2.89,7,5.32,11.39,12.84,12.04,21.13l.38,4.88-50.94-.02c.13,10.85,5.62,20.53,15.37,24.84,8.15,3.6,16.39,3.61,24.93-.07ZM1132.24,139.01c.34-9.04-.4-16.69-4.78-23.57-2.19-3.45-6.39-4.45-10.4-4.28-9.07.38-13.09,11.09-13.9,21.05l-.55,6.77,29.62.03Z"/>
+      <path d="M297.3,160.84c11.48,12.2,34.17,11.88,42.71-3.08,2.43.94,1.46,2.7.86,4.34-6.71,18.29-24.78,27.5-43.74,22.86-11.86-2.9-22.25-9.89-27.51-21.35-5.45-11.87-4.26-25.5,3.15-37.08,10.1-15.8,31.19-22,49-14.77,12.26,4.98,19.62,17.24,19.52,30.22l-51.41.02c.83,6.97,2.59,13.7,7.43,18.85ZM319.62,139.04c.19-11.33-1.88-26.1-11.52-27.67-4.64-.75-9.02.48-12.02,3.87-3.18,3.59-5.07,8.41-5.41,13.21l-.75,10.6,29.71-.02Z"/>
+      <path d="M750.91,122.24l-14.12,27.4-18.52,37.5c-6.76,13.69-23.09,37.68-35.51,27.93-2.59-2.03-4.3-5-4.32-8.71-.03-4.97,2.09-8.74,6.53-10.08,4.01-1.21,8.33.32,10.92,4.45.93,1.49,2.88,4.25,4.8,4.42,1.47.11,4.29-2.13,5.1-3.46l9.9-16.13-30.6-63.13c-4.38-9.03-12.8-8.95-12.27-10.09l.8-1.69,42.01.06,1.58,1.09c1.49,1.03-4.22,1.78-6.21,4.41-.81,1.07-.75,4.45-.12,5.82l17.55,37.76,10.36-21.62c2.36-4.93,3.3-10.24,3.35-15.6.08-8.54-8.1-8.33-10.45-9.7-.47-.28.19-1.7.58-2.2l30.88.1.61,1.61c.27.72-9.15,2.69-12.85,9.86Z"/>
+      <path d="M1058.69,181.45c-14.14,9.31-30.81,5.06-46.77-1.04l-.94-11.52-.63-12.69-.12-1.89c-.03-.51,1.65-.45,1.98-.3,4.28,8.74,9.42,16.2,15.7,23.38,4.3,3.87,9.52,7.58,15.24,6.67,3.45-.55,6.69-2.08,8.24-4.47,1.81-2.79,1.82-6.83-.09-9.89-3.29-5.26-8.76-8.27-14.34-11.01l-19.02-9.35c-7.48-3.68-10.71-11.72-9.05-20.2,1.86-9.53,10.12-16.71,19.76-18.9,5.45-1.24,11.26-1.79,16.86-.53l15.21,3.44,3.2,22.4.22,1.53c.04.31-.95.31-1.73.36-5.42-11.24-20.76-29.04-31.87-24.71-2.97,1.16-5.06,3-5.77,5.38-4.97,16.51,40.96,15.71,45.24,38.02,1.97,10.3-2.72,19.66-11.29,25.31Z"/>
+      <path d="M562.31,174.98c0,6.82,7.12,7.1,9.02,8.21.45.26-.11,2.13-.69,2.13l-39.83.04c-3.59-3.78,8.71-1.22,8.69-11.45l-.09-42.17c0-4.05-2.61-6.94-5.83-8.51l-4.92-2.4c-.33-.24-.51-1.91-.09-2.09l1.91-.83c10.78-1.76,20.05-5.63,30.69-9.84l.28,17.68c4.79-6.12,5.87-13.16,15.4-16.22,4.27-1.37,9.62-.91,12.73,2.8,4.5,5.35,4.41,14.22-.05,19.62s-11.9,4.08-15.78-.94c-1.24-1.61-3.54-3.68-5.2-4.59-3.53.24-6.23,3.97-6.24,7.52v41.03Z"/>
+    </g>
+  </symbol>
+  <symbol id="em-markline" viewBox="0 0 231.33 238.67">
+    <path d="M190.5,189.78c-31.47,34.37-81.82,42.71-122.32,21.22-27.62-14.65-46.73-41.52-52.64-69.96-7.48-36.05,4.02-73.41,32.42-99.17,21.07-19.11,47.83-27.9,76.41-25.64,20.11,1.59,39.11,9.16,54.56,21.91,3.46,2.86,6.54,5.38,9.57,8.56,38.14,40.05,39.83,101.74,1.99,143.08ZM78.79,179.9c5.79,7.06,13.04,11.43,22.12,13.24,19.2,3.84,38.84-.55,55.55-10.91,29.03-17.98,42.78-50.33,39.88-84.29-3.17-37.1-31.15-67.2-68.24-72.09-4.79-.63-9.09-.96-14.66.35,20.78,4.81,36.06,16.44,35.82,41.81-.11,11.35-1.96,22.44-9.2,31.49-7.28,9.09-15.29,13.33-25.03,19.07-10.51,6.2-20.7,12.26-30.15,19.94-13.07,10.62-16.61,28.55-6.09,41.39ZM64.19,125.46c4.91-4.01,9.64-7.75,14.76-11.43,11.66-8.38,21.05-14.26,23.07-30.52.17-7.96-2.49-16.33-8.68-22-10.58-9.68-26.8-9.43-37.85.02-27.94,23.93-29.6,71.37-3.11,97.33l-.32-8.07c-.4-10.18,4.14-18.82,12.12-25.33Z" fill="none" stroke="currentColor" stroke-width="1.3" vector-effect="non-scaling-stroke"/>
+    <path d="M78.79,179.9c-10.52-12.84-6.98-30.77,6.09-41.39,9.44-7.68,19.64-13.74,30.15-19.94,9.73-5.74,17.75-9.98,25.03-19.07,7.24-9.05,9.09-20.14,9.2-31.49.25-25.38-15.03-37-35.82-41.81,5.57-1.31,9.86-.98,14.66-.35,37.09,4.89,65.07,34.99,68.24,72.09,2.9,33.96-10.85,66.3-39.88,84.29-16.71,10.36-36.35,14.74-55.55,10.91-9.07-1.81-16.33-6.18-22.12-13.24Z" fill="none" stroke="currentColor" stroke-width="1.3" vector-effect="non-scaling-stroke"/>
+    <path d="M64.19,125.46c-7.98,6.51-12.52,15.15-12.12,25.33l.32,8.07c-26.49-25.96-24.83-73.4,3.11-97.33,11.04-9.46,27.26-9.71,37.85-.02,6.2,5.67,8.85,14.04,8.68,22-2.03,16.26-11.41,22.14-23.07,30.52-5.12,3.68-9.86,7.43-14.76,11.43Z" fill="none" stroke="currentColor" stroke-width="1.3" vector-effect="non-scaling-stroke"/>
+  </symbol>
+</svg>
+
+<!-- 0 · announcement -->
+<div class="ann" id="ann"><div class="ann-in">
+  <span>New to Energy Muse? Find your energy match in a few simple questions.</span>
+  <a href="../../quiz/">Take the Energy Quiz →</a>
+  <button class="x" id="ann-x" aria-label="Dismiss">&times;</button>
+</div></div>
+
+<!-- nav -->
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="../../"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo"/></svg></a>
+    <nav class="nav-links"><a href="../../quiz/">Start Here</a><a href="../../gems/">Shop</a><a href="#intention">By Intention</a><a href="#learn">Learn</a><a href="#about">About</a></nav>
+    <div class="nav-utils"><a href="#" class="bag">Bag (0)</a>
+      <button class="burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button></div>
+  </div>
+</header>
+
+<div class="mobmenu" id="mobmenu" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="mobmenu-top"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo"/></svg>
+    <button class="mobmenu-close" id="mobclose" aria-label="Close menu">&times;</button></div>
+  <nav><a href="../../quiz/">Start Here</a><a href="../../gems/">Shop</a><a href="#intention">By Intention</a><a href="#learn">Learn</a><a href="#about">About</a><a href="#veza">Veza</a></nav>
+</div>
+
+<!-- 1 · HERO -->
+<section class="hero">
+  <div class="hero-bg"><img src="../../assets/img/hero.jpg" alt="A quiet everyday moment: meditating at home beside an Energy Muse tool"></div>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <span class="eyebrow">Guided energy for real life</span>
+    <h1 style="margin-top:22px">Energy, <em>made personal.</em></h1>
+    <p class="sub">Choose your energy. Live in it.</p>
+    <p class="body">Energy Muse brings together intention-based jewelry, crystals, and frequency generators to help you build a practice around the energy you want more of. No experience needed — we'll meet you exactly where you are.</p>
+    <div class="cta-row"><a href="../../quiz/" class="btn btn-glow">Find My Energy Match</a><a href="#intention" class="btn">Explore by Intention</a></div>
+  </div>
+</section>
+
+<!-- 2 · TRUST -->
+<section class="trust">
+  <div class="trust-in">
+    <div class="trust-item"><div class="k">Two decades, founder-led</div><div class="d">Founder-led for more than twenty years.</div></div>
+    <div class="trust-item"><div class="k">The largest collection</div><div class="d">Home to the world's largest collection of fixed-frequency generators.</div></div>
+    <div class="trust-item"><div class="k">Guidance, not guesswork</div><div class="d">Guidance before and after you buy.</div></div>
+  </div>
+  <div class="trust-author">Co-founder <em>Heather Askinosie</em> is the best-selling author of <em>Crystal 365</em> and <em>Crystal Muse</em>, and creator of the <em>Daily Crystal Inspiration</em> deck.</div>
+</section>
+
+<!-- 3 · INTENTION -->
+<section class="sec" id="intention">
+  <div class="wrap">
+    <div class="head reveal"><span class="eyebrow">Shop by intention</span><h2>Start with how you want to feel.</h2><p>You don't need to know the name of a crystal or the science behind a frequency generator. Just start with the energy you want more of — we'll take it from there.</p></div>
+    <div class="itiles reveal">
+      <a class="itile" href="../../intention/protection/"><img src="../../assets/img/protection.jpg" alt=""><span class="gl"></span><span class="lab"><span class="n">Boundaries</span><span class="t">Protection</span></span></a>
+      <a class="itile" href="../../intention/abundance/"><img src="../../assets/img/wealth.jpg" alt=""><span class="gl"></span><span class="lab"><span class="n">Momentum</span><span class="t">Abundance</span></span></a>
+      <a class="itile" href="../../intention/calm/"><img src="../../assets/img/calm.jpg" alt=""><span class="gl"></span><span class="lab"><span class="n">Steadiness</span><span class="t">Calm</span></span></a>
+      <a class="itile" href="../../intention/connection/"><img src="../../assets/img/jewelry.jpg" alt=""><span class="gl"></span><span class="lab"><span class="n">Heart-opening</span><span class="t">Love</span></span></a>
+      <a class="itile" href="../../intention/clarity/"><img src="../../assets/img/clarity.jpg" alt=""><span class="gl"></span><span class="lab"><span class="n">Focus</span><span class="t">Clarity</span></span></a>
+    </div>
+    <div class="cta-row reveal" style="justify-content:center;margin-top:40px"><a href="../../quiz/" class="btn">Take the Energy Quiz</a></div>
+  </div>
+</section>
+
+<!-- 4 · WAYS -->
+<section class="sec" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="head reveal"><span class="eyebrow">Four ways in</span><h2>Your first step can be simple.</h2></div>
+    <div class="ways reveal">
+      <div class="way"><span class="wn">Wear it</span><h3><em>Wear</em> it.</h3><p>Crystal jewelry keeps your intention close, all day long.</p><a href="#jewelry" class="lk">Shop Jewelry →</a></div>
+      <div class="way"><span class="wn">Place it</span><h3><em>Place</em> it.</h3><p>Crystals act as a beautiful, visual reminder in your everyday moments.</p><a href="../../gems/" class="lk">Shop Crystals →</a></div>
+      <div class="way"><span class="wn">Tune the space</span><h3><em>Tune</em> the space.</h3><p>Frequency tools put you in control of your space, every day.</p><a href="../../generator/" class="lk">Explore Frequency →</a></div>
+      <div class="way"><span class="wn">Let us guide you</span><h3><em>Let us</em> guide you.</h3><p>Our Energy Quiz gives you a clear, simple starting point.</p><a href="../../quiz/" class="lk">Take the Quiz →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · QUIZ -->
+<section class="sec"><div class="wrap split">
+  <div class="s-media reveal"><img src="../../assets/img/clarity.jpg" alt="A woman resting a clear quartz point to her brow"></div>
+  <div class="s-copy reveal d1"><span class="eyebrow">The Energy Quiz</span><h2>Not sure where to begin? That's exactly what we're here for.</h2><p class="body">Tell us your focus, your practice style, and what fits your life. In a few minutes, you'll get your energy match: a starting point, a simple practice, and products chosen just for you.</p><div class="cta-row"><a href="../../quiz/" class="btn btn-glow">Find My Energy Match</a></div></div>
+</div></section>
+
+<!-- 6 · JEWELRY -->
+<section class="sec" style="background:var(--bg-2);border-block:1px solid var(--line)"><div class="wrap split rev">
+  <div class="s-media reveal"><img src="../../assets/img/jewelry.jpg" alt="Stacked crystal-bead bracelets in warm tones"></div>
+  <div class="s-copy reveal d1"><span class="eyebrow">Wear your energy</span><h2>Wear your energy.</h2><p class="body">Jewelry can be more than something beautiful. It can be the reminder you reach for before a big moment, the anchor that grounds you mid-day, or the piece you choose when you're ready for what's next.</p><div class="cta-row"><a href="#" class="btn btn-glow">Shop Crystal Jewelry</a></div></div>
+</div></section>
+
+<!-- 7 · FOUNDER -->
+<section class="sec" id="about"><div class="wrap split">
+  <div class="s-media reveal"><img src="../../assets/img/founders.jpg" alt="Founders Heather Askinosie and Timmi Jandro" style="object-position:50% 25%"></div>
+  <div class="s-copy reveal d1"><span class="bignum">20<i>+</i></span><span class="eyebrow">Our story</span><h2>For more than two decades, helping people live better.</h2><p class="body">Energy is invisible — which is exactly why it's so easy to overlook. But small shifts in your energy can lead to the biggest transformations in your life. Energy Muse began with one necklace and a simple belief: your energy deserves to be a priority. Your energy is the muse. For more than two decades, founders Heather Askinosie and Timmi Jandro have turned that belief into intentional products and education.</p><div class="cta-row"><a href="#" class="btn btn-glow">Our Story</a><a href="#" class="btn">Meet Heather &amp; Timmi</a></div></div>
+</div></section>
+
+<!-- 8 · FREQUENCY -->
+<section class="freq sec" id="frequency">
+  <div class="wrap">
+    <div class="head reveal"><span class="eyebrow">Where wellness meets tech</span><h2>Frequency, made simple.</h2><p>Energy Muse frequency generators are precision-crafted to emit specific frequencies, so you're always in control of how your space feels. We're home to the world's most extensive fixed-frequency collection — and fixed-frequency devices reach a larger radius with a stronger signal than the variable-frequency devices others sell.</p></div>
+    <div class="stage reveal">
+      <div class="halo" aria-hidden="true"></div>
+      <div class="live3d"><img id="freq-poster" src="../../assets/img/generator-render.jpg" alt="The Energy Muse frequency generator: gold spiral coil in a glossy black plate"><canvas id="freq-canvas" aria-hidden="true"></canvas></div>
+    </div>
+    <div class="specs reveal"><div class="spec"><span class="k">Material</span><span class="v">Copper coil</span></div><div class="spec"><span class="k">Placement</span><span class="v">Room · desk</span></div><div class="spec"><span class="k">Setup</span><span class="v">Under 5 min</span></div></div>
+    <div class="cta-row reveal" style="justify-content:center;margin-top:28px"><a href="../../generator/" class="btn btn-glow">Shop Frequency Generators</a><a href="../../generator/" class="btn">How They Work</a></div>
+    <p class="freq-note reveal">Frequency generators are not medical devices and are not a substitute for healthcare. They are objects for intentional practice and environmental use; experiences vary.</p>
+  </div>
+</section>
+
+<!-- 9 · PRACTICE -->
+<section class="sec" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="head reveal"><span class="eyebrow">Small practices, real life</span><h2>Small practices that make real progress.</h2></div>
+    <div class="steps reveal">
+      <div class="step"><div class="sn">1</div><h3>Choose your energy</h3><p>Name the feeling or quality you're welcoming in.</p></div>
+      <div class="step"><div class="sn">2</div><h3>Choose one tool</h3><p>Wear it, place it, or bring it into one favorite moment of your day.</p></div>
+      <div class="step"><div class="sn">3</div><h3>Keep it simple</h3><p>The best practice is a consistent one that you'll actually love returning to.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10/11 · LEARN + VEZA -->
+<section class="sec" id="learn">
+  <div class="wrap duo">
+    <div class="duo-card reveal">
+      <span class="eyebrow">The Learning Center</span>
+      <h2>Everything you need to bring good energy into your life.</h2>
+      <p class="body">Our books, crystal meanings, frequency guides and founder-led teachings are here to help you go as deep as you'd like, whenever you're ready.</p>
+      <ul class="learn-list"><li><a href="#">New to Energy Muse <i>→</i></a></li><li><a href="#">Crystal Guide <i>→</i></a></li><li><a href="#">Frequency Guide <i>→</i></a></li><li><a href="#">Learn with Heather <i>→</i></a></li></ul>
+    </div>
+    <div class="duo-card veza reveal d1" id="veza">
+      <svg class="veza-mark" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
+      <span class="eyebrow">Veza — coming soon</span>
+      <h2>Personal guidance, made even more personal.</h2>
+      <p class="body">Imagine a personal healer in your pocket — helping you find your energy match, learn to use it well, and get recommendations every step of the way. It's energy, integrated into everything you do.</p>
+      <form class="veza-form" onsubmit="return false"><input type="email" placeholder="Email address" aria-label="Email address"><button class="btn btn-glow" type="submit">Join the Waitlist</button></form>
+    </div>
+  </div>
+</section>
+
+<!-- 12 · SOCIAL PROOF -->
+<section class="sec" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="head reveal"><span class="eyebrow">In their words</span><h2>Real energy. Real people. Real transformations.</h2></div>
+    <div class="quotes reveal">
+      <figure class="quote"><span class="mk">“</span><blockquote>I feel noticeably calmer when it's near me. I keep it in my backpack for classes and clinicals — it's been a game changer for managing my stress.</blockquote><figcaption class="who">Kaylee</figcaption></figure>
+      <figure class="quote"><span class="mk">“</span><blockquote>I always have my Protection Necklace in my pocket at work. If I start to feel overwhelmed, I reach in and hold it. There is true power in believing something is protecting you.</blockquote><figcaption class="who">Sher McAfee</figcaption></figure>
+      <figure class="quote"><span class="mk">“</span><blockquote>My Grounding Bracelet has been immensely helpful in helping me attain peace while I took on the challenge of building a brand-new curriculum this year. Thank you for the inspiration!</blockquote><figcaption class="who">Shannon Gallagher</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 13 · FINAL -->
+<section class="final">
+  <div class="halo" aria-hidden="true"></div>
+  <div class="final-gem reveal" aria-hidden="true"><svg class="gm" viewBox="0 0 231.33 238.67"><use href="#em-markline"/></svg><canvas id="gem-canvas"></canvas></div>
+  <h2 class="reveal">You already know how you want to feel.</h2>
+  <p class="body reveal">We're here to help you shift your energy. Find your energy match, and start today.</p>
+  <div class="cta-row reveal"><a href="../../quiz/" class="btn btn-glow">Find My Energy Match</a><a href="#intention" class="btn">Shop by Intention</a></div>
+</section>
+
+<!-- 14 · EMAIL -->
+<section class="email sec">
+  <div class="wrap email-in">
+    <div><h3>Let's stay connected.</h3><p>New practices, founder guidance, product education, and early access — sent with intention, never noise.</p></div>
+    <form onsubmit="return false"><input type="email" placeholder="Email address" aria-label="Email address"><button class="btn btn-glow" type="submit">Join the List</button></form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site">
+  <div class="foot-grid">
+    <div class="foot-brand"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo"/></svg><p>Guided energy for real life. Intention-based jewelry, natural crystals, frequency and personal guidance — created to help you choose with confidence and build a practice that fits.</p></div>
+    <div class="foot-col"><h4>Start Here</h4><a href="../../quiz/">Energy Quiz</a><a href="#">Beginner's Guide</a><a href="#">How It Works</a></div>
+    <div class="foot-col"><h4>Shop</h4><a href="../../gems/">Crystals</a><a href="../../generator/">Frequency</a><a href="#">Jewelry</a><a href="#intention">By Intention</a></div>
+    <div class="foot-col"><h4>Learn</h4><a href="#">Crystal Guide</a><a href="#">Frequency Guide</a><a href="#">With Heather</a></div>
+    <div class="foot-col"><h4>Help</h4><a href="#">Contact</a><a href="#">Shipping</a><a href="#">Returns</a><a href="#">FAQ</a></div>
+  </div>
+  <div class="foot-bottom"><span>© 2026 Energy Muse. All rights reserved.</span><span>Energy Muse products and content are intended for personal practice and general wellbeing. They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease. Individual experiences vary.</span></div>
+</footer>
+
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var els=[].slice.call(document.querySelectorAll('.reveal'));
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+    els.forEach(function(e){io.observe(e);});
+  } else els.forEach(function(e){e.classList.add('in');});
+  var ann=document.getElementById('ann-x');
+  try{if(sessionStorage.getItem('em-ann')==='off')document.body.classList.add('ann-off');}catch(e){}
+  if(ann)ann.addEventListener('click',function(){document.body.classList.add('ann-off');try{sessionStorage.setItem('em-ann','off');}catch(e){}});
+  var nav=document.getElementById('nav');function ns(){nav.classList.toggle('solid',scrollY>60);}ns();addEventListener('scroll',ns,{passive:true});
+  var burger=document.getElementById('burger'),menu=document.getElementById('mobmenu'),mclose=document.getElementById('mobclose');
+  function open(){menu.classList.add('open');document.body.classList.add('menu-open');}
+  function close(){menu.classList.remove('open');document.body.classList.remove('menu-open');}
+  if(burger){burger.addEventListener('click',open);mclose.addEventListener('click',close);
+    menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',close);});
+    addEventListener('keydown',function(e){if(e.key==='Escape')close();});}
+})();
+(function(){
+  if(!window.WebGLRenderingContext)return;
+  function golive(s){requestAnimationFrame(function(){requestAnimationFrame(function(){s.classList.add('live');});});}
+  var fStage=document.querySelector('.live3d'),fC=document.getElementById('freq-canvas');
+  if(fStage&&fC){var b=false;var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting&&!b){b=true;io.disconnect();
+      import('../../assets/em-device.js').then(function(m){if(m.mount(fC,{zoom:0.82}))golive(fStage);}).catch(function(){});}});},{rootMargin:'600px'});io.observe(fStage);}
+  var gStage=document.querySelector('.final-gem'),gC=document.getElementById('gem-canvas');
+  if(gStage&&gC){var b2=false;var io2=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting&&!b2){b2=true;io2.disconnect();
+      import('../../assets/em-crystal.js').then(function(m){return m.mount(gC,{src:'../../assets/gems/wellness.glb',yaw:4.2,pitch:0.15});}).then(function(){golive(gStage);}).catch(function(){});}});},{rootMargin:'700px'});io2.observe(gStage);}
+})();
+</script>
+<script src="../../assets/em-bag.js" defer></script>
+</body></html>
