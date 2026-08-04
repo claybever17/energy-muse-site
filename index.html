@@ -97,10 +97,8 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper);font-weight
 .btn{display:inline-flex;align-items:center;gap:.6em;font-family:var(--sans);font-weight:600;font-size:14px;
   letter-spacing:.02em;padding:15px 30px;border-radius:var(--radius);cursor:pointer;border:1px solid transparent;
   transition:transform .2s,background .25s,color .25s,border-color .25s;}
-/* solid buttons are cut like subtle gems: emerald-cut corners, faceted gradient, bevel light, sheen sweep.
-   border-radius stays 0 in every skin — the cut IS the shape (a pill + cut reads as a rimmed capsule). */
-.btn-primary,.btn-copper{position:relative;overflow:hidden;isolation:isolate;border-radius:0;
-  clip-path:polygon(9px 0,calc(100% - 9px) 0,100% 9px,100% calc(100% - 9px),calc(100% - 9px) 100%,9px 100%,0 calc(100% - 9px),0 9px);}
+/* solid buttons: faceted gradient, bevel light, sheen sweep. Corner radius follows the skin (var(--radius)). */
+.btn-primary,.btn-copper{position:relative;overflow:hidden;isolation:isolate;}
 .btn-primary::before,.btn-copper::before{content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(115deg,rgba(255,255,255,.13) 0 24%,transparent 25% 55%,rgba(255,255,255,.07) 56% 74%,transparent 75%);}
 .btn-primary::after,.btn-copper::after{content:"";position:absolute;top:0;bottom:0;left:-80%;width:55%;
@@ -134,7 +132,18 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper);font-weight
 .link .a{transition:transform .25s;}.link:hover .a{transform:translateX(5px);}
 
 @media (min-width:841px){.hero h1 .line span{white-space:nowrap;}}
-/* ===== Announcement + nav ===== */
+/* ===== Announcement bar (subtle, dismissible) ===== */
+.ann{background:var(--tint);border-bottom:1px solid var(--hair);color:var(--ink-soft);
+  font-size:12px;letter-spacing:.03em;position:relative;z-index:70;}
+.ann-in{display:flex;align-items:center;justify-content:center;gap:16px;padding:9px 0;text-align:center;position:relative;}
+.ann-in a{font-weight:600;color:var(--fg);border-bottom:1px solid var(--copper);padding-bottom:1px;}
+.ann-in a:hover{color:var(--copper);}
+.annx{position:absolute;right:0;top:50%;transform:translateY(-50%);background:none;border:0;
+  color:var(--stone);cursor:pointer;font-size:16px;line-height:1;padding:6px;}
+.annx:hover{color:var(--copper);}
+body.ann-off .ann{display:none;}
+@media (max-width:640px){.ann-in{font-size:11px;gap:10px;padding-inline:36px;}}
+/* ===== nav ===== */
 header.nav{position:sticky;top:0;z-index:60;transition:background .3s,color .3s;}
 header.nav::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;opacity:0;transition:opacity .4s;
   background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--copper) 55%,transparent) 28% 72%,transparent);}
@@ -265,6 +274,8 @@ body.menu-open{overflow:hidden;}
   linear-gradient(90deg,color-mix(in srgb,var(--copper) 7%,transparent),transparent 30% 70%,color-mix(in srgb,var(--copper) 7%,transparent)),
   var(--tint);}
 .trust-in{display:grid;grid-template-columns:repeat(3,1fr);}
+.trust-author{text-align:center;font-size:13px;color:var(--stone);max-width:66ch;margin:0 auto;padding:2px 0 16px;line-height:1.55;}
+.trust-author em{font-style:italic;color:var(--copper-lo);}
 .trust-item{padding:22px 24px;display:flex;gap:13px;align-items:center;justify-content:center;text-align:center;
   font-size:14px;color:var(--ink-soft);letter-spacing:.01em;}
 .trust-item+.trust-item{border-left:1px solid var(--hair);}
@@ -549,10 +560,30 @@ footer.site{background:
 .foot-bottom{border-top:1px solid var(--hair);padding-block:24px;font-size:11.5px;color:var(--stone);display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap;line-height:1.5;}
 
 
-/* ===== Skin switcher ===== */
-.skins{position:fixed;bottom:22px;right:22px;z-index:80;display:flex;gap:4px;padding:7px;border-radius:100px;
-  background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(14px);
-  border:1px solid var(--hair);box-shadow:0 10px 40px rgba(10,16,23,.18);}
+/* ===== Versions switcher: popup menu of design directions + the color skins ===== */
+.versions{position:fixed;bottom:22px;right:22px;z-index:80;display:flex;flex-direction:column;align-items:flex-end;gap:10px;font-family:var(--sans);}
+.versbtn{display:inline-flex;align-items:center;gap:9px;padding:10px 16px;border-radius:100px;cursor:pointer;
+  border:1px solid var(--hair);background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);
+  box-shadow:0 10px 40px rgba(10,16,23,.18);color:var(--ink-soft);font-weight:600;font-size:11.5px;
+  letter-spacing:.14em;text-transform:uppercase;transition:border-color .25s,color .25s;}
+.versbtn svg{width:20px;height:21px;color:var(--copper);}
+.versbtn:hover{border-color:var(--copper);color:var(--fg);}
+.verspop{width:min(300px,calc(100vw - 28px));padding:16px;border-radius:14px;border:1px solid var(--hair);
+  background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(18px);
+  box-shadow:0 18px 60px rgba(10,16,23,.24);opacity:0;transform:translateY(10px);pointer-events:none;
+  transition:opacity .3s cubic-bezier(.16,1,.3,1),transform .3s cubic-bezier(.16,1,.3,1);}
+.verspop.open{opacity:1;transform:none;pointer-events:auto;}
+.vp-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--stone);font-weight:600;margin:0 0 8px;}
+.vp-list{display:flex;flex-direction:column;margin:0 0 14px;}
+.vp-list a{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:9px 10px;border-radius:8px;transition:background .2s;}
+.vp-list a strong{font-family:var(--serif);font-weight:400;font-size:16px;color:var(--fg);transition:color .2s;}
+.vp-list a span{font-size:11px;color:var(--stone);letter-spacing:.03em;text-align:right;}
+.vp-list a:hover{background:color-mix(in srgb,var(--copper) 9%,transparent);}
+.vp-list a:hover strong{color:var(--copper);}
+.vp-list a.cur{background:color-mix(in srgb,var(--copper) 12%,transparent);}
+.vp-list a.cur strong{color:var(--copper);}
+.vp-div{height:1px;background:var(--hair);margin:0 0 12px;}
+.skins{display:flex;gap:4px;}
 .skin{display:flex;align-items:center;gap:8px;padding:6px;border-radius:100px;border:1px solid transparent;
   background:none;cursor:pointer;transition:border-color .25s,padding .25s;}
 .skin .dot{width:22px;height:22px;border-radius:50%;flex:none;background:var(--d1);
@@ -563,7 +594,7 @@ footer.site{background:
 .skin:hover .lbl,.skin.active .lbl{max-width:90px;}
 .skin:hover,.skin.active{border-color:var(--accent);padding:6px 12px 6px 6px;}
 @media (max-width:700px){
-  .skins{bottom:12px;right:12px;padding:5px;gap:2px;opacity:.92;}
+  .versions{bottom:12px;right:12px;}
   .skin{padding:5px!important;}
   .skin .lbl{display:none;}
 }
@@ -680,6 +711,14 @@ footer.site{background:
   </symbol>
 </svg>
 
+<div class="ann" id="ann">
+  <div class="wrap ann-in">
+    <span>New to Energy Muse? Find your energy match in a few simple questions.</span>
+    <a href="quiz/">Take the Energy Quiz &rarr;</a>
+    <button class="annx" id="annx" aria-label="Dismiss">&times;</button>
+  </div>
+</div>
+
 <header class="nav">
   <div class="wrap nav-in">
     <nav class="nav-links nl-left">
@@ -725,13 +764,13 @@ footer.site{background:
     <div class="hero-copy">
       <span class="eyebrow anim">Guided Energy for Real Life</span>
       <h1><span class="line"><span>Energy, made <em class="hl gemword">personal.</em></span></span></h1>
-      <p class="sub anim">Find the tools, guidance and practices that fit the way you want to feel.</p>
-      <p class="body anim">From Frequency Generators to crystal jewelry and natural crystals, Energy Muse brings
-        together modern tools, trusted guidance and more than two decades of practice. Start with an
-        intention. We will help you understand what fits, how products can work together and how to begin.</p>
+      <p class="sub anim">Choose your energy. Live in it.</p>
+      <p class="body anim">Energy Muse brings together intention-based jewelry, crystals, and frequency generators
+        to help you build a practice around the energy you want more of. No experience needed &mdash; we'll meet you
+        exactly where you are, and help you find your way from there.</p>
       <div class="cta-row anim">
         <a href="quiz/" class="btn btn-copper">Find My Energy Match</a>
-        <a href="generator/" class="btn btn-light">Explore Frequency Generators</a>
+        <a href="#intention" class="btn btn-light">Explore by Intention</a>
       </div>
     </div>
     <div class="hero-media anim">
@@ -746,9 +785,11 @@ footer.site{background:
 <section class="trust">
   <div class="wrap"><div class="trust-in">
     <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.9 6 6.6.6-5 4.3 1.5 6.5L12 16.9 5.9 20.4 7.4 12.9l-5-4.3L9 8z"/></svg> Founder-led for more than two decades</div>
-    <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l8 4.5v9L12 20l-8-4.5v-9z"/><path d="M12 11l8-4.5M12 11v9M12 11L4 6.5"/></svg> Real materials and true craftsmanship</div>
+    <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l8 4.5v9L12 20l-8-4.5v-9z"/><path d="M12 11l8-4.5M12 11v9M12 11L4 6.5"/></svg> Home to the world's largest collection of fixed-frequency generators</div>
     <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.4 8.4 0 01-.9 3.8A8.5 8.5 0 0112.5 20a8.4 8.4 0 01-3.8-.9L3 20l1.9-5.7a8.4 8.4 0 01-.9-3.8A8.5 8.5 0 018.7 3 8.4 8.4 0 0112.5 2H13a8.5 8.5 0 018 8z"/></svg> Guidance before and after you buy</div>
-  </div></div>
+  </div>
+  <p class="trust-author">Co-founder <em>Heather Askinosie</em> is the best-selling author of <em>Crystal 365</em> and <em>Crystal Muse</em>, and creator of the <em>Daily Crystal Inspiration</em> deck.</p>
+  </div>
 </section>
 
 <!-- ===== INTENTION ===== -->
@@ -757,10 +798,10 @@ footer.site{background:
     <div class="head reveal">
       <span class="eyebrow">Start with the feeling</span>
       <h2>Start with how you want to feel.</h2>
-      <p class="lead">You don't need to know the name of a crystal or the meaning of a frequency. Begin with the energy you want more of today.</p>
+      <p class="lead">You don't need to know the name of a crystal or the science behind a frequency generator. Just start with the energy you want more of &mdash; we'll take it from there.</p>
     </div>
-    <div class="int-grid reveal"><a class="int" href="intention/protection/"><img src="assets/img/protection.jpg" alt="Protection intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div></a><a class="int" href="intention/abundance/"><img src="assets/img/wealth.jpg" alt="Abundance intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div></a><a class="int" href="intention/calm/"><img src="assets/img/calm.jpg" alt="Grounding and Calm intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Steadiness &middot; nervous-system ease</div><div class="t">Calm</div></div></a><a class="int" href="intention/connection/"><img src="assets/img/jewelry.jpg" alt="Love and Self-Worth intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Heart-opening &middot; relationships</div><div class="t">Connection</div></div></a><a class="int" href="intention/clarity/"><img src="assets/img/clarity.jpg" alt="Clarity and Intuition intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Focus &middot; intuition</div><div class="t">Clarity</div></div></a></div>
-    <div class="int-cta"><a href="quiz/" class="link">Not sure? Take the quiz <span class="a">&rarr;</span></a></div>
+    <div class="int-grid reveal"><a class="int" href="intention/protection/"><img src="assets/img/protection.jpg" alt="Protection intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div></a><a class="int" href="intention/abundance/"><img src="assets/img/wealth.jpg" alt="Abundance intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div></a><a class="int" href="intention/calm/"><img src="assets/img/calm.jpg" alt="Grounding and Calm intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Steadiness &middot; nervous-system ease</div><div class="t">Calm</div></div></a><a class="int" href="intention/connection/"><img src="assets/img/jewelry.jpg" alt="Love and Self-Worth intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Heart-opening &middot; connection</div><div class="t">Love</div></div></a><a class="int" href="intention/clarity/"><img src="assets/img/clarity.jpg" alt="Clarity and Intuition intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Focus &middot; intuition</div><div class="t">Clarity</div></div></a></div>
+    <div class="int-cta"><a href="quiz/" class="link">Take the Energy Quiz <span class="a">&rarr;</span></a></div>
   </div>
 </section>
 
@@ -770,16 +811,16 @@ footer.site{background:
     <div class="head reveal"><span class="eyebrow">Four ways in</span><h2>Your first step can be simple.</h2></div>
     <div class="ways">
       <div class="way reveal"><div class="thumb"><img src="assets/img/bracelets.jpg" alt="Stacked crystal bracelets on a wrist"></div>
-        <h3><em>Wear</em> it.</h3><p>Crystal jewelry keeps an intention close, in a form that fits everyday life.</p>
+        <h3><em>Wear</em> it.</h3><p>Crystal jewelry keeps your intention close, all day long.</p>
         <a class="link" href="#jewelry">Shop Jewelry <span class="a">&rarr;</span></a></div>
       <div class="way reveal d1"><div class="thumb"><img src="assets/img/wealth.jpg" alt="A hand holding a pyrite crystal"></div>
-        <h3><em>Place</em> it.</h3><p>Natural crystals become a visual cue in your home, workspace or practice.</p>
+        <h3><em>Place</em> it.</h3><p>Crystals act as a beautiful, visual reminder &mdash; in your home, your workspace, your everyday moments.</p>
         <a class="link" href="gems/">Shop Crystals <span class="a">&rarr;</span></a></div>
       <div class="way reveal d2"><div class="thumb"><img src="assets/img/calm.jpg" alt="A copper-coil frequency tool"></div>
-        <h3><em>Tune</em> the space.</h3><p>Frequency generators offer a structured, material-led way to shape a room.</p>
+        <h3><em>Tune</em> the space.</h3><p>Frequency tools put you in control of your space energetically, so you can manifest your goals and feel your best every day.</p>
         <a class="link" href="generator/">Explore Frequency <span class="a">&rarr;</span></a></div>
       <div class="way reveal d3"><div class="thumb quiz"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div>
-        <h3><em>Let us</em> guide you.</h3><p>The Energy Quiz narrows the choices to a practical starting point.</p>
+        <h3><em>Let us</em> guide you.</h3><p>Our Energy Quiz gives you a clear, simple starting point &mdash; with personalized recommendations just for you.</p>
         <a class="link" href="quiz/">Take the Quiz <span class="a">&rarr;</span></a></div>
     </div>
   </div>
@@ -791,8 +832,8 @@ footer.site{background:
     <div class="media arch reveal" style="aspect-ratio:4/4.4"><div class="t3d"><img src="assets/img/clarity.jpg" alt="A woman resting a clear quartz point to her brow"><span class="glare"></span></div><span class="plab">Clear quartz &middot; a first tool</span></div>
     <div class="copy reveal d1">
       <span class="eyebrow">The Energy Quiz</span>
-      <h2>Not sure where to begin? That's exactly what the quiz is for.</h2>
-      <p>Tell us what you want more of, how you like to practice and what kind of tool fits your life. In a few minutes you'll get a personalized starting point, a simple practice, and products chosen around your intention.</p>
+      <h2>Not sure where to begin? That's exactly what we're here for.</h2>
+      <p>Tell us your focus, your practice style, and what fits your life. In a few minutes, you'll get your energy match: a starting point, a simple practice, and products chosen just for you.</p>
       <div class="cta-row"><a href="quiz/" class="btn btn-copper">Find My Energy Match</a></div>
     </div>
   </div>
@@ -804,8 +845,8 @@ footer.site{background:
     <div class="media arch reveal" style="aspect-ratio:4/4.4"><div class="t3d"><img src="assets/img/jewelry.jpg" alt="Stacked crystal-bead bracelets in warm tones"><span class="glare"></span></div><span class="plab">Intention, layered</span></div>
     <div class="copy reveal d1">
       <span class="eyebrow">Wear the intention</span>
-      <h2>A practice you don't have to remember.</h2>
-      <p>A piece of jewelry can be more than something beautiful. It's the cue you touch before a hard conversation, the reminder you notice in a busy day, the object you choose when you want to begin again.</p>
+      <h2>Wear your energy.</h2>
+      <p>Jewelry can be more than something beautiful. It can be the reminder you reach for before a big moment, the anchor that grounds you mid-day, or the piece you choose when you're ready for what's next.</p>
       <div class="cta-row"><a href="#" class="btn btn-primary">Shop Crystal Jewelry</a></div>
     </div>
   </div>
@@ -818,9 +859,9 @@ footer.site{background:
     <div class="copy reveal d1">
       <span class="big-num" aria-hidden="true">20<i>+</i></span>
       <span class="eyebrow">Twenty years of knowing</span>
-      <h2>A modern practice, built on more than two decades.</h2>
+      <h2>For more than two decades, helping people live better.</h2>
       <svg class="mini-wave" viewBox="0 0 220 24" aria-hidden="true"><path d="M0,12 C18,2 38,22 55,12 C72,2 92,22 110,12 C128,2 148,22 165,12 C182,2 202,22 220,12"/></svg>
-      <p>Energy Muse began with one necklace and a belief that the objects we choose can help us stay connected to what matters. Heather Askinosie and Timmi Jandro have spent more than twenty years turning that belief into tools, education and practices people can actually use. The materials evolve. The purpose hasn't changed.</p>
+      <p>Energy is invisible &mdash; which is exactly why it's so easy to overlook. But small shifts in your energy can lead to the biggest transformations in your life. Energy Muse began with one necklace and a simple belief: your energy deserves to be a priority. Your energy is the muse. For more than two decades, founders Heather Askinosie and Timmi Jandro have turned that belief into intentional products and education &mdash; helping you live in the energy you want, and feel your best every day.</p>
       <div class="cta-row"><a href="#" class="btn btn-primary">Our Story</a><a href="#" class="btn btn-ghost">Meet Heather &amp; Timmi</a></div>
     </div>
   </div>
@@ -834,16 +875,16 @@ footer.site{background:
       <canvas id="freq-canvas" aria-hidden="true"></canvas>
     </div>
     <div class="copy reveal d1">
-      <span class="eyebrow">Clear &middot; Material &middot; Specific</span>
-      <h2>Frequency, made <em class="hl gemword">tangible.</em></h2>
+      <span class="eyebrow">Where wellness meets tech</span>
+      <h2>Frequency, made <em class="hl gemword">simple.</em></h2>
       <svg class="mini-wave" viewBox="0 0 220 24" aria-hidden="true"><path d="M0,12 C18,2 38,22 55,12 C72,2 92,22 110,12 C128,2 148,22 165,12 C182,2 202,22 220,12"/></svg>
-      <p>Energy Muse frequency generators are physical objects tuned to specified frequencies and designed for intentional use in your space. We make the category easier to understand by showing the material, the setup, the recommended routine and what you can realistically expect.</p>
+      <p>Energy Muse frequency generators are precision-crafted to emit specific frequencies, so you're always in control of how your space feels &mdash; at your desk where you work, or by your bed where you sleep. We're home to the world's most extensive fixed-frequency collection, and fixed-frequency devices reach a larger radius with a stronger signal than the variable-frequency devices others sell.</p>
       <div class="specs">
         <div class="spec"><span class="k">Material</span><span class="v">Copper coil</span></div>
         <div class="spec"><span class="k">Placement</span><span class="v">Room &middot; desk</span></div>
         <div class="spec"><span class="k">Setup</span><span class="v">Under 5 min</span></div>
       </div>
-      <div class="cta-row" style="margin-top:28px"><a href="generator/" class="btn btn-copper">Shop Frequency</a><a href="generator/" class="btn btn-light">How They Work</a></div>
+      <div class="cta-row" style="margin-top:28px"><a href="generator/" class="btn btn-copper">Shop Frequency Generators</a><a href="generator/" class="btn btn-light">How They Work</a></div>
       <p class="freq-note">Frequency generators are not medical devices and are not a substitute for healthcare. They are designed as objects for intentional practice and environmental use; experiences vary.</p>
     </div>
   </div>
@@ -852,16 +893,16 @@ footer.site{background:
 <!-- ===== RITUAL ===== -->
 <section class="section">
   <div class="wrap">
-    <div class="head reveal"><span class="eyebrow">Small practices. Real life.</span><h2>A practice that fits a real day.</h2>
+    <div class="head reveal"><span class="eyebrow">Small practices. Real life.</span><h2>Small practices that make real progress.</h2>
       <p class="lead">A practice works best when it's easy enough to repeat. Three steps are all you need to begin.</p></div>
     <div class="steps-zone reveal">
       <svg class="steps-wave" viewBox="0 0 1200 100" preserveAspectRatio="none" aria-hidden="true">
         <path pathLength="1" d="M0,50 C90,14 200,86 300,50 C360,28 440,28 500,50 C590,84 710,16 800,50 C860,72 940,72 1000,50 C1080,22 1150,60 1200,50"/>
       </svg>
       <div class="steps">
-      <div class="step"><div class="rn"><svg viewBox="0 0 70 70" aria-hidden="true"><circle cx="35" cy="35" r="33" stroke-width="1.2"/><circle cx="35" cy="35" r="22" stroke-width="1.2"/></svg><span>1</span></div><h3>Choose the intention</h3><p>Name the feeling, boundary or quality you want to return to.</p></div>
-      <div class="step"><div class="rn"><svg viewBox="0 0 70 70" aria-hidden="true"><circle cx="35" cy="35" r="33" stroke-width="1.2"/><circle cx="35" cy="35" r="22" stroke-width="1.2"/></svg><span>2</span></div><h3>Choose one tool</h3><p>Wear it, place it or use it at a consistent moment in your day.</p></div>
-      <div class="step"><div class="rn"><svg viewBox="0 0 70 70" aria-hidden="true"><circle cx="35" cy="35" r="33" stroke-width="1.2"/><circle cx="35" cy="35" r="22" stroke-width="1.2"/></svg><span>3</span></div><h3>Keep it simple</h3><p>A practice works best when it is easy enough to repeat.</p></div>
+      <div class="step"><div class="rn"><svg viewBox="0 0 70 70" aria-hidden="true"><circle cx="35" cy="35" r="33" stroke-width="1.2"/><circle cx="35" cy="35" r="22" stroke-width="1.2"/></svg><span>1</span></div><h3>Choose your energy</h3><p>Name the feeling or quality you're welcoming in.</p></div>
+      <div class="step"><div class="rn"><svg viewBox="0 0 70 70" aria-hidden="true"><circle cx="35" cy="35" r="33" stroke-width="1.2"/><circle cx="35" cy="35" r="22" stroke-width="1.2"/></svg><span>2</span></div><h3>Choose one tool</h3><p>Wear it, place it, or bring it into one favorite moment of your day.</p></div>
+      <div class="step"><div class="rn"><svg viewBox="0 0 70 70" aria-hidden="true"><circle cx="35" cy="35" r="33" stroke-width="1.2"/><circle cx="35" cy="35" r="22" stroke-width="1.2"/></svg><span>3</span></div><h3>Keep it simple</h3><p>The best practice is a consistent one that you'll actually love returning to.</p></div>
       </div>
     </div>
   </div>
@@ -872,7 +913,7 @@ footer.site{background:
   <div class="wrap duo">
     <div class="duo-card reveal">
       <span class="eyebrow">The Learning Center</span>
-      <h2>Understand the tool. Make the practice your own.</h2>
+      <h2>Everything you need to bring good energy into your life.</h2>
       <ul class="guide-list">
         <li><a href="#">
           <svg class="gi" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 27 V15 a9 9 0 0 1 18 0 V27" fill="none"/><path d="M11 27 V16.5 a5 5 0 0 1 10 0 V27" fill="none" opacity=".55"/></svg>
@@ -891,9 +932,10 @@ footer.site{background:
     <div class="duo-card veza reveal d1">
       <svg class="veza-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
       <span class="eyebrow">Veza &mdash; coming soon</span>
-      <h2>Personal guidance is becoming even more personal.</h2>
-      <p>Veza is the coming Energy Muse companion &mdash; discover the tools that fit you, learn how
-        to use them, and keep a practice that evolves with your life.</p>
+      <h2>Personal guidance, made even more personal.</h2>
+      <p>Imagine having a personal healer in your pocket, guiding you through every facet of your life. Veza is the
+        coming Energy Muse companion &mdash; here to help you find your energy match, learn how to use it well, and get
+        personalized recommendations every step of the way.</p>
       <form class="veza-form" onsubmit="return false">
         <input type="email" placeholder="Email address" aria-label="Email address">
         <button class="btn btn-copper" type="submit">Join the Waitlist</button>
@@ -906,7 +948,7 @@ footer.site{background:
 <!-- ===== QUOTES ===== -->
 <section class="section band">
   <div class="wrap">
-    <div class="head reveal"><span class="eyebrow muted">How it fits real lives</span><h2>Meaning you can wear every day.</h2></div>
+    <div class="head reveal"><span class="eyebrow muted">In their words</span><h2>Real energy. Real people. Real transformations.</h2></div>
     <div class="reels reveal">
       <figure class="reel" data-video="assets/video/story-4.mp4">
         <svg class="reel-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
@@ -956,8 +998,8 @@ footer.site{background:
       <div class="gem-ground"></div>
     </div>
     <span class="eyebrow">Your next step</span>
-    <h2>You already know what you want more of.</h2>
-    <p class="lead">Start with your intention. We'll guide you from there.</p>
+    <h2>You already know how you want to feel.</h2>
+    <p class="lead">We're here to help you shift your energy. Find your energy match, and start today.</p>
     <div class="cta-row"><a href="quiz/" class="btn btn-primary">Find My Energy Match</a><a href="#intention" class="btn btn-ghost">Shop by Intention</a></div>
   </div>
 </section>
@@ -965,7 +1007,7 @@ footer.site{background:
 <!-- ===== EMAIL ===== -->
 <section class="section email" id="veza">
   <div class="wrap email-in">
-    <div><h3>A calmer way to stay connected.</h3><p>New practices, founder guidance, product education and early access &mdash; sent with intention, not noise.</p></div>
+    <div><h3>Let's stay connected.</h3><p>New practices, founder guidance, product education, and early access &mdash; sent with intention, never noise.</p></div>
     <form onsubmit="return false"><input type="email" placeholder="Email address" aria-label="Email address"><button class="btn btn-copper" type="submit">Join the List</button></form>
   </div>
 </section>
@@ -1026,6 +1068,11 @@ footer.site{background:
     menu.querySelectorAll('nav a, .mobmenu-foot a').forEach(function(a){a.addEventListener('click',closeMenu);});
     document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});
   }
+
+  // announcement bar: dismiss for the session
+  try{if(sessionStorage.getItem('em-ann')==='off')document.body.classList.add('ann-off');}catch(e){}
+  var annx=document.getElementById('annx');
+  if(annx)annx.addEventListener('click',function(){document.body.classList.add('ann-off');try{sessionStorage.setItem('em-ann','off');}catch(e){}});
 })();
 
 
@@ -1124,10 +1171,29 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 </script>
 
 <script src="assets/em-bag.js" defer></script>
-<div class="skins" role="radiogroup" aria-label="Choose a look">
-  <button class="skin" data-skin="ivory" style="--d1:#FBF8F2;--d2:#A9683E" aria-label="Ivory look"><span class="dot"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></span><span class="lbl">Ivory</span></button>
-  <button class="skin" data-skin="midnight" style="--d1:#0B1320;--d2:#C4855A" aria-label="Midnight look"><span class="dot"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></span><span class="lbl">Midnight</span></button>
-  <button class="skin" data-skin="sage" style="--d1:#E9EFE4;--d2:#257E6F" aria-label="Sage look"><span class="dot"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></span><span class="lbl">Sage</span></button>
+<div class="versions" id="versions">
+  <div class="verspop" id="verspop" aria-label="Design directions">
+    <div class="vp-label">Design directions</div>
+    <nav class="vp-list">
+      <a href="/"><strong>Classic</strong><span>the main homepage</span></a>
+      <a href="/home/motion/"><strong>Motion</strong><span>glides in as you scroll</span></a>
+      <a href="/home/editorial/"><strong>Editorial</strong><span>gallery catalogue</span></a>
+      <a href="/home/grid/"><strong>Grid</strong><span>modular &middot; tech</span></a>
+      <a href="/home/boutique/"><strong>Boutique</strong><span>centered &middot; ceremonial</span></a>
+      <a href="/home/cinematic/"><strong>Cinematic</strong><span>dark &middot; immersive</span></a>
+    </nav>
+    <div class="vp-div"></div>
+    <div class="vp-label">Color &middot; this design</div>
+    <div class="skins" role="radiogroup" aria-label="Choose a look">
+      <button class="skin" data-skin="ivory" style="--d1:#FBF8F2;--d2:#A9683E" aria-label="Ivory look"><span class="dot"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></span><span class="lbl">Ivory</span></button>
+      <button class="skin" data-skin="midnight" style="--d1:#0B1320;--d2:#C4855A" aria-label="Midnight look"><span class="dot"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></span><span class="lbl">Midnight</span></button>
+      <button class="skin" data-skin="sage" style="--d1:#E9EFE4;--d2:#257E6F" aria-label="Sage look"><span class="dot"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></span><span class="lbl">Sage</span></button>
+    </div>
+  </div>
+  <button class="versbtn" id="versbtn" aria-expanded="false" aria-controls="verspop">
+    <svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
+    <span>Versions</span>
+  </button>
 </div>
 <script>
 (function(){
@@ -1138,5 +1204,20 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
     try{localStorage.setItem('em-skin',b.dataset.skin);}catch(e){}
     mark();});});
   mark();
+})();
+</script>
+<script>
+(function(){
+  var btn=document.getElementById('versbtn'),pop=document.getElementById('verspop'),wrap=document.getElementById('versions');
+  if(!btn||!pop)return;
+  function set(o){pop.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');}
+  btn.addEventListener('click',function(e){e.stopPropagation();set(!pop.classList.contains('open'));});
+  document.addEventListener('click',function(e){if(!wrap.contains(e.target))set(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false);});
+  var p=location.pathname.replace(/index\.html$/,'');
+  pop.querySelectorAll('.vp-list a').forEach(function(a){
+    var h=a.getAttribute('href');
+    if(h===p||(h!=='/'&&h.replace(/\/$/,'')===p.replace(/\/$/,'')))a.classList.add('cur');
+  });
 })();
 </script>
