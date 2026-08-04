@@ -752,7 +752,37 @@ footer.site{background:
 .reels.reveal.in .reel:nth-child(3){transition-delay:.18s;}
 .reels.reveal.in .reel:nth-child(4){transition-delay:.27s;}
 .reels.reveal.in .reel:nth-child(5){transition-delay:.36s;}
+/* a breath of glow as things land — ember bloom, skin-aware via --copper */
+.split .media.reveal.in{animation:emGlowCard 1.7s ease-out .2s both;}
+@keyframes emGlowCard{
+  0%{box-shadow:0 0 0 color-mix(in srgb,var(--copper) 0%,transparent);}
+  32%{box-shadow:0 26px 90px -8px color-mix(in srgb,var(--copper) 52%,transparent);}
+  100%{box-shadow:0 0 60px color-mix(in srgb,var(--copper) 0%,transparent);}}
+.head.reveal.in h2{animation:emGlowText 1.5s ease-out .1s both;}
+@keyframes emGlowText{
+  0%{text-shadow:0 0 0 color-mix(in srgb,var(--copper) 0%,transparent);}
+  35%{text-shadow:0 2px 30px color-mix(in srgb,var(--copper) 48%,transparent);}
+  100%{text-shadow:0 0 20px color-mix(in srgb,var(--copper) 0%,transparent);}}
+.int-grid.reveal.in .int{animation:emGlowPanel 1.5s ease-out both;}
+.int-grid.reveal.in .int:nth-child(2){animation-delay:.1s;}
+.int-grid.reveal.in .int:nth-child(3){animation-delay:.2s;}
+.int-grid.reveal.in .int:nth-child(4){animation-delay:.3s;}
+.int-grid.reveal.in .int:nth-child(5){animation-delay:.4s;}
+@keyframes emGlowPanel{
+  0%{box-shadow:var(--shadow);}
+  35%{box-shadow:var(--shadow),0 18px 64px -4px color-mix(in srgb,var(--copper) 42%,transparent);}
+  100%{box-shadow:var(--shadow);}}
+.duo-card.reveal.in{animation:emGlowPanel 1.7s ease-out .25s both;}
+.steps-zone.reveal.in .step .rn{border-radius:50%;animation:emGlowRing 1.5s ease-out both;}
+.steps-zone.reveal.in .step:nth-child(1) .rn{animation-delay:.15s;}
+.steps-zone.reveal.in .step:nth-child(2) .rn{animation-delay:.33s;}
+.steps-zone.reveal.in .step:nth-child(3) .rn{animation-delay:.51s;}
+@keyframes emGlowRing{
+  0%{box-shadow:0 0 0 color-mix(in srgb,var(--copper) 0%,transparent);}
+  40%{box-shadow:0 0 44px 6px color-mix(in srgb,var(--copper) 55%,transparent);}
+  100%{box-shadow:0 0 30px color-mix(in srgb,var(--copper) 0%,transparent);}}
 @media (prefers-reduced-motion:reduce){
+  .reveal.in,.reveal.in *{animation:none!important;}
   .split .media.reveal,.split .copy.reveal>*,.head.reveal h2,.head.reveal .lead,
   .int-grid.reveal .int,.int-grid.reveal .int img,.way.reveal,
   .steps-zone.reveal .step,.steps-zone.reveal .step .rn,.duo-card.reveal,.reels.reveal .reel{
