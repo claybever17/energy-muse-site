@@ -126,6 +126,10 @@ h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-
 }
 @media(max-width:700px){.nav{padding:12px 5vw}.nav .brand svg{height:24px}.nav .links a{margin-left:14px}}
 .foot{border-top:1px solid var(--line);padding:26px 6vw;font-size:11.5px;color:var(--soft);line-height:1.5}
+
+/* typographic hygiene: no orphan words on wrapped lines */
+p{text-wrap:pretty;}
+.lead,.head p{text-wrap:balance;}
 </style>
 <script src="../assets/em-bag.js" defer></script></head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">

@@ -248,6 +248,10 @@ footer.site{background:var(--ink);color:var(--paper);padding-block:clamp(50px,6v
 .mobmenu nav{display:flex;flex-direction:column;margin-top:20px;flex:1;justify-content:center;gap:2px}
 .mobmenu nav a{font-family:var(--serif);font-weight:300;font-size:30px;padding:12px 0;border-bottom:1px solid var(--hair)}
 body.menu-open{overflow:hidden}
+
+/* typographic hygiene: no orphan words on wrapped lines */
+p{text-wrap:pretty;}
+.lead,.head p{text-wrap:balance;}
 </style>
 </head>
 <body>

@@ -110,6 +110,10 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper)}
   .cards{grid-template-columns:1fr;max-width:340px;margin:0 auto}
 }
 @media (prefers-reduced-motion:reduce){.gemword,.hero .media svg{animation:none}}
+
+/* typographic hygiene: no orphan words on wrapped lines */
+p{text-wrap:pretty;}
+.lead,.head p{text-wrap:balance;}
 </style></head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">

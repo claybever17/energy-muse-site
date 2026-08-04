@@ -145,6 +145,10 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper)}
   .scr.on{animation:none}
   .stage-mark,.gemword{animation:none}
 }
+
+/* typographic hygiene: no orphan words on wrapped lines */
+p{text-wrap:pretty;}
+.lead,.head p{text-wrap:balance;}
 </style></head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
