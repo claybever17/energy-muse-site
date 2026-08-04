@@ -222,10 +222,10 @@ body.menu-open{overflow:hidden;}
 
 
 /* ===== HERO (committed dark editorial) ===== */
-/* hero stops short of the fold so the trust band sits visibly cut mid-row — the scroll invitation.
-   140px reserve = the fold slices the band whether or not the announcement bar is showing */
+/* the fold must slice through readable text (the scroll invitation). CSS reserve is the no-JS
+   fallback; the foldCut() script then sizes the hero so the trust caption is cut mid-line exactly. */
 .hero{position:relative;background:var(--hero-bg);color:var(--hero-ink);overflow:hidden;
-  min-height:calc(100vh - 140px);min-height:min(calc(100svh - 140px),1240px);display:flex;align-items:center;}
+  min-height:calc(100vh - 190px);min-height:calc(100svh - 190px);display:flex;align-items:center;}
 .hero-bg{position:absolute;inset:0;z-index:0;
   background:radial-gradient(120% 90% at 72% 42%,var(--hero-glowA),transparent 55%),
              radial-gradient(90% 80% at 20% 100%,var(--hero-glowB),transparent 60%),var(--hero-bg);}
@@ -834,6 +834,7 @@ p{text-wrap:pretty;}
 
 
 
+
 </style>
 
 
@@ -1223,8 +1224,26 @@ p{text-wrap:pretty;}
 
   // announcement bar: dismiss for the session
   try{if(sessionStorage.getItem('em-ann')==='off')document.body.classList.add('ann-off');}catch(e){}
+
+  // fold-cut: size the hero so the first fold slices the trust caption mid-line — the reader
+  // can start the sentence but must scroll to finish it. Deterministic on every screen.
+  function foldCut(){
+    var hero=document.querySelector('.hero'),au=document.querySelector('.trust-author');
+    if(!hero||!au)return;
+    hero.style.minHeight='';
+    var base=hero.getBoundingClientRect().height;
+    var r=au.getBoundingClientRect();
+    var targetDocY=r.top+window.scrollY+r.height*.45;
+    var mh=base+(window.innerHeight-targetDocY);
+    if(mh>0)hero.style.minHeight=mh+'px';
+  }
+  foldCut();
+  window.addEventListener('load',foldCut);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(foldCut);
+  var frT;window.addEventListener('resize',function(){clearTimeout(frT);frT=setTimeout(foldCut,120);});
+
   var annx=document.getElementById('annx');
-  if(annx)annx.addEventListener('click',function(){document.body.classList.add('ann-off');try{sessionStorage.setItem('em-ann','off');}catch(e){}});
+  if(annx)annx.addEventListener('click',function(){document.body.classList.add('ann-off');try{sessionStorage.setItem('em-ann','off');}catch(e){}foldCut();});
 })();
 
 
