@@ -680,63 +680,84 @@ footer.site{background:
   .steps-wave path{transition:none;stroke-dashoffset:0;}
 }
 
-/* ===== MOTION LAYER (this version only): assets glide in on scroll ===== */
-.reveal{transform:translateY(36px);}
-/* split media slides in from its side; copy children cascade line by line */
-.split .media.reveal{transform:translateX(-56px) scale(.97);}
+/* ===== MOTION LAYER v2 — whimsical: springy arrivals, playful tilts, cascades ===== */
+:root{--spring:cubic-bezier(.34,1.56,.64,1);--soft:cubic-bezier(.16,1,.3,1);}
+.reveal{transform:translateY(42px);transition:opacity .9s var(--soft),transform .9s var(--spring);}
+/* split media glides in from alternating sides with a little tilt, settling with a spring */
+.split .media.reveal{transform:translateX(-72px) rotate(-1.6deg) scale(.96);
+  transition:opacity .95s var(--soft),transform .95s var(--spring);}
+.split.rev .media.reveal{transform:translateX(72px) rotate(1.6deg) scale(.96);}
 .split .media.reveal.in{transform:none;}
+/* copy cascades line by line, each with a springy rise */
 .split .copy.reveal{transform:none;}
-.split .copy.reveal>*{opacity:0;transform:translateY(22px);
-  transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1);}
+.split .copy.reveal>*{opacity:0;transform:translateY(26px);
+  transition:opacity .7s var(--soft),transform .7s var(--spring);}
 .split .copy.reveal.in>*{opacity:1;transform:none;}
-.split .copy.reveal.in>*:nth-child(1){transition-delay:.05s;}
-.split .copy.reveal.in>*:nth-child(2){transition-delay:.13s;}
-.split .copy.reveal.in>*:nth-child(3){transition-delay:.21s;}
-.split .copy.reveal.in>*:nth-child(4){transition-delay:.29s;}
-.split .copy.reveal.in>*:nth-child(5){transition-delay:.37s;}
-.split .copy.reveal.in>*:nth-child(6){transition-delay:.45s;}
-.split .copy.reveal.in>*:nth-child(7){transition-delay:.53s;}
-/* section headlines arrive from soft focus */
+.split .copy.reveal.in>*:nth-child(1){transition-delay:.06s;}
+.split .copy.reveal.in>*:nth-child(2){transition-delay:.16s;}
+.split .copy.reveal.in>*:nth-child(3){transition-delay:.26s;}
+.split .copy.reveal.in>*:nth-child(4){transition-delay:.36s;}
+.split .copy.reveal.in>*:nth-child(5){transition-delay:.46s;}
+.split .copy.reveal.in>*:nth-child(6){transition-delay:.56s;}
+.split .copy.reveal.in>*:nth-child(7){transition-delay:.66s;}
+/* section headlines: soft focus + spring rise, lead follows */
 .head.reveal{transform:none;}
-.head.reveal h2{opacity:0;filter:blur(9px);transform:translateY(16px);
-  transition:opacity .95s cubic-bezier(.16,1,.3,1),filter .95s cubic-bezier(.16,1,.3,1),transform .95s cubic-bezier(.16,1,.3,1);}
+.head.reveal h2{opacity:0;filter:blur(10px);transform:translateY(22px) scale(.985);
+  transition:opacity 1s var(--soft),filter 1s var(--soft),transform 1s var(--spring);}
 .head.reveal.in h2{opacity:1;filter:blur(0);transform:none;}
-/* intention tiles: staggered arrival, images settle from a wider crop */
+.head.reveal .lead{opacity:0;transform:translateY(16px);
+  transition:opacity .8s var(--soft) .28s,transform .8s var(--spring) .28s;}
+.head.reveal.in .lead{opacity:1;transform:none;}
+/* intention tiles: photos swing in one by one with a playful tilt */
 .int-grid.reveal{transform:none;}
-.int-grid.reveal .int{opacity:0;transition:opacity .7s cubic-bezier(.16,1,.3,1);}
+.int-grid.reveal .int{opacity:0;transition:opacity .65s var(--soft);}
 .int-grid.reveal.in .int{opacity:1;}
-.int-grid.reveal .int img{transform:scale(1.16);}
-.int-grid.reveal.in .int img{transform:scale(1);}
+.int-grid.reveal .int img{transform:scale(1.22) rotate(2.4deg);transition:transform 1.05s var(--spring);}
+.int-grid.reveal .int:nth-child(odd) img{transform:scale(1.22) rotate(-2.4deg);}
+.int-grid.reveal.in .int img{transform:scale(1) rotate(0deg);}
 .int-grid.reveal.in .int:hover img{transform:scale(1.07);}
-.int-grid.reveal.in .int:nth-child(2),.int-grid.reveal.in .int:nth-child(2) img{transition-delay:.08s;}
-.int-grid.reveal.in .int:nth-child(3),.int-grid.reveal.in .int:nth-child(3) img{transition-delay:.16s;}
-.int-grid.reveal.in .int:nth-child(4),.int-grid.reveal.in .int:nth-child(4) img{transition-delay:.24s;}
-.int-grid.reveal.in .int:nth-child(5),.int-grid.reveal.in .int:nth-child(5) img{transition-delay:.32s;}
-/* ritual steps rise one by one */
+.int-grid.reveal.in .int:nth-child(2),.int-grid.reveal.in .int:nth-child(2) img{transition-delay:.1s;}
+.int-grid.reveal.in .int:nth-child(3),.int-grid.reveal.in .int:nth-child(3) img{transition-delay:.2s;}
+.int-grid.reveal.in .int:nth-child(4),.int-grid.reveal.in .int:nth-child(4) img{transition-delay:.3s;}
+.int-grid.reveal.in .int:nth-child(5),.int-grid.reveal.in .int:nth-child(5) img{transition-delay:.4s;}
+/* ways: cards tip in from alternating angles */
+.way.reveal{transform:translateY(46px) rotate(-1.4deg);}
+.way.reveal:nth-child(even){transform:translateY(46px) rotate(1.4deg);}
+.way.reveal.in{transform:none;}
+.way.reveal.in:hover{transform:translateY(-6px);}
+/* ritual steps: rings pop with a bounce, then the words */
 .steps-zone.reveal{transform:none;}
 .steps-zone.reveal .step{opacity:0;transform:translateY(30px);
-  transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+  transition:opacity .7s var(--soft),transform .7s var(--spring);}
 .steps-zone.reveal.in .step{opacity:1;transform:none;}
-.steps-zone.reveal.in .step:nth-child(2){transition-delay:.14s;}
-.steps-zone.reveal.in .step:nth-child(3){transition-delay:.28s;}
-/* learn + veza cards lift into place */
-.duo-card.reveal{transform:translateY(44px) scale(.965);}
+.steps-zone.reveal .step .rn{transform:scale(.55);transition:transform .85s var(--spring);}
+.steps-zone.reveal.in .step .rn{transform:scale(1);}
+.steps-zone.reveal.in .step:nth-child(2){transition-delay:.16s;}
+.steps-zone.reveal.in .step:nth-child(3){transition-delay:.32s;}
+.steps-zone.reveal.in .step:nth-child(1) .rn{transition-delay:.1s;}
+.steps-zone.reveal.in .step:nth-child(2) .rn{transition-delay:.28s;}
+.steps-zone.reveal.in .step:nth-child(3) .rn{transition-delay:.46s;}
+/* learn + veza cards tip into place */
+.duo-card.reveal{transform:translateY(52px) rotate(-1.1deg) scale(.965);}
+.duo-card.reveal.d1{transform:translateY(52px) rotate(1.1deg) scale(.965);}
 .duo-card.reveal.in{transform:none;}
 .duo-card.reveal.in:hover{transform:translateY(-5px);}
-/* story reels fan in */
-.reels.reveal .reel{opacity:0;transform:rotateY(var(--ry,0deg)) scale(var(--s,1)) translateY(48px);}
+/* story reels fan in with a twirl */
+.reels.reveal .reel{opacity:0;
+  transform:rotateY(var(--ry,0deg)) scale(var(--s,1)) translateY(54px) rotateZ(4deg);
+  transition:opacity .6s var(--soft),transform .85s var(--spring),box-shadow .4s;}
 .reels.reveal.in .reel{opacity:var(--dim,1);transform:rotateY(var(--ry,0deg)) scale(var(--s,1));}
 .reels.reveal.in .reel:hover{opacity:1;transform:rotateY(var(--ry,0deg)) scale(var(--s,1)) translateY(-6px);}
-.reels.reveal.in .reel:nth-child(2){transition-delay:.08s;}
-.reels.reveal.in .reel:nth-child(3){transition-delay:.16s;}
-.reels.reveal.in .reel:nth-child(4){transition-delay:.24s;}
-.reels.reveal.in .reel:nth-child(5){transition-delay:.32s;}
+.reels.reveal.in .reel:nth-child(2){transition-delay:.09s;}
+.reels.reveal.in .reel:nth-child(3){transition-delay:.18s;}
+.reels.reveal.in .reel:nth-child(4){transition-delay:.27s;}
+.reels.reveal.in .reel:nth-child(5){transition-delay:.36s;}
 @media (prefers-reduced-motion:reduce){
-  .split .media.reveal,.split .copy.reveal>*,.head.reveal h2,.int-grid.reveal .int,
-  .int-grid.reveal .int img,.steps-zone.reveal .step,.duo-card.reveal,.reels.reveal .reel{
+  .split .media.reveal,.split .copy.reveal>*,.head.reveal h2,.head.reveal .lead,
+  .int-grid.reveal .int,.int-grid.reveal .int img,.way.reveal,
+  .steps-zone.reveal .step,.steps-zone.reveal .step .rn,.duo-card.reveal,.reels.reveal .reel{
     opacity:1;transform:none;filter:none;transition:none;}
 }
-
 </style>
 
 
@@ -1102,7 +1123,7 @@ footer.site{background:
     r.setAttribute('data-theme',c==='dark'?'light':'dark');});
   var els=[].slice.call(document.querySelectorAll('.reveal'));
   if('IntersectionObserver' in window && !reduce){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.01,rootMargin:'0px 0px -20% 0px'});
     els.forEach(function(e){io.observe(e);});
   } else els.forEach(function(e){e.classList.add('in');});
   // nav: solid after hero; toggle at-hero context
