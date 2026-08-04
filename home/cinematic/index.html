@@ -76,14 +76,14 @@ header.nav.solid{background:color-mix(in srgb,var(--bg) 78%,transparent);backdro
 /* ============ 1 · HERO (full-bleed cinematic) ============ */
 .hero{position:relative;min-height:94vh;display:flex;align-items:center;overflow:hidden;margin-top:-77px;padding-top:77px;padding-bottom:clamp(56px,8vh,104px)}
 .hero-bg{position:absolute;inset:0;z-index:0}
-.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:66% 40%}
 .hero-bg::after{content:"";position:absolute;inset:0;background:
-  linear-gradient(90deg,var(--bg) 8%,rgba(10,17,28,.7) 42%,rgba(10,17,28,.25) 72%,rgba(10,17,28,.55)),
-  linear-gradient(0deg,var(--bg),transparent 40%)}
+  linear-gradient(90deg,var(--bg) 0%,rgba(10,17,28,.88) 30%,rgba(10,17,28,.5) 58%,rgba(10,17,28,.42) 100%),
+  linear-gradient(0deg,var(--bg),transparent 42%)}
 .hero-glow{position:absolute;z-index:1;right:6%;top:34%;width:520px;height:520px;border-radius:50%;pointer-events:none;
   background:radial-gradient(circle,rgba(196,133,90,.28),transparent 62%);filter:blur(20px)}
-.hero-in{position:relative;z-index:2;max-width:680px}
-.hero h1{font-size:clamp(48px,7.8vw,112px);line-height:.96;font-weight:300;letter-spacing:-.02em}
+.hero-in{position:relative;z-index:2;max-width:620px;margin:0;padding-left:clamp(24px,7vw,120px);padding-right:clamp(22px,4vw,40px)}
+.hero h1{font-size:clamp(46px,6.6vw,94px);line-height:1.0;font-weight:300;letter-spacing:-.02em}
 .hero h1 em{display:block}
 .hero .sub{font-family:var(--serif);font-style:italic;font-size:clamp(21px,2.6vw,32px);color:var(--copper-hi);margin-top:24px}
 .hero .body{color:var(--ink-soft);max-width:46ch;margin-top:22px}
@@ -312,7 +312,7 @@ body.menu-open{overflow:hidden}
 <section class="hero">
   <div class="hero-bg"><img src="../../assets/img/hero.jpg" alt="A quiet everyday moment: meditating at home beside an Energy Muse tool"></div>
   <div class="hero-glow" aria-hidden="true"></div>
-  <div class="wrap hero-in">
+  <div class="hero-in">
     <span class="eyebrow">Guided energy for real life</span>
     <h1 style="margin-top:22px">Energy, <em>made personal.</em></h1>
     <p class="sub">Choose your energy. Live in it.</p>
