@@ -104,7 +104,7 @@ p{text-wrap:pretty}
 .c6::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:-1;
   width:min(660px,84vw);height:360px;border-radius:50%;filter:blur(8px);
   background:radial-gradient(closest-side,rgba(11,19,32,.78),rgba(11,19,32,.42) 58%,transparent 80%)}
-@media (max-width:700px){.c6::before{top:62%;height:300px}}
+@media (max-width:700px){.c6::before{top:68%;height:340px;background:radial-gradient(closest-side,rgba(11,19,32,.9),rgba(11,19,32,.55) 58%,transparent 80%)}}
 .c6 h2{font-size:clamp(32px,5vw,64px);max-width:16ch}
 .c6 .row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:30px}
 .btn{display:inline-flex;align-items:center;font:600 13px var(--sans);letter-spacing:.04em;padding:15px 30px;border-radius:2px;
@@ -143,7 +143,7 @@ html.static .fallback{display:block}
   .c3{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;top:9svh;padding:0 20px}
   .c3 a{padding:12px 8px;font-size:17px}
   .c3 a:nth-child(5){grid-column:1/-1;justify-self:center;min-width:62%}
-  .c6{justify-content:flex-start;padding-top:48svh}
+  .c6{justify-content:flex-start;padding-top:52svh}
   .c6 h2{font-size:30px}
   .c6 .row{flex-direction:column;align-items:center;width:min(320px,86vw);margin-top:22px;gap:12px}
   .c6 .row .btn{width:100%;justify-content:center}
@@ -290,7 +290,12 @@ function sampleMark(){
     return {pts:pts,brk:brk.reduce(function(s,v){s[v]=1;return s;},{}),cx:ecx,cy:ecy};
   });
   var xs=MK[0].pts.map(function(q){return q[0];});
-  MK.outerW=Math.max.apply(null,xs)-Math.min.apply(null,xs);
+  var ys=MK[0].pts.map(function(q){return q[1];});
+  var xmin=Math.min.apply(null,xs),xmax=Math.max.apply(null,xs);
+  var ymin=Math.min.apply(null,ys),ymax=Math.max.apply(null,ys);
+  MK.outerW=xmax-xmin;
+  /* true center of the emblem's outer circle — the artwork is not centered in its viewBox */
+  MK.ccx=(xmin+xmax)/2;MK.ccy=(ymin+ymax)/2;
 }
 function resize(){W=stage.clientWidth;H=stage.clientHeight;svg.setAttribute('viewBox','0 0 '+W+' '+H);N=W<700?150:200;sampleMark();}
 resize();addEventListener('resize',resize);
@@ -351,7 +356,7 @@ function frame(p,t){
   var cx=W/2,cy=H*.54;
   var spiralR=Math.min(W,H)*.16, turns=3.1;
   var mob=W<=700;
-  var ringR=mob?W*.40:Math.min(W,H)*.42, ringCx=W/2, ringCy=mob?H*.28:H*.5;
+  var ringR=mob?Math.min(W*.36,H*.20):Math.min(W,H)*.42, ringCx=W/2, ringCy=mob?H*.26:H*.5;
   var span=lerp(.06,1,wake);              // fraction of width the line occupies
   var x0=W*(0.5-span/2), x1=W*(0.5+span/2);
 
@@ -405,9 +410,9 @@ function frame(p,t){
         var fin=ease(win(p,.74,.87));
         if(fin>0){
           var fmk=k===1?MK[1]:MK[2];
-          var Kf=(ringR*2)/(MK.outerW||1)*.96;
-          var fx=ringCx+(fmk.pts[i][0]-fmk.cx)*Kf;
-          var fy=ringCy+(fmk.pts[i][1]-fmk.cy)*Kf;
+          var Kf=(ringR*2)/(MK.outerW||1)*(mob?.9:.96);
+          var fx=ringCx+(fmk.pts[i][0]-(MK.ccx||fmk.cx))*Kf;
+          var fy=ringCy+(fmk.pts[i][1]-(MK.ccy||fmk.cy))*Kf;
           X=lerp(X,fx,fin);Y=lerp(Y,fy,fin);
         }
       }
