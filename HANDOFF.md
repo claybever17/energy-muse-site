@@ -46,6 +46,7 @@ still works but is not needed.)
 | `/home/` | Chooser for the three directions. |
 | `/home/motion/` | **Motion** — a **generated clone** of Classic plus a motion layer (springy arrivals, tilts, cascades, ember glow) and late-trigger reveals. **Never hand-edit — regenerate** (see below). |
 | `/home/current/` | **Current** — the concept film. One continuous scene; scroll scrubs the timeline: the **brand mark, drawn in copper outline and breathing, unravels into the energy line** → five intention strands → winds into the live 3D generator's coil (Hz ticker 7.83→1111) → through a duotone photo → closes into a ring around the quiz CTA, all under a **day→dusk color grade**. The mark's strokes are sampled at runtime from the real `#em-markline` geometry (`getPointAtLength`). Test hook: `window.__film.go(p)` (0..1). Static fallback for reduced-motion/no-JS. |
+| `/home/cascade/` | **Cascade** — an *experiment* on Current (boss asked to try "crystals rain down as you scroll"). Canvas 2D film: **scroll is gravity** — 13 real alpha-cut product stones sink snow-globe slow (position is a pure function of progress + seed: reversible, resize-safe) over a far layer of copper line-art facets. Each intention chapter **catches its two stones and docks them as labeled products** (real catalog names), then the rain gathers into the same finale ring as Current (identical geometry). Grade is **paper→earth (depth, not time)**. Same `window.__film` hook, same fallback pattern. Not part of the official trio — listed in Versions as "experiment". |
 | `/quiz` | The Energy Quiz funnel (3 questions → intention → 3 matches → email capture stub). Unified chrome, no announcement bar (it advertises the quiz). |
 | `/gems` | The Crystal Gallery shop — 16 products, WebGL viewer for scanned stones, tilt-card for photos. Dark theme. |
 | `/generator` | Apple-style 3D scroll showcase of the device. Dark theme. |
@@ -67,10 +68,11 @@ Self-injecting scripts, all following the same pattern (inject own CSS + DOM):
   background (dark pages get the warm-silver mark `#C6BFB2/#EFE7D9/#E0A878`).
   **Must be included BEFORE `em-bag.js`** so the injected Bag link gets bound by the cart.
   Root-absolute links → works at any depth and with Vercel's no-trailing-slash serving.
-- **`em-versions.js`** — the floating "Versions" pill + popup (Classic / Motion / Current).
-  On the chooser and Current. Classic and Motion have a richer inline version (includes the
-  ivory/midnight/sage skin dots). All lists must stay in sync when versions change:
-  `em-versions.js`, Classic's popup, Motion (via regen), `/home/` chooser.
+- **`em-versions.js`** — the floating "Versions" pill + popup (Classic / Motion / Current,
+  plus Cascade labeled "experiment"). On the chooser, Current and Cascade. Classic and Motion
+  have a richer inline version (includes the ivory/midnight/sage skin dots). All lists must
+  stay in sync when versions change: `em-versions.js`, Classic's popup, Motion (via regen),
+  `/home/` chooser.
 - **`em-device.js` / `em-crystal.js`** — live 3D (device, scanned GLB crystal). ES modules via
   importmap (`three` → `assets/three.module.min.js`).
 

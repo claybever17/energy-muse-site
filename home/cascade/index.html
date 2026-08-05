@@ -1,0 +1,468 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Energy Muse &#8212; Cascade</title>
+<meta name="description" content="Cascade — an experiment on Current. Crystals rain down as you scroll; each intention catches its stones.">
+<link rel="icon" type="image/svg+xml" href="../../assets/img/mark.svg">
+<style>
+/* ============================================================
+   CASCADE — an experiment on Current. Scroll is gravity: real
+   stones sink through the page snow-globe slow, each intention
+   chapter catches its own and shows it as product, then the
+   remaining rain gathers into your ring. Paper fades to earth —
+   the grade is depth, not time.
+   ============================================================ */
+@font-face{font-family:'Fraunces';src:url(../../assets/fonts/fraunces_300.woff2?v=3) format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:'Fraunces';src:url(../../assets/fonts/fraunces_400.woff2?v=3) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url(../../assets/fonts/instrument_400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url(../../assets/fonts/instrument_500.woff2) format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url(../../assets/fonts/instrument_600.woff2) format('woff2');font-weight:600;font-display:swap}
+:root{
+  --bgc:#FBF8F2; --tc:#1D2739; --tc-soft:#4E5A70; --line:#A9683E; --glowo:0;
+  --logo-body:#152445;
+  --serif:'Fraunces',Georgia,serif; --sans:'Instrument Sans',-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:auto}
+body{background:var(--bgc);color:var(--tc);font-family:var(--sans);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;transition:none}
+a{color:inherit;text-decoration:none}
+p{text-wrap:pretty}
+
+/* minimal chrome */
+.brandbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  padding:18px clamp(20px,4vw,44px);pointer-events:none}
+.brandbar a{pointer-events:auto}
+.blogo{height:34px;width:auto;aspect-ratio:1167/247.5;display:block;color:var(--tc);transition:color .4s}
+.bb-quiz{font:600 11.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--tc-soft);
+  border-bottom:1px solid var(--line);padding-bottom:2px}
+.bb-quiz:hover{color:var(--line)}
+
+/* the film */
+.film{position:relative;height:640svh}
+.stage{position:sticky;top:0;height:100svh;overflow:hidden}
+.bgglow{position:absolute;inset:-10%;pointer-events:none;opacity:var(--glowo);
+  background:radial-gradient(46% 38% at 50% 42%,rgba(224,168,120,.5),rgba(169,104,62,.14) 55%,transparent 75%)}
+.stage::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:var(--cornero,1);
+  background:radial-gradient(52% 44% at 88% -6%,rgba(169,104,62,.13),transparent 62%),
+             radial-gradient(44% 40% at -4% 106%,rgba(53,144,123,.08),transparent 60%)}
+.stage::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.045;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#rain{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+/* captions */
+.cap{position:absolute;opacity:0;pointer-events:none;max-width:min(560px,84vw)}
+.cap.live{pointer-events:auto}
+.cap h1,.cap h2{font-family:var(--serif);font-weight:300;letter-spacing:-.02em;line-height:1.06;text-wrap:balance}
+.cap .sub{font-family:var(--serif);font-style:italic;color:var(--line);margin-top:14px;font-size:clamp(17px,2vw,22px)}
+.c1{left:clamp(20px,7vw,110px);top:29svh}
+.c1 h1{font-size:clamp(42px,6vw,80px);line-height:1.04}
+.c1 h1 em{font-style:italic;color:var(--line)}
+.scue{position:absolute;left:clamp(20px,7vw,110px);bottom:7svh;font:600 10px var(--sans);
+  letter-spacing:.24em;text-transform:uppercase;color:var(--tc-soft);opacity:0}
+.c2{left:clamp(20px,7vw,110px);top:40svh;max-width:min(430px,80vw)}
+.c2 p{font-family:var(--serif);font-weight:300;font-size:clamp(20px,2.6vw,30px);line-height:1.3;text-wrap:balance}
+
+/* intention chapters — caption one side, stones dock the other */
+.int{top:34svh;max-width:min(400px,78vw)}
+.int.ileft{left:clamp(20px,7vw,110px)}
+.int.iright{right:clamp(20px,7vw,110px);text-align:right}
+.int .eyeb{display:block;font:600 10px var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--line);margin-bottom:10px;font-style:normal}
+.int p{font-family:var(--serif);font-weight:300;font-size:clamp(22px,2.8vw,34px);line-height:1.25;text-wrap:balance}
+.int .lk{display:inline-block;margin-top:14px;font:600 11.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--tc);border-bottom:1px solid var(--line);padding-bottom:2px}
+.int .lk:hover{color:var(--line)}
+
+/* product labels under docked stones — JS-positioned */
+.chip{position:absolute;transform:translate(-50%,0);opacity:0;pointer-events:none;text-align:center;
+  font:600 10px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--tc-soft);white-space:nowrap}
+
+/* finale */
+.c6{left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;max-width:none}
+.c6::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:-1;
+  width:min(660px,84vw);height:360px;border-radius:50%;filter:blur(8px);
+  background:radial-gradient(closest-side,rgba(23,19,16,.78),rgba(23,19,16,.42) 58%,transparent 80%)}
+.c6 h2{font-size:clamp(32px,5vw,64px);max-width:16ch}
+.c6 .row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:30px}
+.btn{display:inline-flex;align-items:center;font:600 13px var(--sans);letter-spacing:.04em;padding:15px 30px;border-radius:2px;
+  cursor:pointer;border:1px solid transparent;transition:transform .2s,background .25s,color .25s,border-color .25s}
+.btn-c{color:#fff;background:linear-gradient(160deg,#B87A4B,#A9683E 46%,#8F5330);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(0,0,0,.22)}
+.btn-c:hover{transform:translateY(-2px)}
+.btn-g{background:transparent;color:var(--tc);border-color:color-mix(in srgb,var(--tc) 40%,transparent)}
+.btn-g:hover{border-color:var(--tc)}
+
+/* post-film footer */
+.cfoot{background:#171310;color:#C9BCA8;padding:40px clamp(20px,4vw,44px) 34px;text-align:center;font-size:12.5px}
+.cfoot .links{display:flex;gap:8px 24px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.cfoot a{color:#C9BCA8}
+.cfoot a:hover{color:#E0A878}
+.cfoot .legal{font-size:11px;color:#8D8272;max-width:74ch;margin:0 auto;line-height:1.6;text-wrap:balance}
+
+/* static fallback (no-JS / reduced motion) */
+.fallback{display:none;max-width:900px;margin:0 auto;padding:120px clamp(22px,5vw,48px) 80px;text-align:center}
+.fallback h1{font-family:var(--serif);font-weight:300;font-size:clamp(38px,6vw,64px)}
+.fallback .ints{display:flex;gap:10px 26px;justify-content:center;flex-wrap:wrap;margin:34px 0}
+.fallback .ints a{font-family:var(--serif);font-size:20px;border-bottom:1px solid var(--line);padding-bottom:2px}
+.fallback .stones{display:flex;gap:26px;justify-content:center;align-items:flex-end;margin:26px auto}
+.fallback .stones img{height:120px;width:auto}
+.fallback .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+html.static .film,html.static .brandbar{display:none}
+html.static .fallback{display:block}
+@media (prefers-reduced-motion:reduce){
+  .film,.brandbar{display:none}
+  .fallback{display:block}
+}
+@media (max-width:700px){
+  .c1{top:30svh}
+  .cap .sub{margin-top:10px}
+  .int,.int.ileft,.int.iright{left:20px;right:20px;top:10svh;text-align:left;max-width:none}
+  .int p{font-size:24px}
+  .c6{justify-content:flex-start;padding-top:52svh}
+  .c6 h2{font-size:30px}
+  .c6 .row{flex-direction:column;align-items:center;width:min(320px,86vw);margin-top:22px;gap:12px}
+  .c6 .row .btn{width:100%;justify-content:center}
+  .c6::before{top:68%;height:340px;background:radial-gradient(closest-side,rgba(23,19,16,.9),rgba(23,19,16,.55) 58%,transparent 80%)}
+}
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><symbol id="em-logo" viewBox="0 0 1167 247.5">
+    <g style="transform-box:fill-box;transform-origin:50% 50%;transform:rotate(var(--m-rot,0deg))">
+      <path fill="var(--logo-body,#152445)" d="M189.69,194.19c-31.47,34.37-81.82,42.71-122.32,21.22-27.62-14.65-46.73-41.52-52.64-69.96-7.48-36.05,4.02-73.41,32.42-99.17,21.07-19.11,47.83-27.9,76.41-25.64,20.11,1.59,39.11,9.16,54.56,21.91,3.46,2.86,6.54,5.38,9.57,8.56,38.14,40.05,39.83,101.74,1.99,143.08ZM77.98,184.32c5.79,7.06,13.04,11.43,22.12,13.24,19.2,3.84,38.84-.55,55.55-10.91,29.03-17.98,42.78-50.33,39.88-84.29-3.17-37.1-31.15-67.2-68.24-72.09-4.79-.63-9.09-.96-14.66.35,20.78,4.81,36.06,16.44,35.82,41.81-.11,11.35-1.96,22.44-9.2,31.49-7.28,9.09-15.29,13.33-25.03,19.07-10.51,6.2-20.7,12.26-30.15,19.94-13.07,10.62-16.61,28.55-6.09,41.39ZM63.38,129.87c4.91-4.01,9.64-7.75,14.76-11.43,11.66-8.38,21.05-14.26,23.07-30.52.17-7.96-2.49-16.33-8.68-22-10.58-9.68-26.8-9.43-37.85.02-27.94,23.93-29.6,71.37-3.11,97.33l-.32-8.07c-.4-10.18,4.14-18.82,12.12-25.33Z"/>
+      <path fill="var(--logo-swirl,#e0e0e0)" d="M77.98,184.32c-10.52-12.84-6.98-30.77,6.09-41.39,9.44-7.68,19.64-13.74,30.15-19.94,9.73-5.74,17.75-9.98,25.03-19.07,7.24-9.05,9.09-20.14,9.2-31.49.25-25.38-15.03-37-35.82-41.81,5.57-1.31,9.86-.98,14.66-.35,37.09,4.89,65.07,34.99,68.24,72.09,2.9,33.96-10.85,66.3-39.88,84.29-16.71,10.36-36.35,14.74-55.55,10.91-9.07-1.81-16.33-6.18-22.12-13.24Z"/>
+      <path fill="var(--logo-drop,#44b891)" d="M63.38,129.87c-7.98,6.51-12.52,15.15-12.12,25.33l.32,8.07c-26.49-25.96-24.83-73.4,3.11-97.33,11.04-9.46,27.26-9.71,37.85-.02,6.2,5.67,8.85,14.04,8.68,22-2.03,16.26-11.41,22.14-23.07,30.52-5.12,3.68-9.86,7.43-14.76,11.43Z"/>
+    </g>
+    <g fill="currentColor">
+      <path d="M853.79,172.48c.04,12.44,10.53,8.33,8,12.82l-38.17.09-1.52-1.1c-1.43-1.03,8.86-2.2,8.84-8.8l-.18-46.59c-.01-3.38-2.56-7.1-4.6-8.51-6.19-4.3-12.17-.82-18.36,4.64v49.09c-.01,8.77,8.79,8.19,8.34,9.45l-.63,1.75-39.77.02c-.09-.57-.2-2.19.24-2.3l2.23-.54c2.64-.64,6.37-2.6,6.38-6.38l.07-45.32c0-2.41-2.23-5.31-4.07-6.4l-6.07-3.59-.37-1.55c-.11-.44,1.26-.84,1.76-.99,10.81-2.01,19.86-5.81,30.84-10.22l.52,13.9,10.92-7.76c6.57-4.66,14.63-6.26,22.49-4.29,6.22,1.56,10.09,6.57,12.61,12.48,9.9-8.84,20-15.02,32.59-12.76,7.78,1.39,13.91,7.97,13.98,16.17l.44,47.45c.02,4.95,2.46,9.02,7.62,9.41.33.19,1.55,1.27,1.19,1.53l-1.61,1.15-38.06.03c-2.96-3.73,7.89-1.69,7.85-10.67l-.19-45.55c-.01-3.49-2.2-7.21-4.48-8.72-6.64-4.41-13.25-1.01-18.99,5.39l.17,46.68Z"/>
+      <path d="M666.82,195.28c-10.35,8.51-32.92,8.94-46.78,7.11-6.33-.84-12.42-1.77-17.48-6.06-1.96-1.67-2.22-5.78-1.23-8.54.75-2.08,3.65-4.06,6.51-5.71-1.66-1.42-4.37-3.76-4.99-5.85-3.54-11.87,8.75-18.04,20.28-21.39-7.08-2.13-12.85-5.05-16.97-10.61-6.77-9.15-4.63-21.64,4.42-28.65,6.17-4.77,13.78-6.92,21.73-7.35,2.46-13.51,15.31-28.02,26.59-23.29,5.04,2.11,6.3,7.47,5.35,12.41-1.06,5.57-5.59,9.39-11.69,7.82l-7.01-3.1c-2.34-1.04-4.97-1.42-7.27-.27-1.89.94-3.29,3.85-3.59,6.46,16.48-.1,32.46,9.08,31.66,25.07-.71,14.2-16.07,22.83-29.4,22.7-5.82-.05-12.54.55-17.62,2.46-.81.3-2.92,1.97-2.42,2.54l2.41,2.74,34.37.19c6.39,1.11,12.61,2.27,16.38,7.86,4.82,7.13,3.79,17.66-3.27,23.46ZM635.13,153.52c9.16-.27,10.41-23.53,5.77-37.93-.79-2.46-3.87-4.29-5.83-4.45-8.56-.7-9.51,11.12-9.48,21.11s.86,21.52,9.54,21.26ZM653.13,187.56l-8.61-1.4-23.26-.69-8.22-1.17c-2.42-.34-5.07,3.22-5.33,5.34-1.12,9.11,14.52,10.89,25.5,10.87,9.64-.02,24.4-.77,24.16-8.02-.07-1.99-1.71-4.51-4.24-4.92Z"/>
+      <path d="M400.83,119.53c-5.74-2.2-11.01.12-14.85,3.83l-2.43,2.34v48.34c0,8.15,10.4,9.22,8.98,10.25l-1.44,1.05h-38.94c-1.35-4.03,5.85-2.49,7.38-6.58,2.12-5.64,1.14-10.95,1.13-16.69l-.07-21.64c-.01-4.5,1.02-9.44-1.66-13.58s-10.56-5.7-9.4-6.92l1.56-1.64c10.35-1.9,19.71-5.1,29.29-9.52.7-.14,2.71.02,3.06.43l.15,12.69c9.8-8.62,22.53-15.91,34.73-11.55,7.06,2.52,11.72,9.16,11.75,16.78l.17,47.41c.03,7.85,8.26,7.51,8.88,9.06.22.54-.91,1.49-1.52,1.73l-38.84.04-.14-1.8c-.07-.84,8.61-1.26,8.6-8.32l-.05-45.47c0-4.18-2.47-8.77-6.32-10.25Z"/>
+      <path d="M991.57,108.87l.18,61.36c.01,3.99,4.32,6.3,7.42,7.15l1.62.44c.46.13.9,1.87.42,1.91l-2.31.23c-6.71.67-13.05,2.49-19.41,4.64l-9.82,3.33-.72-13.56c-9.75,8.3-20.69,14.44-32.87,10.94-7.54-2.16-13.62-8.37-13.75-16.4l-.67-40.33c-.08-4.66-9.54-6.45-10.6-10.42,11.27-2.1,20.92-5.26,31.11-9.67.41-.1,2.47-.08,2.46.46l-.03,2.42-.11,8.16.08,27.48.05,7.23c.04,5.27-.34,10.55.87,15.66,1.41,5.99,6.96,8.71,13.14,7.68,4.01-.67,7.8-3.9,10.27-7.31l.03-37.27c0-11.74-11.6-9.86-11.17-14.91,10.46-2.21,20.18-4.82,29.84-9.16.84-.38,2.71-.37,3.96-.07Z"/>
+      <path d="M519.08,156.82c.79.41,1.5.95,1.96,1.51-6.37,17.65-18.11,27.08-37.09,26.51-15.61-.46-30.45-9.59-36.3-24.45-5.67-14.4-1.51-30.72,9.09-41.5s27.28-14.91,41.88-9.58c13.28,4.85,21.9,17.03,21.5,31.21h-50.99c-.14,15.31,11.62,27.45,26.87,27.85,9.42.25,17.65-3.09,23.08-11.55ZM498.31,137.43c.79-11.92-1.73-26.75-11.82-27.75-14.44-1.43-17.7,13.84-17.47,27.81l29.3-.06Z"/>
+      <path d="M1143.53,166.73c4.47-1.92,6.42-6.47,10.96-9.02-.9,8.13-5.57,14.92-11.16,19.88-9.33,8.28-22.26,10.04-34.17,7.14-18.1-4.4-31.15-19.93-29.99-39.02.88-14.36,9.53-26.64,21.36-32.62,13.57-6.87,29.48-6.05,41.22,2.89,7,5.32,11.39,12.84,12.04,21.13l.38,4.88-50.94-.02c.13,10.85,5.62,20.53,15.37,24.84,8.15,3.6,16.39,3.61,24.93-.07ZM1132.24,139.01c.34-9.04-.4-16.69-4.78-23.57-2.19-3.45-6.39-4.45-10.4-4.28-9.07.38-13.09,11.09-13.9,21.05l-.55,6.77,29.62.03Z"/>
+      <path d="M297.3,160.84c11.48,12.2,34.17,11.88,42.71-3.08,2.43.94,1.46,2.7.86,4.34-6.71,18.29-24.78,27.5-43.74,22.86-11.86-2.9-22.25-9.89-27.51-21.35-5.45-11.87-4.26-25.5,3.15-37.08,10.1-15.8,31.19-22,49-14.77,12.26,4.98,19.62,17.24,19.52,30.22l-51.41.02c.83,6.97,2.59,13.7,7.43,18.85ZM319.62,139.04c.19-11.33-1.88-26.1-11.52-27.67-4.64-.75-9.02.48-12.02,3.87-3.18,3.59-5.07,8.41-5.41,13.21l-.75,10.6,29.71-.02Z"/>
+      <path d="M750.91,122.24l-14.12,27.4-18.52,37.5c-6.76,13.69-23.09,37.68-35.51,27.93-2.59-2.03-4.3-5-4.32-8.71-.03-4.97,2.09-8.74,6.53-10.08,4.01-1.21,8.33.32,10.92,4.45.93,1.49,2.88,4.25,4.8,4.42,1.47.11,4.29-2.13,5.1-3.46l9.9-16.13-30.6-63.13c-4.38-9.03-12.8-8.95-12.27-10.09l.8-1.69,42.01.06,1.58,1.09c1.49,1.03-4.22,1.78-6.21,4.41-.81,1.07-.75,4.45-.12,5.82l17.55,37.76,10.36-21.62c2.36-4.93,3.3-10.24,3.35-15.6.08-8.54-8.1-8.33-10.45-9.7-.47-.28.19-1.7.58-2.2l30.88.1.61,1.61c.27.72-9.15,2.69-12.85,9.86Z"/>
+      <path d="M1058.69,181.45c-14.14,9.31-30.81,5.06-46.77-1.04l-.94-11.52-.63-12.69-.12-1.89c-.03-.51,1.65-.45,1.98-.3,4.28,8.74,9.42,16.2,15.7,23.38,4.3,3.87,9.52,7.58,15.24,6.67,3.45-.55,6.69-2.08,8.24-4.47,1.81-2.79,1.82-6.83-.09-9.89-3.29-5.26-8.76-8.27-14.34-11.01l-19.02-9.35c-7.48-3.68-10.71-11.72-9.05-20.2,1.86-9.53,10.12-16.71,19.76-18.9,5.45-1.24,11.26-1.79,16.86-.53l15.21,3.44,3.2,22.4.22,1.53c.04.31-.95.31-1.73.36-5.42-11.24-20.76-29.04-31.87-24.71-2.97,1.16-5.06,3-5.77,5.38-4.97,16.51,40.96,15.71,45.24,38.02,1.97,10.3-2.72,19.66-11.29,25.31Z"/>
+      <path d="M562.31,174.98c0,6.82,7.12,7.1,9.02,8.21.45.26-.11,2.13-.69,2.13l-39.83.04c-3.59-3.78,8.71-1.22,8.69-11.45l-.09-42.17c0-4.05-2.61-6.94-5.83-8.51l-4.92-2.4c-.33-.24-.51-1.91-.09-2.09l1.91-.83c10.78-1.76,20.05-5.63,30.69-9.84l.28,17.68c4.79-6.12,5.87-13.16,15.4-16.22,4.27-1.37,9.62-.91,12.73,2.8,4.5,5.35,4.41,14.22-.05,19.62s-11.9,4.08-15.78-.94c-1.24-1.61-3.54-3.68-5.2-4.59-3.53.24-6.23,3.97-6.24,7.52v41.03Z"/>
+    </g>
+  </symbol></svg>
+
+<div class="brandbar">
+  <a href="../../" aria-label="Energy Muse home"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo"/></svg></a>
+  <a class="bb-quiz" href="../../quiz/">Take the Energy Quiz</a>
+</div>
+
+<div class="film" id="film">
+  <div class="stage" id="stage">
+    <div class="bgglow"></div>
+    <canvas id="rain" aria-hidden="true"></canvas>
+
+    <div class="cap c1" id="c1">
+      <h1>Energy,<br>made <em>personal.</em></h1>
+      <p class="sub">Choose your energy. Live in it.</p>
+    </div>
+    <div class="scue" id="scue">Scroll</div>
+    <div class="cap c2" id="c2">
+      <p>Energy is invisible &mdash; which is exactly why it's so easy to overlook.</p>
+    </div>
+
+    <div class="cap int ileft" id="i0">
+      <i class="eyeb">Protection</i>
+      <p>Boundaries &middot; grounded confidence</p>
+      <a class="lk" href="../../intention/protection/">Shop protection</a>
+    </div>
+    <div class="cap int iright" id="i1">
+      <i class="eyeb">Abundance</i>
+      <p>Momentum &middot; opportunity</p>
+      <a class="lk" href="../../intention/abundance/">Shop abundance</a>
+    </div>
+    <div class="cap int ileft" id="i2">
+      <i class="eyeb">Love</i>
+      <p>Heart-opening &middot; connection</p>
+      <a class="lk" href="../../intention/connection/">Shop love</a>
+    </div>
+    <div class="cap int iright" id="i3">
+      <i class="eyeb">Calm</i>
+      <p>Steadiness &middot; nervous-system ease</p>
+      <a class="lk" href="../../intention/calm/">Shop calm</a>
+    </div>
+    <div class="cap int ileft" id="i4">
+      <i class="eyeb">Clarity</i>
+      <p>Focus &middot; intuition</p>
+      <a class="lk" href="../../intention/clarity/">Shop clarity</a>
+    </div>
+
+    <span class="chip" id="ch0"></span><span class="chip" id="ch1"></span>
+
+    <div class="cap c6" id="c6">
+      <h2>You already know how you want to feel.</h2>
+      <div class="row">
+        <a class="btn btn-c" href="../../quiz/">Find My Energy Match</a>
+        <a class="btn btn-g" href="../../#intention">Shop by Intention</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fallback">
+  <h1>Energy, made personal.</h1>
+  <p class="sub" style="font-family:var(--serif);font-style:italic;color:var(--line);margin-top:12px">Choose your energy. Live in it.</p>
+  <div class="stones">
+    <img src="../../assets/img/products/rose-heart.png" alt="Rose Quartz Heart">
+    <img src="../../assets/img/products/labradorite.png" alt="Labradorite Wand">
+    <img src="../../assets/img/products/wealth.png" alt="Pyrite Cube">
+  </div>
+  <div class="ints">
+    <a href="../../intention/protection/">Protection</a><a href="../../intention/abundance/">Abundance</a>
+    <a href="../../intention/connection/">Love</a><a href="../../intention/calm/">Calm</a>
+    <a href="../../intention/clarity/">Clarity</a>
+  </div>
+  <div class="row">
+    <a class="btn btn-c" href="../../quiz/">Find My Energy Match</a>
+    <a class="btn btn-g" href="../../">Back to the site</a>
+  </div>
+</div>
+
+<footer class="cfoot">
+  <div class="links">
+    <a href="../../quiz/">Energy Quiz</a><a href="../../gems/">Crystals</a><a href="../../generator/">Frequency</a>
+    <a href="../../#intention">By Intention</a><a href="../../">Home</a>
+  </div>
+  <p class="legal">&copy; 2026 Energy Muse. Energy Muse products and content are intended for personal practice and general wellbeing. They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease. Individual experiences vary.</p>
+</footer>
+
+<script>
+/* ================= the cascade engine =================
+   Scroll is gravity. Every stone's position is a pure function
+   of progress p and its seed — reversible, resize-safe, cheap.
+   Time t adds only cosmetic drift (suspension bob, ring orbit). */
+(function(){
+'use strict';
+var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+if(reduce){document.documentElement.classList.add('static');return;}
+
+var film=document.getElementById('film'),stage=document.getElementById('stage');
+var cv=document.getElementById('rain'),ctx=cv.getContext('2d');
+var caps={c1:document.getElementById('c1'),c2:document.getElementById('c2'),c6:document.getElementById('c6')};
+var ints=[0,1,2,3,4].map(function(i){return document.getElementById('i'+i);});
+var chips=[document.getElementById('ch0'),document.getElementById('ch1')];
+var scue=document.getElementById('scue');
+
+/* helpers */
+function clamp(v,a,b){return v<a?a:v>b?b:v}
+function win(p,a,b){return clamp((p-a)/(b-a),0,1)}
+function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
+function lerp(a,b,t){return a+(b-a)*t}
+function frac(v){return v-Math.floor(v)}
+function srand(i){var s=Math.sin(i*127.1+311.7)*43758.5453;return s-Math.floor(s)}
+function hex(c){return [parseInt(c.slice(1,3),16),parseInt(c.slice(3,5),16),parseInt(c.slice(5,7),16)]}
+function mix(c1,c2,t){var a=hex(c1),b=hex(c2);return 'rgb('+Math.round(lerp(a[0],b[0],t))+','+Math.round(lerp(a[1],b[1],t))+','+Math.round(lerp(a[2],b[2],t))+')'}
+function grade(stops,p){
+  for(var i=0;i<stops.length-1;i++){
+    if(p<=stops[i+1][0])return mix(stops[i][1],stops[i+1][1],win(p,stops[i][0],stops[i+1][0]));
+  }
+  return stops[stops.length-1][1];
+}
+
+/* ---- the cast: real stones, real names. dock = chapter it belongs to ---- */
+var CAST=[
+  {slug:'power',      name:"Tiger's Eye Diamond",     dock:0,slot:0},
+  {slug:'merkaba',    name:'Clear Quartz Merkaba',    dock:0,slot:1},
+  {slug:'wealth',     name:'Pyrite Cube',             dock:1,slot:0},
+  {slug:'malachite',  name:'Malachite Crystal Point', dock:1,slot:1},
+  {slug:'love',       name:'Rhodochrosite Point',     dock:2,slot:0},
+  {slug:'rose-heart', name:'Rose Quartz Heart',       dock:2,slot:1},
+  {slug:'blue-agate', name:'Blue Sky Agate Point',    dock:3,slot:0},
+  {slug:'blue-opal',  name:'Owyhee Blue Opal',        dock:3,slot:1},
+  {slug:'labradorite',name:'Labradorite Wand',        dock:4,slot:0},
+  {slug:'fresh-start',name:'Clear Quartz Pyramid',    dock:4,slot:1},
+  {slug:'himalayan',  name:'Himalayan Quartz Cluster',dock:-1},
+  {slug:'spirituality',name:'Amethyst Cluster',       dock:-1},
+  {slug:'trapiche',   name:'Trapiche Amethyst Slice', dock:-1}
+];
+CAST.forEach(function(s,i){
+  s.img=new Image();s.img.src='../../assets/img/products/'+s.slug+'.png';
+  s.z=.45+.55*srand(i*7+1);          /* depth: scale + speed */
+  s.x0=.08+.84*srand(i*7+2);
+  s.ph=srand(i*7+3);
+  s.swayF=1.1+srand(i*7+4)*1.3; s.swayP=srand(i*7+4)*6.28;
+  s.rot0=(srand(i*7+5)-.5)*1.2;
+  s.rotDir=srand(i*7+6)>.5?1:-1;
+  s.jit=(srand(i*7+7)-.5);
+});
+
+/* far layer: copper line-art crystals, pre-rendered once */
+var FAR=[];
+function makeFacet(seed,px){
+  var c=document.createElement('canvas');var S=px*2;c.width=S;c.height=S;
+  var g=c.getContext('2d');g.strokeStyle='#A9683E';g.lineWidth=1;g.globalAlpha=.9;
+  var n=5+Math.floor(srand(seed)*4),pts=[];
+  for(var k=0;k<n;k++){
+    var a=(k/n)*6.283+ (srand(seed*3+k)-.5)*.5;
+    var r=px*(.55+.45*srand(seed*5+k));
+    pts.push([S/2+Math.cos(a)*r,S/2+Math.sin(a)*r]);
+  }
+  g.beginPath();pts.forEach(function(q,k){g[k?'lineTo':'moveTo'](q[0],q[1]);});g.closePath();g.stroke();
+  g.beginPath();g.moveTo(pts[0][0],pts[0][1]);g.lineTo(pts[Math.floor(n/2)][0],pts[Math.floor(n/2)][1]);
+  if(n>6){g.moveTo(pts[1][0],pts[1][1]);g.lineTo(pts[Math.floor(n/2)+1][0],pts[Math.floor(n/2)+1][1]);}
+  g.globalAlpha=.5;g.stroke();
+  return c;
+}
+for(var f=0;f<26;f++){
+  var px=9+Math.round(srand(f*11+5)*15);
+  FAR.push({c:makeFacet(f*13+7,px),px:px,
+    z:srand(f*11+1),x0:.03+.94*srand(f*11+2),ph:srand(f*11+3),
+    swayF:.8+srand(f*11+4),swayP:srand(f*11+4)*6.28,
+    rotDir:srand(f*11+6)>.5?1:-1});
+}
+
+/* ---- layout ---- */
+var W,H,dpr,mob;
+function resize(){
+  W=stage.clientWidth;H=stage.clientHeight;mob=W<=700;
+  dpr=Math.min(devicePixelRatio||1,2);
+  cv.width=W*dpr;cv.height=H*dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+resize();addEventListener('resize',function(){resize();step();});
+
+/* chapter windows: captions + dock (fly-in a..b, release c..d) */
+var CW=[[.275,.305,.365,.395],[.365,.395,.455,.485],[.455,.485,.545,.575],[.545,.575,.635,.665],[.635,.665,.725,.755]];
+var DW=[[.29,.325,.36,.39],[.38,.415,.45,.48],[.47,.505,.54,.57],[.56,.595,.63,.66],[.65,.685,.72,.75]];
+/* stones dock opposite the caption; captions go L,R,L,R,L */
+var SIDE=['r','l','r','l','r'];
+
+/* ---- frame ---- */
+function frame(p,t){
+  /* depth grade: paper -> earth. The grade is depth, not time. */
+  var bg=grade([[0,'#FBF8F2'],[.30,'#F7EEDF'],[.55,'#E9D8BE'],[.72,'#54402C'],[.88,'#171310']],p);
+  var tc=grade([[0,'#1D2739'],[.55,'#1D2739'],[.70,'#F2ECE2']],p);
+  var ts=grade([[0,'#4E5A70'],[.55,'#5A5648'],[.70,'#C9BCA8']],p);
+  var lc=grade([[0,'#A9683E'],[.60,'#B87A4B'],[.75,'#E0A878']],p);
+  var lb=grade([[0,'#152445'],[.60,'#152445'],[.72,'#C6BFB2']],p);
+  var st=document.documentElement.style;
+  st.setProperty('--bgc',bg);st.setProperty('--tc',tc);st.setProperty('--tc-soft',ts);
+  st.setProperty('--line',lc);st.setProperty('--logo-body',lb);
+  st.setProperty('--cornero',(1-win(p,.3,.55)).toFixed(2));
+  st.setProperty('--glowo',(win(p,.74,.9)*.45).toFixed(2));
+
+  var ringT=ease(win(p,.755,.875));
+  var dk=win(p,.68,.78);                       /* dark-depth amount */
+  var ringR=mob?Math.min(W*.36,H*.20):Math.min(W,H)*.42;
+  var ringCx=W/2, ringCy=mob?H*.26:H*.5;
+
+  ctx.clearRect(0,0,W,H);
+
+  /* --- far layer: line-art drift --- */
+  var farOp=.38*(1-win(p,.74,.84));
+  if(farOp>.01){
+    for(var f2=0;f2<FAR.length;f2++){
+      var q=FAR[f2];
+      var spd=.45+.55*q.z;
+      var y=lerp(-40,H+40,frac(p*spd+q.ph));
+      var x=(q.x0+.02*Math.sin(p*6.283*q.swayF+q.swayP))*W+Math.sin(t*.4+f2)*2.5;
+      var rot=q.rotDir*(p*2+t*.03);
+      ctx.save();ctx.globalAlpha=farOp*(.5+.5*q.z);
+      ctx.translate(x,y);ctx.rotate(rot);
+      ctx.drawImage(q.c,-q.px,-q.px);
+      ctx.restore();
+    }
+  }
+
+  /* --- near layer: the cast --- */
+  var pad=150;
+  var dockH=mob?W*.21:Math.min(H*.17,140);
+  var ringH=mob?30:46;
+  for(var i=0;i<CAST.length;i++){
+    var s=CAST[i];
+    if(!s.img.complete||!s.img.naturalWidth)continue;
+
+    /* free fall (pure in p) + suspension bob (cosmetic t) */
+    var spd=1.15+s.z*.9;
+    var fy=lerp(-pad,H+pad,frac(p*spd+s.ph));
+    var fx=(s.x0+.035*Math.sin(p*6.283*s.swayF+s.swayP))*W+Math.sin(t*.5+i)*4;
+    var rot=s.rot0+p*s.rotDir*1.4+Math.sin(t*.4+i*2)*.02;
+    var h=(mob?38+40*s.z:56+64*s.z);
+    var op=1, glow=0;
+
+    /* dock: the rain becomes the shop */
+    var X=fx,Y=fy,R=rot,HH=h;
+    if(s.dock>=0){
+      var dw=DW[s.dock];
+      var dT=ease(win(p,dw[0],dw[1]))*(1-ease(win(p,dw[2],dw[3])));
+      if(dT>0){
+        var side=SIDE[s.dock];
+        var sx=mob?W*(s.slot?.70:.30):W*(side==='r'?.68:.32);
+        var sy=mob?H*.60:H*(s.slot?.63:.38);
+        X=lerp(fx,sx,dT);Y=lerp(fy,sy,dT);
+        R=lerp(rot,0,dT);HH=lerp(h,dockH,dT);
+        glow=dT;
+        /* label rides its stone */
+        if(dT>.02&&Math.abs(p-(dw[0]+dw[3])/2)<(dw[3]-dw[0])){
+          var ch=chips[s.slot];
+          ch.textContent=s.name;
+          ch.style.left=X+'px';ch.style.top=(Y+HH/2+10)+'px';
+          ch.style.opacity=dT.toFixed(2);
+        }
+      }
+    }
+
+    /* finale: the remaining rain gathers into your ring */
+    if(ringT>0){
+      var ang=-Math.PI/2+(i/CAST.length)*6.283+t*.03;
+      var rr=ringR+s.jit*12;
+      var rx=ringCx+Math.cos(ang)*rr, ry=ringCy+Math.sin(ang)*rr;
+      X=lerp(X,rx,ringT);Y=lerp(Y,ry,ringT);
+      R=lerp(R,0,ringT);HH=lerp(HH,ringH,ringT);
+      glow=Math.max(glow,ringT*.8);
+    }
+
+    var w2=HH*(s.img.naturalWidth/s.img.naturalHeight);
+    ctx.save();
+    ctx.translate(X,Y);ctx.rotate(R);
+    ctx.globalAlpha=op;
+    ctx.shadowColor='rgba('+Math.round(lerp(40,224,Math.max(dk,glow)))+','+Math.round(lerp(26,168,Math.max(dk,glow)))+','+Math.round(lerp(14,120,Math.max(dk,glow)))+','+lerp(.16,.34,Math.max(dk,glow)).toFixed(2)+')';
+    ctx.shadowBlur=lerp(10,22,Math.max(dk,glow));
+    ctx.shadowOffsetY=lerp(6,0,Math.max(dk,glow));
+    ctx.drawImage(s.img,-w2/2,-HH/2,w2,HH);
+    ctx.restore();
+  }
+
+  /* chip labels only live inside their own dock window */
+  var anyDock=false;
+  for(var c2=0;c2<5;c2++){
+    var dw2=DW[c2];
+    if(p>dw2[0]&&p<dw2[3]){anyDock=true;break;}
+  }
+  if(!anyDock){chips[0].style.opacity=0;chips[1].style.opacity=0;}
+
+  /* --- captions --- */
+  cap(caps.c1,p,-.02,-.01,.10,.15);
+  cap(caps.c2,p,.16,.19,.25,.28);
+  for(var c3=0;c3<5;c3++){var w3=CW[c3];cap(ints[c3],p,w3[0],w3[1],w3[2],w3[3]);}
+  cap(caps.c6,p,.78,.83,1.01,1.02);
+  scue.style.opacity=((1-win(p,.05,.11))*.85).toFixed(2);
+}
+function cap(el,p,a,b,c,d){
+  var o=win(p,a,b)*(1-win(p,c,d));
+  el.style.opacity=o.toFixed(2);
+  el.style.transform='translateY('+((1-win(p,a,b))*14-win(p,c,d)*10).toFixed(1)+'px)';
+  el.classList.toggle('live',o>.5);
+}
+
+var t0=performance.now();
+function step(){
+  var t=(performance.now()-t0)/1000;
+  var total=film.offsetHeight-innerHeight;
+  var p=clamp(-film.getBoundingClientRect().top/total,0,1);
+  frame(p,t);
+}
+function loop(){step();requestAnimationFrame(loop);}
+requestAnimationFrame(loop);
+addEventListener('scroll',step,{passive:true});
+
+/* verification hook */
+window.__film={go:function(p){var total=film.offsetHeight-innerHeight;scrollTo(0,film.offsetTop+p*total);step();},step:step};
+})();
+</script>
+<script src="../../assets/em-versions.js" defer></script>
+</body></html>

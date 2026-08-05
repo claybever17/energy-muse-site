@@ -10,7 +10,8 @@ if(document.getElementById('emv'))return; // never double-inject
 var VERSIONS=[
   ['/','Classic','the main homepage'],
   ['/home/motion/','Motion','glides in as you scroll'],
-  ['/home/current/','Current','energy, visualized']
+  ['/home/current/','Current','energy, visualized'],
+  ['/home/cascade/','Cascade','experiment · crystal rain']
 ];
 
 function lum(){try{var m=getComputedStyle(document.body).backgroundColor.match(/\d+/g);
