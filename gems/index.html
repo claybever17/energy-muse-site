@@ -99,7 +99,7 @@ h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-
 .v-btn{display:inline-block;border:none;cursor:pointer;font-family:inherit;color:#fff;padding:14px 26px;transition:transform .25s,filter .3s;
   background:linear-gradient(160deg,#daa268,#c08a4e 45%,#9a6c3a);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(0,0,0,.22);
-  clip-path:polygon(9px 0,calc(100% - 9px) 0,100% 9px,100% calc(100% - 9px),calc(100% - 9px) 100%,9px 100%,0 calc(100% - 9px),0 9px);
+  border-radius:2px;
   font-weight:600;font-size:14px;width:max-content}
 .v-btn:hover{transform:translateY(-2px);filter:brightness(1.07)}
 .v-note{font-size:11.5px;color:var(--soft);letter-spacing:.06em}
@@ -131,6 +131,7 @@ h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-
 p{text-wrap:pretty;}
 .lead,.head p{text-wrap:balance;}
 </style>
+<script src="../assets/em-header.js" defer></script>
 <script src="../assets/em-bag.js" defer></script></head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
@@ -155,10 +156,6 @@ p{text-wrap:pretty;}
   </symbol>
 </svg>
 
-<div class="nav">
-  <a class="brand" href="../"><svg viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo"/></svg></a>
-  <div class="links"><a href="../quiz/">The Quiz</a><a href="../generator/">The Generator</a><a href="../">Home</a><a href="#" class="bag">Bag (0)</a></div>
-</div>
 <section class="hero">
   <svg class="hero-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
   <div class="eye">The Crystal Gallery</div>

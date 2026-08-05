@@ -49,8 +49,7 @@ var css=[
 '  font-weight:600;font-size:14px;color:#fff;font-family:inherit;',
 '  background:linear-gradient(160deg,#B87A4B,#A9683E 46%,#8F5330);',
 '  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(0,0,0,.22);',
-'  clip-path:polygon(9px 0,calc(100% - 9px) 0,100% 9px,100% calc(100% - 9px),calc(100% - 9px) 100%,9px 100%,0 calc(100% - 9px),0 9px)}',
-'.embag-go:hover{filter:brightness(1.06)}',
+'  border-radius:8px}',
 '.embag-note{margin-top:10px;font-size:11px;color:#8D8778;text-align:center;letter-spacing:.03em}',
 '@media (prefers-reduced-motion:reduce){.embag{transition:none}.embag-veil{transition:none}}',
 ].join('\n');
