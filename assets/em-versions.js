@@ -10,10 +10,7 @@ if(document.getElementById('emv'))return; // never double-inject
 var VERSIONS=[
   ['/','Classic','the main homepage'],
   ['/home/motion/','Motion','glides in as you scroll'],
-  ['/home/editorial/','Editorial','gallery catalogue'],
-  ['/home/grid/','Grid','modular · tech'],
-  ['/home/boutique/','Boutique','centered · ceremonial'],
-  ['/home/cinematic/','Cinematic','dark · immersive']
+  ['/home/current/','Current','energy, visualized']
 ];
 
 function lum(){try{var m=getComputedStyle(document.body).backgroundColor.match(/\d+/g);
