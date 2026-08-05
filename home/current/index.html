@@ -44,6 +44,13 @@ p{text-wrap:pretty}
 .stage{position:sticky;top:0;height:100svh;overflow:hidden}
 .bgglow{position:absolute;inset:-10%;pointer-events:none;opacity:var(--glowo);
   background:radial-gradient(46% 38% at 50% 54%,rgba(224,168,120,.5),rgba(169,104,62,.14) 55%,transparent 75%)}
+.stage::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:var(--cornero,1);
+  background:radial-gradient(52% 44% at 88% -6%,rgba(169,104,62,.13),transparent 62%),
+             radial-gradient(44% 40% at -4% 106%,rgba(53,144,123,.08),transparent 60%)}
+.stage::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.045;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.markglow{position:absolute;width:560px;height:560px;margin:-280px 0 0 -280px;pointer-events:none;border-radius:50%;
+  background:radial-gradient(circle,rgba(236,203,158,.5),rgba(169,104,62,.16) 55%,transparent 72%);filter:blur(16px)}
 .photo{position:absolute;left:0;right:0;top:50%;height:46svh;transform:translateY(-50%);opacity:0;pointer-events:none;
   background:url(../../assets/img/hero.jpg) center 38%/cover no-repeat;
   filter:grayscale(.35) sepia(.22) contrast(1.04) brightness(.92);
@@ -53,9 +60,6 @@ p{text-wrap:pretty}
 .devwrap canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
 #lines{position:absolute;inset:0;width:100%;height:100%;display:block}
 #lines path{fill:none;stroke:var(--line);stroke-width:1.6;vector-effect:non-scaling-stroke;stroke-linecap:round}
-.dot{position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px;border-radius:50%;background:var(--line);
-  box-shadow:0 0 18px 4px rgba(169,104,62,.5);animation:dotpulse 2.4s ease-in-out infinite}
-@keyframes dotpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.5)}}
 
 /* captions */
 .cap{position:absolute;opacity:0;pointer-events:none;max-width:min(560px,84vw)}
@@ -63,15 +67,23 @@ p{text-wrap:pretty}
 .cap h1,.cap h2{font-family:var(--serif);font-weight:300;letter-spacing:-.02em;line-height:1.06;text-wrap:balance}
 .cap .sub{font-family:var(--serif);font-style:italic;color:var(--line);margin-top:14px;font-size:clamp(17px,2vw,22px)}
 .cap .small{font-size:13px;color:var(--tc-soft);margin-top:10px}
-.c1{left:clamp(20px,7vw,110px);top:34svh}
-.c1 h1{font-size:clamp(38px,5.6vw,72px)}
+.c1{left:clamp(20px,7vw,110px);top:29svh}
+.c1 h1{font-size:clamp(42px,6vw,80px);line-height:1.04}
+.c1 h1 em{font-style:italic;color:var(--line)}
+.scue{position:absolute;left:clamp(20px,7vw,110px);bottom:7svh;font:600 10px var(--sans);
+  letter-spacing:.24em;text-transform:uppercase;color:var(--tc-soft);opacity:0}
 .c2{left:clamp(20px,7vw,110px);top:40svh;max-width:min(430px,80vw)}
 .c2 p{font-family:var(--serif);font-weight:300;font-size:clamp(20px,2.6vw,30px);line-height:1.3;text-wrap:balance}
-.c3{left:0;right:0;top:12svh;display:flex;justify-content:center;gap:clamp(14px,3.4vw,44px);flex-wrap:wrap;max-width:none}
-.c3 a{font-family:var(--serif);font-weight:300;font-size:clamp(16px,2vw,24px);letter-spacing:.01em;
-  border-bottom:1px solid transparent;padding-bottom:3px;transition:border-color .25s,color .25s}
-.c3 a:hover{color:var(--line);border-color:var(--line)}
-.c3 a i{font-style:normal;display:block;font:600 9px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--tc-soft);margin-bottom:4px}
+.c3{left:0;right:0;top:12svh;display:flex;justify-content:center;gap:clamp(10px,1.6vw,18px);flex-wrap:wrap;max-width:none;padding:0 22px}
+.c3 a{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;
+  font-family:var(--serif);font-weight:300;font-size:clamp(16px,1.8vw,22px);letter-spacing:.01em;
+  padding:13px 26px;border:1px solid color-mix(in srgb,var(--tc) 24%,transparent);border-radius:16px;
+  background:color-mix(in srgb,var(--bgc) 55%,transparent);backdrop-filter:blur(5px);
+  transition:border-color .25s,color .25s,transform .25s,box-shadow .25s}
+.c3 a:hover{color:var(--line);border-color:var(--line);transform:translateY(-2px);
+  box-shadow:0 10px 26px color-mix(in srgb,var(--line) 18%,transparent)}
+.c3 a:active{transform:translateY(0)}
+.c3 a i{font-style:normal;display:block;font:600 9px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--tc-soft)}
 .c4{left:clamp(20px,7vw,110px);bottom:9svh}
 .c4 h2{font-size:clamp(26px,3.4vw,44px)}
 .c4 .hz{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4.6vw,58px);color:var(--line);margin-top:6px;font-variant-numeric:tabular-nums}
@@ -117,6 +129,13 @@ html.static .fallback{display:block}
   .c1{top:30svh}.c4{bottom:7svh}
   .cap .sub{margin-top:10px}
   #lines path{stroke-width:1.4}
+  .c3{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;top:9svh;padding:0 20px}
+  .c3 a{padding:12px 8px;font-size:17px}
+  .c3 a:nth-child(5){grid-column:1/-1;justify-self:center;min-width:62%}
+  .c6{justify-content:flex-start;padding-top:48svh}
+  .c6 h2{font-size:30px}
+  .c6 .row{flex-direction:column;align-items:center;width:min(320px,86vw);margin-top:22px;gap:12px}
+  .c6 .row .btn{width:100%;justify-content:center}
 }
 </style>
 </head>
@@ -146,21 +165,23 @@ html.static .fallback{display:block}
   <a class="bb-quiz" href="../../quiz/">Take the Energy Quiz</a>
 </div>
 
+<svg id="mksrc" viewBox="0 0 231.33 238.67" style="position:absolute;width:0;height:0;visibility:hidden" aria-hidden="true"><path id="mk0" d="M190.5,189.78c-31.47,34.37-81.82,42.71-122.32,21.22-27.62-14.65-46.73-41.52-52.64-69.96-7.48-36.05,4.02-73.41,32.42-99.17,21.07-19.11,47.83-27.9,76.41-25.64,20.11,1.59,39.11,9.16,54.56,21.91,3.46,2.86,6.54,5.38,9.57,8.56,38.14,40.05,39.83,101.74,1.99,143.08ZM78.79,179.9c5.79,7.06,13.04,11.43,22.12,13.24,19.2,3.84,38.84-.55,55.55-10.91,29.03-17.98,42.78-50.33,39.88-84.29-3.17-37.1-31.15-67.2-68.24-72.09-4.79-.63-9.09-.96-14.66.35,20.78,4.81,36.06,16.44,35.82,41.81-.11,11.35-1.96,22.44-9.2,31.49-7.28,9.09-15.29,13.33-25.03,19.07-10.51,6.2-20.7,12.26-30.15,19.94-13.07,10.62-16.61,28.55-6.09,41.39ZM64.19,125.46c4.91-4.01,9.64-7.75,14.76-11.43,11.66-8.38,21.05-14.26,23.07-30.52.17-7.96-2.49-16.33-8.68-22-10.58-9.68-26.8-9.43-37.85.02-27.94,23.93-29.6,71.37-3.11,97.33l-.32-8.07c-.4-10.18,4.14-18.82,12.12-25.33Z" fill="none"/><path id="mk1" d="M78.79,179.9c-10.52-12.84-6.98-30.77,6.09-41.39,9.44-7.68,19.64-13.74,30.15-19.94,9.73-5.74,17.75-9.98,25.03-19.07,7.24-9.05,9.09-20.14,9.2-31.49.25-25.38-15.03-37-35.82-41.81,5.57-1.31,9.86-.98,14.66-.35,37.09,4.89,65.07,34.99,68.24,72.09,2.9,33.96-10.85,66.3-39.88,84.29-16.71,10.36-36.35,14.74-55.55,10.91-9.07-1.81-16.33-6.18-22.12-13.24Z" fill="none"/><path id="mk2" d="M64.19,125.46c-7.98,6.51-12.52,15.15-12.12,25.33l.32,8.07c-26.49-25.96-24.83-73.4,3.11-97.33,11.04-9.46,27.26-9.71,37.85-.02,6.2,5.67,8.85,14.04,8.68,22-2.03,16.26-11.41,22.14-23.07,30.52-5.12,3.68-9.86,7.43-14.76,11.43Z" fill="none"/></svg>
+
 <div class="film" id="film">
   <div class="stage" id="stage">
     <div class="bgglow"></div>
     <div class="photo" id="photo"></div>
+    <div class="markglow" id="markglow"></div>
     <div class="devwrap" id="devwrap"><canvas id="dev"></canvas></div>
     <svg id="lines" aria-hidden="true">
       <path id="p0"/><path id="p1"/><path id="p2"/><path id="p3"/><path id="p4"/>
     </svg>
-    <span class="dot" id="dot" aria-hidden="true"></span>
 
     <div class="cap c1" id="c1">
-      <h1>Energy, made personal.</h1>
+      <h1>Energy,<br>made <em>personal.</em></h1>
       <p class="sub">Choose your energy. Live in it.</p>
-      <p class="small">Scroll</p>
     </div>
+    <div class="scue" id="scue">Scroll</div>
     <div class="cap c2" id="c2">
       <p>Energy is invisible &mdash; which is exactly why it's so easy to overlook.</p>
     </div>
@@ -225,14 +246,42 @@ if(reduce){document.documentElement.classList.add('static');return;}
 var film=document.getElementById('film'),stage=document.getElementById('stage');
 var svg=document.getElementById('lines');
 var paths=[0,1,2,3,4].map(function(i){return document.getElementById('p'+i);});
-var dot=document.getElementById('dot'),photo=document.getElementById('photo');
+var photo=document.getElementById('photo');
+var markglow=document.getElementById('markglow');
+var scue=document.getElementById('scue');
 var devwrap=document.getElementById('devwrap'),devCanvas=document.getElementById('dev');
 var caps={c1:document.getElementById('c1'),c2:document.getElementById('c2'),c3:document.getElementById('c3'),
           c4:document.getElementById('c4'),c5:document.getElementById('c5'),c6:document.getElementById('c6')};
 var hzval=document.getElementById('hzval');
 var W=0,H=0,N=200;
 
-function resize(){W=stage.clientWidth;H=stage.clientHeight;svg.setAttribute('viewBox','0 0 '+W+' '+H);N=W<700?150:200;}
+var MK=null;
+function sampleMark(){
+  var vb=[231.33,238.67], scale=Math.min(W,H)*0.34/vb[1];
+  var ecx=W>700?W*0.60:W*0.5, ecy=W>700?H*0.44:H*0.70;
+  var host=document.getElementById('mksrc'), NS='http://www.w3.org/2000/svg';
+  MK=[0,1,2].map(function(i){
+    var subs=document.getElementById('mk'+i).getAttribute('d').split(/(?=M)/);
+    var els=subs.map(function(sd){var e=document.createElementNS(NS,'path');e.setAttribute('d',sd);host.appendChild(e);return e;});
+    var lens=els.map(function(e){return e.getTotalLength();});
+    var total=lens.reduce(function(a,b){return a+b;},0);
+    var counts=lens.map(function(L){return Math.max(8,Math.round(N*L/total));});
+    counts[0]+=(N+1)-counts.reduce(function(a,b){return a+b;},0);
+    var pts=[],brk=[];
+    els.forEach(function(e,si){
+      if(si>0)brk.push(pts.length);
+      for(var j=0;j<counts[si];j++){
+        var pt=e.getPointAtLength(lens[si]*j/Math.max(1,counts[si]-1));
+        pts.push([ecx+(pt.x-vb[0]/2)*scale, ecy+(pt.y-vb[1]/2)*scale]);
+      }
+      host.removeChild(e);
+    });
+    return {pts:pts,brk:brk.reduce(function(s,v){s[v]=1;return s;},{}),cx:ecx,cy:ecy};
+  });
+  var xs=MK[0].pts.map(function(q){return q[0];});
+  MK.outerW=Math.max.apply(null,xs)-Math.min.apply(null,xs);
+}
+function resize(){W=stage.clientWidth;H=stage.clientHeight;svg.setAttribute('viewBox','0 0 '+W+' '+H);N=W<700?150:200;sampleMark();}
 resize();addEventListener('resize',resize);
 
 /* helpers */
@@ -278,36 +327,50 @@ function frame(p,t){
   st.setProperty('--logo-body',lb);
 
   /* --- chapter windows --- */
-  var wake=ease(win(p,.05,.16));          // dot -> line
-  var spread=ease(win(p,.18,.27))*(1-ease(win(p,.40,.50)));   // five strands apart
+  var morph=ease(win(p,.07,.23));         // the mark unravels into the line
+  var wake=morph;
+  var spread=ease(win(p,.22,.31))*(1-ease(win(p,.40,.50)));   // five strands apart
   var wind=ease(win(p,.42,.56));          // wind into spiral
   var unwind=ease(win(p,.58,.66));        // leave the device
   var ringT=ease(win(p,.72,.86));         // close the ring
   var amp=lerp(10,H*.06,wake)*(1-wind*.9);
 
-  dot.style.opacity=(1-win(p,.05,.10)).toFixed(2);
 
   /* --- geometry --- */
   var cx=W/2,cy=H*.54;
   var spiralR=Math.min(W,H)*.16, turns=3.1;
-  var ringR=Math.min(W,H)*.26, ringCx=W/2, ringCy=H*.5;
+  var mob=W<=700;
+  var ringR=mob?W*.40:Math.min(W,H)*.26, ringCx=W/2, ringCy=mob?H*.28:H*.5;
   var span=lerp(.06,1,wake);              // fraction of width the line occupies
   var x0=W*(0.5-span/2), x1=W*(0.5+span/2);
 
   for(var k=0;k<5;k++){
     var path=paths[k];
     var off=(k-2)*spread*H*.11;
-    var alive = k===2 ? 1 : (wake>0? (spread>0.02?1:(k===2?1:0)) : 0);
-    /* strands other than the carrier fade as they wind */
-    var op = k===2 ? 1 : clamp(spread*3,0,1)*(1-ease(win(p,.42,.52)));
-    if(p<.05){op=k===2?0:0;}
-    if(k===2){op=p<.05?0:1; if(ringT>=1)op=1;}
+    /* mark strokes ride strands 1,2,3 until the unravel completes */
+    var mkFade=1-win(p,.17,.25);
+    var op;
+    if(k===2){op=1;}
+    else if(k===1||k===3){op=Math.max(mkFade, clamp(spread*3,0,1)*(1-ease(win(p,.42,.52))));
+      op=Math.max(op,ease(win(p,.74,.87))*(W<=700?1:.32));}
+    else {op=clamp(spread*3,0,1)*(1-ease(win(p,.42,.52)));}
     var d='';
-    for(var i=0;i<=N;i++){
+    var mk=(MK&&(k===1||k===2||k===3))?MK[k-1]:null;
+    var breathe=1+Math.sin(t*1.5)*.015;
+    var rot=Math.sin(t*.45)*.035+ease(win(p,0,.12))*.55, ca=Math.cos(rot), sa=Math.sin(rot);
+    var intro=ease(clamp((t-.2-(k-1)*.5)/1.6,0,1));
+    var lastIdx=(mk&&p<.03)?Math.round(intro*N):N;
+    for(var i=0;i<=lastIdx;i++){
       var u=i/N;
       var lx=lerp(x0,x1,u);
       var ly=cy+off+sig(k,u,t,amp)+noise(u*3+k,t)*amp*.16;
       var X=lx,Y=ly;
+      if(mk&&morph<1){
+        var px=(mk.pts[i][0]-mk.cx)*breathe, py=(mk.pts[i][1]-mk.cy)*breathe;
+        var mx=mk.cx+px*ca-py*sa, my=mk.cy+px*sa+py*ca;
+        var mi=ease(clamp(morph*1.45-u*.45,0,1));   // the thread pulls loose from one end
+        X=lerp(mx,X,mi);Y=lerp(my,Y,mi);
+      }
       if(wind>0){
         var th=u*turns*Math.PI*2;
         var sr=lerp(spiralR*1.9,spiralR*.34,u);
@@ -327,24 +390,45 @@ function frame(p,t){
         var into=ease(win(p,.70,.78));
         X=lerp(X,rx,into);Y=lerp(Y,ry,into);
       }
-      d+=(i?'L':'M')+X.toFixed(1)+','+Y.toFixed(1);
+      if((k===1||k===3)&&MK){
+        var fin=ease(win(p,.74,.87));
+        if(fin>0){
+          var fmk=k===1?MK[1]:MK[2];
+          var Kf=(ringR*2)/(MK.outerW||1)*.96;
+          var fx=ringCx+(fmk.pts[i][0]-fmk.cx)*Kf;
+          var fy=ringCy+(fmk.pts[i][1]-fmk.cy)*Kf;
+          X=lerp(X,fx,fin);Y=lerp(Y,fy,fin);
+        }
+      }
+      d+=((i===0||(mk&&morph<1&&mk.brk[i]))?'M':'L')+X.toFixed(1)+','+Y.toFixed(1);
     }
     path.setAttribute('d',d);
     path.style.opacity=op.toFixed(2);
-    path.style.strokeWidth = (k===2? lerp(1.6,2.2,wind+ringT) : 1.4);
+    var baseW=(k===2? lerp(1.6,2.2,wind+ringT) : 1.4);
+    path.style.strokeWidth = mk? lerp(2.1,baseW,morph).toFixed(2) : baseW;
+    var REST={1:'#A9683E',2:'#C08356',3:'#35907B'};
+    path.style.stroke = (mk&&morph<1)? mix(REST[k],'#A9683E',morph) : '';
   }
-  svg.style.filter='drop-shadow(0 0 '+lerp(0,9,win(p,.4,.7))+'px rgba(224,168,120,'+lerp(0,.8,win(p,.4,.7)).toFixed(2)+'))';
+  var mg=(1-win(p,.07,.14))*(0.55+0.25*Math.sin(t*1.6));
+  var gAmt=Math.max(mg*.7,win(p,.4,.7));
+  svg.style.filter='drop-shadow(0 0 '+lerp(0,10,gAmt).toFixed(1)+'px rgba(224,168,120,'+lerp(0,.85,gAmt).toFixed(2)+'))';
 
   /* --- layers --- */
+  var ecxg=W>700?W*0.60:W*0.5, ecyg=W>700?H*0.44:H*0.70;
+  markglow.style.left=ecxg+'px';markglow.style.top=ecyg+'px';
+  markglow.style.opacity=((1-win(p,.10,.22))*(0.5+0.16*Math.sin(t*1.3))).toFixed(2);
+  st.setProperty('--cornero',(1-win(p,.3,.55)).toFixed(2));
+  scue.style.opacity=((1-win(p,.05,.11))*.85).toFixed(2);
+
   var devOp=win(p,.50,.58)*(1-win(p,.64,.70));
   devwrap.style.opacity=devOp.toFixed(2);
   photo.style.opacity=(win(p,.58,.63)*(1-win(p,.70,.745))).toFixed(2);
   photo.style.transform='translateY('+lerp(-44,-56,win(p,.58,.75))+'%)';
 
   /* --- captions --- */
-  cap(caps.c1,p,-.02,-.01,.10,.15);
-  cap(caps.c2,p,.16,.19,.245,.275);
-  cap(caps.c3,p,.235,.265,.385,.425);
+  cap(caps.c1,p,-.02,-.01,.12,.18);
+  cap(caps.c2,p,.185,.215,.265,.295);
+  cap(caps.c3,p,.265,.295,.385,.425);
   cap(caps.c4,p,.455,.49,.60,.65);
   cap(caps.c5,p,.585,.615,.685,.715);
   cap(caps.c6,p,.755,.80,1.01,1.02);
