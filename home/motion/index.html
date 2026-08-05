@@ -539,6 +539,13 @@ body.menu-open{overflow:hidden;}
 .reel figcaption strong{font-family:var(--serif);font-weight:400;font-size:17px;color:#fff;}
 .reel figcaption span{font-size:11.5px;letter-spacing:.08em;color:#D8DEE8;}
 
+/* ===== Quotes: real customer words (approved set) ===== */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(22px,3vw,44px);max-width:1080px;margin:0 auto;}
+.quote{display:flex;flex-direction:column;gap:14px;text-align:left;margin:0;}
+.qmark{font-family:var(--serif);font-size:56px;line-height:.5;color:var(--copper);height:24px;}
+.quote blockquote{margin:0;font-family:var(--serif);font-weight:300;font-size:clamp(18px,1.6vw,21px);line-height:1.5;color:var(--fg);text-wrap:pretty;}
+.quote figcaption{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin-top:auto;}
+
 /* ===== Final ===== */
 .final{text-align:center;position:relative;border-block:1px solid var(--hair);background:
   radial-gradient(58% 90% at 50% -18%,color-mix(in srgb,var(--copper) 11%,transparent),transparent 62%),
@@ -818,13 +825,21 @@ p{text-wrap:pretty;}
   0%{box-shadow:0 0 0 color-mix(in srgb,var(--copper) 0%,transparent);}
   40%{box-shadow:0 0 44px 6px color-mix(in srgb,var(--copper) 55%,transparent);}
   100%{box-shadow:0 0 30px color-mix(in srgb,var(--copper) 0%,transparent);}}
+/* customer quotes rise one by one */
+.quotes.reveal{transform:none;}
+.quotes.reveal .quote{opacity:0;transform:translateY(34px);
+  transition:opacity .7s var(--soft),transform .7s var(--spring);}
+.quotes.reveal.in .quote{opacity:1;transform:none;}
+.quotes.reveal.in .quote:nth-child(2){transition-delay:.14s;}
+.quotes.reveal.in .quote:nth-child(3){transition-delay:.28s;}
 @media (prefers-reduced-motion:reduce){
   .reveal.in,.reveal.in *{animation:none!important;}
   .split .media.reveal,.split .copy.reveal>*,.head.reveal h2,.head.reveal .lead,
-  .int-grid.reveal .int,.int-grid.reveal .int img,.way.reveal,
+  .int-grid.reveal .int,.int-grid.reveal .int img,.way.reveal,.quotes.reveal .quote,
   .steps-zone.reveal .step,.steps-zone.reveal .step .rn,.duo-card.reveal,.reels.reveal .reel{
     opacity:1;transform:none;filter:none;transition:none;}
 }
+
 
 
 
@@ -1103,41 +1118,21 @@ p{text-wrap:pretty;}
 <section class="section band">
   <div class="wrap">
     <div class="head reveal"><span class="eyebrow muted">In their words</span><h2>Real energy. Real people. Real transformations.</h2></div>
-    <div class="reels reveal">
-      <figure class="reel" data-video="../../assets/video/story-4.mp4">
-        <svg class="reel-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
-        <div class="reel-play" aria-hidden="true"></div>
-        <span class="reel-soon">Film coming soon</span>
-        <video muted loop playsinline preload="none"></video>
-        <figcaption><strong>Morgan</strong><span>the practice, kept</span></figcaption>
+    <div class="quotes reveal">
+      <figure class="quote">
+        <span class="qmark" aria-hidden="true">&ldquo;</span>
+        <blockquote>I feel noticeably calmer when it's near me. I keep it in my backpack for classes and clinicals &mdash; it's been a game changer for managing my stress.</blockquote>
+        <figcaption>Kaylee</figcaption>
       </figure>
-      <figure class="reel" data-video="../../assets/video/story-2.mp4">
-        <svg class="reel-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
-        <div class="reel-play" aria-hidden="true"></div>
-        <span class="reel-soon">Film coming soon</span>
-        <video muted loop playsinline preload="none"></video>
-        <figcaption><strong>Brooke</strong><span>meaning she wears daily</span></figcaption>
+      <figure class="quote">
+        <span class="qmark" aria-hidden="true">&ldquo;</span>
+        <blockquote>I always have my Protection Necklace in my pocket at work. If I start to feel overwhelmed, I reach in and hold it. There is true power in believing something is protecting you.</blockquote>
+        <figcaption>Sher McAfee</figcaption>
       </figure>
-      <figure class="reel" data-video="../../assets/video/story-1.mp4">
-        <svg class="reel-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
-        <div class="reel-play" aria-hidden="true"></div>
-        <span class="reel-soon">Film coming soon</span>
-        <video muted loop playsinline preload="none"></video>
-        <figcaption><strong>Claire</strong><span>her first practice</span></figcaption>
-      </figure>
-      <figure class="reel" data-video="../../assets/video/story-3.mp4">
-        <svg class="reel-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
-        <div class="reel-play" aria-hidden="true"></div>
-        <span class="reel-soon">Film coming soon</span>
-        <video muted loop playsinline preload="none"></video>
-        <figcaption><strong>Reese</strong><span>the generator, set up</span></figcaption>
-      </figure>
-      <figure class="reel" data-video="../../assets/video/story-5.mp4">
-        <svg class="reel-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
-        <div class="reel-play" aria-hidden="true"></div>
-        <span class="reel-soon">Film coming soon</span>
-        <video muted loop playsinline preload="none"></video>
-        <figcaption><strong>Willow</strong><span>a collection, alive</span></figcaption>
+      <figure class="quote">
+        <span class="qmark" aria-hidden="true">&ldquo;</span>
+        <blockquote>My Grounding Bracelet has been immensely helpful in helping me attain peace while I took on the challenge of building a brand-new curriculum this year. Thank you for the inspiration!</blockquote>
+        <figcaption>Shannon Gallagher</figcaption>
       </figure>
     </div>
   </div>

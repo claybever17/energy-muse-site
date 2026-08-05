@@ -67,6 +67,24 @@ body{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-
   border:1px solid var(--copper);transform:translateX(-50%) scale(0);transition:transform .28s cubic-bezier(.16,1,.3,1)}
 .nav div a:hover{color:var(--ink)}
 .nav div a:hover::after{transform:translateX(-50%) scale(1)}
+/* fixed vs variable: the rigorous comparison (qualitative — per approved claims) */
+.vs{padding:12vh 8vw;position:relative}
+.vs .vhead{max-width:720px;margin:0 auto 46px;text-align:center}
+.vs .veye{font:600 11px 'Instrument Sans',sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--copper)}
+.vs h3{font-family:'Fraunces',Georgia,serif;font-weight:300;font-size:clamp(26px,3.6vw,44px);color:var(--ink);margin-top:12px;letter-spacing:-.01em;text-wrap:balance}
+.vs .vgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,3vw,34px);max-width:980px;margin:0 auto}
+.vs .vcol{border:1px solid rgba(159,176,190,.22);border-radius:12px;padding:clamp(22px,3vw,34px);background:rgba(255,255,255,.02)}
+.vs .vcol.fixed{border-color:rgba(192,138,78,.5);background:linear-gradient(180deg,rgba(192,138,78,.08),rgba(255,255,255,.02))}
+.vs .vtitle{font:600 11px 'Instrument Sans',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--soft)}
+.vs .vcol.fixed .vtitle{color:var(--copper)}
+.vs .vname{font-family:'Fraunces',Georgia,serif;font-weight:300;font-size:22px;color:var(--ink);margin-top:6px}
+.vs .vdiag{display:block;width:100%;height:130px;margin:18px 0 6px}
+.vs .vrow{display:flex;justify-content:space-between;gap:14px;padding:12px 2px;border-top:1px solid rgba(159,176,190,.16);font-size:13.5px}
+.vs .vrow .k{color:var(--soft);letter-spacing:.04em}
+.vs .vrow .v{color:var(--ink);text-align:right}
+.vs .vcol.fixed .vrow .v{color:#EFDCC2}
+.vs .vnote{max-width:720px;margin:26px auto 0;text-align:center;font-size:11.5px;color:var(--soft);line-height:1.6}
+@media(max-width:760px){.vs .vgrid{grid-template-columns:1fr}}
 .end{display:grid;place-items:center;text-align:center;padding:14vh 8vw 12vh;position:relative;overflow:hidden;
   background:radial-gradient(60% 110% at 50% 130%,rgba(192,138,78,.15),transparent 62%),linear-gradient(var(--navy),#0d1622)}
 .end>div{position:relative;z-index:1}
@@ -191,6 +209,46 @@ p{text-wrap:pretty;}
     </div>
   </div>
 </section>
+<section class="vs">
+  <div class="vhead">
+    <div class="veye">Fixed vs. variable</div>
+    <h3>Why a fixed frequency reaches further.</h3>
+  </div>
+  <div class="vgrid">
+    <div class="vcol fixed">
+      <div class="vtitle">Energy Muse</div>
+      <div class="vname">Fixed-frequency generator</div>
+      <svg class="vdiag" viewBox="0 0 300 130" aria-hidden="true">
+        <circle cx="150" cy="65" r="7" fill="var(--copper)"/>
+        <circle cx="150" cy="65" r="28" fill="none" stroke="var(--copper)" stroke-width="1.6" opacity=".85"/>
+        <circle cx="150" cy="65" r="52" fill="none" stroke="var(--copper)" stroke-width="1.4" opacity=".55"/>
+        <circle cx="150" cy="65" r="78" fill="none" stroke="var(--copper)" stroke-width="1.2" opacity=".3"/>
+        <circle cx="150" cy="65" r="104" fill="none" stroke="var(--copper)" stroke-width="1" opacity=".15"/>
+      </svg>
+      <div class="vrow"><span class="k">Output</span><span class="v">One tuned frequency, always exact</span></div>
+      <div class="vrow"><span class="k">Signal</span><span class="v">Stronger &mdash; a single dedicated coil</span></div>
+      <div class="vrow"><span class="k">Radius</span><span class="v">Larger &mdash; fills the room you live in</span></div>
+      <div class="vrow"><span class="k">Designation</span><span class="v">Seven instruments, 7.83&ndash;1111Hz</span></div>
+    </div>
+    <div class="vcol">
+      <div class="vtitle">Typical alternatives</div>
+      <div class="vname">Variable-frequency devices</div>
+      <svg class="vdiag" viewBox="0 0 300 130" aria-hidden="true">
+        <circle cx="150" cy="65" r="7" fill="var(--soft)" opacity=".8"/>
+        <circle cx="150" cy="65" r="22" fill="none" stroke="var(--soft)" stroke-width="1.3" stroke-dasharray="5 6" opacity=".6"/>
+        <circle cx="150" cy="65" r="40" fill="none" stroke="var(--soft)" stroke-width="1.1" stroke-dasharray="4 7" opacity=".35"/>
+        <circle cx="150" cy="65" r="56" fill="none" stroke="var(--soft)" stroke-width="1" stroke-dasharray="3 8" opacity=".18"/>
+      </svg>
+      <div class="vrow"><span class="k">Output</span><span class="v">Sweeps between frequencies</span></div>
+      <div class="vrow"><span class="k">Signal</span><span class="v">Weaker &mdash; shared, shifting output</span></div>
+      <div class="vrow"><span class="k">Radius</span><span class="v">Smaller &mdash; close-range use</span></div>
+      <div class="vrow"><span class="k">Designation</span><span class="v">Never settles on one job</span></div>
+    </div>
+  </div>
+  <p class="vnote">Comparison reflects Energy Muse's fixed-frequency design approach. Detailed specifications to follow.
+    Frequency generators are not medical devices and are not a substitute for healthcare; experiences vary.</p>
+</section>
+
 <section class="end">
   <svg class="end-mark" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
   <div class="end-in">
