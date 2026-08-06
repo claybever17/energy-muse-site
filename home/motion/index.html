@@ -81,6 +81,18 @@ img{max-width:100%;display:block;}
 a{color:inherit;text-decoration:none;}
 /* a fine paper tooth over the whole page: the difference between a flat
    cream fill and something that looks printed. Costs one composited layer. */
+/* A copper hairline down the left margin that fills as you read — the energy
+   line from the films, at rest. It is the one thread that ties this page to
+   Current and Crystallize without borrowing their motion. */
+.spine{position:fixed;left:max(14px,2.2vw);top:16vh;bottom:16vh;width:1px;z-index:3;pointer-events:none;
+  background:color-mix(in srgb,var(--copper) 16%,transparent);}
+.spine i{position:absolute;left:0;top:0;width:100%;height:var(--sp,0%);display:block;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--copper) 70%,transparent),var(--copper));
+  box-shadow:0 0 8px color-mix(in srgb,var(--copper) 45%,transparent);}
+.spine i::after{content:"";position:absolute;left:-2px;bottom:-3px;width:5px;height:5px;border-radius:50%;
+  background:var(--copper);box-shadow:0 0 10px color-mix(in srgb,var(--copper) 75%,transparent);}
+@media (max-width:900px){.spine{display:none}}
+
 body::after{content:"";position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.055;
   mix-blend-mode:multiply;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");}
@@ -245,6 +257,11 @@ body.menu-open{overflow:hidden;}
 .hero-media>img{width:100%;height:100%;object-fit:cover;object-position:50% 42%;filter:var(--imgf);
   border-radius:var(--arch);position:relative;z-index:1;
   animation:floatY 9s ease-in-out infinite;will-change:transform;}
+/* light travels across the print every so often, then leaves it alone */
+.hero-media::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:6px;
+  background:linear-gradient(104deg,transparent 38%,rgba(255,247,235,.34) 47%,rgba(255,247,235,.06) 54%,transparent 62%);
+  background-size:280% 100%;animation:sheen 11s cubic-bezier(.4,0,.25,1) infinite;mix-blend-mode:screen;}
+@keyframes sheen{0%,62%{background-position:190% 0}100%{background-position:-90% 0}}
 .hero-ring{position:absolute;right:-56px;bottom:-56px;width:210px;height:210px;pointer-events:none;opacity:.9;z-index:3;
   animation:spin 60s linear infinite;transform-origin:50% 50%;}
 .hero-ring{color:color-mix(in srgb,var(--copper) 65%,#fff);}
@@ -334,6 +351,12 @@ body.menu-open{overflow:hidden;}
   transform:perspective(900px) translateY(var(--ty,0px)) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
   transition:--ty .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1);}
 .int:hover{--ty:-6px;box-shadow:var(--shadow-lg),0 18px 42px color-mix(in srgb,var(--copper) 22%,transparent);}
+@keyframes intDrift{0%,100%{transform:scale(1.02) translateY(0)}50%{transform:scale(1.045) translateY(-6px)}}
+.int:nth-child(1) img{animation:intDrift 13s ease-in-out infinite}
+.int:nth-child(2) img{animation:intDrift 15s ease-in-out -3s infinite}
+.int:nth-child(3) img{animation:intDrift 12s ease-in-out -6s infinite}
+.int:nth-child(4) img{animation:intDrift 16s ease-in-out -9s infinite}
+.int:nth-child(5) img{animation:intDrift 14s ease-in-out -4.5s infinite}
 .int img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 32%;z-index:0;filter:var(--imgf);
   transition:transform .8s cubic-bezier(.16,1,.3,1);}
 .int::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(11,19,32,0) 34%,rgba(11,19,32,.82));}
@@ -420,6 +443,7 @@ body.menu-open{overflow:hidden;}
 .freq h2{color:var(--navy-text);}
 .freq .copy p{color:var(--navy-soft);}
 .freq .media{background:#070C15;}
+
 /* live signal line under the frequency headline */
 .mini-wave{width:190px;height:22px;margin-top:18px;display:block;}
 .mini-wave path{fill:none;stroke:var(--copper-hi);stroke-width:1.4;opacity:.6;
@@ -766,8 +790,12 @@ p{text-wrap:pretty;}
    *behind* the page rather than sliding across it. Everything below is a
    transform in Z, so surfaces have thickness and the light lands on them. ===== */
 :root{--spring:cubic-bezier(.34,1.56,.64,1);--soft:cubic-bezier(.16,1,.3,1);}
-/* one shared camera: children animate in its perspective, not flat */
-body{perspective:1600px;perspective-origin:50% 42%;}
+/* The camera lives on the sections, NOT on body: a perspective on an
+   ancestor becomes the containing block for position:fixed descendants,
+   which quietly un-pinned the Versions pill and the cart drawer. */
+.split{perspective:1600px;perspective-origin:50% 45%;}
+.int-grid{perspective:1400px;perspective-origin:50% 40%;}
+.head,.trust,.quotes{perspective:1200px;}
 .split,.int-grid,.head,.trust,.quotes{transform-style:preserve-3d;}
 
 .reveal{transform:translateY(42px) translateZ(-90px);
@@ -904,6 +932,7 @@ body{perspective:1600px;perspective-origin:50% 42%;}
 
 
 
+
 </style>
 
 
@@ -944,6 +973,7 @@ body{perspective:1600px;perspective-origin:50% 42%;}
   </div>
 </div>
 
+<div class="spine" aria-hidden="true"><i id="spinefill"></i></div>
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="../../"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo"/></svg></a>
@@ -1325,6 +1355,20 @@ body{perspective:1600px;perspective-origin:50% 42%;}
     });
     el.addEventListener('pointerleave',function(){tx=ty=0;tgx=50;tgy=20;kick();});
   });
+  /* the spine fills with reading progress */
+  if(!reduce){
+    var sfill=document.getElementById('spinefill');
+    function spine(){
+      if(!sfill)return;
+      var doc=document.documentElement;
+      var max=doc.scrollHeight-innerHeight;
+      var pct=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
+      sfill.style.setProperty('--sp',(pct*100).toFixed(2)+'%');
+    }
+    addEventListener('scroll',spine,{passive:true});
+    addEventListener('resize',spine);spine();
+  }
+
   if(!reduce){
     var ticking=false;
     var reelRow=document.querySelector('.reels');
