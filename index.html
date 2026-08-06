@@ -613,21 +613,39 @@ footer.site{background:
   letter-spacing:.14em;text-transform:uppercase;transition:border-color .25s,color .25s;}
 .versbtn svg{width:20px;height:21px;color:var(--copper);}
 .versbtn:hover{border-color:var(--copper);color:var(--fg);}
-.verspop{width:min(300px,calc(100vw - 28px));padding:16px;border-radius:14px;border:1px solid var(--hair);
+.verspop{width:min(292px,calc(100vw - 28px));padding:11px;border-radius:14px;border:1px solid var(--hair);
   background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(18px);
   box-shadow:0 18px 60px rgba(10,16,23,.24);opacity:0;transform:translateY(10px);pointer-events:none;
   transition:opacity .3s cubic-bezier(.16,1,.3,1),transform .3s cubic-bezier(.16,1,.3,1);}
 .verspop.open{opacity:1;transform:none;pointer-events:auto;}
-.vp-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--stone);font-weight:600;margin:0 0 8px;}
-.vp-list{display:flex;flex-direction:column;margin:0 0 14px;}
-.vp-list a{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:9px 10px;border-radius:8px;transition:background .2s;}
-.vp-list a strong{font-family:var(--serif);font-weight:400;font-size:16px;color:var(--fg);transition:color .2s;}
-.vp-list a span{font-size:11px;color:var(--stone);letter-spacing:.03em;text-align:right;}
-.vp-list a:hover{background:color-mix(in srgb,var(--copper) 9%,transparent);}
-.vp-list a:hover strong{color:var(--copper);}
-.vp-list a.cur{background:color-mix(in srgb,var(--copper) 12%,transparent);}
-.vp-list a.cur strong{color:var(--copper);}
-.vp-div{height:1px;background:var(--hair);margin:0 0 12px;}
+.vp-label{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--stone);font-weight:600;margin:0 0 6px 6px;}
+.vp-list{display:flex;flex-direction:column;margin:0;}
+.vp-list a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:9px;
+  border:1px solid transparent;transition:background .2s,border-color .2s,transform .2s;}
+.vp-ico{flex:none;width:22px;height:20px;color:var(--copper);opacity:.8;transition:opacity .2s;}
+.vp-ico svg{width:100%;height:100%;display:block;fill:none;stroke:currentColor;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round;}
+.vp-ico svg circle{fill:currentColor;stroke:none;}
+.vp-ico svg circle[fill="none"]{fill:none;stroke:currentColor;}
+.vp-txt{display:flex;flex-direction:column;line-height:1.25;min-width:0;}
+.vp-txt strong{font-family:var(--serif);font-weight:400;font-size:15px;color:var(--fg);transition:color .2s;}
+.vp-txt span{font-size:10.5px;color:var(--stone);letter-spacing:.02em;}
+.vp-list a:hover{background:color-mix(in srgb,var(--copper) 10%,transparent);transform:translateX(2px);}
+.vp-list a:hover .vp-txt strong{color:var(--copper);}
+.vp-list a:hover .vp-ico{opacity:1;}
+.vp-list a.cur{background:color-mix(in srgb,var(--copper) 14%,transparent);
+  border-color:color-mix(in srgb,var(--copper) 34%,transparent);}
+.vp-list a.cur .vp-txt strong{color:var(--copper);}
+/* a tool is not another skin — it reads as something you use */
+.vp-tools{margin-bottom:10px;}
+.vp-list a.tool{background:linear-gradient(150deg,#B87A4B,#A9683E 52%,#8F5330);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 22px rgba(169,104,62,.32);}
+.vp-list a.tool .vp-txt strong{color:#fff;}
+.vp-list a.tool .vp-txt span{color:rgba(255,255,255,.82);}
+.vp-list a.tool .vp-ico{color:#fff;opacity:.95;}
+.vp-list a.tool:hover{transform:translateY(-1px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 12px 30px rgba(169,104,62,.44);}
+.vp-div{height:1px;background:var(--hair);margin:9px 6px 8px;}
 .skins{display:flex;gap:4px;}
 .skin{display:flex;align-items:center;gap:8px;padding:6px;border-radius:100px;border:1px solid transparent;
   background:none;cursor:pointer;transition:border-color .25s,padding .25s;}
@@ -1223,11 +1241,16 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
   <div class="verspop" id="verspop" aria-label="Design directions">
     <div class="vp-label">Design directions</div>
     <nav class="vp-list">
-      <a href="/"><strong>Classic</strong><span>the main homepage</span></a>
-      <a href="/home/motion/"><strong>Motion</strong><span>glides in as you scroll</span></a>
-      <a href="/home/current/"><strong>Current</strong><span>energy, visualized</span></a>
-      <a href="/home/cascade/"><strong>Cascade</strong><span>experiment &middot; crystal rain</span></a>
-      <a href="/designer/"><strong>Atelier</strong><span>design your own bracelet</span></a>
+      <a href="/"><span class="vp-ico"><svg viewBox="0 0 26 24" aria-hidden="true"><path d="M3 6h20M3 12h13M3 18h20"/></svg></span><span class="vp-txt"><strong>Classic</strong><span>the main homepage</span></span></a>
+      <a href="/home/motion/"><span class="vp-ico"><svg viewBox="0 0 26 24" aria-hidden="true"><path d="M4 7h18M2 13h13M6 19h16"/><path d="M22 13h3" opacity=".5"/></svg></span><span class="vp-txt"><strong>Motion</strong><span>glides in as you scroll</span></span></a>
+      <a href="/home/current/"><span class="vp-ico"><svg viewBox="0 0 26 24" aria-hidden="true"><path d="M2 12c4-7 7 7 11 0s7-7 11 0"/></svg></span><span class="vp-txt"><strong>Current</strong><span>energy, visualized</span></span></a>
+      <a href="/home/cascade/"><span class="vp-ico"><svg viewBox="0 0 26 24" aria-hidden="true"><path d="M6 3v6M13 2v8M20 4v5"/><circle cx="6" cy="12" r="1.6"/><circle cx="13" cy="13.5" r="1.6"/><circle cx="20" cy="11" r="1.6"/><path d="M3 20h20" opacity=".55"/></svg></span><span class="vp-txt"><strong>Cascade</strong><span>crystal rain</span></span></a>
+      <a href="/home/crystallize/"><span class="vp-ico"><svg viewBox="0 0 26 24" aria-hidden="true"><path d="M2 9c4-6 7 6 11 0s7-6 11 0"/><circle cx="13" cy="13.5" r="1.7"/><path d="M13 16v3" opacity=".5"/><path d="M4 21h18" opacity=".55"/></svg></span><span class="vp-txt"><strong>Crystallize</strong><span>energy takes form</span></span></a>
+    </nav>
+    <div class="vp-div"></div>
+    <div class="vp-label">Try it</div>
+    <nav class="vp-list vp-tools">
+      <a href="/designer/" class="tool"><span class="vp-ico"><svg viewBox="0 0 26 24" aria-hidden="true"><circle cx="13" cy="12" r="7.5" opacity=".45" fill="none" stroke="currentColor"/><circle cx="13" cy="4.5" r="2"/><circle cx="19.4" cy="8.2" r="2"/><circle cx="19.4" cy="15.8" r="2"/><circle cx="13" cy="19.5" r="2"/><circle cx="6.6" cy="15.8" r="2"/><circle cx="6.6" cy="8.2" r="2"/></svg></span><span class="vp-txt"><strong>Atelier</strong><span>design your own bracelet</span></span></a>
     </nav>
     <div class="vp-div"></div>
     <div class="vp-label">Color &middot; this design</div>

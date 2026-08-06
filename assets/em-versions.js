@@ -1,25 +1,40 @@
-/* em-versions.js — floating "Versions" switcher shared across homepage versions.
-   Injects its own styles + DOM (same pattern as em-bag.js). Palette auto-picks
-   light/dark from the page's body background. Classic (/) and Motion have a
-   bespoke build of this menu (with the color-skin row); this script is for the
-   other version pages + the chooser. */
+/* em-versions.js — the floating "Versions" switcher.
+
+   Every row used to be the same washed line of text, so five distinct
+   design directions read as one list. Each now carries a tiny drawn
+   signature of what it actually does — layout bands, a springing tilt,
+   one energy line, stones falling to a bed, a wave shedding a stone —
+   and the tools sit in their own group below a rule, with Atelier as a
+   filled copper row so it reads as a thing you *use*, not another skin. */
 (function(){
 'use strict';
-if(document.getElementById('emv'))return; // never double-inject
+if(document.getElementById('emv'))return;
 
+/* [href, name, note, signature svg] */
+var SIG={
+  classic:'<path d="M3 6h20M3 12h13M3 18h20" />',
+  motion:'<path d="M4 7h18M2 13h13M6 19h16" /><path d="M22 13h3" opacity=".5"/>',
+  current:'<path d="M2 12c4-7 7 7 11 0s7-7 11 0"/>',
+  cascade:'<path d="M6 3v6M13 2v8M20 4v5" /><circle cx="6" cy="12" r="1.6"/><circle cx="13" cy="13.5" r="1.6"/><circle cx="20" cy="11" r="1.6"/><path d="M3 20h20" opacity=".55"/>',
+  crystallize:'<path d="M2 9c4-6 7 6 11 0s7-6 11 0"/><circle cx="13" cy="13.5" r="1.7"/><path d="M13 16v3" opacity=".5"/><path d="M4 21h18" opacity=".55"/>',
+  atelier:'<circle cx="13" cy="12" r="7.5" opacity=".45"/><circle cx="13" cy="4.5" r="2"/><circle cx="19.4" cy="8.2" r="2"/><circle cx="19.4" cy="15.8" r="2"/><circle cx="13" cy="19.5" r="2"/><circle cx="6.6" cy="15.8" r="2"/><circle cx="6.6" cy="8.2" r="2"/>'
+};
 var VERSIONS=[
-  ['/','Classic','the main homepage'],
-  ['/home/motion/','Motion','glides in as you scroll'],
-  ['/home/current/','Current','energy, visualized'],
-  ['/home/cascade/','Cascade','experiment · crystal rain'],
-  ['/designer/','Atelier','design your own bracelet']
+  ['/','Classic','the main homepage',SIG.classic],
+  ['/home/motion/','Motion','glides in as you scroll',SIG.motion],
+  ['/home/current/','Current','energy, visualized',SIG.current],
+  ['/home/cascade/','Cascade','crystal rain',SIG.cascade],
+  ['/home/crystallize/','Crystallize','energy takes form',SIG.crystallize]
+];
+var TOOLS=[
+  ['/designer/','Atelier','design your own bracelet',SIG.atelier]
 ];
 
 function lum(){try{var m=getComputedStyle(document.body).backgroundColor.match(/\d+/g);
   if(!m)return 1;return (0.2126*m[0]+0.7152*m[1]+0.0722*m[2])/255;}catch(e){return 1;}}
 var dark=lum()<0.45;
-var P=dark?{bg:'rgba(14,24,38,.92)',fg:'#F1EADF',soft:'#AEB9C8',line:'#2A3A52',accent:'#C4855A',glow:'0 18px 60px rgba(0,0,0,.5)'}
-          :{bg:'rgba(251,248,242,.92)',fg:'#1D2739',soft:'#5A6478',line:'#E4DCCB',accent:'#A9683E',glow:'0 18px 60px rgba(10,16,23,.24)'};
+var P=dark?{bg:'rgba(14,24,38,.94)',fg:'#F1EADF',soft:'#AEB9C8',line:'#2A3A52',accent:'#C4855A',glow:'0 18px 60px rgba(0,0,0,.5)'}
+          :{bg:'rgba(251,248,242,.94)',fg:'#1D2739',soft:'#5A6478',line:'#E4DCCB',accent:'#A9683E',glow:'0 18px 60px rgba(10,16,23,.24)'};
 
 var css=[
 '.emv{position:fixed;bottom:22px;right:22px;z-index:120;display:flex;flex-direction:column;align-items:flex-end;gap:10px;',
@@ -30,32 +45,61 @@ var css=[
 '  letter-spacing:.14em;text-transform:uppercase;transition:border-color .25s,color .25s;font-family:inherit;}',
 '.emv-btn:hover{border-color:'+P.accent+';color:'+P.fg+';}',
 '.emv-dot{width:8px;height:8px;border-radius:50%;background:'+P.accent+';flex:none;}',
-'.emv-pop{width:min(280px,calc(100vw - 28px));padding:14px;border-radius:14px;border:1px solid '+P.line+';',
+'.emv-pop{width:min(292px,calc(100vw - 28px));padding:11px;border-radius:14px;border:1px solid '+P.line+';',
 '  background:'+P.bg+';backdrop-filter:blur(18px);box-shadow:'+P.glow+';',
-'  opacity:0;transform:translateY(10px);pointer-events:none;',
+'  opacity:0;transform:translateY(10px) scale(.98);pointer-events:none;transform-origin:100% 100%;',
 '  transition:opacity .3s cubic-bezier(.16,1,.3,1),transform .3s cubic-bezier(.16,1,.3,1);}',
 '.emv-pop.open{opacity:1;transform:none;pointer-events:auto;}',
-'.emv-lab{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:'+P.soft+';font-weight:600;margin:0 0 8px;}',
-'.emv-pop a{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:9px 10px;',
-'  border-radius:8px;text-decoration:none;transition:background .2s;}',
-'.emv-pop a strong{font-family:Fraunces,Georgia,serif;font-weight:400;font-size:16px;color:'+P.fg+';transition:color .2s;}',
-'.emv-pop a span{font-size:11px;color:'+P.soft+';letter-spacing:.03em;text-align:right;}',
-'.emv-pop a:hover{background:rgba(169,104,62,.12);}',
-'.emv-pop a:hover strong{color:'+P.accent+';}',
-'.emv-pop a.cur{background:rgba(169,104,62,.18);}',
-'.emv-pop a.cur strong{color:'+P.accent+';}',
+'.emv-lab{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:'+P.soft+';font-weight:600;',
+'  margin:0 0 6px 8px;opacity:.85;}',
+'.emv-pop a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:9px;text-decoration:none;',
+'  border:1px solid transparent;transition:background .2s,border-color .2s,transform .2s;}',
+/* the drawn signature */
+'.emv-ico{flex:none;width:22px;height:20px;color:'+P.accent+';opacity:.8;transition:opacity .2s,color .2s;}',
+'.emv-ico svg{width:100%;height:100%;display:block;fill:none;stroke:currentColor;stroke-width:1.7;',
+'  stroke-linecap:round;stroke-linejoin:round;}',
+'.emv-ico svg circle{fill:currentColor;stroke:none;}',
+'.emv-txt{display:flex;flex-direction:column;line-height:1.25;min-width:0;}',
+'.emv-txt strong{font-family:Fraunces,Georgia,serif;font-weight:400;font-size:15px;color:'+P.fg+';transition:color .2s;}',
+'.emv-txt span{font-size:10.5px;color:'+P.soft+';letter-spacing:.02em;}',
+'.emv-pop a:hover{background:'+(dark?'rgba(196,133,90,.16)':'rgba(169,104,62,.10)')+';transform:translateX(2px);}',
+'.emv-pop a:hover .emv-txt strong{color:'+P.accent+';}',
+'.emv-pop a:hover .emv-ico{opacity:1;}',
+/* the one you are on */
+'.emv-pop a.cur{background:'+(dark?'rgba(196,133,90,.2)':'rgba(169,104,62,.14)')+';',
+'  border-color:'+(dark?'rgba(196,133,90,.45)':'rgba(169,104,62,.34)')+';}',
+'.emv-pop a.cur .emv-txt strong{color:'+P.accent+';}',
+'.emv-pop a.cur .emv-ico{opacity:1;}',
+/* tools are not another skin — they are something you use */
+'.emv-rule{height:1px;background:'+P.line+';margin:9px 6px 8px;opacity:.8;}',
+'.emv-pop a.tool{background:linear-gradient(150deg,#B87A4B,#A9683E 52%,#8F5330);border-color:transparent;',
+'  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 22px rgba(169,104,62,.32);}',
+'.emv-pop a.tool .emv-txt strong{color:#fff;}',
+'.emv-pop a.tool .emv-txt span{color:rgba(255,255,255,.82);}',
+'.emv-pop a.tool .emv-ico{color:#fff;opacity:.95;}',
+'.emv-pop a.tool:hover{transform:translateY(-1px);',
+'  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 12px 30px rgba(169,104,62,.44);}',
+'.emv-pop a.tool.cur{outline:2px solid '+(dark?'rgba(241,234,223,.5)':'rgba(29,39,57,.28)')+';outline-offset:2px;}',
 '@media(max-width:700px){.emv{bottom:12px;right:12px;}}'
 ].join('\n');
+
+function row(v,isTool,here){
+  var norm=v[0]==='/'?'/':v[0].replace(/\/$/,'');
+  var cls=(isTool?'tool':'')+(norm===here?' cur':'');
+  return '<a href="'+v[0]+'"'+(cls?' class="'+cls.trim()+'"':'')+'>'+
+    '<span class="emv-ico"><svg viewBox="0 0 26 24" aria-hidden="true">'+v[3]+'</svg></span>'+
+    '<span class="emv-txt"><strong>'+v[1]+'</strong><span>'+v[2]+'</span></span></a>';
+}
 
 function boot(){
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
   var wrap=document.createElement('div');wrap.className='emv';wrap.id='emv';
   var pop=document.createElement('div');pop.className='emv-pop';
   var here=location.pathname.replace(/index\.html$/,'').replace(/\/$/,'')||'/';
-  pop.innerHTML='<div class="emv-lab">Design directions</div>'+VERSIONS.map(function(v){
-    var norm=v[0]==='/'?'/':v[0].replace(/\/$/,'');
-    return '<a href="'+v[0]+'"'+(norm===here?' class="cur"':'')+'><strong>'+v[1]+'</strong><span>'+v[2]+'</span></a>';
-  }).join('');
+  pop.innerHTML='<div class="emv-lab">Design directions</div>'+
+    VERSIONS.map(function(v){return row(v,false,here);}).join('')+
+    '<div class="emv-rule"></div><div class="emv-lab">Try it</div>'+
+    TOOLS.map(function(v){return row(v,true,here);}).join('');
   var btn=document.createElement('button');btn.className='emv-btn';btn.setAttribute('aria-expanded','false');
   btn.innerHTML='<span class="emv-dot"></span><span>Versions</span>';
   function set(o){pop.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');}
