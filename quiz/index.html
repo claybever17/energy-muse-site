@@ -329,13 +329,24 @@ function renderResult(){
     a.querySelector('.radd').addEventListener('click',e=>{
       e.preventDefault();e.stopPropagation();
       if(!window.EMBag)return;
-      EMBag.add({id:c.n.toLowerCase().replace(/[^a-z0-9]+/g,'-'),name:c.n,
+      EMBag.add({id:bagId(c),name:c.n,
         price:parseFloat(c.price.replace('$','')),
         img:c.img.startsWith('http')?c.img:c.img.replace(/^\.\./,''),
         link:c.link.replace(/^\.\./,'')});
     });
     wrap.appendChild(a);
   });
+  // Cart ids must match the rest of the site or the same stone lands twice.
+  // The shop and intention pages key on the catalog slug (and gen-<hz> for
+  // devices); the quiz has no slug field, but its image path carries one.
+  function bagId(c){
+    var m=/\/(?:products|thumbs)\/([a-z0-9-]+)\.(?:png|jpg)/i.exec(c.img||'');
+    if(m)return m[1];
+    var hz=/(\d{2,4})\s*Hz/i.exec(c.n||'');
+    if(hz)return 'gen-'+hz[1];
+    return (c.n||'').toLowerCase().replace(/[^a-z0-9]+/g,'-');
+  }
+
   // route "Shop My Match" to this intention's own page
   const DIR={protection:'protection',abundance:'abundance',love:'connection',calm:'calm',clarity:'clarity'};
   document.querySelector('.res-ctas a.btn').href='../intention/'+(DIR[state.answers.intent]||'calm')+'/';

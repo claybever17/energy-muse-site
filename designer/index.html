@@ -115,6 +115,8 @@ p{text-wrap:pretty}
 .btn-c[disabled]{opacity:.4;pointer-events:none}
 .btn-g{background:transparent;color:var(--soft);border-color:var(--hair);padding:11px 18px;font-size:11px}
 .btn-g:hover{border-color:var(--soft);color:var(--fg)}
+.frow{display:flex;gap:10px}
+.frow .btn{flex:1;min-width:0}
 .disc{font-size:10.5px;color:var(--stone);line-height:1.5;text-wrap:pretty}
 
 /* toast */
@@ -194,7 +196,10 @@ p{text-wrap:pretty}
     <div class="trayfoot">
       <div class="count"><span class="mtotal"><i>Total</i><span id="mtotal">&mdash;</span></span><span class="dsk">Stones on the strand</span><b id="cval">0</b></div>
       <button class="btn btn-c" id="addbag" disabled>Add to Bag</button>
-      <button class="btn btn-g" id="clear">Start over</button>
+      <div class="frow">
+        <button class="btn btn-g" id="share">Copy share link</button>
+        <button class="btn btn-g" id="clear">Start over</button>
+      </div>
       <p class="disc">Pricing shown is illustrative for this prototype. Energy Muse products are intended for personal practice and general wellbeing &mdash; not medical devices, and not a substitute for healthcare.</p>
     </div>
   </aside>
@@ -595,7 +600,7 @@ function sync(){
     sigEl.appendChild(row);
   });
 }
-sync();syncWrist();
+syncWrist();sync();
 
 /* ---------- toast + bag ---------- */
 var toastEl=document.getElementById('toast'),toastT;
@@ -626,11 +631,61 @@ document.getElementById('addbag').addEventListener('click',function(){
   }else toast('Bag is still loading — try again');
 });
 
+/* ---------- a design is a link ----------
+   The strand is encoded as one-character stone codes so a whole bracelet
+   fits in a short URL you can text: /designer/?s=aabcaab&w=6.5&n=Morning.
+   Send it and it opens as *your* bracelet, not an empty stage. */
+var CODE={},FROMCODE={};
+STONES.forEach(function(s,i){var ch=String.fromCharCode(97+i);CODE[s.id]=ch;FROMCODE[ch]=s.id;});
+
+function designURL(){
+  var q='?s='+strand.map(function(id){return CODE[id]||'';}).join('')+'&w='+wristIn;
+  var nm=(document.getElementById('bname').value||'').trim();
+  if(nm)q+='&n='+encodeURIComponent(nm.slice(0,34));
+  return location.origin+location.pathname+q;
+}
+function restore(){
+  var q=new URLSearchParams(location.search);
+  var s=q.get('s'),w=parseFloat(q.get('w')),nm=q.get('n');
+  if(w>=5&&w<=9){wristIn=Math.round(w*4)/4;wrist.value=wristIn;}
+  if(nm)document.getElementById('bname').value=nm;
+  if(s){
+    var got=[];
+    for(var i=0;i<s.length;i++){var id=FROMCODE[s[i]];if(id)got.push(id);}
+    if(got.length){
+      strand=got.slice(0,capacity());
+      anim=strand.map(function(_,k){return {born:performance.now()+k*26};});
+      pulse=performance.now();
+    }
+  }
+  syncWrist();sync();
+  if(s&&strand.length)toast('Opened a shared design — make it yours');
+}
+
+document.getElementById('share').addEventListener('click',function(){
+  if(!strand.length){toast('Add a stone or two first');return;}
+  var url=designURL();
+  /* keep the address bar in step, so a plain copy-paste works too */
+  try{history.replaceState(null,'',url);}catch(e){}
+  function fallback(){
+    var t=document.createElement('textarea');t.value=url;t.style.position='fixed';t.style.opacity=0;
+    document.body.appendChild(t);t.select();
+    try{document.execCommand('copy');toast('Link copied — send your bracelet');}
+    catch(e){toast('Copy this page’s address to share');}
+    document.body.removeChild(t);
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(function(){toast('Link copied — send your bracelet');},fallback);
+  }else fallback();
+});
+
+restore();
+
 /* keyboard: escape cancels a drag */
 addEventListener('keydown',function(e){if(e.key==='Escape'&&dragIdx>=0){dragIdx=-1;cv.classList.remove('drag');}});
 
 /* verification hook */
-window.__atelier={add:addBead,paints:function(){return paints;},tick:function(){draw(performance.now());},compose:function(){document.getElementById('compose').click();},
+window.__atelier={add:addBead,url:function(){return designURL();},paints:function(){return paints;},tick:function(){draw(performance.now());},compose:function(){document.getElementById('compose').click();},
   state:function(){return {strand:strand.slice(),cap:capacity(),wristIn:wristIn,unit:unit};}};
 })();
 </script>
