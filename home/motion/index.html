@@ -91,7 +91,40 @@ a{color:inherit;text-decoration:none;}
   box-shadow:0 0 8px color-mix(in srgb,var(--copper) 45%,transparent);}
 .spine i::after{content:"";position:absolute;left:-2px;bottom:-3px;width:5px;height:5px;border-radius:50%;
   background:var(--copper);box-shadow:0 0 10px color-mix(in srgb,var(--copper) 75%,transparent);}
+/* the spine carries a running index — the section you are in, set vertically
+   in the margin. Editorial, and it makes the page feel authored. */
+.spine b{position:absolute;left:14px;top:50%;transform-origin:0 50%;
+  transform:rotate(90deg) translateY(-50%);white-space:nowrap;
+  font:600 9.5px var(--sans);letter-spacing:.34em;text-transform:uppercase;
+  color:color-mix(in srgb,var(--fg) 42%,transparent);transition:opacity .45s ease;}
 @media (max-width:900px){.spine{display:none}}
+
+/* ---------- a band of frequencies, running slowly, as texture ---------- */
+.hzband{position:relative;overflow:hidden;padding:clamp(26px,4vw,44px) 0;
+  border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+  background:color-mix(in srgb,var(--copper) 4%,transparent);}
+.hzband .track{display:flex;gap:clamp(28px,4vw,64px);width:max-content;
+  animation:hzrun 34s linear infinite;will-change:transform;}
+.hzband:hover .track{animation-play-state:paused;}
+.hzband span{display:inline-flex;align-items:baseline;gap:.34em;
+  font-family:var(--serif);font-weight:300;font-size:clamp(30px,4.6vw,64px);
+  line-height:1;letter-spacing:-.02em;color:transparent;
+  -webkit-text-stroke:1px color-mix(in srgb,var(--copper) 52%,transparent);
+  white-space:nowrap;}
+.hzband span i{font-style:normal;font-family:var(--sans);font-weight:600;
+  font-size:.24em;letter-spacing:.22em;text-transform:uppercase;
+  color:color-mix(in srgb,var(--copper) 70%,transparent);-webkit-text-stroke:0;}
+.hzband span.solid{color:color-mix(in srgb,var(--copper) 82%,transparent);-webkit-text-stroke:0;}
+@keyframes hzrun{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.hzband .track{animation:none}}
+
+/* ---------- the mark, oversized, bleeding off the edge behind a section ---------- */
+/* the section clips it, so bleeding off the edge never adds a scrollbar */
+#intention{overflow:hidden;}
+.watermark{position:absolute;pointer-events:none;z-index:0;opacity:.05;color:var(--copper);
+  width:min(56vw,760px);aspect-ratio:1/1;right:-16%;top:-12%;}
+.watermark svg{width:100%;height:100%;display:block;}
+@media (max-width:700px){.watermark{width:118vw;right:-42%;top:-6%;opacity:.045}}
 
 body::after{content:"";position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.055;
   mix-blend-mode:multiply;
@@ -291,7 +324,7 @@ body.menu-open{overflow:hidden;}
 @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(8px,-10px)}}
 .hero-copy{max-width:680px;padding-block:clamp(36px,6vh,72px);}
 .hero .eyebrow{color:var(--hero-accent);display:block;overflow:hidden;}
-.hero h1{font-size:clamp(34px,4.6vw,66px);line-height:1.06;letter-spacing:-.018em;font-weight:400;text-shadow:var(--hero-shadow);margin-top:24px;}
+.hero h1{font-size:clamp(42px,6.4vw,92px);line-height:1.0;letter-spacing:-.032em;font-weight:300;text-shadow:var(--hero-shadow);margin-top:22px;}
 /* mask clips only BELOW (for the rise-in) — italic overhangs stay visible */
 .hero h1 .line{display:block;clip-path:inset(-.35em -.6em 0 -.25em);padding-bottom:.16em;margin-bottom:-.16em;}
 .hero h1 .line span{display:block;transform:translateY(105%);}
@@ -933,6 +966,7 @@ p{text-wrap:pretty;}
 
 
 
+
 </style>
 
 
@@ -973,7 +1007,7 @@ p{text-wrap:pretty;}
   </div>
 </div>
 
-<div class="spine" aria-hidden="true"><i id="spinefill"></i></div>
+<div class="spine" aria-hidden="true"><i id="spinefill"></i><b id="spinelabel">Start here</b></div>
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="../../"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo"/></svg></a>
@@ -1044,7 +1078,13 @@ p{text-wrap:pretty;}
 </section>
 
 <!-- ===== INTENTION ===== -->
+<!-- the seven tuned frequencies, running as a texture band -->
+<section class="hzband" aria-label="The seven tuned frequencies">
+  <div class="track" id="hztrack"></div>
+</section>
+
 <section class="section" id="intention">
+  <div class="watermark" aria-hidden="true"><svg viewBox="0 0 231.33 238.67"><use href="#em-markline"/></svg></div>
   <div class="wrap">
     <div class="head reveal">
       <span class="eyebrow">Start with the feeling</span>
@@ -1357,6 +1397,37 @@ p{text-wrap:pretty;}
   });
   /* the spine fills with reading progress */
   if(!reduce){
+    /* the frequency band: two identical runs so the loop is seamless */
+    var track=document.getElementById('hztrack');
+    if(track){
+      var HZ=[['7.83','Earth'],['174','Foundation'],['417','Change'],['528','Repair'],
+              ['639','Connection'],['963','Clarity'],['1111','Alignment']];
+      var run='';
+      HZ.forEach(function(v,i){
+        run+='<span'+(i%3===1?' class="solid"':'')+'>'+v[0]+'<i>Hz '+v[1]+'</i></span>';
+      });
+      track.innerHTML=run+run;
+    }
+
+    /* the margin index names the section you are actually reading */
+    var slabel=document.getElementById('spinelabel');
+    var marks=[['#top','Start here'],['#intention','By intention'],['#quiz','The quiz'],
+               ['#jewelry','Jewelry'],['#about','Our story'],['#frequency','Frequency'],
+               ['#learn2','Learn'],['#veza','Veza']];
+    var secs=marks.map(function(m){return [document.querySelector(m[0]),m[1]];})
+                  .filter(function(m){return m[0];});
+    var lastLabel='';
+    function indexLabel(){
+      if(!slabel||!secs.length)return;
+      var best=secs[0][1],line=innerHeight*0.42;
+      secs.forEach(function(s){if(s[0].getBoundingClientRect().top<=line)best=s[1];});
+      if(best!==lastLabel){
+        lastLabel=best;slabel.style.opacity='0';
+        setTimeout(function(){slabel.textContent=best;slabel.style.opacity='1';},220);
+      }
+    }
+    addEventListener('scroll',indexLabel,{passive:true});indexLabel();
+
     var sfill=document.getElementById('spinefill');
     function spine(){
       if(!sfill)return;
