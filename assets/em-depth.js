@@ -34,15 +34,25 @@ function boot(){
     ? '0 6px 14px rgba(0,0,0,.55), 0 34px 74px rgba(169,104,62,.3)'
     : '0 6px 14px rgba(61,41,23,.10), 0 32px 70px rgba(169,104,62,.20)';
 
-  var css=[
-  ':root{--em-e1:'+e1+';--em-e2:'+e2+';--em-e3:'+e3+';--em-lift:'+lift+';}',
+  /* The film pages grade their own background from cream to dark as you
+     scroll. We sample luminance once at load, so a fixed ambient wash would
+     be locked to the wrong end of that arc — it showed up as a bright hotspot
+     across the top of the dark half. Those pages light themselves; here we
+     contribute elevation only. */
+  var film=!!document.querySelector('.film,.stage');
 
-  /* ---- 1. ambient: give the page a light source ---- */
+  var css=[
+  ':root{--em-e1:'+e1+';--em-e2:'+e2+';--em-e3:'+e3+';--em-lift:'+lift+';}'];
+
+  if(!film)css=css.concat([
+  /* ---- 1. ambient: a light source, felt rather than seen ---- */
   'body{position:relative;}',
   'body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;',
-  '  background:radial-gradient(120% 78% at 50% -18%,'+(dark?'rgba(224,168,120,.13)':'rgba(255,252,246,.95)')+',transparent 62%),',
-  '             radial-gradient(100% 62% at 50% 118%,'+(dark?'rgba(0,0,0,.42)':'rgba(141,135,120,.14)')+',transparent 58%);}',
-  'body>*{position:relative;z-index:1;}',
+  '  background:radial-gradient(125% 70% at 50% -24%,'+(dark?'rgba(224,168,120,.10)':'rgba(255,253,248,.55)')+',transparent 58%),',
+  '             radial-gradient(100% 60% at 50% 120%,'+(dark?'rgba(0,0,0,.34)':'rgba(141,135,120,.10)')+',transparent 56%);}',
+  'body>*{position:relative;z-index:1;}']);
+
+  css=css.concat([
 
   /* ---- 2. elevation — only ever on elements that own a surface.
      A shadow on a transparent caption draws a box around the words
@@ -68,7 +78,8 @@ function boot(){
   'header,.trust,.band{box-shadow:0 1px 0 '+(dark?'rgba(255,255,255,.05)':'rgba(255,255,255,.8)')+';}',
 
   '@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;}}'
-  ].join('\n');
+  ]);
+  css=css.join('\n');
 
   var st=document.createElement('style');st.id='em-depth';st.textContent=css;
   document.head.appendChild(st);

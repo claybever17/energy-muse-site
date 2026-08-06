@@ -121,7 +121,8 @@ html.static .fallback{display:block}
   .c1{top:30svh}
   .cap .sub{margin-top:10px}
   .int,.int.ileft,.int.iright{left:20px;right:20px;top:10svh;text-align:left;max-width:none}
-  .int p{font-size:24px}
+  .int p{font-size:27px}
+  .int .eyeb{font-size:11px;letter-spacing:.3em}
   .c6{justify-content:flex-start;padding-top:52svh}
   .c6 h2{font-size:30px}
   .c6 .row{flex-direction:column;align-items:center;width:min(320px,86vw);margin-top:22px;gap:12px}
@@ -339,6 +340,18 @@ function stoneColor(img){
   if(mxf<150){var lift=150/(mxf||1);r=cl(r*lift);gg=cl(gg*lift);b=cl(b*lift);}
   return [Math.round(r),Math.round(gg),Math.round(b)];
 }
+/* the medium itself: a wide, very soft warm pool */
+var ATMO=(function(){
+  var g=document.createElement('canvas');g.width=g.height=160;
+  var c=g.getContext('2d');
+  var rg=c.createRadialGradient(80,80,4,80,80,80);
+  rg.addColorStop(0,'rgba(238,206,164,.42)');
+  rg.addColorStop(.45,'rgba(214,164,112,.17)');
+  rg.addColorStop(.78,'rgba(169,104,62,.05)');
+  rg.addColorStop(1,'rgba(169,104,62,0)');
+  c.fillStyle=rg;c.fillRect(0,0,160,160);
+  return g;
+})();
 function makeGlow(col){
   var g=document.createElement('canvas');g.width=g.height=128;
   var c=g.getContext('2d');
@@ -369,7 +382,7 @@ function makeFacet(seed,px){
   g.globalAlpha=.5;g.stroke();
   return c;
 }
-for(var f=0;f<26;f++){
+for(var f=0;f<40;f++){
   var px=9+Math.round(srand(f*11+5)*15);
   FAR.push({c:makeFacet(f*13+7,px),px:px,
     z:srand(f*11+1),x0:.03+.94*srand(f*11+2),ph:srand(f*11+3),
@@ -426,8 +439,25 @@ function frame(p,t){
 
   ctx.clearRect(0,0,W,H);
 
+  /* --- atmosphere: two slow shafts of light drifting through the medium.
+     Without these the middle of the screen reads as blank paper once the
+     stones have spread out, and the dark half looks like flat brown. --- */
+  var atmo=.16+dk*.30;
+  var a1=Math.min(W,H)*(1.5+dk*.35);
+  ctx.save();
+  ctx.globalAlpha=atmo;
+  ctx.drawImage(ATMO,
+    W*(.30+Math.sin(t*.055)*.13)-a1/2,
+    H*(.38+Math.cos(t*.041)*.16)-a1/2, a1,a1);
+  ctx.globalAlpha=atmo*.72;
+  var a2=a1*.78;
+  ctx.drawImage(ATMO,
+    W*(.72+Math.cos(t*.047+1.7)*.14)-a2/2,
+    H*(.62+Math.sin(t*.036+.9)*.15)-a2/2, a2,a2);
+  ctx.restore();
+
   /* --- far layer: line-art drift --- */
-  var farOp=.38*(1-win(p,.74,.84));
+  var farOp=(mob?.52:.42)*(1-win(p,.74,.84));
   if(farOp>.01){
     for(var f2=0;f2<FAR.length;f2++){
       var q=FAR[f2];
@@ -444,7 +474,7 @@ function frame(p,t){
 
   /* --- near layer: the cast --- */
   var pad=150;
-  var dockH=mob?W*.21:Math.min(H*.17,140);
+  var dockH=mob?W*.27:Math.min(H*.17,140);
   var ringH=mob?30:46;
   var liveDrawn=false;
   for(var i=0;i<CAST.length;i++){
@@ -472,7 +502,7 @@ function frame(p,t){
          + Math.cos(t*.31+s.ph*8.4)*5*flo;
     var rot=s.rot0+p*s.rotDir*1.4+Math.sin(t*.4+i*2)*.02
           +Math.sin(t*.23+s.ph*5.5)*.055*flo;   /* a slow tilt to match the drift */
-    var h=mob?38+40*s.z:56+64*s.z;
+    var h=mob?54+58*s.z:56+64*s.z;
     var op=1, glow=0, dT=0;
 
     /* dock: the rain becomes the shop */
@@ -483,8 +513,10 @@ function frame(p,t){
       if(dT>0){
         var side=SIDE[s.dock];
         /* even parked beside the copy, it keeps a slow breath */
-        var sx=(mob?W*(s.slot?.70:.30):W*(side==='r'?.68:.32))+Math.cos(t*.33+s.ph*8.4)*4;
-        var sy=(mob?H*.60:H*(s.slot?.63:.38))+Math.sin(t*.45+s.ph*6.283)*5;
+        /* on mobile the pair sits on a diagonal — sharing a baseline put
+           the two product labels on the same line, overlapping each other */
+        var sx=(mob?W*(s.slot?.68:.30):W*(side==='r'?.68:.32))+Math.cos(t*.33+s.ph*8.4)*4;
+        var sy=(mob?H*(s.slot?.66:.42):H*(s.slot?.63:.38))+Math.sin(t*.45+s.ph*6.283)*5;
         X=lerp(fx,sx,dT);Y=lerp(fy,sy,dT);
         R=lerp(rot,0,dT);HH=lerp(h,dockH,dT);
         glow=dT;
