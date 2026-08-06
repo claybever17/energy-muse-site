@@ -74,6 +74,7 @@ p{text-wrap:pretty}
 .int p{font-family:var(--serif);font-weight:300;font-size:clamp(22px,2.8vw,34px);line-height:1.25;text-wrap:balance}
 .int .lk{display:inline-block;margin-top:14px;font:600 11.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--tc);border-bottom:1px solid var(--line);padding-bottom:2px}
 .int .lk:hover{color:var(--line)}
+.int>*{will-change:transform,opacity,filter}
 
 /* product labels under docked stones — JS-positioned */
 .chip{position:absolute;transform:translate(-50%,0);opacity:0;pointer-events:none;text-align:center;
@@ -387,8 +388,20 @@ function resize(){
 resize();addEventListener('resize',function(){resize();step();});
 
 /* chapter windows: captions + dock (fly-in a..b, release c..d) */
-var CW=[[.275,.305,.365,.395],[.365,.395,.455,.485],[.455,.485,.545,.575],[.545,.575,.635,.665],[.635,.665,.725,.755]];
-var DW=[[.29,.325,.36,.39],[.38,.415,.45,.48],[.47,.505,.54,.57],[.56,.595,.63,.66],[.65,.685,.72,.75]];
+/* Chapter timing. The old windows had each line fading out over exactly the
+   frames the next was fading in — stop the scroll mid-transition and you were
+   reading two intentions stacked on each other. Now a line finishes leaving
+   before the next begins, with a clear beat of empty paper between them, so
+   there is no scroll position where two chapters are both legible. */
+var CW=[],DW=[];
+(function(){
+  var start=.275, step=.092;
+  for(var i=0;i<5;i++){
+    var s=start+i*step;
+    CW.push([s, s+.026, s+.056, s+.078]);   /* in … hold … out, ends before s+step */
+    DW.push([s+.010, s+.040, s+.052, s+.076]);
+  }
+})();
 /* stones dock opposite the caption; captions go L,R,L,R,L */
 var SIDE=['r','l','r','l','r'];
 
@@ -446,11 +459,19 @@ function frame(p,t){
       if(!s.glow)s.glow=makeGlow(stoneColor(s.img));
     }
 
-    /* free fall (pure in p) + suspension bob (cosmetic t) */
+    /* Free fall is scroll-driven; the float is not. Stop scrolling and the
+       stones keep breathing — suspended in the medium rather than frozen.
+       Heavier (nearer) stones drift less, so the layers stay readable. */
     var spd=1.15+s.z*.9;
-    var fy=lerp(-pad,H+pad,frac(p*spd+s.ph));
-    var fx=(s.x0+.035*Math.sin(p*6.283*s.swayF+s.swayP))*W+Math.sin(t*.5+i)*4;
-    var rot=s.rot0+p*s.rotDir*1.4+Math.sin(t*.4+i*2)*.02;
+    var flo=(1.25-s.z*.5);
+    var fy=lerp(-pad,H+pad,frac(p*spd+s.ph))
+         + Math.sin(t*.42+s.ph*6.283)*7.5*flo
+         + Math.sin(t*.27+s.ph*11.1)*3.5*flo;
+    var fx=(s.x0+.035*Math.sin(p*6.283*s.swayF+s.swayP))*W
+         + Math.sin(t*.5+i)*4
+         + Math.cos(t*.31+s.ph*8.4)*5*flo;
+    var rot=s.rot0+p*s.rotDir*1.4+Math.sin(t*.4+i*2)*.02
+          +Math.sin(t*.23+s.ph*5.5)*.055*flo;   /* a slow tilt to match the drift */
     var h=mob?38+40*s.z:56+64*s.z;
     var op=1, glow=0, dT=0;
 
@@ -461,8 +482,9 @@ function frame(p,t){
       dT=ease(win(p,dw[0],dw[1]))*(1-ease(win(p,dw[2],dw[3])));
       if(dT>0){
         var side=SIDE[s.dock];
-        var sx=mob?W*(s.slot?.70:.30):W*(side==='r'?.68:.32);
-        var sy=mob?H*.60:H*(s.slot?.63:.38);
+        /* even parked beside the copy, it keeps a slow breath */
+        var sx=(mob?W*(s.slot?.70:.30):W*(side==='r'?.68:.32))+Math.cos(t*.33+s.ph*8.4)*4;
+        var sy=(mob?H*.60:H*(s.slot?.63:.38))+Math.sin(t*.45+s.ph*6.283)*5;
         X=lerp(fx,sx,dT);Y=lerp(fy,sy,dT);
         R=lerp(rot,0,dT);HH=lerp(h,dockH,dT);
         glow=dT;
@@ -549,9 +571,31 @@ function frame(p,t){
   /* --- captions --- */
   cap(caps.c1,p,-.02,-.01,.10,.15);
   cap(caps.c2,p,.16,.19,.25,.28);
-  for(var c3=0;c3<5;c3++){var w3=CW[c3];cap(ints[c3],p,w3[0],w3[1],w3[2],w3[3]);}
+  for(var c3=0;c3<5;c3++){var w3=CW[c3];capInt(ints[c3],p,w3[0],w3[1],w3[2],w3[3]);}
   cap(caps.c6,p,.78,.83,1.01,1.02);
   scue.style.opacity=((1-win(p,.05,.11))*.85).toFixed(2);
+}
+/* Intention chapters get their own transition: the words settle in from
+   below out of focus, and sink away downward — the same gravity the stones
+   obey — with the eyebrow, the line and the link each a beat apart. */
+function capInt(el,p,a,b,c,d){
+  var inRaw=win(p,a,b), outRaw=win(p,c,d);
+  var o=ease(inRaw)*(1-ease(outRaw));
+  el.style.opacity=o.toFixed(3);
+  el.classList.toggle('live',o>.5);
+  if(o<=0.001)return;                    /* nothing to lay out while it's away */
+  var kids=el.children;
+  for(var k=0;k<kids.length;k++){
+    var lag=k*.16;                       /* each element trails the one above */
+    var ki=ease(clamp((inRaw-lag)/(1-lag),0,1));
+    var ko=ease(clamp((outRaw-lag*.5)/(1-lag*.5),0,1));
+    var y=(1-ki)*24-ko*26;
+    var bl=((1-ki)*3.4)+(ko*3.0);
+    var s=kids[k].style;
+    s.transform='translateY('+y.toFixed(1)+'px)';
+    s.opacity=(ki*(1-ko)).toFixed(3);
+    s.filter=bl>.06?'blur('+bl.toFixed(2)+'px)':'none';
+  }
 }
 function cap(el,p,a,b,c,d){
   var o=win(p,a,b)*(1-win(p,c,d));
@@ -620,6 +664,18 @@ function load(slug){
   if(!ren)build();
   new GLTFLoader().load('../../assets/gems/'+slug+'.glb',function(glb){
     model=glb.scene;
+    /* the scan exports with alpha blending on, which reads as a ghost over
+       the paper — force it solid so it looks like a stone, not a hologram */
+    model.traverse(function(o){
+      if(!o.isMesh||!o.material)return;
+      (Array.isArray(o.material)?o.material:[o.material]).forEach(function(m){
+        m.transparent=false;m.opacity=1;m.alphaTest=0;m.depthWrite=true;
+        m.side=THREE.FrontSide;
+        if(m.map)m.map.colorSpace=THREE.SRGBColorSpace;
+        if('roughness' in m)m.roughness=Math.min(m.roughness!==undefined?m.roughness:1,.62);
+        m.needsUpdate=true;
+      });
+    });
     var box=new THREE.Box3().setFromObject(model);
     var c=box.getCenter(new THREE.Vector3()),sz=box.getSize(new THREE.Vector3());
     model.position.sub(c);                       /* centre on its own pivot */
