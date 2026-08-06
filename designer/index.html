@@ -1,0 +1,498 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Energy Muse &#8212; Atelier &middot; Design Your Own</title>
+<meta name="description" content="Compose your own energy bracelet — choose stones by intention, arrange the strand, size it to your wrist.">
+<link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
+<style>
+/* ============================================================
+   ATELIER — design your own bracelet. You don't pick beads,
+   you compose energy: intention-first tray, a living strand
+   that parts to accept each stone, real wrist math, and the
+   copper pulse from Current acknowledging every addition.
+   ============================================================ */
+@font-face{font-family:'Fraunces';src:url(/assets/fonts/fraunces_300.woff2?v=3) format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:'Fraunces';src:url(/assets/fonts/fraunces_400.woff2?v=3) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url(/assets/fonts/instrument_400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url(/assets/fonts/instrument_500.woff2) format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url(/assets/fonts/instrument_600.woff2) format('woff2');font-weight:600;font-display:swap}
+:root{
+  --paper:#FBF8F2;--fg:#1D2739;--soft:#4E5A70;--stone:#8D8778;--copper:#A9683E;--copper-lo:#8F5330;
+  --hair:#E4DCCB;--serif:'Fraunces',Georgia,serif;--sans:'Instrument Sans',-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+p{text-wrap:pretty}
+
+/* ---------- layout ---------- */
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) 380px;min-height:100svh}
+.stagecol{position:relative;display:flex;flex-direction:column}
+.head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding:26px clamp(20px,3.4vw,44px) 0}
+.title h1{font-family:var(--serif);font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-.02em;line-height:1.1}
+.title .eyeb{display:block;font:600 10px var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--copper);margin-bottom:6px}
+.namewrap{display:flex;align-items:center;gap:10px}
+#bname{font-family:var(--serif);font-weight:300;font-size:19px;color:var(--fg);background:transparent;
+  border:none;border-bottom:1px solid var(--hair);padding:4px 2px;width:min(230px,42vw);transition:border-color .25s}
+#bname:focus{outline:none;border-color:var(--copper)}
+#bname::placeholder{color:var(--stone)}
+
+/* ---------- the stage ---------- */
+.stage{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+#strand{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+#strand.drag{cursor:grabbing}
+.stagenote{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font:600 10px var(--sans);
+  letter-spacing:.2em;text-transform:uppercase;color:var(--stone);pointer-events:none;transition:opacity .4s;
+  white-space:nowrap}
+
+/* readouts float over the stage corners — no dashboard panels */
+.read{position:absolute;font-size:12.5px;color:var(--soft);pointer-events:none}
+.read b{display:block;font-family:var(--serif);font-weight:300;font-size:26px;color:var(--fg);line-height:1.15}
+.read .k{font:600 9.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--stone)}
+.r-size{left:clamp(20px,3.4vw,44px);top:8px}
+.r-total{right:clamp(20px,3.4vw,44px);top:8px;text-align:right}
+.sig{position:absolute;left:clamp(20px,3.4vw,44px);bottom:18px;display:flex;flex-direction:column;gap:7px;pointer-events:none}
+.sigrow{display:flex;align-items:center;gap:9px;font-size:11px;color:var(--soft)}
+.sigbar{width:74px;height:2px;background:var(--hair);position:relative;overflow:hidden}
+.sigbar i{position:absolute;inset:0 auto 0 0;background:var(--copper);transition:width .5s cubic-bezier(.16,1,.3,1)}
+.siglab{width:74px;font:600 9.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--stone)}
+
+/* ---------- wrist sizer ---------- */
+.sizer{padding:0 clamp(20px,3.4vw,44px) 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.sizer label{font:600 9.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--stone)}
+#wrist{-webkit-appearance:none;appearance:none;flex:1;min-width:180px;height:2px;background:var(--hair);outline:none}
+#wrist::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;
+  background:var(--paper);border:1.5px solid var(--copper);cursor:pointer;box-shadow:0 2px 8px rgba(61,41,23,.18)}
+#wrist::-moz-range-thumb{width:17px;height:17px;border-radius:50%;background:var(--paper);
+  border:1.5px solid var(--copper);cursor:pointer}
+.unit{display:flex;gap:2px;border:1px solid var(--hair);border-radius:100px;padding:2px}
+.unit button{border:none;background:transparent;font:600 10px var(--sans);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--stone);padding:5px 11px;border-radius:100px;cursor:pointer;transition:background .2s,color .2s}
+.unit button.on{background:var(--copper);color:#fff}
+
+/* ---------- tray ---------- */
+.tray{border-left:1px solid var(--hair);background:#fff;display:flex;flex-direction:column;min-height:0}
+.tabs{display:flex;gap:1px;padding:16px 13px 0;flex-wrap:wrap}
+.tab{border:none;background:transparent;cursor:pointer;font:600 9.5px var(--sans);letter-spacing:.1em;
+  text-transform:uppercase;color:var(--stone);padding:8px 8px;border-radius:100px;white-space:nowrap;
+  transition:background .2s,color .2s}
+.tab:hover{color:var(--fg)}
+.tab.on{background:color-mix(in srgb,var(--copper) 12%,transparent);color:var(--copper-lo)}
+.compose{margin:14px 18px 0;display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;
+  border:1px solid var(--hair);background:var(--paper);cursor:pointer;text-align:left;width:calc(100% - 36px);
+  transition:border-color .25s,transform .2s}
+.compose:hover{border-color:var(--copper);transform:translateY(-1px)}
+.compose svg{flex:none;width:19px;height:19px;color:var(--copper)}
+.compose span{font-family:var(--serif);font-weight:300;font-size:16px}
+.compose small{display:block;font-family:var(--sans);font-size:11px;color:var(--stone);letter-spacing:.02em}
+.beads{flex:1;overflow-y:auto;padding:16px 18px 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-content:start}
+.bead{border:1px solid var(--hair);border-radius:14px;background:#fff;padding:10px 8px 11px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:7px;transition:border-color .25s,transform .2s,box-shadow .25s}
+.bead:hover{border-color:var(--copper);transform:translateY(-2px);box-shadow:0 10px 24px rgba(169,104,62,.13)}
+.bead:active{transform:translateY(0)}
+.bead img{width:52px;height:52px;display:block}
+.bead .bn{font-size:10.5px;line-height:1.25;text-align:center;color:var(--soft);text-wrap:balance}
+.bead .bp{font:600 10px var(--sans);color:var(--copper-lo);letter-spacing:.04em}
+
+.trayfoot{border-top:1px solid var(--hair);padding:16px 18px 76px;display:flex;flex-direction:column;gap:11px}
+.count{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;color:var(--soft)}
+.count b{font-family:var(--serif);font-weight:300;font-size:19px;color:var(--fg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;font:600 12.5px var(--sans);letter-spacing:.04em;
+  padding:15px 22px;border-radius:8px;cursor:pointer;border:1px solid transparent;transition:transform .2s,background .25s,border-color .25s,opacity .2s}
+.btn-c{color:#fff;background:linear-gradient(160deg,#B87A4B,#A9683E 46%,#8F5330);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(0,0,0,.22)}
+.btn-c:hover{transform:translateY(-2px)}
+.btn-c[disabled]{opacity:.4;pointer-events:none}
+.btn-g{background:transparent;color:var(--soft);border-color:var(--hair);padding:11px 18px;font-size:11px}
+.btn-g:hover{border-color:var(--soft);color:var(--fg)}
+.disc{font-size:10.5px;color:var(--stone);line-height:1.5;text-wrap:pretty}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,14px);opacity:0;pointer-events:none;
+  background:rgba(29,39,57,.95);color:#F4EFE7;font-size:13px;padding:12px 20px;border-radius:100px;
+  backdrop-filter:blur(10px);transition:opacity .3s,transform .3s;z-index:200}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:900px){
+  .wrap{grid-template-columns:1fr;grid-template-rows:minmax(300px,52svh) auto}
+  .tray{border-left:none;border-top:1px solid var(--hair)}
+  .beads{grid-template-columns:repeat(4,1fr);max-height:34svh}
+  .head{padding-top:18px}
+  .r-size,.r-total{top:auto;bottom:8px}
+  .sig{display:none}
+  .stagenote{bottom:auto;top:6px;font-size:9px;letter-spacing:.16em}
+}
+@media (max-width:560px){
+  .beads{grid-template-columns:repeat(3,1fr)}
+  .head{flex-direction:column;gap:10px;align-items:stretch}
+  .namewrap{width:100%}
+  #bname{width:100%}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stagecol">
+    <div class="head">
+      <div class="title">
+        <span class="eyeb">Atelier &middot; design your own</span>
+        <h1>Compose your energy.</h1>
+      </div>
+      <div class="namewrap">
+        <input id="bname" placeholder="Name your bracelet" maxlength="34" aria-label="Bracelet name">
+      </div>
+    </div>
+
+    <div class="stage" id="stage">
+      <canvas id="strand"></canvas>
+      <div class="read r-size"><span class="k">Wrist</span><b id="wval">6.5&Prime;</b><span id="wsub">16.5 cm</span></div>
+      <div class="read r-total"><span class="k">Total</span><b id="tval">&mdash;</b><span>illustrative</span></div>
+      <div class="sig" id="sig"></div>
+      <div class="stagenote" id="note">Tap a stone to add &middot; drag to rearrange</div>
+    </div>
+
+    <div class="sizer">
+      <label for="wrist">Wrist size</label>
+      <input id="wrist" type="range" min="5" max="9" step="0.25" value="6.5">
+      <div class="unit" role="radiogroup" aria-label="Units">
+        <button id="uin" class="on" role="radio" aria-checked="true">in</button>
+        <button id="ucm" role="radio" aria-checked="false">cm</button>
+      </div>
+    </div>
+  </div>
+
+  <aside class="tray">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <button class="compose" id="compose">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/>
+      </svg>
+      <span>Compose for me<small>A balanced strand for this intention</small></span>
+    </button>
+    <div class="beads" id="beads"></div>
+    <div class="trayfoot">
+      <div class="count"><span>Stones on the strand</span><b id="cval">0</b></div>
+      <button class="btn btn-c" id="addbag" disabled>Add to Bag</button>
+      <button class="btn btn-g" id="clear">Start over</button>
+      <p class="disc">Pricing shown is illustrative for this prototype. Energy Muse products are intended for personal practice and general wellbeing &mdash; not medical devices, and not a substitute for healthcare.</p>
+    </div>
+  </aside>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/assets/em-bag.js" defer></script>
+<script src="/assets/em-versions.js" defer></script>
+<script>
+(function(){
+'use strict';
+var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* ---------- the stone library: real products, grouped by intention ---------- */
+var INTENTS=[
+  ['protection','Protection'],['abundance','Abundance'],['connection','Love'],
+  ['calm','Calm'],['clarity','Clarity']
+];
+var STONES=[
+  {id:'tigers-eye',   name:"Tiger's Eye",        intent:'protection', price:1.35},
+  {id:'labradorite',  name:'Labradorite',        intent:'protection', price:1.55},
+  {id:'malachite',    name:'Malachite',          intent:'protection', price:1.80},
+  {id:'pyrite',       name:'Pyrite',             intent:'abundance',  price:1.45},
+  {id:'clear-quartz', name:'Clear Quartz',       intent:'abundance',  price:1.10},
+  {id:'himalayan',    name:'Himalayan Quartz',   intent:'abundance',  price:1.65},
+  {id:'rose-quartz',  name:'Rose Quartz',        intent:'connection', price:1.20},
+  {id:'rhodochrosite',name:'Rhodochrosite',      intent:'connection', price:1.95},
+  {id:'blue-agate',   name:'Blue Lace Agate',    intent:'calm',       price:1.30},
+  {id:'blue-opal',    name:'Blue Opal',          intent:'calm',       price:2.10},
+  {id:'amethyst',     name:'Amethyst',           intent:'clarity',    price:1.50}
+];
+STONES.forEach(function(s){s.img=new Image();s.img.src='/assets/img/beads/'+s.id+'.png';});
+function byId(id){for(var i=0;i<STONES.length;i++)if(STONES[i].id===id)return STONES[i];return null;}
+
+/* recipes: a focal stone plus grounding companions, per intention */
+var RECIPES={
+  protection:['tigers-eye','tigers-eye','labradorite','tigers-eye','malachite','tigers-eye','labradorite','tigers-eye'],
+  abundance:['pyrite','clear-quartz','pyrite','himalayan','pyrite','clear-quartz','pyrite','clear-quartz'],
+  connection:['rose-quartz','rose-quartz','rhodochrosite','rose-quartz','rose-quartz','rhodochrosite','rose-quartz','rose-quartz'],
+  calm:['blue-agate','blue-agate','blue-opal','blue-agate','clear-quartz','blue-agate','blue-opal','blue-agate'],
+  clarity:['amethyst','clear-quartz','amethyst','clear-quartz','amethyst','clear-quartz','amethyst','clear-quartz']
+};
+
+/* ---------- state ---------- */
+var strand=[];              /* array of stone ids, in order around the circle */
+var tab='protection';
+var wristIn=6.5, unit='in';
+var BEAD_MM=8;              /* 8mm beads — the house standard */
+function capacity(){return Math.max(6,Math.round(wristIn*25.4/BEAD_MM));}
+
+/* ---------- canvas ---------- */
+var cv=document.getElementById('strand'),ctx=cv.getContext('2d');
+var stage=document.getElementById('stage');
+var W=0,H=0,dpr=1;
+function resize(){
+  W=stage.clientWidth;H=stage.clientHeight;
+  dpr=Math.min(devicePixelRatio||1,2);
+  cv.width=W*dpr;cv.height=H*dpr;cv.style.width=W+'px';cv.style.height=H+'px';
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+new ResizeObserver(resize).observe(stage);resize();
+
+/* per-bead animation state, keyed by slot index */
+var anim=[];                 /* {born:ms, from:angle} */
+var pulse=-1;                /* ms timestamp of the last add, drives the copper wave */
+var spin=0;                  /* slow idle rotation */
+var dragIdx=-1,dragAng=0,hoverIdx=-1;
+
+function radius(){return Math.min(W,H)*0.30;}
+function beadPx(){
+  /* beads scale with how full the strand is, so a big wrist reads bigger */
+  var n=Math.max(strand.length,8);
+  return Math.min(radius()*2*Math.PI/n*0.92, radius()*0.42);
+}
+function angleOf(i,n){return -Math.PI/2+(i/n)*Math.PI*2;}
+
+function draw(ts){
+  ctx.clearRect(0,0,W,H);
+  var cx=W/2, cy=H/2, R=radius(), n=strand.length;
+  if(!reduce)spin+=0.0009;
+
+  /* the etched true-scale ring — the physical bracelet, actual size */
+  ctx.save();
+  ctx.strokeStyle='rgba(169,104,62,.22)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.arc(cx,cy,R,0,6.283);ctx.stroke();
+  ctx.restore();
+
+  /* the copper pulse travelling the ring after each addition */
+  if(pulse>0){
+    var age=(ts-pulse)/900;
+    if(age<1){
+      var head=-Math.PI/2+age*Math.PI*2;
+      var g=ctx.createLinearGradient(cx+Math.cos(head-.6)*R,cy+Math.sin(head-.6)*R,cx+Math.cos(head)*R,cy+Math.sin(head)*R);
+      g.addColorStop(0,'rgba(224,168,120,0)');g.addColorStop(1,'rgba(224,168,120,'+(0.85*(1-age)).toFixed(2)+')');
+      ctx.save();ctx.strokeStyle=g;ctx.lineWidth=2.4;ctx.lineCap='round';
+      ctx.beginPath();ctx.arc(cx,cy,R,head-.6,head);ctx.stroke();ctx.restore();
+    }else pulse=-1;
+  }
+
+  if(!n){
+    ctx.save();
+    ctx.fillStyle='rgba(141,135,120,.9)';
+    ctx.font='300 17px Fraunces, Georgia, serif';ctx.textAlign='center';
+    ctx.fillText('Choose a stone to begin.',cx,cy+5);
+    ctx.restore();
+  }
+
+  var bp=beadPx();
+  for(var i=0;i<n;i++){
+    var s=byId(strand[i]);if(!s||!s.img.complete||!s.img.naturalWidth)continue;
+    var target=angleOf(i,n)+spin;
+    var a=target,sc=1,extra=0;
+    if(i===dragIdx){a=dragAng;sc=1.14;extra=6;}
+    else{
+      var st=anim[i];
+      if(st){
+        var k=Math.min(1,(ts-st.born)/520);
+        if(k<1){
+          var e=1-Math.pow(1-k,3);
+          /* it falls in from outside the ring and the neighbours part to receive it */
+          extra=(1-e)*R*0.85;
+          sc=0.55+0.45*e+Math.sin(e*Math.PI)*0.12;
+        }else anim[i]=null;
+      }
+    }
+    var rr=R+extra;
+    var x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr;
+    var d=bp*sc;
+    ctx.save();
+    ctx.shadowColor='rgba(61,41,23,.26)';ctx.shadowBlur=d*0.30;ctx.shadowOffsetY=d*0.12;
+    if(i===hoverIdx&&dragIdx<0){ctx.shadowColor='rgba(169,104,62,.5)';ctx.shadowBlur=d*0.5;}
+    ctx.drawImage(s.img,x-d/2,y-d/2,d,d);
+    ctx.restore();
+  }
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+
+/* ---------- pointer: drag to rearrange, drag out to remove ---------- */
+function pos(e){var r=cv.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top];}
+function nearest(x,y){
+  var cx=W/2,cy=H/2,R=radius(),n=strand.length,bp=beadPx(),best=-1,bd=bp*0.75;
+  for(var i=0;i<n;i++){
+    var a=angleOf(i,n)+spin;
+    var dx=x-(cx+Math.cos(a)*R), dy=y-(cy+Math.sin(a)*R);
+    var d=Math.sqrt(dx*dx+dy*dy);
+    if(d<bd){bd=d;best=i;}
+  }
+  return best;
+}
+cv.addEventListener('pointermove',function(e){
+  var p=pos(e,0),x=p[0],y=p[1];
+  if(dragIdx>=0){
+    dragAng=Math.atan2(y-H/2,x-W/2);
+    var n=strand.length;
+    var slot=Math.round(((dragAng-spin+Math.PI/2)/(Math.PI*2))*n);
+    slot=((slot%n)+n)%n;
+    if(slot!==dragIdx){
+      var moved=strand.splice(dragIdx,1)[0];
+      strand.splice(slot,0,moved);
+      anim.splice(dragIdx,1);anim.splice(slot,0,null);
+      dragIdx=slot;
+    }
+  }else{
+    hoverIdx=nearest(x,y);
+    cv.style.cursor=hoverIdx>=0?'grab':'default';
+  }
+});
+cv.addEventListener('pointerdown',function(e){
+  var p=pos(e),i=nearest(p[0],p[1]);
+  if(i>=0){dragIdx=i;dragAng=Math.atan2(p[1]-H/2,p[0]-W/2);cv.classList.add('drag');cv.setPointerCapture(e.pointerId);}
+});
+function endDrag(e){
+  if(dragIdx<0)return;
+  var p=pos(e),d=Math.sqrt(Math.pow(p[0]-W/2,2)+Math.pow(p[1]-H/2,2));
+  if(d>radius()*1.75){        /* flung away from the ring = take it off */
+    var s=byId(strand[dragIdx]);
+    strand.splice(dragIdx,1);anim.splice(dragIdx,1);
+    if(s)toast(s.name+' removed');
+    sync();
+  }
+  dragIdx=-1;cv.classList.remove('drag');
+}
+cv.addEventListener('pointerup',endDrag);
+cv.addEventListener('pointercancel',endDrag);
+
+/* ---------- tray ---------- */
+var tabsEl=document.getElementById('tabs'),beadsEl=document.getElementById('beads');
+INTENTS.forEach(function(pair){
+  var b=document.createElement('button');
+  b.className='tab'+(pair[0]===tab?' on':'');b.textContent=pair[1];
+  b.setAttribute('role','tab');b.setAttribute('aria-selected',pair[0]===tab?'true':'false');
+  b.addEventListener('click',function(){
+    tab=pair[0];
+    [].forEach.call(tabsEl.children,function(c,i){
+      var on=INTENTS[i][0]===tab;c.classList.toggle('on',on);c.setAttribute('aria-selected',on?'true':'false');
+    });
+    renderTray();
+  });
+  tabsEl.appendChild(b);
+});
+function renderTray(){
+  beadsEl.innerHTML='';
+  STONES.filter(function(s){return s.intent===tab;}).forEach(function(s){
+    var b=document.createElement('button');b.className='bead';
+    b.innerHTML='<img src="/assets/img/beads/'+s.id+'.png" alt="'+s.name+' bead" width="52" height="52">'+
+      '<span class="bn">'+s.name+'</span><span class="bp">$'+s.price.toFixed(2)+'</span>';
+    b.addEventListener('click',function(){addBead(s.id);});
+    beadsEl.appendChild(b);
+  });
+}
+renderTray();
+
+function addBead(id){
+  if(strand.length>=capacity()){toast('That fills a '+fmtWrist()+' wrist');return;}
+  strand.push(id);
+  anim[strand.length-1]={born:performance.now()};
+  pulse=performance.now();
+  sync();
+}
+
+document.getElementById('compose').addEventListener('click',function(){
+  var r=RECIPES[tab]||[];if(!r.length)return;
+  /* the pattern repeats around the whole wrist, so the strand is a real one */
+  strand=[];for(var i=0;i<capacity();i++)strand.push(r[i%r.length]);
+  anim=strand.map(function(_,i){return {born:performance.now()+i*32};});
+  pulse=performance.now();
+  var label='';INTENTS.forEach(function(p){if(p[0]===tab)label=p[1];});
+  toast('A '+label.toLowerCase()+' strand — adjust it however you like');
+  sync();
+});
+document.getElementById('clear').addEventListener('click',function(){
+  strand=[];anim=[];sync();
+});
+
+/* ---------- wrist sizing ---------- */
+var wrist=document.getElementById('wrist');
+function fmtWrist(){return unit==='in'? wristIn.toFixed(2).replace(/\.?0+$/,'')+'"' : (wristIn*2.54).toFixed(1)+' cm';}
+function syncWrist(){
+  document.getElementById('wval').textContent=unit==='in'?wristIn.toFixed(2).replace(/\.?0+$/,'')+'″':(wristIn*2.54).toFixed(1)+' cm';
+  document.getElementById('wsub').textContent=unit==='in'?(wristIn*2.54).toFixed(1)+' cm':wristIn.toFixed(2).replace(/\.?0+$/,'')+' in';
+  if(strand.length>capacity()){strand=strand.slice(0,capacity());anim=anim.slice(0,capacity());}
+  sync();
+}
+wrist.addEventListener('input',function(){wristIn=parseFloat(wrist.value);syncWrist();});
+document.getElementById('uin').addEventListener('click',function(){setUnit('in');});
+document.getElementById('ucm').addEventListener('click',function(){setUnit('cm');});
+function setUnit(u){
+  unit=u;
+  document.getElementById('uin').classList.toggle('on',u==='in');
+  document.getElementById('ucm').classList.toggle('on',u==='cm');
+  document.getElementById('uin').setAttribute('aria-checked',u==='in');
+  document.getElementById('ucm').setAttribute('aria-checked',u==='cm');
+  syncWrist();
+}
+
+/* ---------- readouts ---------- */
+var sigEl=document.getElementById('sig');
+function sync(){
+  var total=0,mix={};
+  strand.forEach(function(id){
+    var s=byId(id);if(!s)return;
+    total+=s.price;mix[s.intent]=(mix[s.intent]||0)+1;
+  });
+  document.getElementById('tval').textContent=strand.length?'$'+total.toFixed(2):'—';
+  document.getElementById('cval').textContent=strand.length+' / '+capacity();
+  document.getElementById('addbag').disabled=strand.length<4;
+  document.getElementById('note').style.opacity=strand.length?1:0;
+
+  sigEl.innerHTML='';
+  INTENTS.forEach(function(p){
+    var c=mix[p[0]]||0;if(!c)return;
+    var row=document.createElement('div');row.className='sigrow';
+    row.innerHTML='<span class="siglab">'+p[1]+'</span><span class="sigbar"><i style="width:'+
+      Math.round(c/strand.length*100)+'%"></i></span><span>'+c+'</span>';
+    sigEl.appendChild(row);
+  });
+}
+sync();syncWrist();
+
+/* ---------- toast + bag ---------- */
+var toastEl=document.getElementById('toast'),toastT;
+function toast(msg){
+  toastEl.textContent=msg;toastEl.classList.add('on');
+  clearTimeout(toastT);toastT=setTimeout(function(){toastEl.classList.remove('on');},2400);
+}
+document.getElementById('addbag').addEventListener('click',function(){
+  var total=0,mix={};
+  strand.forEach(function(id){var s=byId(id);if(s){total+=s.price;mix[s.intent]=(mix[s.intent]||0)+1;}});
+  var top='',topN=0;
+  Object.keys(mix).forEach(function(k){if(mix[k]>topN){topN=mix[k];top=k;}});
+  var label='';INTENTS.forEach(function(p){if(p[0]===top)label=p[1];});
+  var nm=(document.getElementById('bname').value||'').trim();
+  var name=nm||('Custom '+label+' Bracelet');
+  var lead=byId(strand[0]);
+  /* compact, stable signature so two identical designs stack in the bag */
+  var sig=0,src=strand.join(',')+'|'+wristIn;
+  for(var si=0;si<src.length;si++){sig=(sig*31+src.charCodeAt(si))>>>0;}
+  if(window.EMBag){
+    window.EMBag.add({
+      id:'atelier-'+sig.toString(36),
+      name:name+' · '+fmtWrist(),
+      price:Math.round(total*100)/100,
+      img:lead?'/assets/img/beads/'+lead.id+'.png':'/assets/img/mark.svg',
+      link:'/designer/'
+    });
+  }else toast('Bag is still loading — try again');
+});
+
+/* keyboard: escape cancels a drag */
+addEventListener('keydown',function(e){if(e.key==='Escape'&&dragIdx>=0){dragIdx=-1;cv.classList.remove('drag');}});
+
+/* verification hook */
+window.__atelier={add:addBead,compose:function(){document.getElementById('compose').click();},
+  state:function(){return {strand:strand.slice(),cap:capacity(),wristIn:wristIn,unit:unit};}};
+})();
+</script>
+</body></html>

@@ -11,7 +11,8 @@ var VERSIONS=[
   ['/','Classic','the main homepage'],
   ['/home/motion/','Motion','glides in as you scroll'],
   ['/home/current/','Current','energy, visualized'],
-  ['/home/cascade/','Cascade','experiment · crystal rain']
+  ['/home/cascade/','Cascade','experiment · crystal rain'],
+  ['/designer/','Atelier','design your own bracelet']
 ];
 
 function lum(){try{var m=getComputedStyle(document.body).backgroundColor.match(/\d+/g);

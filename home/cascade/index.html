@@ -74,7 +74,8 @@ p{text-wrap:pretty}
 
 /* product labels under docked stones — JS-positioned */
 .chip{position:absolute;transform:translate(-50%,0);opacity:0;pointer-events:none;text-align:center;
-  font:600 10px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--tc-soft);white-space:nowrap}
+  font:600 10px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--tc-soft);white-space:nowrap;
+  text-shadow:0 0 10px var(--bgc),0 0 4px var(--bgc),0 0 2px var(--bgc)}
 
 /* finale */
 .c6{left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;max-width:none}
@@ -208,7 +209,7 @@ html.static .fallback{display:block}
   <p class="sub" style="font-family:var(--serif);font-style:italic;color:var(--line);margin-top:12px">Choose your energy. Live in it.</p>
   <div class="stones">
     <img src="../../assets/img/products/rose-heart.png" alt="Rose Quartz Heart">
-    <img src="../../assets/img/products/labradorite.png" alt="Labradorite Wand">
+    <img src="../../assets/img/products/labradorite.png" alt="Labradorite Stone">
     <img src="../../assets/img/products/wealth.png" alt="Pyrite Cube">
   </div>
   <div class="ints">
@@ -263,7 +264,9 @@ function grade(stops,p){
   return stops[stops.length-1][1];
 }
 
-/* ---- the cast: real stones, real names. dock = chapter it belongs to ---- */
+/* ---- the cast: real stones, real names. dock = chapter it belongs to.
+   (3D scan turntables were tried here and pulled — the baked sprite sheets
+   ghosted between frames; recipe kept in HANDOFF if we revisit.) */
 var CAST=[
   {slug:'power',      name:"Tiger's Eye Diamond",     dock:0,slot:0},
   {slug:'merkaba',    name:'Clear Quartz Merkaba',    dock:0,slot:1},
@@ -273,10 +276,9 @@ var CAST=[
   {slug:'rose-heart', name:'Rose Quartz Heart',       dock:2,slot:1},
   {slug:'blue-agate', name:'Blue Sky Agate Point',    dock:3,slot:0},
   {slug:'blue-opal',  name:'Owyhee Blue Opal',        dock:3,slot:1},
-  {slug:'labradorite',name:'Labradorite Wand',        dock:4,slot:0},
+  {slug:'labradorite',name:'Labradorite Stone',       dock:4,slot:0},
   {slug:'fresh-start',name:'Clear Quartz Pyramid',    dock:4,slot:1},
   {slug:'himalayan',  name:'Himalayan Quartz Cluster',dock:-1},
-  {slug:'spirituality',name:'Amethyst Cluster',       dock:-1},
   {slug:'trapiche',   name:'Trapiche Amethyst Slice', dock:-1}
 ];
 CAST.forEach(function(s,i){
@@ -289,6 +291,17 @@ CAST.forEach(function(s,i){
   s.rotDir=srand(i*7+6)>.5?1:-1;
   s.jit=(srand(i*7+7)-.5);
 });
+/* photo stones pre-render to sprites at two focus tiers — far tier is
+   soft-blurred so depth reads like a lens, not a scale trick */
+function spriteOf(img,blur){
+  var w=img.naturalWidth,h=img.naturalHeight,k=Math.min(1,520/Math.max(w,h));
+  var c=document.createElement('canvas');c.width=Math.round(w*k)+16;c.height=Math.round(h*k)+16;
+  var g=c.getContext('2d');
+  if(blur)g.filter='blur('+blur+'px)';
+  g.drawImage(img,8,8,c.width-16,c.height-16);
+  return c;
+}
+var tmp=document.createElement('canvas');   /* scratch for the dock light-sweep */
 
 /* far layer: copper line-art crystals, pre-rendered once */
 var FAR=[];
@@ -375,20 +388,21 @@ function frame(p,t){
   for(var i=0;i<CAST.length;i++){
     var s=CAST[i];
     if(!s.img.complete||!s.img.naturalWidth)continue;
+    if(!s.spr)s.spr=[spriteOf(s.img,0),spriteOf(s.img,2.4)];
 
     /* free fall (pure in p) + suspension bob (cosmetic t) */
     var spd=1.15+s.z*.9;
     var fy=lerp(-pad,H+pad,frac(p*spd+s.ph));
     var fx=(s.x0+.035*Math.sin(p*6.283*s.swayF+s.swayP))*W+Math.sin(t*.5+i)*4;
     var rot=s.rot0+p*s.rotDir*1.4+Math.sin(t*.4+i*2)*.02;
-    var h=(mob?38+40*s.z:56+64*s.z);
-    var op=1, glow=0;
+    var h=mob?38+40*s.z:56+64*s.z;
+    var op=1, glow=0, dT=0;
 
     /* dock: the rain becomes the shop */
     var X=fx,Y=fy,R=rot,HH=h;
     if(s.dock>=0){
       var dw=DW[s.dock];
-      var dT=ease(win(p,dw[0],dw[1]))*(1-ease(win(p,dw[2],dw[3])));
+      dT=ease(win(p,dw[0],dw[1]))*(1-ease(win(p,dw[2],dw[3])));
       if(dT>0){
         var side=SIDE[s.dock];
         var sx=mob?W*(s.slot?.70:.30):W*(side==='r'?.68:.32);
@@ -416,14 +430,34 @@ function frame(p,t){
       glow=Math.max(glow,ringT*.8);
     }
 
-    var w2=HH*(s.img.naturalWidth/s.img.naturalHeight);
+    /* focus tier: far stones render through a soft lens blur */
+    var tier=(s.z<.62&&glow===0&&ringT===0)?1:0;
+    var src=s.spr[tier],sw2=src.width,sh2=src.height;
+    var w2=HH*(sw2/sh2);
+
     ctx.save();
     ctx.translate(X,Y);ctx.rotate(R);
     ctx.globalAlpha=op;
     ctx.shadowColor='rgba('+Math.round(lerp(40,224,Math.max(dk,glow)))+','+Math.round(lerp(26,168,Math.max(dk,glow)))+','+Math.round(lerp(14,120,Math.max(dk,glow)))+','+lerp(.16,.34,Math.max(dk,glow)).toFixed(2)+')';
     ctx.shadowBlur=lerp(10,22,Math.max(dk,glow));
     ctx.shadowOffsetY=lerp(6,0,Math.max(dk,glow));
-    ctx.drawImage(s.img,-w2/2,-HH/2,w2,HH);
+    if(dT>0&&dT<1){
+      /* a soft band of light crosses the stone as it settles into place */
+      var tw=Math.ceil(w2)+12, th=Math.ceil(HH)+12;
+      tmp.width=tw;tmp.height=th;
+      var tg=tmp.getContext('2d');
+      tg.drawImage(src,0,0,sw2,sh2,6,6,w2,HH);
+      tg.globalCompositeOperation='source-atop';
+      var bx=(dT*1.7-.35)*tw;
+      var grad=tg.createLinearGradient(bx-tw*.22,0,bx+tw*.22,th*.5);
+      grad.addColorStop(0,'rgba(255,248,238,0)');
+      grad.addColorStop(.5,'rgba(255,248,238,'+(.3*Math.sin(dT*Math.PI)).toFixed(2)+')');
+      grad.addColorStop(1,'rgba(255,248,238,0)');
+      tg.fillStyle=grad;tg.fillRect(0,0,tw,th);
+      ctx.drawImage(tmp,-w2/2-6,-HH/2-6);
+    }else{
+      ctx.drawImage(src,0,0,sw2,sh2,-w2/2,-HH/2,w2,HH);
+    }
     ctx.restore();
   }
 
