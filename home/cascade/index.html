@@ -302,6 +302,18 @@ function spriteOf(img,blur){
   return c;
 }
 var tmp=document.createElement('canvas');   /* scratch for the dock light-sweep */
+/* a warm halo, rendered once — every stone falls inside its own light */
+var GLOW=(function(){
+  var g=document.createElement('canvas');g.width=g.height=128;
+  var c=g.getContext('2d');
+  var rg=c.createRadialGradient(64,64,2,64,64,64);
+  rg.addColorStop(0,'rgba(236,203,158,.55)');
+  rg.addColorStop(.4,'rgba(200,140,88,.24)');
+  rg.addColorStop(.72,'rgba(169,104,62,.08)');
+  rg.addColorStop(1,'rgba(169,104,62,0)');
+  c.fillStyle=rg;c.fillRect(0,0,128,128);
+  return g;
+})();
 
 /* far layer: copper line-art crystals, pre-rendered once */
 var FAR=[];
@@ -435,6 +447,14 @@ function frame(p,t){
     var src=s.spr[tier],sw2=src.width,sh2=src.height;
     var w2=HH*(sw2/sh2);
 
+    /* halo first — gives the stone air and reads as depth against the paper */
+    var lum=Math.max(dk,glow), gs=Math.max(w2,HH)*(1.55+lum*.75);
+    ctx.save();
+    ctx.translate(X,Y);
+    ctx.globalAlpha=(tier===1?.30:.46)+lum*.34;
+    ctx.drawImage(GLOW,-gs/2,-gs/2,gs,gs);
+    ctx.restore();
+
     ctx.save();
     ctx.translate(X,Y);ctx.rotate(R);
     ctx.globalAlpha=op;
@@ -499,4 +519,5 @@ window.__film={go:function(p){var total=film.offsetHeight-innerHeight;scrollTo(0
 })();
 </script>
 <script src="../../assets/em-versions.js" defer></script>
+<script src="/assets/em-depth.js" defer></script>
 </body></html>

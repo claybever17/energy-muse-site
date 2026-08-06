@@ -3,6 +3,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Energy Muse &#8212; Atelier &middot; Design Your Own</title>
 <meta name="description" content="Compose your own energy bracelet — choose stones by intention, arrange the strand, size it to your wrist.">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Energy Muse">
+<meta property="og:title" content="Atelier — Design your own energy">
+<meta property="og:description" content="Choose stones by intention, arrange the strand, size it to your wrist. A bracelet designer built on real Energy Muse crystals.">
+<meta property="og:url" content="https://energy-muse-workingfolder.vercel.app/designer/">
+<meta property="og:image" content="https://energy-muse-workingfolder.vercel.app/assets/og-designer.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og-designer.jpg">
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <style>
 /* ============================================================
@@ -246,6 +253,19 @@ var pulse=-1;                /* ms timestamp of the last add, drives the copper 
 var spin=0;                  /* slow idle rotation */
 var dragIdx=-1,dragAng=0,hoverIdx=-1;
 
+/* a warm halo, rendered once and reused — each stone sits in its own light */
+var GLOW=(function(){
+  var g=document.createElement('canvas');g.width=g.height=128;
+  var c=g.getContext('2d');
+  var rg=c.createRadialGradient(64,64,2,64,64,64);
+  rg.addColorStop(0,'rgba(236,203,158,.62)');
+  rg.addColorStop(.42,'rgba(200,140,88,.28)');
+  rg.addColorStop(.72,'rgba(169,104,62,.09)');
+  rg.addColorStop(1,'rgba(169,104,62,0)');
+  c.fillStyle=rg;c.fillRect(0,0,128,128);
+  return g;
+})();
+
 function radius(){return Math.min(W,H)*0.30;}
 function beadPx(){
   /* beads scale with how full the strand is, so a big wrist reads bigger */
@@ -258,6 +278,14 @@ function draw(ts){
   ctx.clearRect(0,0,W,H);
   var cx=W/2, cy=H/2, R=radius(), n=strand.length;
   if(!reduce)spin+=0.0009;
+
+  /* ambient pool of light the strand rests in */
+  if(n){
+    var pool=R*3.1;
+    ctx.save();ctx.globalAlpha=.5;
+    ctx.drawImage(GLOW,cx-pool/2,cy-pool/2,pool,pool);
+    ctx.restore();
+  }
 
   /* the etched true-scale ring — the physical bracelet, actual size */
   ctx.save();
@@ -306,9 +334,16 @@ function draw(ts){
     var rr=R+extra;
     var x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr;
     var d=bp*sc;
+    /* halo first, so the stone sits inside its own light */
+    var lit=(i===hoverIdx&&dragIdx<0)||i===dragIdx;
+    var gd=d*(lit?2.5:1.95);
     ctx.save();
-    ctx.shadowColor='rgba(61,41,23,.26)';ctx.shadowBlur=d*0.30;ctx.shadowOffsetY=d*0.12;
-    if(i===hoverIdx&&dragIdx<0){ctx.shadowColor='rgba(169,104,62,.5)';ctx.shadowBlur=d*0.5;}
+    ctx.globalAlpha=lit?.85:.5;
+    ctx.drawImage(GLOW,x-gd/2,y-gd/2,gd,gd);
+    ctx.restore();
+    ctx.save();
+    ctx.shadowColor='rgba(61,41,23,.3)';ctx.shadowBlur=d*0.34;ctx.shadowOffsetY=d*0.14;
+    if(lit){ctx.shadowColor='rgba(169,104,62,.55)';ctx.shadowBlur=d*0.55;}
     ctx.drawImage(s.img,x-d/2,y-d/2,d,d);
     ctx.restore();
   }
@@ -495,4 +530,5 @@ window.__atelier={add:addBead,compose:function(){document.getElementById('compos
   state:function(){return {strand:strand.slice(),cap:capacity(),wristIn:wristIn,unit:unit};}};
 })();
 </script>
+<script src="/assets/em-depth.js" defer></script>
 </body></html>
