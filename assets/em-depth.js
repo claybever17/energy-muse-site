@@ -44,10 +44,13 @@ function boot(){
   '             radial-gradient(100% 62% at 50% 118%,'+(dark?'rgba(0,0,0,.42)':'rgba(141,135,120,.14)')+',transparent 58%);}',
   'body>*{position:relative;z-index:1;}',
 
-  /* ---- 2. elevation for the recurring surfaces ---- */
-  '.card,.int,.gem,.prod,.panel,.quote,.vcol,.way,.reel,.tile,.pcard{box-shadow:var(--em-e2);}',
-  '.card:hover,.int:hover,.gem:hover,.prod:hover,.tile:hover,.pcard:hover{box-shadow:var(--em-lift);}',
-  '.t3d,.media,.hero-media,.figure,.shot{box-shadow:var(--em-e3);}',
+  /* ---- 2. elevation — only ever on elements that own a surface.
+     A shadow on a transparent caption draws a box around the words
+     (and on a cut-out photo, a box around the stone), so the class
+     below is applied by the JS pass, never by matching alone. ---- */
+  '.em-el{box-shadow:var(--em-e2);}',
+  '.em-el.em-hov:hover{box-shadow:var(--em-lift);}',
+  '.em-el-hi{box-shadow:var(--em-e3);}',
 
   /* ---- 3. grounding: photographs sit on a surface ---- */
   '.media img,.hero-media img,.split img,.int img,.card img{',
@@ -69,6 +72,33 @@ function boot(){
 
   var st=document.createElement('style');st.id='em-depth';st.textContent=css;
   document.head.appendChild(st);
+
+  /* --- decide what may be lifted: it must own an opaque surface --- */
+  var LIFT='.card,.int,.gem,.prod,.panel,.vcol,.way,.tile,.pcard';
+  var HIGH='.t3d,.figure,.shot';
+  function opaque(el){
+    var cs=getComputedStyle(el);
+    if(cs.backgroundImage&&cs.backgroundImage!=='none')return true;
+    var m=cs.backgroundColor.match(/[\d.]+/g);
+    if(!m)return false;
+    var a=m.length>3?parseFloat(m[3]):1;
+    return a>=0.85;
+  }
+  function mark(sel,cls,hover){
+    [].forEach.call(document.querySelectorAll(sel),function(el){
+      if(!opaque(el))return;                 /* transparent caption → leave it alone */
+      el.classList.add(cls);
+      if(hover)el.classList.add('em-hov');
+    });
+  }
+  function pass(){
+    mark(LIFT,'em-el',true);
+    mark(HIGH,'em-el-hi',false);
+  }
+  pass();
+  /* shared components inject their own DOM after us */
+  addEventListener('load',pass);
+  setTimeout(pass,600);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 })();

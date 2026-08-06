@@ -253,18 +253,67 @@ var pulse=-1;                /* ms timestamp of the last add, drives the copper 
 var spin=0;                  /* slow idle rotation */
 var dragIdx=-1,dragAng=0,hoverIdx=-1;
 
-/* a warm halo, rendered once and reused — each stone sits in its own light */
-var GLOW=(function(){
+/* Each bead glows its own colour — read off the bead's own pixels, weighted
+   toward the saturated ones so the stone's character wins over its matrix. */
+function stoneColor(img){
+  var n=24,c=document.createElement('canvas');c.width=c.height=n;
+  var g=c.getContext('2d');g.drawImage(img,0,0,n,n);
+  var d;try{d=g.getImageData(0,0,n,n).data;}catch(e){return [200,140,88];}
+  var r=0,gg=0,b=0,w=0;
+  for(var i=0;i<d.length;i+=4){
+    if(d[i+3]<160)continue;
+    var mx=Math.max(d[i],d[i+1],d[i+2]),mn=Math.min(d[i],d[i+1],d[i+2]);
+    var sat=(mx-mn)/(mx||1), lum=mx/255;
+    var wt=0.12+sat*1.9;
+    wt*=(lum>0.16&&lum<0.97)?1:0.25;
+    r+=d[i]*wt;gg+=d[i+1]*wt;b+=d[i+2]*wt;w+=wt;
+  }
+  if(!w)return [200,140,88];
+  r/=w;gg/=w;b/=w;
+  var mx2=Math.max(r,gg,b)||1,k=Math.min(255/mx2,1.9);
+  r=Math.min(255,r*k*0.98);gg=Math.min(255,gg*k*0.98);b=Math.min(255,b*k*0.98);
+  var avg=(r+gg+b)/3;
+  function cl(v){return v<0?0:v>255?255:v;}
+  /* saturate toward the stone's character, but never past a legal channel */
+  r=cl(avg+(r-avg)*1.35);gg=cl(avg+(gg-avg)*1.35);b=cl(avg+(b-avg)*1.35);
+  /* keep a floor so a dark stone still throws light rather than a shadow */
+  var mxf=Math.max(r,gg,b);
+  if(mxf<150){var lift=150/(mxf||1);r=cl(r*lift);gg=cl(gg*lift);b=cl(b*lift);}
+  return [Math.round(r),Math.round(gg),Math.round(b)];
+}
+function makeGlow(col,peak){
   var g=document.createElement('canvas');g.width=g.height=128;
   var c=g.getContext('2d');
+  var rgb=col[0]+','+col[1]+','+col[2];
   var rg=c.createRadialGradient(64,64,2,64,64,64);
-  rg.addColorStop(0,'rgba(236,203,158,.62)');
-  rg.addColorStop(.42,'rgba(200,140,88,.28)');
-  rg.addColorStop(.72,'rgba(169,104,62,.09)');
-  rg.addColorStop(1,'rgba(169,104,62,0)');
+  rg.addColorStop(0,'rgba('+rgb+','+(peak||.62)+')');
+  rg.addColorStop(.42,'rgba('+rgb+',.28)');
+  rg.addColorStop(.72,'rgba('+rgb+',.09)');
+  rg.addColorStop(1,'rgba('+rgb+',0)');
   c.fillStyle=rg;c.fillRect(0,0,128,128);
   return g;
-})();
+}
+function glowOf(s){
+  if(!s.glow&&s.img.complete&&s.img.naturalWidth){
+    s.col=stoneColor(s.img);s.glow=makeGlow(s.col);
+  }
+  return s.glow;
+}
+/* the pool the whole strand rests in: an average of what's on it */
+var POOL=null,poolKey='';
+function poolGlow(){
+  var key=strand.join(',');
+  if(key===poolKey&&POOL)return POOL;
+  var r=0,g=0,b=0,n=0;
+  strand.forEach(function(id){
+    var s=byId(id);if(!s||!s.img.complete||!s.img.naturalWidth)return;
+    if(!s.col)s.col=stoneColor(s.img);
+    r+=s.col[0];g+=s.col[1];b+=s.col[2];n++;
+  });
+  if(!n)return null;
+  POOL=makeGlow([Math.round(r/n),Math.round(g/n),Math.round(b/n)],.34);
+  poolKey=key;return POOL;
+}
 
 function radius(){return Math.min(W,H)*0.30;}
 function beadPx(){
@@ -279,11 +328,12 @@ function draw(ts){
   var cx=W/2, cy=H/2, R=radius(), n=strand.length;
   if(!reduce)spin+=0.0009;
 
-  /* ambient pool of light the strand rests in */
-  if(n){
+  /* ambient pool of light the strand rests in — tinted by the strand itself */
+  var pg=n?poolGlow():null;
+  if(pg){
     var pool=R*3.1;
-    ctx.save();ctx.globalAlpha=.5;
-    ctx.drawImage(GLOW,cx-pool/2,cy-pool/2,pool,pool);
+    ctx.save();ctx.globalAlpha=.55;
+    ctx.drawImage(pg,cx-pool/2,cy-pool/2,pool,pool);
     ctx.restore();
   }
 
@@ -337,13 +387,17 @@ function draw(ts){
     /* halo first, so the stone sits inside its own light */
     var lit=(i===hoverIdx&&dragIdx<0)||i===dragIdx;
     var gd=d*(lit?2.5:1.95);
-    ctx.save();
-    ctx.globalAlpha=lit?.85:.5;
-    ctx.drawImage(GLOW,x-gd/2,y-gd/2,gd,gd);
-    ctx.restore();
+    var gl=glowOf(s);
+    if(gl){
+      ctx.save();
+      ctx.globalAlpha=lit?.85:.5;
+      ctx.drawImage(gl,x-gd/2,y-gd/2,gd,gd);
+      ctx.restore();
+    }
     ctx.save();
     ctx.shadowColor='rgba(61,41,23,.3)';ctx.shadowBlur=d*0.34;ctx.shadowOffsetY=d*0.14;
-    if(lit){ctx.shadowColor='rgba(169,104,62,.55)';ctx.shadowBlur=d*0.55;}
+    if(lit&&s.col){ctx.shadowColor='rgba('+s.col[0]+','+s.col[1]+','+s.col[2]+',.6)';ctx.shadowBlur=d*0.55;}
+    else if(lit){ctx.shadowColor='rgba(169,104,62,.55)';ctx.shadowBlur=d*0.55;}
     ctx.drawImage(s.img,x-d/2,y-d/2,d,d);
     ctx.restore();
   }

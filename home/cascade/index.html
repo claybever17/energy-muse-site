@@ -302,18 +302,48 @@ function spriteOf(img,blur){
   return c;
 }
 var tmp=document.createElement('canvas');   /* scratch for the dock light-sweep */
-/* a warm halo, rendered once — every stone falls inside its own light */
-var GLOW=(function(){
+/* Each stone glows its own colour — malachite green, rose pink, pyrite gold.
+   We read the stone's dominant hue off its own pixels (saturation-weighted so
+   the character colour wins over grey matrix), then build its halo once. */
+function stoneColor(img){
+  var n=24,c=document.createElement('canvas');c.width=c.height=n;
+  var g=c.getContext('2d');g.drawImage(img,0,0,n,n);
+  var d;try{d=g.getImageData(0,0,n,n).data;}catch(e){return [200,140,88];}
+  var r=0,gg=0,b=0,w=0;
+  for(var i=0;i<d.length;i+=4){
+    if(d[i+3]<160)continue;
+    var mx=Math.max(d[i],d[i+1],d[i+2]),mn=Math.min(d[i],d[i+1],d[i+2]);
+    var sat=(mx-mn)/(mx||1), lum=mx/255;
+    var wt=0.12+sat*1.9;                       /* colourful pixels carry the hue */
+    wt*=(lum>0.16&&lum<0.97)?1:0.25;           /* ignore crushed blacks and blowouts */
+    r+=d[i]*wt;gg+=d[i+1]*wt;b+=d[i+2]*wt;w+=wt;
+  }
+  if(!w)return [200,140,88];
+  r/=w;gg/=w;b/=w;
+  /* lift toward light: a halo is the stone's colour, brightened and saturated */
+  var mx2=Math.max(r,gg,b)||1, k=Math.min(255/mx2,1.9);
+  r=Math.min(255,r*k*0.98);gg=Math.min(255,gg*k*0.98);b=Math.min(255,b*k*0.98);
+  var avg=(r+gg+b)/3;
+  function cl(v){return v<0?0:v>255?255:v;}
+  /* saturate toward the stone's character, but never past a legal channel */
+  r=cl(avg+(r-avg)*1.35);gg=cl(avg+(gg-avg)*1.35);b=cl(avg+(b-avg)*1.35);
+  /* keep a floor so a dark stone still throws light rather than a shadow */
+  var mxf=Math.max(r,gg,b);
+  if(mxf<150){var lift=150/(mxf||1);r=cl(r*lift);gg=cl(gg*lift);b=cl(b*lift);}
+  return [Math.round(r),Math.round(gg),Math.round(b)];
+}
+function makeGlow(col){
   var g=document.createElement('canvas');g.width=g.height=128;
   var c=g.getContext('2d');
+  var rgb=col[0]+','+col[1]+','+col[2];
   var rg=c.createRadialGradient(64,64,2,64,64,64);
-  rg.addColorStop(0,'rgba(236,203,158,.55)');
-  rg.addColorStop(.4,'rgba(200,140,88,.24)');
-  rg.addColorStop(.72,'rgba(169,104,62,.08)');
-  rg.addColorStop(1,'rgba(169,104,62,0)');
+  rg.addColorStop(0,'rgba('+rgb+',.58)');
+  rg.addColorStop(.4,'rgba('+rgb+',.26)');
+  rg.addColorStop(.72,'rgba('+rgb+',.09)');
+  rg.addColorStop(1,'rgba('+rgb+',0)');
   c.fillStyle=rg;c.fillRect(0,0,128,128);
   return g;
-})();
+}
 
 /* far layer: copper line-art crystals, pre-rendered once */
 var FAR=[];
@@ -401,6 +431,7 @@ function frame(p,t){
     var s=CAST[i];
     if(!s.img.complete||!s.img.naturalWidth)continue;
     if(!s.spr)s.spr=[spriteOf(s.img,0),spriteOf(s.img,2.4)];
+    if(!s.glow)s.glow=makeGlow(stoneColor(s.img));
 
     /* free fall (pure in p) + suspension bob (cosmetic t) */
     var spd=1.15+s.z*.9;
@@ -452,7 +483,7 @@ function frame(p,t){
     ctx.save();
     ctx.translate(X,Y);
     ctx.globalAlpha=(tier===1?.30:.46)+lum*.34;
-    ctx.drawImage(GLOW,-gs/2,-gs/2,gs,gs);
+    ctx.drawImage(s.glow,-gs/2,-gs/2,gs,gs);
     ctx.restore();
 
     ctx.save();
