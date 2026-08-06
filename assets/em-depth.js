@@ -48,8 +48,11 @@ function boot(){
   /* ---- 1. ambient: a light source, felt rather than seen ---- */
   'body{position:relative;}',
   'body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;',
-  '  background:radial-gradient(125% 70% at 50% -24%,'+(dark?'rgba(224,168,120,.10)':'rgba(255,253,248,.55)')+',transparent 58%),',
-  '             radial-gradient(100% 60% at 50% 120%,'+(dark?'rgba(0,0,0,.34)':'rgba(141,135,120,.10)')+',transparent 56%);}',
+  /* A key light, not a veil. This was a near-white wash at .55 sitting over
+     the top of every page — it faded heroes out and made the whole site read
+     washed. Ambient light should be felt, never seen. */
+  '  background:radial-gradient(125% 62% at 50% -26%,'+(dark?'rgba(224,168,120,.09)':'rgba(255,252,244,.16)')+',transparent 55%),',
+  '             radial-gradient(100% 55% at 50% 122%,'+(dark?'rgba(0,0,0,.30)':'rgba(141,135,120,.07)')+',transparent 54%);}',
   'body>*{position:relative;z-index:1;}']);
 
   css=css.concat([
