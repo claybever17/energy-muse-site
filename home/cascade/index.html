@@ -4,6 +4,7 @@
 <title>Energy Muse &#8212; Cascade</title>
 <meta name="description" content="Cascade — an experiment on Current. Crystals rain down as you scroll; each intention catches its stones.">
 <link rel="icon" type="image/svg+xml" href="../../assets/img/mark.svg">
+<script type="importmap">{"imports":{"three":"../../assets/three.module.min.js"}}</script>
 <style>
 /* ============================================================
    CASCADE — an experiment on Current. Scroll is gravity: real
@@ -49,6 +50,8 @@ p{text-wrap:pretty}
 .stage::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.045;mix-blend-mode:multiply;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 #rain{position:absolute;inset:0;width:100%;height:100%;display:block}
+/* the live scan rides above the painted rain — real geometry, real light */
+#live3d{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;opacity:0}
 
 /* captions */
 .cap{position:absolute;opacity:0;pointer-events:none;max-width:min(560px,84vw)}
@@ -156,6 +159,7 @@ html.static .fallback{display:block}
   <div class="stage" id="stage">
     <div class="bgglow"></div>
     <canvas id="rain" aria-hidden="true"></canvas>
+    <canvas id="live3d" aria-hidden="true"></canvas>
 
     <div class="cap c1" id="c1">
       <h1>Energy,<br>made <em>personal.</em></h1>
@@ -274,16 +278,18 @@ var CAST=[
   {slug:'malachite',  name:'Malachite Crystal Point', dock:1,slot:1},
   {slug:'love',       name:'Rhodochrosite Point',     dock:2,slot:0},
   {slug:'rose-heart', name:'Rose Quartz Heart',       dock:2,slot:1},
-  {slug:'blue-agate', name:'Blue Sky Agate Point',    dock:3,slot:0},
-  {slug:'blue-opal',  name:'Owyhee Blue Opal',        dock:3,slot:1},
+  {slug:'blue-agate', name:'Blue Sky Agate Point',    dock:3,slot:1},
+  {slug:'blue-opal',  name:'Owyhee Blue Opal',        dock:-1},
+  /* the live one: our own scan of the stone, not a photograph of it */
+  {scan:'calm',       name:'Agate Geode Slice',       dock:3,slot:0},
   {slug:'labradorite',name:'Labradorite Stone',       dock:4,slot:0},
   {slug:'fresh-start',name:'Clear Quartz Pyramid',    dock:4,slot:1},
   {slug:'himalayan',  name:'Himalayan Quartz Cluster',dock:-1},
   {slug:'trapiche',   name:'Trapiche Amethyst Slice', dock:-1}
 ];
 CAST.forEach(function(s,i){
-  s.img=new Image();s.img.src='../../assets/img/products/'+s.slug+'.png';
-  s.z=.45+.55*srand(i*7+1);          /* depth: scale + speed */
+  if(!s.scan){s.img=new Image();s.img.src='../../assets/img/products/'+s.slug+'.png';}
+  s.z=s.scan? .92 : .45+.55*srand(i*7+1);   /* depth: scale + speed; the scan rides near */
   s.x0=.08+.84*srand(i*7+2);
   s.ph=srand(i*7+3);
   s.swayF=1.1+srand(i*7+4)*1.3; s.swayP=srand(i*7+4)*6.28;
@@ -427,11 +433,18 @@ function frame(p,t){
   var pad=150;
   var dockH=mob?W*.21:Math.min(H*.17,140);
   var ringH=mob?30:46;
+  var liveDrawn=false;
   for(var i=0;i<CAST.length;i++){
     var s=CAST[i];
-    if(!s.img.complete||!s.img.naturalWidth)continue;
-    if(!s.spr)s.spr=[spriteOf(s.img,0),spriteOf(s.img,2.4)];
-    if(!s.glow)s.glow=makeGlow(stoneColor(s.img));
+    if(s.scan){
+      /* fetch the geometry only once its chapter is in sight */
+      if(window.__live&&p>DW[s.dock][0]-.12)window.__live.load(s.scan);
+      if(!s.glow)s.glow=makeGlow([150,176,188]);
+    }else{
+      if(!s.img.complete||!s.img.naturalWidth)continue;
+      if(!s.spr)s.spr=[spriteOf(s.img,0),spriteOf(s.img,2.4)];
+      if(!s.glow)s.glow=makeGlow(stoneColor(s.img));
+    }
 
     /* free fall (pure in p) + suspension bob (cosmetic t) */
     var spd=1.15+s.z*.9;
@@ -473,6 +486,17 @@ function frame(p,t){
       glow=Math.max(glow,ringT*.8);
     }
 
+    /* the live scan: halo on the 2D canvas, geometry on the WebGL layer */
+    if(s.scan){
+      var lum3=Math.max(dk,glow), gs3=HH*(1.9+lum3*.8);
+      ctx.save();ctx.translate(X,Y);
+      ctx.globalAlpha=.42+lum3*.34;
+      ctx.drawImage(s.glow,-gs3/2,-gs3/2,gs3,gs3);
+      ctx.restore();
+      if(window.__live&&window.__live.draw(X,Y,HH,op,t))liveDrawn=true;
+      continue;
+    }
+
     /* focus tier: far stones render through a soft lens blur */
     var tier=(s.z<.62&&glow===0&&ringT===0)?1:0;
     var src=s.spr[tier],sw2=src.width,sh2=src.height;
@@ -512,6 +536,8 @@ function frame(p,t){
     ctx.restore();
   }
 
+  if(!liveDrawn&&window.__live)window.__live.hide();
+
   /* chip labels only live inside their own dock window */
   var anyDock=false;
   for(var c2=0;c2<5;c2++){
@@ -548,6 +574,81 @@ addEventListener('scroll',step,{passive:true});
 /* verification hook */
 window.__film={go:function(p){var total=film.offsetHeight-innerHeight;scrollTo(0,film.offsetTop+p*total);step();},step:step};
 })();
+</script>
+<script type="module">
+/* ============ the live scan ============
+   One stone in the rain is not a photograph — it is the actual
+   photogrammetry scan, rendered live. Baked turntable sheets were
+   tried here first and stepped between frames; real geometry in an
+   orthographic pixel-space camera rotates perfectly smoothly and
+   lets the light move across the stone as it falls. */
+import * as THREE from 'three';
+import {GLTFLoader} from '../../assets/jsm/loaders/GLTFLoader.js';
+
+var cv=document.getElementById('live3d');
+var stage=document.getElementById('stage');
+var ren,scene,cam,pivot,model,ready=false,loading=false;
+var W=0,H=0;
+
+function build(){
+  ren=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});
+  ren.setPixelRatio(Math.min(devicePixelRatio||1,2));
+  ren.outputColorSpace=THREE.SRGBColorSpace;
+  scene=new THREE.Scene();
+  /* same studio as the shop, so the stone matches the brand's light */
+  scene.add(new THREE.HemisphereLight(0xfff4e6,0x33281e,1.1));
+  var key=new THREE.DirectionalLight(0xffffff,2.0);key.position.set(2.2,3,2.4);scene.add(key);
+  var rim=new THREE.DirectionalLight(0xE0A878,1.2);rim.position.set(-2.4,1.2,-2);scene.add(rim);
+  var fill=new THREE.DirectionalLight(0xcfd8e6,.45);fill.position.set(-1,-.6,2.6);scene.add(fill);
+  cam=new THREE.OrthographicCamera(0,1,0,1,-2000,2000);
+  pivot=new THREE.Group();scene.add(pivot);
+  size();
+}
+function size(){
+  W=stage.clientWidth;H=stage.clientHeight;
+  if(!ren)return;
+  ren.setSize(W,H,false);
+  /* pixel-space camera: one world unit == one CSS pixel, y down like canvas */
+  cam.left=0;cam.right=W;cam.top=0;cam.bottom=H;cam.updateProjectionMatrix();
+  cam.position.set(0,0,900);cam.lookAt(0,0,0);
+}
+addEventListener('resize',size);
+
+function load(slug){
+  if(loading||ready)return;
+  loading=true;
+  if(!ren)build();
+  new GLTFLoader().load('../../assets/gems/'+slug+'.glb',function(glb){
+    model=glb.scene;
+    var box=new THREE.Box3().setFromObject(model);
+    var c=box.getCenter(new THREE.Vector3()),sz=box.getSize(new THREE.Vector3());
+    model.position.sub(c);                       /* centre on its own pivot */
+    var inner=new THREE.Group();inner.add(model);
+    inner.scale.setScalar(1/Math.max(sz.x,sz.y,sz.z));   /* normalise to 1 unit */
+    inner.rotation.x=Math.PI;                    /* y-down world */
+    pivot.add(inner);
+    ready=true;loading=false;
+  },undefined,function(){loading=false;});
+}
+
+/* the film drives this every frame */
+window.__live={
+  load:load,
+  isReady:function(){return ready;},
+  hide:function(){cv.style.opacity=0;},
+  draw:function(x,y,px,op,t){
+    if(!ready){cv.style.opacity=0;return false;}
+    cv.style.opacity=op.toFixed(3);
+    if(op<=0.001)return true;
+    pivot.position.set(x,y,0);
+    pivot.scale.setScalar(px);
+    /* smooth continuous turn — the whole point of going live */
+    pivot.rotation.y=t*0.55;
+    pivot.rotation.z=Math.sin(t*0.5)*0.06;
+    ren.render(scene,cam);
+    return true;
+  }
+};
 </script>
 <script src="../../assets/em-versions.js" defer></script>
 <script src="/assets/em-depth.js" defer></script>

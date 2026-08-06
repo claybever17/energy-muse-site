@@ -104,6 +104,7 @@ p{text-wrap:pretty}
 .bead .bp{font:600 10px var(--sans);color:var(--copper-lo);letter-spacing:.04em}
 
 .trayfoot{border-top:1px solid var(--hair);padding:16px 18px 76px;display:flex;flex-direction:column;gap:11px}
+.count .dsk{display:inline}
 .count{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;color:var(--soft)}
 .count b{font-family:var(--serif);font-weight:300;font-size:19px;color:var(--fg)}
 .btn{display:inline-flex;align-items:center;justify-content:center;font:600 12.5px var(--sans);letter-spacing:.04em;
@@ -127,10 +128,19 @@ p{text-wrap:pretty}
   .tray{border-left:none;border-top:1px solid var(--hair)}
   .beads{grid-template-columns:repeat(4,1fr);max-height:34svh}
   .head{padding-top:18px}
-  .r-size,.r-total{top:auto;bottom:8px}
-  .sig{display:none}
+  /* nothing floats over the strand on a phone — the readings move into
+     the rows that already exist, so the bracelet gets the whole stage */
+  .r-size,.r-total,.sig{display:none}
   .stagenote{bottom:auto;top:6px;font-size:9px;letter-spacing:.16em}
+  .sizer{gap:10px 12px;padding-bottom:16px}
+  .sizer .mval{font-family:var(--serif);font-weight:300;font-size:20px;color:var(--fg);line-height:1}
+  .sizer .msub{font-size:11px;color:var(--stone);margin-left:-6px}
+  .count .dsk{display:none}
+  .count .mtotal{font-family:var(--serif);font-weight:300;font-size:19px;color:var(--fg)}
+  .count .mtotal i{font-style:normal;font-size:10px;color:var(--stone);letter-spacing:.14em;
+    text-transform:uppercase;margin-right:6px}
 }
+@media (min-width:901px){.sizer .mval,.sizer .msub,.count .mtotal{display:none}}
 @media (max-width:560px){
   .beads{grid-template-columns:repeat(3,1fr)}
   .head{flex-direction:column;gap:10px;align-items:stretch}
@@ -162,7 +172,8 @@ p{text-wrap:pretty}
     </div>
 
     <div class="sizer">
-      <label for="wrist">Wrist size</label>
+      <label for="wrist">Wrist</label>
+      <span class="mval" id="mval">6.5&Prime;</span><span class="msub" id="msub">16.5 cm</span>
       <input id="wrist" type="range" min="5" max="9" step="0.25" value="6.5">
       <div class="unit" role="radiogroup" aria-label="Units">
         <button id="uin" class="on" role="radio" aria-checked="true">in</button>
@@ -181,7 +192,7 @@ p{text-wrap:pretty}
     </button>
     <div class="beads" id="beads"></div>
     <div class="trayfoot">
-      <div class="count"><span>Stones on the strand</span><b id="cval">0</b></div>
+      <div class="count"><span class="mtotal"><i>Total</i><span id="mtotal">&mdash;</span></span><span class="dsk">Stones on the strand</span><b id="cval">0</b></div>
       <button class="btn btn-c" id="addbag" disabled>Add to Bag</button>
       <button class="btn btn-g" id="clear">Start over</button>
       <p class="disc">Pricing shown is illustrative for this prototype. Energy Muse products are intended for personal practice and general wellbeing &mdash; not medical devices, and not a substitute for healthcare.</p>
@@ -238,12 +249,32 @@ function capacity(){return Math.max(6,Math.round(wristIn*25.4/BEAD_MM));}
 /* ---------- canvas ---------- */
 var cv=document.getElementById('strand'),ctx=cv.getContext('2d');
 var stage=document.getElementById('stage');
-var W=0,H=0,dpr=1;
+var W=0,H=0,dpr=1,mob=false;
+/* Phones were repainting 21 beads with a blurred shadow every frame, which
+   is what made this feel laggy. Two fixes: a pre-baked contact shadow
+   instead of ctx.shadowBlur, and a dirty flag so we only paint when
+   something actually moves. */
+var SHADOW=(function(){
+  var g=document.createElement('canvas');g.width=g.height=96;
+  var c=g.getContext('2d');
+  var rg=c.createRadialGradient(48,48,1,48,48,48);
+  rg.addColorStop(0,'rgba(61,41,23,.42)');
+  rg.addColorStop(.55,'rgba(61,41,23,.19)');
+  rg.addColorStop(1,'rgba(61,41,23,0)');
+  c.fillStyle=rg;c.fillRect(0,0,96,96);
+  return g;
+})();
+var dirty=true,paints=0;
+function invalidate(){dirty=true;}
 function resize(){
   W=stage.clientWidth;H=stage.clientHeight;
-  dpr=Math.min(devicePixelRatio||1,2);
-  cv.width=W*dpr;cv.height=H*dpr;cv.style.width=W+'px';cv.style.height=H+'px';
+  mob=W<=900||matchMedia('(pointer:coarse)').matches;
+  /* phones ship 3x screens; 1.5x is indistinguishable here and ~4x cheaper */
+  dpr=Math.min(devicePixelRatio||1,mob?1.5:2);
+  cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+  cv.style.width=W+'px';cv.style.height=H+'px';
   ctx.setTransform(dpr,0,0,dpr,0,0);
+  invalidate();
 }
 new ResizeObserver(resize).observe(stage);resize();
 
@@ -323,10 +354,19 @@ function beadPx(){
 }
 function angleOf(i,n){return -Math.PI/2+(i/n)*Math.PI*2;}
 
+function busy(ts){
+  if(dragIdx>=0||pulse>0)return true;
+  for(var i=0;i<anim.length;i++)if(anim[i])return true;
+  return false;
+}
 function draw(ts){
+  /* idle spin is a desktop luxury; on a phone it would repaint forever */
+  var moving=busy(ts)||(!mob&&!reduce);
+  if(!moving&&!dirty){requestAnimationFrame(draw);return;}
+  dirty=false;paints++;
   ctx.clearRect(0,0,W,H);
   var cx=W/2, cy=H/2, R=radius(), n=strand.length;
-  if(!reduce)spin+=0.0009;
+  if(!reduce&&!mob)spin+=0.0009;
 
   /* ambient pool of light the strand rests in — tinted by the strand itself */
   var pg=n?poolGlow():null;
@@ -394,12 +434,13 @@ function draw(ts){
       ctx.drawImage(gl,x-gd/2,y-gd/2,gd,gd);
       ctx.restore();
     }
+    /* baked contact shadow — no per-frame blur filter */
+    var sh=d*1.34;
     ctx.save();
-    ctx.shadowColor='rgba(61,41,23,.3)';ctx.shadowBlur=d*0.34;ctx.shadowOffsetY=d*0.14;
-    if(lit&&s.col){ctx.shadowColor='rgba('+s.col[0]+','+s.col[1]+','+s.col[2]+',.6)';ctx.shadowBlur=d*0.55;}
-    else if(lit){ctx.shadowColor='rgba(169,104,62,.55)';ctx.shadowBlur=d*0.55;}
-    ctx.drawImage(s.img,x-d/2,y-d/2,d,d);
+    ctx.globalAlpha=lit?.85:.7;
+    ctx.drawImage(SHADOW,x-sh/2,y-sh/2+d*0.14,sh,sh);
     ctx.restore();
+    ctx.drawImage(s.img,x-d/2,y-d/2,d,d);
   }
   requestAnimationFrame(draw);
 }
@@ -430,14 +471,16 @@ cv.addEventListener('pointermove',function(e){
       anim.splice(dragIdx,1);anim.splice(slot,0,null);
       dragIdx=slot;
     }
+    invalidate();
   }else{
+    var prev=hoverIdx;
     hoverIdx=nearest(x,y);
-    cv.style.cursor=hoverIdx>=0?'grab':'default';
+    if(prev!==hoverIdx){cv.style.cursor=hoverIdx>=0?'grab':'default';invalidate();}
   }
 });
 cv.addEventListener('pointerdown',function(e){
   var p=pos(e),i=nearest(p[0],p[1]);
-  if(i>=0){dragIdx=i;dragAng=Math.atan2(p[1]-H/2,p[0]-W/2);cv.classList.add('drag');cv.setPointerCapture(e.pointerId);}
+  if(i>=0){dragIdx=i;dragAng=Math.atan2(p[1]-H/2,p[0]-W/2);cv.classList.add('drag');cv.setPointerCapture(e.pointerId);invalidate();}
 });
 function endDrag(e){
   if(dragIdx<0)return;
@@ -448,7 +491,7 @@ function endDrag(e){
     if(s)toast(s.name+' removed');
     sync();
   }
-  dragIdx=-1;cv.classList.remove('drag');
+  dragIdx=-1;cv.classList.remove('drag');invalidate();
 }
 cv.addEventListener('pointerup',endDrag);
 cv.addEventListener('pointercancel',endDrag);
@@ -485,7 +528,7 @@ function addBead(id){
   strand.push(id);
   anim[strand.length-1]={born:performance.now()};
   pulse=performance.now();
-  sync();
+  invalidate();sync();
 }
 
 document.getElementById('compose').addEventListener('click',function(){
@@ -499,15 +542,19 @@ document.getElementById('compose').addEventListener('click',function(){
   sync();
 });
 document.getElementById('clear').addEventListener('click',function(){
-  strand=[];anim=[];sync();
+  strand=[];anim=[];invalidate();sync();
 });
 
 /* ---------- wrist sizing ---------- */
 var wrist=document.getElementById('wrist');
 function fmtWrist(){return unit==='in'? wristIn.toFixed(2).replace(/\.?0+$/,'')+'"' : (wristIn*2.54).toFixed(1)+' cm';}
 function syncWrist(){
-  document.getElementById('wval').textContent=unit==='in'?wristIn.toFixed(2).replace(/\.?0+$/,'')+'″':(wristIn*2.54).toFixed(1)+' cm';
-  document.getElementById('wsub').textContent=unit==='in'?(wristIn*2.54).toFixed(1)+' cm':wristIn.toFixed(2).replace(/\.?0+$/,'')+' in';
+  var wmain=unit==='in'?wristIn.toFixed(2).replace(/\.?0+$/,'')+'″':(wristIn*2.54).toFixed(1)+' cm';
+  var wsecond=unit==='in'?(wristIn*2.54).toFixed(1)+' cm':wristIn.toFixed(2).replace(/\.?0+$/,'')+' in';
+  document.getElementById('wval').textContent=wmain;
+  document.getElementById('wsub').textContent=wsecond;
+  document.getElementById('mval').textContent=wmain;
+  document.getElementById('msub').textContent=wsecond;
   if(strand.length>capacity()){strand=strand.slice(0,capacity());anim=anim.slice(0,capacity());}
   sync();
 }
@@ -526,15 +573,18 @@ function setUnit(u){
 /* ---------- readouts ---------- */
 var sigEl=document.getElementById('sig');
 function sync(){
+  invalidate();
   var total=0,mix={};
   strand.forEach(function(id){
     var s=byId(id);if(!s)return;
     total+=s.price;mix[s.intent]=(mix[s.intent]||0)+1;
   });
-  document.getElementById('tval').textContent=strand.length?'$'+total.toFixed(2):'—';
+  var tstr=strand.length?'$'+total.toFixed(2):'—';
+  document.getElementById('tval').textContent=tstr;
+  document.getElementById('mtotal').textContent=tstr;
   document.getElementById('cval').textContent=strand.length+' / '+capacity();
   document.getElementById('addbag').disabled=strand.length<4;
-  document.getElementById('note').style.opacity=strand.length?1:0;
+  document.getElementById('note').style.opacity=(strand.length&&strand.length<3)?1:0;
 
   sigEl.innerHTML='';
   INTENTS.forEach(function(p){
@@ -580,7 +630,7 @@ document.getElementById('addbag').addEventListener('click',function(){
 addEventListener('keydown',function(e){if(e.key==='Escape'&&dragIdx>=0){dragIdx=-1;cv.classList.remove('drag');}});
 
 /* verification hook */
-window.__atelier={add:addBead,compose:function(){document.getElementById('compose').click();},
+window.__atelier={add:addBead,paints:function(){return paints;},tick:function(){draw(performance.now());},compose:function(){document.getElementById('compose').click();},
   state:function(){return {strand:strand.slice(),cap:capacity(),wristIn:wristIn,unit:unit};}};
 })();
 </script>
