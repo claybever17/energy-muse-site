@@ -99,6 +99,8 @@ p{text-wrap:pretty}
   display:flex;flex-direction:column;align-items:center;gap:7px;transition:border-color .25s,transform .2s,box-shadow .25s}
 .bead:hover{border-color:var(--copper);transform:translateY(-2px);box-shadow:0 10px 24px rgba(169,104,62,.13)}
 .bead:active{transform:translateY(0)}
+/* no 300ms tap delay, no double-tap zoom stealing the tap */
+.bead,.tab,.btn,.compose,.unit button{touch-action:manipulation}
 .bead img{width:52px;height:52px;display:block}
 .bead .bn{font-size:10.5px;line-height:1.25;text-align:center;color:var(--soft);text-wrap:balance}
 .bead .bp{font:600 10px var(--sans);color:var(--copper-lo);letter-spacing:.04em}
@@ -232,7 +234,15 @@ var STONES=[
   {id:'blue-opal',    name:'Blue Opal',          intent:'calm',       price:2.10},
   {id:'amethyst',     name:'Amethyst',           intent:'clarity',    price:1.50}
 ];
-STONES.forEach(function(s){s.img=new Image();s.img.src='/assets/img/beads/'+s.id+'.png';});
+/* Repaint when a stone finishes decoding. Without this, a bead tapped before
+   its PNG arrived was skipped by the paint pass and — because the canvas only
+   repaints on change — never drawn again: on a cold phone cache it looked like
+   only the one cached stone would add. */
+STONES.forEach(function(s){
+  s.img=new Image();
+  s.img.onload=function(){invalidate();};
+  s.img.src='/assets/img/beads/'+s.id+'.png';
+});
 function byId(id){for(var i=0;i<STONES.length;i++)if(STONES[i].id===id)return STONES[i];return null;}
 
 /* recipes: a focal stone plus grounding companions, per intention */
@@ -410,7 +420,9 @@ function draw(ts){
 
   var bp=beadPx();
   for(var i=0;i<n;i++){
-    var s=byId(strand[i]);if(!s||!s.img.complete||!s.img.naturalWidth)continue;
+    var s=byId(strand[i]);
+    /* not decoded yet — stay dirty so this stone gets drawn the moment it is */
+    if(!s||!s.img.complete||!s.img.naturalWidth){dirty=true;continue;}
     var target=angleOf(i,n)+spin;
     var a=target,sc=1,extra=0;
     if(i===dragIdx){a=dragAng;sc=1.14;extra=6;}

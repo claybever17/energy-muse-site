@@ -54,7 +54,10 @@ p{text-wrap:pretty}
 #live3d{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;opacity:0}
 
 /* captions */
-.cap{position:absolute;opacity:0;pointer-events:none;max-width:min(560px,84vw)}
+.cap{position:absolute;opacity:0;pointer-events:none;max-width:min(560px,84vw);z-index:2}
+/* a stone drifting past must never cost a line its legibility */
+.cap p,.cap h1,.cap h2,.int .eyeb,.int .lk{
+  text-shadow:0 0 14px var(--bgc),0 0 6px var(--bgc),0 0 2px var(--bgc)}
 .cap.live{pointer-events:auto}
 .cap h1,.cap h2{font-family:var(--serif);font-weight:300;letter-spacing:-.02em;line-height:1.06;text-wrap:balance}
 .cap .sub{font-family:var(--serif);font-style:italic;color:var(--line);margin-top:14px;font-size:clamp(17px,2vw,22px)}
@@ -341,6 +344,18 @@ function stoneColor(img){
   return [Math.round(r),Math.round(gg),Math.round(b)];
 }
 /* the medium itself: a wide, very soft warm pool */
+/* Baked stone shadow. ctx.shadowBlur is re-filtered per stone per frame and
+   was the single most expensive thing in this loop on a phone. */
+var SHADOW=(function(){
+  var g=document.createElement('canvas');g.width=g.height=96;
+  var c=g.getContext('2d');
+  var rg=c.createRadialGradient(48,48,1,48,48,48);
+  rg.addColorStop(0,'rgba(46,31,18,.40)');
+  rg.addColorStop(.55,'rgba(46,31,18,.17)');
+  rg.addColorStop(1,'rgba(46,31,18,0)');
+  c.fillStyle=rg;c.fillRect(0,0,96,96);
+  return g;
+})();
 var ATMO=(function(){
   var g=document.createElement('canvas');g.width=g.height=160;
   var c=g.getContext('2d');
@@ -394,7 +409,7 @@ for(var f=0;f<40;f++){
 var W,H,dpr,mob;
 function resize(){
   W=stage.clientWidth;H=stage.clientHeight;mob=W<=700;
-  dpr=Math.min(devicePixelRatio||1,2);
+  dpr=Math.min(devicePixelRatio||1,mob?1.5:2);   /* phones ship 3x; 1.5 is plenty here */
   cv.width=W*dpr;cv.height=H*dpr;
   ctx.setTransform(dpr,0,0,dpr,0,0);
 }
@@ -459,7 +474,8 @@ function frame(p,t){
   /* --- far layer: line-art drift --- */
   var farOp=(mob?.52:.42)*(1-win(p,.74,.84));
   if(farOp>.01){
-    for(var f2=0;f2<FAR.length;f2++){
+    var fstep=mob?2:1;                       /* half as many hairline facets on a phone */
+    for(var f2=0;f2<FAR.length;f2+=fstep){
       var q=FAR[f2];
       var spd=.45+.55*q.z;
       var y=lerp(-40,H+40,frac(p*spd+q.ph));
@@ -562,14 +578,14 @@ function frame(p,t){
     ctx.translate(X,Y);
     ctx.globalAlpha=(tier===1?.30:.46)+lum*.34;
     ctx.drawImage(s.glow,-gs/2,-gs/2,gs,gs);
+    var ss=Math.max(w2,HH)*1.15;
+    ctx.globalAlpha=(1-lum)*.55+.16;
+    ctx.drawImage(SHADOW,-ss/2,-ss/2+HH*.16,ss,ss);
     ctx.restore();
 
     ctx.save();
     ctx.translate(X,Y);ctx.rotate(R);
     ctx.globalAlpha=op;
-    ctx.shadowColor='rgba('+Math.round(lerp(40,224,Math.max(dk,glow)))+','+Math.round(lerp(26,168,Math.max(dk,glow)))+','+Math.round(lerp(14,120,Math.max(dk,glow)))+','+lerp(.16,.34,Math.max(dk,glow)).toFixed(2)+')';
-    ctx.shadowBlur=lerp(10,22,Math.max(dk,glow));
-    ctx.shadowOffsetY=lerp(6,0,Math.max(dk,glow));
     if(dT>0&&dT<1){
       /* a soft band of light crosses the stone as it settles into place */
       var tw=Math.ceil(w2)+12, th=Math.ceil(HH)+12;
