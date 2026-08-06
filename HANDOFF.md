@@ -96,6 +96,15 @@ you ever re-cut**, or browsers keep serving the old glyphs.
 
 ## Design system rules (current)
 
+- **No arched photos.** The "open door" arch treatment (`999px 999px …` radii) is retired —
+  photo frames are squared with a small fixed radius, deliberately *not* the skin's `--radius`,
+  because one skin uses a 999px pill and would round them right back into circles.
+- **Classic carries a fine paper grain** (`body::after`, opacity .055) and photos rest on a slight
+  3D tilt that squares up on hover — richness without borrowing Motion's choreography.
+- **Motion's depth layer is v3:** a shared `perspective` on body, and photographs arrive from
+  *behind* the page (translateZ + rotateY, blurred) rather than sliding across it.
+- **The mark closes every film** — Current, Cascade and Crystallize all seat it inside the finale
+  ring (full strength on mobile, a ghost on desktop so it never fights the headline).
 - **No octagon buttons anywhere.** The old emerald-cut `clip-path` treatment is dead site-wide
   (including the cart's checkout button). Corner radius follows the skin (`--radius`).
 - **Typographic hygiene, site-wide:** `p{text-wrap:pretty}` (no orphan words) and

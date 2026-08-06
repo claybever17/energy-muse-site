@@ -79,6 +79,11 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-
   -webkit-font-smoothing:antialiased;overflow-x:hidden;letter-spacing:.005em;}
 img{max-width:100%;display:block;}
 a{color:inherit;text-decoration:none;}
+/* a fine paper tooth over the whole page: the difference between a flat
+   cream fill and something that looks printed. Costs one composited layer. */
+body::after{content:"";position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.055;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");}
 h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;line-height:1.03;text-wrap:balance;letter-spacing:-.015em;}
 p{margin:0;}
 .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter);}
@@ -232,10 +237,10 @@ body.menu-open{overflow:hidden;}
 .hero-grain{position:absolute;inset:0;z-index:1;opacity:.05;pointer-events:none;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 .hero-grid{position:relative;z-index:3;width:100%;display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(28px,5vw,72px);align-items:center;}
-/* arched "open door" frame: photo clipped to the arch, offset copper echo behind */
+/* squared photo frame with an offset copper echo behind */
 .hero-media{position:relative;aspect-ratio:4/4.6;overflow:visible;
   max-height:calc(100vh - 300px);max-height:calc(100svh - 300px);
-  --arch:999px 999px 10px 10px;filter:drop-shadow(0 6px 16px rgba(61,41,23,.10)) drop-shadow(0 34px 70px rgba(61,41,23,.18));}
+  --arch:6px;filter:drop-shadow(0 6px 16px rgba(61,41,23,.10)) drop-shadow(0 34px 70px rgba(61,41,23,.18));}
 /* the photo bobs; the mark spins in place and stays put */
 .hero-media>img{width:100%;height:100%;object-fit:cover;object-position:50% 42%;filter:var(--imgf);
   border-radius:var(--arch);position:relative;z-index:1;
@@ -371,7 +376,13 @@ body.menu-open{overflow:hidden;}
   .split.rev .media{order:2;}
   .split.rev .media.arch::after,.split.rev .media.rect::after{transform:translate(-17px,17px);}
 }
-.split .media{position:relative;aspect-ratio:4/3.2;border-radius:6px;overflow:visible;background:transparent;}
+.split .media{position:relative;aspect-ratio:4/3.2;border-radius:6px;overflow:visible;background:transparent;
+  perspective:1400px;}
+/* a resting tilt gives the print thickness; hovering squares it up and lifts it */
+.split .media .t3d{transform:rotateY(var(--ry3,-2deg)) rotateX(1.1deg);
+  transition:transform .55s cubic-bezier(.16,1,.3,1),box-shadow .55s cubic-bezier(.16,1,.3,1);}
+.split.rev .media .t3d{--ry3:2deg;}
+.split .media:hover .t3d{transform:rotateY(0) rotateX(0) translateZ(16px);}
 .split .media img{width:100%;height:100%;object-fit:cover;object-position:50% 35%;filter:var(--imgf);}
 /* floating framed print: ivory mat + tilt + glare + parallax (JS drives the vars) */
 .t3d{position:absolute;inset:0;z-index:1;border-radius:10px;overflow:hidden;background:var(--surface);
@@ -379,12 +390,13 @@ body.menu-open{overflow:hidden;}
   transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) rotate(var(--rz,0deg));}
 .media.rect .t3d{--rz:-1.2deg;} /* the founders print sits slightly askew, like it was laid down by hand */
 .t3d img{border-radius:5px;transform:translateY(var(--py,0px)) scale(1.12);}
-/* frame shapes: arched "open door" or straight, each with an offset copper echo */
-.media.arch .t3d{border-radius:999px 999px 12px 12px;}
-.media.arch .t3d img{border-radius:999px 999px 6px 6px;}
+/* frame shapes: squared, each with an offset copper echo */
+/* squared frames — the arched "open door" treatment is retired */
+.media.arch .t3d{border-radius:8px;}
+.media.arch .t3d img{border-radius:5px;}
 .split .media.arch::after,.split .media.rect::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
   border:1.5px solid color-mix(in srgb,var(--copper) 70%,transparent);transform:translate(17px,17px);}
-.split .media.arch::after{border-radius:999px 999px 12px 12px;}
+.split .media.arch::after{border-radius:8px;}
 .split .media.rect::after{border-radius:10px;}
 .media.arch .plab{left:50%;transform:translateX(-50%);white-space:nowrap;}
 .t3d .glare{position:absolute;inset:0;pointer-events:none;z-index:2;mix-blend-mode:screen;opacity:0;transition:opacity .45s;
@@ -613,23 +625,23 @@ footer.site{background:
   letter-spacing:.14em;text-transform:uppercase;transition:border-color .25s,color .25s;}
 .versbtn svg{width:20px;height:21px;color:var(--copper);}
 .versbtn:hover{border-color:var(--copper);color:var(--fg);}
-.verspop{width:min(322px,calc(100vw - 28px));padding:16px;border-radius:14px;border:1px solid var(--hair);
+.verspop{width:min(292px,calc(100vw - 28px));padding:11px;border-radius:14px;border:1px solid var(--hair);
   background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(18px);
   box-shadow:0 18px 60px rgba(10,16,23,.24);opacity:0;transform:translateY(10px);pointer-events:none;
   transition:opacity .3s cubic-bezier(.16,1,.3,1),transform .3s cubic-bezier(.16,1,.3,1);}
 .verspop.open{opacity:1;transform:none;pointer-events:auto;}
-.vp-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--stone);font-weight:600;margin:0 0 8px;}
-.vp-list{display:flex;flex-direction:column;margin:0 0 14px;}
-.vp-list a{display:flex;align-items:center;gap:12px;padding:9px 10px;border-radius:11px;
+.vp-label{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--stone);font-weight:600;margin:0 0 6px 6px;}
+.vp-list{display:flex;flex-direction:column;margin:0;}
+.vp-list a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:9px;
   border:1px solid transparent;transition:background .2s,border-color .2s,transform .2s;}
-.vp-ico{flex:none;width:30px;height:26px;color:var(--copper);opacity:.8;transition:opacity .2s;}
-.vp-ico svg{width:100%;height:100%;display:block;fill:none;stroke:currentColor;stroke-width:1.5;
+.vp-ico{flex:none;width:22px;height:20px;color:var(--copper);opacity:.8;transition:opacity .2s;}
+.vp-ico svg{width:100%;height:100%;display:block;fill:none;stroke:currentColor;stroke-width:1.7;
   stroke-linecap:round;stroke-linejoin:round;}
 .vp-ico svg circle{fill:currentColor;stroke:none;}
 .vp-ico svg circle[fill="none"]{fill:none;stroke:currentColor;}
 .vp-txt{display:flex;flex-direction:column;line-height:1.25;min-width:0;}
-.vp-txt strong{font-family:var(--serif);font-weight:400;font-size:16.5px;color:var(--fg);transition:color .2s;}
-.vp-txt span{font-size:11px;color:var(--stone);letter-spacing:.02em;}
+.vp-txt strong{font-family:var(--serif);font-weight:400;font-size:15px;color:var(--fg);transition:color .2s;}
+.vp-txt span{font-size:10.5px;color:var(--stone);letter-spacing:.02em;}
 .vp-list a:hover{background:color-mix(in srgb,var(--copper) 10%,transparent);transform:translateX(2px);}
 .vp-list a:hover .vp-txt strong{color:var(--copper);}
 .vp-list a:hover .vp-ico{opacity:1;}
@@ -637,7 +649,7 @@ footer.site{background:
   border-color:color-mix(in srgb,var(--copper) 34%,transparent);}
 .vp-list a.cur .vp-txt strong{color:var(--copper);}
 /* a tool is not another skin — it reads as something you use */
-.vp-tools{margin-bottom:14px;}
+.vp-tools{margin-bottom:10px;}
 .vp-list a.tool{background:linear-gradient(150deg,#B87A4B,#A9683E 52%,#8F5330);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 22px rgba(169,104,62,.32);}
 .vp-list a.tool .vp-txt strong{color:#fff;}
@@ -645,7 +657,7 @@ footer.site{background:
 .vp-list a.tool .vp-ico{color:#fff;opacity:.95;}
 .vp-list a.tool:hover{transform:translateY(-1px);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 12px 30px rgba(169,104,62,.44);}
-.vp-div{height:1px;background:var(--hair);margin:0 0 12px;}
+.vp-div{height:1px;background:var(--hair);margin:9px 6px 8px;}
 .skins{display:flex;gap:4px;}
 .skin{display:flex;align-items:center;gap:8px;padding:6px;border-radius:100px;border:1px solid transparent;
   background:none;cursor:pointer;transition:border-color .25s,padding .25s;}
@@ -750,13 +762,29 @@ footer.site{background:
 /* typographic hygiene: no orphan words on wrapped lines */
 p{text-wrap:pretty;}
 .lead,.head p{text-wrap:balance;}
-/* ===== MOTION LAYER v2 — whimsical: springy arrivals, playful tilts, cascades ===== */
+/* ===== MOTION LAYER v3 — depth: real perspective, arrivals that come from
+   *behind* the page rather than sliding across it. Everything below is a
+   transform in Z, so surfaces have thickness and the light lands on them. ===== */
 :root{--spring:cubic-bezier(.34,1.56,.64,1);--soft:cubic-bezier(.16,1,.3,1);}
-.reveal{transform:translateY(42px);transition:opacity .9s var(--soft),transform .9s var(--spring);}
-.split .media.reveal{transform:translateX(-72px) rotate(-1.6deg) scale(.96);
-  transition:opacity .95s var(--soft),transform .95s var(--spring);}
-.split.rev .media.reveal{transform:translateX(72px) rotate(1.6deg) scale(.96);}
-.split .media.reveal.in{transform:none;}
+/* one shared camera: children animate in its perspective, not flat */
+body{perspective:1600px;perspective-origin:50% 42%;}
+.split,.int-grid,.head,.trust,.quotes{transform-style:preserve-3d;}
+
+.reveal{transform:translateY(42px) translateZ(-90px);
+  transition:opacity .9s var(--soft),transform .9s var(--spring);}
+.reveal.in{transform:none;}
+
+/* photographs arrive as objects: turned away, tilted back, then squared up */
+.split .media.reveal{transform:translateX(-56px) translateZ(-190px) rotateY(11deg) rotateX(5deg) rotate(-1.2deg);
+  transition:opacity 1.05s var(--soft),transform 1.05s var(--spring),filter .9s var(--soft);
+  filter:blur(3px);}
+.split.rev .media.reveal{transform:translateX(56px) translateZ(-190px) rotateY(-11deg) rotateX(5deg) rotate(1.2deg);}
+.split .media.reveal.in{transform:none;filter:blur(0);}
+/* and they keep a little thickness once landed */
+.split .media .t3d{transform-style:preserve-3d;transition:transform .6s var(--soft),box-shadow .6s var(--soft);}
+.split .media.reveal.in .t3d{transform:rotateY(var(--ry3,-2.2deg)) rotateX(1.4deg);}
+.split.rev .media.reveal.in .t3d{--ry3:2.2deg;}
+.split .media.reveal.in:hover .t3d{transform:rotateY(0deg) rotateX(0deg) translateZ(14px);}
 .split .copy.reveal{transform:none;}
 .split .copy.reveal>*{opacity:0;transform:translateY(26px);
   transition:opacity .7s var(--soft),transform .7s var(--spring);}
@@ -769,14 +797,16 @@ p{text-wrap:pretty;}
 .split .copy.reveal.in>*:nth-child(6){transition-delay:.56s;}
 .split .copy.reveal.in>*:nth-child(7){transition-delay:.66s;}
 .head.reveal{transform:none;}
-.head.reveal h2{opacity:0;filter:blur(9px);transform:translateY(16px);
+.head.reveal h2{opacity:0;filter:blur(9px);transform:translateY(16px) translateZ(-70px);
   transition:opacity .95s var(--soft),filter .95s var(--soft),transform .95s var(--spring);}
 .head.reveal.in h2{opacity:1;filter:blur(0);transform:none;}
 .head.reveal .lead{opacity:0;transform:translateY(16px);
   transition:opacity .8s var(--soft) .28s,transform .8s var(--spring) .28s;}
 .head.reveal.in .lead{opacity:1;transform:none;}
 .int-grid.reveal{transform:none;}
-.int-grid.reveal .int{opacity:0;transition:opacity .65s var(--soft);}
+.int-grid.reveal .int{opacity:0;transform:translateZ(-120px) rotateX(6deg);
+  transition:opacity .65s var(--soft),transform .8s var(--spring);}
+.int-grid.reveal.in .int{transform:none;}
 .int-grid.reveal.in .int{opacity:1;}
 .int-grid.reveal .int img{transform:scale(1.22) rotate(2.4deg);transition:transform 1.05s var(--spring);}
 .int-grid.reveal .int:nth-child(odd) img{transform:scale(1.22) rotate(-2.4deg);}
@@ -857,6 +887,8 @@ p{text-wrap:pretty;}
   .steps-zone.reveal .step,.steps-zone.reveal .step .rn,.duo-card.reveal,.reels.reveal .reel{
     opacity:1;transform:none;filter:none;transition:none;}
 }
+
+
 
 
 
@@ -1301,7 +1333,7 @@ p{text-wrap:pretty;}
       cards.forEach(function(el){
         var r=el.getBoundingClientRect();
         var c=(r.top+r.height/2-vh/2)/vh;
-        var y=Math.max(-1,Math.min(1,c))*-30;
+        var y=Math.max(-1,Math.min(1,c))*-38;
         el.style.setProperty('--py',y.toFixed(1)+'px');
       });
       if(reelRow){

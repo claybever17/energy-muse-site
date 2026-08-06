@@ -160,6 +160,8 @@ html.static .fallback{display:block}
   <a class="bb-quiz" href="../../quiz/">Take the Energy Quiz</a>
 </div>
 
+<svg id="mksrc" viewBox="0 0 231.33 238.67" style="position:absolute;width:0;height:0;visibility:hidden" aria-hidden="true"><path id="mk0" d="M190.5,189.78c-31.47,34.37-81.82,42.71-122.32,21.22-27.62-14.65-46.73-41.52-52.64-69.96-7.48-36.05,4.02-73.41,32.42-99.17,21.07-19.11,47.83-27.9,76.41-25.64,20.11,1.59,39.11,9.16,54.56,21.91,3.46,2.86,6.54,5.38,9.57,8.56,38.14,40.05,39.83,101.74,1.99,143.08ZM78.79,179.9c5.79,7.06,13.04,11.43,22.12,13.24,19.2,3.84,38.84-.55,55.55-10.91,29.03-17.98,42.78-50.33,39.88-84.29-3.17-37.1-31.15-67.2-68.24-72.09-4.79-.63-9.09-.96-14.66.35,20.78,4.81,36.06,16.44,35.82,41.81-.11,11.35-1.96,22.44-9.2,31.49-7.28,9.09-15.29,13.33-25.03,19.07-10.51,6.2-20.7,12.26-30.15,19.94-13.07,10.62-16.61,28.55-6.09,41.39ZM64.19,125.46c4.91-4.01,9.64-7.75,14.76-11.43,11.66-8.38,21.05-14.26,23.07-30.52.17-7.96-2.49-16.33-8.68-22-10.58-9.68-26.8-9.43-37.85.02-27.94,23.93-29.6,71.37-3.11,97.33l-.32-8.07c-.4-10.18,4.14-18.82,12.12-25.33Z" fill="none"/><path id="mk1" d="M78.79,179.9c-10.52-12.84-6.98-30.77,6.09-41.39,9.44-7.68,19.64-13.74,30.15-19.94,9.73-5.74,17.75-9.98,25.03-19.07,7.24-9.05,9.09-20.14,9.2-31.49.25-25.38-15.03-37-35.82-41.81,5.57-1.31,9.86-.98,14.66-.35,37.09,4.89,65.07,34.99,68.24,72.09,2.9,33.96-10.85,66.3-39.88,84.29-16.71,10.36-36.35,14.74-55.55,10.91-9.07-1.81-16.33-6.18-22.12-13.24Z" fill="none"/><path id="mk2" d="M64.19,125.46c-7.98,6.51-12.52,15.15-12.12,25.33l.32,8.07c-26.49-25.96-24.83-73.4,3.11-97.33,11.04-9.46,27.26-9.71,37.85-.02,6.2,5.67,8.85,14.04,8.68,22-2.03,16.26-11.41,22.14-23.07,30.52-5.12,3.68-9.86,7.43-14.76,11.43Z" fill="none"/></svg>
+
 <div class="film" id="film">
   <div class="stage" id="stage">
     <div class="bgglow"></div>
@@ -405,6 +407,39 @@ for(var f=0;f<40;f++){
     rotDir:srand(f*11+6)>.5?1:-1});
 }
 
+/* The mark, sampled from the real logo geometry so it can be drawn as line
+   art inside the finale ring — the same bookend Current and Crystallize use. */
+var MK=null;
+function sampleMark(){
+  var host=document.getElementById('mksrc');
+  if(!host)return;
+  var vb=[231.33,238.67],NS='http://www.w3.org/2000/svg';
+  MK=[0,1,2].map(function(i){
+    var src=document.getElementById('mk'+i);
+    if(!src)return null;
+    var subs=src.getAttribute('d').split(/(?=M)/);
+    var els=subs.map(function(sd){var e=document.createElementNS(NS,'path');e.setAttribute('d',sd);host.appendChild(e);return e;});
+    var lens=els.map(function(e){return e.getTotalLength();});
+    var total=lens.reduce(function(a,b){return a+b;},0);
+    var pts=[],brk={};
+    els.forEach(function(e,si){
+      var count=Math.max(10,Math.round(150*lens[si]/total));
+      if(si>0)brk[pts.length]=1;
+      for(var j=0;j<count;j++){
+        var pt=e.getPointAtLength(lens[si]*j/Math.max(1,count-1));
+        pts.push([pt.x-vb[0]/2,pt.y-vb[1]/2]);
+      }
+      host.removeChild(e);
+    });
+    return {pts:pts,brk:brk};
+  });
+  if(!MK[0]){MK=null;return;}
+  var xs=MK[0].pts.map(function(q){return q[0];}),ys=MK[0].pts.map(function(q){return q[1];});
+  var xmin=Math.min.apply(null,xs),xmax=Math.max.apply(null,xs);
+  var ymin=Math.min.apply(null,ys),ymax=Math.max.apply(null,ys);
+  MK.ccx=(xmin+xmax)/2;MK.ccy=(ymin+ymax)/2;MK.outerW=xmax-xmin;
+}
+
 /* ---- layout ---- */
 var W,H,dpr,mob;
 function resize(){
@@ -413,7 +448,7 @@ function resize(){
   cv.width=W*dpr;cv.height=H*dpr;
   ctx.setTransform(dpr,0,0,dpr,0,0);
 }
-resize();addEventListener('resize',function(){resize();step();});
+resize();sampleMark();addEventListener('resize',function(){resize();step();});
 
 /* chapter windows: captions + dock (fly-in a..b, release c..d) */
 /* Chapter timing. The old windows had each line fading out over exactly the
@@ -607,6 +642,31 @@ function frame(p,t){
   }
 
   if(!liveDrawn&&window.__live)window.__live.hide();
+
+  /* the mark comes home, seated in the ring the rain just made — full
+     presence on mobile where the copy sits below, a ghost on desktop so
+     it never competes with the headline */
+  if(MK&&MK.outerW&&ringT>0){
+    var homeT=ease(win(p,.80,.90));
+    if(homeT>.004){
+      var Km=(ringR*1.08)/(MK.outerW||1);
+      ctx.save();
+      ctx.globalAlpha=homeT*(mob?.9:.2);
+      ctx.strokeStyle=lc;ctx.lineWidth=mob?1.5:1.7;ctx.lineCap='round';ctx.lineJoin='round';
+      ctx.shadowColor='rgba(224,168,120,'+(homeT*.5).toFixed(2)+')';ctx.shadowBlur=10;
+      for(var mi2=0;mi2<3;mi2++){
+        var m2=MK[mi2];if(!m2)continue;
+        ctx.beginPath();
+        for(var q2=0;q2<m2.pts.length;q2++){
+          var MX=ringCx+(m2.pts[q2][0]-MK.ccx)*Km;
+          var MY=ringCy+(m2.pts[q2][1]-MK.ccy)*Km;
+          if(q2===0||m2.brk[q2])ctx.moveTo(MX,MY);else ctx.lineTo(MX,MY);
+        }
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+  }
 
   /* chip labels only live inside their own dock window */
   var anyDock=false;
