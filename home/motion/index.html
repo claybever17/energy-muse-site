@@ -224,7 +224,10 @@ header.nav.solid::after{opacity:1;}
 .brand:hover .blogo{transform:rotateX(7deg) rotateY(-9deg) scale(1.03);
   filter:drop-shadow(0 2px 2px rgba(29,39,57,.26)) drop-shadow(0 16px 28px rgba(29,39,57,.22));}
 .nav-links{display:flex;gap:24px;font-family:var(--sans);font-size:13.5px;letter-spacing:.03em;}
-.nav-links a{position:relative;padding:8px 0 12px;color:var(--ink-soft);transition:color .2s;}
+/* the nav was set light and soft; it is the primary wayfinding on a sales
+   site, so it reads at a heavier weight and full contrast */
+.nav-links a{position:relative;padding:8px 0 12px;color:var(--fg);font-weight:600;
+  font-size:15px;letter-spacing:.005em;transition:color .2s;}
 .nav-links a::after{content:"";position:absolute;left:50%;bottom:2px;width:5px;height:5px;border-radius:50%;
   border:1px solid var(--copper);transform:translateX(-50%) scale(0);transition:transform .28s cubic-bezier(.16,1,.3,1);}
 .nav-links a:hover{color:var(--fg);}
@@ -328,14 +331,24 @@ body.menu-open{overflow:hidden;}
 /* the generator visibly broadcasting: resonance ripples + a breathing core glow */
 .fq-waves{position:absolute;z-index:2;left:var(--fqx,50%);top:var(--fqy,76%);width:0;height:0;pointer-events:none;}
 .fqw{position:absolute;left:-200px;top:-200px;width:400px;height:400px;overflow:visible;}
-.fqw path{fill:none;stroke:color-mix(in srgb,var(--copper-hi) 82%,transparent);stroke-width:1.4;
+.fqw path{fill:none;stroke:color-mix(in srgb,var(--copper-hi) 78%,transparent);stroke-width:1.4;
   vector-effect:non-scaling-stroke;transform-box:view-box;transform-origin:50% 50%;
   opacity:0;transform:scale(1.15);animation:fqRipple 5.6s cubic-bezier(.2,.55,.45,1) infinite;}
-.fqw path:nth-child(2){animation-delay:1.4s;animation-name:fqRippleCCW;}
-.fqw path:nth-child(3){animation-delay:2.8s;}
-.fqw path:nth-child(4){animation-delay:4.2s;animation-name:fqRippleCCW;}
-@keyframes fqRipple{0%{opacity:0;transform:scale(1.15) rotate(0deg)}12%{opacity:.6}100%{opacity:0;transform:scale(2.9) rotate(15deg)}}
-@keyframes fqRippleCCW{0%{opacity:0;transform:scale(1.15) rotate(0deg)}12%{opacity:.6}100%{opacity:0;transform:scale(2.9) rotate(-15deg)}}
+/* Uniform rings on a uniform clock is what read as a heart monitor. Every
+   ripple now carries its own duration, delay, drift and fade, so they never
+   pulse in lockstep — water disturbed, not a readout. */
+.fqw path:nth-child(1){animation-duration:7.4s;animation-delay:0s;}
+.fqw path:nth-child(2){animation-duration:9.1s;animation-delay:1.9s;animation-name:fqRippleCCW;}
+.fqw path:nth-child(3){animation-duration:6.6s;animation-delay:3.4s;}
+.fqw path:nth-child(4){animation-duration:10.3s;animation-delay:5.1s;animation-name:fqRippleCCW;}
+.fqw path:nth-child(5){animation-duration:8.2s;animation-delay:6.7s;}
+.fqw path:nth-child(odd){stroke-width:1.5;}
+.fqw path:nth-child(even){stroke-width:1.1;opacity:.8;}
+/* it swells quickly, then spends most of its life easing away and thinning */
+@keyframes fqRipple{0%{opacity:0;transform:scale(1.06) rotate(-3deg)}
+  9%{opacity:.62}34%{opacity:.4}68%{opacity:.16}100%{opacity:0;transform:scale(3.05) rotate(11deg)}}
+@keyframes fqRippleCCW{0%{opacity:0;transform:scale(1.1) rotate(4deg)}
+  11%{opacity:.55}38%{opacity:.34}70%{opacity:.13}100%{opacity:0;transform:scale(2.82) rotate(-13deg)}}
 .fq-core{position:absolute;left:0;top:0;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;
   background:radial-gradient(circle,rgba(255,218,156,.6),rgba(196,133,90,.24) 55%,transparent 72%);
   filter:blur(2px);animation:fqPulse 2.8s ease-in-out infinite;}
@@ -386,6 +399,75 @@ body.menu-open{overflow:hidden;}
   background:radial-gradient(120% 120% at 30% 22%,color-mix(in srgb,var(--copper) 26%,var(--surface)),color-mix(in srgb,var(--copper) 9%,var(--surface)) 60%,color-mix(in srgb,var(--copper) 20%,var(--surface)));
   box-shadow:inset 0 1px 2px rgba(255,255,255,.75),inset 0 -1.5px 3px color-mix(in srgb,var(--copper) 38%,transparent),
     0 2px 6px color-mix(in srgb,var(--copper) 26%,transparent),0 6px 14px rgba(61,41,23,.10);}
+
+/* ===== PROMO — a slot the client can point at whatever is new =====
+   Everything here is content, not layout: swap the eyebrow, headline,
+   copy, price, image and link and the band restyles itself. */
+.promo{position:relative;overflow:hidden;background:var(--navy);color:#EFE7D9;}
+.promo .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,64px);
+  align-items:center;padding-block:clamp(30px,4.4vw,58px);}
+.promo-copy{position:relative;z-index:2;}
+.promo .tag{display:inline-flex;align-items:center;gap:9px;font:700 10px var(--sans);
+  letter-spacing:.24em;text-transform:uppercase;color:#F0C79A;
+  border:1px solid color-mix(in srgb,#E0A878 45%,transparent);border-radius:100px;padding:6px 13px;}
+.promo h2{font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.5vw,48px);
+  line-height:1.06;letter-spacing:-.02em;margin-top:16px;color:#FBF6EC;}
+.promo p{margin-top:12px;color:#C4CDDA;max-width:46ch;font-size:15.5px;}
+.promo .row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:22px;}
+.promo .price{font-family:var(--serif);font-weight:300;font-size:26px;color:#F0C79A;}
+.promo .price s{font-size:.62em;color:#8D98AA;margin-right:8px;}
+.promo-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:190px;}
+.promo-art img{width:min(74%,300px);height:auto;display:block;
+  filter:drop-shadow(0 18px 30px rgba(0,0,0,.5)) drop-shadow(0 3px 8px rgba(0,0,0,.4));}
+.promo-glow{position:absolute;width:78%;aspect-ratio:1;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(224,168,120,.32),rgba(169,104,62,.10) 55%,transparent 72%);filter:blur(6px);}
+@media (max-width:840px){
+  .promo .wrap{grid-template-columns:1fr;gap:20px;text-align:left;}
+  .promo-art{order:-1;min-height:0;}
+  .promo-art img{width:min(56%,220px);}
+}
+
+/* ===== STORE — the shop, made unmissable two thirds down ===== */
+.store{background:linear-gradient(180deg,color-mix(in srgb,var(--copper) 5%,transparent),transparent 42%);}
+.store-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.8vw,26px);}
+.pcard{position:relative;display:flex;flex-direction:column;background:var(--surface);
+  border:1px solid var(--hair);border-radius:10px;padding:18px 18px 16px;
+  transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .35s;}
+.pcard:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--copper) 45%,transparent);}
+.pcard .shot{aspect-ratio:1;display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+.pcard .shot img{width:78%;height:auto;display:block;}
+.pcard .pn{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.2;}
+.pcard .pc{font-size:12px;color:var(--stone);letter-spacing:.06em;text-transform:uppercase;margin-top:4px;font-weight:600;}
+.pcard .pf{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:14px;}
+.pcard .pp{font-family:var(--serif);font-weight:400;font-size:19px;}
+.pcard .padd{font:700 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid color-mix(in srgb,var(--fg) 28%,transparent);background:transparent;color:var(--fg);
+  border-radius:100px;padding:9px 15px;cursor:pointer;transition:background .2s,color .2s,border-color .2s;}
+.pcard .padd:hover{background:var(--copper);border-color:var(--copper);color:#fff;}
+.store-more{display:flex;justify-content:center;margin-top:clamp(26px,3vw,40px);}
+@media (max-width:900px){.store-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.store-grid{grid-template-columns:1fr 1fr;gap:12px;}
+  .pcard{padding:12px 12px 14px;}.pcard .pn{font-size:15.5px;}
+  .pcard .pf{flex-direction:column;align-items:stretch;gap:8px;}
+  .pcard .padd{width:100%;}}
+
+/* ===== Inline email capture, repeatable anywhere ===== */
+.sub-inline{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;max-width:520px;}
+.sub-inline input{flex:1;min-width:200px;padding:14px 16px;border-radius:8px;
+  border:1px solid var(--hair);background:var(--surface);color:var(--fg);
+  font-family:var(--sans);font-size:15px;}
+.sub-inline input:focus{outline:none;border-color:var(--copper);}
+.sub-inline button{font:700 12px var(--sans);letter-spacing:.1em;text-transform:uppercase;
+  padding:14px 22px;border-radius:8px;border:none;cursor:pointer;color:#fff;
+  background:linear-gradient(160deg,var(--copper-hi),var(--copper) 46%,var(--copper-lo));}
+.sub-note{font-size:12px;color:var(--stone);margin-top:9px;}
+.subband{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+  background:color-mix(in srgb,var(--copper) 4%,transparent);}
+.subband .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(20px,3vw,48px);
+  align-items:center;padding-block:clamp(28px,3.6vw,46px);}
+.subband h3{font-family:var(--serif);font-weight:300;font-size:clamp(22px,2.6vw,32px);letter-spacing:-.015em;}
+.subband p{color:var(--ink-soft);margin-top:8px;font-size:14.5px;}
+@media (max-width:840px){.subband .wrap{grid-template-columns:1fr;gap:14px;}}
 
 /* ===== Section head ===== */
 /* A numeral set large in the margin, half-outlined — the page starts
@@ -893,6 +975,20 @@ footer.site{background:
 /* typographic hygiene: no orphan words on wrapped lines */
 p{text-wrap:pretty;}
 .lead,.head p{text-wrap:balance;}
+
+/* ===== Anchored text reads as a link, not as prose =====
+   Inline links in body copy were the same weight and colour as the text
+   around them, so nothing invited a click on a site that has to sell. */
+.copy p a,.lead a,.trust-author a,.head p a,.email p a,.prose a{
+  font-weight:600;color:var(--copper-lo);
+  text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;
+  text-decoration-color:color-mix(in srgb,var(--copper) 45%,transparent);
+  transition:text-decoration-color .2s,color .2s;}
+.copy p a:hover,.lead a:hover,.head p a:hover,.email p a:hover,.prose a:hover{
+  color:var(--copper);text-decoration-color:var(--copper);}
+.lk,.go,.more{font-weight:700;letter-spacing:.12em;}
+.nav-utils a{font-weight:600;color:var(--fg);}
+.nav-utils a.bag{font-weight:700;}
 /* ===== MOTION LAYER v3 — depth: real perspective, arrivals that come from
    *behind* the page rather than sliding across it. Everything below is a
    transform in Z, so surfaces have thickness and the light lands on them. ===== */
@@ -1043,6 +1139,7 @@ p{text-wrap:pretty;}
 
 
 
+
 </style>
 
 
@@ -1142,6 +1239,28 @@ p{text-wrap:pretty;}
   </div>
 </section>
 
+
+<!-- ===== PROMO =====
+     A slot for whatever is new. Everything below is content: swap the tag,
+     headline, copy, price, image and link. Delete the section to remove it. -->
+<section class="promo" id="promo" aria-label="New release">
+  <div class="wrap">
+    <div class="promo-copy">
+      <span class="tag">Just landed</span>
+      <h2>The 528&#8239;Hz Generator, in Copper.</h2>
+      <p>Our fixed-frequency generator in a new hand-finished copper housing &mdash; the same tuned 528&#8239;Hz coil, in a warmer body built to be left out on the shelf.</p>
+      <div class="row">
+        <span class="price"><s>$248.88</s>$219.88</span>
+        <a class="btn btn-primary" href="../../generator/">Shop the generator</a>
+      </div>
+    </div>
+    <div class="promo-art">
+      <span class="promo-glow" aria-hidden="true"></span>
+      <img src="../../assets/img/generator-render.jpg" alt="The Energy Muse frequency generator in a copper housing" loading="lazy">
+    </div>
+  </div>
+</section>
+
 <!-- ===== TRUST ===== -->
 <section class="trust">
   <div class="wrap"><div class="trust-in">
@@ -1220,6 +1339,10 @@ p{text-wrap:pretty;}
 </section>
 
 <!-- ===== FOUNDERS ===== -->
+
+
+
+
 <section class="section" id="about">
   <div class="wrap split">
     <div class="media rect reveal" style="aspect-ratio:3/2"><div class="t3d"><img src="../../assets/img/founders.jpg" alt="Founders Heather Askinosie and Timmi Jandro" style="object-position:50% 25%"><span class="glare"></span></div><span class="plab">Heather &amp; Timmi</span></div>
@@ -1238,7 +1361,7 @@ p{text-wrap:pretty;}
 <section class="section freq" id="frequency">
   <div class="wrap split rev">
     <div class="media live3d reveal">
-      <div class="fq-waves" style="--fqx:50%;--fqy:47%" aria-hidden="true"><svg class="fqw" viewBox="0 0 400 400" aria-hidden="true"><path d="M303.2,200.0 L304.6,204.1 L305.8,208.3 L306.6,212.6 L307.2,217.0 L307.3,221.3 L307.0,225.7 L306.3,230.0 L305.1,234.1 L303.5,238.2 L301.4,242.0 L299.0,245.6 L296.2,249.0 L293.1,252.1 L289.8,255.0 L286.3,257.6 L282.6,260.0 L279.0,262.2 L275.2,264.3 L271.6,266.2 L268.0,268.0 L264.5,269.8 L261.1,271.5 L257.8,273.3 L254.7,275.2 L251.6,277.2 L248.6,279.3 L245.6,281.5 L242.7,283.8 L239.7,286.2 L236.7,288.6 L233.6,291.0 L230.3,293.4 L227.0,295.6 L223.5,297.7 L219.8,299.6 L216.0,301.2 L212.1,302.5 L208.1,303.4 L204.1,303.9 L200.0,304.0 L195.9,303.7 L191.9,303.0 L187.9,301.9 L184.1,300.4 L180.4,298.7 L176.8,296.6 L173.4,294.4 L170.1,292.0 L167.0,289.5 L164.0,287.0 L161.1,284.5 L158.2,282.0 L155.4,279.7 L152.6,277.4 L149.7,275.3 L146.7,273.3 L143.7,271.5 L140.5,269.7 L137.2,268.0 L133.8,266.2 L130.2,264.5 L126.6,262.7 L122.9,260.8 L119.3,258.7 L115.6,256.4 L112.1,253.9 L108.7,251.1 L105.6,248.1 L102.7,244.8 L100.2,241.3 L98.0,237.6 L96.3,233.7 L95.0,229.6 L94.1,225.4 L93.6,221.2 L93.6,216.9 L93.9,212.6 L94.6,208.3 L95.6,204.1 L96.8,200.0 L98.2,196.0 L99.7,192.1 L101.3,188.3 L102.9,184.6 L104.5,181.0 L105.9,177.4 L107.3,173.9 L108.6,170.3 L109.8,166.7 L110.9,163.1 L111.9,159.4 L112.9,155.6 L113.9,151.8 L114.9,147.9 L116.1,143.9 L117.4,140.0 L118.8,136.0 L120.6,132.2 L122.5,128.4 L124.8,124.8 L127.4,121.5 L130.3,118.4 L133.4,115.6 L136.9,113.1 L140.6,111.0 L144.5,109.4 L148.5,108.1 L152.7,107.1 L156.9,106.6 L161.2,106.3 L165.5,106.4 L169.7,106.6 L173.8,107.1 L177.8,107.6 L181.8,108.3 L185.6,108.9 L189.3,109.4 L192.9,109.9 L196.5,110.2 L200.0,110.4 L203.5,110.4 L207.1,110.3 L210.7,110.0 L214.3,109.6 L218.1,109.2 L221.9,108.7 L225.9,108.3 L229.9,108.0 L234.0,107.9 L238.1,107.9 L242.3,108.3 L246.4,108.9 L250.5,109.9 L254.4,111.2 L258.2,112.9 L261.7,115.0 L265.1,117.4 L268.2,120.2 L270.9,123.3 L273.4,126.6 L275.7,130.1 L277.6,133.7 L279.3,137.5 L280.7,141.3 L282.0,145.2 L283.2,149.0 L284.3,152.8 L285.3,156.5 L286.4,160.2 L287.5,163.8 L288.7,167.3 L290.0,170.8 L291.4,174.2 L293.0,177.7 L294.6,181.2 L296.3,184.7 L298.1,188.4 L299.9,192.1 L301.6,196.0 Z"/><path d="M306.2,200.0 L305.3,204.1 L304.0,208.2 L302.4,212.1 L300.6,215.9 L298.6,219.6 L296.6,223.2 L294.6,226.7 L292.7,230.1 L290.9,233.5 L289.2,237.0 L287.8,240.5 L286.4,244.0 L285.2,247.7 L284.0,251.4 L282.8,255.3 L281.5,259.2 L280.0,263.1 L278.4,267.0 L276.5,270.7 L274.3,274.3 L271.8,277.7 L268.9,280.7 L265.7,283.4 L262.2,285.6 L258.4,287.4 L254.4,288.8 L250.3,289.8 L246.0,290.3 L241.8,290.6 L237.5,290.6 L233.3,290.4 L229.3,290.1 L225.3,289.8 L221.5,289.6 L217.8,289.5 L214.2,289.6 L210.7,290.0 L207.1,290.6 L203.6,291.5 L200.0,292.6 L196.3,293.8 L192.5,295.2 L188.6,296.5 L184.5,297.7 L180.3,298.8 L176.1,299.6 L171.8,300.0 L167.5,300.0 L163.3,299.5 L159.2,298.6 L155.2,297.1 L151.5,295.2 L148.0,292.9 L144.8,290.1 L141.8,287.1 L139.1,283.8 L136.7,280.3 L134.4,276.8 L132.3,273.2 L130.3,269.7 L128.3,266.3 L126.2,263.0 L124.1,259.8 L121.9,256.8 L119.5,253.8 L117.0,250.9 L114.4,248.0 L111.7,245.0 L108.9,242.0 L106.2,238.9 L103.6,235.6 L101.2,232.1 L99.1,228.5 L97.3,224.6 L96.0,220.7 L95.1,216.6 L94.8,212.5 L94.9,208.3 L95.6,204.1 L96.7,200.0 L98.2,196.0 L100.0,192.1 L102.1,188.4 L104.3,184.8 L106.6,181.4 L108.9,178.1 L111.0,174.9 L113.0,171.7 L114.7,168.5 L116.3,165.3 L117.6,162.0 L118.6,158.5 L119.5,154.9 L120.3,151.2 L121.1,147.3 L121.9,143.2 L122.8,139.1 L123.9,135.0 L125.2,130.9 L126.9,126.9 L128.9,123.1 L131.3,119.5 L134.0,116.3 L137.2,113.5 L140.6,111.1 L144.3,109.1 L148.2,107.5 L152.3,106.4 L156.5,105.6 L160.7,105.1 L164.9,104.9 L169.1,104.8 L173.1,104.7 L177.1,104.7 L181.0,104.6 L184.9,104.4 L188.6,104.1 L192.4,103.6 L196.2,102.9 L200.0,102.1 L203.9,101.3 L207.8,100.4 L211.9,99.6 L216.0,98.9 L220.2,98.5 L224.4,98.4 L228.6,98.6 L232.7,99.3 L236.7,100.4 L240.6,102.0 L244.2,104.1 L247.6,106.6 L250.7,109.5 L253.5,112.7 L256.0,116.1 L258.3,119.8 L260.3,123.5 L262.2,127.2 L263.9,130.8 L265.7,134.3 L267.4,137.7 L269.2,140.9 L271.2,143.9 L273.4,146.7 L275.7,149.4 L278.3,152.0 L281.1,154.6 L284.1,157.1 L287.2,159.8 L290.3,162.6 L293.4,165.5 L296.3,168.7 L299.1,172.1 L301.5,175.6 L303.5,179.4 L305.0,183.4 L306.1,187.4 L306.6,191.6 L306.7,195.8 Z"/><path d="M294.4,200.0 L293.2,203.7 L292.3,207.3 L291.9,210.9 L291.9,214.6 L292.3,218.4 L292.9,222.3 L293.6,226.4 L294.3,230.6 L294.8,235.0 L294.9,239.3 L294.6,243.6 L293.7,247.7 L292.2,251.6 L290.0,255.2 L287.3,258.3 L284.0,261.1 L280.3,263.3 L276.3,265.2 L272.2,266.7 L268.0,268.0 L263.9,269.1 L260.0,270.2 L256.3,271.5 L253.0,272.9 L249.9,274.7 L247.1,276.8 L244.4,279.4 L241.9,282.2 L239.4,285.4 L236.8,288.8 L234.0,292.2 L231.0,295.6 L227.8,298.6 L224.3,301.3 L220.6,303.4 L216.6,304.8 L212.5,305.6 L208.3,305.6 L204.1,305.0 L200.0,303.7 L196.0,302.0 L192.1,299.9 L188.4,297.7 L184.9,295.4 L181.4,293.3 L178.0,291.5 L174.6,289.9 L171.1,288.8 L167.5,288.1 L163.7,287.7 L159.6,287.6 L155.4,287.6 L150.9,287.7 L146.3,287.6 L141.8,287.2 L137.2,286.4 L132.9,285.1 L128.9,283.2 L125.3,280.8 L122.2,277.8 L119.7,274.3 L117.7,270.3 L116.2,266.1 L115.2,261.6 L114.6,257.1 L114.2,252.6 L113.9,248.2 L113.6,244.0 L113.2,240.0 L112.4,236.3 L111.3,232.7 L109.8,229.3 L108.0,225.9 L105.8,222.6 L103.4,219.2 L100.9,215.7 L98.5,212.0 L96.3,208.2 L94.5,204.1 L93.2,200.0 L92.5,195.8 L92.5,191.5 L93.3,187.4 L94.8,183.3 L96.9,179.5 L99.6,175.9 L102.6,172.5 L105.9,169.4 L109.3,166.5 L112.6,163.8 L115.7,161.1 L118.5,158.5 L120.9,155.7 L122.9,152.7 L124.5,149.5 L125.8,146.1 L126.9,142.4 L127.9,138.4 L128.9,134.3 L130.1,130.1 L131.6,126.0 L133.5,122.1 L135.7,118.5 L138.5,115.3 L141.6,112.7 L145.2,110.6 L149.1,109.2 L153.3,108.3 L157.6,108.0 L161.9,108.1 L166.3,108.6 L170.5,109.1 L174.5,109.7 L178.4,110.1 L182.1,110.3 L185.7,110.0 L189.3,109.4 L192.8,108.3 L196.3,106.8 L200.0,105.0 L203.8,103.0 L207.8,101.0 L211.9,99.1 L216.2,97.5 L220.6,96.4 L225.0,95.8 L229.4,95.9 L233.6,96.7 L237.5,98.3 L241.2,100.4 L244.6,103.2 L247.7,106.4 L250.4,110.0 L252.9,113.7 L255.2,117.4 L257.4,121.0 L259.6,124.4 L261.9,127.5 L264.4,130.3 L267.2,132.8 L270.3,135.0 L273.7,137.1 L277.3,139.0 L281.2,141.0 L285.1,143.1 L289.0,145.4 L292.7,148.1 L296.1,151.0 L299.0,154.4 L301.3,158.0 L302.9,162.0 L303.8,166.3 L304.0,170.7 L303.6,175.1 L302.6,179.6 L301.2,184.0 L299.5,188.2 L297.7,192.3 L295.9,196.2 Z"/><path d="M303.3,200.0 L302.8,204.0 L302.1,208.0 L301.0,212.0 L299.7,215.8 L298.2,219.5 L296.4,223.2 L294.6,226.7 L292.6,230.1 L290.5,233.4 L288.5,236.6 L286.4,239.8 L284.4,243.0 L282.4,246.1 L280.4,249.3 L278.6,252.5 L276.7,255.7 L274.9,259.1 L273.1,262.5 L271.3,265.9 L269.4,269.4 L267.5,273.0 L265.4,276.5 L263.1,280.0 L260.6,283.5 L258.0,286.8 L255.1,289.9 L251.9,292.8 L248.6,295.3 L245.0,297.6 L241.2,299.5 L237.3,301.0 L233.2,302.1 L229.0,302.8 L224.7,303.1 L220.5,302.9 L216.2,302.4 L212.0,301.6 L207.9,300.5 L203.9,299.2 L200.0,297.7 L196.2,296.1 L192.6,294.5 L189.0,292.9 L185.5,291.3 L182.1,289.9 L178.7,288.6 L175.3,287.5 L171.9,286.5 L168.4,285.7 L164.8,285.0 L161.1,284.4 L157.3,283.8 L153.4,283.3 L149.3,282.7 L145.2,282.0 L141.0,281.2 L136.8,280.2 L132.6,278.9 L128.5,277.3 L124.6,275.4 L120.8,273.2 L117.4,270.6 L114.2,267.7 L111.4,264.4 L108.9,260.9 L106.9,257.1 L105.3,253.0 L104.1,248.9 L103.3,244.6 L103.0,240.2 L102.9,235.8 L103.2,231.5 L103.7,227.2 L104.3,223.0 L105.1,218.9 L105.9,214.9 L106.8,211.0 L107.5,207.3 L108.2,203.6 L108.7,200.0 L109.1,196.4 L109.3,192.9 L109.3,189.3 L109.3,185.6 L109.1,181.9 L108.8,178.1 L108.5,174.2 L108.2,170.2 L108.1,166.1 L108.0,161.9 L108.2,157.7 L108.6,153.4 L109.4,149.2 L110.4,145.1 L111.8,141.1 L113.6,137.2 L115.7,133.6 L118.2,130.1 L121.0,127.0 L124.2,124.2 L127.5,121.6 L131.2,119.4 L134.9,117.5 L138.9,115.9 L142.9,114.5 L146.9,113.4 L151.0,112.4 L155.0,111.7 L159.0,111.0 L162.9,110.4 L166.7,109.8 L170.5,109.3 L174.2,108.7 L177.9,108.0 L181.6,107.3 L185.2,106.5 L188.8,105.7 L192.5,104.8 L196.2,104.0 L200.0,103.1 L203.8,102.4 L207.7,101.7 L211.7,101.2 L215.7,100.9 L219.7,100.8 L223.8,101.0 L227.8,101.4 L231.8,102.1 L235.7,103.2 L239.5,104.5 L243.3,106.2 L246.8,108.1 L250.2,110.3 L253.5,112.7 L256.6,115.3 L259.5,118.1 L262.3,121.0 L264.9,124.0 L267.4,127.0 L269.9,130.1 L272.2,133.3 L274.5,136.4 L276.7,139.5 L279.0,142.6 L281.2,145.8 L283.4,148.9 L285.6,152.1 L287.8,155.3 L290.0,158.5 L292.1,161.9 L294.1,165.3 L296.0,168.8 L297.8,172.4 L299.4,176.1 L300.7,180.0 L301.8,183.9 L302.7,187.8 L303.2,191.9 L303.4,195.9 Z"/></svg><span class="fq-core"></span></div>
+      <div class="fq-waves" style="--fqx:50%;--fqy:47%" aria-hidden="true"><svg class="fqw" viewBox="0 0 400 400" aria-hidden="true"><path d="M305.8,201.9 L305.3,205.7 L304.6,209.5 L303.9,213.3 L303.1,217.0 L302.2,220.7 L301.2,224.3 L300.2,228.0 L299.1,231.5 L297.9,235.1 L296.7,238.6 L295.3,242.0 L293.8,245.4 L292.2,248.7 L290.5,252.0 L288.6,255.1 L286.6,258.2 L284.4,261.1 L282.1,263.9 L279.6,266.5 L277.0,269.0 L274.3,271.3 L271.5,273.5 L268.6,275.5 L265.6,277.3 L262.6,279.0 L259.5,280.6 L256.4,282.0 L253.3,283.4 L250.2,284.6 L247.1,285.7 L244.0,286.7 L240.9,287.6 L237.9,288.5 L234.8,289.2 L231.8,289.9 L228.8,290.5 L225.8,291.1 L222.8,291.5 L219.8,291.9 L216.8,292.2 L213.9,292.5 L211.0,292.7 L208.1,292.8 L205.2,292.8 L202.3,292.8 L199.4,292.7 L196.5,292.6 L193.7,292.4 L190.8,292.3 L188.0,292.1 L185.2,291.9 L182.3,291.7 L179.5,291.5 L176.6,291.3 L173.7,291.1 L170.7,290.9 L167.7,290.7 L164.7,290.4 L161.6,290.2 L158.5,289.9 L155.3,289.5 L152.1,289.0 L148.9,288.4 L145.6,287.7 L142.4,286.8 L139.2,285.8 L136.1,284.5 L133.0,283.1 L130.0,281.5 L127.1,279.7 L124.3,277.7 L121.6,275.5 L119.1,273.1 L116.7,270.6 L114.4,268.0 L112.3,265.2 L110.3,262.3 L108.4,259.4 L106.6,256.4 L104.8,253.3 L103.1,250.2 L101.5,247.1 L99.9,243.9 L98.3,240.7 L96.8,237.4 L95.2,234.1 L93.8,230.8 L92.3,227.4 L91.0,223.9 L89.7,220.4 L88.5,216.8 L87.5,213.2 L86.7,209.4 L86.0,205.7 L85.6,201.9 L85.4,198.1 L85.4,194.2 L85.7,190.4 L86.3,186.7 L87.2,182.9 L88.2,179.3 L89.6,175.7 L91.1,172.2 L92.8,168.9 L94.7,165.6 L96.7,162.5 L98.8,159.4 L101.0,156.5 L103.3,153.6 L105.5,150.9 L107.8,148.1 L110.1,145.5 L112.3,142.9 L114.6,140.3 L116.8,137.7 L119.0,135.2 L121.2,132.7 L123.5,130.1 L125.7,127.7 L128.0,125.2 L130.3,122.7 L132.7,120.3 L135.1,118.0 L137.6,115.7 L140.2,113.4 L142.8,111.3 L145.6,109.2 L148.4,107.3 L151.2,105.4 L154.2,103.7 L157.2,102.0 L160.3,100.5 L163.4,99.1 L166.6,97.8 L169.8,96.6 L173.1,95.5 L176.4,94.6 L179.7,93.7 L183.1,92.9 L186.5,92.2 L189.9,91.6 L193.4,91.2 L196.9,90.9 L200.4,90.7 L203.9,90.7 L207.4,90.8 L210.9,91.1 L214.4,91.6 L217.9,92.2 L221.3,93.1 L224.7,94.1 L228.0,95.3 L231.3,96.7 L234.5,98.2 L237.6,99.9 L240.7,101.7 L243.6,103.6 L246.6,105.7 L249.4,107.8 L252.2,110.0 L254.9,112.2 L257.5,114.5 L260.1,116.9 L262.7,119.3 L265.2,121.8 L267.6,124.3 L270.1,126.8 L272.4,129.5 L274.7,132.2 L276.8,134.9 L278.9,137.8 L280.9,140.7 L282.7,143.8 L284.4,146.9 L285.9,150.2 L287.2,153.5 L288.4,156.9 L289.3,160.3 L290.0,163.9 L290.6,167.4 L290.9,171.0 L291.1,174.5 L291.1,178.1 L291.0,181.6 L290.8,185.1 L290.5,188.5 L290.1,191.9 L289.7,195.3 L289.3,198.6 L288.9,201.9 Z"/><path d="M286.8,206.8 L286.5,210.0 L286.1,213.3 L285.7,216.6 L285.2,219.8 L284.7,223.1 L284.2,226.3 L283.7,229.5 L283.1,232.7 L282.5,236.0 L281.8,239.2 L281.1,242.5 L280.4,245.8 L279.7,249.1 L278.9,252.4 L278.0,255.7 L277.0,259.1 L276.0,262.4 L274.9,265.7 L273.6,269.1 L272.3,272.4 L270.7,275.6 L269.1,278.8 L267.3,281.9 L265.4,285.0 L263.3,287.9 L261.0,290.7 L258.7,293.4 L256.1,295.9 L253.5,298.3 L250.8,300.6 L247.9,302.7 L245.0,304.6 L242.0,306.5 L238.9,308.2 L235.8,309.8 L232.6,311.3 L229.4,312.8 L226.1,314.1 L222.8,315.4 L219.5,316.6 L216.2,317.7 L212.8,318.8 L209.4,319.8 L205.9,320.7 L202.5,321.5 L198.9,322.3 L195.4,322.9 L191.8,323.4 L188.2,323.8 L184.5,323.9 L180.9,324.0 L177.2,323.8 L173.6,323.4 L169.9,322.9 L166.3,322.1 L162.8,321.1 L159.3,319.9 L155.9,318.4 L152.5,316.8 L149.3,315.1 L146.1,313.1 L143.0,311.0 L140.0,308.8 L137.1,306.4 L134.4,303.9 L131.7,301.4 L129.1,298.7 L126.5,296.0 L124.1,293.2 L121.7,290.4 L119.5,287.5 L117.3,284.6 L115.1,281.6 L113.1,278.6 L111.1,275.5 L109.3,272.4 L107.4,269.3 L105.7,266.1 L104.1,262.8 L102.5,259.6 L101.1,256.2 L99.7,252.9 L98.4,249.5 L97.2,246.1 L96.1,242.6 L95.0,239.2 L94.1,235.6 L93.2,232.1 L92.4,228.6 L91.6,225.0 L91.0,221.4 L90.4,217.8 L89.8,214.1 L89.4,210.4 L89.0,206.8 L88.7,203.0 L88.5,199.3 L88.4,195.5 L88.4,191.8 L88.6,188.0 L88.8,184.2 L89.2,180.4 L89.8,176.6 L90.5,172.9 L91.5,169.2 L92.5,165.5 L93.8,161.9 L95.2,158.4 L96.9,155.0 L98.6,151.7 L100.5,148.4 L102.6,145.3 L104.8,142.3 L107.1,139.4 L109.5,136.6 L112.0,133.9 L114.5,131.3 L117.1,128.7 L119.7,126.3 L122.4,123.9 L125.1,121.5 L127.9,119.3 L130.6,117.0 L133.4,114.8 L136.2,112.7 L139.1,110.6 L142.0,108.5 L145.0,106.6 L148.0,104.7 L151.1,102.9 L154.2,101.2 L157.4,99.6 L160.7,98.2 L164.0,96.9 L167.4,95.8 L170.8,94.9 L174.3,94.2 L177.8,93.7 L181.3,93.3 L184.8,93.2 L188.3,93.3 L191.8,93.6 L195.3,94.0 L198.8,94.6 L202.2,95.3 L205.6,96.2 L208.9,97.2 L212.2,98.3 L215.4,99.5 L218.6,100.8 L221.8,102.1 L224.9,103.5 L228.0,104.9 L231.0,106.4 L234.0,108.0 L237.0,109.5 L239.9,111.2 L242.9,112.9 L245.7,114.7 L248.6,116.5 L251.4,118.5 L254.1,120.5 L256.8,122.5 L259.5,124.7 L262.1,127.0 L264.6,129.3 L267.1,131.8 L269.5,134.3 L271.8,136.9 L274.1,139.6 L276.2,142.4 L278.3,145.2 L280.3,148.2 L282.3,151.2 L284.1,154.3 L285.8,157.4 L287.5,160.6 L289.1,163.9 L290.5,167.2 L291.9,170.6 L293.1,174.0 L294.2,177.5 L295.2,181.1 L296.0,184.7 L296.6,188.3 L297.2,192.0 L297.5,195.7 L297.7,199.4 L297.7,203.1 L297.5,206.8 Z"/><path d="M304.2,195.8 L304.0,199.0 L303.6,202.1 L303.0,205.2 L302.3,208.3 L301.5,211.4 L300.5,214.4 L299.4,217.3 L298.2,220.2 L296.9,223.1 L295.5,225.9 L294.0,228.7 L292.5,231.4 L290.9,234.1 L289.3,236.7 L287.7,239.3 L286.0,241.9 L284.3,244.5 L282.6,247.0 L280.8,249.6 L279.0,252.1 L277.1,254.6 L275.2,257.1 L273.2,259.5 L271.2,262.0 L269.1,264.4 L266.9,266.8 L264.6,269.1 L262.2,271.3 L259.8,273.5 L257.2,275.6 L254.5,277.6 L251.7,279.4 L248.9,281.2 L245.9,282.8 L242.8,284.3 L239.7,285.6 L236.5,286.8 L233.2,287.8 L229.9,288.7 L226.5,289.3 L223.1,289.9 L219.7,290.2 L216.3,290.5 L212.9,290.5 L209.4,290.5 L206.0,290.3 L202.7,290.0 L199.3,289.7 L196.0,289.2 L192.7,288.6 L189.4,288.0 L186.2,287.3 L183.0,286.5 L179.8,285.7 L176.7,284.8 L173.5,283.9 L170.4,282.9 L167.4,281.9 L164.3,280.8 L161.3,279.7 L158.3,278.5 L155.3,277.2 L152.4,275.9 L149.5,274.4 L146.6,272.9 L143.8,271.3 L141.1,269.6 L138.4,267.9 L135.8,266.0 L133.2,264.0 L130.8,262.0 L128.4,259.8 L126.2,257.6 L124.0,255.2 L122.0,252.8 L120.0,250.3 L118.2,247.8 L116.5,245.2 L114.9,242.5 L113.4,239.8 L112.0,237.0 L110.7,234.2 L109.4,231.4 L108.3,228.5 L107.3,225.6 L106.3,222.7 L105.4,219.8 L104.5,216.9 L103.8,213.9 L103.1,211.0 L102.4,208.0 L101.8,205.0 L101.3,201.9 L100.9,198.9 L100.5,195.8 L100.2,192.7 L100.0,189.6 L99.9,186.5 L100.0,183.4 L100.1,180.2 L100.4,177.1 L100.8,173.9 L101.4,170.8 L102.1,167.7 L103.0,164.7 L104.1,161.6 L105.3,158.7 L106.8,155.8 L108.4,153.0 L110.1,150.3 L112.1,147.6 L114.1,145.1 L116.4,142.7 L118.7,140.5 L121.2,138.3 L123.8,136.3 L126.5,134.4 L129.3,132.6 L132.1,131.0 L135.0,129.4 L137.9,128.0 L140.9,126.7 L143.9,125.5 L146.9,124.4 L149.9,123.3 L152.8,122.4 L155.8,121.5 L158.8,120.6 L161.7,119.8 L164.7,119.1 L167.6,118.4 L170.5,117.8 L173.4,117.2 L176.3,116.6 L179.2,116.1 L182.1,115.6 L185.0,115.2 L187.9,114.8 L190.8,114.4 L193.7,114.1 L196.6,113.8 L199.5,113.6 L202.4,113.4 L205.4,113.3 L208.3,113.3 L211.3,113.3 L214.3,113.4 L217.3,113.5 L220.3,113.7 L223.3,114.0 L226.3,114.4 L229.4,114.8 L232.4,115.4 L235.4,116.0 L238.5,116.6 L241.5,117.4 L244.5,118.2 L247.5,119.1 L250.6,120.1 L253.6,121.2 L256.6,122.4 L259.6,123.6 L262.5,124.9 L265.5,126.4 L268.4,127.9 L271.3,129.5 L274.2,131.3 L277.0,133.1 L279.7,135.0 L282.4,137.1 L285.0,139.2 L287.6,141.5 L290.0,143.9 L292.3,146.3 L294.5,148.9 L296.5,151.6 L298.4,154.4 L300.1,157.3 L301.7,160.3 L303.1,163.3 L304.3,166.4 L305.3,169.6 L306.1,172.9 L306.7,176.1 L307.2,179.4 L307.4,182.7 L307.4,186.0 L307.2,189.3 L306.9,192.6 L306.3,195.8 Z"/><path d="M296.3,204.7 L296.3,208.3 L296.2,211.8 L296.0,215.4 L295.9,218.9 L295.7,222.5 L295.4,226.1 L295.2,229.7 L294.8,233.4 L294.5,237.0 L294.1,240.8 L293.7,244.5 L293.2,248.3 L292.6,252.1 L292.0,256.0 L291.2,259.9 L290.4,263.8 L289.3,267.7 L288.2,271.6 L286.8,275.4 L285.3,279.2 L283.6,282.9 L281.7,286.5 L279.5,290.0 L277.2,293.4 L274.6,296.5 L271.9,299.5 L268.9,302.2 L265.8,304.7 L262.5,306.9 L259.0,308.9 L255.4,310.7 L251.7,312.1 L247.9,313.3 L244.1,314.3 L240.2,315.0 L236.3,315.5 L232.4,315.8 L228.5,315.9 L224.7,315.9 L220.9,315.7 L217.1,315.4 L213.4,315.0 L209.8,314.6 L206.2,314.0 L202.7,313.5 L199.2,312.9 L195.8,312.3 L192.4,311.7 L189.1,311.1 L185.7,310.5 L182.5,309.9 L179.2,309.2 L175.9,308.6 L172.6,307.9 L169.4,307.2 L166.1,306.4 L162.9,305.5 L159.7,304.6 L156.4,303.6 L153.3,302.4 L150.1,301.2 L147.0,299.8 L143.9,298.3 L140.9,296.6 L138.0,294.8 L135.2,292.8 L132.5,290.7 L129.9,288.4 L127.4,286.0 L125.0,283.5 L122.7,280.9 L120.6,278.1 L118.6,275.3 L116.7,272.4 L114.9,269.4 L113.2,266.4 L111.7,263.3 L110.2,260.2 L108.8,257.1 L107.5,253.9 L106.2,250.8 L105.0,247.6 L103.8,244.4 L102.7,241.2 L101.6,238.1 L100.5,234.9 L99.5,231.6 L98.4,228.4 L97.4,225.1 L96.5,221.8 L95.5,218.5 L94.6,215.1 L93.8,211.7 L93.0,208.2 L92.4,204.7 L91.8,201.2 L91.4,197.6 L91.1,194.0 L90.9,190.3 L91.0,186.7 L91.2,183.0 L91.5,179.4 L92.1,175.8 L92.9,172.2 L93.8,168.6 L95.0,165.2 L96.3,161.8 L97.8,158.4 L99.5,155.2 L101.4,152.1 L103.4,149.1 L105.5,146.2 L107.7,143.4 L110.1,140.7 L112.5,138.1 L114.9,135.6 L117.4,133.1 L120.0,130.8 L122.6,128.4 L125.2,126.2 L127.8,124.0 L130.4,121.8 L133.0,119.6 L135.7,117.4 L138.4,115.2 L141.0,113.1 L143.8,110.9 L146.5,108.7 L149.3,106.5 L152.1,104.4 L155.0,102.3 L158.0,100.2 L161.1,98.1 L164.2,96.1 L167.4,94.2 L170.7,92.4 L174.1,90.8 L177.6,89.3 L181.2,87.9 L184.8,86.8 L188.5,85.9 L192.2,85.2 L196.0,84.7 L199.8,84.5 L203.6,84.5 L207.4,84.8 L211.2,85.3 L214.9,86.1 L218.6,87.1 L222.2,88.4 L225.7,89.8 L229.2,91.5 L232.5,93.3 L235.8,95.3 L239.0,97.4 L242.0,99.7 L245.0,102.0 L247.9,104.5 L250.7,107.0 L253.4,109.5 L256.0,112.1 L258.6,114.8 L261.1,117.4 L263.6,120.1 L266.0,122.9 L268.3,125.6 L270.6,128.4 L272.8,131.2 L275.0,134.1 L277.1,137.0 L279.1,139.9 L281.1,142.9 L283.1,146.0 L284.9,149.0 L286.6,152.2 L288.3,155.4 L289.8,158.7 L291.3,162.0 L292.6,165.4 L293.7,168.9 L294.8,172.3 L295.7,175.9 L296.5,179.4 L297.1,183.0 L297.6,186.6 L297.9,190.2 L298.1,193.9 L298.2,197.5 L298.2,201.1 L298.1,204.7 Z"/><path d="M288.3,206.4 L288.4,209.2 L288.4,212.0 L288.5,214.8 L288.5,217.7 L288.6,220.6 L288.6,223.5 L288.6,226.5 L288.6,229.5 L288.6,232.5 L288.5,235.6 L288.3,238.7 L288.0,241.8 L287.6,245.0 L287.1,248.2 L286.4,251.4 L285.6,254.5 L284.6,257.6 L283.4,260.7 L282.0,263.7 L280.4,266.6 L278.6,269.5 L276.6,272.2 L274.4,274.8 L272.1,277.2 L269.7,279.6 L267.1,281.8 L264.4,283.9 L261.7,285.9 L258.8,287.8 L255.9,289.6 L252.9,291.3 L249.9,293.0 L246.8,294.5 L243.7,296.0 L240.5,297.4 L237.3,298.7 L234.0,299.8 L230.7,300.9 L227.4,301.9 L224.0,302.7 L220.6,303.3 L217.1,303.8 L213.7,304.1 L210.2,304.2 L206.7,304.1 L203.2,303.8 L199.8,303.2 L196.4,302.5 L193.1,301.7 L189.8,300.6 L186.6,299.5 L183.5,298.2 L180.4,296.8 L177.5,295.4 L174.5,293.9 L171.7,292.5 L168.9,291.0 L166.1,289.5 L163.4,288.1 L160.7,286.7 L157.9,285.3 L155.2,284.0 L152.5,282.7 L149.8,281.3 L147.0,280.0 L144.3,278.6 L141.5,277.2 L138.8,275.6 L136.2,274.1 L133.6,272.4 L131.0,270.6 L128.5,268.7 L126.2,266.7 L123.9,264.5 L121.8,262.3 L119.8,259.9 L117.9,257.5 L116.1,255.0 L114.4,252.4 L112.8,249.8 L111.3,247.1 L109.9,244.5 L108.4,241.7 L107.0,239.0 L105.6,236.3 L104.2,233.5 L102.8,230.7 L101.3,227.9 L99.8,225.0 L98.3,222.0 L96.9,219.1 L95.4,216.0 L94.1,212.9 L92.8,209.7 L91.6,206.4 L90.6,203.0 L89.8,199.6 L89.2,196.2 L88.9,192.7 L88.8,189.2 L89.0,185.7 L89.5,182.3 L90.3,178.9 L91.3,175.5 L92.5,172.3 L94.0,169.1 L95.6,166.0 L97.4,162.9 L99.3,160.0 L101.3,157.1 L103.4,154.2 L105.5,151.5 L107.6,148.7 L109.8,146.0 L112.0,143.3 L114.2,140.6 L116.5,138.0 L118.8,135.3 L121.2,132.8 L123.6,130.2 L126.2,127.8 L128.9,125.4 L131.7,123.2 L134.6,121.2 L137.7,119.3 L140.9,117.7 L144.2,116.2 L147.6,115.0 L151.2,114.1 L154.7,113.3 L158.4,112.8 L162.0,112.6 L165.7,112.4 L169.3,112.5 L172.9,112.7 L176.4,113.0 L179.9,113.3 L183.3,113.7 L186.7,114.1 L190.0,114.6 L193.3,114.9 L196.5,115.3 L199.7,115.6 L202.9,115.9 L206.0,116.1 L209.2,116.4 L212.4,116.6 L215.6,116.9 L218.8,117.2 L222.0,117.6 L225.2,118.0 L228.4,118.6 L231.6,119.3 L234.7,120.1 L237.8,121.1 L240.9,122.2 L243.9,123.5 L246.8,124.9 L249.7,126.4 L252.5,128.0 L255.2,129.7 L257.9,131.5 L260.6,133.3 L263.2,135.2 L265.8,137.2 L268.4,139.1 L271.0,141.1 L273.6,143.1 L276.2,145.1 L278.9,147.2 L281.5,149.3 L284.2,151.5 L286.9,153.7 L289.6,156.0 L292.2,158.4 L294.8,161.0 L297.2,163.6 L299.5,166.4 L301.6,169.3 L303.6,172.3 L305.3,175.4 L306.7,178.7 L307.8,182.0 L308.7,185.4 L309.3,188.9 L309.6,192.4 L309.6,195.9 L309.4,199.4 L308.9,202.9 L308.2,206.4 Z"/></svg><span class="fq-core"></span></div>
       <img id="freq-poster" src="../../assets/img/generator-render.jpg" alt="The Energy Muse frequency generator: gold spiral coil in a glossy black plate">
       <canvas id="freq-canvas" aria-hidden="true"></canvas>
     </div>
@@ -1257,6 +1380,22 @@ p{text-wrap:pretty;}
     </div>
   </div>
 </section>
+
+<!-- ===== EMAIL, mid-page ===== capture is repeated, not saved for the footer -->
+<section class="subband" aria-label="Email signup">
+  <div class="wrap">
+    <div>
+      <h3>One practice, once a week.</h3>
+      <p>A short note on what to work with and why &mdash; plus first access to new releases.</p>
+    </div>
+    <form class="sub-inline" data-sub novalidate>
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" required>
+      <button type="submit">Join</button>
+    </form>
+  </div>
+</section>
+
+
 
 <!-- ===== RITUAL ===== -->
 <section class="section">
@@ -1310,6 +1449,56 @@ p{text-wrap:pretty;}
       </form>
       <span class="veza-note">Early previews and launch access. No noise.</span>
     </div>
+  </div>
+</section>
+
+<!-- ===== STORE ===== the shop, made unmissable on the way down -->
+<section class="section store" id="store">
+  <div class="wrap">
+    <div class="head" data-n="05">
+      <span class="eyebrow">The shop</span>
+      <h2>Start with one stone.</h2>
+      <p>Every crystal is chosen by hand and photographed as it arrives. Pick by what you want to feel &mdash; or <a href="../../quiz/">take the quiz</a> and we&#8217;ll point you.</p>
+    </div>
+    <div class="store-grid">
+        <article class="pcard">
+          <a class="shot" href="../../gems/" aria-label="Tiger's Eye Diamond"><img src="../../assets/img/products/power.png" alt="Tiger's Eye Diamond" loading="lazy"></a>
+          <div class="pn">Tiger&#8217;s Eye Diamond</div><div class="pc">Protection</div>
+          <div class="pf"><span class="pp">$39.88</span>
+            <button class="padd" type="button" data-id="power" data-n="Tiger's Eye Diamond" data-p="39.88" data-img="/assets/img/products/power.png">Add</button></div>
+        </article>
+        <article class="pcard">
+          <a class="shot" href="../../gems/" aria-label="Pyrite Cube"><img src="../../assets/img/products/wealth.png" alt="Pyrite Cube" loading="lazy"></a>
+          <div class="pn">Pyrite Cube</div><div class="pc">Abundance</div>
+          <div class="pf"><span class="pp">$24.88</span>
+            <button class="padd" type="button" data-id="wealth" data-n="Pyrite Cube" data-p="24.88" data-img="/assets/img/products/wealth.png">Add</button></div>
+        </article>
+        <article class="pcard">
+          <a class="shot" href="../../gems/" aria-label="Rose Quartz Heart"><img src="../../assets/img/products/rose-heart.png" alt="Rose Quartz Heart" loading="lazy"></a>
+          <div class="pn">Rose Quartz Heart</div><div class="pc">Love</div>
+          <div class="pf"><span class="pp">$12.88</span>
+            <button class="padd" type="button" data-id="rose-heart" data-n="Rose Quartz Heart" data-p="12.88" data-img="/assets/img/products/rose-heart.png">Add</button></div>
+        </article>
+        <article class="pcard">
+          <a class="shot" href="../../gems/" aria-label="Malachite Crystal Point"><img src="../../assets/img/products/malachite.png" alt="Malachite Crystal Point" loading="lazy"></a>
+          <div class="pn">Malachite Crystal Point</div><div class="pc">Abundance</div>
+          <div class="pf"><span class="pp">$34.88</span>
+            <button class="padd" type="button" data-id="malachite" data-n="Malachite Crystal Point" data-p="34.88" data-img="/assets/img/products/malachite.png">Add</button></div>
+        </article>
+        <article class="pcard">
+          <a class="shot" href="../../gems/" aria-label="Blue Sky Agate Point"><img src="../../assets/img/products/blue-agate.png" alt="Blue Sky Agate Point" loading="lazy"></a>
+          <div class="pn">Blue Sky Agate Point</div><div class="pc">Calm</div>
+          <div class="pf"><span class="pp">$48.88</span>
+            <button class="padd" type="button" data-id="blue-agate" data-n="Blue Sky Agate Point" data-p="48.88" data-img="/assets/img/products/blue-agate.png">Add</button></div>
+        </article>
+        <article class="pcard">
+          <a class="shot" href="../../gems/" aria-label="Clear Quartz Pyramid"><img src="../../assets/img/products/fresh-start.png" alt="Clear Quartz Pyramid" loading="lazy"></a>
+          <div class="pn">Clear Quartz Pyramid</div><div class="pc">Clarity</div>
+          <div class="pf"><span class="pp">$18.88</span>
+            <button class="padd" type="button" data-id="fresh-start" data-n="Clear Quartz Pyramid" data-p="18.88" data-img="/assets/img/products/fresh-start.png">Add</button></div>
+        </article>
+    </div>
+    <div class="store-more"><a class="btn btn-ghost" href="../../gems/">Shop all crystals</a></div>
   </div>
 </section>
 
@@ -1471,6 +1660,42 @@ p{text-wrap:pretty;}
     });
     el.addEventListener('pointerleave',function(){tx=ty=0;tgx=50;tgy=20;kick();});
   });
+  /* ---- the store adds straight to the bag, on the canonical slug id ---- */
+  [].forEach.call(document.querySelectorAll('.padd'),function(b){
+    b.addEventListener('click',function(){
+      if(!window.EMBag)return;
+      EMBag.add({id:b.dataset.id,name:b.dataset.n,price:parseFloat(b.dataset.p),
+        img:b.dataset.img,link:'/gems/'});
+      var was=b.textContent;b.textContent='Added';b.disabled=true;
+      setTimeout(function(){b.textContent=was;b.disabled=false;},1400);
+    });
+  });
+
+  /* ---- every signup form on the page behaves the same ---- */
+  [].forEach.call(document.querySelectorAll('form[data-sub]'),function(fm){
+    fm.addEventListener('submit',function(e){
+      e.preventDefault();
+      var i=fm.querySelector('input'); if(!i||!i.value||i.value.indexOf('@')<0){i&&i.focus();return;}
+      fm.innerHTML='<p class="sub-note" style="font-size:14px;color:var(--copper-lo);font-weight:600">'+
+        'Thank you \u2014 check your inbox to confirm.</p>';
+    });
+  });
+
+  /* ---- the mark is a lowercase "e", which nobody reads at rest. It turns
+         as you scroll through the first screens until the letterform is
+         upright and legible, then holds. ---- */
+  (function(){
+    var root=document.documentElement;
+    function turn(){
+      var span=innerHeight*1.6;
+      var p=Math.min(1,Math.max(0,scrollY/span));
+      var eased=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+      root.style.setProperty('--m-rot',(eased*130).toFixed(2)+'deg');
+    }
+    addEventListener('scroll',turn,{passive:true});
+    addEventListener('resize',turn);turn();
+  })();
+
   /* the spine fills with reading progress */
   if(!reduce){
     /* the frequency band: two identical runs so the loop is seamless */

@@ -53,7 +53,19 @@ var css=[
 '.emh-foot{background:'+P.footbg+';border-top:1px solid '+P.line+';font-family:"Instrument Sans",sans-serif;}',
 '.emh-foot-in{max-width:1240px;margin:0 auto;padding:44px clamp(20px,4vw,44px) 30px;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;}',
 '.emh-foot .emh-logo{height:30px;}',
-'.emh-foot-links{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:center;font-size:13px;}',
+'.emh-foot-links{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:center;font-size:13px;font-weight:600;}',
+/* email capture belongs on every page, not just the homepage */
+'.emh-sub{width:100%;max-width:440px;text-align:center;}',
+'.emh-sub h4{font-family:Fraunces,Georgia,serif;font-weight:300;font-size:20px;margin:0 0 4px;color:'+P.fg+';}',
+'.emh-sub p{font-size:12.5px;color:'+P.soft+';margin:0 0 12px;}',
+'.emh-sub form{display:flex;gap:8px;}',
+'.emh-sub input{flex:1;min-width:0;padding:12px 14px;border-radius:8px;font-size:14px;font-family:inherit;',
+'  border:1px solid '+P.line+';background:'+(dark?'rgba(255,255,255,.05)':'#fff')+';color:'+P.fg+';}',
+'.emh-sub input:focus{outline:none;border-color:'+P.accent+';}',
+'.emh-sub button{font:700 11px "Instrument Sans",sans-serif;letter-spacing:.1em;text-transform:uppercase;',
+'  padding:12px 18px;border-radius:8px;border:none;cursor:pointer;color:#fff;',
+'  background:linear-gradient(160deg,#B87A4B,#A9683E 46%,#8F5330);}',
+'.emh-sub .ok{font-size:13px;font-weight:600;color:'+P.accent+';margin:0;}',
 '.emh-foot-links a{color:'+P.soft+';text-decoration:none;}',
 '.emh-foot-links a:hover{color:'+P.copper+';}',
 '.emh-foot-legal{font-size:11.5px;color:'+P.stone+';line-height:1.6;max-width:72ch;text-wrap:balance;}',
@@ -85,10 +97,22 @@ function boot(){
   var foot=document.createElement('footer');foot.className='emh-foot';
   foot.innerHTML='<div class="emh-foot-in">'
     +'<svg class="emh-logo" viewBox="0 0 1167 247.5" aria-label="Energy Muse"><use href="#em-logo-hdr"/></svg>'
+    +'<div class="emh-sub"><h4>One practice, once a week.</h4>'
+      +'<p>A short note on what to work with — and first access to new releases.</p>'
+      +'<form novalidate><input type="email" placeholder="you@email.com" aria-label="Email address" required>'
+      +'<button type="submit">Join</button></form></div>'
     +'<div class="emh-foot-links"><a href="/quiz/">Energy Quiz</a><a href="/gems/">Crystals</a><a href="/generator/">Frequency</a><a href="/#intention">By Intention</a><a href="/#learn2">Learn</a><a href="/#about">About</a></div>'
     +'<p class="emh-foot-legal">© 2026 Energy Muse. Energy Muse products and content are intended for personal practice and general wellbeing. They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease. Individual experiences vary.</p>'
     +'</div>';
   document.body.appendChild(foot);
+
+  var sf=foot.querySelector('.emh-sub form');
+  if(sf)sf.addEventListener('submit',function(e){
+    e.preventDefault();
+    var i=sf.querySelector('input');
+    if(!i||!i.value||i.value.indexOf('@')<0){i&&i.focus();return;}
+    sf.parentNode.innerHTML='<p class="ok">Thank you — check your inbox to confirm.</p>';
+  });
 
   var annx=frag.querySelector('.emh-annx');
   if(annx)annx.addEventListener('click',function(){
