@@ -486,6 +486,17 @@ function sampleMark(){
       }
       host.removeChild(e);
     });
+    /* The mark is a closed swirl; the line reads left to right. Feeding the
+       swirl's own point order into that mapping made every point cross its
+       neighbours mid-morph — the scribble. Rotating each stroke to begin at
+       its leftmost point, and running it in the same direction as the line,
+       turns the same animation into a thread unwinding. */
+    var startI=0,minX=Infinity;
+    for(var q=0;q<pts.length;q++){if(pts[q][0]<minX){minX=pts[q][0];startI=q;}}
+    if(!brk.length){                       /* only rotate unbroken strokes */
+      pts=pts.slice(startI).concat(pts.slice(0,startI));
+      if(pts.length>2&&pts[1][0]<pts[0][0])pts.reverse();
+    }
     return {pts:pts,brk:brk.reduce(function(s,v){s[v]=1;return s;},{}),cx:ecx,cy:ecy};
   });
   /* the artwork is not centred in its own viewBox — measure the real centre
@@ -577,7 +588,7 @@ function frame(p,t){
   var ringR=mob?Math.min(W*.36,H*.20):Math.min(W,H)*.42;
   var ringCx=W/2, ringCy=mob?H*.26:H*.5;
 
-  var amp=lerp(8,H*(mob?.07:.075),wake)*(1+wind*.5)*(1-gather*.7);
+  var amp=lerp(8,H*(mob?.07:.075),wake)*(1+wind*.5)*(1-gather*.7)*lerp(.3,1,ease(morph));
   /* The line used to stop dead at both screen edges, which read as a crop.
      It now runs past the frame on both sides AND fades out before it gets
      there, so it dissolves into the medium instead of being cut off. */
@@ -646,7 +657,7 @@ function frame(p,t){
       if(mk&&morph<1){
         var px=(mk.pts[i][0]-mk.cx)*breathe, py=(mk.pts[i][1]-mk.cy)*breathe;
         var mx=mk.cx+px*ca-py*sa, my=mk.cy+px*sa+py*ca;
-        var mi=ease(clamp(morph*1.45-u*.45,0,1));
+        var mi=ease(clamp(morph*1.62-u*.62,0,1));   /* softer, longer stagger */
         X=lerp(mx,X,mi);Y=lerp(my,Y,mi);
       }
       if(wind>0){

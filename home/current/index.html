@@ -86,22 +86,43 @@ p{text-wrap:pretty}
   letter-spacing:.24em;text-transform:uppercase;color:var(--tc-soft);opacity:0}
 .c2{left:clamp(20px,7vw,110px);top:40svh;max-width:min(430px,80vw)}
 .c2 p{font-family:var(--serif);font-weight:300;font-size:clamp(20px,2.6vw,30px);line-height:1.3;text-wrap:balance}
-.c3{left:0;right:0;top:12svh;display:flex;justify-content:center;gap:clamp(10px,1.6vw,18px);flex-wrap:wrap;max-width:none;padding:0 22px}
-.c3 a{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;
-  font-family:var(--serif);font-weight:300;font-size:clamp(16px,1.8vw,22px);letter-spacing:.01em;
-  padding:13px 26px;border:1px solid color-mix(in srgb,var(--tc) 24%,transparent);border-radius:16px;
-  background:color-mix(in srgb,var(--bgc) 55%,transparent);backdrop-filter:blur(5px);
-  transition:border-color .25s,color .25s,transform .25s,box-shadow .25s}
-.c3 a:hover{color:var(--line);border-color:var(--line);transform:translateY(-2px);
-  box-shadow:0 10px 26px color-mix(in srgb,var(--line) 18%,transparent)}
-.c3 a:active{transform:translateY(0)}
-.c3 a i{font-style:normal;display:block;font:600 9px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--tc-soft)}
+/* These were translucent chips with a hairline — they read as labels, so
+   people looked past them. A button needs three things they lacked: a solid
+   surface of its own, elevation off the page, and a visible affordance. */
+.c3{left:0;right:0;top:36svh;display:flex;justify-content:center;align-items:stretch;
+  gap:clamp(9px,1.3vw,16px);flex-wrap:wrap;max-width:none;padding:0 22px}
+.c3 a{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;
+  font-family:var(--serif);font-weight:400;font-size:clamp(16px,1.75vw,21px);letter-spacing:.01em;
+  padding:15px 24px 34px;border-radius:14px;color:#1D2739;
+  background:#FFFDF9;border:1px solid rgba(169,104,62,.35);
+  box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 2px 5px rgba(61,41,23,.10),0 14px 30px rgba(61,41,23,.13);
+  transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s,border-color .25s,background .25s}
+/* the affordance: a copper "Shop" line that slides on approach */
+.c3 a::after{content:"Shop \2192";position:absolute;left:0;right:0;bottom:11px;
+  font:700 9.5px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:#A9683E;
+  opacity:.75;transition:opacity .25s,transform .25s}
+.c3 a:hover{transform:translateY(-4px);border-color:#A9683E;background:#fff;
+  box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 4px 10px rgba(61,41,23,.12),0 22px 44px rgba(169,104,62,.24)}
+.c3 a:hover::after{opacity:1;transform:translateX(3px)}
+.c3 a:active{transform:translateY(-1px)}
+.c3 a i{font-style:normal;display:block;font:700 9px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:#8D8778}
 .c4{left:clamp(20px,7vw,110px);bottom:9svh}
 .c4 h2{font-size:clamp(26px,3.4vw,44px)}
 .c4 .hz{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4.6vw,58px);color:var(--line);margin-top:6px;font-variant-numeric:tabular-nums}
 .c4 .hz small{font-size:.45em;letter-spacing:.08em}
-.c4 .lk{display:inline-block;margin-top:12px;font:600 11.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--tc);border-bottom:1px solid var(--line);padding-bottom:2px}
-.c4 .lk:hover{color:var(--line)}
+/* a text link on a hairline gets skipped; this is the page's main product
+   call, so it carries a filled surface and an arrow */
+.c4 .lk{display:inline-flex;align-items:center;gap:9px;margin-top:16px;
+  font:700 11.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#fff;
+  background:linear-gradient(160deg,#B87A4B,#A9683E 46%,#8F5330);
+  padding:14px 24px;border-radius:10px;border:none;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.26),0 3px 8px rgba(61,41,23,.24),0 16px 34px rgba(169,104,62,.30);
+  transition:transform .22s cubic-bezier(.16,1,.3,1),box-shadow .22s}
+.c4 .lk::after{content:"\2192";font-size:13px;transition:transform .22s}
+.c4 .lk:hover{color:#fff;transform:translateY(-2px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.26),0 5px 12px rgba(61,41,23,.22),0 22px 46px rgba(169,104,62,.42)}
+.c4 .lk:hover::after{transform:translateX(4px)}
+.c4 .lk:active{transform:translateY(0)}
 .c4 .disc{font-size:10.5px;color:var(--tc-soft);margin-top:14px;max-width:44ch;line-height:1.5}
 .c5{right:clamp(20px,7vw,110px);top:16svh;text-align:right}
 .c5 p{font-family:var(--serif);font-weight:300;font-size:clamp(20px,2.6vw,30px);text-wrap:balance}
@@ -251,8 +272,9 @@ html.static .fallback{display:block}
   .c1{top:30svh}.c4{bottom:7svh}
   .cap .sub{margin-top:10px}
   #lines path{stroke-width:1.4}
-  .c3{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;top:9svh;padding:0 20px}
-  .c3 a{padding:12px 8px;font-size:17px}
+  .c3{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;top:30svh;padding:0 20px}
+  .c3 a{padding:12px 8px 28px;font-size:17px}
+  .c3 a::after{bottom:9px;font-size:9px}
   .c3 a:nth-child(5){grid-column:1/-1;justify-self:center;min-width:62%}
   .c6{justify-content:flex-start;padding-top:52svh}
   .c6 h2{font-size:30px}
@@ -498,6 +520,17 @@ function sampleMark(){
       }
       host.removeChild(e);
     });
+    /* The mark is a closed swirl; the line reads left to right. Feeding the
+       swirl's own point order into that mapping made every point cross its
+       neighbours mid-morph — the scribble. Rotating each stroke to begin at
+       its leftmost point, and running it in the same direction as the line,
+       turns the same animation into a thread unwinding. */
+    var startI=0,minX=Infinity;
+    for(var q=0;q<pts.length;q++){if(pts[q][0]<minX){minX=pts[q][0];startI=q;}}
+    if(!brk.length){                       /* only rotate unbroken strokes */
+      pts=pts.slice(startI).concat(pts.slice(0,startI));
+      if(pts.length>2&&pts[1][0]<pts[0][0])pts.reverse();
+    }
     return {pts:pts,brk:brk.reduce(function(s,v){s[v]=1;return s;},{}),cx:ecx,cy:ecy};
   });
   var xs=MK[0].pts.map(function(q){return q[0];});
@@ -583,7 +616,9 @@ function frame(p,t){
   var wind=ease(win(p,.42,.56));          // wind into spiral
   var unwind=ease(win(p,.58,.66));        // leave the device
   var ringT=ease(win(p,.72,.86));         // close the ring
-  var amp=lerp(10,H*.06,wake)*(1-wind*.9);
+  /* the line stays calm while it is still becoming a line, then finds its
+     wobble — full organic motion during the morph reads as noise */
+  var amp=lerp(10,H*.06,wake)*(1-wind*.9)*lerp(.28,1,ease(morph));
 
 
   /* --- geometry --- */
@@ -618,7 +653,8 @@ function frame(p,t){
       if(mk&&morph<1){
         var px=(mk.pts[i][0]-mk.cx)*breathe, py=(mk.pts[i][1]-mk.cy)*breathe;
         var mx=mk.cx+px*ca-py*sa, my=mk.cy+px*sa+py*ca;
-        var mi=ease(clamp(morph*1.45-u*.45,0,1));   // the thread pulls loose from one end
+        /* a longer, softer stagger: the far end lets go last */
+        var mi=ease(clamp(morph*1.62-u*.62,0,1));
         X=lerp(mx,X,mi);Y=lerp(my,Y,mi);
       }
       if(wind>0){
