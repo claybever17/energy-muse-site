@@ -515,6 +515,10 @@ function frame(p,t){
   st.setProperty('--bgc',bg);st.setProperty('--tc',tc);st.setProperty('--tc-soft',ts);
   st.setProperty('--line',lc);st.setProperty('--glowo',Math.max(0,glow).toFixed(3));
   st.setProperty('--logo-body',lb);
+  /* on dark the mark goes monochrome — silver plus a mint drop read cheap */
+  var onDark=win(p,.60,.72);
+  st.setProperty('--logo-swirl',mix('#e0e0e0','#F1E7D8',onDark));
+  st.setProperty('--logo-drop',mix('#44b891','#E0A878',onDark));
 
   /* --- chapter windows --- */
   var morph=ease(win(p,.07,.23));         // the mark unravels into the line

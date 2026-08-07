@@ -562,6 +562,10 @@ function frame(p,t){
   var st=document.documentElement.style;
   st.setProperty('--bgc',bg);st.setProperty('--tc',tc);st.setProperty('--tc-soft',ts);
   st.setProperty('--line',lc);st.setProperty('--logo-body',lb);
+  /* on dark the mark goes monochrome — silver plus a mint drop read cheap */
+  var onDark=win(p,.60,.72);
+  st.setProperty('--logo-swirl',mix('#e0e0e0','#F1E7D8',onDark));
+  st.setProperty('--logo-drop',mix('#44b891','#E0A878',onDark));
   st.setProperty('--glowo',(win(p,GEN[0],GEN[1])*(1-win(p,.62,.78))*.5).toFixed(3));
 
   var morph=ease(win(p,MARK[0],MARK[1]));
