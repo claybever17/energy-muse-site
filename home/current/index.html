@@ -108,8 +108,9 @@ p{text-wrap:pretty}
 .c6{left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;max-width:none}
 .c6::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:-1;
   width:min(660px,84vw);height:360px;border-radius:50%;filter:blur(8px);
-  background:radial-gradient(closest-side,rgba(11,19,32,.78),rgba(11,19,32,.42) 58%,transparent 80%)}
-@media (max-width:700px){.c6::before{top:68%;height:340px;background:radial-gradient(closest-side,rgba(11,19,32,.9),rgba(11,19,32,.55) 58%,transparent 80%)}}
+  background:radial-gradient(closest-side,var(--scrim,rgba(251,248,242,.86)),
+    color-mix(in srgb,var(--scrim,rgba(251,248,242,.86)) 55%,transparent) 58%,transparent 80%)}
+@media (max-width:700px){.c6::before{top:68%;height:340px}}
 .c6 h2{font-size:clamp(32px,5vw,64px);max-width:16ch}
 .c6 .row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:30px}
 .btn{display:inline-flex;align-items:center;font:600 13px var(--sans);letter-spacing:.04em;padding:15px 30px;border-radius:2px;
@@ -123,62 +124,65 @@ p{text-wrap:pretty}
 /* ===== AFTER THE FILM =====
    The film is the experience; the page then has to sell. These bands pick
    up the dusk the film lands on rather than snapping back to paper. */
-.after{background:#0B1320;color:#C6CFDC;}
+/* the film has come back to daylight, so the shop under it is daylight */
+.after{background:#FBF8F2;color:#4E5A70;}
 .after .in{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,44px);}
-.after h2{font-family:var(--serif);font-weight:300;letter-spacing:-.02em;color:#F4EDE3;}
+.after h2{font-family:var(--serif);font-weight:300;letter-spacing:-.02em;color:#1D2739;}
 .after a{color:inherit}
 
 /* promo — a slot for whatever is new */
-.cpromo{border-top:1px solid #1D2A3D;padding:clamp(38px,5vw,64px) 0;}
+.cpromo{border-top:1px solid #E4DCCB;padding:clamp(38px,5vw,64px) 0;
+  background:linear-gradient(120deg,rgba(169,104,62,.09),transparent 62%);}
 .cpromo .in{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(22px,4vw,60px);align-items:center;}
 .cpromo .tag{display:inline-flex;font:700 10px var(--sans);letter-spacing:.24em;text-transform:uppercase;
-  color:#F0C79A;border:1px solid rgba(224,168,120,.45);border-radius:100px;padding:6px 13px;}
+  color:#fff;background:#A9683E;border-radius:100px;padding:6px 13px;}
 .cpromo h2{font-size:clamp(26px,3.3vw,44px);margin-top:14px;}
-.cpromo p{margin-top:10px;color:#9FADBF;max-width:44ch;font-size:15px;}
+.cpromo p{margin-top:10px;color:#4E5A70;max-width:44ch;font-size:15px;}
 .cpromo .row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:20px;}
-.cpromo .price{font-family:var(--serif);font-weight:300;font-size:25px;color:#F0C79A;}
-.cpromo .price s{font-size:.62em;color:#75839A;margin-right:8px;}
+.cpromo .price{font-family:var(--serif);font-weight:300;font-size:25px;color:#8F5330;}
+.cpromo .price s{font-size:.62em;color:#8D8778;margin-right:8px;}
 .cpromo .art{position:relative;display:flex;align-items:center;justify-content:center;}
 .cpromo .art img{width:min(72%,290px);border-radius:10px;
-  filter:drop-shadow(0 20px 34px rgba(0,0,0,.55));}
+  filter:drop-shadow(0 14px 28px rgba(61,41,23,.22));}
 
 /* store */
-.cstore{border-top:1px solid #1D2A3D;padding:clamp(40px,5.2vw,70px) 0;}
+.cstore{border-top:1px solid #E4DCCB;padding:clamp(40px,5.2vw,70px) 0;}
 .cstore .hd{text-align:center;margin-bottom:clamp(24px,3vw,38px);}
-.cstore .eyebrow{display:block;font:700 10px var(--sans);letter-spacing:.26em;text-transform:uppercase;color:#E0A878;}
+.cstore .eyebrow{display:block;font:700 10px var(--sans);letter-spacing:.26em;text-transform:uppercase;color:#A9683E;}
 .cstore h2{font-size:clamp(26px,3.3vw,42px);margin-top:10px;}
 .cstore .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.6vw,22px);}
-.cpc{display:flex;flex-direction:column;background:#111C2C;border:1px solid #22314A;border-radius:12px;
+.cpc{display:flex;flex-direction:column;background:#fff;border:1px solid #E4DCCB;border-radius:12px;
   padding:16px 16px 14px;transition:transform .3s cubic-bezier(.16,1,.3,1),border-color .3s;}
-.cpc:hover{transform:translateY(-4px);border-color:rgba(224,168,120,.5);}
+.cpc:hover{transform:translateY(-4px);border-color:#A9683E;box-shadow:0 14px 34px rgba(61,41,23,.12);}
 .cpc .shot{aspect-ratio:1;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
 .cpc .shot img{width:76%;height:auto;}
-.cpc .pn{font-family:var(--serif);font-weight:400;font-size:17px;color:#F4EDE3;line-height:1.2;}
-.cpc .pc{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#7E8CA1;margin-top:4px;}
+.cpc .pn{font-family:var(--serif);font-weight:400;font-size:17px;color:#1D2739;line-height:1.2;}
+.cpc .pc{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#8D8778;margin-top:4px;}
 .cpc .pf{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:12px;}
-.cpc .pp{font-family:var(--serif);font-size:18px;color:#F0C79A;}
+.cpc .pp{font-family:var(--serif);font-size:18px;color:#1D2739;}
 .cpc .padd{font:700 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
-  border:1px solid #33445F;background:transparent;color:#E7EEF6;border-radius:100px;padding:9px 14px;
+  border:1px solid rgba(29,39,57,.28);background:transparent;color:#1D2739;border-radius:100px;padding:9px 14px;
   transition:background .2s,border-color .2s,color .2s;}
 .cpc .padd:hover{background:#A9683E;border-color:#A9683E;color:#fff;}
 .cstore .more{display:flex;justify-content:center;margin-top:clamp(22px,2.6vw,34px);}
-.cstore .more a{font:700 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#F4EDE3;
-  border:1px solid #33445F;border-radius:100px;padding:13px 26px;}
-.cstore .more a:hover{border-color:#E0A878;color:#E0A878;}
+.cstore .more a{font:700 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#1D2739;
+  border:1px solid rgba(29,39,57,.28);border-radius:100px;padding:13px 26px;}
+.cstore .more a:hover{border-color:#A9683E;color:#A9683E;}
 
 /* email */
-.csub{border-top:1px solid #1D2A3D;padding:clamp(34px,4.4vw,58px) 0;}
+.csub{border-top:1px solid #E4DCCB;padding:clamp(34px,4.4vw,58px) 0;
+  background:color-mix(in srgb,#A9683E 4%,transparent);}
 .csub .in{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(18px,3vw,44px);align-items:center;}
 .csub h2{font-size:clamp(21px,2.5vw,30px);}
-.csub p{color:#9FADBF;margin-top:8px;font-size:14px;}
+.csub p{color:#4E5A70;margin-top:8px;font-size:14px;}
 .csub form{display:flex;gap:9px;}
-.csub input{flex:1;min-width:0;padding:13px 15px;border-radius:8px;border:1px solid #2A3A52;
-  background:rgba(255,255,255,.05);color:#F1EADF;font-family:var(--sans);font-size:14.5px;}
+.csub input{flex:1;min-width:0;padding:13px 15px;border-radius:8px;border:1px solid #E4DCCB;
+  background:#fff;color:#1D2739;font-family:var(--sans);font-size:14.5px;}
 .csub input:focus{outline:none;border-color:#E0A878;}
 .csub button{font:700 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:13px 20px;
   border:none;border-radius:8px;cursor:pointer;color:#fff;
   background:linear-gradient(160deg,#B87A4B,#A9683E 46%,#8F5330);}
-.csub .ok{font-size:14px;font-weight:600;color:#E0A878;}
+.csub .ok{font-size:14px;font-weight:600;color:#8F5330;}
 @media (max-width:860px){
   .cpromo .in,.csub .in{grid-template-columns:1fr;gap:18px;}
   .cpromo .art{order:-1;}
@@ -505,16 +509,23 @@ function sig(k,u,t,A){
 /* timeline params from progress p */
 function frame(p,t){
   /* --- day to dusk grade --- */
-  var bg=grade([[0,'#FBF8F2'],[.34,'#F4E7D3'],[.5,'#D9BC9B'],[.66,'#26324A'],[.86,'#0B1320']],p);
-  var tc=grade([[0,'#1D2739'],[.5,'#1D2739'],[.64,'#F1EADF']],p);
-  var ts=grade([[0,'#4E5A70'],[.5,'#5A5648'],[.64,'#AEB9C8']],p);
-  var lc=grade([[0,'#A9683E'],[.5,'#B87A4B'],[.68,'#E0A878']],p);
-  var lb=grade([[0,'#152445'],[.55,'#152445'],[.68,'#C6BFB2']],p);
-  var glow=win(p,.34,.5)*.9-win(p,.86,1)*.35;
+  /* Day → dusk → day. The dark is not the destination: it belongs to the
+     generator, where a lit coil needs a dark room. Once the device has had
+     its moment the light comes back up, so the shop below arrives in
+     daylight rather than in a night that never ends. */
+  var bg=grade([[0,'#FBF8F2'],[.30,'#F4E7D3'],[.44,'#C9A985'],[.55,'#26324A'],
+                [.66,'#0B1320'],[.74,'#4A4A52'],[.83,'#D9CDBB'],[.90,'#FBF8F2']],p);
+  var tc=grade([[0,'#1D2739'],[.46,'#1D2739'],[.56,'#F1EADF'],[.76,'#F1EADF'],[.86,'#1D2739']],p);
+  var ts=grade([[0,'#4E5A70'],[.46,'#5A5648'],[.56,'#AEB9C8'],[.76,'#AEB9C8'],[.86,'#4E5A70']],p);
+  var lc=grade([[0,'#A9683E'],[.46,'#B87A4B'],[.58,'#E0A878'],[.78,'#E0A878'],[.88,'#A9683E']],p);
+  var lb=grade([[0,'#152445'],[.50,'#152445'],[.60,'#C6BFB2'],[.78,'#C6BFB2'],[.88,'#152445']],p);
+  var glow=win(p,.34,.52)*.9*(1-win(p,.70,.84));
   var st=document.documentElement.style;
   st.setProperty('--bgc',bg);st.setProperty('--tc',tc);st.setProperty('--tc-soft',ts);
   st.setProperty('--line',lc);st.setProperty('--glowo',Math.max(0,glow).toFixed(3));
   st.setProperty('--logo-body',lb);
+  /* the finale scrim tracks the grade: dark while dark, paper once light */
+  st.setProperty('--scrim',p<.78?'rgba(11,19,32,.78)':'rgba(251,248,242,.9)');
   /* on dark the mark goes monochrome — silver plus a mint drop read cheap */
   var onDark=win(p,.60,.72);
   st.setProperty('--logo-swirl',mix('#e0e0e0','#F1E7D8',onDark));
