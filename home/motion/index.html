@@ -206,12 +206,22 @@ header.nav.solid::after{opacity:1;}
 .nav-in{display:flex;align-items:center;gap:26px;height:76px;}
 /* header: wordmark top-left, four links beside it, utilities right */
 @media (min-width:841px){
-  .nav-in{gap:clamp(24px,3.4vw,44px);}
+  .nav-in{gap:clamp(24px,3.4vw,44px);position:relative;}
   .nav-utils{margin-left:auto;}
   .brand .blogo{height:42px;}
   /* optical baseline: the wordmark's text sits low in the logo's box — nudge links to meet it */
   .nav-links,.nav-utils{transform:translateY(4px);}
 }
+/* The page has no centred column any more — the photography bleeds off both
+   edges and the splits are uneven — so links that merely sat "somewhere in
+   the middle" read as unanchored. Above 1100px they lock to the centre of
+   the viewport itself, which is the one axis the layout cannot move. */
+@media (min-width:1100px){
+  .nav-links{position:absolute;left:50%;transform:translate(-50%,4px);}
+}
+/* and the nav says where you are, so it belongs to the page it sits on */
+.nav-links a.here{color:var(--copper-lo);}
+.nav-links a.here::after{transform:translateX(-50%) scale(1);background:var(--copper);}
 .brand{display:flex;align-items:center;flex-shrink:0;perspective:640px;}
 @property --m-rot{syntax:'<angle>';initial-value:0deg;inherits:true;}
 .blogo{height:46px;width:auto;max-width:none;display:block;transform-origin:50% 60%;
@@ -1161,6 +1171,7 @@ p{text-wrap:pretty;}
 
 
 
+
 </style>
 
 
@@ -1742,6 +1753,19 @@ p{text-wrap:pretty;}
                ['#learn2','Learn'],['#veza','Veza']];
     var secs=marks.map(function(m){return [document.querySelector(m[0]),m[1]];})
                   .filter(function(m){return m[0];});
+    var navMap={'#intention':'#intention','#learn2':'#learn2'};
+    var navLinks=[].slice.call(document.querySelectorAll('.nav-links a'));
+    function markNav(){
+      var line=innerHeight*0.42, current=null;
+      secs.forEach(function(s){if(s[0].getBoundingClientRect().top<=line)current=s[0];});
+      navLinks.forEach(function(a){
+        var href=a.getAttribute('href')||'';
+        var on=current&&href.charAt(0)==='#'&&document.querySelector(href)===current;
+        a.classList.toggle('here',!!on);
+      });
+    }
+    addEventListener('scroll',markNav,{passive:true});
+
     var lastLabel='';
     function indexLabel(){
       if(!slabel||!secs.length)return;
@@ -1752,7 +1776,7 @@ p{text-wrap:pretty;}
         setTimeout(function(){slabel.textContent=best;slabel.style.opacity='1';},220);
       }
     }
-    addEventListener('scroll',indexLabel,{passive:true});indexLabel();
+    addEventListener('scroll',indexLabel,{passive:true});indexLabel();markNav();
 
     var sfill=document.getElementById('spinefill');
     function spine(){
