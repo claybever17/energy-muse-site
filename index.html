@@ -201,7 +201,15 @@ body.ann-off .ann{display:none;}
 header.nav{position:sticky;top:0;z-index:60;transition:background .3s,color .3s;}
 header.nav::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;opacity:0;transition:opacity .4s;
   background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--copper) 55%,transparent) 28% 72%,transparent);}
-header.nav.solid{background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);}
+/* A translucent bar pinned over a page that now bleeds photography and
+   oversized type turns every section into a collision. It stays put at the
+   top, hides the moment you scroll down to read, and returns the instant
+   you scroll back up — so it is present when you want it and gone when you
+   don't. Opaque when visible, so nothing shows through it. */
+header.nav{transition:transform .34s cubic-bezier(.16,1,.3,1),background .3s;}
+header.nav.hide{transform:translateY(-102%);}
+header.nav.solid{background:var(--bg);backdrop-filter:blur(12px);
+  box-shadow:0 1px 0 color-mix(in srgb,var(--hair) 80%,transparent),0 10px 30px rgba(61,41,23,.07);}
 header.nav.solid::after{opacity:1;}
 .nav-in{display:flex;align-items:center;gap:26px;height:76px;}
 /* header: wordmark top-left, four links beside it, utilities right */
@@ -340,18 +348,28 @@ body.menu-open{overflow:hidden;}
   border-left:2px solid var(--copper);}
 /* the generator visibly broadcasting: resonance ripples + a breathing core glow */
 .fq-waves{position:absolute;z-index:2;left:var(--fqx,50%);top:var(--fqy,76%);width:0;height:0;pointer-events:none;}
-.fqw{position:absolute;left:-200px;top:-200px;width:400px;height:400px;overflow:visible;}
+/* The rings were drawing straight across the plate, which is backwards:
+   energy leaves the device, it does not sit on top of it. The field is now
+   larger than the device and masked with a hole the size of it, so a ripple
+   is invisible until it has cleared the edge — it appears to come out of
+   the generator and travel into the room. */
+.fqw{position:absolute;left:-450px;top:-450px;width:900px;height:900px;overflow:visible;
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,transparent 0 30%,#000 37%,#000 100%);
+          mask-image:radial-gradient(circle at 50% 50%,transparent 0 30%,#000 37%,#000 100%);}
 .fqw path{fill:none;stroke:color-mix(in srgb,var(--copper-hi) 78%,transparent);stroke-width:1.4;
   vector-effect:non-scaling-stroke;transform-box:view-box;transform-origin:50% 50%;
   opacity:0;transform:scale(1.15);animation:fqRipple 5.6s cubic-bezier(.2,.55,.45,1) infinite;}
 /* Uniform rings on a uniform clock is what read as a heart monitor. Every
    ripple now carries its own duration, delay, drift and fade, so they never
    pulse in lockstep — water disturbed, not a readout. */
-.fqw path:nth-child(1){animation-duration:7.4s;animation-delay:0s;}
-.fqw path:nth-child(2){animation-duration:9.1s;animation-delay:1.9s;animation-name:fqRippleCCW;}
-.fqw path:nth-child(3){animation-duration:6.6s;animation-delay:3.4s;}
-.fqw path:nth-child(4){animation-duration:10.3s;animation-delay:5.1s;animation-name:fqRippleCCW;}
-.fqw path:nth-child(5){animation-duration:8.2s;animation-delay:6.7s;}
+/* three releases per cycle with a held beat between them, rather than a
+   continuous churn — the pause is what makes the device feel like it is
+   gathering before it gives */
+.fqw path:nth-child(1){animation-duration:9s;animation-delay:0s;}
+.fqw path:nth-child(2){animation-duration:9s;animation-delay:1.1s;animation-name:fqRippleCCW;}
+.fqw path:nth-child(3){animation-duration:9s;animation-delay:2.3s;}
+.fqw path:nth-child(4){animation-duration:9s;animation-delay:4.9s;animation-name:fqRippleCCW;}
+.fqw path:nth-child(5){animation-duration:9s;animation-delay:6.0s;}
 .fqw path:nth-child(odd){stroke-width:1.5;}
 .fqw path:nth-child(even){stroke-width:1.1;opacity:.8;}
 /* it swells quickly, then spends most of its life easing away and thinning */
@@ -359,10 +377,16 @@ body.menu-open{overflow:hidden;}
   9%{opacity:.62}34%{opacity:.4}68%{opacity:.16}100%{opacity:0;transform:scale(3.05) rotate(11deg)}}
 @keyframes fqRippleCCW{0%{opacity:0;transform:scale(1.1) rotate(4deg)}
   11%{opacity:.55}38%{opacity:.34}70%{opacity:.13}100%{opacity:0;transform:scale(2.82) rotate(-13deg)}}
-.fq-core{position:absolute;left:0;top:0;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,218,156,.6),rgba(196,133,90,.24) 55%,transparent 72%);
-  filter:blur(2px);animation:fqPulse 2.8s ease-in-out infinite;}
-@keyframes fqPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.95;transform:scale(1.22)}}
+.fq-core{position:absolute;left:0;top:0;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,224,170,.62),rgba(214,150,96,.26) 46%,transparent 70%);
+  filter:blur(9px);animation:fqPulse 9s cubic-bezier(.4,0,.3,1) infinite;}
+/* swells slowly, holds at the top of the breath, then lets go as the rings leave */
+@keyframes fqPulse{
+  0%{opacity:.34;transform:scale(.86)}
+  26%{opacity:.95;transform:scale(1.16)}
+  44%{opacity:.9;transform:scale(1.12)}
+  70%{opacity:.42;transform:scale(.95)}
+  100%{opacity:.34;transform:scale(.86)}}
 @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
 @keyframes floatY2{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -588,9 +612,18 @@ body.menu-open{overflow:hidden;}
      clipping all of them sliced the corners off the 45deg-rotated generator.
      The frequency band keeps its media inside the column and stays visible. */
   .hero,.section:not(.freq){overflow-x:clip;}
-  .section.freq{overflow:visible;}
+  /* clip sideways so the wide resonance field cannot push the page, but
+     leave the vertical alone so nothing slices the device */
+  .section.freq{overflow-x:clip;overflow-y:visible;}
+  /* the device sits right, the copy keeps the left — it was crowding the
+     headline in the middle of the band */
+  .section.freq .split.rev{grid-template-columns:.82fr 1.18fr;align-items:center;}
+  /* no justify-self:end here — the media's children are absolutely
+     positioned, so shrink-to-fit collapsed it to zero width. It stretches
+     to fill the right-hand column, which is what moves it right. */
   .section.freq .split .media,.section.freq .split.rev .media{
     margin-left:0;margin-right:0;width:auto;max-width:100%;}
+  .section.freq .split.rev .copy{margin-right:0;padding-right:clamp(10px,2vw,30px);}
   .split .media{margin-left:calc((100vw - 100%) / -2);
     width:calc(100% + (100vw - 1240px) / 2 + var(--gutter));max-width:none;}
   .split.rev{grid-template-columns:.72fr 1.28fr;}
@@ -1575,6 +1608,23 @@ p{text-wrap:pretty;}
     }
     addEventListener('scroll',turn,{passive:true});
     addEventListener('resize',turn);turn();
+  })();
+
+  /* the header retreats while you read and returns when you scroll back */
+  (function(){
+    var nav=document.querySelector('header.nav');
+    if(!nav)return;
+    var last=scrollY,ticking=false;
+    function upd(){
+      ticking=false;
+      var y=scrollY,down=y>last+4,up=y<last-4;
+      if(down&&y>200)nav.classList.add('hide');
+      else if(up||y<=200)nav.classList.remove('hide');
+      if(down||up)last=y;
+    }
+    addEventListener('scroll',function(){
+      if(!ticking){ticking=true;requestAnimationFrame(upd);}
+    },{passive:true});
   })();
 
   /* the spine fills with reading progress */
