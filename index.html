@@ -570,7 +570,13 @@ body.menu-open{overflow:hidden;}
   /* --bleed is the gap between the content column and the page edge; a few
      extra pixels guarantee we land on it, and the section clips the excess
      so a classic scrollbar can never appear */
-  .hero,.section{overflow-x:clip;}
+  /* Only sections whose photography bleeds off the page get clipped —
+     clipping all of them sliced the corners off the 45deg-rotated generator.
+     The frequency band keeps its media inside the column and stays visible. */
+  .hero,.section:not(.freq){overflow-x:clip;}
+  .section.freq{overflow:visible;}
+  .section.freq .split .media,.section.freq .split.rev .media{
+    margin-left:0;margin-right:0;width:auto;max-width:100%;}
   .split .media{margin-left:calc((100vw - 100%) / -2);
     width:calc(100% + (100vw - 1240px) / 2 + var(--gutter));max-width:none;}
   .split.rev{grid-template-columns:.72fr 1.28fr;}
@@ -1660,11 +1666,11 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
   <div class="verspop" id="verspop" aria-label="Design directions">
     <div class="vp-label">Design directions</div>
     <nav class="vp-list">
-      <a href="/"><span class="vp-ico"><svg viewBox="0 0 26 24" aria-hidden="true"><path d="M3 6h20M3 12h13M3 18h20"/></svg></span><span class="vp-txt"><strong>Classic</strong><span>the main homepage</span></span></a>
-      <a href="/home/motion/"><span class="vp-ico"><svg viewBox="0 0 26 24" aria-hidden="true"><path d="M4 7h18M2 13h13M6 19h16"/><path d="M22 13h3" opacity=".5"/></svg></span><span class="vp-txt"><strong>Motion</strong><span>glides in as you scroll</span></span></a>
-      <a href="/home/current/"><span class="vp-ico"><svg viewBox="0 0 26 24" aria-hidden="true"><path d="M2 12c4-7 7 7 11 0s7-7 11 0"/></svg></span><span class="vp-txt"><strong>Current</strong><span>energy, visualized</span></span></a>
-      <a href="/home/cascade/"><span class="vp-ico"><svg viewBox="0 0 26 24" aria-hidden="true"><path d="M6 3v6M13 2v8M20 4v5"/><circle cx="6" cy="12" r="1.6"/><circle cx="13" cy="13.5" r="1.6"/><circle cx="20" cy="11" r="1.6"/><path d="M3 20h20" opacity=".55"/></svg></span><span class="vp-txt"><strong>Cascade</strong><span>crystal rain</span></span></a>
-      <a href="/home/crystallize/"><span class="vp-ico"><svg viewBox="0 0 26 24" aria-hidden="true"><path d="M2 9c4-6 7 6 11 0s7-6 11 0"/><circle cx="13" cy="13.5" r="1.7"/><path d="M13 16v3" opacity=".5"/><path d="M4 21h18" opacity=".55"/></svg></span><span class="vp-txt"><strong>Crystallize</strong><span>energy takes form</span></span></a>
+      <a href="/"><span class="vp-ico"><svg viewBox="0 0 26 24" aria-hidden="true"><path d="M3 6h20M3 12h13M3 18h20"/></svg></span><span class="vp-txt"><strong>1 · Classic</strong><span>the main homepage</span></span></a>
+      <a href="/home/motion/"><span class="vp-ico"><svg viewBox="0 0 26 24" aria-hidden="true"><path d="M4 7h18M2 13h13M6 19h16"/><path d="M22 13h3" opacity=".5"/></svg></span><span class="vp-txt"><strong>2 · Motion</strong><span>glides in as you scroll</span></span></a>
+      <a href="/home/current/"><span class="vp-ico"><svg viewBox="0 0 26 24" aria-hidden="true"><path d="M2 12c4-7 7 7 11 0s7-7 11 0"/></svg></span><span class="vp-txt"><strong>3 · Current</strong><span>energy, visualized</span></span></a>
+      <a href="/home/cascade/"><span class="vp-ico"><svg viewBox="0 0 26 24" aria-hidden="true"><path d="M6 3v6M13 2v8M20 4v5"/><circle cx="6" cy="12" r="1.6"/><circle cx="13" cy="13.5" r="1.6"/><circle cx="20" cy="11" r="1.6"/><path d="M3 20h20" opacity=".55"/></svg></span><span class="vp-txt"><strong>4 · Cascade</strong><span>crystal rain</span></span></a>
+      <a href="/home/crystallize/"><span class="vp-ico"><svg viewBox="0 0 26 24" aria-hidden="true"><path d="M2 9c4-6 7 6 11 0s7-6 11 0"/><circle cx="13" cy="13.5" r="1.7"/><path d="M13 16v3" opacity=".5"/><path d="M4 21h18" opacity=".55"/></svg></span><span class="vp-txt"><strong>5 · Crystallize</strong><span>energy takes form</span></span></a>
     </nav>
     <div class="vp-div"></div>
     <div class="vp-label">Try it</div>

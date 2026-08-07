@@ -20,11 +20,11 @@ var SIG={
   atelier:'<circle cx="13" cy="12" r="7.5" opacity=".45"/><circle cx="13" cy="4.5" r="2"/><circle cx="19.4" cy="8.2" r="2"/><circle cx="19.4" cy="15.8" r="2"/><circle cx="13" cy="19.5" r="2"/><circle cx="6.6" cy="15.8" r="2"/><circle cx="6.6" cy="8.2" r="2"/>'
 };
 var VERSIONS=[
-  ['/','Classic','the main homepage',SIG.classic],
-  ['/home/motion/','Motion','glides in as you scroll',SIG.motion],
-  ['/home/current/','Current','energy, visualized',SIG.current],
-  ['/home/cascade/','Cascade','crystal rain',SIG.cascade],
-  ['/home/crystallize/','Crystallize','energy takes form',SIG.crystallize]
+  ['/','1 · Classic','the main homepage',SIG.classic],
+  ['/home/motion/','2 · Motion','glides in as you scroll',SIG.motion],
+  ['/home/current/','3 · Current','energy, visualized',SIG.current],
+  ['/home/cascade/','4 · Cascade','crystal rain',SIG.cascade],
+  ['/home/crystallize/','5 · Crystallize','energy takes form',SIG.crystallize]
 ];
 var TOOLS=[
   ['/designer/','Atelier','design your own bracelet',SIG.atelier]

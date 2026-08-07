@@ -42,8 +42,13 @@ p{text-wrap:pretty}
   padding:18px clamp(20px,4vw,44px);pointer-events:none}
 .brandbar a{pointer-events:auto}
 .blogo{height:34px;width:auto;aspect-ratio:1167/247.5;display:block;color:var(--tc);transition:color .4s}
-.bb-quiz{font:600 11.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--tc-soft);
+/* the film still needs to work as a shop: the nav reads at full weight */
+.bb-nav{display:flex;gap:clamp(14px,2vw,28px);pointer-events:auto}
+.bb-nav a{font:600 13.5px var(--sans);letter-spacing:.01em;color:var(--tc);transition:color .25s}
+.bb-nav a:hover{color:var(--line)}
+.bb-quiz{font:700 11.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--tc);
   border-bottom:1px solid var(--line);padding-bottom:2px}
+@media (max-width:820px){.bb-nav{display:none}}
 .bb-quiz:hover{color:var(--line)}
 
 /* the film */
@@ -115,6 +120,75 @@ p{text-wrap:pretty}
 .btn-g{background:transparent;color:var(--tc);border-color:color-mix(in srgb,var(--tc) 40%,transparent)}
 .btn-g:hover{border-color:var(--tc)}
 
+/* ===== AFTER THE FILM =====
+   The film is the experience; the page then has to sell. These bands pick
+   up the dusk the film lands on rather than snapping back to paper. */
+.after{background:#0B1320;color:#C6CFDC;}
+.after .in{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,44px);}
+.after h2{font-family:var(--serif);font-weight:300;letter-spacing:-.02em;color:#F4EDE3;}
+.after a{color:inherit}
+
+/* promo — a slot for whatever is new */
+.cpromo{border-top:1px solid #1D2A3D;padding:clamp(38px,5vw,64px) 0;}
+.cpromo .in{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(22px,4vw,60px);align-items:center;}
+.cpromo .tag{display:inline-flex;font:700 10px var(--sans);letter-spacing:.24em;text-transform:uppercase;
+  color:#F0C79A;border:1px solid rgba(224,168,120,.45);border-radius:100px;padding:6px 13px;}
+.cpromo h2{font-size:clamp(26px,3.3vw,44px);margin-top:14px;}
+.cpromo p{margin-top:10px;color:#9FADBF;max-width:44ch;font-size:15px;}
+.cpromo .row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:20px;}
+.cpromo .price{font-family:var(--serif);font-weight:300;font-size:25px;color:#F0C79A;}
+.cpromo .price s{font-size:.62em;color:#75839A;margin-right:8px;}
+.cpromo .art{position:relative;display:flex;align-items:center;justify-content:center;}
+.cpromo .art img{width:min(72%,290px);border-radius:10px;
+  filter:drop-shadow(0 20px 34px rgba(0,0,0,.55));}
+
+/* store */
+.cstore{border-top:1px solid #1D2A3D;padding:clamp(40px,5.2vw,70px) 0;}
+.cstore .hd{text-align:center;margin-bottom:clamp(24px,3vw,38px);}
+.cstore .eyebrow{display:block;font:700 10px var(--sans);letter-spacing:.26em;text-transform:uppercase;color:#E0A878;}
+.cstore h2{font-size:clamp(26px,3.3vw,42px);margin-top:10px;}
+.cstore .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.6vw,22px);}
+.cpc{display:flex;flex-direction:column;background:#111C2C;border:1px solid #22314A;border-radius:12px;
+  padding:16px 16px 14px;transition:transform .3s cubic-bezier(.16,1,.3,1),border-color .3s;}
+.cpc:hover{transform:translateY(-4px);border-color:rgba(224,168,120,.5);}
+.cpc .shot{aspect-ratio:1;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.cpc .shot img{width:76%;height:auto;}
+.cpc .pn{font-family:var(--serif);font-weight:400;font-size:17px;color:#F4EDE3;line-height:1.2;}
+.cpc .pc{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#7E8CA1;margin-top:4px;}
+.cpc .pf{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:12px;}
+.cpc .pp{font-family:var(--serif);font-size:18px;color:#F0C79A;}
+.cpc .padd{font:700 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
+  border:1px solid #33445F;background:transparent;color:#E7EEF6;border-radius:100px;padding:9px 14px;
+  transition:background .2s,border-color .2s,color .2s;}
+.cpc .padd:hover{background:#A9683E;border-color:#A9683E;color:#fff;}
+.cstore .more{display:flex;justify-content:center;margin-top:clamp(22px,2.6vw,34px);}
+.cstore .more a{font:700 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#F4EDE3;
+  border:1px solid #33445F;border-radius:100px;padding:13px 26px;}
+.cstore .more a:hover{border-color:#E0A878;color:#E0A878;}
+
+/* email */
+.csub{border-top:1px solid #1D2A3D;padding:clamp(34px,4.4vw,58px) 0;}
+.csub .in{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(18px,3vw,44px);align-items:center;}
+.csub h2{font-size:clamp(21px,2.5vw,30px);}
+.csub p{color:#9FADBF;margin-top:8px;font-size:14px;}
+.csub form{display:flex;gap:9px;}
+.csub input{flex:1;min-width:0;padding:13px 15px;border-radius:8px;border:1px solid #2A3A52;
+  background:rgba(255,255,255,.05);color:#F1EADF;font-family:var(--sans);font-size:14.5px;}
+.csub input:focus{outline:none;border-color:#E0A878;}
+.csub button{font:700 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:13px 20px;
+  border:none;border-radius:8px;cursor:pointer;color:#fff;
+  background:linear-gradient(160deg,#B87A4B,#A9683E 46%,#8F5330);}
+.csub .ok{font-size:14px;font-weight:600;color:#E0A878;}
+@media (max-width:860px){
+  .cpromo .in,.csub .in{grid-template-columns:1fr;gap:18px;}
+  .cpromo .art{order:-1;}
+  .cstore .grid{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:560px){
+  .cpc .pf{flex-direction:column;align-items:stretch;gap:8px;}
+  .cpc .padd{width:100%;}
+}
+
 /* post-film footer */
 .cfoot{background:#0B1320;color:#B4C0D0;padding:40px clamp(20px,4vw,44px) 34px;text-align:center;font-size:12.5px}
 .cfoot .links{display:flex;gap:8px 24px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
@@ -173,7 +247,13 @@ html.static .fallback{display:block}
 
 <div class="brandbar">
   <a href="../../" aria-label="Energy Muse home"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo"/></svg></a>
-  <a class="bb-quiz" href="../../quiz/">Take the Energy Quiz</a>
+  <nav class="bb-nav">
+    <a href="../../quiz/">Start Here</a>
+    <a href="../../gems/">Shop</a>
+    <a href="#shop">By Intention</a>
+    <a href="../../generator/">Frequency</a>
+  </nav>
+  <a class="bb-quiz bag" href="../../gems/">Bag&nbsp;(0)</a>
 </div>
 
 <svg id="mksrc" viewBox="0 0 231.33 238.67" style="position:absolute;width:0;height:0;visibility:hidden" aria-hidden="true"><path id="mk0" d="M190.5,189.78c-31.47,34.37-81.82,42.71-122.32,21.22-27.62-14.65-46.73-41.52-52.64-69.96-7.48-36.05,4.02-73.41,32.42-99.17,21.07-19.11,47.83-27.9,76.41-25.64,20.11,1.59,39.11,9.16,54.56,21.91,3.46,2.86,6.54,5.38,9.57,8.56,38.14,40.05,39.83,101.74,1.99,143.08ZM78.79,179.9c5.79,7.06,13.04,11.43,22.12,13.24,19.2,3.84,38.84-.55,55.55-10.91,29.03-17.98,42.78-50.33,39.88-84.29-3.17-37.1-31.15-67.2-68.24-72.09-4.79-.63-9.09-.96-14.66.35,20.78,4.81,36.06,16.44,35.82,41.81-.11,11.35-1.96,22.44-9.2,31.49-7.28,9.09-15.29,13.33-25.03,19.07-10.51,6.2-20.7,12.26-30.15,19.94-13.07,10.62-16.61,28.55-6.09,41.39ZM64.19,125.46c4.91-4.01,9.64-7.75,14.76-11.43,11.66-8.38,21.05-14.26,23.07-30.52.17-7.96-2.49-16.33-8.68-22-10.58-9.68-26.8-9.43-37.85.02-27.94,23.93-29.6,71.37-3.11,97.33l-.32-8.07c-.4-10.18,4.14-18.82,12.12-25.33Z" fill="none"/><path id="mk1" d="M78.79,179.9c-10.52-12.84-6.98-30.77,6.09-41.39,9.44-7.68,19.64-13.74,30.15-19.94,9.73-5.74,17.75-9.98,25.03-19.07,7.24-9.05,9.09-20.14,9.2-31.49.25-25.38-15.03-37-35.82-41.81,5.57-1.31,9.86-.98,14.66-.35,37.09,4.89,65.07,34.99,68.24,72.09,2.9,33.96-10.85,66.3-39.88,84.29-16.71,10.36-36.35,14.74-55.55,10.91-9.07-1.81-16.33-6.18-22.12-13.24Z" fill="none"/><path id="mk2" d="M64.19,125.46c-7.98,6.51-12.52,15.15-12.12,25.33l.32,8.07c-26.49-25.96-24.83-73.4,3.11-97.33,11.04-9.46,27.26-9.71,37.85-.02,6.2,5.67,8.85,14.04,8.68,22-2.03,16.26-11.41,22.14-23.07,30.52-5.12,3.68-9.86,7.43-14.76,11.43Z" fill="none"/></svg>
@@ -237,6 +317,88 @@ html.static .fallback{display:block}
     <a class="btn btn-c" href="../../quiz/">Find My Energy Match</a>
     <a class="btn btn-g" href="../../">Back to the site</a>
   </div>
+</div>
+
+
+<!-- ===== AFTER THE FILM =====
+     The film sells the idea; these bands sell the product. Promo first,
+     then the shop, then capture. All of it is content the client can edit. -->
+<div class="after">
+  <section class="cpromo" id="promo" aria-label="New release">
+    <div class="in">
+      <div>
+        <span class="tag">Just landed</span>
+        <h2>The 528&#8239;Hz Generator, in Copper.</h2>
+        <p>The same tuned 528&#8239;Hz coil in a new hand-finished copper housing &mdash; a warmer body, built to be left out on the shelf.</p>
+        <div class="row">
+          <span class="price"><s>$248.88</s>$219.88</span>
+          <a class="btn btn-c" href="../../generator/">Shop the generator</a>
+        </div>
+      </div>
+      <div class="art"><img src="../../assets/img/generator-render.jpg" alt="The Energy Muse frequency generator in a copper housing" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="cstore" id="shop" aria-label="Shop crystals">
+    <div class="in">
+      <div class="hd">
+        <span class="eyebrow">The shop</span>
+        <h2>Start with one stone.</h2>
+      </div>
+      <div class="grid">
+        <article class="cpc">
+          <a class="shot" href="../../gems/" aria-label="Tiger's Eye Diamond"><img src="../../assets/img/products/power.png" alt="Tiger's Eye Diamond" loading="lazy"></a>
+          <div class="pn">Tiger's Eye Diamond</div><div class="pc">Protection</div>
+          <div class="pf"><span class="pp">$39.88</span>
+            <button class="padd" type="button" data-id="power" data-n="Tiger's Eye Diamond" data-p="39.88" data-img="/assets/img/products/power.png">Add</button></div>
+        </article>
+        <article class="cpc">
+          <a class="shot" href="../../gems/" aria-label="Pyrite Cube"><img src="../../assets/img/products/wealth.png" alt="Pyrite Cube" loading="lazy"></a>
+          <div class="pn">Pyrite Cube</div><div class="pc">Abundance</div>
+          <div class="pf"><span class="pp">$24.88</span>
+            <button class="padd" type="button" data-id="wealth" data-n="Pyrite Cube" data-p="24.88" data-img="/assets/img/products/wealth.png">Add</button></div>
+        </article>
+        <article class="cpc">
+          <a class="shot" href="../../gems/" aria-label="Rose Quartz Heart"><img src="../../assets/img/products/rose-heart.png" alt="Rose Quartz Heart" loading="lazy"></a>
+          <div class="pn">Rose Quartz Heart</div><div class="pc">Love</div>
+          <div class="pf"><span class="pp">$12.88</span>
+            <button class="padd" type="button" data-id="rose-heart" data-n="Rose Quartz Heart" data-p="12.88" data-img="/assets/img/products/rose-heart.png">Add</button></div>
+        </article>
+        <article class="cpc">
+          <a class="shot" href="../../gems/" aria-label="Malachite Crystal Point"><img src="../../assets/img/products/malachite.png" alt="Malachite Crystal Point" loading="lazy"></a>
+          <div class="pn">Malachite Crystal Point</div><div class="pc">Abundance</div>
+          <div class="pf"><span class="pp">$34.88</span>
+            <button class="padd" type="button" data-id="malachite" data-n="Malachite Crystal Point" data-p="34.88" data-img="/assets/img/products/malachite.png">Add</button></div>
+        </article>
+        <article class="cpc">
+          <a class="shot" href="../../gems/" aria-label="Blue Sky Agate Point"><img src="../../assets/img/products/blue-agate.png" alt="Blue Sky Agate Point" loading="lazy"></a>
+          <div class="pn">Blue Sky Agate Point</div><div class="pc">Calm</div>
+          <div class="pf"><span class="pp">$48.88</span>
+            <button class="padd" type="button" data-id="blue-agate" data-n="Blue Sky Agate Point" data-p="48.88" data-img="/assets/img/products/blue-agate.png">Add</button></div>
+        </article>
+        <article class="cpc">
+          <a class="shot" href="../../gems/" aria-label="Clear Quartz Pyramid"><img src="../../assets/img/products/fresh-start.png" alt="Clear Quartz Pyramid" loading="lazy"></a>
+          <div class="pn">Clear Quartz Pyramid</div><div class="pc">Clarity</div>
+          <div class="pf"><span class="pp">$18.88</span>
+            <button class="padd" type="button" data-id="fresh-start" data-n="Clear Quartz Pyramid" data-p="18.88" data-img="/assets/img/products/fresh-start.png">Add</button></div>
+        </article>
+      </div>
+      <div class="more"><a href="../../gems/">Shop all crystals</a></div>
+    </div>
+  </section>
+
+  <section class="csub" aria-label="Email signup">
+    <div class="in">
+      <div>
+        <h2>One practice, once a week.</h2>
+        <p>A short note on what to work with &mdash; and first access to new releases.</p>
+      </div>
+      <form novalidate data-sub>
+        <input type="email" placeholder="you@email.com" aria-label="Email address" required>
+        <button type="submit">Join</button>
+      </form>
+    </div>
+  </section>
 </div>
 
 <footer class="cfoot">
@@ -492,6 +654,36 @@ addEventListener('scroll',step,{passive:true});   // immediate scrub even when r
 window.__film={go:function(p){var total=film.offsetHeight-innerHeight;scrollTo(0,film.offsetTop+p*total);step();},step:step};
 })();
 </script>
-<script src="../../assets/em-versions.js" defer></script>
+<script src="../../assets/em-bag.js" defer></script>
+<script>
+/* the shop under the film */
+document.addEventListener('DOMContentLoaded',function(){
+  [].forEach.call(document.querySelectorAll('.padd'),function(b){
+    b.addEventListener('click',function(){
+      if(!window.EMBag)return;
+      EMBag.add({id:b.dataset.id,name:b.dataset.n,price:parseFloat(b.dataset.p),
+        img:b.dataset.img,link:'/gems/'});
+      var was=b.textContent;b.textContent='Added';b.disabled=true;
+      setTimeout(function(){b.textContent=was;b.disabled=false;},1400);
+    });
+  });
+  var fm=document.querySelector('form[data-sub]');
+  if(fm)fm.addEventListener('submit',function(e){
+    e.preventDefault();
+    var i=fm.querySelector('input');
+    if(!i||!i.value||i.value.indexOf('@')<0){i&&i.focus();return;}
+    fm.parentNode.innerHTML='<p class="ok">Thank you \u2014 check your inbox to confirm.</p>';
+  });
+  /* the mark is a lowercase "e" — turn it upright as the film plays */
+  var root=document.documentElement;
+  function turn(){
+    var p=Math.min(1,Math.max(0,scrollY/(innerHeight*1.6)));
+    var e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+    root.style.setProperty('--m-rot',(e*90).toFixed(2)+'deg');
+  }
+  addEventListener('scroll',turn,{passive:true});turn();
+});
+</script>
+<script src="../../assets/em-versions.js?v=2" defer></script>
 <script src="/assets/em-depth.js?v=2" defer></script>
 </body></html>
