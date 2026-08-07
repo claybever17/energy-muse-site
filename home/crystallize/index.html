@@ -75,11 +75,13 @@ p{text-wrap:pretty}
 /* The landing is a title card: the mark alone at the top of the frame, the
    line beneath it. It opens centred on the mark and closes centred on the
    mark inside the ring — the film is a round trip. */
-.c1{left:0;right:0;top:20svh;max-width:none;text-align:center;padding:0 clamp(22px,6vw,60px)}
-.c1 h1{font-size:clamp(38px,4.8vw,64px);line-height:1.08;max-width:16ch;margin:0 auto}
+.c1{left:0;right:0;top:clamp(54px,13svh,150px);max-width:none;text-align:center;padding:0 clamp(22px,6vw,60px)}
+/* vmin, not vw — a short window shrinks the type as well as a narrow one */
+.c1 h1{font-size:clamp(30px,5.4vmin,62px);line-height:1.08;max-width:16ch;margin:0 auto}
 .c1 h1 em{font-style:italic;color:var(--line)}
-.c1 .sub{margin-top:14px;font-size:clamp(16px,1.7vw,19px)}
-.c1 .rule{width:30px;height:1px;background:var(--line);opacity:.5;margin:26px auto 0}
+.c1 .sub{margin-top:clamp(8px,1.6vmin,14px);font-size:clamp(14px,2.1vmin,19px)}
+/* the hairline collided with the mark on short windows */
+.c1 .rule{display:none}
 .scue{position:absolute;left:0;right:0;text-align:center;bottom:6svh;font:600 10px var(--sans);
   letter-spacing:.24em;text-transform:uppercase;color:var(--tc-soft);opacity:0;z-index:3}
 .c2{left:clamp(20px,7vw,110px);top:38svh;max-width:min(440px,80vw)}
@@ -152,10 +154,8 @@ html.static .film,html.static .brandbar{display:none}
 html.static .fallback{display:block}
 @media (prefers-reduced-motion:reduce){.film,.brandbar{display:none}.fallback{display:block}}
 @media (max-width:700px){
-  .c1{top:23svh}
-  .c1 h1{font-size:32px;max-width:13ch}
-  .c1 .sub{font-size:16px;margin-top:12px}
-  .c1 .rule{margin-top:22px}
+  .c1{top:clamp(50px,11svh,120px)}
+  .c1 h1{max-width:13ch}
   .c2{top:36svh}
   .c3{bottom:9svh}
   .c3 .disc{display:none}
@@ -441,8 +441,22 @@ var FAR=[];
 /* ---------- layout ---------- */
 var W,H,dpr,mob,N=160,MK=null;
 function sampleMark(){
-  var vb=[231.33,238.67],scale=Math.min(W,H)*(W>700?0.40:0.70)/vb[1];
-  var ecx=W*0.5, ecy=W>700?H*0.625:H*0.615; /* the line reads first, the mark answers below it */
+  /* Self-fitting lockup. Hard-coded offsets only work for the window shape
+     you designed in — on a short one the type and the mark collide or run
+     off the top. So: size the mark by the SMALLER viewport dimension (a
+     short window shrinks it too), then measure the real height of the text
+     block and seat the mark in whatever room is actually left below it. */
+  var vb=[231.33,238.67];
+  var c1el=document.getElementById('c1');
+  var textBottom=H*0.30;
+  if(c1el){var cr=c1el.getBoundingClientRect();
+    if(cr.height)textBottom=cr.top+cr.height;}
+  var gap=Math.max(16,H*0.04);
+  var cue=Math.max(26,H*0.06);                 /* keep the scroll cue clear */
+  var room=Math.max(70,H-textBottom-gap-cue);
+  var markH=Math.min(Math.min(W,H)*(W>700?0.42:0.72),room);
+  var scale=markH/vb[1];
+  var ecx=W*0.5, ecy=textBottom+gap+markH/2;
   var host=document.getElementById('mksrc'),NS='http://www.w3.org/2000/svg';
   MK=[0,1,2].map(function(i){
     var subs=document.getElementById('mk'+i).getAttribute('d').split(/(?=M)/);
