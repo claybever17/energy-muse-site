@@ -94,7 +94,6 @@ p{margin:0;}
 em.hl{font-style:italic;font-family:var(--serif);color:var(--copper);font-weight:400;}
 /* gem words: a slow light sweep lives inside the letterforms */
 .gemword{color:var(--copper)}
-50%{background-position:90% 0}}
 
 /* ===== Buttons ===== */
 .btn{display:inline-flex;align-items:center;gap:.6em;font-family:var(--sans);font-weight:600;font-size:14px;
@@ -335,14 +334,9 @@ body.menu-open{overflow:hidden;}
   background:radial-gradient(circle,rgba(255,224,170,.62),rgba(214,150,96,.26) 46%,transparent 70%);
   filter:blur(9px);animation:fqPulse 9s cubic-bezier(.4,0,.3,1) infinite;}
 /* swells slowly, holds at the top of the breath, then lets go as the rings leave */
-@keyframes fqPulse{
-  0%{opacity:.34;transform:scale(.86)}
-  26%{opacity:.95;transform:scale(1.16)}
-  44%{opacity:.9;transform:scale(1.12)}
-  70%{opacity:.42;transform:scale(.95)}
-  100%{opacity:.34;transform:scale(.86)}}
-50%{transform:translateY(-14px)}}
-50%{transform:translateY(-9px)}}
+/* swells slowly, holds at the top of the breath, then lets go as the rings leave */
+@keyframes fqPulse{0%{opacity:.34;transform:scale(.86)}26%{opacity:.95;transform:scale(1.16)}
+  44%{opacity:.9;transform:scale(1.12)}70%{opacity:.42;transform:scale(.95)}100%{opacity:.34;transform:scale(.86)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(8px,-10px)}}
 .hero-copy{max-width:680px;padding-block:clamp(36px,6vh,72px);}
@@ -1104,6 +1098,7 @@ p{text-wrap:pretty;}
   .steps-zone.reveal .step,.steps-zone.reveal .step .rn,.duo-card.reveal,.reels.reveal .reel{
     opacity:1;transform:none;filter:none;transition:none;}
 }
+
 
 
 
