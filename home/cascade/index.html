@@ -529,7 +529,7 @@ function frame(p,t){
 
   /* --- near layer: the cast --- */
   var pad=150;
-  var dockH=mob?W*.27:Math.min(H*.17,140);
+  var dockH=mob?W*.22:Math.min(H*.17,140);
   var ringH=mob?30:46;
   var liveDrawn=false;
   for(var i=0;i<CAST.length;i++){
@@ -557,7 +557,9 @@ function frame(p,t){
          + Math.cos(t*.31+s.ph*8.4)*5*flo;
     var rot=s.rot0+p*s.rotDir*1.4+Math.sin(t*.4+i*2)*.02
           +Math.sin(t*.23+s.ph*5.5)*.055*flo;   /* a slow tilt to match the drift */
-    var h=mob?54+58*s.z:56+64*s.z;
+    /* was 54-112px on a 390px screen, which read as zoomed once wide stones
+       (the heart, the geode) were measured across rather than down */
+    var h=mob?40+44*s.z:56+64*s.z;
     var op=1, glow=0, dT=0;
 
     /* dock: the rain becomes the shop */
@@ -610,6 +612,10 @@ function frame(p,t){
     var tier=(s.z<.62&&glow===0&&ringT===0)?1:0;
     var src=s.spr[tier],sw2=src.width,sh2=src.height;
     var w2=HH*(sw2/sh2);
+    /* stones are sized by height, so a wide one (a heart, a geode slice)
+       still overpowers a narrow screen — cap it across as well */
+    var wcap=W*(mob?.30:.42);
+    if(w2>wcap){HH*=wcap/w2;w2=wcap;}
 
     /* halo first — gives the stone air and reads as depth against the paper */
     var lum=Math.max(dk,glow), gs=Math.max(w2,HH)*(1.55+lum*.75);
