@@ -701,17 +701,19 @@ function frame(p,t){
   st.setProperty('--cornero',(1-win(p,.3,.55)).toFixed(2));
   scue.style.opacity=((1-win(p,.05,.11))*.85).toFixed(2);
 
-  var devOp=win(p,.50,.58)*(1-win(p,.64,.70));
+  /* the device stays on stage longer — this is the product, and the film
+     was moving off it before anyone had finished reading */
+  var devOp=win(p,.50,.57)*(1-win(p,.735,.79));
   devwrap.style.opacity=devOp.toFixed(2);
-  photo.style.opacity=(win(p,.58,.63)*(1-win(p,.70,.745))).toFixed(2);
-  photo.style.transform='translateY('+lerp(-44,-56,win(p,.58,.75))+'%)';
+  photo.style.opacity=(win(p,.70,.75)*(1-win(p,.80,.84))).toFixed(2);
+  photo.style.transform='translateY('+lerp(-44,-56,win(p,.70,.85))+'%)';
 
   /* --- captions --- */
   cap(caps.c1,p,-.02,-.01,.12,.18);
   cap(caps.c2,p,.185,.215,.265,.295);
   cap(caps.c3,p,.265,.295,.385,.425);
-  cap(caps.c4,p,.455,.49,.60,.65);
-  cap(caps.c5,p,.585,.615,.685,.715);
+  cap(caps.c4,p,.455,.49,.70,.75);      /* Frequency, made simple — held */
+  cap(caps.c5,p,.685,.715,.775,.805);
   cap(caps.c6,p,.755,.80,1.01,1.02);
 
   /* the shop drawer: up at two screens, held through the intentions, gone
@@ -727,7 +729,7 @@ function frame(p,t){
 
   /* --- Hz ticker --- */
   var HZ=[7.83,174,417,528,639,963,1111];
-  var hu=win(p,.465,.60);
+  var hu=win(p,.465,.69);               /* the Hz ticker climbs across the hold */
   hzval.textContent=String(HZ[Math.min(6,Math.floor(hu*6.999))]);
 
   /* device mount (once) */
@@ -745,7 +747,9 @@ var t0=performance.now();
 function step(){
   var t=(performance.now()-t0)/1000;
   var total=film.offsetHeight-innerHeight;
-  var p=clamp(-film.getBoundingClientRect().top/total,0,1);
+  /* a zero-height viewport (a collapsed or hidden frame) divided to NaN and
+     poisoned every coordinate downstream — hold at the start instead */
+  var p=total>0?clamp(-film.getBoundingClientRect().top/total,0,1):0;
   frame(p,t);
 }
 function loop(){step();requestAnimationFrame(loop);}

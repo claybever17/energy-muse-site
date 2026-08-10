@@ -720,7 +720,9 @@ var t0=performance.now();
 function step(){
   var t=(performance.now()-t0)/1000;
   var total=film.offsetHeight-innerHeight;
-  var p=clamp(-film.getBoundingClientRect().top/total,0,1);
+  /* a zero-height viewport (a collapsed or hidden frame) divided to NaN and
+     poisoned every coordinate downstream — hold at the start instead */
+  var p=total>0?clamp(-film.getBoundingClientRect().top/total,0,1):0;
   frame(p,t);
 }
 function loop(){step();requestAnimationFrame(loop);}
