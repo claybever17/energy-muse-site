@@ -72,7 +72,7 @@ var css=[
 '.emv-pop a.cur .emv-ico{opacity:1;}',
 /* tools are not another skin — they are something you use */
 '.emv-rule{height:1px;background:'+P.line+';margin:9px 6px 8px;opacity:.8;}',
-'.emv-pop a.tool{background:linear-gradient(150deg,#B87A4B,#A9683E 52%,#8F5330);border-color:transparent;',
+'.emv-pop a.tool{background:linear-gradient(150deg,#9E6038,#96592F 52%,#8A4E2C);border-color:transparent;',
 '  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 22px rgba(169,104,62,.32);}',
 '.emv-pop a.tool .emv-txt strong{color:#fff;}',
 '.emv-pop a.tool .emv-txt span{color:rgba(255,255,255,.82);}',

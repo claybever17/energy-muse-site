@@ -117,7 +117,7 @@ p{text-wrap:pretty}
    call, so it carries a filled surface and an arrow */
 .c4 .lk{display:inline-flex;align-items:center;gap:9px;margin-top:16px;
   font:700 11.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#fff;
-  background:linear-gradient(160deg,#B87A4B,#A9683E 46%,#8F5330);
+  background:linear-gradient(160deg,#9E6038,#96592F 46%,#8A4E2C);
   padding:14px 24px;border-radius:10px;border:none;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.26),0 3px 8px rgba(61,41,23,.24),0 16px 34px rgba(169,104,62,.30);
   transition:transform .22s cubic-bezier(.16,1,.3,1),box-shadow .22s}
@@ -137,7 +137,7 @@ p{text-wrap:pretty}
 .c6 .row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:30px}
 .btn{display:inline-flex;align-items:center;font:600 13px var(--sans);letter-spacing:.04em;padding:15px 30px;border-radius:2px;
   cursor:pointer;border:1px solid transparent;transition:transform .2s,background .25s,color .25s,border-color .25s}
-.btn-c{color:#fff;background:linear-gradient(160deg,#B87A4B,#A9683E 46%,#8F5330);
+.btn-c{color:#fff;background:linear-gradient(160deg,#9E6038,#96592F 46%,#8A4E2C);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(0,0,0,.22)}
 .btn-c:hover{transform:translateY(-2px)}
 .btn-g{background:transparent;color:var(--tc);border-color:color-mix(in srgb,var(--tc) 40%,transparent)}
@@ -183,7 +183,7 @@ p{text-wrap:pretty}
 .after{background:#FBF8F2;color:#4E5A70;}
 .after .in{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,44px);}
 .after h2{font-family:var(--serif);font-weight:300;letter-spacing:-.02em;color:#1D2739;}
-.after a{color:inherit}
+.after a:not(.btn){color:inherit}   /* buttons keep their own colour */
 
 /* promo — a slot for whatever is new */
 .cpromo{border-top:1px solid #E4DCCB;padding:clamp(38px,5vw,64px) 0;
@@ -236,7 +236,7 @@ p{text-wrap:pretty}
 .csub input:focus{outline:none;border-color:#E0A878;}
 .csub button{font:700 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:13px 20px;
   border:none;border-radius:8px;cursor:pointer;color:#fff;
-  background:linear-gradient(160deg,#B87A4B,#A9683E 46%,#8F5330);}
+  background:linear-gradient(160deg,#9E6038,#96592F 46%,#8A4E2C);}
 .csub .ok{font-size:14px;font-weight:600;color:#8F5330;}
 @media (max-width:860px){
   .cpromo .in,.csub .in{grid-template-columns:1fr;gap:18px;}
@@ -756,7 +756,7 @@ addEventListener('scroll',step,{passive:true});   // immediate scrub even when r
 window.__film={go:function(p){var total=film.offsetHeight-innerHeight;scrollTo(0,film.offsetTop+p*total);step();},step:step};
 })();
 </script>
-<script src="../../assets/em-bag.js" defer></script>
+<script src="../../assets/em-bag.js?v=3" defer></script>
 <script>
 /* the shop under the film */
 document.addEventListener('DOMContentLoaded',function(){
@@ -789,6 +789,6 @@ document.addEventListener('DOMContentLoaded',function(){
   addEventListener('scroll',turn,{passive:true});turn();
 });
 </script>
-<script src="../../assets/em-versions.js?v=2" defer></script>
+<script src="../../assets/em-versions.js?v=3" defer></script>
 <script src="/assets/em-depth.js?v=2" defer></script>
 </body></html>

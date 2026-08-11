@@ -47,7 +47,7 @@ var css=[
 '.embag-sub b{font-family:Fraunces,Georgia,serif;font-weight:400;font-size:18px}',
 '.embag-go{width:100%;display:inline-flex;justify-content:center;padding:15px 20px;border:none;cursor:pointer;',
 '  font-weight:600;font-size:14px;color:#fff;font-family:inherit;',
-'  background:linear-gradient(160deg,#B87A4B,#A9683E 46%,#8F5330);',
+'  background:linear-gradient(160deg,#9E6038,#96592F 46%,#8A4E2C);',
 '  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(0,0,0,.22);',
 '  border-radius:8px}',
 '.embag-note{margin-top:10px;font-size:11px;color:#8D8778;text-align:center;letter-spacing:.03em}',

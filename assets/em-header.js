@@ -64,7 +64,7 @@ var css=[
 '.emh-sub input:focus{outline:none;border-color:'+P.accent+';}',
 '.emh-sub button{font:700 11px "Instrument Sans",sans-serif;letter-spacing:.1em;text-transform:uppercase;',
 '  padding:12px 18px;border-radius:8px;border:none;cursor:pointer;color:#fff;',
-'  background:linear-gradient(160deg,#B87A4B,#A9683E 46%,#8F5330);}',
+'  background:linear-gradient(160deg,#9E6038,#96592F 46%,#8A4E2C);}',
 '.emh-sub .ok{font-size:13px;font-weight:600;color:'+P.accent+';margin:0;}',
 '.emh-foot-links a{color:'+P.soft+';text-decoration:none;}',
 '.emh-foot-links a:hover{color:'+P.copper+';}',
