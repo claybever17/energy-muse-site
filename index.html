@@ -152,8 +152,8 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper);font-weight
   color:var(--stone);cursor:pointer;font-size:16px;line-height:1;padding:6px;}
 .annx:hover{color:var(--copper);}
 body.ann-off .ann{display:none;}
-@media (max-width:640px){.ann-in{font-size:11px;gap:7px;padding-inline:40px;
-  flex-direction:column;text-wrap:balance;}}
+@media (max-width:640px){.ann-in{font-size:11px;gap:8px;padding-inline:38px;flex-wrap:wrap;}
+  .ann-more{display:none;}}
 /* ===== nav ===== */
 header.nav{position:sticky;top:0;z-index:60;transition:background .3s,color .3s;}
 header.nav::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;opacity:0;transition:opacity .4s;
@@ -526,7 +526,10 @@ body.menu-open{overflow:hidden;}
      · the copy sits off-centre vertically, and overlaps the image edge
    All of it collapses back to a clean stack under 841px.
    =================================================================== */
-.split{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,4.6vw,72px);align-items:center;}
+.split{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,4.6vw,72px);
+  /* both columns start at the top of the row, so the copy always begins
+     level with the photograph however tall either one turns out to be */
+  align-items:start;}
 @media (min-width:841px){
   /* --bleed is the gap between the content column and the page edge; a few
      extra pixels guarantee we land on it, and the section clips the excess
@@ -552,9 +555,8 @@ body.menu-open{overflow:hidden;}
   .split.rev{grid-template-columns:.85fr 1.15fr;}
   .split.rev .media{margin-left:0;margin-right:calc(var(--edge) * -1);
     width:calc(100% + var(--edge));max-width:none;}
-  /* copy sits low against one image, high against the next */
-  .split .copy{align-self:end;padding-bottom:clamp(10px,3vw,46px);}
-  .split.rev .copy{align-self:start;padding-top:clamp(10px,3vw,46px);padding-bottom:0;}
+  /* copy starts level with the top of the photograph, both directions */
+  .split .copy,.split.rev .copy{align-self:start;padding-top:clamp(10px,3vw,46px);padding-bottom:0;}
   /* and reaches back over the photograph's edge */
   /* these negative margins existed to claw the copy back into the space the
      broken bleed had vacated. With the bleed measured properly they only
@@ -1036,7 +1038,7 @@ p{text-wrap:pretty;}
 
 <div class="ann" id="ann">
   <div class="wrap ann-in">
-    <span>New to Energy Muse? Find your energy match in a few simple questions.</span>
+    <span>New to Energy Muse?<span class="ann-more"> Find your energy match in a few simple questions.</span></span>
     <a href="quiz/">Take the Energy Quiz &rarr;</a>
     <button class="annx" id="annx" aria-label="Dismiss">&times;</button>
   </div>
@@ -1179,7 +1181,7 @@ p{text-wrap:pretty;}
     <div class="media arch reveal" style="aspect-ratio:4/4.4"><div class="t3d"><img src="assets/img/clarity.jpg" alt="A woman resting a clear quartz point to her brow"><span class="glare"></span></div><span class="plab">Clear quartz &middot; a first tool</span></div>
     <div class="copy reveal d1">
       <span class="eyebrow">The Energy Quiz</span>
-      <h2>Not sure where to begin? That's exactly what we're here for.</h2>
+      <h2>Not sure where to begin?</h2>
       <p>Tell us your focus, your practice style, and what fits your life. In a few minutes, you'll get your energy match: a starting point, a simple practice, and products chosen just for you.</p>
       <div class="cta-row"><a href="quiz/" class="btn btn-copper">Find My Energy Match</a></div>
     </div>
