@@ -1,3 +1,4 @@
+<!doctype html><html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Energy Muse &#8212; Guided Energy for Real Life</title>
@@ -26,7 +27,10 @@
 :root{
   --navy:#0B1320; --navy-2:#111C2E; --navy-line:#26344A; --navy-text:#EFE7D9; --navy-soft:#B4C0D0;
   --fg:var(--ink); --paper:var(--bg);
-  --maxw:1240px; --gutter:clamp(22px,5vw,72px); --step:clamp(84px,10vw,150px);
+  --maxw:1240px; --gutter:clamp(22px,5vw,72px);
+  /* distance from the viewport edge to the container's content box —
+     the exact amount a full-bleed child must be pulled out by */
+  --edge:max(var(--gutter),calc((100vw - 1240px) / 2 + var(--gutter))); --step:clamp(84px,10vw,150px);
   --serif:'Fraunces',Georgia,serif; --sans:'Instrument Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 }
 :root, :root[data-skin="ivory"]{
@@ -524,7 +528,7 @@ body.menu-open{overflow:hidden;}
      · the copy sits off-centre vertically, and overlaps the image edge
    All of it collapses back to a clean stack under 841px.
    =================================================================== */
-.split{display:grid;grid-template-columns:1.28fr .72fr;gap:clamp(30px,4.6vw,72px);align-items:center;}
+.split{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,4.6vw,72px);align-items:center;}
 @media (min-width:841px){
   /* --bleed is the gap between the content column and the page edge; a few
      extra pixels guarantee we land on it, and the section clips the excess
@@ -545,17 +549,19 @@ body.menu-open{overflow:hidden;}
   .section.freq .split .media,.section.freq .split.rev .media{
     margin-left:0;margin-right:0;width:auto;max-width:100%;}
   .section.freq .split.rev .copy{margin-right:0;padding-right:clamp(10px,2vw,30px);}
-  .split .media{margin-left:calc((100vw - 100%) / -2);
-    width:calc(100% + (100vw - 1240px) / 2 + var(--gutter));max-width:none;}
-  .split.rev{grid-template-columns:.72fr 1.28fr;}
-  .split.rev .media{margin-left:0;margin-right:calc((100vw - 100%) / -2);
-    width:calc(100% + (100vw - 1240px) / 2 + var(--gutter));max-width:none;}
+  .split .media{margin-left:calc(var(--edge) * -1);
+    width:calc(100% + var(--edge));max-width:none;}
+  .split.rev{grid-template-columns:.85fr 1.15fr;}
+  .split.rev .media{margin-left:0;margin-right:calc(var(--edge) * -1);
+    width:calc(100% + var(--edge));max-width:none;}
   /* copy sits low against one image, high against the next */
   .split .copy{align-self:end;padding-bottom:clamp(10px,3vw,46px);}
   .split.rev .copy{align-self:start;padding-top:clamp(10px,3vw,46px);padding-bottom:0;}
   /* and reaches back over the photograph's edge */
-  .split .copy{margin-left:clamp(-72px,-4vw,-28px);position:relative;z-index:2;}
-  .split.rev .copy{margin-left:0;margin-right:clamp(-72px,-4vw,-28px);}
+  /* these negative margins existed to claw the copy back into the space the
+     broken bleed had vacated. With the bleed measured properly they only
+     drive the text into the photograph, so they go. */
+  .split .copy{position:relative;z-index:2;}
 }
 /* .rev flips the section: image right, text left (desktop only; mobile keeps image on top) */
 @media (min-width:841px){
@@ -617,7 +623,7 @@ body.menu-open{overflow:hidden;}
   stroke-dasharray:7 6;animation:signal 5s linear infinite;}
 @keyframes signal{to{stroke-dashoffset:-52;}}
 /* live 3D device: no card box — the generator itself floats beside the copy */
-.freq .media.live3d{background:transparent;box-shadow:none;overflow:visible;border-radius:0;aspect-ratio:1/1;}
+.freq .media.live3d{background:transparent;box-shadow:none;overflow:visible;border-radius:0;aspect-ratio:5/4;}
 /* wavy resonance rings: near-circular with a hint of the device's tilt, born at the coil's
    edge and spreading outward — organic wobble, like the ripples in the hero photograph */
 .freq .fq-waves{z-index:3;transform:rotate(-8deg) scaleY(.9);}
@@ -969,6 +975,35 @@ p{text-wrap:pretty;}
 .lk,.go,.more{font-weight:700;letter-spacing:.12em;}
 .nav-utils a{font-weight:600;color:var(--fg);}
 .nav-utils a.bag{font-weight:700;}
+
+/* ---------- the margin spine: reading progress, anchored to the left edge ---------- */
+.spine{position:fixed;left:max(14px,2.2vw);top:16vh;bottom:16vh;width:1px;z-index:3;pointer-events:none;
+  background:color-mix(in srgb,var(--copper) 16%,transparent);}
+.spine i{position:absolute;left:0;top:0;width:100%;height:var(--sp,0%);display:block;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--copper) 70%,transparent),var(--copper));
+  box-shadow:0 0 8px color-mix(in srgb,var(--copper) 45%,transparent);}
+.spine i::after{content:"";position:absolute;left:-2px;bottom:-3px;width:5px;height:5px;border-radius:50%;
+  background:var(--copper);box-shadow:0 0 10px color-mix(in srgb,var(--copper) 75%,transparent);}
+@media (max-width:900px){.spine{display:none}}
+
+/* ---------- a band of frequencies, running slowly, as texture ---------- */
+.hzband{position:relative;overflow:hidden;padding:clamp(26px,4vw,44px) 0;
+  border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+  background:color-mix(in srgb,var(--copper) 4%,transparent);}
+.hzband .track{display:flex;gap:clamp(28px,4vw,64px);width:max-content;
+  animation:hzrun 46s linear infinite;will-change:transform;}
+.hzband:hover .track{animation-play-state:paused;}
+.hzband span{display:inline-flex;align-items:baseline;gap:.34em;
+  font-family:var(--serif);font-weight:300;font-size:clamp(30px,4.6vw,64px);
+  line-height:1;letter-spacing:-.02em;color:transparent;
+  -webkit-text-stroke:1px color-mix(in srgb,var(--copper) 52%,transparent);
+  white-space:nowrap;}
+.hzband span i{font-style:normal;font-family:var(--sans);font-weight:600;
+  font-size:.24em;letter-spacing:.22em;text-transform:uppercase;
+  color:color-mix(in srgb,var(--copper) 70%,transparent);-webkit-text-stroke:0;}
+.hzband span.solid{color:color-mix(in srgb,var(--copper) 82%,transparent);-webkit-text-stroke:0;}
+@keyframes hzrun{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.hzband .track{animation:none}}
 </style>
 
 
@@ -1009,6 +1044,7 @@ p{text-wrap:pretty;}
   </div>
 </div>
 
+<div class="spine" aria-hidden="true"><i id="spinefill"></i></div>
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="./"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo"/></svg></a>
@@ -1098,6 +1134,10 @@ p{text-wrap:pretty;}
   </div>
   <p class="trust-author">Co-founder <em>Heather Askinosie</em> is the best-selling author of <em>Crystal 365</em> and <em>Crystal Muse</em>, and creator of the <em>Daily Crystal Inspiration</em> deck.</p>
   </div>
+</section>
+
+<section class="hzband" aria-label="The seven tuned frequencies">
+  <div class="track" id="hztrack"></div>
 </section>
 
 <!-- ===== INTENTION ===== -->
@@ -1559,6 +1599,29 @@ p{text-wrap:pretty;}
     }
     addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(upd);}},{passive:true});
     addEventListener('resize',upd);upd();
+
+    /* the spine fills with reading progress */
+    var sfill=document.getElementById('spinefill');
+    function spine(){
+      if(!sfill)return;
+      var doc=document.documentElement, max=doc.scrollHeight-innerHeight;
+      var pct=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
+      sfill.style.setProperty('--sp',(pct*100).toFixed(2)+'%');
+    }
+    addEventListener('scroll',spine,{passive:true});
+    addEventListener('resize',spine);spine();
+
+    /* the frequency band: two identical runs so the loop is seamless */
+    var track=document.getElementById('hztrack');
+    if(track){
+      var HZ=[['7.83','Earth'],['174','Foundation'],['417','Change'],['528','Repair'],
+              ['639','Connection'],['963','Clarity'],['1111','Alignment']];
+      var run='';
+      HZ.forEach(function(v,i){
+        run+='<span'+(i%3===1?' class="solid"':'')+'>'+v[0]+'<i>Hz '+v[1]+'</i></span>';
+      });
+      track.innerHTML=run+run;
+    }
   }
 })();
 
@@ -1663,3 +1726,4 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 </script>
 
 <script src="/assets/em-depth.js?v=2" defer></script>
+</html>
