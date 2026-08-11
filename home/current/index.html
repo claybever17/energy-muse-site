@@ -16,7 +16,7 @@
 /* ============================================================
    CURRENT — energy, visualized. One continuous scene; scroll is
    the timeline. A single line of energy wakes, splits into the
-   five intentions, winds into the generator's coil, passes
+   five intentions, clears the stage for the generator, returns as one line, passes
    through a life, and closes into your ring — as day fades to
    dusk. No sections. No reveals. One film.
    ============================================================ */
@@ -69,7 +69,9 @@ p{text-wrap:pretty}
   filter:grayscale(.35) sepia(.22) contrast(1.04) brightness(.92);
   -webkit-mask:linear-gradient(transparent,#000 14%,#000 86%,transparent);
           mask:linear-gradient(transparent,#000 14%,#000 86%,transparent)}
-.devwrap{position:absolute;left:50%;top:54%;width:min(520px,74vw);aspect-ratio:1/1;transform:translate(-50%,-50%);opacity:0;pointer-events:none}
+.devwrap{position:absolute;left:50%;top:50%;width:min(520px,74vw);aspect-ratio:1/1;transform:translate(-50%,-50%);opacity:0;pointer-events:none}
+/* the caption holds the left column, so the generator sits right of centre */
+@media (min-width:900px){.devwrap{left:66%;width:min(520px,40vw)}}
 .devwrap canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
 #lines{position:absolute;inset:0;width:100%;height:100%;display:block}
 #lines path{fill:none;stroke:var(--line);stroke-width:1.6;vector-effect:non-scaling-stroke;stroke-linecap:round}
@@ -125,8 +127,6 @@ p{text-wrap:pretty}
 .c4 .lk:hover::after{transform:translateX(4px)}
 .c4 .lk:active{transform:translateY(0)}
 .c4 .disc{font-size:10.5px;color:var(--tc-soft);margin-top:14px;max-width:44ch;line-height:1.5}
-.c5{right:clamp(20px,7vw,110px);top:16svh;text-align:right}
-.c5 p{font-family:var(--serif);font-weight:300;font-size:clamp(20px,2.6vw,30px);text-wrap:balance}
 .c6{left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;max-width:none}
 .c6::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:-1;
   width:min(660px,84vw);height:360px;border-radius:50%;filter:blur(8px);
@@ -343,9 +343,6 @@ html.static .fallback{display:block}
       <a class="lk" href="../../generator/">Explore the generator</a>
       <p class="disc">Frequency generators are not medical devices and are not a substitute for healthcare. Experiences vary.</p>
     </div>
-    <div class="cap c5" id="c5">
-      <p>Small practices that make real progress.</p>
-    </div>
     <div class="peek" id="peek" aria-label="A look inside the shop">
       <div class="peek-in">
         <div class="peek-hd"><b>Look inside the shop</b><a href="../../gems/">Shop all crystals</a></div>
@@ -490,7 +487,7 @@ var markglow=document.getElementById('markglow');
 var scue=document.getElementById('scue');
 var devwrap=document.getElementById('devwrap'),devCanvas=document.getElementById('dev');
 var caps={c1:document.getElementById('c1'),c2:document.getElementById('c2'),c3:document.getElementById('c3'),
-          c4:document.getElementById('c4'),c5:document.getElementById('c5'),c6:document.getElementById('c6')};
+          c4:document.getElementById('c4'),c6:document.getElementById('c6')};
 var hzval=document.getElementById('hzval');
 var W=0,H=0,N=200;
 
@@ -608,12 +605,17 @@ function frame(p,t){
   var morph=ease(win(p,.07,.23));         // the mark unravels into the line
   var wake=morph;
   var spread=ease(win(p,.22,.31))*(1-ease(win(p,.40,.50)));   // five strands apart
-  var wind=ease(win(p,.42,.56));          // wind into spiral
-  var unwind=ease(win(p,.58,.66));        // leave the device
-  var ringT=ease(win(p,.72,.86));         // close the ring
+  /* The line no longer winds itself into a coil over the generator — that
+     swirl fought the product for the same space. It withdraws before the
+     device is introduced, leaves it alone while it is on stage, and comes
+     back afterwards as one calm line across, which then closes the ring. */
+  var lineOut=1-ease(win(p,.44,.505));    // fades out ahead of the device
+  var lineBack=ease(win(p,.72,.785));     // returns as a single line across
+  var lineVis=Math.max(lineOut,lineBack);
+  var ringT=ease(win(p,.80,.90));         // and closes the ring
   /* the line stays calm while it is still becoming a line, then finds its
      wobble — full organic motion during the morph reads as noise */
-  var amp=lerp(10,H*.06,wake)*(1-wind*.9)*lerp(.28,1,ease(morph));
+  var amp=lerp(10,H*.06,wake)*lerp(.28,1,ease(morph))*lerp(1,.42,lineBack);
 
 
   /* --- geometry --- */
@@ -630,10 +632,11 @@ function frame(p,t){
     /* mark strokes ride strands 1,2,3 until the unravel completes */
     var mkFade=1-win(p,.17,.25);
     var op;
-    if(k===2){op=1;}
+    if(k===2){op=lineVis;}                 /* the carrier — the one that returns */
     else if(k===1||k===3){op=Math.max(mkFade, clamp(spread*3,0,1)*(1-ease(win(p,.42,.52))));
-      op=Math.max(op,ease(win(p,.74,.87))*(W<=700?1:.18));}
-    else {op=clamp(spread*3,0,1)*(1-ease(win(p,.42,.52)));}
+      op=Math.min(op,lineOut);              /* the outer strands do not come back */
+      op=Math.max(op,ease(win(p,.80,.90))*(W<=700?1:.18));}
+    else {op=Math.min(clamp(spread*3,0,1)*(1-ease(win(p,.42,.52))),lineOut);}
     var d='';
     var mk=(MK&&(k===1||k===2||k===3))?MK[k-1]:null;
     var breathe=1+Math.sin(t*1.5)*.015;
@@ -652,17 +655,11 @@ function frame(p,t){
         var mi=ease(clamp(morph*1.62-u*.62,0,1));
         X=lerp(mx,X,mi);Y=lerp(my,Y,mi);
       }
-      if(wind>0){
-        var th=u*turns*Math.PI*2;
-        var sr=lerp(spiralR*1.9,spiralR*.34,u);
-        var sx=cx+Math.cos(th)*sr, sy=cy+Math.sin(th)*sr*.92;
-        X=lerp(X,sx,wind);Y=lerp(Y,sy,wind);
-      }
-      if(unwind>0){
-        /* carrier leaves the coil as a calm wave again */
+      if(lineBack>0){
+        /* it comes back as one calm line straight across the screen */
         var wx=lerp(x0,x1,u);
         var wy=H*.5+Math.sin(u*Math.PI*2*1.4+t*.6)*H*.03;
-        X=lerp(X,wx,unwind);Y=lerp(Y,wy,unwind);
+        X=lerp(X,wx,lineBack);Y=lerp(Y,wy,lineBack);
       }
       if(ringT>0){
         var ru=u*ringT;
@@ -672,7 +669,7 @@ function frame(p,t){
         X=lerp(X,rx,into);Y=lerp(Y,ry,into);
       }
       if((k===1||k===3)&&MK){
-        var fin=ease(win(p,.74,.87));
+        var fin=ease(win(p,.80,.92));
         if(fin>0){
           var fmk=k===1?MK[1]:MK[2];
           var Kf=(ringR*2)/(MK.outerW||1)*(mob?.9:.96);
@@ -685,7 +682,7 @@ function frame(p,t){
     }
     path.setAttribute('d',d);
     path.style.opacity=op.toFixed(2);
-    var baseW=(k===2? lerp(1.6,2.2,wind+ringT) : 1.4);
+    var baseW=(k===2? lerp(1.6,2.2,Math.max(lineBack*.55,ringT)) : 1.4);
     path.style.strokeWidth = mk? lerp(2.1,baseW,morph).toFixed(2) : baseW;
     var REST={1:'#A9683E',2:'#C08356',3:'#35907B'};
     path.style.stroke = (mk&&morph<1)? mix(REST[k],'#A9683E',morph) : '';
@@ -713,7 +710,6 @@ function frame(p,t){
   cap(caps.c2,p,.185,.215,.265,.295);
   cap(caps.c3,p,.265,.295,.385,.425);
   cap(caps.c4,p,.455,.49,.70,.75);      /* Frequency, made simple — held */
-  cap(caps.c5,p,.685,.715,.775,.805);
   cap(caps.c6,p,.755,.80,1.01,1.02);
 
   /* the shop drawer: up at two screens, held through the intentions, gone
