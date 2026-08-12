@@ -478,7 +478,20 @@ function sampleMark(){
       host.removeChild(e);
       var s=0,mx=Infinity;
       for(var q=0;q<sp.length;q++){if(sp[q][0]<mx){mx=sp[q][0];s=q;}}
-      sp=sp.slice(s).concat(sp.slice(0,s));
+      /* A closed stroke samples its start point twice, once at each end. Rotating
+         the whole run moves the seam to the leftmost point and leaves the loop
+         open there — a visible nick in the ring. Drop the duplicate, rotate the
+         core, then close it again on the new start. */
+      var shut=sp.length>2&&Math.abs(sp[0][0]-sp[sp.length-1][0])<0.5
+                          &&Math.abs(sp[0][1]-sp[sp.length-1][1])<0.5;
+      if(shut){
+        var core=sp.slice(0,sp.length-1);
+        s=s%core.length;
+        core=core.slice(s).concat(core.slice(0,s));
+        sp=core.concat([core[0].slice()]);
+      }else{
+        sp=sp.slice(s).concat(sp.slice(0,s));
+      }
       if(sp.length>2&&sp[1][0]<sp[0][0])sp.reverse();
       strokes.push(sp);
     });
