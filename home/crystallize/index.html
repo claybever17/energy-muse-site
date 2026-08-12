@@ -42,6 +42,31 @@ img{display:block;max-width:100%}
   background:var(--surface);transition:border-color .2s}
 .bag:hover{border-color:var(--copper)}
 
+
+/* ---------- the statement ----------
+   The archive is what this version is for, but it is not what the page should
+   say first. The brand speaks, then the archive opens directly beneath it. */
+.state{max-width:1560px;margin:0 auto;padding:clamp(34px,7vw,88px) clamp(16px,3.4vw,40px) clamp(16px,2.4vw,26px)}
+.state .kicker{font:600 10.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--copper)}
+.state h1{font-family:var(--serif);font-weight:300;font-size:clamp(38px,7.2vw,92px);line-height:1.0;
+  letter-spacing:-.028em;margin-top:14px;text-wrap:balance}
+/* the second clause takes its own line — starting an italic mid-line leaves
+   the first phrase broken across two and the emphasis stranded */
+.state h1 em{display:block;font-style:italic;color:var(--copper)}
+.state .said{margin-top:18px;max-width:52ch;font-size:clamp(15px,1.5vw,18px);color:var(--ink-soft);text-wrap:pretty}
+.state .acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.act{display:inline-flex;align-items:center;padding:15px 26px;border-radius:2px;
+  font:700 11px var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.act.solid{color:#fff;background:linear-gradient(160deg,#9E6038,#96592F 46%,#8A4E2C);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 10px 26px rgba(169,104,62,.28)}
+.act.ghost{border:1px solid color-mix(in srgb,var(--ink) 22%,transparent)}
+.act.ghost:hover{border-color:var(--copper);color:var(--copper)}
+@media (max-width:640px){
+  .lessmob{display:none}
+  .state .said{font-size:15px}
+  .head h2{font-size:clamp(24px,7vw,32px)}
+}
+
 /* ---------- masthead ---------- */
 /* Eyebrow, headline and intro share one left edge. Pushing the intro into the
    grid's column did line it up with the plates, but it detached the paragraph
@@ -49,13 +74,12 @@ img{display:block;max-width:100%}
    half. A masthead reads as one block. */
 .head{padding:clamp(34px,6vw,72px) clamp(16px,3.4vw,40px) clamp(20px,3vw,34px);
   max-width:1560px;margin:0 auto}
-.head p{max-width:62ch}
 .eyebrow{font:600 10.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--copper)}
 /* no artificial measure here: at 68px the line runs 1080px and the column
    gives it 1360, so it sits on one line and wraps of its own accord on
    anything narrower. A 15ch cap was breaking it at 58% of its own width,
    which reads as an accident rather than a decision. */
-h1{font-family:var(--serif);font-weight:300;font-size:clamp(34px,6vw,68px);line-height:1.03;
+.head h2{font-family:var(--serif);font-weight:300;font-size:clamp(30px,5vw,56px);line-height:1.03;
   letter-spacing:-.02em;margin:12px 0 0;text-wrap:balance}
 .head p{margin-top:16px;max-width:56ch;color:var(--ink-soft);font-size:15.5px;text-wrap:pretty}
 
@@ -316,10 +340,20 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
   <a class="bag" href="#" aria-label="Open bag">Bag (<span class="bagn">0</span>)</a>
 </header>
 
+<section class="state">
+  <span class="kicker">Energy Muse</span>
+  <h1>Start with the feeling. <em>The stone follows.</em></h1>
+  <p class="said">Crystals, jewelry and fixed-frequency generators &mdash; chosen by what you want more of.</p>
+  <div class="acts">
+    <a class="act solid" href="#feeling">Shop by intention</a>
+    <a class="act ghost" href="../cascade/">The frequency room</a>
+  </div>
+</section>
+
 <div class="head">
   <span class="eyebrow">The collection</span>
-  <h1>Every crystal we carry, in one place.</h1>
-  <p>Not a story you scroll through &mdash; an archive you work. Filter by the intention you're after, the form you want to hold, or simply the colour you're drawn to, and the collection answers as you go.</p>
+  <h2>Every crystal we carry, in one place.</h2>
+  <p>Filter by intention, form or colour &mdash; the collection answers as you go.</p>
 </div>
 
 <div class="work">
@@ -365,7 +399,7 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
 <section class="band" id="feeling">
   <div class="bhead"><span class="bno">01</span>
     <div><h2>Or start from how you want to feel.</h2>
-      <p class="lead">The filters above are for when you know what you're after. When you don't, begin here &mdash; each one opens the collection already narrowed.</p></div>
+      <p class="lead">Each one opens the collection already narrowed.</p></div>
   </div>
   <div class="tiles" id="tiles"></div>
 </section>
@@ -376,7 +410,7 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
       <div>
         <div class="bhead"><span class="bno">02</span>
           <div><h2>One coil, tuned once, and left that way.</h2>
-            <p class="lead">Every generator is wound to a single frequency and stays there. A fixed coil reaches further and holds a stronger signal than the variable devices others sell &mdash; and we're home to the largest collection of them anywhere.</p></div>
+            <p class="lead">Wound to one frequency and left there.<span class="lessmob"> A fixed coil reaches further than the variable devices others sell.</span></p></div>
         </div>
         <div class="price2"><s>$248.88</s><b>$219.88</b></div>
         <button class="go" id="genbuy">Add the generator</button>
@@ -391,7 +425,7 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
     <div>
       <div class="bhead"><span class="bno">03</span>
         <div><h2>Twenty years, one belief.</h2>
-          <p class="lead">Energy Muse began with one necklace and a simple belief: your energy deserves to be a priority. Heather Askinosie and Timmi Jandro have spent more than twenty years turning that into objects people actually keep.</p></div>
+          <p class="lead">One necklace, and a belief: your energy deserves to be a priority.<span class="lessmob"> Twenty years later, that is still the whole idea.</span></p></div>
       </div>
     </div>
     <div class="shot"><img src="../../assets/img/founders.jpg" alt="Heather Askinosie and Timmi Jandro" loading="lazy"></div>
@@ -401,7 +435,7 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
 <section class="sign">
   <div class="signin">
     <div><h2>One crystal, one practice, once a week.</h2>
-      <p>Something to put on the shelf and something to do with it. Nothing else.</p></div>
+      <p>Something for the shelf, and something to do with it.</p></div>
     <div>
       <form class="sf" id="sform" novalidate>
         <input type="email" placeholder="Your email" aria-label="Your email" required>
@@ -414,7 +448,7 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
 
 <footer class="pfoot">
   <div class="pfootin">
-    <div class="fl">Guided energy for real life. Crystal jewelry, natural crystals, frequency and personal guidance.</div>
+    <div class="fl">Guided energy for real life.</div>
     <nav aria-label="Footer">
       <a href="../cascade/">The frequency room</a>
       <a href="../../generator/">Generators</a>

@@ -39,6 +39,36 @@ img{display:block;max-width:100%}
 .bag{display:inline-flex;align-items:center;padding:9px 16px;border-radius:100px;border:1px solid var(--hair);
   font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;background:var(--surface)}
 
+
+/* ---------- the statement ----------
+   The page used to open straight into the instrument, which read as a product
+   page. It says who this is first, and the dial sits just under the fold so
+   the selling starts immediately after. */
+.state{position:relative;max-width:1400px;margin:0 auto;
+  padding:clamp(34px,7vw,92px) clamp(16px,3.4vw,40px) clamp(20px,3vw,34px)}
+.state .kicker{font:600 10.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--tone);transition:color .6s}
+.state h1{font-family:var(--serif);font-weight:300;font-size:clamp(38px,7.4vw,94px);line-height:1.0;
+  letter-spacing:-.028em;margin-top:14px;text-wrap:balance}
+/* the second clause takes its own line — starting an italic mid-line leaves
+   the first phrase broken across two and the emphasis stranded */
+.state h1 em{display:block;font-style:italic;color:var(--tone);transition:color .6s}
+.state .said{margin-top:18px;max-width:54ch;font-size:clamp(15px,1.5vw,18px);color:var(--ink-soft);text-wrap:pretty}
+.state .acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.act{display:inline-flex;align-items:center;padding:15px 26px;border-radius:2px;
+  font:700 11px var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.act.solid{color:#fff;background:linear-gradient(160deg,#9E6038,#96592F 46%,#8A4E2C);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 10px 26px rgba(169,104,62,.28)}
+.act.ghost{border:1px solid color-mix(in srgb,var(--ink) 22%,transparent);color:var(--ink)}
+.act.ghost:hover{border-color:var(--tone);color:var(--tone)}
+
+/* less to read on a phone: the clauses that earn their place on a wide screen
+   are the first thing in the way on a small one */
+@media (max-width:640px){
+  .lessmob{display:none}
+  .state .said{font-size:15px}
+  .tsay{min-height:0}
+}
+
 /* ---------- the room ---------- */
 .room{position:relative;max-width:1400px;margin:0 auto;padding:clamp(20px,3vw,40px) clamp(16px,3.4vw,40px) 0;
   display:grid;grid-template-columns:1fr minmax(0,540px);gap:clamp(24px,4vw,64px);align-items:center;
@@ -238,6 +268,16 @@ img{display:block;max-width:100%}
   <a class="bag" href="#" aria-label="Open bag">Bag (<span class="bagn">0</span>)</a>
 </header>
 
+<section class="state">
+  <span class="kicker">Energy Muse</span>
+  <h1>Every room has a frequency. <em>Choose yours.</em></h1>
+  <p class="said">Crystals and fixed-frequency generators, for real rooms and real days.</p>
+  <div class="acts">
+    <a class="act solid" href="#shop">Shop the collection</a>
+    <a class="act ghost" href="../crystallize/">Browse every crystal</a>
+  </div>
+</section>
+
 <section class="room">
   <div class="field" aria-hidden="true"></div>
 
@@ -276,7 +316,7 @@ img{display:block;max-width:100%}
   <div class="buyin">
     <div>
       <h2>One coil, tuned once,<br>and left that way.</h2>
-      <p>Every generator is wound to a single frequency and stays there. Nothing to set, nothing to drift &mdash; a fixed coil reaches further and holds a stronger signal than the variable devices others sell. We're home to the world's largest collection of them.</p>
+      <p>Wound to one frequency and left there.<span class="lessmob"> It reaches further than the variable devices others sell.</span></p>
       <div class="pricerow"><span class="was">$248.88</span><span class="now">$219.88</span></div>
       <button class="cta" id="buy">Add the generator</button>
       <dl class="specs">
@@ -291,18 +331,18 @@ img{display:block;max-width:100%}
 </section>
 
 <section class="why">
-  <h2>Why a fixed frequency beats a dial you have to guess at.</h2>
+  <h2>Why fixed beats variable.</h2>
   <div class="whygrid">
-    <div><h3>It reaches further</h3><p>A coil wound for one frequency puts its whole output into that frequency. Variable devices split the same power across a range, and the radius suffers for it.</p></div>
-    <div><h3>It never drifts</h3><p>Nothing to set means nothing to set wrongly, and nothing to wander off over an evening. You put it down and it stays where it was tuned.</p></div>
-    <div><h3>It pairs cleanly</h3><p>Because the tuning is known, the crystals that suit it are known too &mdash; which is what the dial above is doing as you move it.</p></div>
+    <div><h3>It reaches further</h3><p>One frequency gets the whole coil. Variable devices split the same power across a range.</p></div>
+    <div><h3>It never drifts</h3><p>Nothing to set. Nothing to wander off overnight.</p></div>
+    <div><h3>It pairs cleanly</h3><p>A known tuning means known crystals &mdash; which is what the dial is doing.</p></div>
   </div>
 </section>
 
 
 <section class="tuned">
-  <h2 class="reveal">Every intention has a tuning &mdash; <em>pick the feeling and the dial follows.</em></h2>
-  <p class="sub reveal">You don't need to know a frequency to choose one. Start from how you want the room to feel and we'll set the instrument for you.</p>
+  <h2 class="reveal">Pick the feeling. <em>The dial follows.</em></h2>
+  <p class="sub reveal">You don't need to know a frequency to choose one.</p>
   <div class="ints" id="ints"></div>
 </section>
 
@@ -310,14 +350,14 @@ img{display:block;max-width:100%}
   <div class="peoplein">
     <div class="reveal">
       <h2>Twenty years, one belief.</h2>
-      <p>Energy Muse began with one necklace and a simple belief: your energy deserves to be a priority. Heather Askinosie and Timmi Jandro have spent more than twenty years turning that into objects people actually keep &mdash; and into the largest collection of fixed-frequency generators anywhere.</p>
+      <p>One necklace, and a belief: your energy deserves to be a priority.<span class="lessmob"> Twenty years later, that is still the whole idea.</span></p>
       <div class="who">Heather Askinosie &amp; Timmi Jandro &middot; founders</div>
     </div>
     <div class="pshot reveal"><img src="../../assets/img/founders.jpg" alt="Heather Askinosie and Timmi Jandro" loading="lazy"></div>
   </div>
 </section>
 
-<section class="shop">
+<section class="shop" id="shop">
   <div class="shophead">
     <h2>Start with one stone.</h2>
     <a href="../crystallize/">See the whole collection &rarr;</a>
@@ -328,8 +368,8 @@ img{display:block;max-width:100%}
 <section class="join">
   <div class="joinin">
     <div class="reveal">
-      <h2>A frequency, a crystal, and one thing to try.</h2>
-      <p>Once a week, no more. Something to put on the shelf and something to do with it.</p>
+      <h2>One frequency, one crystal, once a week.</h2>
+      <p>Something for the shelf, and something to do with it.</p>
     </div>
     <div class="reveal">
       <form class="jform" id="jform" novalidate>
@@ -343,7 +383,7 @@ img{display:block;max-width:100%}
 
 <footer class="foot">
   <div class="footin">
-    <div class="fl">Guided energy for real life. Crystal jewelry, natural crystals, frequency and personal guidance.</div>
+    <div class="fl">Guided energy for real life.</div>
     <nav aria-label="Footer">
       <a href="../crystallize/">The collection</a>
       <a href="../../generator/">Generators</a>
