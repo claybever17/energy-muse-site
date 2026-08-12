@@ -33,15 +33,17 @@ var TOOLS=[
 function lum(){try{var m=getComputedStyle(document.body).backgroundColor.match(/\d+/g);
   if(!m)return 1;return (0.2126*m[0]+0.7152*m[1]+0.0722*m[2])/255;}catch(e){return 1;}}
 var dark=lum()<0.45;
-var P=dark?{bg:'rgba(14,24,38,.94)',fg:'#F1EADF',soft:'#AEB9C8',line:'#2A3A52',accent:'#C4855A',glow:'0 18px 60px rgba(0,0,0,.5)'}
-          :{bg:'rgba(251,248,242,.94)',fg:'#1D2739',soft:'#5A6478',line:'#E4DCCB',accent:'#A9683E',glow:'0 18px 60px rgba(10,16,23,.24)'};
+var P=dark?{solid:'#0E1826',bg:'rgba(14,24,38,.94)',fg:'#F1EADF',soft:'#AEB9C8',line:'#2A3A52',accent:'#C4855A',glow:'0 18px 60px rgba(0,0,0,.5)'}
+          :{solid:'#FBF8F2',bg:'rgba(251,248,242,.94)',fg:'#1D2739',soft:'#5A6478',line:'#E4DCCB',accent:'#A9683E',glow:'0 18px 60px rgba(10,16,23,.24)'};
 
 var css=[
 '.emv{position:fixed;bottom:22px;right:22px;z-index:120;display:flex;flex-direction:column;align-items:flex-end;gap:10px;',
 '  font-family:"Instrument Sans",-apple-system,BlinkMacSystemFont,sans-serif;}',
+/* a plain pill. The translucent fill plus a backdrop blur plus a 40px
+   diffuse shadow together rendered a second, larger shape behind it. */
 '.emv-btn{display:inline-flex;align-items:center;gap:9px;padding:10px 16px;border-radius:100px;cursor:pointer;',
-'  border:1px solid '+P.line+';background:'+P.bg+';backdrop-filter:blur(14px);',
-'  box-shadow:0 10px 40px rgba(10,16,23,.2);color:'+P.soft+';font-weight:600;font-size:11.5px;',
+'  border:1px solid '+P.line+';background:'+P.solid+';',
+'  box-shadow:0 2px 8px rgba(10,16,23,.10);color:'+P.soft+';font-weight:600;font-size:11.5px;',
 '  letter-spacing:.14em;text-transform:uppercase;transition:border-color .25s,color .25s;font-family:inherit;}',
 '.emv-btn:hover{border-color:'+P.accent+';color:'+P.fg+';}',
 '.emv-dot{width:8px;height:8px;border-radius:50%;background:'+P.accent+';flex:none;}',
