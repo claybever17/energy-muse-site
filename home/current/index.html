@@ -516,26 +516,39 @@ function sampleMark(){
     var total=lens.reduce(function(a,b){return a+b;},0);
     var counts=lens.map(function(L){return Math.max(8,Math.round(N*L/total));});
     counts[0]+=(N+1)-counts.reduce(function(a,b){return a+b;},0);
-    var pts=[],brk=[];
+    /* The mark is a closed swirl; the line reads left to right. Feeding the
+       swirl's own point order into that mapping makes every point cross its
+       neighbours mid-morph — the scribble. Each stroke is rotated to begin at
+       its leftmost point and run in the line's direction, so the same
+       animation reads as a thread unwinding.
+
+       This used to be skipped whenever a shape had more than one subpath,
+       which is every interesting one: mk0 is a ring with its counters, so it
+       was the one still tangling. Now each subpath is straightened on its own
+       and they are laid out left to right, so the whole mark unwinds in the
+       direction the line travels. */
+    var strokes=[];
     els.forEach(function(e,si){
-      if(si>0)brk.push(pts.length);
+      var sp=[];
       for(var j=0;j<counts[si];j++){
         var pt=e.getPointAtLength(lens[si]*j/Math.max(1,counts[si]-1));
-        pts.push([ecx+(pt.x-vb[0]/2)*scale, ecy+(pt.y-vb[1]/2)*scale]);
+        sp.push([ecx+(pt.x-vb[0]/2)*scale, ecy+(pt.y-vb[1]/2)*scale]);
       }
       host.removeChild(e);
+      var s=0,mx=Infinity;
+      for(var q=0;q<sp.length;q++){if(sp[q][0]<mx){mx=sp[q][0];s=q;}}
+      sp=sp.slice(s).concat(sp.slice(0,s));          /* start at the left */
+      if(sp.length>2&&sp[1][0]<sp[0][0])sp.reverse();/* travel rightward   */
+      strokes.push(sp);
     });
-    /* The mark is a closed swirl; the line reads left to right. Feeding the
-       swirl's own point order into that mapping made every point cross its
-       neighbours mid-morph — the scribble. Rotating each stroke to begin at
-       its leftmost point, and running it in the same direction as the line,
-       turns the same animation into a thread unwinding. */
-    var startI=0,minX=Infinity;
-    for(var q=0;q<pts.length;q++){if(pts[q][0]<minX){minX=pts[q][0];startI=q;}}
-    if(!brk.length){                       /* only rotate unbroken strokes */
-      pts=pts.slice(startI).concat(pts.slice(0,startI));
-      if(pts.length>2&&pts[1][0]<pts[0][0])pts.reverse();
-    }
+    strokes.sort(function(a,b){                      /* and read left to right */
+      return Math.min.apply(null,a.map(function(q){return q[0];}))
+           - Math.min.apply(null,b.map(function(q){return q[0];}));});
+    var pts=[],brk=[];
+    strokes.forEach(function(sp,si){
+      if(si>0)brk.push(pts.length);
+      for(var j=0;j<sp.length;j++)pts.push(sp[j]);
+    });
     return {pts:pts,brk:brk.reduce(function(s,v){s[v]=1;return s;},{}),cx:ecx,cy:ecy};
   });
   var xs=MK[0].pts.map(function(q){return q[0];});
