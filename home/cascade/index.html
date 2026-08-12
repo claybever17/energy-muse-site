@@ -156,7 +156,11 @@ img{display:block;max-width:100%}
 .reveal.in{opacity:1;transform:none}
 
 .tuned{max-width:1400px;margin:0 auto;padding:clamp(40px,6vw,84px) clamp(16px,3.4vw,40px)}
-.tuned h2{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw,46px);line-height:1.06;max-width:19ch}
+/* Headlines carry no ch measure. A cap that lands mid-phrase leaves a word
+   hanging on its own line, which reads as an accident; balance keeps the
+   lines even when a narrow screen genuinely does force a wrap. Body copy
+   keeps its measure — that one is about reading, not about shape. */
+.tuned h2{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw,46px);line-height:1.06;text-wrap:balance}
 .tuned h2 em{font-style:italic;color:var(--tone);transition:color .6s}
 .tuned .sub{margin-top:14px;max-width:52ch;color:var(--ink-soft);text-wrap:pretty}
 .ints{margin-top:clamp(24px,3vw,42px);display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:clamp(10px,1.4vw,18px)}
@@ -189,7 +193,7 @@ img{display:block;max-width:100%}
 .join{background:var(--tone-soft);transition:background-color .9s ease}
 .joinin{max-width:1400px;margin:0 auto;padding:clamp(44px,6vw,86px) clamp(16px,3.4vw,40px);
   display:grid;grid-template-columns:1fr minmax(0,440px);gap:clamp(22px,4vw,60px);align-items:center}
-.join h2{font-family:var(--serif);font-weight:300;font-size:clamp(24px,3.4vw,42px);line-height:1.06;max-width:16ch}
+.join h2{font-family:var(--serif);font-weight:300;font-size:clamp(24px,3.4vw,42px);line-height:1.06;text-wrap:balance}
 .join p{margin-top:12px;color:var(--ink-soft);max-width:46ch}
 .jform{display:flex;gap:10px;flex-wrap:wrap}
 .jform input{flex:1;min-width:180px;padding:15px 16px;border:1px solid color-mix(in srgb,var(--ink) 18%,transparent);
@@ -305,7 +309,7 @@ img{display:block;max-width:100%}
 <section class="people">
   <div class="peoplein">
     <div class="reveal">
-      <h2>Two decades of putting this in people's hands.</h2>
+      <h2>Twenty years, one belief.</h2>
       <p>Energy Muse began with one necklace and a simple belief: your energy deserves to be a priority. Heather Askinosie and Timmi Jandro have spent more than twenty years turning that into objects people actually keep &mdash; and into the largest collection of fixed-frequency generators anywhere.</p>
       <div class="who">Heather Askinosie &amp; Timmi Jandro &middot; founders</div>
     </div>

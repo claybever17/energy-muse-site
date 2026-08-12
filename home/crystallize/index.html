@@ -10,6 +10,7 @@
 <meta property="og:image" content="https://energy-muse-workingfolder.vercel.app/assets/og-current.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="../../assets/img/mark.svg">
+<script type="importmap">{"imports":{"three":"../../assets/three.module.min.js"}}</script>
 <style>
 @font-face{font-family:'Fraunces';src:url(../../assets/fonts/fraunces_300.woff2?v=3) format('woff2');font-weight:300;font-display:swap}
 @font-face{font-family:'Fraunces';src:url(../../assets/fonts/fraunces_400.woff2?v=3) format('woff2');font-weight:400;font-display:swap}
@@ -162,6 +163,118 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
   .add{padding:7px 11px}
 }
 
+
+/* ===== the rest of the landing page =========================================
+   The archive is the top of the page, not the whole of it. Below it the page
+   does a homepage's ordinary work, in this version's language: a clean
+   showcase with plain wayfinding — numbered, labelled, nothing hidden behind
+   a gesture. Pentagram's archive for the showcase, Air.inc for the
+   navigation. */
+.strip{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);background:var(--surface)}
+.stripin{max-width:1560px;margin:0 auto;padding:0 clamp(16px,3.4vw,40px);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.jump{display:flex;flex-direction:column;gap:5px;padding:22px 0 24px;border-left:1px solid var(--hair);
+  padding-left:20px;margin-left:-1px;transition:background .25s}
+.jump:first-child{border-left:0;padding-left:0;margin-left:0}
+.jump:hover{background:color-mix(in srgb,var(--copper) 5%,transparent)}
+.jump .no{font:600 9.5px var(--sans);letter-spacing:.2em;color:var(--stone)}
+.jump b{font-family:var(--serif);font-weight:400;font-size:18px}
+.jump span{font-size:12.5px;color:var(--ink-soft)}
+
+.band{max-width:1560px;margin:0 auto;padding:clamp(46px,6.5vw,96px) clamp(16px,3.4vw,40px)}
+.bhead{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:clamp(18px,2.4vw,30px)}
+.bno{font:600 10px var(--sans);letter-spacing:.2em;color:var(--copper);padding-top:6px}
+/* Headlines carry no ch measure. A cap that lands mid-phrase leaves a word
+   hanging on its own line, which reads as an accident; balance keeps the
+   lines even when a narrow screen genuinely does force a wrap. Body copy
+   keeps its measure — that one is about reading, not about shape. */
+.band h2{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw,48px);line-height:1.05;
+  letter-spacing:-.015em;text-wrap:balance}
+.band .lead{margin-top:12px;max-width:56ch;color:var(--ink-soft);text-wrap:pretty}
+
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:clamp(10px,1.4vw,18px)}
+.tile{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;display:block;border:1px solid var(--hair)}
+.tile img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.tile:hover img{transform:scale(1.05)}
+.tile .v{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,22,34,.8),rgba(15,22,34,.12) 55%,transparent)}
+.tile .t{position:absolute;left:14px;right:14px;bottom:13px;color:#fff}
+.tile .t b{display:block;font-family:var(--serif);font-weight:400;font-size:19px}
+.tile .t span{display:block;margin-top:3px;font:600 9.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.82}
+
+.two{display:grid;grid-template-columns:1fr minmax(0,540px);gap:clamp(26px,4.5vw,72px);align-items:center}
+/* the founders mirror the generator above them — art leads on one, copy on
+   the other, so the page alternates rather than repeating a layout */
+.two.rev{grid-template-columns:minmax(0,540px) 1fr}
+.two.rev .shot{order:-1}
+.shot{position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:#EFEAE1}
+.shot img{width:100%;height:100%;object-fit:cover}
+.gen{background:#0E1826;color:#EFE7D9}
+.gen .band{padding-block:clamp(46px,6.5vw,96px)}
+.gen h2{color:#EFE7D9}
+.gen .lead{color:#C3CAD6}
+.gen .bno{color:#C4855A}
+.genart{position:relative;aspect-ratio:5/4;border-radius:14px;overflow:hidden;
+  background:radial-gradient(58% 58% at 50% 42%,rgba(169,104,62,.24),transparent 70%)}
+.genart img{width:100%;height:100%;object-fit:contain}
+.price2{display:flex;align-items:baseline;gap:13px;margin-top:22px}
+.price2 s{color:#8994A6;font-family:var(--serif);font-size:18px}
+.price2 b{font-family:var(--serif);font-weight:400;font-size:32px}
+.go{display:inline-flex;align-items:center;gap:9px;margin-top:20px;padding:15px 28px;border-radius:2px;color:#fff;
+  background:linear-gradient(160deg,#9E6038,#96592F 46%,#8A4E2C);
+  font:700 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 10px 26px rgba(169,104,62,.3)}
+.go.done{background:#2B3648;box-shadow:none}
+
+.sign{background:color-mix(in srgb,var(--copper) 9%,var(--paper))}
+.signin{max-width:1560px;margin:0 auto;padding:clamp(42px,5.5vw,84px) clamp(16px,3.4vw,40px);
+  display:grid;grid-template-columns:1fr minmax(0,440px);gap:clamp(20px,4vw,60px);align-items:center}
+.sign h2{font-family:var(--serif);font-weight:300;font-size:clamp(24px,3.4vw,42px);line-height:1.06;text-wrap:balance}
+.sign p{margin-top:11px;color:var(--ink-soft);max-width:46ch}
+.sf{display:flex;gap:10px;flex-wrap:wrap}
+.sf input{flex:1;min-width:180px;padding:15px 16px;border:1px solid color-mix(in srgb,var(--ink) 18%,transparent);
+  border-radius:2px;background:rgba(255,255,255,.75);font:inherit;font-size:14.5px}
+.sf button{padding:15px 26px;border-radius:2px;color:#fff;background:var(--ink);
+  font:700 11px var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.snote{margin-top:10px;font-size:12px;color:var(--stone)}
+
+.pfoot{border-top:1px solid var(--hair)}
+.pfootin{max-width:1560px;margin:0 auto;padding:clamp(32px,4vw,52px) clamp(16px,3.4vw,40px);
+  display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-start}
+.pfootin .fl{max-width:34ch;color:var(--ink-soft);font-size:13.5px}
+.pfootin nav{display:flex;gap:clamp(18px,3vw,44px);flex-wrap:wrap}
+.pfootin nav a{font-size:13.5px;color:var(--ink-soft)}
+.pfootin nav a:hover{color:var(--copper)}
+.plegal{max-width:1560px;margin:0 auto;padding:0 clamp(16px,3.4vw,40px) 30px;font-size:11.5px;color:var(--stone);
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  /* .two.rev outranks a bare .two, so the reversed founders block kept its two
+     columns on a phone and squeezed the copy into a one-word ribbon */
+  .two,.two.rev,.signin{grid-template-columns:1fr}
+  .shot,.genart,.two.rev .shot{order:-1}
+  .jump{border-left:0;padding-left:0;margin-left:0;padding-block:16px;border-top:1px solid var(--hair)}
+  .jump:first-child{border-top:0}
+}
+
+
+/* ---------- the scanned ones ----------
+   Two of these are real specimens captured in 3D. Nothing on the page said so,
+   which wasted the best thing in the archive: on those, the detail panel turns
+   into the actual stone, turning. */
+.scan{position:absolute;top:11px;right:11px;z-index:2;display:inline-flex;align-items:center;gap:5px;
+  font:700 8.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);
+  background:color-mix(in srgb,#fff 82%,transparent);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  padding:4px 8px;border-radius:100px}
+.scan i{width:5px;height:5px;border-radius:50%;background:var(--copper);display:block}
+.sheet .mount{position:relative}
+#s-canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block;opacity:0;
+  transition:opacity .5s;z-index:2}
+#s-canvas.on{opacity:1}
+.spinhint{position:absolute;left:0;right:0;bottom:10px;z-index:3;text-align:center;
+  font:600 9px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--stone);
+  opacity:0;transition:opacity .5s}
+.spinhint.on{opacity:1}
+
 /* ---------- detail slide-over ---------- */
 .veil{position:fixed;inset:0;z-index:60;background:rgba(20,26,36,.4);opacity:0;pointer-events:none;
   transition:opacity .3s;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
@@ -239,10 +352,86 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
   </main>
 </div>
 
+
+<nav class="strip" aria-label="Sections">
+  <div class="stripin">
+    <a class="jump" href="#feeling"><span class="no">01</span><b>By intention</b><span>Start from how you want to feel</span></a>
+    <a class="jump" href="#instrument"><span class="no">02</span><b>The generator</b><span>One coil, tuned once</span></a>
+    <a class="jump" href="#people"><span class="no">03</span><b>The founders</b><span>Two decades of this</span></a>
+    <a class="jump" href="../cascade/"><span class="no">04</span><b>The frequency room</b><span>Seven tunings, one dial</span></a>
+  </div>
+</nav>
+
+<section class="band" id="feeling">
+  <div class="bhead"><span class="bno">01</span>
+    <div><h2>Or start from how you want to feel.</h2>
+      <p class="lead">The filters above are for when you know what you're after. When you don't, begin here &mdash; each one opens the collection already narrowed.</p></div>
+  </div>
+  <div class="tiles" id="tiles"></div>
+</section>
+
+<section class="gen" id="instrument">
+  <div class="band">
+    <div class="two">
+      <div>
+        <div class="bhead"><span class="bno">02</span>
+          <div><h2>One coil, tuned once, and left that way.</h2>
+            <p class="lead">Every generator is wound to a single frequency and stays there. A fixed coil reaches further and holds a stronger signal than the variable devices others sell &mdash; and we're home to the largest collection of them anywhere.</p></div>
+        </div>
+        <div class="price2"><s>$248.88</s><b>$219.88</b></div>
+        <button class="go" id="genbuy">Add the generator</button>
+      </div>
+      <div class="genart"><img src="../../assets/img/generator-render.webp" alt="The Energy Muse frequency generator" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="people">
+  <div class="two rev">
+    <div>
+      <div class="bhead"><span class="bno">03</span>
+        <div><h2>Twenty years, one belief.</h2>
+          <p class="lead">Energy Muse began with one necklace and a simple belief: your energy deserves to be a priority. Heather Askinosie and Timmi Jandro have spent more than twenty years turning that into objects people actually keep.</p></div>
+      </div>
+    </div>
+    <div class="shot"><img src="../../assets/img/founders.jpg" alt="Heather Askinosie and Timmi Jandro" loading="lazy"></div>
+  </div>
+</section>
+
+<section class="sign">
+  <div class="signin">
+    <div><h2>One crystal, one practice, once a week.</h2>
+      <p>Something to put on the shelf and something to do with it. Nothing else.</p></div>
+    <div>
+      <form class="sf" id="sform" novalidate>
+        <input type="email" placeholder="Your email" aria-label="Your email" required>
+        <button type="submit">Join</button>
+      </form>
+      <div class="snote" id="snote">No more than once a week. Unsubscribe whenever.</div>
+    </div>
+  </div>
+</section>
+
+<footer class="pfoot">
+  <div class="pfootin">
+    <div class="fl">Guided energy for real life. Crystal jewelry, natural crystals, frequency and personal guidance.</div>
+    <nav aria-label="Footer">
+      <a href="../cascade/">The frequency room</a>
+      <a href="../../generator/">Generators</a>
+      <a href="../../quiz/">The quiz</a>
+      <a href="../../designer/">Atelier</a>
+    </nav>
+  </div>
+  <div class="plegal">
+    <span>&copy; 2026 Energy Muse. All rights reserved.</span>
+    <span>Not medical devices. Not a substitute for healthcare. Experiences vary.</span>
+  </div>
+</footer>
+
 <div class="veil" id="veil"></div>
 <aside class="sheet" id="sheet" aria-hidden="true" aria-label="Crystal detail">
   <button class="sheet-x" id="sheet-x" aria-label="Close">&times;</button>
-  <div class="mount" id="s-mount"><img id="s-img" alt="" hidden src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></div>
+  <div class="mount" id="s-mount"><img id="s-img" alt="" hidden src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><canvas id="s-canvas"></canvas><div class="spinhint" id="spinhint">A real specimen, scanned</div></div>
   <div class="sbody">
     <h3 id="s-name"></h3>
     <div class="meta" id="s-meta"></div>
@@ -261,6 +450,7 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
    straight off the object: form comes from what the stone was cut into, hue
    from its own colour, and the frequency from the intention it is filed under.
 --------------------------------------------------------------------------- */
+var SCANS={protection:1,wellness:1};   /* assets/gems/<slug>.glb */
 var HZ={Calm:'7.83',Protection:'174',Wealth:'417','Fresh Start':'417',
         Wellness:'528',Love:'639',Spirituality:'963',Power:'1111'};
 
@@ -378,6 +568,7 @@ function render(){
     el.style.animationDelay=Math.min(i*26,320)+'ms';
     el.innerHTML=
       '<span class="hz">'+g.hz+' Hz</span>'+
+      (SCANS[g.slug]?'<span class="scan"><i></i>3D scan</span>':'')+
       '<button class="mount" data-open="'+g.slug+'" aria-label="View '+g.name.replace(/"/g,'&quot;')+'">'+
         '<img src="'+g.img+'" alt="'+g.name.replace(/"/g,'&quot;')+'" loading="lazy">'+
       '</button>'+
@@ -410,10 +601,12 @@ function openSheet(slug){
   document.getElementById('s-price').textContent=money(g.price);
   var buy=document.getElementById('s-buy');
   buy.textContent='Add to bag'; buy.classList.remove('done');
+  showScan(g);
   sheet.classList.add('on'); veil.classList.add('on'); sheet.setAttribute('aria-hidden','false');
   document.getElementById('sheet-x').focus();
 }
 function closeSheet(){
+  if(window.scanCvHide)window.scanCvHide();
   sheet.classList.remove('on'); veil.classList.remove('on');
   sheet.setAttribute('aria-hidden','true'); openGem=null;
 }
@@ -431,6 +624,29 @@ document.getElementById('s-buy').addEventListener('click',function(){
   addToBag(openGem.slug,openGem.name,openGem.price.toFixed(2),'/assets/img/products/'+openGem.slug+'.png');
   this.textContent='Added'; this.classList.add('done');
 });
+
+
+/* ---- the scanned specimens turn in the panel ---- */
+var scanCv=document.getElementById('s-canvas'), spinHint=document.getElementById('spinhint');
+var scanFor=null, scanBusy=false;
+window.scanCvHide=function(){scanCv.classList.remove('on');spinHint.classList.remove('on');};
+function showScan(g){
+  scanCv.classList.remove('on'); spinHint.classList.remove('on');
+  if(!SCANS[g.slug]||!window.WebGLRenderingContext)return;
+  if(scanFor===g.slug){scanCv.classList.add('on');spinHint.classList.add('on');return;}
+  if(scanBusy)return;
+  scanBusy=true;
+  import('../../assets/em-crystal.js').then(function(m){
+    /* one viewer per panel: a fresh canvas each time, so switching specimens
+       cannot leave the previous one rendering underneath */
+    var fresh=scanCv.cloneNode(false); fresh.id='s-canvas';
+    scanCv.parentNode.replaceChild(fresh,scanCv); scanCv=fresh;
+    return m.mount(scanCv,{src:'../../assets/gems/'+g.slug+'.glb'}).then(function(){
+      scanFor=g.slug; scanBusy=false;
+      scanCv.classList.add('on'); spinHint.classList.add('on');
+    });
+  }).catch(function(){scanBusy=false;});
+}
 
 /* --- bag: em-bag.js binds .padd itself, so mirror its contract --- */
 function addToBag(id,n,p,img){
@@ -478,6 +694,48 @@ buildChips('g-hue','hue',uniq('hue').sort(),true);
 render();
 
 /* keep the header bag count in step with em-bag's own store */
+
+/* ---- section 01: the tiles open the archive already narrowed ---- */
+var TILES=[
+ {cat:'Protection',img:'protection.jpg',note:'Boundaries, grounded confidence'},
+ {cat:'Wealth',    img:'wealth.jpg',    note:'Momentum, opportunity'},
+ {cat:'Calm',      img:'calm.jpg',      note:'Steadiness, nervous-system ease'},
+ {cat:'Love',      img:'jewelry.jpg?v=2',note:'Heart-opening, connection'},
+ {cat:'Spirituality',img:'clarity.jpg', note:'Focus, intuition'}
+];
+(function(){
+  var box=document.getElementById('tiles'); if(!box)return;
+  TILES.forEach(function(t){
+    var b=document.createElement('button');
+    b.type='button'; b.className='tile';
+    b.setAttribute('aria-label','Show '+t.cat+' crystals');
+    b.innerHTML='<img src="../../assets/img/'+t.img+'" alt="" loading="lazy">'+
+      '<span class="v"></span><span class="t"><b>'+t.cat+'</b><span>'+t.note+'</span></span>';
+    b.addEventListener('click',function(){
+      F={cat:[t.cat],form:[],hue:[]};
+      render(); writeURL();
+      document.querySelector('.work').scrollIntoView({behavior:'smooth',block:'start'});
+    });
+    box.appendChild(b);
+  });
+})();
+
+document.getElementById('genbuy').addEventListener('click',function(){
+  addToBag('generator-528','The 528 Hz Generator, in Copper','219.88','/assets/img/generator-render.webp');
+  this.textContent='Added to bag'; this.classList.add('done');
+  var s=this; setTimeout(function(){s.textContent='Add the generator';s.classList.remove('done');},1600);
+});
+
+document.getElementById('sform').addEventListener('submit',function(e){
+  e.preventDefault();
+  var v=this.querySelector('input').value.trim();
+  var ok=/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(v);
+  document.getElementById('snote').textContent=ok
+    ? 'Thank you — check your inbox to confirm.'
+    : 'That email does not look right — try again?';
+  if(ok)this.reset();
+});
+
 function syncBag(){
   try{
     var raw=localStorage.getItem('em-bag');
