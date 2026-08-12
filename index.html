@@ -27,10 +27,10 @@
 :root{
   --navy:#0B1320; --navy-2:#111C2E; --navy-line:#26344A; --navy-text:#EFE7D9; --navy-soft:#B4C0D0;
   --fg:var(--ink); --paper:var(--bg);
-  --maxw:1240px; --gutter:clamp(22px,5vw,72px);
+  --maxw:1400px; --gutter:clamp(22px,5vw,72px);
   /* distance from the viewport edge to the container's content box —
      the exact amount a full-bleed child must be pulled out by */
-  --edge:max(var(--gutter),calc((100vw - 1240px) / 2 + var(--gutter))); --step:clamp(84px,10vw,150px);
+  --edge:max(var(--gutter),calc((100vw - var(--maxw)) / 2 + var(--gutter))); --step:clamp(84px,10vw,150px);
   --serif:'Fraunces',Georgia,serif; --sans:'Instrument Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 }
 :root, :root[data-skin="ivory"]{
@@ -281,7 +281,7 @@ body.menu-open{overflow:hidden;}
        element, so both sides use one explicit measure of the outside space */
     /* the fr track shrinks once the negative margin is applied, so overshoot
        past the edge; .hero clips the excess */
-    --out:calc(max(0px,(100vw - 1240px) / 2) + var(--gutter) + 60px);
+    --out:calc(max(0px,(100vw - var(--maxw)) / 2) + var(--gutter) + 60px);
     margin-right:calc(var(--out) * -1);
     width:calc(100% + var(--out));max-width:none;}
   .hero-grid .hero-media>img{height:100%;object-position:46% 42%;}
