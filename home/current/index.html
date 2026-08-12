@@ -80,7 +80,7 @@ p{text-wrap:pretty}
           mask:linear-gradient(transparent,#000 14%,#000 86%,transparent)}
 .devwrap{position:absolute;left:50%;top:50%;width:min(520px,74vw);aspect-ratio:1/1;transform:translate(-50%,-50%);opacity:0;pointer-events:none}
 /* the caption holds the left column, so the generator sits right of centre */
-@media (min-width:900px){.devwrap{left:66%;width:min(520px,40vw)}}
+@media (min-width:900px){.devwrap{left:69%;width:min(640px,42vw)}}  /* 42vw, not 46: at 1024 a 46vw frame sat exactly on the caption. */
 .devwrap canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
 #lines{position:absolute;inset:0;width:100%;height:100%;display:block}
 #lines path{fill:none;stroke:var(--line);stroke-width:1.6;vector-effect:non-scaling-stroke;stroke-linecap:round}
@@ -751,7 +751,7 @@ function frame(p,t){
 
   /* device mount (once) */
   if(p>.34&&!frame.dev){frame.dev=1;
-    import('../../assets/em-device.js').then(function(m){m.mount(devCanvas,{zoom:0.85});}).catch(function(){});}
+    import('../../assets/em-device.js').then(function(m){m.mount(devCanvas,{zoom:0.98});}).catch(function(){});}
 }
 function cap(el,p,a,b,c,d){
   var o=win(p,a,b)*(1-win(p,c,d));
