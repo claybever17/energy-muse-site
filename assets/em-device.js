@@ -120,14 +120,65 @@ function mount(canvas,opts){
   if(!ctx.isMobile)addEventListener('pointermove',function(e){
     tmx=e.clientX/innerWidth-0.5;tmy=e.clientY/innerHeight-0.5;});
 
+  /* The camera used to sit at a hand-tuned distance, which meant the device's
+     corners were clipped at some frame shapes — the slab is widest corner-on,
+     and it turns as it sways, so no single number fits every aspect. Instead
+     measure the silhouette across the whole range of poses it actually reaches
+     and pull the camera back until the widest one clears the frame. */
+  var DIR=new THREE.Vector3(0,1.62,3.9).normalize();
+  var TARGET=new THREE.Vector3(0,-0.06,0);
+  var _v=new THREE.Vector3(), _box=new THREE.Box3();
+  var POSE_Y=[-1.28,-1.03,-0.78,-0.53,-0.28];   /* -0.78 +- sway +- pointer */
+  var POSE_X=[0.38,0.5,0.62];
+
+  function silhouette(){
+    /* widest projected extent over every pose, solid meshes only — the glow
+       sprites are far larger than the object and must not drive the framing */
+    var ry=device.rotation.y, rx=device.rotation.x, py=device.position.y, worst=0;
+    for(var a=0;a<POSE_Y.length;a++){
+      for(var b=0;b<POSE_X.length;b++){
+        device.rotation.y=POSE_Y[a];device.rotation.x=POSE_X[b];device.position.y=0.05;
+        device.updateMatrixWorld(true);
+        device.traverse(function(o){
+          if(!o.isMesh||!o.castShadow||!o.material||o.material.transparent)return;
+          _box.setFromObject(o);
+          for(var i=0;i<8;i++){
+            _v.set(i&1?_box.max.x:_box.min.x,i&2?_box.max.y:_box.min.y,i&4?_box.max.z:_box.min.z);
+            _v.project(camera);
+            var m=Math.max(Math.abs(_v.x),Math.abs(_v.y));
+            if(m>worst)worst=m;
+          }
+        });
+      }
+    }
+    device.rotation.y=ry;device.rotation.x=rx;device.position.y=py;
+    device.updateMatrixWorld(true);
+    return worst;
+  }
+
+  var dist=4.2;
+  function place(d){
+    camera.position.copy(DIR).multiplyScalar(d).add(TARGET);
+    camera.lookAt(TARGET);
+    camera.updateProjectionMatrix();
+    camera.updateMatrixWorld(true);
+  }
+
   function resize(){
     var r=canvas.parentElement.getBoundingClientRect();if(!r.width)return;
     renderer.setSize(r.width,r.height,false);
     camera.aspect=r.width/r.height;
-    var viewK=Math.max(1,Math.min(1.7,1.18/camera.aspect));
-    camera.position.set(0,1.62*viewK/zoom,3.9*viewK/zoom);
-    camera.lookAt(0,-0.06,0);
-    camera.updateProjectionMatrix();
+    /* zoom now means how much of the frame to fill: 1 is edge to edge */
+    var target=0.94*Math.min(1,zoom);
+    for(var i=0;i<6;i++){
+      place(dist);
+      var e=silhouette();
+      if(e<1e-4)break;
+      var k=e/target;
+      if(Math.abs(k-1)<0.004)break;
+      dist*=k;
+    }
+    place(dist);
   }
   addEventListener('resize',resize);resize();
 
