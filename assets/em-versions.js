@@ -15,7 +15,7 @@ var SIG={
   classic:'<path d="M3 6h20M3 12h13M3 18h20" />',
   motion:'<path d="M4 7h18M2 13h13M6 19h16" /><path d="M22 13h3" opacity=".5"/>',
   current:'<path d="M2 12c4-7 7 7 11 0s7-7 11 0"/>',
-  cascade:'<path d="M6 3v6M13 2v8M20 4v5" /><circle cx="6" cy="12" r="1.6"/><circle cx="13" cy="13.5" r="1.6"/><circle cx="20" cy="11" r="1.6"/><path d="M3 20h20" opacity=".55"/>',
+  cascade:'<path d="M3 12h18" opacity=".5"/><circle cx="6" cy="12" r="1.5"/><circle cx="11" cy="12" r="1.5"/><circle cx="16" cy="12" r="2.6"/><circle cx="21" cy="12" r="1.5"/><path d="M5 5c3-4 6 4 9 0s5-3 6 0"/>',
   crystallize:'<path d="M2 9c4-6 7 6 11 0s7-6 11 0"/><circle cx="13" cy="13.5" r="1.7"/><path d="M13 16v3" opacity=".5"/><path d="M4 21h18" opacity=".55"/>',
   atelier:'<circle cx="13" cy="12" r="7.5" opacity=".45"/><circle cx="13" cy="4.5" r="2"/><circle cx="19.4" cy="8.2" r="2"/><circle cx="19.4" cy="15.8" r="2"/><circle cx="13" cy="19.5" r="2"/><circle cx="6.6" cy="15.8" r="2"/><circle cx="6.6" cy="8.2" r="2"/>'
 };
@@ -23,7 +23,7 @@ var VERSIONS=[
   ['/','1 · Classic','the main homepage',SIG.classic],
   ['/home/motion/','2 · Motion','glides in as you scroll',SIG.motion],
   ['/home/current/','3 · Current','energy, visualized',SIG.current],
-  ['/home/cascade/','4 · Cascade','crystal rain',SIG.cascade],
+  ['/home/cascade/','4 · Frequency Room','seven tunings, one instrument',SIG.cascade],
   ['/home/crystallize/','5 · Collection','the whole shop, filterable',SIG.crystallize]
 ];
 var TOOLS=[
