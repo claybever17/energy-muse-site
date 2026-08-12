@@ -279,6 +279,24 @@ var SHADOW=(function(){
   c.fillStyle=rg;c.fillRect(0,0,96,96);
   return g;
 })();
+/* the copper spacer: their own strands are strung with small metal rounds
+   between the stones, and ours had none — the beads simply floated in a ring */
+var SPACER=(function(){
+  var g=document.createElement('canvas');g.width=g.height=64;
+  var c=g.getContext('2d');
+  var rg=c.createRadialGradient(24,20,2,32,32,32);
+  rg.addColorStop(0,'#F0CBA6');
+  rg.addColorStop(.34,'#C88A56');
+  rg.addColorStop(.72,'#9E6038');
+  rg.addColorStop(1,'#7A4526');
+  c.beginPath();c.arc(32,32,30,0,6.283);c.fillStyle=rg;c.fill();
+  /* one specular, so it reads as metal rather than a brown dot */
+  var hl=c.createRadialGradient(23,19,1,23,19,13);
+  hl.addColorStop(0,'rgba(255,244,230,.92)');hl.addColorStop(1,'rgba(255,244,230,0)');
+  c.beginPath();c.arc(23,19,13,0,6.283);c.fillStyle=hl;c.fill();
+  return g;
+})();
+
 var dirty=true,paints=0;
 function invalidate(){dirty=true;}
 function resize(){
@@ -365,7 +383,9 @@ function radius(){return Math.min(W,H)*0.30;}
 function beadPx(){
   /* beads scale with how full the strand is, so a big wrist reads bigger */
   var n=Math.max(strand.length,8);
-  return Math.min(radius()*2*Math.PI/n*0.92, radius()*0.42);
+  /* 0.84, not 0.92: the stones give back a little of their arc so a copper
+     round fits in every gap, the way the real strands are strung */
+  return Math.min(radius()*2*Math.PI/n*0.84, radius()*0.42);
 }
 function angleOf(i,n){return -Math.PI/2+(i/n)*Math.PI*2;}
 
@@ -392,11 +412,39 @@ function draw(ts){
     ctx.restore();
   }
 
-  /* the etched true-scale ring — the physical bracelet, actual size */
+  /* Empty, this is the etched true-scale ring — the bracelet at actual size.
+     Strung, it becomes the cord itself: the stones used to hang in a ring with
+     nothing joining them, which is what made this read as a diagram rather
+     than a bracelet. */
+  var bpc=beadPx();
   ctx.save();
-  ctx.strokeStyle='rgba(169,104,62,.22)';ctx.lineWidth=1;
-  ctx.beginPath();ctx.arc(cx,cy,R,0,6.283);ctx.stroke();
+  if(!n){
+    ctx.strokeStyle='rgba(169,104,62,.22)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.arc(cx,cy,R,0,6.283);ctx.stroke();
+  }else{
+    var cw=Math.max(2.2,bpc*0.13);
+    ctx.lineCap='round';
+    ctx.strokeStyle='rgba(74,58,42,.55)';ctx.lineWidth=cw;
+    ctx.beginPath();ctx.arc(cx,cy,R,0,6.283);ctx.stroke();
+    /* a thread catches the light along its top edge */
+    ctx.strokeStyle='rgba(226,205,180,.42)';ctx.lineWidth=cw*0.34;
+    ctx.beginPath();ctx.arc(cx,cy-cw*0.22,R,Math.PI*1.08,Math.PI*1.92);ctx.stroke();
+  }
   ctx.restore();
+
+  /* a copper round in each gap, under the stones so they overlap it */
+  if(n>1){
+    var sd=Math.max(5,bpc*0.30);
+    for(var q=0;q<n;q++){
+      var mid=angleOf(q,n)+spin+Math.PI/n;
+      var sx=cx+Math.cos(mid)*R, sy=cy+Math.sin(mid)*R;
+      ctx.save();
+      ctx.globalAlpha=.55;
+      ctx.drawImage(SHADOW,sx-sd*0.9,sy-sd*0.9+sd*0.16,sd*1.8,sd*1.8);
+      ctx.restore();
+      ctx.drawImage(SPACER,sx-sd/2,sy-sd/2,sd,sd);
+    }
+  }
 
   /* the copper pulse travelling the ring after each addition */
   if(pulse>0){
