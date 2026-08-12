@@ -948,7 +948,11 @@ p{text-wrap:pretty;}
 .nav-utils a.bag{font-weight:700;}
 
 /* ---------- the margin spine: reading progress, anchored to the left edge ---------- */
-.spine{position:fixed;left:max(14px,2.2vw);top:16vh;bottom:16vh;width:1px;z-index:3;pointer-events:none;
+/* The spine sat against the viewport edge while every other element lines up
+   on the container, so widening the container only pushed the page further
+   away from it. It marks the container's own left edge now — a margin rule
+   one gutter outside the text, which is where a margin rule belongs. */
+.spine{position:fixed;left:max(14px,calc((100vw - var(--maxw)) / 2));top:16vh;bottom:16vh;width:1px;z-index:3;pointer-events:none;
   background:color-mix(in srgb,var(--copper) 16%,transparent);}
 .spine i{position:absolute;left:0;top:0;width:100%;height:var(--sp,0%);display:block;
   background:linear-gradient(180deg,color-mix(in srgb,var(--copper) 70%,transparent),var(--copper));
@@ -967,7 +971,7 @@ p{text-wrap:pretty;}
    The widest label runs 95px from a start of ~48px, and the copy edge does
    not clear that until about 1440. Below it, the label would sit on the text. */
 .spine-label{display:none}
-@media (min-width:1440px){.spine-label{display:block;left:calc(max(14px,2.2vw) + 16px)}}
+@media (min-width:1440px){.spine-label{display:block;left:calc(max(14px,calc((100vw - var(--maxw)) / 2)) + 16px)}}
 /* the split sections bleed their photographs right across this margin, so the
    type carries a paper halo rather than dissolving into whatever is behind it */
 .spine-label{text-shadow:0 0 7px var(--bg),0 0 3px var(--bg),0 1px 2px var(--bg);}
@@ -1119,6 +1123,7 @@ p{text-wrap:pretty;}
   .steps-zone.reveal .step,.steps-zone.reveal .step .rn,.duo-card.reveal,.reels.reveal .reel{
     opacity:1;transform:none;filter:none;transition:none;}
 }
+
 
 
 
