@@ -94,7 +94,7 @@ img{display:block;max-width:100%}
 .head p{margin-top:16px;max-width:56ch;color:var(--ink-soft);font-size:15.5px;text-wrap:balance}
 
 /* ---------- the working area ---------- */
-.work{max-width:1560px;margin:0 auto;padding:0 clamp(16px,3.4vw,40px) clamp(60px,8vw,120px);
+.work{max-width:1560px;margin:0 auto;padding:clamp(12px,2vw,26px) clamp(16px,3.4vw,40px) clamp(60px,8vw,120px);
   display:grid;grid-template-columns:var(--rail) 1fr;gap:clamp(24px,3vw,52px);align-items:start}
 
 /* ---------- filter rail ---------- */
@@ -123,6 +123,8 @@ img{display:block;max-width:100%}
 .count{font-family:var(--serif);font-weight:300;font-size:clamp(19px,2.2vw,26px)}
 .count b{font-weight:400;font-variant-numeric:tabular-nums}
 .count span{color:var(--stone);font-size:.62em;font-family:var(--sans);letter-spacing:.02em}
+/* the one instruction worth keeping from the old header block */
+.count .hint{display:block;font-size:12.5px;color:var(--stone);margin-top:3px;letter-spacing:0}
 .sortwrap{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--stone)}
 select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
   border:1px solid var(--hair);border-radius:8px;padding:8px 11px}
@@ -364,11 +366,6 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
   </div>
 </section>
 
-<div class="head">
-  <span class="eyebrow">The collection</span>
-  <h2>Every crystal in one place.</h2>
-  <p>Filter by intention, form or colour &mdash; the collection answers as you go.</p>
-</div>
 
 <div class="work">
   <button class="fbtn" id="fbtn" aria-expanded="false" aria-controls="rail">Filter <b id="fbtn-n"></b></button>
@@ -382,7 +379,7 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
 
   <main>
     <div class="rhead">
-      <div class="count"><b id="n">0</b> <span id="nlabel">crystals</span></div>
+      <div class="count"><b id="n">0</b> <span id="nlabel">crystals</span><span class="hint">Filter by intention, form or colour</span></div>
       <div class="sortwrap"><label for="sort">Sort</label>
         <select id="sort">
           <option value="featured">Featured</option>
