@@ -52,7 +52,10 @@ img{display:block;max-width:100%}
 /* the second clause takes its own line — starting an italic mid-line leaves
    the first phrase broken across two and the emphasis stranded */
 .state h1 em{display:block;font-style:italic;color:var(--tone);transition:color .6s}
-.state .said{margin-top:18px;max-width:54ch;font-size:clamp(15px,1.5vw,18px);color:var(--ink-soft);text-wrap:pretty}
+/* balance, not pretty: pretty only rescues an orphan on the final line, so a
+   two-line intro still breaks wherever it lands and leaves a stray word like
+   "the" at the end of the first. balance evens the two. */
+.state .said{margin-top:18px;max-width:54ch;font-size:clamp(15px,1.5vw,18px);color:var(--ink-soft);text-wrap:balance}
 .state .acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
 .act{display:inline-flex;align-items:center;padding:15px 26px;border-radius:2px;
   font:700 11px var(--sans);letter-spacing:.14em;text-transform:uppercase}
@@ -87,7 +90,7 @@ img{display:block;max-width:100%}
 .unit{font-family:var(--serif);font-weight:300;font-size:clamp(20px,3vw,34px);color:var(--stone)}
 .tname{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(24px,3.6vw,42px);
   color:var(--tone);margin-top:2px;transition:color .6s}
-.tsay{margin-top:16px;max-width:46ch;color:var(--ink-soft);font-size:15.5px;text-wrap:pretty;min-height:3.2em}
+.tsay{margin-top:16px;max-width:46ch;color:var(--ink-soft);font-size:15.5px;text-wrap:balance;min-height:3.2em}
 
 /* ---------- the wave ---------- */
 .wave{position:relative;z-index:1;margin-top:22px;height:104px;width:100%;max-width:560px}
@@ -192,7 +195,7 @@ img{display:block;max-width:100%}
    keeps its measure — that one is about reading, not about shape. */
 .tuned h2{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw,46px);line-height:1.06;text-wrap:balance}
 .tuned h2 em{font-style:italic;color:var(--tone);transition:color .6s}
-.tuned .sub{margin-top:14px;max-width:52ch;color:var(--ink-soft);text-wrap:pretty}
+.tuned .sub{margin-top:14px;max-width:52ch;color:var(--ink-soft);text-wrap:balance}
 .ints{margin-top:clamp(24px,3vw,42px);display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:clamp(10px,1.4vw,18px)}
 .int{position:relative;aspect-ratio:3/4.1;border-radius:14px;overflow:hidden;display:block;text-align:left;
   border:1px solid var(--hair);background:#EFEAE1}

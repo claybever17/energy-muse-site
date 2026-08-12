@@ -53,7 +53,7 @@ img{display:block;max-width:100%}
 /* the second clause takes its own line — starting an italic mid-line leaves
    the first phrase broken across two and the emphasis stranded */
 .state h1 em{display:block;font-style:italic;color:var(--copper)}
-.state .said{margin-top:18px;max-width:52ch;font-size:clamp(15px,1.5vw,18px);color:var(--ink-soft);text-wrap:pretty}
+.state .said{margin-top:18px;max-width:52ch;font-size:clamp(15px,1.5vw,18px);color:var(--ink-soft);text-wrap:balance}
 .state .acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
 .act{display:inline-flex;align-items:center;padding:15px 26px;border-radius:2px;
   font:700 11px var(--sans);letter-spacing:.14em;text-transform:uppercase}
@@ -81,7 +81,10 @@ img{display:block;max-width:100%}
    which reads as an accident rather than a decision. */
 .head h2{font-family:var(--serif);font-weight:300;font-size:clamp(30px,5vw,56px);line-height:1.03;
   letter-spacing:-.02em;margin:12px 0 0;text-wrap:balance}
-.head p{margin-top:16px;max-width:56ch;color:var(--ink-soft);font-size:15.5px;text-wrap:pretty}
+/* balance, not pretty: pretty only rescues an orphan on the final line, so a
+   two-line intro still breaks wherever it lands and leaves a stray word like
+   "the" at the end of the first. balance evens the two. */
+.head p{margin-top:16px;max-width:56ch;color:var(--ink-soft);font-size:15.5px;text-wrap:balance}
 
 /* ---------- the working area ---------- */
 .work{max-width:1560px;margin:0 auto;padding:0 clamp(16px,3.4vw,40px) clamp(60px,8vw,120px);
@@ -214,7 +217,7 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
    keeps its measure — that one is about reading, not about shape. */
 .band h2{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw,48px);line-height:1.05;
   letter-spacing:-.015em;text-wrap:balance}
-.band .lead{margin-top:12px;max-width:56ch;color:var(--ink-soft);text-wrap:pretty}
+.band .lead{margin-top:12px;max-width:56ch;color:var(--ink-soft);text-wrap:balance}
 
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:clamp(10px,1.4vw,18px)}
 .tile{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;display:block;border:1px solid var(--hair)}
