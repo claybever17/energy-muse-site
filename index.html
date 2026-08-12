@@ -27,7 +27,10 @@
 :root{
   --navy:#0B1320; --navy-2:#111C2E; --navy-line:#26344A; --navy-text:#EFE7D9; --navy-soft:#B4C0D0;
   --fg:var(--ink); --paper:var(--bg);
-  --maxw:1400px; --gutter:clamp(22px,5vw,72px);
+  /* One margin for the whole page. The wordmark, the utilities and every
+     line of copy below them sit on it, so nothing is left floating in a
+     dead band. --maxw is only a stop against sprawl on very wide screens. */
+  --maxw:2000px; --gutter:clamp(20px,3.2vw,56px);
   /* distance from the viewport edge to the container's content box —
      the exact amount a full-bleed child must be pulled out by */
   --edge:max(var(--gutter),calc((100vw - var(--maxw)) / 2 + var(--gutter))); --step:clamp(84px,10vw,150px);
@@ -95,6 +98,12 @@ p{margin:0;}
 .eyebrow.muted{color:var(--stone);}
 .section{padding-block:var(--step);}
 .lead{color:var(--ink-soft);}
+/* a line of body copy stops being readable somewhere around 75 characters,
+   well before the page runs out of room. These three sat in full-width
+   containers with no measure of their own. */
+.final .wrap > .lead{max-width:58ch;}
+.final .wrap > .lead{margin-inline:auto;}
+.subband .wrap p{max-width:66ch;}
 em.hl{font-style:italic;font-family:var(--serif);color:var(--copper);font-weight:400;}
 /* gem words: a slow light sweep lives inside the letterforms */
 .gemword{color:var(--copper)}
@@ -174,7 +183,15 @@ header.nav.solid{background:var(--bg);backdrop-filter:blur(12px);
 /* anchors land below the bar rather than under it */
 html{scroll-padding-top:96px;}
 header.nav.solid::after{opacity:1;}
-.nav-in{display:flex;align-items:center;gap:26px;height:76px;}
+/* The header rode inside the 1400px container, so on a wide screen the
+   wordmark sat 332px in from the left and the utilities the same from the
+   right — a header floating in the middle of the window. It spans the
+   viewport now and keeps its own padding, so the marks land in the corners
+   while the page content stays on the container. */
+.nav-in{display:flex;align-items:center;gap:26px;height:76px;
+  /* the page's margin, not the header's own: the wordmark lines up with
+     the headline underneath it, and Search/Bag with the copy's right edge */
+  max-width:none;padding-inline:var(--edge);}
 /* header: wordmark top-left, four links beside it, utilities right */
 @media (min-width:841px){
   .nav-in{gap:clamp(24px,3.4vw,44px);position:relative;}
@@ -285,8 +302,10 @@ body.menu-open{overflow:hidden;}
     margin-right:calc(var(--out) * -1);
     width:calc(100% + var(--out));max-width:none;}
   .hero-grid .hero-media>img{height:100%;object-position:46% 42%;}
-  .hero-grid .hero-copy{position:relative;z-index:4;margin-right:clamp(-96px,-5vw,-40px);}
+  .hero-grid .hero-copy{position:relative;z-index:4;margin-right:clamp(-96px,-5vw,-40px);
+    max-width:none;}
   .hero-grid .hero-copy h1{max-width:none;}
+  .hero-grid .hero-copy .sub{max-width:40ch;}
 }
 /* squared photo frame with an offset copper echo behind */
 .hero-media{position:relative;aspect-ratio:4/4.6;overflow:visible;
@@ -379,7 +398,7 @@ body.menu-open{overflow:hidden;}
   font-size:13.5px;line-height:1.5;color:var(--ink-soft);letter-spacing:.01em;max-width:400px;}
 .trust-item+.trust-item{border-left:1px solid var(--hair);}
 .trust-item span{text-wrap:balance;}
-.trust-author{text-align:center;font-size:12.5px;color:var(--stone);margin:0 auto;padding:13px var(--gutter) 17px;
+.trust-author{text-align:center;font-size:12.5px;color:var(--stone);margin:0 auto;max-width:82ch;padding:13px var(--gutter) 17px;
   line-height:1.6;text-wrap:balance;border-top:1px solid color-mix(in srgb,var(--hair) 65%,transparent);}
 .trust-author em{font-style:italic;font-weight:400;color:inherit;}
 .trust-author em.who{font-style:normal;font-weight:600;color:var(--copper-lo);}
@@ -420,6 +439,7 @@ body.menu-open{overflow:hidden;}
 /* ===== STORE — the shop, made unmissable two thirds down ===== */
 .store{background:linear-gradient(180deg,color-mix(in srgb,var(--copper) 5%,transparent),transparent 42%);}
 .store-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.8vw,26px);}
+@media (min-width:1360px){.store-grid{grid-template-columns:repeat(6,1fr);}}
 .pcard{position:relative;display:flex;flex-direction:column;background:var(--surface);
   border:1px solid var(--hair);border-radius:10px;padding:18px 18px 16px;
   transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .35s;}
@@ -853,7 +873,10 @@ footer.site{background:
   .reel figcaption strong{font-size:14px;}
   .reel figcaption span{font-size:10px;}
   .hero{min-height:auto;padding-block:40px;}
-  .hero-grid{display:flex;flex-direction:column;}
+  /* the grid's align-items:center carries over into the column flex, so the
+     copy shrank to fit and floated off the page's left margin — every other
+     block on the page starts at the gutter, and so should this one. */
+  .hero-grid{display:flex;flex-direction:column;align-items:stretch;}
   .hero-media{order:-1;aspect-ratio:16/11;width:100%;}
   .hero-media.live3d{aspect-ratio:16/11;}
   .hero-copy{padding-block:20px 40px;max-width:none;}
@@ -947,34 +970,7 @@ p{text-wrap:pretty;}
 .nav-utils a{font-weight:600;color:var(--fg);}
 .nav-utils a.bag{font-weight:700;}
 
-/* ---------- the margin spine: reading progress, anchored to the left edge ---------- */
-/* The spine sat against the viewport edge while every other element lines up
-   on the container, so widening the container only pushed the page further
-   away from it. It marks the container's own left edge now — a margin rule
-   one gutter outside the text, which is where a margin rule belongs. */
-.spine{position:fixed;left:max(14px,calc((100vw - var(--maxw)) / 2));top:16vh;bottom:16vh;width:1px;z-index:3;pointer-events:none;
-  background:color-mix(in srgb,var(--copper) 16%,transparent);}
-.spine i{position:absolute;left:0;top:0;width:100%;height:var(--sp,0%);display:block;
-  background:linear-gradient(180deg,color-mix(in srgb,var(--copper) 70%,transparent),var(--copper));
-  box-shadow:0 0 8px color-mix(in srgb,var(--copper) 45%,transparent);}
-.spine i::after{content:"";position:absolute;left:-2px;bottom:-3px;width:5px;height:5px;border-radius:50%;
-  background:var(--copper);box-shadow:0 0 10px color-mix(in srgb,var(--copper) 75%,transparent);}
-/* The margin index is back, set horizontally. It was killed the first time
-   for being rotated — stray type turned on its side in the margin. Level,
-   in the eyebrow's own size and tracking, it reads as a running header. */
-.spine-label{position:fixed;top:calc(16vh - 4px);z-index:3;pointer-events:none;
-  font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--stone);white-space:nowrap;
-  opacity:0;transition:opacity .22s ease;}
-@media (max-width:900px){.spine{display:none}}
-/* it only appears where the margin is genuinely wide enough to hold it.
-   The widest label runs 95px from a start of ~48px, and the copy edge does
-   not clear that until about 1440. Below it, the label would sit on the text. */
-.spine-label{display:none}
-@media (min-width:1440px){.spine-label{display:block;left:calc(max(14px,calc((100vw - var(--maxw)) / 2)) + 16px)}}
-/* the split sections bleed their photographs right across this margin, so the
-   type carries a paper halo rather than dissolving into whatever is behind it */
-.spine-label{text-shadow:0 0 7px var(--bg),0 0 3px var(--bg),0 1px 2px var(--bg);}
+
 
 /* ---------- a band of frequencies, running slowly, as texture ---------- */
 .hzband{position:relative;overflow:hidden;padding:clamp(26px,4vw,44px) 0;
@@ -1034,8 +1030,6 @@ p{text-wrap:pretty;}
   </div>
 </div>
 
-<div class="spine" aria-hidden="true"><i id="spinefill"></i></div>
-<div class="spine-label" id="spinelabel" aria-hidden="true"></div>
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="./"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo"/></svg></a>
@@ -1094,27 +1088,6 @@ p{text-wrap:pretty;}
 </section>
 
 
-<!-- ===== PROMO =====
-     A slot for whatever is new. Everything below is content: swap the tag,
-     headline, copy, price, image and link. Delete the section to remove it. -->
-<section class="promo" id="promo" aria-label="New release">
-  <div class="wrap">
-    <div class="promo-copy">
-      <span class="tag">Just landed</span>
-      <h2>The 528&#8239;Hz Generator, in Copper.</h2>
-      <p>Our fixed-frequency generator in a new hand-finished copper housing &mdash; the same tuned 528&#8239;Hz coil, in a warmer body built to be left out on the shelf.</p>
-      <div class="row">
-        <span class="price"><s>$248.88</s>$219.88</span>
-        <a class="btn btn-primary" href="generator/">Shop the generator</a>
-      </div>
-    </div>
-    <div class="promo-art">
-      <span class="promo-glow" aria-hidden="true"></span>
-      <img src="assets/img/generator-render.webp" alt="The Energy Muse frequency generator in a copper housing" loading="lazy">
-    </div>
-  </div>
-</section>
-
 <!-- ===== TRUST ===== -->
 <section class="trust">
   <div class="wrap"><div class="trust-in">
@@ -1141,6 +1114,27 @@ p{text-wrap:pretty;}
     </div>
     <div class="int-grid reveal"><a class="int" href="intention/protection/"><img src="assets/img/protection.jpg" alt="Protection intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div></a><a class="int" href="intention/abundance/"><img src="assets/img/wealth.jpg" alt="Abundance intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div></a><a class="int" href="intention/calm/"><img src="assets/img/calm.jpg" alt="Grounding and Calm intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Steadiness &middot; nervous-system ease</div><div class="t">Calm</div></div></a><a class="int" href="intention/connection/"><img src="assets/img/jewelry.jpg?v=2" alt="Love and Self-Worth intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Heart-opening &middot; connection</div><div class="t">Love</div></div></a><a class="int" href="intention/clarity/"><img src="assets/img/clarity.jpg" alt="Clarity and Intuition intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Focus &middot; intuition</div><div class="t">Clarity</div></div></a></div>
     <div class="int-cta"><a href="quiz/" class="link">Take the Energy Quiz <span class="a">&rarr;</span></a></div>
+  </div>
+</section>
+
+<!-- ===== PROMO =====
+     A slot for whatever is new. Everything below is content: swap the tag,
+     headline, copy, price, image and link. Delete the section to remove it. -->
+<section class="promo" id="promo" aria-label="New release">
+  <div class="wrap">
+    <div class="promo-copy">
+      <span class="tag">Just landed</span>
+      <h2>The 528&#8239;Hz Generator, in Copper.</h2>
+      <p>Our fixed-frequency generator in a new hand-finished copper housing &mdash; the same tuned 528&#8239;Hz coil, in a warmer body built to be left out on the shelf.</p>
+      <div class="row">
+        <span class="price"><s>$248.88</s>$219.88</span>
+        <a class="btn btn-primary" href="generator/">Shop the generator</a>
+      </div>
+    </div>
+    <div class="promo-art">
+      <span class="promo-glow" aria-hidden="true"></span>
+      <img src="assets/img/generator-render.webp" alt="The Energy Muse frequency generator in a copper housing" loading="lazy">
+    </div>
   </div>
 </section>
 
@@ -1355,30 +1349,6 @@ p{text-wrap:pretty;}
   </div>
 </section>
 
-<!-- ===== QUOTES ===== -->
-<section class="section band">
-  <div class="wrap">
-    <div class="head reveal"><span class="eyebrow muted">In their words</span><h2>Real energy. Real people. Real transformations.</h2></div>
-    <div class="quotes reveal">
-      <figure class="quote">
-        <span class="qmark" aria-hidden="true">&ldquo;</span>
-        <blockquote>I feel noticeably calmer when it's near me. I keep it in my backpack for classes and clinicals &mdash; it's been a game changer for managing my stress.</blockquote>
-        <figcaption>Kaylee</figcaption>
-      </figure>
-      <figure class="quote">
-        <span class="qmark" aria-hidden="true">&ldquo;</span>
-        <blockquote>I always have my Protection Necklace in my pocket at work. If I start to feel overwhelmed, I reach in and hold it. There is true power in believing something is protecting you.</blockquote>
-        <figcaption>Sher McAfee</figcaption>
-      </figure>
-      <figure class="quote">
-        <span class="qmark" aria-hidden="true">&ldquo;</span>
-        <blockquote>My Grounding Bracelet has been immensely helpful in helping me attain peace while I took on the challenge of building a brand-new curriculum this year. Thank you for the inspiration!</blockquote>
-        <figcaption>Shannon Gallagher</figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
 <!-- ===== FINAL ===== -->
 <section class="section final">
   <div class="wrap reveal">
@@ -1590,37 +1560,6 @@ p{text-wrap:pretty;}
     addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(upd);}},{passive:true});
     addEventListener('resize',upd);upd();
 
-    /* the margin index names the section you are actually reading */
-    var slabel=document.getElementById('spinelabel');
-    var MARKS=[['#promo','Just landed'],['#intention','By intention'],['#quiz','The quiz'],
-               ['#jewelry','Jewelry'],['#about','Our story'],['#frequency','Frequency'],
-               ['#learn2','Learn'],['#store','The shop'],['#veza','Veza']];
-    var secs=MARKS.map(function(m){return [document.querySelector(m[0]),m[1]];})
-                  .filter(function(m){return m[0];});
-    var lastLabel=null;
-    function indexLabel(){
-      if(!slabel||!secs.length)return;
-      var line=innerHeight*0.42, best=null;
-      secs.forEach(function(s){if(s[0].getBoundingClientRect().top<=line)best=s[1];});
-      if(best===lastLabel)return;
-      lastLabel=best;
-      if(!best){slabel.style.opacity='0';return;}   /* nothing named over the hero */
-      slabel.style.opacity='0';
-      setTimeout(function(){slabel.textContent=best;slabel.style.opacity='1';},200);
-    }
-    addEventListener('scroll',indexLabel,{passive:true});
-    addEventListener('resize',indexLabel);indexLabel();
-
-    /* the spine fills with reading progress */
-    var sfill=document.getElementById('spinefill');
-    function spine(){
-      if(!sfill)return;
-      var doc=document.documentElement, max=doc.scrollHeight-innerHeight;
-      var pct=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
-      sfill.style.setProperty('--sp',(pct*100).toFixed(2)+'%');
-    }
-    addEventListener('scroll',spine,{passive:true});
-    addEventListener('resize',spine);spine();
 
     /* the frequency band: two identical runs so the loop is seamless */
     var track=document.getElementById('hztrack');
@@ -1680,7 +1619,7 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 </script>
 
 <script src="assets/em-bag.js?v=3" defer></script>
-<script src="assets/em-versions.js?v=4" defer></script>
+<script src="assets/em-versions.js?v=8" defer></script>
 <script>
 (function(){
   var btns=[].slice.call(document.querySelectorAll('.skin'));

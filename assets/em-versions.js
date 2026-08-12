@@ -21,13 +21,16 @@ var SIG={
 };
 var VERSIONS=[
   ['/','1 · Classic','the main homepage',SIG.classic],
-  ['/home/motion/','2 · Motion','glides in as you scroll',SIG.motion],
-  ['/home/current/','3 · Current','energy, visualized',SIG.current],
-  ['/home/cascade/','4 · Frequency Room','seven tunings, one instrument',SIG.cascade],
-  ['/home/crystallize/','5 · Collection','the whole shop, filterable',SIG.crystallize]
+  ['/home/current/','2 · Current','energy, visualized',SIG.current],
+  ['/home/lab/','3 · Current v2','a sandbox to build on',SIG.current]
 ];
+/* three homepages to choose between, and three things you actually operate.
+   The Collection sits here rather than above: it is the shop, not a fourth
+   answer to the same question the other three are answering. */
 var TOOLS=[
-  ['/designer/','Atelier','design your own bracelet',SIG.atelier]
+  ['/designer/','Atelier','build one',SIG.atelier],
+  ['/home/cascade/','Frequency Room','tune it',SIG.cascade],
+  ['/home/crystallize/','Collection','browse all',SIG.crystallize]
 ];
 
 function lum(){try{var m=getComputedStyle(document.body).backgroundColor.match(/\d+/g);
@@ -47,14 +50,14 @@ var css=[
 '  letter-spacing:.14em;text-transform:uppercase;transition:border-color .25s,color .25s;font-family:inherit;}',
 '.emv-btn:hover{border-color:'+P.accent+';color:'+P.fg+';}',
 '.emv-dot{width:8px;height:8px;border-radius:50%;background:'+P.accent+';flex:none;}',
-'.emv-pop{width:min(292px,calc(100vw - 28px));padding:11px;border-radius:14px;border:1px solid '+P.line+';',
+'.emv-pop{width:min(336px,calc(100vw - 28px));padding:11px;border-radius:14px;border:1px solid '+P.line+';',
 '  background:'+P.bg+';backdrop-filter:blur(18px);box-shadow:'+P.glow+';',
 '  opacity:0;transform:translateY(10px) scale(.98);pointer-events:none;transform-origin:100% 100%;',
 '  transition:opacity .3s cubic-bezier(.16,1,.3,1),transform .3s cubic-bezier(.16,1,.3,1);}',
 '.emv-pop.open{opacity:1;transform:none;pointer-events:auto;}',
 '.emv-lab{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:'+P.soft+';font-weight:600;',
 '  margin:0 0 6px 8px;opacity:.85;}',
-'.emv-pop a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:9px;text-decoration:none;',
+'.emv-pop a{display:flex;align-items:center;gap:10px;padding:9px 8px;border-radius:9px;text-decoration:none;',
 '  border:1px solid transparent;transition:background .2s,border-color .2s,transform .2s;}',
 /* the drawn signature */
 '.emv-ico{flex:none;width:22px;height:20px;color:'+P.accent+';opacity:.8;transition:opacity .2s,color .2s;}',
@@ -74,6 +77,13 @@ var css=[
 '.emv-pop a.cur .emv-ico{opacity:1;}',
 /* tools are not another skin — they are something you use */
 '.emv-rule{height:1px;background:'+P.line+';margin:9px 6px 8px;opacity:.8;}',
+/* the tools sit two across. At half the popover's width a row of
+   icon-then-text cannot hold "Frequency Room" on one line, so each tile
+   stacks instead: signature above the name. */
+'.emv-tools{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;}',
+'.emv-pop a.tool{flex-direction:column;align-items:flex-start;gap:7px;padding:10px 9px 9px;}',
+'.emv-pop a.tool .emv-txt strong{font-size:12.5px;line-height:1.15;}',
+'.emv-pop a.tool .emv-txt span{font-size:9px;}',
 '.emv-pop a.tool{background:linear-gradient(150deg,#9E6038,#96592F 52%,#8A4E2C);border-color:transparent;',
 '  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 22px rgba(169,104,62,.32);}',
 '.emv-pop a.tool .emv-txt strong{color:#fff;}',
@@ -90,7 +100,8 @@ function row(v,isTool,here){
   var cls=(isTool?'tool':'')+(norm===here?' cur':'');
   return '<a href="'+v[0]+'"'+(cls?' class="'+cls.trim()+'"':'')+'>'+
     '<span class="emv-ico"><svg viewBox="0 0 26 24" aria-hidden="true">'+v[3]+'</svg></span>'+
-    '<span class="emv-txt"><strong>'+v[1]+'</strong><span>'+v[2]+'</span></span></a>';
+    '<span class="emv-txt"><strong>'+v[1]+'</strong>'+
+    (isTool?'<span>'+v[2]+'</span>':'')+'</span></a>';
 }
 
 function boot(){
@@ -101,7 +112,7 @@ function boot(){
   pop.innerHTML='<div class="emv-lab">Design directions</div>'+
     VERSIONS.map(function(v){return row(v,false,here);}).join('')+
     '<div class="emv-rule"></div><div class="emv-lab">Try it</div>'+
-    TOOLS.map(function(v){return row(v,true,here);}).join('');
+    '<div class="emv-tools">'+TOOLS.map(function(v){return row(v,true,here);}).join('')+'</div>';
   var btn=document.createElement('button');btn.className='emv-btn';btn.setAttribute('aria-expanded','false');
   btn.innerHTML='<span class="emv-dot"></span><span>Versions</span>';
   function set(o){pop.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');}
