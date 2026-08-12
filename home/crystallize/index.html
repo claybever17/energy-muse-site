@@ -42,15 +42,13 @@ img{display:block;max-width:100%}
 .bag:hover{border-color:var(--copper)}
 
 /* ---------- masthead ---------- */
-/* The masthead runs on the same two columns as the work area below, so the
-   intro sits in the grid's own column: it starts where the results row and the
-   specimen plates start, and the page gets one alignment spine down its middle
-   instead of a wide headline with a narrow block stranded under its left end. */
+/* Eyebrow, headline and intro share one left edge. Pushing the intro into the
+   grid's column did line it up with the plates, but it detached the paragraph
+   from the headline it belongs to and left a hole under the headline's left
+   half. A masthead reads as one block. */
 .head{padding:clamp(34px,6vw,72px) clamp(16px,3.4vw,40px) clamp(20px,3vw,34px);
-  max-width:1560px;margin:0 auto;
-  display:grid;grid-template-columns:var(--rail) 1fr;gap:0 clamp(24px,3vw,52px)}
-.head .eyebrow,.head h1{grid-column:1 / -1}
-.head p{grid-column:2;max-width:64ch}
+  max-width:1560px;margin:0 auto}
+.head p{max-width:62ch}
 .eyebrow{font:600 10.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--copper)}
 /* no artificial measure here: at 68px the line runs 1080px and the column
    gives it 1360, so it sits on one line and wraps of its own accord on
@@ -109,17 +107,20 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
    what makes a specimen look like an object is the ground it sits on and the
    shadow it drops onto it. Each plate takes its tint from the crystal's own
    colour and puts a contact shadow under the stone. */
-.mount{position:relative;aspect-ratio:1;display:flex;align-items:center;justify-content:center;
-  flex:none;min-height:0;overflow:hidden;
+.mount{position:relative;aspect-ratio:1;display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:18%;flex:none;min-height:0;overflow:hidden;
   background:
     radial-gradient(72% 58% at 50% 40%,color-mix(in srgb,var(--tint) 26%,transparent),transparent 72%),
     linear-gradient(178deg,#fff 0 58%,color-mix(in srgb,var(--tint) 13%,#fff) 100%)}
-.mount::after{content:"";position:absolute;left:50%;bottom:17%;translate:-50% 0;
-  width:52%;height:8.5%;border-radius:50%;pointer-events:none;
+/* the stones stand on a common baseline, so the shadow lands under every one
+   of them whatever its proportions — centred, a wide stone floated well above
+   its own shadow and left it as a smudge on the plate */
+.mount::after{content:"";position:absolute;left:50%;bottom:15.5%;translate:-50% 0;
+  width:44%;height:6%;border-radius:50%;pointer-events:none;
   background:radial-gradient(50% 50% at 50% 50%,
-    color-mix(in srgb,var(--tint) 62%,rgba(29,39,57,.34)),transparent 72%);
-  filter:blur(5px);opacity:.62}
-.mount img{position:relative;z-index:1;max-width:70%;max-height:70%;width:auto;height:auto;
+    color-mix(in srgb,var(--tint) 55%,rgba(29,39,57,.3)),transparent 70%);
+  filter:blur(6px);opacity:.5}
+.mount img{position:relative;z-index:1;max-width:70%;max-height:64%;width:auto;height:auto;
   object-fit:contain;transition:transform .4s cubic-bezier(.16,1,.3,1)}
 .spec:hover .mount img{transform:translateY(-5px) scale(1.03)}
 
@@ -149,8 +150,6 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
 .fbtn b{color:var(--copper)}
 
 @media (max-width:900px){
-  .head{grid-template-columns:1fr}
-  .head p{grid-column:1}
   .work{grid-template-columns:1fr;gap:0}
   .fbtn{display:inline-flex}
   .rail{position:static;display:none;padding-bottom:22px;margin-bottom:8px;
@@ -297,7 +296,7 @@ var GEMS=[
  {slug:'himalayan',name:'Himalayan Quartz Cluster',cat:'Fresh Start',form:'Cluster',hue:'Clear',tint:'#EDEFF2',price:399.88,
   desc:'A statement cluster from high-altitude veins — many points, one clear intention.'}
 ];
-GEMS.forEach(function(g,i){g.hz=HZ[g.cat]||'528';g.i=i;g.img='../../assets/img/products/'+g.slug+'.png';});
+GEMS.forEach(function(g,i){g.hz=HZ[g.cat]||'528';g.i=i;g.img='../../assets/img/products/'+g.slug+'.png?v=2';});
 
 var HUEDOT={Blue:'#9FC6E8',Green:'#3E9E72',Purple:'#8E68C0',Gold:'#C9A54E',
             Pink:'#EFA8BC',Clear:'#E6ECF2',Amber:'#9A6633',Black:'#5A6472'};
