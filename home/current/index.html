@@ -194,7 +194,10 @@ p{text-wrap:pretty}
 /* the film has come back to daylight, so the shop under it is daylight */
 .after{background:#FBF8F2;color:#4E5A70;}
 .after .in{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,44px);}
-.after h2{font-family:var(--serif);font-weight:300;letter-spacing:-.02em;color:#1D2739;}
+/* balance every heading down here: without it they break wherever they land
+   and strand a single word — "Copper." alone on the promo's second line */
+.after h2{font-family:var(--serif);font-weight:300;letter-spacing:-.02em;color:#1D2739;
+  text-wrap:balance;}
 .after a:not(.btn){color:inherit}   /* buttons keep their own colour */
 
 /* promo — a slot for whatever is new */
