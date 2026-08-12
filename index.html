@@ -953,7 +953,12 @@ footer.site{background:
   .nav-utils{gap:10px;font-size:11.5px;margin-left:auto;white-space:nowrap;}
 }
 @media (max-width:560px){
-  .int-grid{grid-template-columns:repeat(2,1fr);}.ways{grid-template-columns:1fr;}
+  .int-grid{grid-template-columns:repeat(2,1fr);}
+  /* five tiles in two columns leaves the last one alone against the left
+     edge — it spans the row and centres on its own width instead */
+  .int-grid>:last-child:nth-child(odd){grid-column:1 / -1;justify-self:center;
+    width:calc(50% - clamp(5px,.55vw,8px));}
+  .ways{grid-template-columns:1fr;}
   .foot-grid{grid-template-columns:1fr 1fr;gap:26px 18px;padding-block:44px 30px;}
   .foot-brand{grid-column:1 / -1;}
   .foot-more{display:none;}
