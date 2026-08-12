@@ -94,8 +94,6 @@ p{text-wrap:pretty}
 .c1{left:clamp(20px,7vw,110px);top:29svh}
 .c1 h1{font-size:clamp(42px,6vw,80px);line-height:1.04}
 .c1 h1 em{font-style:italic;color:var(--line)}
-.scue{position:absolute;left:clamp(20px,7vw,110px);bottom:7svh;font:600 10px var(--sans);
-  letter-spacing:.24em;text-transform:uppercase;color:var(--tc-soft);opacity:0}
 .c2{left:clamp(20px,7vw,110px);top:40svh;max-width:min(430px,80vw)}
 .c2 p{font-family:var(--serif);font-weight:300;font-size:clamp(20px,2.6vw,30px);line-height:1.3;text-wrap:balance}
 /* These were translucent chips with a hairline — they read as labels, so
@@ -338,7 +336,6 @@ html.static .fallback{display:block}
       <h1>Energy,<br>made <em>personal.</em></h1>
       <p class="sub">Choose your energy. Live in it.</p>
     </div>
-    <div class="scue" id="scue">Scroll</div>
     <div class="cap c2" id="c2">
       <p>Energy is invisible &mdash; which is exactly why it's so easy to overlook.</p>
     </div>
@@ -496,7 +493,6 @@ var svg=document.getElementById('lines');
 var paths=[0,1,2,3,4].map(function(i){return document.getElementById('p'+i);});
 var photo=document.getElementById('photo');
 var markglow=document.getElementById('markglow');
-var scue=document.getElementById('scue');
 var devwrap=document.getElementById('devwrap'),devCanvas=document.getElementById('dev');
 var caps={c1:document.getElementById('c1'),c2:document.getElementById('c2'),c3:document.getElementById('c3'),
           c4:document.getElementById('c4'),c6:document.getElementById('c6')};
@@ -708,14 +704,20 @@ function frame(p,t){
   markglow.style.left=ecxg+'px';markglow.style.top=ecyg+'px';
   markglow.style.opacity=((1-win(p,.10,.22))*(0.5+0.16*Math.sin(t*1.3))).toFixed(2);
   st.setProperty('--cornero',(1-win(p,.3,.55)).toFixed(2));
-  scue.style.opacity=((1-win(p,.05,.11))*.85).toFixed(2);
+  /* the "Scroll" cue is gone: the shop band peeking at the bottom edge is a
+     better invitation to scroll than the word, and stacked 26px apart the
+     two competed. */
 
   /* the device stays on stage longer — this is the product, and the film
      was moving off it before anyone had finished reading */
   var devOp=win(p,.50,.57)*(1-win(p,.735,.79));
   devwrap.style.opacity=devOp.toFixed(2);
-  photo.style.opacity=(win(p,.70,.75)*(1-win(p,.80,.84))).toFixed(2);
-  photo.style.transform='translateY('+lerp(-44,-56,win(p,.70,.85))+'%)';
+  /* hero.jpg has a generator on the table in it, and it used to fade in at .70
+     while the 3D device was still on screen until .79 — two generators at once,
+     stacked, which on a phone reads as a mistake. It waits for the device to
+     leave now and bridges into the ring instead. */
+  photo.style.opacity=(win(p,.79,.835)*(1-win(p,.875,.915))).toFixed(2);
+  photo.style.transform='translateY('+lerp(-46,-56,win(p,.79,.915))+'%)';
 
   /* --- captions --- */
   cap(caps.c1,p,-.02,-.01,.12,.18);
@@ -728,11 +730,18 @@ function frame(p,t){
      before the generator takes the stage */
   var pk=document.getElementById('peek');
   if(pk){
-    var upT=ease(win(p,.245,.30)), downT=ease(win(p,.46,.515));
+    var upT=ease(win(p,.015,.15)), downT=ease(win(p,.46,.515));
     var open=upT*(1-downT);
-    pk.style.transform='translateY('+((1-open)*102).toFixed(1)+'%)';
-    pk.style.opacity=open.toFixed(3);
-    pk.classList.toggle('live',open>.6);
+    /* A band of the shop already showing at the bottom of the first screen.
+       It used to arrive a screen and a half down, which is not a tease — the
+       brief is to sell before the fold, so the header and the tops of the
+       cards sit under the headline from the start and the drawer rises to
+       full within the first screen of scrolling. */
+    var rest=0.32*(1-downT);
+    var shown=Math.max(open,rest);
+    pk.style.transform='translateY('+((1-shown)*102).toFixed(1)+'%)';
+    pk.style.opacity=Math.min(1,shown*3.4).toFixed(3);
+    pk.classList.toggle('live',shown>.6);
   }
 
   /* --- Hz ticker --- */
