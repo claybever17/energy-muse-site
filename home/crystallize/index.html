@@ -149,6 +149,10 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
     color-mix(in srgb,var(--tint) 55%,rgba(29,39,57,.3)),transparent 70%);
   filter:blur(6px);opacity:.5}
 .mount img{position:relative;z-index:1;max-width:70%;max-height:64%;width:auto;height:auto;
+  /* em-depth.js drop-shadows every /products/ image site-wide to fake a
+     contact shadow; the plate draws a real one, so the fake would double up
+     and lift the stone back off the ground */
+  filter:none;
   object-fit:contain;transition:transform .4s cubic-bezier(.16,1,.3,1)}
 .spec:hover .mount img{transform:translateY(-5px) scale(1.03)}
 

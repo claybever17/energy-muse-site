@@ -43,7 +43,10 @@ em.hl{font-style:italic;color:var(--copper)}
 @media(prefers-reduced-motion:reduce){.hero-rings,.tile .pimg,.gemword{animation:none!important}}
 .eye{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--copper);font-weight:600}
 h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-spacing:-.02em;line-height:1;margin-top:14px;text-wrap:balance}
-.hero p{margin-top:16px;color:var(--soft);max-width:52ch;font-size:16.5px;line-height:1.6}
+/* balance: a two-line intro breaking wherever it lands leaves a short second
+   line under a full first one, which reads as a mistake */
+.hero p{margin-top:16px;color:var(--soft);max-width:52ch;font-size:16.5px;line-height:1.6;
+  text-wrap:balance}
 /* ===== even product grid (wireframe) ===== */
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:0 6vw 10vh;max-width:1280px;margin:0 auto}
 @media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
@@ -55,20 +58,27 @@ h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-
   transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .35s,box-shadow .35s cubic-bezier(.16,1,.3,1)}
 .card:hover{transform:translateY(-7px);border-color:var(--copper);
   box-shadow:0 8px 20px rgba(61,41,23,.18),0 34px 66px rgba(61,41,23,.22),0 20px 50px color-mix(in srgb,var(--glow) 40%,transparent)}
-.tile{aspect-ratio:1/1;display:grid;place-items:center;position:relative;overflow:hidden}
+/* the plate, matching the Collection: the stones stand on a line with a
+   contact shadow under them rather than hovering over a drop-shadow —
+   a cut-out floating in space is what reads as a sticker */
+.tile{aspect-ratio:1/1;display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:18%;position:relative;overflow:hidden}
+.tile::after{content:"";position:absolute;left:50%;bottom:15.5%;translate:-50% 0;width:44%;height:6%;
+  border-radius:50%;pointer-events:none;filter:blur(6px);opacity:.5;z-index:0;
+  background:radial-gradient(50% 50% at 50% 50%,
+    color-mix(in srgb,var(--glow) 55%,rgba(29,39,57,.3)),transparent 70%)}
 .tile::before{content:"";position:absolute;inset:0;background:radial-gradient(58% 58% at 50% 46%,var(--glow) 0%,transparent 70%);opacity:.22;transition:opacity .35s}
 .card:hover .tile::before{opacity:.4}
-.tile .pimg{position:relative;z-index:1;max-width:72%;max-height:76%;width:auto;height:auto;object-fit:contain;
-  filter:drop-shadow(0 26px 30px rgba(61,41,23,.27));transition:transform .45s cubic-bezier(.16,1,.3,1),filter .45s}
-.card:hover .pimg{transform:scale(1.06) translateY(-5px);filter:drop-shadow(0 34px 40px rgba(61,41,23,.30))}
-.tile .pimg{animation:floatY 7s ease-in-out infinite}
-.card:hover .pimg{animation-play-state:paused}
-.grid .card:nth-child(3n) .pimg{animation-duration:8.5s;animation-delay:-2s}
-.grid .card:nth-child(3n+1) .pimg{animation-duration:6.5s;animation-delay:-4s}
-.grid .card:nth-child(4n) .pimg{animation-duration:9s;animation-delay:-1s}
+.tile .pimg{position:relative;z-index:1;max-width:70%;max-height:64%;width:auto;height:auto;object-fit:contain;
+  /* em-depth.js drop-shadows every /products/ image site-wide to fake a
+     contact shadow; the plate draws a real one, so the fake would double up
+     and lift the stone back off the ground */
+  filter:none;
+  transition:transform .45s cubic-bezier(.16,1,.3,1)}
+.card:hover .pimg{transform:translateY(-5px) scale(1.03)}
 .tile .timg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
 /* some tiles stay honest product photography: a white card, not a cutout */
-.tile .fimg{position:absolute;inset:12px;width:calc(100% - 24px);height:calc(100% - 24px);z-index:1;
+.tile .fimg{position:absolute;inset:12px;z-index:1;width:calc(100% - 24px);height:calc(100% - 24px);z-index:1;
   background:#fff;border-radius:8px;object-fit:contain;padding:7%;
   box-shadow:0 3px 9px rgba(61,41,23,.15),0 14px 28px rgba(61,41,23,.13);
   transition:transform .45s cubic-bezier(.16,1,.3,1)}
@@ -112,13 +122,15 @@ h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-
 .v-note{font-size:11.5px;color:var(--soft);letter-spacing:.06em}
 /* trust gallery: real photos of the actual product line */
 .v-thumbs{display:flex;gap:8px;flex-wrap:wrap}
+/* these wells were navy from the dark theme — on daylight they read as
+   black holes in the grid */
 .vt{position:relative;width:56px;height:56px;border-radius:6px;overflow:hidden;border:1px solid var(--line);
-  background:#0d1420;cursor:pointer;padding:0;transition:border-color .25s,transform .25s,box-shadow .25s}
+  background:#F4EFE5;cursor:pointer;padding:0;transition:border-color .25s,transform .25s,box-shadow .25s}
 .vt img{width:100%;height:100%;object-fit:cover;display:block;background:#fff}
 .vt:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--copper) 55%,transparent)}
 .vt.on{border-color:var(--copper);box-shadow:0 0 0 1px var(--copper),0 6px 16px rgba(61,41,23,.18)}
 .vt span{position:absolute;left:0;right:0;bottom:0;font-size:9px;letter-spacing:.14em;text-align:center;
-  background:rgba(251,248,242,.78);color:#8ad0a2;padding:2px 0;font-weight:600}
+  background:rgba(251,248,242,.86);color:#2E7D57;padding:2px 0;font-weight:600}
 .v-close{position:absolute;top:20px;right:24px;z-index:2;background:none;border:1px solid var(--line);color:var(--soft);
   width:40px;height:40px;border-radius:100px;font-size:16px;cursor:pointer}
 .v-close:hover{color:var(--ink);border-color:var(--copper)}
@@ -137,8 +149,9 @@ h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-
 /* typographic hygiene: no orphan words on wrapped lines */
 p{text-wrap:pretty;}
 .lead,.head p{text-wrap:balance;}
+@media (max-width:640px){.lessmob{display:none}}
 </style>
-<script src="../assets/em-header.js?v=3" defer></script>
+<script src="../assets/em-header.js?v=4" defer></script>
 <script src="../assets/em-bag.js?v=3" defer></script></head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
@@ -167,8 +180,7 @@ p{text-wrap:pretty;}
   <svg class="hero-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
   <div class="eye">The Crystal Gallery</div>
   <h1>Choose by the <em class="hl gemword">energy</em><br>you want more of.</h1>
-  <p>Natural crystals from the Energy Muse collection. Pick a piece up, turn it toward the light —
-    then bring the intention into your space. New 3D scans are added as crystals are captured.</p>
+  <p>Natural crystals from the Energy Muse collection.<span class="lessmob"> Pick one up, turn it toward the light, then bring the intention into your space.</span></p>
 </section>
 <div class="grid" id="grid"></div>
 <div class="foot">Energy Muse products and content are intended for personal practice and general wellbeing.
@@ -182,7 +194,7 @@ p{text-wrap:pretty;}
     <div class="v-stage">
       <canvas id="vc"></canvas>
       <div class="tiltpad off" id="tiltpad">
-        <div class="tiltcard" id="tiltcard"><img id="tiltimg" alt=""><div class="glare"></div></div>
+        <div class="tiltcard" id="tiltcard"><img id="tiltimg" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><div class="glare"></div></div>
       </div>
       <div class="v-load" id="vload">Loading crystal</div>
       <div class="v-hint" id="vhint">Drag to rotate</div>
@@ -269,12 +281,17 @@ const grid=document.getElementById('grid');
 GEMS.forEach(g=>{
   const el=document.createElement('div');el.className='card';
   el.style.setProperty('--glow','#'+g.color.toString(16).padStart(6,'0'));
+  /* The scan thumbnails were rendered against the old dark viewer, so using
+     them full-bleed put black tiles through the grid. Where a clean cut-out
+     of the same specimen exists it wins; the one that has none is inset on a
+     light card instead of covering the tile. */
+  const HAS_CUTOUT={protection:1,wellness:1};
   el.innerHTML=`<span class="chip${g.scan?' live':''}">3D scan</span>
-    <div class="tile">${g.scan
-      ?`<img class="timg" src="../assets/img/thumbs/${g.slug}.jpg" alt="">`
-      :g.flat&&(GALLERY[g.slug]||[])[0]
-      ?`<img class="fimg" src="${imgSize(GALLERY[g.slug][0],600)}" alt="" loading="lazy">`
-      :`<img class="pimg" src="../assets/img/products/${g.slug}.png" alt="" loading="lazy">`}</div>
+    <div class="tile">${g.scan&&!HAS_CUTOUT[g.slug]
+      ?`<img class="fimg" src="../assets/img/thumbs/${g.slug}.jpg" alt="" loading="lazy">`
+      :g.scan
+      ?`<img class="pimg" src="../assets/img/products/${g.slug}.png" alt="" loading="lazy">`
+      :`<img class="pimg" src="../assets/img/products/${g.slug}.png?v=2" alt="" loading="lazy">`}</div>
     <div class="meta"><div class="cat">${g.cat}</div><h3>${g.name}</h3><div class="price">${g.price}</div></div>`;
   el.addEventListener('click',()=>openViewer(g));
   grid.appendChild(el);

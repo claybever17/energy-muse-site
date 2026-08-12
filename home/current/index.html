@@ -247,7 +247,9 @@ p{text-wrap:pretty}
   background:color-mix(in srgb,#A9683E 4%,transparent);}
 .csub .in{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(18px,3vw,44px);align-items:center;}
 .csub h2{font-size:clamp(21px,2.5vw,30px);}
-.csub p{color:#4E5A70;margin-top:8px;font-size:14px;}
+/* centred text breaks worst of all when it is unbalanced — a short second
+   line under a full first one reads as a mistake rather than a shape */
+.csub p{color:#4E5A70;margin-top:8px;font-size:14px;text-wrap:balance;}
 .csub form{display:flex;gap:9px;}
 .csub input{flex:1;min-width:0;padding:13px 15px;border-radius:8px;border:1px solid #E4DCCB;
   background:#fff;color:#1D2739;font-family:var(--sans);font-size:14.5px;}

@@ -26,7 +26,10 @@ var SPRITE='<svg style="position:absolute;width:0;height:0;overflow:hidden" aria
 var css=[
 '.emh-ann{background:'+P.annbg+';border-bottom:1px solid '+P.line+';color:'+P.soft+';font:400 12px/1.5 "Instrument Sans",sans-serif;letter-spacing:.03em;}',
 '.emh-ann-in{max-width:1240px;margin:0 auto;padding:9px 44px;display:flex;align-items:center;justify-content:center;gap:14px;text-align:center;position:relative;}',
-'.emh-ann a{font-weight:600;color:'+P.ink+';text-decoration:none;border-bottom:1px solid '+P.copper+';padding-bottom:1px;}',
+'.emh-ann a{font-weight:600;color:'+P.ink+';text-decoration:none;border-bottom:1px solid '+P.copper+';padding-bottom:1px;',
+'  white-space:nowrap;}',   /* the arrow stays with the last word */
+'@media(max-width:640px){.emh-ann-in{gap:8px;padding-inline:38px;flex-wrap:wrap;}',
+'  .emh-ann-more{display:none;}}',
 '.emh-ann a:hover{color:'+P.copper+';}',
 '.emh-annx{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:0;color:'+P.stone+';cursor:pointer;font-size:15px;line-height:1;padding:6px;}',
 '.emh-nav{position:sticky;top:0;z-index:90;background:'+P.navbg+';backdrop-filter:blur(12px);border-bottom:1px solid '+P.line+';}',
@@ -80,7 +83,7 @@ function boot(){
   var dismissed=false;try{dismissed=sessionStorage.getItem('em-ann')==='off';}catch(e){}
   var frag=document.createElement('div');frag.id='emh';
   frag.innerHTML=
-    (!isQuiz&&!dismissed?'<div class="emh-ann"><div class="emh-ann-in"><span>New to Energy Muse? Find your energy match in a few simple questions.</span><a href="/quiz/">Take the Energy Quiz →</a><button class="emh-annx" aria-label="Dismiss">×</button></div></div>':'')
+    (!isQuiz&&!dismissed?'<div class="emh-ann"><div class="emh-ann-in"><span>New to Energy Muse?<span class="emh-ann-more"> Find your energy match in a few simple questions.</span></span><a href="/quiz/">Take the Energy Quiz →</a><button class="emh-annx" aria-label="Dismiss">×</button></div></div>':'')
     +'<header class="emh-nav"><div class="emh-in">'
     +'<a class="emh-brand" href="/"><svg class="emh-logo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo-hdr"/></svg></a>'
     +'<nav class="emh-links"><a href="/quiz/">Start Here</a><a href="/gems/">Shop</a><a href="/#intention">By Intention</a><a href="/#learn2">Learn</a></nav>'

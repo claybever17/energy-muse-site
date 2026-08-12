@@ -462,7 +462,9 @@ body.menu-open{overflow:hidden;}
 .subband .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(20px,3vw,48px);
   align-items:center;padding-block:clamp(28px,3.6vw,46px);}
 .subband h3{font-family:var(--serif);font-weight:300;font-size:clamp(22px,2.6vw,32px);letter-spacing:-.015em;}
-.subband p{color:var(--ink-soft);margin-top:8px;font-size:14.5px;}
+/* centred text breaks worst of all when it is unbalanced — a short second
+   line under a full first one reads as a mistake rather than a shape */
+.subband p{color:var(--ink-soft);margin-top:8px;font-size:14.5px;text-wrap:balance;}
 @media (max-width:840px){.subband .wrap{grid-template-columns:1fr;gap:14px;}}
 
 /* ===== Section head ===== */

@@ -137,7 +137,11 @@ img{display:block;max-width:100%}
 .st .plate::after{content:"";position:absolute;left:50%;bottom:15.5%;translate:-50% 0;width:44%;height:6%;
   border-radius:50%;pointer-events:none;filter:blur(6px);opacity:.5;
   background:radial-gradient(50% 50% at 50% 50%,color-mix(in srgb,var(--sc) 55%,rgba(29,39,57,.3)),transparent 70%)}
-.st .plate img{position:relative;z-index:1;max-width:70%;max-height:64%;width:auto;height:auto;object-fit:contain}
+.st .plate img{position:relative;z-index:1;max-width:70%;max-height:64%;width:auto;height:auto;object-fit:contain;
+  /* em-depth.js drop-shadows every /products/ image site-wide to fake a
+     contact shadow; the plate draws a real one, so the fake would double up
+     and lift the stone back off the ground */
+  filter:none;}
 .st .c{padding:13px 14px 14px;display:flex;flex-direction:column;gap:2px;flex:1}
 .st .n{font-family:var(--serif);font-size:16px;line-height:1.2}
 .st .k{font:600 9.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-top:2px}
