@@ -1,836 +1,497 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Energy Muse &#8212; Crystallize</title>
-<meta name="description" content="Energy takes form. One line of energy meets the generator, begins to resonate, and crystals precipitate out of it — settling into a bed you gather as you scroll.">
+<title>Energy Muse &#8212; The Collection</title>
+<meta name="description" content="The whole collection on one page. Filter by intention, form and colour and the archive answers instantly — every crystal mounted, photographed and priced.">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Energy Muse">
-<meta property="og:title" content="Crystallize — energy takes form">
-<meta property="og:description" content="A single line of energy meets the frequency generator, begins to resonate, and crystals precipitate out of the wave — settling into a bed that becomes your ring.">
+<meta property="og:title" content="The Collection — browse every crystal at once">
+<meta property="og:description" content="An archive rather than a story: filter by intention, form and colour and the collection answers instantly.">
 <meta property="og:url" content="https://energy-muse-workingfolder.vercel.app/home/crystallize/">
 <meta property="og:image" content="https://energy-muse-workingfolder.vercel.app/assets/og-current.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="../../assets/img/mark.svg">
-<script type="importmap">{"imports":{"three":"../../assets/three.module.min.js"}}</script>
 <style>
-/* ==================================================================
-   CRYSTALLIZE — the synthesis of Current and Cascade.
-
-   Not the two films stacked. One physics: a frequency passing through
-   a medium makes solid form precipitate out of it — which is how a
-   crystal actually grows, and what this brand actually sells.
-
-     the mark unravels into one line of energy   (Current's spine)
-       → the line meets the generator and resonates
-         → at the crests of the wave, matter precipitates out
-           → the stones fall and SETTLE into a bed        (Cascade's)
-             → five strands, five intentions, each shedding its own
-               → the settled bed lifts and closes into your ring
-
-   Scroll is the timeline AND gravity: the line is drawn by scroll,
-   and what the line sheds obeys it. Every stone's position is a pure
-   function of progress + seed, so scrubbing backwards un-crystallises.
-   ================================================================== */
 @font-face{font-family:'Fraunces';src:url(../../assets/fonts/fraunces_300.woff2?v=3) format('woff2');font-weight:300;font-display:swap}
 @font-face{font-family:'Fraunces';src:url(../../assets/fonts/fraunces_400.woff2?v=3) format('woff2');font-weight:400;font-display:swap}
 @font-face{font-family:'Instrument Sans';src:url(../../assets/fonts/instrument_400.woff2) format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'Instrument Sans';src:url(../../assets/fonts/instrument_500.woff2) format('woff2');font-weight:500;font-display:swap}
 @font-face{font-family:'Instrument Sans';src:url(../../assets/fonts/instrument_600.woff2) format('woff2');font-weight:600;font-display:swap}
 :root{
-  --bgc:#FBF8F2; --tc:#1D2739; --tc-soft:#4E5A70; --line:#A9683E; --glowo:0;
-  --logo-body:#152445;
-  --serif:'Fraunces',Georgia,serif; --sans:'Instrument Sans',-apple-system,sans-serif;
+  --paper:#FBF8F2; --surface:#FFFFFF; --ink:#1D2739; --ink-soft:#4E5A70;
+  --stone:#8D8778; --copper:#A9683E; --copper-lo:#8A4E2C; --hair:#E4DCCB;
+  --serif:'Fraunces',Georgia,serif; --sans:'Instrument Sans',system-ui,sans-serif;
+  --rail:268px;
 }
 *{box-sizing:border-box;margin:0}
-html{scroll-behavior:auto}
-body{background:var(--bgc);color:var(--tc);font-family:var(--sans);font-size:16px;line-height:1.6;
-  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;
+  line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-p{text-wrap:pretty}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{display:block;max-width:100%}
 
-.brandbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
-  padding:18px clamp(20px,4vw,44px);pointer-events:none}
-.brandbar a{pointer-events:auto}
-.blogo{height:34px;width:auto;aspect-ratio:1167/247.5;display:block;color:var(--tc);transition:color .4s}
-.bb-quiz{font:600 11.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--tc-soft);
-  border-bottom:1px solid var(--line);padding-bottom:2px}
-.bb-quiz:hover{color:var(--line)}
+/* ---------- header ---------- */
+.bar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding:14px clamp(16px,3.4vw,40px);
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-bottom:1px solid color-mix(in srgb,var(--hair) 70%,transparent)}
+.blogo{height:26px;width:auto;display:block}
+.bag{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:100px;
+  border:1px solid var(--hair);font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;
+  background:var(--surface);transition:border-color .2s}
+.bag:hover{border-color:var(--copper)}
 
-.film{position:relative;height:760svh}
-.stage{position:sticky;top:0;height:100svh;overflow:hidden}
-.bgglow{position:absolute;inset:-10%;pointer-events:none;opacity:var(--glowo);
-  background:radial-gradient(46% 38% at 50% 46%,rgba(224,168,120,.5),rgba(169,104,62,.14) 55%,transparent 75%)}
-.stage::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:multiply;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-#scene{position:absolute;inset:0;width:100%;height:100%;display:block}
-.devwrap{position:absolute;left:50%;top:46%;width:min(520px,74vw);aspect-ratio:1/1;transform:translate(-50%,-50%);opacity:0;pointer-events:none}
-.devwrap canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
+/* ---------- masthead ---------- */
+/* The masthead runs on the same two columns as the work area below, so the
+   intro sits in the grid's own column: it starts where the results row and the
+   specimen plates start, and the page gets one alignment spine down its middle
+   instead of a wide headline with a narrow block stranded under its left end. */
+.head{padding:clamp(34px,6vw,72px) clamp(16px,3.4vw,40px) clamp(20px,3vw,34px);
+  max-width:1560px;margin:0 auto;
+  display:grid;grid-template-columns:var(--rail) 1fr;gap:0 clamp(24px,3vw,52px)}
+.head .eyebrow,.head h1{grid-column:1 / -1}
+.head p{grid-column:2;max-width:64ch}
+.eyebrow{font:600 10.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--copper)}
+/* no artificial measure here: at 68px the line runs 1080px and the column
+   gives it 1360, so it sits on one line and wraps of its own accord on
+   anything narrower. A 15ch cap was breaking it at 58% of its own width,
+   which reads as an accident rather than a decision. */
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(34px,6vw,68px);line-height:1.03;
+  letter-spacing:-.02em;margin:12px 0 0;text-wrap:balance}
+.head p{margin-top:16px;max-width:56ch;color:var(--ink-soft);font-size:15.5px;text-wrap:pretty}
 
-/* captions */
-.cap{position:absolute;opacity:0;pointer-events:none;max-width:min(560px,84vw);z-index:3}
-.cap.live{pointer-events:auto}
-.cap h1,.cap h2{font-family:var(--serif);font-weight:300;letter-spacing:-.02em;line-height:1.06;text-wrap:balance}
-.cap p,.cap h1,.cap h2,.int .eyeb,.int .lk{
-  text-shadow:0 0 14px var(--bgc),0 0 6px var(--bgc),0 0 2px var(--bgc)}
-.cap .sub{font-family:var(--serif);font-style:italic;color:var(--line);margin-top:14px;font-size:clamp(17px,2vw,22px)}
-/* The landing is a title card: the mark alone at the top of the frame, the
-   line beneath it. It opens centred on the mark and closes centred on the
-   mark inside the ring — the film is a round trip. */
-.c1{left:0;right:0;top:clamp(54px,13svh,150px);max-width:none;text-align:center;padding:0 clamp(22px,6vw,60px)}
-/* vmin, not vw — a short window shrinks the type as well as a narrow one */
-.c1 h1{font-size:clamp(30px,5.4vmin,62px);line-height:1.08;max-width:14ch;margin:0 auto}  /* 14ch, not 16 — at 16 the cap fell only 26px inside the phrase's own
-     width, so the break read as a hairline overflow. 14 clears "Energy,
-     made" with room and puts "personal." on its own line by intent. */
-.c1 h1 em{font-style:italic;color:var(--line)}
-.c1 .sub{margin-top:clamp(8px,1.6vmin,14px);font-size:clamp(14px,2.1vmin,19px)}
-/* the hairline collided with the mark on short windows */
-.c1 .rule{display:none}
-.scue{position:absolute;left:0;right:0;text-align:center;bottom:6svh;font:600 10px var(--sans);
-  letter-spacing:.24em;text-transform:uppercase;color:var(--tc-soft);opacity:0;z-index:3}
-.c2{left:clamp(20px,7vw,110px);top:38svh;max-width:min(440px,80vw)}
-.c2 p{font-family:var(--serif);font-weight:300;font-size:clamp(20px,2.6vw,30px);line-height:1.3;text-wrap:balance}
+/* ---------- the working area ---------- */
+.work{max-width:1560px;margin:0 auto;padding:0 clamp(16px,3.4vw,40px) clamp(60px,8vw,120px);
+  display:grid;grid-template-columns:var(--rail) 1fr;gap:clamp(24px,3vw,52px);align-items:start}
 
-/* the generator act */
-.c3{left:clamp(20px,7vw,110px);bottom:12svh}
-.c3 h2{font-size:clamp(26px,3.4vw,44px)}
-.c3 .hz{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4.6vw,58px);color:var(--line);margin-top:4px;font-variant-numeric:tabular-nums}
-.c3 .hz small{font-size:.45em;letter-spacing:.08em}
-.c3 .lk{display:inline-block;margin-top:10px;font:600 11.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--tc);border-bottom:1px solid var(--line);padding-bottom:2px}
-.c3 .disc{font-size:10.5px;color:var(--tc-soft);margin-top:12px;max-width:44ch;line-height:1.5}
+/* ---------- filter rail ---------- */
+.rail{position:sticky;top:76px}
+.rgroup{padding:18px 0;border-top:1px solid var(--hair)}
+.rgroup:first-child{border-top:0;padding-top:4px}
+.rgroup h2{font:600 10.5px var(--sans);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--stone);margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:100px;
+  border:1px solid var(--hair);background:var(--surface);font-size:13px;color:var(--ink-soft);
+  transition:border-color .18s,color .18s,background .18s}
+.chip:hover{border-color:color-mix(in srgb,var(--copper) 50%,transparent);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#FBF8F2}
+.chip .sw{width:11px;height:11px;border-radius:50%;flex:none;
+  box-shadow:inset 0 0 0 1px rgba(29,39,57,.16)}
+.chip .ct{font-variant-numeric:tabular-nums;opacity:.55;font-size:11.5px}
+.chip[aria-pressed="true"] .ct{opacity:.75}
+.chip[disabled]{opacity:.34;pointer-events:none}
+.clearall{margin-top:6px;font:600 11.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--copper);border-bottom:1px solid currentColor;padding-bottom:2px;align-self:flex-start}
 
-/* intention chapters */
-.int{top:30svh;max-width:min(400px,78vw)}
-.int.ileft{left:clamp(20px,7vw,110px)}
-.int.iright{right:clamp(20px,7vw,110px);text-align:right}
-.int .eyeb{display:block;font:600 10px var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--line);margin-bottom:10px;font-style:normal}
-.int p{font-family:var(--serif);font-weight:300;font-size:clamp(22px,2.8vw,34px);line-height:1.25;text-wrap:balance}
-.int .lk{display:inline-block;margin-top:14px;font:600 11.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--tc);border-bottom:1px solid var(--line);padding-bottom:2px}
-.int .lk:hover{color:var(--line)}
-.int>*{will-change:transform,opacity,filter}
-.chip{position:absolute;transform:translate(-50%,0);opacity:0;pointer-events:none;text-align:center;z-index:3;
-  font:600 10px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--tc-soft);white-space:nowrap;
-  text-shadow:0 0 10px var(--bgc),0 0 4px var(--bgc),0 0 2px var(--bgc)}
+/* ---------- results header ---------- */
+.rhead{display:flex;align-items:baseline;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  padding-bottom:16px;border-bottom:1px solid var(--hair);margin-bottom:clamp(18px,2.4vw,28px)}
+.count{font-family:var(--serif);font-weight:300;font-size:clamp(19px,2.2vw,26px)}
+.count b{font-weight:400;font-variant-numeric:tabular-nums}
+.count span{color:var(--stone);font-size:.62em;font-family:var(--sans);letter-spacing:.02em}
+.sortwrap{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--stone)}
+select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
+  border:1px solid var(--hair);border-radius:8px;padding:8px 11px}
 
-/* finale */
-.c6{left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;max-width:none}
-.c6::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:-1;
-  width:min(660px,84vw);height:360px;border-radius:50%;filter:blur(8px);
-  background:radial-gradient(closest-side,rgba(11,19,32,.78),rgba(11,19,32,.42) 58%,transparent 80%)}
-.c6 h2{font-size:clamp(32px,5vw,64px);max-width:16ch}
-.c6 .row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:30px}
-.btn{display:inline-flex;align-items:center;font:600 13px var(--sans);letter-spacing:.04em;padding:15px 30px;border-radius:2px;
-  cursor:pointer;border:1px solid transparent;transition:transform .2s,background .25s,color .25s,border-color .25s;
-  touch-action:manipulation}
-.btn-c{color:#fff;background:linear-gradient(160deg,#9E6038,#96592F 46%,#8A4E2C);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(0,0,0,.22)}
-.btn-c:hover{transform:translateY(-2px)}
-.btn-g{background:transparent;color:var(--tc);border-color:color-mix(in srgb,var(--tc) 40%,transparent)}
-.btn-g:hover{border-color:var(--tc)}
+/* ---------- the grid of specimen plates ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));
+  gap:clamp(12px,1.6vw,22px)}
+.spec{position:relative;display:flex;flex-direction:column;background:var(--surface);
+  border:1px solid var(--hair);border-radius:14px;overflow:hidden;text-align:left;
+  transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s,border-color .3s;
+  animation:plate .42s cubic-bezier(.16,1,.3,1) both}
+@keyframes plate{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.spec:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--copper) 42%,transparent);
+  box-shadow:0 10px 26px rgba(61,41,23,.09),0 26px 52px rgba(61,41,23,.07)}
 
-.postfilm{background:#0B1320;color:#B4C0D0;padding:clamp(52px,9vh,104px) clamp(20px,4vw,44px) clamp(44px,7vh,84px)}
-.pf-inner{max-width:820px;margin:0 auto;text-align:center}
-.pf-eyebrow{display:block;font:600 10px var(--sans);letter-spacing:.28em;text-transform:uppercase;color:#E0A878;margin-bottom:18px}
-.vslot{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;
-  border:1px solid rgba(224,168,120,.28);
-  background:radial-gradient(120% 90% at 50% 0%,rgba(224,168,120,.12),transparent 62%),#111A28;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 24px 60px rgba(0,0,0,.45)}
-.pf-play svg{width:44px;height:44px;display:block;fill:none;stroke:#E0A878;stroke-width:1.2;opacity:.9}
-.pf-play svg path{fill:#E0A878;stroke:none}
-.pf-note{font:600 10.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:#8D98AA}
-.pf-cap{margin-top:16px;font-size:12px;color:#7C879A}
-.pf-cap code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;color:#A9B4C6}
-@media (max-width:700px){.vslot{border-radius:11px}.pf-cap{font-size:11.5px}}
-.cfoot{background:#0B1320;color:#B4C0D0;padding:40px clamp(20px,4vw,44px) 34px;text-align:center;font-size:12.5px}
-.cfoot .links{display:flex;gap:8px 24px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
-.cfoot a{color:#B4C0D0}
-.cfoot a:hover{color:#E0A878}
-.cfoot .legal{font-size:11px;color:#7C879A;max-width:74ch;margin:0 auto;line-height:1.6;text-wrap:balance}
+/* The mount. A cut-out on bare white reads as a sticker floating in space —
+   what makes a specimen look like an object is the ground it sits on and the
+   shadow it drops onto it. Each plate takes its tint from the crystal's own
+   colour and puts a contact shadow under the stone. */
+.mount{position:relative;aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  flex:none;min-height:0;overflow:hidden;
+  background:
+    radial-gradient(72% 58% at 50% 40%,color-mix(in srgb,var(--tint) 26%,transparent),transparent 72%),
+    linear-gradient(178deg,#fff 0 58%,color-mix(in srgb,var(--tint) 13%,#fff) 100%)}
+.mount::after{content:"";position:absolute;left:50%;bottom:17%;translate:-50% 0;
+  width:52%;height:8.5%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(50% 50% at 50% 50%,
+    color-mix(in srgb,var(--tint) 62%,rgba(29,39,57,.34)),transparent 72%);
+  filter:blur(5px);opacity:.62}
+.mount img{position:relative;z-index:1;max-width:70%;max-height:70%;width:auto;height:auto;
+  object-fit:contain;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.spec:hover .mount img{transform:translateY(-5px) scale(1.03)}
 
-.fallback{display:none;max-width:900px;margin:0 auto;padding:120px clamp(22px,5vw,48px) 80px;text-align:center}
-.fallback h1{font-family:var(--serif);font-weight:300;font-size:clamp(38px,6vw,64px)}
-.fallback .ints{display:flex;gap:10px 26px;justify-content:center;flex-wrap:wrap;margin:34px 0}
-.fallback .ints a{font-family:var(--serif);font-size:20px;border-bottom:1px solid var(--line);padding-bottom:2px}
-.fallback img{width:min(440px,80vw);margin:26px auto;display:block;border-radius:8px}
-.fallback .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:26px}
-html.static .film,html.static .brandbar{display:none}
-html.static .fallback{display:block}
-@media (prefers-reduced-motion:reduce){.film,.brandbar{display:none}.fallback{display:block}}
-@media (max-width:700px){
-  .c1{top:clamp(50px,11svh,120px)}
-  .c1 h1{max-width:13ch}
-  .c2{top:36svh}
-  .c3{bottom:9svh}
-  .c3 .disc{display:none}
-  .int,.int.ileft,.int.iright{left:20px;right:20px;top:9svh;text-align:left;max-width:none}
-  .int p{font-size:27px}
-  .int .eyeb{font-size:11px;letter-spacing:.3em}
-  .c6{justify-content:flex-start;padding-top:50svh}
-  .c6 h2{font-size:30px}
-  .c6 .row{flex-direction:column;align-items:center;width:min(320px,86vw);margin-top:22px;gap:12px}
-  .c6 .row .btn{width:100%;justify-content:center}
-  .c6::before{top:66%;height:340px;background:radial-gradient(closest-side,rgba(11,19,32,.9),rgba(11,19,32,.55) 58%,transparent 80%)}
+.cap{padding:14px 15px 15px;display:flex;flex-direction:column;gap:3px;flex:1}
+.cap .n{font-family:var(--serif);font-weight:400;font-size:16.5px;line-height:1.2}
+.meta{font:600 10px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--stone);
+  margin-top:2px}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:12px}
+.price{font-family:var(--serif);font-size:17px;font-variant-numeric:tabular-nums}
+.add{font:700 10px var(--sans);letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;
+  border:1px solid var(--hair);border-radius:100px;color:var(--ink);transition:.18s}
+.add:hover{background:var(--copper);border-color:var(--copper);color:#fff}
+.add.done{background:var(--ink);border-color:var(--ink);color:#FBF8F2}
+.hz{position:absolute;top:11px;left:11px;z-index:2;font:600 9.5px var(--sans);letter-spacing:.1em;
+  color:var(--stone);background:color-mix(in srgb,#fff 76%,transparent);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  padding:4px 8px;border-radius:100px;font-variant-numeric:tabular-nums}
+
+.empty{padding:70px 10px;text-align:center;color:var(--stone)}
+.empty b{display:block;font-family:var(--serif);font-weight:400;font-size:21px;color:var(--ink);margin-bottom:8px}
+
+/* ---------- mobile filter drawer ---------- */
+.fbtn{display:none;position:sticky;top:62px;z-index:30;width:100%;
+  padding:12px 16px;border:1px solid var(--hair);border-radius:100px;background:var(--surface);
+  font:600 11.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;
+  align-items:center;justify-content:center;gap:9px;margin-bottom:16px}
+.fbtn b{color:var(--copper)}
+
+@media (max-width:900px){
+  .head{grid-template-columns:1fr}
+  .head p{grid-column:1}
+  .work{grid-template-columns:1fr;gap:0}
+  .fbtn{display:inline-flex}
+  .rail{position:static;display:none;padding-bottom:22px;margin-bottom:8px;
+    border-bottom:1px solid var(--hair)}
+  .rail.open{display:block}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .cap{padding:11px 12px 12px}
+  .cap .n{font-size:14.5px}
+  .price{font-size:15px}
+  .add{padding:7px 11px}
+}
+
+/* ---------- detail slide-over ---------- */
+.veil{position:fixed;inset:0;z-index:60;background:rgba(20,26,36,.4);opacity:0;pointer-events:none;
+  transition:opacity .3s;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.veil.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;top:0;right:0;bottom:0;width:min(460px,100vw);z-index:61;background:var(--paper);
+  transform:translateX(101%);transition:transform .42s cubic-bezier(.16,1,.3,1);
+  display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(20,26,36,.16)}
+.sheet.on{transform:none}
+.sheet-x{position:absolute;top:14px;right:14px;z-index:2;width:36px;height:36px;border-radius:50%;
+  border:1px solid var(--hair);background:var(--surface);font-size:17px;line-height:1;color:var(--ink-soft)}
+.sheet .mount{aspect-ratio:4/3.1;border-bottom:1px solid var(--hair)}
+.sheet .mount img{max-width:62%;max-height:74%}
+.sbody{padding:22px clamp(20px,4vw,30px) 26px;overflow-y:auto;flex:1}
+.sbody h3{font-family:var(--serif);font-weight:400;font-size:clamp(23px,3.4vw,30px);line-height:1.14;margin-bottom:6px}
+.sbody .desc{margin-top:14px;color:var(--ink-soft);font-size:14.5px;text-wrap:pretty}
+.facts{margin-top:20px;border-top:1px solid var(--hair)}
+.fact{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--hair);font-size:13.5px}
+.fact dt{color:var(--stone);font:600 10px var(--sans);letter-spacing:.14em;text-transform:uppercase;padding-top:2px}
+.fact dd{margin:0;text-align:right}
+.sfoot{padding:16px clamp(20px,4vw,30px) 22px;border-top:1px solid var(--hair);background:var(--surface);
+  display:flex;align-items:center;gap:14px}
+.sfoot .price{font-size:22px}
+.buy{flex:1;display:inline-flex;align-items:center;justify-content:center;padding:15px 20px;border-radius:2px;
+  color:#fff;background:linear-gradient(160deg,#9E6038,#96592F 46%,#8A4E2C);
+  font:700 11.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 8px 22px rgba(169,104,62,.28)}
+.buy.done{background:var(--ink);box-shadow:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
 </style>
 </head>
 <body>
-<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><symbol id="em-logo" viewBox="0 0 1167 247.5">
-    <g style="transform-box:fill-box;transform-origin:50% 50%;transform:rotate(var(--m-rot,0deg))">
-      <path fill="var(--logo-body,#152445)" d="M189.69,194.19c-31.47,34.37-81.82,42.71-122.32,21.22-27.62-14.65-46.73-41.52-52.64-69.96-7.48-36.05,4.02-73.41,32.42-99.17,21.07-19.11,47.83-27.9,76.41-25.64,20.11,1.59,39.11,9.16,54.56,21.91,3.46,2.86,6.54,5.38,9.57,8.56,38.14,40.05,39.83,101.74,1.99,143.08ZM77.98,184.32c5.79,7.06,13.04,11.43,22.12,13.24,19.2,3.84,38.84-.55,55.55-10.91,29.03-17.98,42.78-50.33,39.88-84.29-3.17-37.1-31.15-67.2-68.24-72.09-4.79-.63-9.09-.96-14.66.35,20.78,4.81,36.06,16.44,35.82,41.81-.11,11.35-1.96,22.44-9.2,31.49-7.28,9.09-15.29,13.33-25.03,19.07-10.51,6.2-20.7,12.26-30.15,19.94-13.07,10.62-16.61,28.55-6.09,41.39ZM63.38,129.87c4.91-4.01,9.64-7.75,14.76-11.43,11.66-8.38,21.05-14.26,23.07-30.52.17-7.96-2.49-16.33-8.68-22-10.58-9.68-26.8-9.43-37.85.02-27.94,23.93-29.6,71.37-3.11,97.33l-.32-8.07c-.4-10.18,4.14-18.82,12.12-25.33Z"/>
-      <path fill="var(--logo-swirl,#e0e0e0)" d="M77.98,184.32c-10.52-12.84-6.98-30.77,6.09-41.39,9.44-7.68,19.64-13.74,30.15-19.94,9.73-5.74,17.75-9.98,25.03-19.07,7.24-9.05,9.09-20.14,9.2-31.49.25-25.38-15.03-37-35.82-41.81,5.57-1.31,9.86-.98,14.66-.35,37.09,4.89,65.07,34.99,68.24,72.09,2.9,33.96-10.85,66.3-39.88,84.29-16.71,10.36-36.35,14.74-55.55,10.91-9.07-1.81-16.33-6.18-22.12-13.24Z"/>
-      <path fill="var(--logo-drop,#44b891)" d="M63.38,129.87c-7.98,6.51-12.52,15.15-12.12,25.33l.32,8.07c-26.49-25.96-24.83-73.4,3.11-97.33,11.04-9.46,27.26-9.71,37.85-.02,6.2,5.67,8.85,14.04,8.68,22-2.03,16.26-11.41,22.14-23.07,30.52-5.12,3.68-9.86,7.43-14.76,11.43Z"/>
-    </g>
-    <g fill="currentColor">
-      <path d="M853.79,172.48c.04,12.44,10.53,8.33,8,12.82l-38.17.09-1.52-1.1c-1.43-1.03,8.86-2.2,8.84-8.8l-.18-46.59c-.01-3.38-2.56-7.1-4.6-8.51-6.19-4.3-12.17-.82-18.36,4.64v49.09c-.01,8.77,8.79,8.19,8.34,9.45l-.63,1.75-39.77.02c-.09-.57-.2-2.19.24-2.3l2.23-.54c2.64-.64,6.37-2.6,6.38-6.38l.07-45.32c0-2.41-2.23-5.31-4.07-6.4l-6.07-3.59-.37-1.55c-.11-.44,1.26-.84,1.76-.99,10.81-2.01,19.86-5.81,30.84-10.22l.52,13.9,10.92-7.76c6.57-4.66,14.63-6.26,22.49-4.29,6.22,1.56,10.09,6.57,12.61,12.48,9.9-8.84,20-15.02,32.59-12.76,7.78,1.39,13.91,7.97,13.98,16.17l.44,47.45c.02,4.95,2.46,9.02,7.62,9.41.33.19,1.55,1.27,1.19,1.53l-1.61,1.15-38.06.03c-2.96-3.73,7.89-1.69,7.85-10.67l-.19-45.55c-.01-3.49-2.2-7.21-4.48-8.72-6.64-4.41-13.25-1.01-18.99,5.39l.17,46.68Z"/>
-      <path d="M666.82,195.28c-10.35,8.51-32.92,8.94-46.78,7.11-6.33-.84-12.42-1.77-17.48-6.06-1.96-1.67-2.22-5.78-1.23-8.54.75-2.08,3.65-4.06,6.51-5.71-1.66-1.42-4.37-3.76-4.99-5.85-3.54-11.87,8.75-18.04,20.28-21.39-7.08-2.13-12.85-5.05-16.97-10.61-6.77-9.15-4.63-21.64,4.42-28.65,6.17-4.77,13.78-6.92,21.73-7.35,2.46-13.51,15.31-28.02,26.59-23.29,5.04,2.11,6.3,7.47,5.35,12.41-1.06,5.57-5.59,9.39-11.69,7.82l-7.01-3.1c-2.34-1.04-4.97-1.42-7.27-.27-1.89.94-3.29,3.85-3.59,6.46,16.48-.1,32.46,9.08,31.66,25.07-.71,14.2-16.07,22.83-29.4,22.7-5.82-.05-12.54.55-17.62,2.46-.81.3-2.92,1.97-2.42,2.54l2.41,2.74,34.37.19c6.39,1.11,12.61,2.27,16.38,7.86,4.82,7.13,3.79,17.66-3.27,23.46ZM635.13,153.52c9.16-.27,10.41-23.53,5.77-37.93-.79-2.46-3.87-4.29-5.83-4.45-8.56-.7-9.51,11.12-9.48,21.11s.86,21.52,9.54,21.26ZM653.13,187.56l-8.61-1.4-23.26-.69-8.22-1.17c-2.42-.34-5.07,3.22-5.33,5.34-1.12,9.11,14.52,10.89,25.5,10.87,9.64-.02,24.4-.77,24.16-8.02-.07-1.99-1.71-4.51-4.24-4.92Z"/>
-      <path d="M400.83,119.53c-5.74-2.2-11.01.12-14.85,3.83l-2.43,2.34v48.34c0,8.15,10.4,9.22,8.98,10.25l-1.44,1.05h-38.94c-1.35-4.03,5.85-2.49,7.38-6.58,2.12-5.64,1.14-10.95,1.13-16.69l-.07-21.64c-.01-4.5,1.02-9.44-1.66-13.58s-10.56-5.7-9.4-6.92l1.56-1.64c10.35-1.9,19.71-5.1,29.29-9.52.7-.14,2.71.02,3.06.43l.15,12.69c9.8-8.62,22.53-15.91,34.73-11.55,7.06,2.52,11.72,9.16,11.75,16.78l.17,47.41c.03,7.85,8.26,7.51,8.88,9.06.22.54-.91,1.49-1.52,1.73l-38.84.04-.14-1.8c-.07-.84,8.61-1.26,8.6-8.32l-.05-45.47c0-4.18-2.47-8.77-6.32-10.25Z"/>
-      <path d="M991.57,108.87l.18,61.36c.01,3.99,4.32,6.3,7.42,7.15l1.62.44c.46.13.9,1.87.42,1.91l-2.31.23c-6.71.67-13.05,2.49-19.41,4.64l-9.82,3.33-.72-13.56c-9.75,8.3-20.69,14.44-32.87,10.94-7.54-2.16-13.62-8.37-13.75-16.4l-.67-40.33c-.08-4.66-9.54-6.45-10.6-10.42,11.27-2.1,20.92-5.26,31.11-9.67.41-.1,2.47-.08,2.46.46l-.03,2.42-.11,8.16.08,27.48.05,7.23c.04,5.27-.34,10.55.87,15.66,1.41,5.99,6.96,8.71,13.14,7.68,4.01-.67,7.8-3.9,10.27-7.31l.03-37.27c0-11.74-11.6-9.86-11.17-14.91,10.46-2.21,20.18-4.82,29.84-9.16.84-.38,2.71-.37,3.96-.07Z"/>
-      <path d="M519.08,156.82c.79.41,1.5.95,1.96,1.51-6.37,17.65-18.11,27.08-37.09,26.51-15.61-.46-30.45-9.59-36.3-24.45-5.67-14.4-1.51-30.72,9.09-41.5s27.28-14.91,41.88-9.58c13.28,4.85,21.9,17.03,21.5,31.21h-50.99c-.14,15.31,11.62,27.45,26.87,27.85,9.42.25,17.65-3.09,23.08-11.55ZM498.31,137.43c.79-11.92-1.73-26.75-11.82-27.75-14.44-1.43-17.7,13.84-17.47,27.81l29.3-.06Z"/>
-      <path d="M1143.53,166.73c4.47-1.92,6.42-6.47,10.96-9.02-.9,8.13-5.57,14.92-11.16,19.88-9.33,8.28-22.26,10.04-34.17,7.14-18.1-4.4-31.15-19.93-29.99-39.02.88-14.36,9.53-26.64,21.36-32.62,13.57-6.87,29.48-6.05,41.22,2.89,7,5.32,11.39,12.84,12.04,21.13l.38,4.88-50.94-.02c.13,10.85,5.62,20.53,15.37,24.84,8.15,3.6,16.39,3.61,24.93-.07ZM1132.24,139.01c.34-9.04-.4-16.69-4.78-23.57-2.19-3.45-6.39-4.45-10.4-4.28-9.07.38-13.09,11.09-13.9,21.05l-.55,6.77,29.62.03Z"/>
-      <path d="M297.3,160.84c11.48,12.2,34.17,11.88,42.71-3.08,2.43.94,1.46,2.7.86,4.34-6.71,18.29-24.78,27.5-43.74,22.86-11.86-2.9-22.25-9.89-27.51-21.35-5.45-11.87-4.26-25.5,3.15-37.08,10.1-15.8,31.19-22,49-14.77,12.26,4.98,19.62,17.24,19.52,30.22l-51.41.02c.83,6.97,2.59,13.7,7.43,18.85ZM319.62,139.04c.19-11.33-1.88-26.1-11.52-27.67-4.64-.75-9.02.48-12.02,3.87-3.18,3.59-5.07,8.41-5.41,13.21l-.75,10.6,29.71-.02Z"/>
-      <path d="M750.91,122.24l-14.12,27.4-18.52,37.5c-6.76,13.69-23.09,37.68-35.51,27.93-2.59-2.03-4.3-5-4.32-8.71-.03-4.97,2.09-8.74,6.53-10.08,4.01-1.21,8.33.32,10.92,4.45.93,1.49,2.88,4.25,4.8,4.42,1.47.11,4.29-2.13,5.1-3.46l9.9-16.13-30.6-63.13c-4.38-9.03-12.8-8.95-12.27-10.09l.8-1.69,42.01.06,1.58,1.09c1.49,1.03-4.22,1.78-6.21,4.41-.81,1.07-.75,4.45-.12,5.82l17.55,37.76,10.36-21.62c2.36-4.93,3.3-10.24,3.35-15.6.08-8.54-8.1-8.33-10.45-9.7-.47-.28.19-1.7.58-2.2l30.88.1.61,1.61c.27.72-9.15,2.69-12.85,9.86Z"/>
-      <path d="M1058.69,181.45c-14.14,9.31-30.81,5.06-46.77-1.04l-.94-11.52-.63-12.69-.12-1.89c-.03-.51,1.65-.45,1.98-.3,4.28,8.74,9.42,16.2,15.7,23.38,4.3,3.87,9.52,7.58,15.24,6.67,3.45-.55,6.69-2.08,8.24-4.47,1.81-2.79,1.82-6.83-.09-9.89-3.29-5.26-8.76-8.27-14.34-11.01l-19.02-9.35c-7.48-3.68-10.71-11.72-9.05-20.2,1.86-9.53,10.12-16.71,19.76-18.9,5.45-1.24,11.26-1.79,16.86-.53l15.21,3.44,3.2,22.4.22,1.53c.04.31-.95.31-1.73.36-5.42-11.24-20.76-29.04-31.87-24.71-2.97,1.16-5.06,3-5.77,5.38-4.97,16.51,40.96,15.71,45.24,38.02,1.97,10.3-2.72,19.66-11.29,25.31Z"/>
-      <path d="M562.31,174.98c0,6.82,7.12,7.1,9.02,8.21.45.26-.11,2.13-.69,2.13l-39.83.04c-3.59-3.78,8.71-1.22,8.69-11.45l-.09-42.17c0-4.05-2.61-6.94-5.83-8.51l-4.92-2.4c-.33-.24-.51-1.91-.09-2.09l1.91-.83c10.78-1.76,20.05-5.63,30.69-9.84l.28,17.68c4.79-6.12,5.87-13.16,15.4-16.22,4.27-1.37,9.62-.91,12.73,2.8,4.5,5.35,4.41,14.22-.05,19.62s-11.9,4.08-15.78-.94c-1.24-1.61-3.54-3.68-5.2-4.59-3.53.24-6.23,3.97-6.24,7.52v41.03Z"/>
-    </g>
-  </symbol></svg>
 
-<div class="brandbar">
-  <a href="../../" aria-label="Energy Muse home"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo"/></svg></a>
-  <a class="bb-quiz" href="../../quiz/">Take the Energy Quiz</a>
+
+<header class="bar">
+  <a href="../../" aria-label="Energy Muse home"><img class="blogo" src="../../assets/img/logo.svg" alt="Energy Muse" onerror="this.src='../../assets/img/logo.png'"></a>
+  <a class="bag" href="#" aria-label="Open bag">Bag (<span class="bagn">0</span>)</a>
+</header>
+
+<div class="head">
+  <span class="eyebrow">The collection</span>
+  <h1>Every crystal we carry, in one place.</h1>
+  <p>Not a story you scroll through &mdash; an archive you work. Filter by the intention you're after, the form you want to hold, or simply the colour you're drawn to, and the collection answers as you go.</p>
 </div>
 
-<svg id="mksrc" viewBox="0 0 231.33 238.67" style="position:absolute;width:0;height:0;visibility:hidden" aria-hidden="true"><path id="mk0" d="M190.5,189.78c-31.47,34.37-81.82,42.71-122.32,21.22-27.62-14.65-46.73-41.52-52.64-69.96-7.48-36.05,4.02-73.41,32.42-99.17,21.07-19.11,47.83-27.9,76.41-25.64,20.11,1.59,39.11,9.16,54.56,21.91,3.46,2.86,6.54,5.38,9.57,8.56,38.14,40.05,39.83,101.74,1.99,143.08ZM78.79,179.9c5.79,7.06,13.04,11.43,22.12,13.24,19.2,3.84,38.84-.55,55.55-10.91,29.03-17.98,42.78-50.33,39.88-84.29-3.17-37.1-31.15-67.2-68.24-72.09-4.79-.63-9.09-.96-14.66.35,20.78,4.81,36.06,16.44,35.82,41.81-.11,11.35-1.96,22.44-9.2,31.49-7.28,9.09-15.29,13.33-25.03,19.07-10.51,6.2-20.7,12.26-30.15,19.94-13.07,10.62-16.61,28.55-6.09,41.39ZM64.19,125.46c4.91-4.01,9.64-7.75,14.76-11.43,11.66-8.38,21.05-14.26,23.07-30.52.17-7.96-2.49-16.33-8.68-22-10.58-9.68-26.8-9.43-37.85.02-27.94,23.93-29.6,71.37-3.11,97.33l-.32-8.07c-.4-10.18,4.14-18.82,12.12-25.33Z" fill="none"/><path id="mk1" d="M78.79,179.9c-10.52-12.84-6.98-30.77,6.09-41.39,9.44-7.68,19.64-13.74,30.15-19.94,9.73-5.74,17.75-9.98,25.03-19.07,7.24-9.05,9.09-20.14,9.2-31.49.25-25.38-15.03-37-35.82-41.81,5.57-1.31,9.86-.98,14.66-.35,37.09,4.89,65.07,34.99,68.24,72.09,2.9,33.96-10.85,66.3-39.88,84.29-16.71,10.36-36.35,14.74-55.55,10.91-9.07-1.81-16.33-6.18-22.12-13.24Z" fill="none"/><path id="mk2" d="M64.19,125.46c-7.98,6.51-12.52,15.15-12.12,25.33l.32,8.07c-26.49-25.96-24.83-73.4,3.11-97.33,11.04-9.46,27.26-9.71,37.85-.02,6.2,5.67,8.85,14.04,8.68,22-2.03,16.26-11.41,22.14-23.07,30.52-5.12,3.68-9.86,7.43-14.76,11.43Z" fill="none"/></svg>
+<div class="work">
+  <button class="fbtn" id="fbtn" aria-expanded="false" aria-controls="rail">Filter <b id="fbtn-n"></b></button>
 
-<div class="film" id="film">
-  <div class="stage" id="stage">
-    <div class="bgglow"></div>
-    <canvas id="scene" aria-hidden="true"></canvas>
-    <div class="devwrap" id="devwrap"><canvas id="dev"></canvas></div>
+  <aside class="rail" id="rail" aria-label="Filters">
+    <div class="rgroup" id="g-cat"><h2>Intention</h2><div class="chips"></div></div>
+    <div class="rgroup" id="g-form"><h2>Form</h2><div class="chips"></div></div>
+    <div class="rgroup" id="g-hue"><h2>Colour</h2><div class="chips"></div></div>
+    <div class="rgroup"><button class="clearall" id="clearall" hidden>Clear all filters</button></div>
+  </aside>
 
-    <div class="cap c1" id="c1">
-      <h1>Energy, made <em>personal.</em></h1>
-      <p class="sub">Choose your energy. Live in it.</p>
-      <div class="rule"></div>
-    </div>
-    <div class="scue" id="scue">Scroll</div>
-    <div class="cap c2" id="c2">
-      <p>Energy is invisible &mdash; until it takes form.</p>
-    </div>
-    <div class="cap c3" id="c3">
-      <h2>Frequency, made simple.</h2>
-      <div class="hz"><span id="hzval">7.83</span><small> Hz</small></div>
-      <a class="lk" href="../../generator/">Explore the generator</a>
-      <p class="disc">Frequency generators are not medical devices and are not a substitute for healthcare. Experiences vary.</p>
-    </div>
-
-    <div class="cap int ileft" id="i0">
-      <i class="eyeb">Protection</i>
-      <p>Boundaries &middot; grounded confidence</p>
-      <a class="lk" href="../../intention/protection/">Shop protection</a>
-    </div>
-    <div class="cap int iright" id="i1">
-      <i class="eyeb">Abundance</i>
-      <p>Momentum &middot; opportunity</p>
-      <a class="lk" href="../../intention/abundance/">Shop abundance</a>
-    </div>
-    <div class="cap int ileft" id="i2">
-      <i class="eyeb">Love</i>
-      <p>Heart-opening &middot; connection</p>
-      <a class="lk" href="../../intention/connection/">Shop love</a>
-    </div>
-    <div class="cap int iright" id="i3">
-      <i class="eyeb">Calm</i>
-      <p>Steadiness &middot; nervous-system ease</p>
-      <a class="lk" href="../../intention/calm/">Shop calm</a>
-    </div>
-    <div class="cap int ileft" id="i4">
-      <i class="eyeb">Clarity</i>
-      <p>Focus &middot; intuition</p>
-      <a class="lk" href="../../intention/clarity/">Shop clarity</a>
-    </div>
-
-    <span class="chip" id="ch0"></span><span class="chip" id="ch1"></span>
-
-    <div class="cap c6" id="c6">
-      <h2>You already know how you want to feel.</h2>
-      <div class="row">
-        <a class="btn btn-c" href="../../quiz/">Find My Energy Match</a>
-        <a class="btn btn-g" href="../../#intention">Shop by Intention</a>
+  <main>
+    <div class="rhead">
+      <div class="count"><b id="n">0</b> <span id="nlabel">crystals</span></div>
+      <div class="sortwrap"><label for="sort">Sort</label>
+        <select id="sort">
+          <option value="featured">Featured</option>
+          <option value="price-asc">Price, low to high</option>
+          <option value="price-desc">Price, high to low</option>
+          <option value="name">Name, A&ndash;Z</option>
+        </select>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="fallback">
-  <h1>Energy, made personal.</h1>
-  <p class="sub" style="font-family:var(--serif);font-style:italic;color:var(--line);margin-top:12px">Choose your energy. Live in it.</p>
-  <div class="ints">
-    <a href="../../intention/protection/">Protection</a><a href="../../intention/abundance/">Abundance</a>
-    <a href="../../intention/connection/">Love</a><a href="../../intention/calm/">Calm</a>
-    <a href="../../intention/clarity/">Clarity</a>
-  </div>
-  <img src="../../assets/img/generator-render.webp" alt="The Energy Muse frequency generator">
-  <p style="color:var(--tc-soft)">Frequency, made simple. Precision-crafted devices, tuned to specific frequencies.</p>
-  <p style="font-size:11px;color:var(--tc-soft);margin-top:10px">Not medical devices; not a substitute for healthcare. Experiences vary.</p>
-  <div class="row"><a class="btn btn-c" href="../../quiz/">Find My Energy Match</a><a class="btn btn-g" href="../../">Back to the site</a></div>
-</div>
-
-<!-- The film lands here; this band gives the ending somewhere to go, and
-     holds the brand film when there is one to hold. Honestly labelled. -->
-<section class="postfilm">
-  <div class="pf-inner">
-    <span class="pf-eyebrow">The brand film</span>
-    <div class="vslot" role="img" aria-label="Brand film — coming soon">
-      <span class="pf-play" aria-hidden="true">
-        <svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="21"/><path d="M18 14l13 8-13 8z"/></svg>
-      </span>
-      <span class="pf-note">Film coming soon</span>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden>
+      <b>Nothing matches all of that.</b>
+      Loosen a filter and the collection comes back.
     </div>
-    <p class="pf-cap">Drop a 16&#8239;:&#8239;9 file at <code>assets/video/brand.mp4</code> and it plays here.</p>
-  </div>
-</section>
+  </main>
+</div>
 
-<footer class="cfoot">
-  <div class="links">
-    <a href="../../quiz/">Energy Quiz</a><a href="../../gems/">Crystals</a><a href="../../generator/">Frequency</a>
-    <a href="../../#intention">By Intention</a><a href="../../">Home</a>
+<div class="veil" id="veil"></div>
+<aside class="sheet" id="sheet" aria-hidden="true" aria-label="Crystal detail">
+  <button class="sheet-x" id="sheet-x" aria-label="Close">&times;</button>
+  <div class="mount" id="s-mount"><img id="s-img" alt="" hidden src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></div>
+  <div class="sbody">
+    <h3 id="s-name"></h3>
+    <div class="meta" id="s-meta"></div>
+    <p class="desc" id="s-desc"></p>
+    <dl class="facts" id="s-facts"></dl>
   </div>
-  <p class="legal">&copy; 2026 Energy Muse. Energy Muse products and content are intended for personal practice and general wellbeing. They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease. Individual experiences vary.</p>
-</footer>
+  <div class="sfoot">
+    <span class="price" id="s-price"></span>
+    <button class="buy" id="s-buy">Add to bag</button>
+  </div>
+</aside>
 
 <script>
-(function(){
-'use strict';
-var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-if(reduce){document.documentElement.classList.add('static');return;}
+/* ---------------------------------------------------------------------------
+   The collection. Every field here is either already on the gems page or read
+   straight off the object: form comes from what the stone was cut into, hue
+   from its own colour, and the frequency from the intention it is filed under.
+--------------------------------------------------------------------------- */
+var HZ={Calm:'7.83',Protection:'174',Wealth:'417','Fresh Start':'417',
+        Wellness:'528',Love:'639',Spirituality:'963',Power:'1111'};
 
-var film=document.getElementById('film'),stage=document.getElementById('stage');
-var cv=document.getElementById('scene'),ctx=cv.getContext('2d');
-var devwrap=document.getElementById('devwrap'),devCanvas=document.getElementById('dev');
-var scue=document.getElementById('scue'),hzval=document.getElementById('hzval');
-var chips=[document.getElementById('ch0'),document.getElementById('ch1')];
-var caps={c1:document.getElementById('c1'),c2:document.getElementById('c2'),c3:document.getElementById('c3'),
-          c6:document.getElementById('c6')};
-var ints=[0,1,2,3,4].map(function(i){return document.getElementById('i'+i);});
-
-/* helpers */
-function clamp(v,a,b){return v<a?a:v>b?b:v}
-function win(p,a,b){return clamp((p-a)/(b-a),0,1)}
-function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
-function lerp(a,b,t){return a+(b-a)*t}
-function srand(i){var s=Math.sin(i*127.1+311.7)*43758.5453;return s-Math.floor(s)}
-function hex(c){return [parseInt(c.slice(1,3),16),parseInt(c.slice(3,5),16),parseInt(c.slice(5,7),16)]}
-function mix(c1,c2,t){var a=hex(c1),b=hex(c2);return 'rgb('+Math.round(lerp(a[0],b[0],t))+','+Math.round(lerp(a[1],b[1],t))+','+Math.round(lerp(a[2],b[2],t))+')'}
-function grade(stops,p){
-  for(var i=0;i<stops.length-1;i++){if(p<=stops[i+1][0])return mix(stops[i][1],stops[i+1][1],win(p,stops[i][0],stops[i+1][0]));}
-  return stops[stops.length-1][1];
-}
-function noise(x,t){return Math.sin(x*5.3+t*.9)*.5+Math.sin(x*11.7-t*.6+1.7)*.3+Math.sin(x*23.1+t*.35+4.1)*.2}
-
-/* strand signatures — Protection, Abundance, Love, Calm, Clarity */
-/* Organic, not clinical. A pure sine at constant amplitude and even spacing
-   is an oscilloscope trace — that is what read as "medical waves". Real
-   energy moving through a medium behaves differently: the wavelength drifts
-   along its length, the amplitude swells and dies, and the detail rides at
-   non-harmonic ratios so crests never fall into a repeating pattern. Each
-   strand keeps its own character, but none of them is a clean sine. */
-var SIG_OFF=[-0.128,-0.058,0.004,0.067,0.135];  /* uneven, so they never read as rails */
-var SIG_F=[0.85,1.15,1.0,0.7,1.3];       /* about one long cycle per strand */
-var SIG_P=[0,1.71,3.14,4.42,5.93];       /* each starts somewhere different */
-function sig(k,u,t,A){
-  var F=SIG_F[k]||1, P=SIG_P[k]||0;
-  var uu=clamp(u,0,1);
-  /* One clean sine, and nothing else.
-     This used to carry a 1.618x harmonic at 0.30 and a noise term at 0.28 —
-     37% of the peak was non-sine — plus a chirp that bunched the crests toward
-     one end. Together that is the recipe for a readout, which is exactly what
-     it looked like. A wave is a wave: strands differ by frequency and phase
-     alone, and that difference is what makes them cross and interfere. */
-  var env=Math.sin(Math.PI*Math.pow(uu,0.9));   /* enters and leaves the frame */
-  var phase=uu*Math.PI*2*F + t*(0.26+0.045*k) + P;
-  return Math.sin(phase)*A*env;
-}
-
-/* ---------- sprites, built once ---------- */
-function radial(stops,size){
-  var g=document.createElement('canvas');g.width=g.height=size||128;
-  var c=g.getContext('2d');var r=g.width/2;
-  var rg=c.createRadialGradient(r,r,1,r,r,r);
-  stops.forEach(function(s){rg.addColorStop(s[0],s[1]);});
-  c.fillStyle=rg;c.fillRect(0,0,g.width,g.width);
-  return g;
-}
-var SHADOW=radial([[0,'rgba(46,31,18,.40)'],[.55,'rgba(46,31,18,.17)'],[1,'rgba(46,31,18,0)']],96);
-var ATMO=radial([[0,'rgba(238,206,164,.40)'],[.45,'rgba(214,164,112,.16)'],[.78,'rgba(169,104,62,.05)'],[1,'rgba(169,104,62,0)']],160);
-function makeGlow(col){
-  var rgb=col[0]+','+col[1]+','+col[2];
-  return radial([[0,'rgba('+rgb+',.58)'],[.4,'rgba('+rgb+',.26)'],[.72,'rgba('+rgb+',.09)'],[1,'rgba('+rgb+',0)']],128);
-}
-function stoneColor(img){
-  var n=24,c=document.createElement('canvas');c.width=c.height=n;
-  var g=c.getContext('2d');g.drawImage(img,0,0,n,n);
-  var d;try{d=g.getImageData(0,0,n,n).data;}catch(e){return [200,140,88];}
-  var r=0,gg=0,b=0,w=0;
-  for(var i=0;i<d.length;i+=4){
-    if(d[i+3]<160)continue;
-    var mx=Math.max(d[i],d[i+1],d[i+2]),mn=Math.min(d[i],d[i+1],d[i+2]);
-    var sat=(mx-mn)/(mx||1),lum=mx/255;
-    var wt=(0.12+sat*1.9)*((lum>0.16&&lum<0.97)?1:0.25);
-    r+=d[i]*wt;gg+=d[i+1]*wt;b+=d[i+2]*wt;w+=wt;
-  }
-  if(!w)return [200,140,88];
-  r/=w;gg/=w;b/=w;
-  var mx2=Math.max(r,gg,b)||1,k=Math.min(255/mx2,1.9);
-  r*=k*.98;gg*=k*.98;b*=k*.98;
-  var avg=(r+gg+b)/3;
-  function cl(v){return v<0?0:v>255?255:v;}
-  r=cl(avg+(r-avg)*1.35);gg=cl(avg+(gg-avg)*1.35);b=cl(avg+(b-avg)*1.35);
-  var mxf=Math.max(r,gg,b);
-  if(mxf<150){var lift=150/(mxf||1);r=cl(r*lift);gg=cl(gg*lift);b=cl(b*lift);}
-  return [Math.round(r),Math.round(gg),Math.round(b)];
-}
-
-/* ---------- the cast: which stone each strand shed ---------- */
-var CAST=[
-  {slug:'power',       name:"Tiger's Eye Diamond",     k:0,dock:0,slot:0},
-  {slug:'merkaba',     name:'Clear Quartz Merkaba',    k:0,dock:0,slot:1},
-  {slug:'labradorite', name:'Labradorite Stone',       k:0,dock:-1,wide:1},
-  {slug:'wealth',      name:'Pyrite Cube',             k:1,dock:1,slot:0},
-  {slug:'malachite',   name:'Malachite Crystal Point', k:1,dock:1,slot:1},
-  {slug:'himalayan',   name:'Himalayan Quartz Cluster',k:1,dock:-1,wide:1},
-  {slug:'rose-heart',  name:'Rose Quartz Heart',       k:2,dock:2,slot:0},
-  {slug:'love',        name:'Rhodochrosite Point',     k:2,dock:2,slot:1},
-  {slug:'blue-agate',  name:'Blue Sky Agate Point',    k:3,dock:3,slot:0},
-  {slug:'blue-opal',   name:'Owyhee Blue Opal',        k:3,dock:3,slot:1},
-  {slug:'trapiche',    name:'Trapiche Amethyst Slice', k:4,dock:4,slot:0},
-  {slug:'fresh-start', name:'Clear Quartz Pyramid',    k:4,dock:4,slot:1},
-  {slug:'spirituality',name:'Amethyst Cluster',        k:4,dock:-1,wide:1}
+var GEMS=[
+ {slug:'protection',name:'Black Tourmaline',cat:'Protection',form:'Raw',hue:'Black',tint:'#5A6472',price:8.88,
+  desc:'The classic boundary crystal, scanned in 3D — striated black crystal for entries, desks and thresholds.'},
+ {slug:'wellness',name:'Quantum Quattro Crystal',cat:'Wellness',form:'Raw',hue:'Green',tint:'#3EAFA5',price:229.88,
+  desc:'A real Energy Muse specimen, scanned in 3D — shattuckite, dioptase, malachite and smoky quartz in quartz.'},
+ {slug:'spirituality',name:'Amethyst Cluster',cat:'Spirituality',form:'Cluster',hue:'Purple',tint:'#8656B8',price:34.88,
+  desc:'Natural amethyst points on a copper stand — the classic meditative crystal for clarity and quiet attention.'},
+ {slug:'wealth',name:'Pyrite Cube',cat:'Wealth',form:'Cube',hue:'Gold',tint:'#C9A54E',price:24.88,
+  desc:'A naturally cubic pyrite crystal — bright, metallic and grounded. Kept where plans are made.'},
+ {slug:'love',name:'Rhodochrosite Point',cat:'Love',form:'Point',hue:'Pink',tint:'#E08098',price:48.88,
+  desc:'A tender rose-banded point for compassion, self-worth and the relationships you nurture.'},
+ {slug:'fresh-start',name:'Clear Quartz Pyramid',cat:'Fresh Start',form:'Pyramid',hue:'Clear',tint:'#E8EDF2',price:18.88,
+  desc:'A polished quartz pyramid — a bright, clean point of focus for beginning again.'},
+ {slug:'power',name:"Tiger's Eye Diamond",cat:'Power',form:'Faceted',hue:'Amber',tint:'#9A6633',price:39.88,
+  desc:'Banded gold and brown, cut to a faceted diamond — confidence and grounded strength.'},
+ {slug:'trapiche',name:'Trapiche Amethyst Slice',cat:'Spirituality',form:'Slice',hue:'Purple',tint:'#9A7BB8',price:39.88,
+  desc:'A rare star-patterned amethyst slice — six rays formed over millions of years.'},
+ {slug:'blue-agate',name:'Blue Sky Agate Point',cat:'Calm',form:'Point',hue:'Blue',tint:'#9FC6E8',price:48.88,
+  desc:'Soft blue banding in a standing point — a quiet horizon for desk or bedside.'},
+ {slug:'rose-heart',name:'Rose Quartz Heart',cat:'Love',form:'Heart',hue:'Pink',tint:'#F0B7C8',price:12.88,
+  desc:'The classic crystal of gentle affection, carved into a hand-sized heart.'},
+ {slug:'malachite',name:'Malachite Crystal Point',cat:'Protection',form:'Point',hue:'Green',tint:'#2E8B57',price:34.88,
+  desc:'Deep green banding in a polished point — a strong, grounding guardian crystal.'},
+ {slug:'merkaba',name:'Clear Quartz Merkaba',cat:'Spirituality',form:'Geometry',hue:'Clear',tint:'#DCE6F0',price:14.88,
+  desc:'Sacred geometry cut in clear quartz — a small, precise object of focus.'},
+ {slug:'labradorite',name:'Labradorite Wand',cat:'Power',form:'Wand',hue:'Blue',tint:'#5B7B9A',price:27.92,
+  desc:'Flashes of blue and gold in a polished wand, presented on its own stand.'},
+ {slug:'blue-opal',name:'Owyhee Blue Opal',cat:'Wellness',form:'Touchstone',hue:'Blue',tint:'#8FB8D8',price:24.88,
+  desc:'A soft blue touchstone — smooth in the palm, easy to carry through the day.'},
+ {slug:'himalayan',name:'Himalayan Quartz Cluster',cat:'Fresh Start',form:'Cluster',hue:'Clear',tint:'#EDEFF2',price:399.88,
+  desc:'A statement cluster from high-altitude veins — many points, one clear intention.'}
 ];
-var dirtyImg=false;
-CAST.forEach(function(s,i){
-  s.img=new Image();
-  s.img.onload=function(){dirtyImg=true;};
-  s.img.src='../../assets/img/products/'+s.slug+'.png';
-  s.z=.5+.5*srand(i*7+1);
-  s.u=.12+.76*srand(i*7+2);        /* where along its strand it precipitates */
-  s.ph=srand(i*7+3);
-  s.spin=(srand(i*7+4)-.5)*1.5;
-  s.rest=(srand(i*7+5)-.5)*.5;     /* the angle it comes to rest at */
-  s.jit=(srand(i*7+6)-.5);
+GEMS.forEach(function(g,i){g.hz=HZ[g.cat]||'528';g.i=i;g.img='../../assets/img/products/'+g.slug+'.png';});
+
+var HUEDOT={Blue:'#9FC6E8',Green:'#3E9E72',Purple:'#8E68C0',Gold:'#C9A54E',
+            Pink:'#EFA8BC',Clear:'#E6ECF2',Amber:'#9A6633',Black:'#5A6472'};
+
+var F={cat:[],form:[],hue:[]};
+var grid=document.getElementById('grid'), empty=document.getElementById('empty');
+var nEl=document.getElementById('n'), nLabel=document.getElementById('nlabel');
+var sortSel=document.getElementById('sort'), clearBtn=document.getElementById('clearall');
+
+function uniq(k){var s=[];GEMS.forEach(function(g){if(s.indexOf(g[k])<0)s.push(g[k]);});return s;}
+/* Intention reads better in the brand's own order than alphabetically */
+var CATORDER=['Calm','Protection','Love','Power','Wealth','Wellness','Spirituality','Fresh Start'];
+function cats(){return CATORDER.filter(function(c){return uniq('cat').indexOf(c)>=0;});}
+
+/* --- match against every axis except one, so a chip can show what it would
+       yield if you pressed it rather than what is on screen right now --- */
+function passes(g,skip){
+  return (skip==='cat'  || !F.cat.length  || F.cat.indexOf(g.cat)>=0)
+      && (skip==='form' || !F.form.length || F.form.indexOf(g.form)>=0)
+      && (skip==='hue'  || !F.hue.length  || F.hue.indexOf(g.hue)>=0);
+}
+function countFor(key,val){
+  return GEMS.filter(function(g){return g[key]===val&&passes(g,key);}).length;
+}
+
+function buildChips(id,key,values,dot){
+  var box=document.querySelector('#'+id+' .chips');
+  box.innerHTML='';
+  values.forEach(function(v){
+    var b=document.createElement('button');
+    b.type='button';b.className='chip';b.dataset.key=key;b.dataset.val=v;
+    b.setAttribute('aria-pressed',F[key].indexOf(v)>=0?'true':'false');
+    b.innerHTML=(dot?'<span class="sw" style="background:'+(HUEDOT[v]||'#ccc')+'"></span>':'')
+      +'<span>'+v+'</span><span class="ct"></span>';
+    b.addEventListener('click',function(){
+      var a=F[key],ix=a.indexOf(v);
+      if(ix<0)a.push(v);else a.splice(ix,1);
+      render();writeURL();
+    });
+    box.appendChild(b);
+  });
+}
+
+function refreshChips(){
+  [].slice.call(document.querySelectorAll('.chip')).forEach(function(b){
+    var k=b.dataset.key,v=b.dataset.val,on=F[k].indexOf(v)>=0;
+    var c=countFor(k,v);
+    b.setAttribute('aria-pressed',on?'true':'false');
+    b.querySelector('.ct').textContent=c;
+    b.disabled=(c===0&&!on);
+  });
+  var any=F.cat.length+F.form.length+F.hue.length;
+  clearBtn.hidden=!any;
+  document.getElementById('fbtn-n').textContent=any?'('+any+')':'';
+}
+
+function current(){
+  var out=GEMS.filter(function(g){return passes(g,null);});
+  var s=sortSel.value;
+  if(s==='price-asc')out.sort(function(a,b){return a.price-b.price;});
+  else if(s==='price-desc')out.sort(function(a,b){return b.price-a.price;});
+  else if(s==='name')out.sort(function(a,b){return a.name.localeCompare(b.name);});
+  else out.sort(function(a,b){return a.i-b.i;});
+  return out;
+}
+
+function money(n){return '$'+n.toFixed(2);}
+
+function render(){
+  var list=current();
+  nEl.textContent=list.length;
+  nLabel.textContent=list.length===1?'crystal':'crystals';
+  empty.hidden=list.length>0;
+  grid.innerHTML='';
+  list.forEach(function(g,i){
+    var el=document.createElement('article');
+    el.className='spec';
+    el.style.setProperty('--tint',g.tint);
+    el.style.animationDelay=Math.min(i*26,320)+'ms';
+    el.innerHTML=
+      '<span class="hz">'+g.hz+' Hz</span>'+
+      '<button class="mount" data-open="'+g.slug+'" aria-label="View '+g.name.replace(/"/g,'&quot;')+'">'+
+        '<img src="'+g.img+'" alt="'+g.name.replace(/"/g,'&quot;')+'" loading="lazy">'+
+      '</button>'+
+      '<div class="cap">'+
+        '<button class="n" data-open="'+g.slug+'" style="text-align:left">'+g.name+'</button>'+
+        '<div class="meta">'+g.cat+' &middot; '+g.form+'</div>'+
+        '<div class="foot"><span class="price">'+money(g.price)+'</span>'+
+          '<button class="add" data-id="'+g.slug+'" data-n="'+g.name.replace(/"/g,'&quot;')+'" '+
+            'data-p="'+g.price.toFixed(2)+'" data-img="/assets/img/products/'+g.slug+'.png">Add</button>'+
+        '</div>'+
+      '</div>';
+    grid.appendChild(el);
+  });
+  refreshChips();
+}
+
+/* --- detail sheet --- */
+var sheet=document.getElementById('sheet'), veil=document.getElementById('veil'), openGem=null;
+function openSheet(slug){
+  var g=GEMS.filter(function(x){return x.slug===slug;})[0]; if(!g)return;
+  openGem=g;
+  document.getElementById('s-mount').style.setProperty('--tint',g.tint);
+  var im=document.getElementById('s-img'); im.src=g.img; im.alt=g.name; im.hidden=false;
+  document.getElementById('s-name').textContent=g.name;
+  document.getElementById('s-meta').textContent=g.cat+' · '+g.form;
+  document.getElementById('s-desc').textContent=g.desc;
+  document.getElementById('s-facts').innerHTML=
+    [['Intention',g.cat],['Form',g.form],['Colour',g.hue],['Tuned to',g.hz+' Hz']]
+    .map(function(f){return '<div class="fact"><dt>'+f[0]+'</dt><dd>'+f[1]+'</dd></div>';}).join('');
+  document.getElementById('s-price').textContent=money(g.price);
+  var buy=document.getElementById('s-buy');
+  buy.textContent='Add to bag'; buy.classList.remove('done');
+  sheet.classList.add('on'); veil.classList.add('on'); sheet.setAttribute('aria-hidden','false');
+  document.getElementById('sheet-x').focus();
+}
+function closeSheet(){
+  sheet.classList.remove('on'); veil.classList.remove('on');
+  sheet.setAttribute('aria-hidden','true'); openGem=null;
+}
+veil.addEventListener('click',closeSheet);
+document.getElementById('sheet-x').addEventListener('click',closeSheet);
+addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet();});
+
+grid.addEventListener('click',function(e){
+  var o=e.target.closest('[data-open]');
+  if(o){openSheet(o.dataset.open);return;}
 });
 
-/* On a phone the extras stay dissolved — fewer stones, more air */
-var LIVE=[];
-function buildLive(){
-  LIVE=[];
-  for(var i=0;i<CAST.length;i++){
-    if(mob&&CAST[i].wide)continue;          /* the wide-only extras sit this one out */
-    LIVE.push(i);
-  }
+document.getElementById('s-buy').addEventListener('click',function(){
+  if(!openGem)return;
+  addToBag(openGem.slug,openGem.name,openGem.price.toFixed(2),'/assets/img/products/'+openGem.slug+'.png');
+  this.textContent='Added'; this.classList.add('done');
+});
+
+/* --- bag: em-bag.js binds .padd itself, so mirror its contract --- */
+function addToBag(id,n,p,img){
+  var b=document.createElement('button');
+  b.className='padd';b.style.display='none';
+  b.dataset.id=id;b.dataset.n=n;b.dataset.p=p;b.dataset.img=img;
+  document.body.appendChild(b);b.click();
+  setTimeout(function(){b.remove();},0);
 }
+grid.addEventListener('click',function(e){
+  var a=e.target.closest('.add'); if(!a)return;
+  addToBag(a.dataset.id,a.dataset.n,a.dataset.p,a.dataset.img);
+  a.textContent='Added'; a.classList.add('done');
+  setTimeout(function(){a.textContent='Add';a.classList.remove('done');},1400);
+});
 
-/* the drifting line-art polygons that used to fill the background are gone —
-   randomly generated glyphs read as clip-art, not as a brand. */
-
-/* ---------- layout ---------- */
-var W,H,dpr,mob,N=160,MK=null;
-function sampleMark(){
-  /* Self-fitting lockup. Hard-coded offsets only work for the window shape
-     you designed in — on a short one the type and the mark collide or run
-     off the top. So: size the mark by the SMALLER viewport dimension (a
-     short window shrinks it too), then measure the real height of the text
-     block and seat the mark in whatever room is actually left below it. */
-  var vb=[231.33,238.67];
-  var c1el=document.getElementById('c1');
-  var textBottom=H*0.30;
-  if(c1el){var cr=c1el.getBoundingClientRect();
-    if(cr.height)textBottom=cr.top+cr.height;}
-  var gap=Math.max(16,H*0.04);
-  var cue=Math.max(26,H*0.06);                 /* keep the scroll cue clear */
-  var room=Math.max(70,H-textBottom-gap-cue);
-  var markH=Math.min(Math.min(W,H)*(W>700?0.42:0.72),room);
-  var scale=markH/vb[1];
-  var ecx=W*0.5, ecy=textBottom+gap+markH/2;
-  var host=document.getElementById('mksrc'),NS='http://www.w3.org/2000/svg';
-  MK=[0,1,2].map(function(i){
-    var subs=document.getElementById('mk'+i).getAttribute('d').split(/(?=M)/);
-    var els=subs.map(function(sd){var e=document.createElementNS(NS,'path');e.setAttribute('d',sd);host.appendChild(e);return e;});
-    var lens=els.map(function(e){return e.getTotalLength();});
-    var total=lens.reduce(function(a,b){return a+b;},0);
-    var counts=lens.map(function(L){return Math.max(8,Math.round(N*L/total));});
-    counts[0]+=(N+1)-counts.reduce(function(a,b){return a+b;},0);
-    /* The mark is a closed swirl; the line reads left to right. Feeding the
-       swirl's own point order into that mapping makes every point cross its
-       neighbours mid-morph — the scribble. Each stroke is rotated to begin at
-       its leftmost point and run in the line's direction, so the same
-       animation reads as a thread unwinding.
-
-       This used to be skipped whenever a shape had more than one subpath,
-       which is every interesting one: mk0 is a ring with its counters, so it
-       was the one still tangling. Now each subpath is straightened on its own
-       and they are laid out left to right. */
-    var strokes=[];
-    els.forEach(function(e,si){
-      var sp=[];
-      for(var j=0;j<counts[si];j++){
-        var pt=e.getPointAtLength(lens[si]*j/Math.max(1,counts[si]-1));
-        sp.push([ecx+(pt.x-vb[0]/2)*scale,ecy+(pt.y-vb[1]/2)*scale]);
-      }
-      host.removeChild(e);
-      var s=0,mx=Infinity;
-      for(var q=0;q<sp.length;q++){if(sp[q][0]<mx){mx=sp[q][0];s=q;}}
-      /* A closed stroke samples its start point twice, once at each end. Rotating
-         the whole run moves the seam to the leftmost point and leaves the loop
-         open there — a visible nick in the ring. Drop the duplicate, rotate the
-         core, then close it again on the new start. */
-      var shut=sp.length>2&&Math.abs(sp[0][0]-sp[sp.length-1][0])<0.5
-                          &&Math.abs(sp[0][1]-sp[sp.length-1][1])<0.5;
-      if(shut){
-        var core=sp.slice(0,sp.length-1);
-        s=s%core.length;
-        core=core.slice(s).concat(core.slice(0,s));
-        sp=core.concat([core[0].slice()]);
-      }else{
-        sp=sp.slice(s).concat(sp.slice(0,s));
-      }
-      if(sp.length>2&&sp[1][0]<sp[0][0])sp.reverse();
-      strokes.push(sp);
-    });
-    strokes.sort(function(a,b){
-      return Math.min.apply(null,a.map(function(q){return q[0];}))
-           - Math.min.apply(null,b.map(function(q){return q[0];}));});
-    var pts=[],brk=[];
-    strokes.forEach(function(sp,si){
-      if(si>0)brk.push(pts.length);
-      for(var j=0;j<sp.length;j++)pts.push(sp[j]);
-    });
-    return {pts:pts,brk:brk.reduce(function(s,v){s[v]=1;return s;},{}),cx:ecx,cy:ecy};
+/* --- filters that survive a share --- */
+function writeURL(){
+  var q=[];
+  ['cat','form','hue'].forEach(function(k){if(F[k].length)q.push(k+'='+encodeURIComponent(F[k].join(',')));});
+  if(sortSel.value!=='featured')q.push('sort='+sortSel.value);
+  history.replaceState(null,'',location.pathname+(q.length?'?'+q.join('&'):''));
+}
+function readURL(){
+  var p=new URLSearchParams(location.search);
+  ['cat','form','hue'].forEach(function(k){
+    var v=p.get(k); if(v)F[k]=v.split(',').filter(Boolean);
   });
-  /* the artwork is not centred in its own viewBox — measure the real centre
-     so the mark can be placed dead centre inside the ring */
-  var xs=MK[0].pts.map(function(q){return q[0];}),ys=MK[0].pts.map(function(q){return q[1];});
-  var xmin=Math.min.apply(null,xs),xmax=Math.max.apply(null,xs);
-  var ymin=Math.min.apply(null,ys),ymax=Math.max.apply(null,ys);
-  MK.ccx=(xmin+xmax)/2;MK.ccy=(ymin+ymax)/2;MK.outerW=xmax-xmin;
-}
-function resize(){
-  W=stage.clientWidth;H=stage.clientHeight;mob=W<=700;
-  dpr=Math.min(devicePixelRatio||1,mob?1.5:2);
-  cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-  N=mob?120:170;
-  buildLive();
-  sampleMark();
-}
-resize();addEventListener('resize',resize);
-
-/* ---------- the act structure ---------- */
-var MARK=[0,.12];          /* mark breathes, then unravels                */
-var LINE=[.12,.22];        /* one line of energy                          */
-var GEN =[.22,.44];        /* it meets the generator and resonates        */
-var SPLIT=[.42,.50];       /* the line divides into five                  */
-var CW=[],DW=[];           /* five chapters                               */
-(function(){var start=.50,step=.076;
-  for(var i=0;i<5;i++){var s=start+i*step;
-    CW.push([s,s+.022,s+.046,s+.066]);
-    DW.push([s+.008,s+.034,s+.044,s+.064]);}
-})();
-var GATHER=[.85,.925];     /* the bed lifts into the ring — finishes before
-                              the closing line arrives, so the ring is exact */
-var SIDE=['r','l','r','l','r'];
-
-/* where a stone comes to rest: a shallow bed along the floor, nearer
-   stones lower and larger, so the pile reads as depth not a heap */
-/* Where a stone comes to rest. Spacing is derived from how many stones are
-   actually in play, so a narrow screen gets a bed with air in it rather than
-   a heap; the fill order is shuffled so the floor doesn't stack left to right. */
-function bedSlot(i){
-  var n=LIVE.length, pos=LIVE.indexOf(i);
-  if(pos<0)pos=0;
-  var order=(pos*7)%n;                      /* deterministic shuffle */
-  var rows=mob?2:3, row=order%rows;
-  var col=Math.floor(order/rows), cols=Math.ceil(n/rows);
-  var t=(col+ (row%2?0.5:0))/Math.max(1,cols-0.0);   /* offset rows interlock */
-  /* keep a whole stone inside the frame, jitter included */
-  var pad=mob?46:70;
-  var x=W*(.11+.78*t)+(srand(i*3+9)-.5)*W*.035;
-  x=Math.max(pad,Math.min(W-pad,x));
-  /* clear of the bottom edge by half a stone, so nothing is sliced by the frame */
-  var base=H-(mob?58:78);
-  var y=base-row*(mob?17:20);
-  return [x,y,row];
+  var s=p.get('sort'); if(s)sortSel.value=s;
 }
 
-/* the energy line at parameter u on strand k */
-function linePoint(u,k,t,p,spread,amp,x0,x1){
-  var off=SIG_OFF[k]*spread*H;
-  var cy=H*(mob?.46:.5);
-  var x=lerp(x0,x1,u);
-  var y=cy+off+sig(k,u,t,amp);
-  return [x,y];
+clearBtn.addEventListener('click',function(){F={cat:[],form:[],hue:[]};render();writeURL();});
+sortSel.addEventListener('change',function(){render();writeURL();});
+
+var fbtn=document.getElementById('fbtn'), rail=document.getElementById('rail');
+fbtn.addEventListener('click',function(){
+  var on=rail.classList.toggle('open');
+  fbtn.setAttribute('aria-expanded',on?'true':'false');
+});
+
+readURL();
+buildChips('g-cat','cat',cats(),false);
+buildChips('g-form','form',uniq('form').sort(),false);
+buildChips('g-hue','hue',uniq('hue').sort(),true);
+render();
+
+/* keep the header bag count in step with em-bag's own store */
+function syncBag(){
+  try{
+    var raw=localStorage.getItem('em-bag');
+    var items=raw?JSON.parse(raw):[];
+    var n=items.reduce(function(s,it){return s+(it.q||1);},0);
+    [].slice.call(document.querySelectorAll('.bagn')).forEach(function(e){e.textContent=n;});
+  }catch(e){}
 }
-
-function frame(p,t){
-  /* day → dusk, the grade they liked, with a mineral middle */
-  var bg=grade([[0,'#FBF8F2'],[.30,'#F6ECDC'],[.52,'#E6D0AF'],[.70,'#2A3446'],[.88,'#0B1320']],p);
-  var tc=grade([[0,'#1D2739'],[.55,'#1D2739'],[.68,'#F2ECE2']],p);
-  var ts=grade([[0,'#4E5A70'],[.55,'#5A5648'],[.68,'#C9BCA8']],p);
-  var lc=grade([[0,'#A9683E'],[.58,'#B87A4B'],[.72,'#E0A878']],p);
-  var lb=grade([[0,'#152445'],[.58,'#152445'],[.70,'#C6BFB2']],p);
-  var st=document.documentElement.style;
-  st.setProperty('--bgc',bg);st.setProperty('--tc',tc);st.setProperty('--tc-soft',ts);
-  st.setProperty('--line',lc);st.setProperty('--logo-body',lb);
-  /* on dark the mark goes monochrome — silver plus a mint drop read cheap */
-  var onDark=win(p,.60,.72);
-  st.setProperty('--logo-swirl',mix('#e0e0e0','#F1E7D8',onDark));
-  st.setProperty('--logo-drop',mix('#44b891','#E0A878',onDark));
-  st.setProperty('--glowo',(win(p,GEN[0],GEN[1])*(1-win(p,.62,.78))*.5).toFixed(3));
-
-  var morph=ease(win(p,MARK[0],MARK[1]));
-  var wake=morph;
-  var wind=ease(win(p,.30,.40))*(1-ease(win(p,.44,.52)));   /* into the coil and out */
-  var spread=ease(win(p,SPLIT[0],SPLIT[1]))*(1-ease(win(p,.86,.93)));
-  var dk=win(p,.62,.78);
-  var gather=ease(win(p,GATHER[0],GATHER[1]));
-  var ringR=mob?Math.min(W*.36,H*.20):Math.min(W,H)*.42;
-  var ringCx=W/2, ringCy=mob?H*.26:H*.5;
-
-  var amp=lerp(8,H*(mob?.10:.115),wake)*(1+wind*.5)*(1-gather*.7)*lerp(.3,1,ease(morph));
-  /* The line used to stop dead at both screen edges, which read as a crop.
-     It now runs past the frame on both sides AND fades out before it gets
-     there, so it dissolves into the medium instead of being cut off. */
-  var span=lerp(.10,1.26,wake);
-  var x0=W*(0.5-span/2), x1=W*(0.5+span/2);
-
-  ctx.clearRect(0,0,W,H);
-
-  /* --- the medium --- */
-  var atmo=.14+dk*.26;
-  var a1=Math.min(W,H)*(1.45+dk*.3);
-  ctx.save();ctx.globalAlpha=atmo;
-  ctx.drawImage(ATMO,W*(.32+Math.sin(t*.05)*.12)-a1/2,H*(.4+Math.cos(t*.04)*.14)-a1/2,a1,a1);
-  ctx.globalAlpha=atmo*.7;
-  var a2=a1*.8;
-  ctx.drawImage(ATMO,W*(.7+Math.cos(t*.045+1.7)*.13)-a2/2,H*(.6+Math.sin(t*.035+.9)*.13)-a2/2,a2,a2);
-  ctx.restore();
-
-  /* --- the line (and, before it, the mark) --- */
-  /* the caption owns the screen on its own — the line withdrew behind it
-     and came back as the card leaves, so it stops cutting the headline */
-  var lineOp=(1-gather*.15)*(1-win(p,.145,.185)*(1-win(p,.225,.265)));
-  ctx.save();
-  ctx.lineWidth=mob?1.4:1.6;ctx.lineCap='round';
-  var gAmt=Math.max((1-win(p,.07,.16))*.6,win(p,.34,.62));
-  ctx.shadowColor='rgba(224,168,120,'+(gAmt*.7).toFixed(2)+')';
-  ctx.shadowBlur=gAmt*9;
-  for(var k=0;k<5;k++){
-    var mk=(MK&&(k>=1&&k<=3))?MK[k-1]:null;
-    var op;
-    if(k===2)op=1;
-    else if(k===1||k===3)op=Math.max(1-win(p,.10,.18),clamp(spread*3,0,1))*.55;
-    else op=clamp(spread*3,0,1)*.34;
-    op*=lineOp;
-    if(op<=.01)continue;
-    ctx.globalAlpha=op;
-    if(gather>0.985){ctx.strokeStyle=lc;}          /* a closed ring has no ends to hide */
-    else{
-      var lg=ctx.createLinearGradient(0,0,W,0);
-      var fade=Math.min(.22,.04+.18*wake);
-      lg.addColorStop(0,'rgba(169,104,62,0)');
-      lg.addColorStop(fade,lc);
-      lg.addColorStop(1-fade,lc);
-      lg.addColorStop(1,'rgba(169,104,62,0)');
-      ctx.strokeStyle=lg;
-    }
-    ctx.beginPath();
-    var breathe=1+Math.sin(t*1.5)*.015;
-    var rot=Math.sin(t*.45)*.03+ease(win(p,0,.10))*.5, ca=Math.cos(rot), sa=Math.sin(rot);
-    for(var i=0;i<=N;i++){
-      var u=i/N;
-      var lp=linePoint(u,k,t,p,spread,amp,x0,x1);
-      var X=lp[0],Y=lp[1];
-      if(mk&&morph<1){
-        var px=(mk.pts[i][0]-mk.cx)*breathe, py=(mk.pts[i][1]-mk.cy)*breathe;
-        var mx=mk.cx+px*ca-py*sa, my=mk.cy+px*sa+py*ca;
-        var mi=ease(clamp(morph*1.62-u*.62,0,1));   /* softer, longer stagger */
-        X=lerp(mx,X,mi);Y=lerp(my,Y,mi);
-      }
-      if(wind>0){
-        var th=u*3.1*Math.PI*2, sr=lerp(Math.min(W,H)*.30,Math.min(W,H)*.055,u);
-        var sx=W/2+Math.cos(th)*sr, sy=H*(mob?.46:.5)+Math.sin(th)*sr*.92;
-        X=lerp(X,sx,wind);Y=lerp(Y,sy,wind);
-      }
-      if(gather>0){
-        var rth=-Math.PI/2+u*Math.PI*2;
-        X=lerp(X,ringCx+Math.cos(rth)*ringR,gather);
-        Y=lerp(Y,ringCy+Math.sin(rth)*ringR,gather);
-      }
-      if(i===0||(mk&&morph<1&&mk.brk[i]))ctx.moveTo(X,Y);else ctx.lineTo(X,Y);
-    }
-    ctx.stroke();
-  }
-  ctx.restore();
-
-  /* --- what the line sheds --- */
-  var dockH=mob?W*.26:Math.min(H*.17,140);
-  for(var s2=0;s2<CAST.length;s2++){
-    var s=CAST[s2];
-    if(!s.img.complete||!s.img.naturalWidth){dirtyImg=true;continue;}
-    if(!s.glow)s.glow=makeGlow(stoneColor(s.img));
-
-    /* Precipitation is spaced across the whole act so stones arrive one at a
-       time — they used to be born within a few frames of each other and fell
-       as a clump. Each takes its own slow drop. */
-    var pos=LIVE.indexOf(s2); if(pos<0)continue;
-    var born=.425+(pos/LIVE.length)*0.30+srand(s2*5+2)*.012;
-    var bT=ease(win(p,born,born+.045));
-    if(bT<=0.001)continue;
-
-    var origin=linePoint(s.u,s.k,t,p,spread,amp,x0,x1);
-    var slot=bedSlot(s2);
-    var fall=ease(win(p,born+.015,born+.20));     /* a long, unhurried drop */
-    var h=(mob?40+30*s.z:58+56*s.z)*(0.35+0.65*bT);
-
-    var X=lerp(origin[0],slot[0],fall);
-    var Y=lerp(origin[1],slot[1],fall)-Math.sin(fall*Math.PI)*H*.05;   /* a shallow arc */
-    var R=lerp(0,s.rest,fall)+ (1-fall)*Math.sin(t*.6+s2)*s.spin*.35;
-    /* settled: it breathes, it does not sit dead */
-    if(fall>=1){Y+=Math.sin(t*.5+s.ph*6.283)*1.6;X+=Math.cos(t*.35+s.ph*5)*1.2;}
-
-    var glow=0,dT=0;
-    if(s.dock>=0){
-      var dw=DW[s.dock];
-      dT=ease(win(p,dw[0],dw[1]))*(1-ease(win(p,dw[2],dw[3])));
-      if(dT>0){
-        var side=SIDE[s.dock];
-        var sx2=(mob?W*(s.slot?.68:.30):W*(side==='r'?.68:.32))+Math.cos(t*.33+s.ph*8.4)*4;
-        var sy2=(mob?H*(s.slot?.62:.40):H*(s.slot?.60:.38))+Math.sin(t*.45+s.ph*6.283)*5;
-        X=lerp(X,sx2,dT);Y=lerp(Y,sy2,dT);
-        R=lerp(R,0,dT);h=lerp(h,dockH,dT);
-        glow=dT;
-        if(dT>.02){
-          var ch=chips[s.slot];
-          ch.textContent=s.name;
-          ch.style.left=X+'px';ch.style.top=(Y+h/2+10)+'px';
-          ch.style.opacity=dT.toFixed(2);
-        }
-      }
-    }
-    /* the bed lifts into the ring */
-    if(gather>0){
-      var ang=-Math.PI/2+(s2/CAST.length)*6.283+t*.03;
-      var rr=ringR+s.jit*12;
-      X=lerp(X,ringCx+Math.cos(ang)*rr,gather);
-      Y=lerp(Y,ringCy+Math.sin(ang)*rr,gather);
-      R=lerp(R,0,gather);h=lerp(h,mob?30:46,gather);
-      glow=Math.max(glow,gather*.8);
-    }
-
-    var w2=h*(s.img.naturalWidth/s.img.naturalHeight);
-    var lum=Math.max(dk,glow,1-bT);
-    ctx.save();
-    ctx.translate(X,Y);
-    ctx.globalAlpha=(.34+lum*.4)*bT;
-    var gs=Math.max(w2,h)*(1.5+lum*.7);
-    ctx.drawImage(s.glow,-gs/2,-gs/2,gs,gs);
-    var ss=Math.max(w2,h)*1.12;
-    ctx.globalAlpha=((1-lum)*.5+.16)*bT*fall;
-    ctx.drawImage(SHADOW,-ss/2,-ss/2+h*.18,ss,ss);
-    ctx.restore();
-
-    ctx.save();
-    ctx.translate(X,Y);ctx.rotate(R);
-    ctx.globalAlpha=bT;
-    ctx.drawImage(s.img,-w2/2,-h/2,w2,h);
-    ctx.restore();
-  }
-
-  /* --- the mark comes home: it opened the film, it closes it, seated in
-     the ring the line just made. Full presence on mobile where the copy
-     sits below; a ghost on desktop so it never fights the headline. --- */
-  if(MK&&MK.outerW){
-    var homeT=ease(win(p,.905,.965));
-    if(homeT>.004){
-      var K=(ringR*1.08)/(MK.outerW||1);
-      ctx.save();
-      ctx.globalAlpha=homeT*(mob?.9:.22);
-      ctx.strokeStyle=lc;ctx.lineWidth=mob?1.5:1.7;ctx.lineCap='round';ctx.lineJoin='round';
-      ctx.shadowColor='rgba(224,168,120,'+(homeT*.5).toFixed(2)+')';ctx.shadowBlur=10;
-      for(var mi=0;mi<3;mi++){
-        var m=MK[mi];ctx.beginPath();
-        for(var q=0;q<m.pts.length;q++){
-          var MX=ringCx+(m.pts[q][0]-MK.ccx)*K;
-          var MY=ringCy+(m.pts[q][1]-MK.ccy)*K;
-          if(q===0||m.brk[q])ctx.moveTo(MX,MY);else ctx.lineTo(MX,MY);
-        }
-        ctx.stroke();
-      }
-      ctx.restore();
-    }
-  }
-
-  /* clear chip labels outside their windows */
-  var anyDock=false;
-  for(var c2=0;c2<5;c2++){if(p>DW[c2][0]&&p<DW[c2][3]){anyDock=true;break;}}
-  if(!anyDock){chips[0].style.opacity=0;chips[1].style.opacity=0;}
-
-  /* --- generator --- */
-  var devOp=win(p,.26,.34)*(1-win(p,.46,.54));
-  devwrap.style.opacity=devOp.toFixed(2);
-  if(p>.20&&!frame.dev){frame.dev=1;
-    import('../../assets/em-device.js').then(function(m){m.mount(devCanvas,{zoom:0.85});}).catch(function(){});}
-  var HZ=[7.83,174,417,528,639,963,1111];
-  hzval.textContent=String(HZ[Math.min(6,Math.floor(win(p,.26,.44)*6.999))]);
-
-  /* --- captions --- */
-  cap(caps.c1,p,-.02,-.01,.09,.14);
-  cap(caps.c2,p,.15,.18,.215,.245);
-  cap(caps.c3,p,.27,.30,.42,.45);
-  for(var c3=0;c3<5;c3++){var w3=CW[c3];capInt(ints[c3],p,w3[0],w3[1],w3[2],w3[3]);}
-  cap(caps.c6,p,.90,.94,1.01,1.02);
-  scue.style.opacity=((1-win(p,.05,.11))*.85).toFixed(2);
-}
-function cap(el,p,a,b,c,d){
-  var o=win(p,a,b)*(1-win(p,c,d));
-  el.style.opacity=o.toFixed(3);
-  el.style.transform='translateY('+((1-win(p,a,b))*14-win(p,c,d)*10).toFixed(1)+'px)';
-  el.classList.toggle('live',o>.5);
-}
-/* chapters hand off cleanly — one line is never legible over another */
-function capInt(el,p,a,b,c,d){
-  var inRaw=win(p,a,b),outRaw=win(p,c,d);
-  var o=ease(inRaw)*(1-ease(outRaw));
-  el.style.opacity=o.toFixed(3);
-  el.classList.toggle('live',o>.5);
-  if(o<=.001)return;
-  var kids=el.children;
-  for(var k=0;k<kids.length;k++){
-    var lag=k*.16;
-    var ki=ease(clamp((inRaw-lag)/(1-lag),0,1));
-    var ko=ease(clamp((outRaw-lag*.5)/(1-lag*.5),0,1));
-    var st2=kids[k].style;
-    st2.transform='translateY('+((1-ki)*24-ko*26).toFixed(1)+'px)';
-    st2.opacity=(ki*(1-ko)).toFixed(3);
-    var bl=((1-ki)*3.4)+(ko*3.0);
-    st2.filter=bl>.06?'blur('+bl.toFixed(2)+'px)':'none';
-  }
-}
-
-var t0=performance.now();
-function step(){
-  var t=(performance.now()-t0)/1000;
-  var total=film.offsetHeight-innerHeight;
-  /* a zero-height viewport (a collapsed or hidden frame) divided to NaN and
-     poisoned every coordinate downstream — hold at the start instead */
-  var p=total>0?clamp(-film.getBoundingClientRect().top/total,0,1):0;
-  frame(p,t);
-}
-function loop(){step();requestAnimationFrame(loop);}
-requestAnimationFrame(loop);
-addEventListener('scroll',step,{passive:true});
-
-window.__film={go:function(p){var total=film.offsetHeight-innerHeight;scrollTo(0,film.offsetTop+p*total);step();},step:step};
-})();
+addEventListener('storage',syncBag);
+setInterval(syncBag,700);
+syncBag();
 </script>
+
+<script src="../../assets/em-bag.js?v=3" defer></script>
 <script src="../../assets/em-versions.js?v=3" defer></script>
-<script src="../../assets/em-depth.js?v=2" defer></script>
 </body></html>

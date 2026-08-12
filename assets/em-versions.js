@@ -24,7 +24,7 @@ var VERSIONS=[
   ['/home/motion/','2 · Motion','glides in as you scroll',SIG.motion],
   ['/home/current/','3 · Current','energy, visualized',SIG.current],
   ['/home/cascade/','4 · Cascade','crystal rain',SIG.cascade],
-  ['/home/crystallize/','5 · Crystallize','energy takes form',SIG.crystallize]
+  ['/home/crystallize/','5 · Collection','the whole shop, filterable',SIG.crystallize]
 ];
 var TOOLS=[
   ['/designer/','Atelier','design your own bracelet',SIG.atelier]
