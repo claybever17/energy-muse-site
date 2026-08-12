@@ -73,14 +73,9 @@ p{text-wrap:pretty}
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .markglow{position:absolute;width:560px;height:560px;margin:-280px 0 0 -280px;pointer-events:none;border-radius:50%;
   background:radial-gradient(circle,rgba(236,203,158,.5),rgba(169,104,62,.16) 55%,transparent 72%);filter:blur(16px)}
-.photo{position:absolute;left:0;right:0;top:50%;height:46svh;transform:translateY(-50%);opacity:0;pointer-events:none;
-  background:url(../../assets/img/hero.jpg) center 38%/cover no-repeat;
-  filter:grayscale(.35) sepia(.22) contrast(1.04) brightness(.92);
-  -webkit-mask:linear-gradient(transparent,#000 14%,#000 86%,transparent);
-          mask:linear-gradient(transparent,#000 14%,#000 86%,transparent)}
 .devwrap{position:absolute;left:50%;top:50%;width:min(520px,74vw);aspect-ratio:1/1;transform:translate(-50%,-50%);opacity:0;pointer-events:none}
 /* the caption holds the left column, so the generator sits right of centre */
-@media (min-width:900px){.devwrap{left:69%;width:min(640px,42vw)}}  /* 42vw, not 46: at 1024 a 46vw frame sat exactly on the caption. */
+@media (min-width:900px){.devwrap{left:69%;width:min(720px,48vw)}}
 .devwrap canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
 #lines{position:absolute;inset:0;width:100%;height:100%;display:block}
 #lines path{fill:none;stroke:var(--line);stroke-width:1.6;vector-effect:non-scaling-stroke;stroke-linecap:round}
@@ -325,7 +320,6 @@ html.static .fallback{display:block}
 <div class="film" id="film">
   <div class="stage" id="stage">
     <div class="bgglow"></div>
-    <div class="photo" id="photo"></div>
     <div class="markglow" id="markglow"></div>
     <div class="devwrap" id="devwrap"><canvas id="dev"></canvas></div>
     <svg id="lines" aria-hidden="true">
@@ -491,7 +485,6 @@ if(reduce){document.documentElement.classList.add('static');return;}
 var film=document.getElementById('film'),stage=document.getElementById('stage');
 var svg=document.getElementById('lines');
 var paths=[0,1,2,3,4].map(function(i){return document.getElementById('p'+i);});
-var photo=document.getElementById('photo');
 var markglow=document.getElementById('markglow');
 var devwrap=document.getElementById('devwrap'),devCanvas=document.getElementById('dev');
 var caps={c1:document.getElementById('c1'),c2:document.getElementById('c2'),c3:document.getElementById('c3'),
@@ -712,12 +705,13 @@ function frame(p,t){
      was moving off it before anyone had finished reading */
   var devOp=win(p,.50,.57)*(1-win(p,.735,.79));
   devwrap.style.opacity=devOp.toFixed(2);
-  /* hero.jpg has a generator on the table in it, and it used to fade in at .70
-     while the 3D device was still on screen until .79 — two generators at once,
-     stacked, which on a phone reads as a mistake. It waits for the device to
-     leave now and bridges into the ring instead. */
-  photo.style.opacity=(win(p,.79,.835)*(1-win(p,.875,.915))).toFixed(2);
-  photo.style.transform='translateY('+lerp(-46,-56,win(p,.79,.915))+'%)';
+  /* The lifestyle photograph is gone. It has a generator on the table in it, so
+     it fought the 3D device where it used to sit (.70, while the device was up
+     until .79); moving it later only put it under the ring, the mark, the
+     closing line and two buttons. The tail is full — line back at .72, caption
+     at .755, ring and mark .80 to .92 — so there is no window left where it is
+     not on top of something. It is hero.jpg, which the commerce block below
+     already uses, so nothing unique is lost. */
 
   /* --- captions --- */
   cap(caps.c1,p,-.02,-.01,.12,.18);
@@ -751,7 +745,7 @@ function frame(p,t){
 
   /* device mount (once) */
   if(p>.34&&!frame.dev){frame.dev=1;
-    import('../../assets/em-device.js').then(function(m){m.mount(devCanvas,{zoom:0.98});}).catch(function(){});}
+    import('../../assets/em-device.js').then(function(m){m.mount(devCanvas,{zoom:1});}).catch(function(){});}
 }
 function cap(el,p,a,b,c,d){
   var o=win(p,a,b)*(1-win(p,c,d));
