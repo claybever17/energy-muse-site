@@ -855,6 +855,18 @@ function frame(p,t){
   if(owV>.004){
     sctx.lineCap='round';sctx.lineJoin='round';
     var owD=.16+.84*ease(win(p,.035,.30));
+    /* The two dials for the mark-space sweep, and the only numbers to touch
+       when it reads as too much. Both are fractions of the mark's own height
+       rather than of the screen, because what matters is how deep the rim is
+       relative to the logo it is wrapped around — a volume any deeper than a
+       rim turns a recognisable mark to mush. */
+    /* Both are live on window.__mkw so the amplitude can be found in the
+       browser rather than through a reload each time — read per frame, no
+       stored copy, same contract as window.__film. */
+    var owM=Math.min(W,H)*0.40;   /* the mark's height on screen */
+    var owK=window.__mkw||{};
+    var owS=owM*(owK.stand==null?0.09:owK.stand);  /* how far apart the five sheets stand off */
+    var owN=owM*(owK.depth==null?0.05:owK.depth);  /* how far back the rolling depth reaches  */
     /*      offset,  awayX,  awayY, rolls, slip, rows */
     var OW=[[-.128, .030,-.082,0.85,3.4,.70],
             [-.058,-.022,-.128,1.20,4.6,.86],
@@ -885,18 +897,51 @@ function frame(p,t){
           var ou=oq/72, oroll=ou*Math.PI*oc[3]+t*.10+oi;
           var ox=lerp(x0-W*.14,x1+W*.14,.5+(ou-.5)*(1-odz*.07));
           var oy=cy+oc[0]*spread*H+sig(2,ou,t,amp*(1-odz*.32),-odz*oc[4]);
+          var omi=1, onx=0, ony=0, oam=0;
           if(omk&&morph<1){
             var oidx=Math.min(Math.round(ou*N), omk.pts.length-1);
             var op=omk.pts[oidx];
             var opx=(op[0]-omk.cx)*obr, opy=(op[1]-omk.cy)*obr;
             var omx=omk.cx+opx*oca-opy*osa, omy=omk.cy+opx*osa+opy*oca;
-            var omi=ease(clamp(morph*1.62-ou*.62,0,1));
+            omi=ease(clamp(morph*1.62-ou*.62,0,1));
             ox=lerp(omx,ox,omi); oy=lerp(omy,oy,omi);
+            /* While it is still a mark, the direction "away" points is the
+               mark's OWN normal — perpendicular to the path between
+               neighbouring samples — so the sweep runs along the logo's
+               curvature and thickens it, instead of cutting a horizontal
+               band through it.
+
+               Held back at the seams: the jump from the end of one subpath to
+               the start of the next is not a tangent, and taking it whips the
+               normal a quarter turn at every join. */
+            var onA=oidx, onB=oidx;
+            for(var onS=0;onS<2;onS++){
+              if(onA>0&&!omk.brk[onA])onA--;
+              if(onB<omk.pts.length-1&&!omk.brk[onB+1])onB++;
+            }
+            var otx=omk.pts[onB][0]-omk.pts[onA][0], oty=omk.pts[onB][1]-omk.pts[onA][1];
+            var otl=Math.sqrt(otx*otx+oty*oty);
+            if(otl>1e-4){
+              otx/=otl;oty/=otl;
+              /* into the frame the mark is drawn in, then perpendicular */
+              onx=-(otx*osa+oty*oca); ony=otx*oca-oty*osa;
+              /* the same two terms the wave gets, read in the mark's frame: a
+                 standoff that stacks the sheets either side of the stroke the
+                 way oc[0] stacks them vertically once they are a wave, and the
+                 rolling depth on top of it. The standoff opens with owD so the
+                 logo thickens rather than arriving already thick. */
+              oam=oc[0]*owS*owD+odz*owN*(.35+.95*Math.cos(oroll));
+            }
           }
           /* the depth offset goes on last, so the sweep survives the morph
-             rather than collapsing flat onto the mark's own path */
-          ox+=odz*W*oc[1]*(.35+.95*Math.cos(oroll));
-          oy+=odz*H*oc[2]*(.45+.85*Math.sin(oroll));
+             rather than collapsing flat onto the mark's own path — and the
+             direction it points rotates out of the mark's normal into the
+             horizontal on the same per-sample stagger the point itself lets
+             go on, so the sweep straightens as the logo unwinds */
+          var ohx=odz*W*oc[1]*(.35+.95*Math.cos(oroll));
+          var ohy=odz*H*oc[2]*(.45+.85*Math.sin(oroll));
+          ox+=lerp(onx*oam,ohx,omi);
+          oy+=lerp(ony*oam,ohy,omi);
           if(oq)sctx.lineTo(ox,oy);else sctx.moveTo(ox,oy);
         }
         sctx.globalAlpha=oa;sctx.lineWidth=.82-odz*.40;

@@ -745,12 +745,17 @@ function sampleMark(){
     strokes.sort(function(a,b){                      /* and read left to right */
       return Math.min.apply(null,a.map(function(q){return q[0];}))
            - Math.min.apply(null,b.map(function(q){return q[0];}));});
-    var pts=[],brk=[];
+    /* `sub` is which stroke each point came from. brk marks only the exact
+       index a stroke starts on, which the strokes themselves can test because
+       they walk every point — but the swept field samples every third or so
+       and steps straight over the mark. Comparing stroke numbers catches the
+       seam however coarsely it is sampled. */
+    var pts=[],brk=[],sub=[];
     strokes.forEach(function(sp,si){
       if(si>0)brk.push(pts.length);
-      for(var j=0;j<sp.length;j++)pts.push(sp[j]);
+      for(var j=0;j<sp.length;j++){pts.push(sp[j]);sub.push(si);}
     });
-    return {pts:pts,brk:brk.reduce(function(s,v){s[v]=1;return s;},{}),cx:ecx,cy:ecy};
+    return {pts:pts,sub:sub,brk:brk.reduce(function(s,v){s[v]=1;return s;},{}),cx:ecx,cy:ecy};
   });
   var xs=MK[0].pts.map(function(q){return q[0];});
   var ys=MK[0].pts.map(function(q){return q[1];});
@@ -852,6 +857,14 @@ function sig(k,u,t,A,ph){
    That contrast between pinched and open is what the refs actually have
    that a uniform band does not. */
 var RIBS=(innerWidth<=700)?40:116, RIB_N=(innerWidth<=700)?26:34;
+/* The mark needs a finer stencil than the wave does. 34 samples is a vertex
+   every ~40px across a shape that is turning the whole way round, so wrapping
+   a sheet onto the logo's own curvature at that count draws a polygon of the
+   brand mark — the same fault that made v1's field read as an EKG. Only the
+   opening field asks for this, and only while the mark is still a mark, so
+   the extra points are paid for over a fifth of the film rather than all of
+   it. Same breakpoint as above, stated once. */
+var RIB_MK=(innerWidth<=700)?56:72;
 /* What "far" looks like is not a fixed colour — it is the atmosphere the
    thing recedes into. A filament a long way off takes the colour of whatever
    is behind it: on paper that means washing out, on a dark ground it means
@@ -877,8 +890,9 @@ function rgba(c1,c2,tt,a){var A=toRGB(c1),B=toRGB(c2);
   return 'rgba('+Math.round(lerp(A[0],B[0],tt))+','+Math.round(lerp(A[1],B[1],tt))+','+
          Math.round(lerp(A[2],B[2],tt))+','+a.toFixed(3)+')';}
 
-function field(pt,ribs,base,colF,depth,shade){
+function field(pt,ribs,base,colF,depth,shade,nseg){
   ribs=Math.max(5,Math.round(ribs*QUAL));
+  var NSEG=nseg||RIB_N;
   /* The erase has to know how far apart the filaments actually land. A fixed
      2px bite is right at thirty ribs and swallows the whole field at sixty,
      leaving only the front few — density and occlusion pull against each
@@ -894,9 +908,23 @@ function field(pt,ribs,base,colF,depth,shade){
     if(a<.004)continue;
     var w=.72-dz*.30;
     FC.beginPath();
-    for(var q=0;q<=RIB_N;q++){
-      var P=pt(q/RIB_N,dz*depth);
-      if(q)FC.lineTo(P[0],P[1]);else FC.moveTo(P[0],P[1]);
+    /* A callback may hand back a third value: the largest step that still
+       belongs to one continuous run. The mark is several separate strokes
+       concatenated into one point list, so a sheet swept along it bridges the
+       gap from the end of one stroke to the start of the next with a straight
+       chord across the logo. That chord was always there and hid inside the
+       faceting while the sheet was a 34-segment polygon; now that the rest of
+       it is a curve, it is the only straight line on screen. Pen up instead.
+       Tested on distance rather than on the subpath index, so it stops firing
+       by itself once the morph has closed the gap — no threshold to retime. */
+    var prevP=null;
+    for(var q=0;q<=NSEG;q++){
+      var P=pt(q/NSEG,dz*depth);
+      var cut=false;
+      if(prevP&&P[2]){var jx=P[0]-prevP[0], jy=P[1]-prevP[1];
+        cut=(jx*jx+jy*jy)>P[2]*P[2];}
+      if(q&&!cut)FC.lineTo(P[0],P[1]);else FC.moveTo(P[0],P[1]);
+      prevP=P;
     }
     /* No occlusion. It was right for solid ribbons and it is exactly wrong
        here: erasing what sits behind builds opaque fabric, where a veil wants
@@ -993,8 +1021,15 @@ function frame(p,t){
      flattest in the film. It starts while the mark is still unwinding and
      inflates from nearly nothing, so the volume grows out of the tangle
      rather than switching on after it. */
-  var meshVis=ease(win(p,.085,.20))*(1-ease(win(p,.40,.50)));
-  var meshDepth=.05+.95*ease(win(p,.09,.34));
+  /* It still arrived too late for its own comment. At .085 the field is at 1%
+     while the mark is 96% whole, and by the time it carries anything real the
+     logo is already a third undone — so there was no frame where a visible
+     volume sat on an intact mark, and the sweep now running along the mark's
+     curvature had nothing to show. These are v1's numbers, which got pulled in
+     for this exact reason and were kept. To put it back, restore
+     win(p,.085,.20) and win(p,.09,.34). */
+  var meshVis=ease(win(p,.030,.155))*(1-ease(win(p,.40,.50)));
+  var meshDepth=.05+.95*ease(win(p,.035,.30));
   var anyHi=Math.max(hi[0],hi[1],hi[2],hi[3],hi[4]);
   FAR=mix(bg,'#6E7F94',.34);
   mctx.clearRect(0,0,W,H);mctxf.clearRect(0,0,W,H);
@@ -1006,6 +1041,14 @@ function frame(p,t){
   for(var k=0;k<5;k++){
     var path=paths[k];
     var off=SIG_OFF[k]*spread*H;
+    /* The swept body below reads these as well as the stroke does, and they
+       used to be declared after it. `var` hoisting meant the field saw the
+       PREVIOUS strand's mark on every pass — and strands 0 and 1 saw none at
+       all, so two of the five sheets drew the plain wave beside the logo,
+       which is the exact fault the body was put on the mark to fix. */
+    var mk=(MK&&(k===1||k===2||k===3))?MK[k-1]:null;
+    var breathe=1+Math.sin(t*1.5)*.015;
+    var rot=Math.sin(t*.45)*.035+ease(win(p,0,.12))*.55, ca=Math.cos(rot), sa=Math.sin(rot);
     /* mark strokes ride strands 1,2,3 until the unravel completes */
     var mkFade=1-win(p,.17,.25);
     var op;
@@ -1024,6 +1067,19 @@ function frame(p,t){
            convergence happens off-screen where it belongs. */
         var fx0=x0-W*.15, fx1=x1+W*.15;
         var mkf=mk, brf=breathe, caf=ca, saf=sa;
+        /* 1 while this strand is still wholly a mark, 0 once it has let go —
+           the one number both the sampling trade and the sweep direction are
+           keyed to. Strands without a mark stroke never leave the wave, so
+           they keep the wave's own stencil. */
+        var mkAt=(mkf&&morph<1)?1-morph:0;
+        var mkSeg=Math.round(lerp(RIB_N,RIB_MK,mkAt));
+        /* Distance alone cannot separate these: the longest honest step
+           between samples measured 45px and the shorter of the two leaps
+           between strokes measured 54. So the seam is identified exactly, by
+           stroke number, and the distance is only a floor — enough that the
+           cut stops firing by itself once the morph has pulled the two ends
+           together, with no threshold to retime. */
+        var mkCutFloor=(mkf&&morph<1&&mkf.sub)?12:0;
         field(function(u,dz){
           /* The direction "away" points is not fixed along the ribbon — it
              rotates. That is the whole difference between a stack of bands and
@@ -1038,26 +1094,75 @@ function frame(p,t){
              the same lerp the stroke itself uses, so the volume is wrapped
              around the logo and comes apart with it rather than appearing
              beside it out of nowhere. */
+          var mi=1,nx=0,ny=0,am=0;
           if(mkf&&morph<1){
             var idx=Math.min(Math.round(u*N), mkf.pts.length-1);
             var p0=mkf.pts[idx];
             var qx=(p0[0]-mkf.cx)*brf, qy=(p0[1]-mkf.cy)*brf;
             var mx=mkf.cx+qx*caf-qy*saf, my=mkf.cy+qx*saf+qy*caf;
-            var mi=ease(clamp(morph*1.62-u*.62,0,1));
+            mi=ease(clamp(morph*1.62-u*.62,0,1));
             bx=lerp(mx,bx,mi); by=lerp(my,by,mi);
+            /* While it is still a mark, the direction "away" points is the
+               mark's OWN normal — perpendicular to the path between
+               neighbouring samples — so the sheet sweeps along the logo's
+               curvature and thickens it, instead of cutting a horizontal band
+               through it.
+
+               Held back at the seams: the jump from the end of one subpath to
+               the start of the next is not a tangent, and taking it whips the
+               normal a quarter turn at every join. */
+            var ia=idx, ib=idx;
+            for(var sN=0;sN<2;sN++){
+              if(ia>0&&!mkf.brk[ia])ia--;
+              if(ib<mkf.pts.length-1&&!mkf.brk[ib+1])ib++;
+            }
+            var tx=mkf.pts[ib][0]-mkf.pts[ia][0], ty=mkf.pts[ib][1]-mkf.pts[ia][1];
+            var tl=Math.sqrt(tx*tx+ty*ty);
+            if(tl>1e-4){
+              tx/=tl;ty/=tl;
+              /* into the frame the mark is drawn in, then perpendicular */
+              nx=-(tx*saf+ty*caf); ny=tx*caf-ty*saf;
+              /* the same two terms the wave gets, read in the mark's frame: a
+                 standoff that stacks the sheets either side of the stroke the
+                 way SIG_OFF stacks them vertically once they are a wave, and
+                 the rolling depth on top of it. Kept to a rim — this is a
+                 recognisable logo, and a volume deeper than a rim turns it to
+                 mush. Live on window.__mkw, same contract as on Current. */
+              var mkM=Math.min(W,H)*0.40, mkK=window.__mkw||{};
+              am=SIG_OFF[kk]*mkM*(mkK.stand==null?0.09:mkK.stand)*meshDepth
+                 +dz*mkM*(mkK.depth==null?0.05:mkK.depth)*(.35+.95*Math.cos(roll));
+            }
           }
           /* the depth offset is added last, so the sweep survives the morph
-             instead of collapsing flat onto the mark's own path */
-          return [bx+dz*W*FDX[kk]*(.35+.95*Math.cos(roll)),
-                  by+dz*H*FDY[kk]*(.45+.85*Math.sin(roll))];
-        },Math.round(RIBS*FRB[kk]),
-          meshVis*opk*clamp(1+hi[kk]*1.05-(anyHi-hi[kk])*.58,.3,2.2),lc,meshDepth);
+             instead of collapsing flat onto the mark's own path — and the
+             direction it points rotates out of the mark's normal into the
+             horizontal on the same per-sample stagger the point itself lets
+             go on, so the sweep straightens as the logo unwinds */
+          /* a seam only where this sample and the one before it came from two
+             different strokes of the mark */
+          var cutAt=0;
+          if(mkCutFloor){
+            var idxP=Math.min(Math.round(Math.max(0,u-1/mkSeg)*N), mkf.pts.length-1);
+            if(mkf.sub[idx]!==mkf.sub[idxP])cutAt=mkCutFloor;
+          }
+          return [bx+lerp(nx*am, dz*W*FDX[kk]*(.35+.95*Math.cos(roll)), mi),
+                  by+lerp(ny*am, dz*H*FDY[kk]*(.45+.85*Math.sin(roll)), mi),
+                  cutAt];
+        },
+          /* Ribs make it a surface; segments make it a curve. On the mark the
+             shape is small and turning the whole way round, so it wants the
+             segments — and it is traded for ribs rather than added on top,
+             because the extra points alone measured 6.85ms against 3.83 and
+             the quality governor sheds ribs above 6.5. That would have thinned
+             the field exactly through the beat it is meant to be densest, then
+             re-thickened after: a pump, on the logo. The budget is held flat
+             instead, and both ends blend on morph so nothing steps. */
+          Math.round(RIBS*FRB[kk]*lerp(1,RIB_N/RIB_MK,mkAt)),
+          meshVis*opk*clamp(1+hi[kk]*1.05-(anyHi-hi[kk])*.58,.3,2.2),lc,meshDepth,
+          undefined, mkSeg);
       })(k,off,op);
     }
     var d='';
-    var mk=(MK&&(k===1||k===2||k===3))?MK[k-1]:null;
-    var breathe=1+Math.sin(t*1.5)*.015;
-    var rot=Math.sin(t*.45)*.035+ease(win(p,0,.12))*.55, ca=Math.cos(rot), sa=Math.sin(rot);
     var intro=ease(clamp((t-.2-(k-1)*.5)/1.6,0,1));
     var lastIdx=(mk&&p<.03)?Math.round(intro*N):N;
     for(var i=0;i<=lastIdx;i++){
