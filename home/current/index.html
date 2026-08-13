@@ -808,12 +808,12 @@ function frame(p,t){
   /* --- chapter windows --- */
   var morph=ease(win(p,.07,.23));         // the mark unravels into the line
   var wake=morph;
-  var spread=ease(win(p,.22,.31))*(1-ease(win(p,.40,.50)));   // five strands apart
+  var spread=ease(win(p,.22,.31))*(1-ease(win(p,.375,.455)));   // five strands apart
   /* The line no longer winds itself into a coil over the generator — that
      swirl fought the product for the same space. It withdraws before the
      device is introduced, leaves it alone while it is on stage, and comes
      back afterwards as one calm line across, which then closes the ring. */
-  var lineOut=1-ease(win(p,.44,.505));    // fades out ahead of the device
+  var lineOut=1-ease(win(p,.395,.455));   // fades out ahead of the device
   var lineBack=ease(win(p,.72,.785));     // returns as a single line across
   var lineVis=Math.max(lineOut,lineBack);
   var ringT=ease(win(p,.80,.90));         // and closes the ring
@@ -835,7 +835,7 @@ function frame(p,t){
      the closing ring are drawings, not waves — a body behind either of them
      would just be noise. Hidden outright when unused, so the ribs cost
      nothing for most of the film. */
-  var meshVis=ease(win(p,.245,.34))*(1-ease(win(p,.40,.50)));
+  var meshVis=ease(win(p,.245,.34))*(1-ease(win(p,.375,.455)));
   GLOW.length=0;
   mctx.clearRect(0,0,W,H);
   if(meshVis>.004){
@@ -860,7 +860,7 @@ function frame(p,t){
      the reader has already scrolled past the moment they would have noticed
      it arrive. It starts almost immediately now, so the depth is something
      they watch happen rather than something already there. */
-  var owV=ease(win(p,.030,.155))*(1-ease(win(p,.40,.50)));
+  var owV=ease(win(p,.030,.155))*(1-ease(win(p,.375,.455)));
   if(owV>.004){
     sctx.lineCap='round';sctx.lineJoin='round';
     var owD=.16+.84*ease(win(p,.035,.30));
@@ -969,10 +969,10 @@ function frame(p,t){
     var mkFade=1-win(p,.17,.25);
     var op;
     if(k===2){op=lineVis;}                 /* the carrier — the one that returns */
-    else if(k===1||k===3){op=Math.max(mkFade, clamp(spread*3,0,1)*(1-ease(win(p,.42,.52))));
+    else if(k===1||k===3){op=Math.max(mkFade, clamp(spread*3,0,1)*(1-ease(win(p,.385,.475))));
       op=Math.min(op,lineOut);              /* the outer strands do not come back */
       op=Math.max(op,ease(win(p,.80,.90))*(W<=700?1:.18));}
-    else {op=Math.min(clamp(spread*3,0,1)*(1-ease(win(p,.42,.52))),lineOut);}
+    else {op=Math.min(clamp(spread*3,0,1)*(1-ease(win(p,.385,.475))),lineOut);}
 
     if(meshVis>.004&&op>.004){
       var mop=meshVis*op;
@@ -1060,7 +1060,7 @@ function frame(p,t){
      finely enough to stay a curve. They do not march outward; they breathe,
      so it reads as something the device is doing rather than something being
      emitted at you. */
-  var gvV=ease(win(p,.505,.60))*(1-ease(win(p,.700,.762)));
+  var gvV=ease(win(p,.450,.545))*(1-ease(win(p,.700,.762)));
   if(gvV>.004){
     sctx.lineCap='round';sctx.lineJoin='round';
     var gvx=W>=900?W*.69:W*.5, gvy=H*.52;
@@ -1175,14 +1175,22 @@ function frame(p,t){
     sctx.globalAlpha=1;
   }
 
-  var devOp=win(p,.50,.57)*(1-win(p,.688,.748));
+  /* There was a hole here. The cards were gone by .425 and the device was not
+     fully on until .57 — a seventh of the film, some seven hundred pixels of
+     scrolling, with nothing in it but one thing fading out and one caption
+     fading in. The whole generator chapter is pulled forward so it begins as
+     the row leaves: the wave clears by .455 rather than .50, the caption lands
+     at .443 rather than .49, the device is full at .512 rather than .57.
+     Nothing at the far end moved, so the product gets a longer hold rather
+     than a shorter one — the time came out of the gap, not out of the beat. */
+  var devOp=win(p,.443,.512)*(1-win(p,.688,.748));
   devwrap.style.opacity=devOp.toFixed(2);
   /* It arrives rather than appears: in from the right, and back out the way
      it came rather than continuing left through the screen. Keyed to this
      page's own opacity windows, not v2's, so the move and the fade are the
      same gesture. The centring translate has to stay inside the expression
      or the device jumps to the corner. */
-  var devIn=ease(win(p,.50,.57)), devOut=ease(win(p,.688,.748));
+  var devIn=ease(win(p,.443,.512)), devOut=ease(win(p,.688,.748));
   devwrap.style.transform='translate(calc(-50% + '+lerp(13,0,devIn).toFixed(2)+'vw + '+
                           (devOut*13).toFixed(2)+'vw),-50%)';
 
@@ -1210,7 +1218,7 @@ function frame(p,t){
   cap(caps.c1,p,-.02,-.01,.12,.18);
   cap(caps.c2,p,.185,.215,.265,.295);
   cap(caps.c3,p,.265,.295,.385,.425);
-  cap(caps.c4,p,.455,.49,.70,.75);      /* Frequency, made simple — held */
+  cap(caps.c4,p,.408,.443,.70,.75);     /* Frequency, made simple — held */
   cap(caps.c6,p,.772,.822,1.01,1.02);
 
   /* the shop drawer: up at two screens, held through the intentions, gone
@@ -1235,7 +1243,7 @@ function frame(p,t){
 
   /* --- Hz ticker --- */
   var HZ=[7.83,174,417,528,639,963,1111];
-  var hu=win(p,.465,.69);               /* the Hz ticker climbs across the hold */
+  var hu=win(p,.425,.69);               /* the Hz ticker climbs across the hold */
   hzval.textContent=String(HZ[Math.min(6,Math.floor(hu*6.999))]);
 
   /* device mount (once) */
