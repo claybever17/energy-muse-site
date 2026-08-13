@@ -857,6 +857,15 @@ function frame(p,t){
             [ .004, .052,-.108,1.70,7.2,1.00],
             [ .067, .014,-.146,1.00,5.2,.78],
             [ .135,-.040,-.088,2.40,9.4,.62]];
+    /* While the mark is still unwinding the body has to belong to the mark.
+       Drawing the plain wave here is what made a flat band form beside the
+       tangle, related to nothing. These are the same values the strokes use —
+       recomputed rather than shared, because they live inside the strand loop
+       and this sits outside it. */
+    var omk=MK?MK[1]:null;
+    var obr=1+Math.sin(t*1.5)*.015;
+    var orot=Math.sin(t*.45)*.035+ease(win(p,0,.12))*.55;
+    var oca=Math.cos(orot), osa=Math.sin(orot);
     for(var oi=0;oi<OW.length;oi++){
       var oc=OW[oi], orows=Math.round((mob?10:26)*oc[5]);
       for(var orw=0;orw<orows;orw++){
@@ -866,10 +875,20 @@ function frame(p,t){
         sctx.beginPath();
         for(var oq=0;oq<=34;oq++){
           var ou=oq/34, oroll=ou*Math.PI*oc[3]+t*.10+oi;
-          var ox=lerp(x0-W*.14,x1+W*.14,.5+(ou-.5)*(1-odz*.07))
-                 +odz*W*oc[1]*(.35+.95*Math.cos(oroll));
-          var oy=cy+oc[0]*spread*H+odz*H*oc[2]*(.45+.85*Math.sin(oroll))
-                 +sig(2,ou,t,amp*(1-odz*.32),-odz*oc[4]);
+          var ox=lerp(x0-W*.14,x1+W*.14,.5+(ou-.5)*(1-odz*.07));
+          var oy=cy+oc[0]*spread*H+sig(2,ou,t,amp*(1-odz*.32),-odz*oc[4]);
+          if(omk&&morph<1){
+            var oidx=Math.min(Math.round(ou*N), omk.pts.length-1);
+            var op=omk.pts[oidx];
+            var opx=(op[0]-omk.cx)*obr, opy=(op[1]-omk.cy)*obr;
+            var omx=omk.cx+opx*oca-opy*osa, omy=omk.cy+opx*osa+opy*oca;
+            var omi=ease(clamp(morph*1.62-ou*.62,0,1));
+            ox=lerp(omx,ox,omi); oy=lerp(omy,oy,omi);
+          }
+          /* the depth offset goes on last, so the sweep survives the morph
+             rather than collapsing flat onto the mark's own path */
+          ox+=odz*W*oc[1]*(.35+.95*Math.cos(oroll));
+          oy+=odz*H*oc[2]*(.45+.85*Math.sin(oroll));
           if(oq)sctx.lineTo(ox,oy);else sctx.moveTo(ox,oy);
         }
         sctx.globalAlpha=oa;sctx.lineWidth=.82-odz*.40;
