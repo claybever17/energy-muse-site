@@ -838,6 +838,47 @@ function frame(p,t){
   }
 
   sctx.clearRect(0,0,W,H);
+
+  /* Depth at the opening, on the surface that is already here.
+     Current has no field system — porting one over is what broke the other
+     pages twice today — so this is self-contained: five sheets swept back
+     behind the strands, each a family of copies stepped into depth and later
+     in its own cycle. The direction "away" points rotates along each sheet,
+     which is what makes it fold rather than sit in bands, and the depth opens
+     from nearly nothing so the volume grows out of the unravel instead of
+     switching on after it. */
+  var owV=ease(win(p,.10,.26))*(1-ease(win(p,.40,.50)));
+  if(owV>.004){
+    sctx.lineCap='round';sctx.lineJoin='round';
+    var owD=.10+.90*ease(win(p,.11,.34));
+    /*      offset,  awayX,  awayY, rolls, slip, rows */
+    var OW=[[-.128, .030,-.082,1.50,6.4,.70],
+            [-.058,-.022,-.128,2.20,8.6,.86],
+            [ .004, .052,-.108,1.70,7.2,1.00],
+            [ .067, .014,-.146,1.00,5.2,.78],
+            [ .135,-.040,-.088,2.40,9.4,.62]];
+    for(var oi=0;oi<OW.length;oi++){
+      var oc=OW[oi], orows=Math.round((mob?10:26)*oc[5]);
+      for(var orw=0;orw<orows;orw++){
+        var odz=((orw+1)/(orows+1))*owD;
+        var oa=owV*Math.pow(1-odz,.70)*.14;
+        if(oa<.004)continue;
+        sctx.beginPath();
+        for(var oq=0;oq<=34;oq++){
+          var ou=oq/34, oroll=ou*Math.PI*oc[3]+t*.10+oi;
+          var ox=lerp(x0-W*.14,x1+W*.14,.5+(ou-.5)*(1-odz*.07))
+                 +odz*W*oc[1]*(.35+.95*Math.cos(oroll));
+          var oy=cy+oc[0]*spread*H+odz*H*oc[2]*(.45+.85*Math.sin(oroll))
+                 +sig(2,ou,t,amp*(1-odz*.32),-odz*oc[4]);
+          if(oq)sctx.lineTo(ox,oy);else sctx.moveTo(ox,oy);
+        }
+        sctx.globalAlpha=oa;sctx.lineWidth=.82-odz*.40;
+        sctx.strokeStyle=lc;sctx.stroke();
+      }
+    }
+    sctx.globalAlpha=1;
+  }
+
   for(var k=0;k<5;k++){
     var path=paths[k];
     var off=SIG_OFF[k]*spread*H;
