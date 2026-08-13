@@ -328,7 +328,10 @@ html.static .fallback{display:block}
    something under here, not enough to show what. */
 .bleed{position:relative;margin-top:70px;height:calc(100svh - 124px);min-height:430px;
   min-height:400px;overflow:hidden;background:#1A1208;}
-@media (max-width:900px){.bleed{height:calc(100svh - 116px);min-height:380px;}}
+@media (max-width:900px){.bleed{height:calc(100svh - 116px);min-height:380px;}
+  /* 18% frames the room on a wide screen and crops the generator clean out
+     of a narrow one — a hero photograph with its subject outside the frame */
+  .bleed>img{object-position:57% 46%;}}
 /* The source is 2000x750 and the box is taller than that ratio, so the crop
    only ever slides horizontally — which is the one axis that decides whether
    the device lands under the headline. Pushed to 18%, the device sits well

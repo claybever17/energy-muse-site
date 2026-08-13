@@ -323,10 +323,16 @@ html.static .fallback{display:block}
   .c1{top:30svh}.c4{bottom:7svh}
   .cap .sub{margin-top:10px}
   #lines path{stroke-width:1.4}
-  .c3{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;top:30svh;padding:0 20px}
-  .c3 a{padding:12px 8px 28px;font-size:17px}
-  .c3 a::after{bottom:9px;font-size:9px}
-  .c3 a:nth-child(5){grid-column:1/-1;justify-self:center;min-width:62%}
+  /* Two across put five photographic tiles into three rows, 748px of them in
+     an 812px screen, so the last row sat behind the shop drawer. Three across
+     in two rows clears it, and the taller crop stops the faces being cut. */
+  .c3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;top:19svh;padding:0 14px}
+  .c3 a{aspect-ratio:3/3.7}
+  .c3 a .lb{padding:0 9px 11px}
+  .c3 a i{font-size:7.5px;letter-spacing:.16em}
+  .c3 a b{font-size:14px;margin-top:3px}
+  .c3 a:nth-child(4){grid-column:1/2}
+  .c3 a:nth-child(5){grid-column:2/4;aspect-ratio:auto}
   .c6{justify-content:flex-start;padding-top:52svh}
   .c6 h2{font-size:30px}
   .c6 .row{flex-direction:column;align-items:center;width:min(320px,86vw);margin-top:22px;gap:12px}
@@ -749,7 +755,13 @@ function sig(k,u,t,A,ph){
 
    It runs on canvas: thirty ribs a strand is 170 polylines a frame, and SVG
    measured 38ms on that — 26fps, a stutter you can feel. */
-var RIBS=(innerWidth<=700)?30:76, RIB_N=(innerWidth<=700)?26:32;
+/* The references are dense enough that you stop seeing filaments and start
+   seeing a sheet — the moire between them is the picture. More of them,
+   each carrying less, and a wider roll so the surface pinches to a line
+   where it turns edge-on and opens right out where it comes back round.
+   That contrast between pinched and open is what the refs actually have
+   that a uniform band does not. */
+var RIBS=(innerWidth<=700)?40:116, RIB_N=(innerWidth<=700)?26:34;
 /* What "far" looks like is not a fixed colour — it is the atmosphere the
    thing recedes into. A filament a long way off takes the colour of whatever
    is behind it: on paper that means washing out, on a dark ground it means
@@ -765,7 +777,7 @@ var FAR='#79909A';                      /* the cool stone everything recedes tow
 var FDX=[.038,-.026,.066,.017,-.052];   /* which way "away" points */
 var FDY=[-.092,-.170,-.146,-.198,-.114];/* and how steeply */
 var FSL=[6.4,8.8,7.2,5.1,9.6];          /* how far the cycle slips front to back */
-var FTW=[1.15,2.05,1.55,0.85,2.35];     /* and how many times the ribbon rolls over */
+var FTW=[1.55,2.70,2.05,1.20,3.05];     /* and how many times the ribbon rolls over */
 var FRB=[.70,1.00,1.00,.60,.86];        /* how many filaments deep */
 var FAM=[.22,.42,.34,.48,.27];          /* how fast the amplitude dies */
 var FSQ=[.05,.11,.09,.04,.13];          /* and how much it narrows */
@@ -788,7 +800,7 @@ function field(pt,ribs,base,colF,depth,shade){
        instead, so the far side of the fabric compresses the way it should. */
     var lin=(j+1)/(ribs+1);
     var dz=(1-1/(1+2.4*lin))/(1-1/3.4);
-    var a=base*Math.pow(1-dz,.72)*.235;
+    var a=base*Math.pow(1-dz,.62)*.155;
     if(a<.004)continue;
     var w=.72-dz*.30;
     FC.beginPath();
@@ -800,7 +812,8 @@ function field(pt,ribs,base,colF,depth,shade){
        here: erasing what sits behind builds opaque fabric, where a veil wants
        the layers to survive and accumulate. Overlap is the whole effect —
        where two sheets cross, the crossing is what reads as depth. */
-    FC.lineWidth=w;
+    /* the leading filament reads as the lit edge of the sheet */
+    if(j<2){FC.lineWidth=w*1.5;} else FC.lineWidth=w;
     if(shade){
       /* The single biggest thing missing was light. Every filament carried one
          flat alpha from end to end, so a surface that rolls right over on
@@ -811,7 +824,9 @@ function field(pt,ribs,base,colF,depth,shade){
       var A=pt(0,dz*depth), B=pt(1,dz*depth);
       var gr=FC.createLinearGradient(A[0],A[1],B[0],B[1]);
       for(var gi=0;gi<=6;gi++){
-        var gu=gi/6, lam=.20+.80*Math.abs(Math.cos(shade(gu)));
+        /* a hard falloff rather than a gentle one: the sheet should be bright
+           where it faces you and almost gone where it turns, not evenly lit */
+        var gu=gi/6, lam=.10+.90*Math.pow(Math.abs(Math.cos(shade(gu))),1.6);
         gr.addColorStop(gu,rgba(colF,FAR,dz*.88,a*lam));
       }
       FC.strokeStyle=gr;FC.globalAlpha=1;
@@ -1133,7 +1148,10 @@ function frame(p,t){
   for(var ci=0;ci<c3kids.length;ci++){
     var trail=((1-c3in)+c3out)*ci*2.2;
     var cu=(ci+.5)/c3kids.length;
-    var ride=sig(2,cu,t*.5,H*.19)*rideIn;
+    /* the ride belongs to a five-across row. On a phone the cards wrap to a
+       2-up grid, where the same offsets stagger them to different heights
+       and push the bottom row into the shop drawer. Flat below 900. */
+    var ride=W>900?sig(2,cu,t*.5,H*.19)*rideIn:0;
     c3kids[ci].style.setProperty('--inx',(-trail).toFixed(2)+'vw');
     c3kids[ci].style.setProperty('--iny',ride.toFixed(1)+'px');
     c3kids[ci].style.setProperty('--ino',ease(clamp(c3in*1.5-ci*.08,0,1)).toFixed(3));
