@@ -17,12 +17,16 @@ var SIG={
   current:'<path d="M2 12c4-7 7 7 11 0s7-7 11 0"/>',
   cascade:'<path d="M3 12h18" opacity=".5"/><circle cx="6" cy="12" r="1.5"/><circle cx="11" cy="12" r="1.5"/><circle cx="16" cy="12" r="2.6"/><circle cx="21" cy="12" r="1.5"/><path d="M5 5c3-4 6 4 9 0s5-3 6 0"/>',
   crystallize:'<path d="M2 9c4-6 7 6 11 0s7-6 11 0"/><circle cx="13" cy="13.5" r="1.7"/><path d="M13 16v3" opacity=".5"/><path d="M4 21h18" opacity=".55"/>',
+  bleed:'<rect x="2" y="3" width="22" height="18" rx="1.5"/><path d="M6 16h10" opacity=".75"/><path d="M6 19.5h6" opacity=".5"/>',
+  enter:'<rect x="2" y="3" width="4" height="18"/><rect x="7.5" y="3" width="4" height="18" opacity=".72"/><rect x="13" y="3" width="4" height="18" opacity=".52"/><rect x="18.5" y="3" width="4" height="18" opacity=".34"/>',
   atelier:'<circle cx="13" cy="12" r="7.5" opacity=".45"/><circle cx="13" cy="4.5" r="2"/><circle cx="19.4" cy="8.2" r="2"/><circle cx="19.4" cy="15.8" r="2"/><circle cx="13" cy="19.5" r="2"/><circle cx="6.6" cy="15.8" r="2"/><circle cx="6.6" cy="8.2" r="2"/>'
 };
 var VERSIONS=[
   ['/','1 · Classic','the main homepage',SIG.classic],
   ['/home/current/','2 · Current','energy, visualized',SIG.current],
-  ['/home/lab/','3 · Current v2','a sandbox to build on',SIG.current]
+  ['/home/lab/','3 · Current v2','a sandbox to build on',SIG.current],
+  ['/home/bleed/','4 · Full Bleed','one photograph, the whole screen',SIG.bleed],
+  ['/home/enter/','5 · Choose First','no hero: the feelings, full height',SIG.enter]
 ];
 /* three homepages to choose between, and three things you actually operate.
    The Collection sits here rather than above: it is the shop, not a fourth

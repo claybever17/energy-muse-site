@@ -397,6 +397,8 @@ body.menu-open{overflow:hidden;}
 .trust-item{padding:20px clamp(20px,3vw,46px);display:flex;gap:14px;align-items:center;text-align:left;
   font-size:13.5px;line-height:1.5;color:var(--ink-soft);letter-spacing:.01em;max-width:400px;}
 .trust-item+.trust-item{border-left:1px solid var(--hair);}
+/* one line each. The middle claim ran to two and the row went ragged
+   around it, which is most of why the band read as busy. */
 .trust-item span{text-wrap:balance;}
 .trust-author{text-align:center;font-size:12.5px;color:var(--stone);margin:0 auto;max-width:82ch;padding:13px var(--gutter) 17px;
   line-height:1.6;text-wrap:balance;border-top:1px solid color-mix(in srgb,var(--hair) 65%,transparent);}
@@ -414,26 +416,70 @@ body.menu-open{overflow:hidden;}
   background:linear-gradient(120deg,color-mix(in srgb,var(--copper) 10%,var(--bg)),var(--bg) 62%);
   border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);color:var(--fg);}
 .promo .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,64px);
-  align-items:center;padding-block:clamp(30px,4.4vw,58px);}
+  align-items:center;padding-block:clamp(44px,6.6vw,92px);}
 .promo-copy{position:relative;z-index:2;}
 .promo .tag{display:inline-flex;align-items:center;gap:9px;font:700 10px var(--sans);
   letter-spacing:.24em;text-transform:uppercase;color:#fff;background:var(--copper);
   border-radius:100px;padding:6px 13px;}
 .promo h2{font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.5vw,48px);
-  line-height:1.06;letter-spacing:-.02em;margin-top:16px;color:var(--fg);}
+  line-height:1.06;letter-spacing:-.02em;margin-top:16px;color:var(--fg);
+  /* it broke after "Hz", splitting the product's own name across two lines
+     at the worst point available */
+  text-wrap:balance;max-width:22ch;}
 .promo p{margin-top:12px;color:var(--ink-soft);max-width:46ch;font-size:15.5px;}
 .promo .row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:22px;}
 .promo .price{font-family:var(--serif);font-weight:300;font-size:26px;color:var(--copper-lo);}
 .promo .price s{font-size:.62em;color:var(--stone);margin-right:8px;}
-.promo-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:190px;}
-.promo-art img{width:min(74%,300px);height:auto;display:block;border-radius:10px;
-  filter:drop-shadow(0 12px 26px rgba(61,41,23,.22)) drop-shadow(0 3px 8px rgba(61,41,23,.14));}
+.promo-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:300px;}
+/* It was drawn at 300px from a 1300px asset, floating in a column that was
+   half empty — the hero item of a launch rendered smaller than a store card.
+   It fills the column now and runs off the right edge, the way the hero
+   photograph and the split sections already do. */
+.promo-dev{position:relative;z-index:2;display:block;width:100%;
+  /* the shadow lives on the wrapper: on the image itself it would rotate with
+     it, and the light would come from a different direction than everywhere
+     else on the page */
+  filter:drop-shadow(0 18px 34px rgba(61,41,23,.20)) drop-shadow(0 4px 10px rgba(61,41,23,.12));}
+/* The render is shot as a diamond with the wordmark running down the
+   left-hand edge at about 44 degrees, which is unreadable at this size.
+   Turned level, the mark sits along the bottom of the housing where a
+   product shot would put it. The scale covers the corners the rotation
+   opens up. */
+.promo-art img{width:100%;max-width:none;height:auto;display:block;
+  transform:rotate(-44deg) scale(1.34);transform-origin:50% 50%;}
+@media (min-width:841px){
+  .promo-art{margin-right:calc(var(--edge) * -1);width:calc(100% + var(--edge));}
+  .promo-dev{width:min(112%,720px);}
+}
+/* and it sits on something: a contact shadow under the body, warm, tight,
+   with the light coming from the same side as everywhere else on the page */
+.promo-art::after{content:"";position:absolute;z-index:1;left:50%;bottom:8%;
+  width:58%;height:26px;transform:translateX(-50%);pointer-events:none;
+  background:radial-gradient(ellipse at center,rgba(61,41,23,.30),rgba(61,41,23,.10) 46%,transparent 72%);
+  filter:blur(9px);}
 .promo-glow{position:absolute;width:78%;aspect-ratio:1;border-radius:50%;pointer-events:none;
   background:radial-gradient(circle,rgba(224,168,120,.32),rgba(169,104,62,.10) 55%,transparent 72%);filter:blur(6px);}
+/* the ripple: the film's own motif, radiating out of the coil, so the promo
+   belongs to this page rather than reading as a stock product panel */
+.promo-ripple{position:absolute;z-index:0;inset:auto;left:50%;top:50%;
+  width:min(150%,880px);aspect-ratio:1;transform:translate(-50%,-50%);
+  pointer-events:none;color:var(--copper);opacity:.30}
+.promo-ripple circle{fill:none;stroke:currentColor;vector-effect:non-scaling-stroke;
+  transform-origin:50% 50%;animation:promoRipple 7s cubic-bezier(.22,.61,.36,1) infinite}
+.promo-ripple circle:nth-child(2){animation-delay:1.4s}
+.promo-ripple circle:nth-child(3){animation-delay:2.8s}
+.promo-ripple circle:nth-child(4){animation-delay:4.2s}
+.promo-ripple circle:nth-child(5){animation-delay:5.6s}
+@keyframes promoRipple{
+  0%{transform:scale(.14);opacity:0}
+  12%{opacity:.85}
+  100%{transform:scale(1);opacity:0}}
+@media (prefers-reduced-motion:reduce){.promo-ripple circle{animation:none;opacity:.32}}
 @media (max-width:840px){
   .promo .wrap{grid-template-columns:1fr;gap:20px;text-align:left;}
   .promo-art{order:-1;min-height:0;}
-  .promo-art img{width:min(56%,220px);}
+  .promo-dev{width:min(78%,320px);}
+  .promo-ripple{width:min(150%,420px)}
 }
 
 /* ===== STORE — the shop, made unmissable two thirds down ===== */
@@ -600,7 +646,12 @@ body.menu-open{overflow:hidden;}
   .split.rev .media{order:2;}
   .split.rev .media.arch::after,.split.rev .media.rect::after{transform:translate(-17px,17px);}
 }
-.split .media{position:relative;aspect-ratio:4/3.2;border-radius:6px;overflow:visible;background:transparent;
+/* The ratio alone let the photograph take whatever height the column gave
+   it — 861px next to 275px of copy in the jewelry block, which is where the
+   empty half-column came from. It keeps its ratio until it would outgrow
+   its own text, then holds and crops. */
+.split .media{position:relative;aspect-ratio:4/3.2;max-height:min(62vh,560px);
+  border-radius:6px;overflow:visible;background:transparent;
 }
 /* no resting tilt — a perspective wobble on every photograph was the tell.
    The print lies flat and lifts a little when you reach for it. */
@@ -972,6 +1023,34 @@ p{text-wrap:pretty;}
 
 
 
+/* ---------- the wave, scattered ---------- */
+/* Five plain sections in a row were each a heading, a grid and white space,
+   which is what made the middle of the page feel like the same screen over
+   and over. This is the film's own line, laid in behind four of them at
+   different sizes, angles and heights — enough to tell them apart at a
+   glance without asking the reader to notice it. */
+.sinemark{position:absolute;pointer-events:none;z-index:0;color:var(--copper);
+  width:min(1500px,150%);left:50%;opacity:.13;}
+.sinemark svg{width:100%;height:auto;display:block;overflow:visible;}
+.sinemark path{fill:none;stroke:currentColor;stroke-width:1.1;vector-effect:non-scaling-stroke;}
+.sinemark path:nth-child(2){opacity:.62;}
+.sinemark path:nth-child(3){opacity:.4;}
+.sinemark.a{top:12%;transform:translateX(-52%) rotate(-2.4deg);}
+.sinemark.b{top:58%;transform:translateX(-44%) rotate(1.8deg) scaleY(1.5);opacity:.10;}
+.sinemark.c{top:26%;transform:translateX(-58%) rotate(-1.1deg) scaleY(.7);opacity:.15;}
+.sinemark.d{top:44%;transform:translateX(-40%) rotate(3.1deg) scaleY(1.2) scaleX(-1);opacity:.11;}
+/* the content has to sit above it */
+.section{position:relative;}
+.section > .wrap{position:relative;z-index:1;}
+@media (max-width:840px){.sinemark{opacity:.09;width:210%;}}
+@media (prefers-reduced-motion:no-preference){
+  .sinemark{animation:sineDrift 34s ease-in-out infinite alternate;}
+  .sinemark.b{animation-duration:44s;animation-delay:-8s;}
+  .sinemark.c{animation-duration:39s;animation-delay:-17s;}
+  .sinemark.d{animation-duration:49s;animation-delay:-4s;}
+}
+@keyframes sineDrift{to{translate:2.5% 0;}}
+
 /* ---------- a band of frequencies, running slowly, as texture ---------- */
 .hzband{position:relative;overflow:hidden;padding:clamp(26px,4vw,44px) 0;
   border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
@@ -990,6 +1069,14 @@ p{text-wrap:pretty;}
 .hzband span.solid{color:color-mix(in srgb,var(--copper) 82%,transparent);-webkit-text-stroke:0;}
 @keyframes hzrun{to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.hzband .track{animation:none}}
+
+/* "in copper" is the news, but it is not the product's name — it reads as a
+   second line under the headline rather than a clause inside it, which also
+   stops the name being split across two lines. */
+.cpromo h2,.promo h2{line-height:1.06;}
+.cpromo h2 .in-cu,.promo h2 .in-cu{display:block;font-size:.44em;font-style:italic;
+  letter-spacing:.005em;color:#A9683E;margin-top:.36em;}
+
 </style>
 
 
@@ -1091,11 +1178,11 @@ p{text-wrap:pretty;}
 <!-- ===== TRUST ===== -->
 <section class="trust">
   <div class="wrap"><div class="trust-in">
-    <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.9 6 6.6.6-5 4.3 1.5 6.5L12 16.9 5.9 20.4 7.4 12.9l-5-4.3L9 8z"/></svg> <span>Founder-led for more than two&nbsp;decades</span></div>
-    <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l8 4.5v9L12 20l-8-4.5v-9z"/><path d="M12 11l8-4.5M12 11v9M12 11L4 6.5"/></svg> <span>Home to the world's largest collection of fixed-frequency&nbsp;generators</span></div>
-    <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.4 8.4 0 01-.9 3.8A8.5 8.5 0 0112.5 20a8.4 8.4 0 01-3.8-.9L3 20l1.9-5.7a8.4 8.4 0 01-.9-3.8A8.5 8.5 0 018.7 3 8.4 8.4 0 0112.5 2H13a8.5 8.5 0 018 8z"/></svg> <span>Guidance before and after you&nbsp;buy</span></div>
+    <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.9 6 6.6.6-5 4.3 1.5 6.5L12 16.9 5.9 20.4 7.4 12.9l-5-4.3L9 8z"/></svg> <span>Founder-led for two&nbsp;decades</span></div>
+    <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l8 4.5v9L12 20l-8-4.5v-9z"/><path d="M12 11l8-4.5M12 11v9M12 11L4 6.5"/></svg> <span>The world's largest generator&nbsp;collection</span></div>
+    <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.4 8.4 0 01-.9 3.8A8.5 8.5 0 0112.5 20a8.4 8.4 0 01-3.8-.9L3 20l1.9-5.7a8.4 8.4 0 01-.9-3.8A8.5 8.5 0 018.7 3 8.4 8.4 0 0112.5 2H13a8.5 8.5 0 018 8z"/></svg> <span>Guidance before and after</span></div>
   </div>
-  <p class="trust-author">Co-founder <em class="who">Heather Askinosie</em> is the best-selling author of <em>Crystal 365</em> and <em>Crystal Muse</em>, and creator of the <em>Daily Crystal Inspiration</em> deck.</p>
+  <p class="trust-author">Co-founder <em class="who">Heather Askinosie</em>, best-selling author of <em>Crystal 365</em> and <em>Crystal Muse</em>.</p>
   </div>
 </section>
 
@@ -1112,7 +1199,7 @@ p{text-wrap:pretty;}
       <h2>Start with how you want to feel.</h2>
       <p class="lead">You don't need to know the name of a crystal or the science behind a frequency generator. Just start with the energy you want more of &mdash; we'll take it from there.</p>
     </div>
-    <div class="int-grid reveal"><a class="int" href="intention/protection/"><img src="assets/img/protection.jpg" alt="Protection intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div></a><a class="int" href="intention/abundance/"><img src="assets/img/wealth.jpg" alt="Abundance intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div></a><a class="int" href="intention/calm/"><img src="assets/img/calm.jpg" alt="Grounding and Calm intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Steadiness &middot; nervous-system ease</div><div class="t">Calm</div></div></a><a class="int" href="intention/connection/"><img src="assets/img/jewelry.jpg?v=2" alt="Love and Self-Worth intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Heart-opening &middot; connection</div><div class="t">Love</div></div></a><a class="int" href="intention/clarity/"><img src="assets/img/clarity.jpg" alt="Clarity and Intuition intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Focus &middot; intuition</div><div class="t">Clarity</div></div></a></div>
+    <div class="int-grid reveal"><a class="int" href="intention/protection/"><img src="assets/img/protection.jpg" alt="Protection intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div></a><a class="int" href="intention/abundance/"><img src="assets/img/wealth.jpg" alt="Abundance intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div></a><a class="int" href="intention/calm/"><img src="assets/img/frequency.jpg" alt="Grounding and Calm intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Steadiness &middot; nervous-system ease</div><div class="t">Calm</div></div></a><a class="int" href="intention/connection/"><img src="assets/img/jewelry.jpg?v=2" alt="Love and Self-Worth intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Heart-opening &middot; connection</div><div class="t">Love</div></div></a><a class="int" href="intention/clarity/"><img src="assets/img/clarity.jpg" alt="Clarity and Intuition intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Focus &middot; intuition</div><div class="t">Clarity</div></div></a></div>
     <div class="int-cta"><a href="quiz/" class="link">Take the Energy Quiz <span class="a">&rarr;</span></a></div>
   </div>
 </section>
@@ -1124,7 +1211,7 @@ p{text-wrap:pretty;}
   <div class="wrap">
     <div class="promo-copy">
       <span class="tag">Just landed</span>
-      <h2>The 528&#8239;Hz Generator, in Copper.</h2>
+      <h2>The 528&#8239;Hz Generator.<span class="in-cu">in copper</span></h2>
       <p>Our fixed-frequency generator in a new hand-finished copper housing &mdash; the same tuned 528&#8239;Hz coil, in a warmer body built to be left out on the shelf.</p>
       <div class="row">
         <span class="price"><s>$248.88</s>$219.88</span>
@@ -1133,7 +1220,14 @@ p{text-wrap:pretty;}
     </div>
     <div class="promo-art">
       <span class="promo-glow" aria-hidden="true"></span>
-      <img src="assets/img/generator-render.webp" alt="The Energy Muse frequency generator in a copper housing" loading="lazy">
+      <svg class="promo-ripple" viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="100" cy="100" r="98" stroke-width="1"/>
+        <circle cx="100" cy="100" r="98" stroke-width="1"/>
+        <circle cx="100" cy="100" r="98" stroke-width="1"/>
+        <circle cx="100" cy="100" r="98" stroke-width="1"/>
+        <circle cx="100" cy="100" r="98" stroke-width="1"/>
+      </svg>
+      <span class="promo-dev"><img src="assets/img/generator-render.webp" srcset="assets/img/generator-render-640.webp 640w, assets/img/generator-render-900.webp 900w, assets/img/generator-render.webp 1300w" sizes="(max-width:840px) 78vw, min(112vw, 720px)" alt="The Energy Muse frequency generator in a copper housing" loading="lazy"></span>
     </div>
   </div>
 </section>
@@ -1149,7 +1243,7 @@ p{text-wrap:pretty;}
       <div class="way reveal d1"><div class="thumb"><img src="assets/img/wealth.jpg" alt="A hand holding a pyrite crystal"></div>
         <h3><em>Place</em> it.</h3><p>Crystals act as a beautiful, visual reminder &mdash; in your home, your workspace, your everyday moments.</p>
         <a class="link" href="gems/">Shop Crystals <span class="a">&rarr;</span></a></div>
-      <div class="way reveal d2"><div class="thumb"><img src="assets/img/calm.jpg" alt="A copper-coil frequency tool"></div>
+      <div class="way reveal d2"><div class="thumb"><img src="assets/img/frequency.jpg" alt="A copper-coil frequency tool"></div>
         <h3><em>Tune</em> the space.</h3><p>Frequency tools put you in control of your space energetically, so you can manifest your goals and feel your best every day.</p>
         <a class="link" href="generator/">Explore Frequency <span class="a">&rarr;</span></a></div>
       <div class="way reveal d3"><div class="thumb quiz"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div>
@@ -1161,6 +1255,7 @@ p{text-wrap:pretty;}
 
 <!-- ===== QUIZ ===== -->
 <section class="section" id="quiz">
+  <div class="sinemark a" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
   <div class="wrap split">
     <div class="media arch reveal" style="aspect-ratio:4/4.4"><div class="t3d"><img src="assets/img/clarity.jpg" alt="A woman resting a clear quartz point to her brow"><span class="glare"></span></div><span class="plab">Clear quartz &middot; a first tool</span></div>
     <div class="copy reveal d1">
@@ -1191,6 +1286,7 @@ p{text-wrap:pretty;}
 
 
 <section class="section" id="about">
+  <div class="sinemark c" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
   <div class="wrap split">
     <div class="media rect reveal" style="aspect-ratio:3/2"><div class="t3d"><img src="assets/img/founders.jpg" alt="Founders Heather Askinosie and Timmi Jandro" style="object-position:50% 25%"><span class="glare"></span></div><span class="plab">Heather &amp; Timmi</span></div>
     <div class="copy reveal d1">
@@ -1264,6 +1360,7 @@ p{text-wrap:pretty;}
 
 <!-- ===== LEARN + VEZA ===== -->
 <section class="section" id="learn2">
+  <div class="sinemark b" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
   <div class="wrap duo">
     <div class="duo-card reveal">
       <span class="eyebrow">The Learning Center</span>
@@ -1351,6 +1448,7 @@ p{text-wrap:pretty;}
 
 <!-- ===== FINAL ===== -->
 <section class="section final">
+  <div class="sinemark d" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
   <div class="wrap reveal">
     <div class="final-gem" aria-hidden="true">
       <svg class="gem-rings" viewBox="0 0 231.33 238.67"><use href="#em-markline"/></svg>
@@ -1619,7 +1717,7 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 </script>
 
 <script src="assets/em-bag.js?v=3" defer></script>
-<script src="assets/em-versions.js?v=8" defer></script>
+<script src="assets/em-versions.js?v=9" defer></script>
 <script>
 (function(){
   var btns=[].slice.call(document.querySelectorAll('.skin'));

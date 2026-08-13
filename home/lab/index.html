@@ -105,6 +105,12 @@ p{text-wrap:pretty}
 .c1 h1{font-size:clamp(42px,6vw,80px);line-height:1.04}
 .c1 h1 em{font-style:italic;color:var(--line)}
 .c2{left:clamp(20px,7vw,110px);top:40svh;max-width:min(430px,80vw)}
+/* The em dash was carrying the whole turn of the sentence and ended up
+   hanging off the end of the first line. A full stop does the same work
+   without leaving anything stranded, and it lets the claim land on its
+   own line before the consequence arrives. */
+.c2 p b{display:block;font-weight:inherit}
+.c2 p{text-wrap:balance}
 .c2 p{font-family:var(--serif);font-weight:300;font-size:clamp(20px,2.6vw,30px);line-height:1.3;text-wrap:balance}
 /* These were translucent chips with a hairline — they read as labels, so
    people looked past them. A button needs three things they lacked: a solid
@@ -212,7 +218,10 @@ p{text-wrap:pretty}
 /* balance every heading down here: without it they break wherever they land
    and strand a single word — "Copper." alone on the promo's second line */
 .after h2{font-family:var(--serif);font-weight:300;letter-spacing:-.02em;color:#1D2739;
-  text-wrap:balance;}
+  /* it had no line-height of its own, so a 44px display heading was leading
+     on body copy's 1.6 — which is where the gap between the two lines of
+     "The 528 Hz Generator, in Copper." came from */
+  line-height:1.07;text-wrap:balance;}
 .after a:not(.btn){color:inherit}   /* buttons keep their own colour */
 
 /* promo — a slot for whatever is new */
@@ -221,7 +230,10 @@ p{text-wrap:pretty}
 .cpromo .in{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(22px,4vw,60px);align-items:center;}
 .cpromo .tag{display:inline-flex;font:700 10px var(--sans);letter-spacing:.24em;text-transform:uppercase;
   color:#fff;background:#A9683E;border-radius:100px;padding:6px 13px;}
-.cpromo h2{font-size:clamp(26px,3.3vw,44px);margin-top:14px;}
+.cpromo h2{font-size:clamp(26px,3.3vw,44px);margin-top:14px;
+  /* balance needs a measure to work against, or it keeps the break after
+     "Hz" and splits the product's name across two lines */
+  max-width:22ch;}
 .cpromo p{margin-top:10px;color:#4E5A70;max-width:44ch;font-size:15px;}
 .cpromo .row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:20px;}
 .cpromo .price{font-family:var(--serif);font-weight:300;font-size:25px;color:#8F5330;}
@@ -317,6 +329,14 @@ html.static .fallback{display:block}
   .c6 .row{flex-direction:column;align-items:center;width:min(320px,86vw);margin-top:22px;gap:12px}
   .c6 .row .btn{width:100%;justify-content:center}
 }
+
+/* "in copper" is the news, but it is not the product's name — it reads as a
+   second line under the headline rather than a clause inside it, which also
+   stops the name being split across two lines. */
+.cpromo h2,.promo h2{line-height:1.06;}
+.cpromo h2 .in-cu,.promo h2 .in-cu{display:block;font-size:.44em;font-style:italic;
+  letter-spacing:.005em;color:#A9683E;margin-top:.36em;}
+
 </style>
 </head>
 <body>
@@ -368,14 +388,14 @@ html.static .fallback{display:block}
       <p class="sub">Choose your energy. Live in it.</p>
     </div>
     <div class="cap c2" id="c2">
-      <p>Energy is invisible &mdash; which is exactly why it's so easy to overlook.</p>
+      <p><b>Energy is invisible.</b> Which is exactly why it&rsquo;s so easy to&nbsp;overlook.</p>
     </div>
     <!-- not lazy: these sit in a fixed stage the browser reads as off-screen, so
          the loader never fires and the beat arrives to five empty frames -->
     <div class="cap c3" id="c3">
       <a href="../../intention/protection/"><img src="../../assets/img/protection.jpg" alt="" decoding="async" fetchpriority="low"><span class="lb"><i>Boundaries</i><b>Protection</b></span></a>
       <a href="../../intention/abundance/"><img src="../../assets/img/wealth.jpg" alt="" decoding="async" fetchpriority="low"><span class="lb"><i>Momentum</i><b>Abundance</b></span></a>
-      <a href="../../intention/calm/"><img src="../../assets/img/calm.jpg" alt="" decoding="async" fetchpriority="low"><span class="lb"><i>Steadiness</i><b>Calm</b></span></a>
+      <a href="../../intention/calm/"><img src="../../assets/img/frequency.jpg" alt="" decoding="async" fetchpriority="low"><span class="lb"><i>Steadiness</i><b>Calm</b></span></a>
       <a href="../../intention/connection/"><img src="../../assets/img/jewelry.jpg" alt="" decoding="async" fetchpriority="low"><span class="lb"><i>Heart-opening</i><b>Love</b></span></a>
       <a href="../../intention/clarity/"><img src="../../assets/img/clarity.jpg" alt="" decoding="async" fetchpriority="low"><span class="lb"><i>Focus</i><b>Clarity</b></span></a>
     </div>
@@ -415,7 +435,7 @@ html.static .fallback{display:block}
     <a href="../../intention/connection/">Love</a><a href="../../intention/calm/">Calm</a>
     <a href="../../intention/clarity/">Clarity</a>
   </div>
-  <img src="../../assets/img/generator-render.webp" alt="The Energy Muse frequency generator">
+  <img src="../../assets/img/generator-render.webp" srcset="../../assets/img/generator-render-640.webp 640w, ../../assets/img/generator-render-900.webp 900w, ../../assets/img/generator-render.webp 1300w" sizes="(max-width:840px) 78vw, 290px" alt="The Energy Muse frequency generator">
   <p style="color:var(--tc-soft)">Frequency, made simple. Precision-crafted devices, tuned to specific frequencies.</p>
   <p style="font-size:11px;color:var(--tc-soft);margin-top:10px">Not medical devices; not a substitute for healthcare. Experiences vary.</p>
   <div class="row">
@@ -433,7 +453,7 @@ html.static .fallback{display:block}
     <div class="in">
       <div>
         <span class="tag">Just landed</span>
-        <h2>The 528&#8239;Hz Generator, in Copper.</h2>
+        <h2>The 528&#8239;Hz Generator.<span class="in-cu">in copper</span></h2>
         <p>The same tuned 528&#8239;Hz coil in a new hand-finished copper housing &mdash; a warmer body, built to be left out on the shelf.</p>
         <div class="row">
           <span class="price"><s>$248.88</s>$219.88</span>
@@ -1035,7 +1055,7 @@ function frame(p,t){
 
   /* the device stays on stage longer — this is the product, and the film
      was moving off it before anyone had finished reading */
-  var devOp=win(p,.50,.57)*(1-win(p,.735,.79));
+  var devOp=win(p,.50,.57)*(1-win(p,.688,.748));
   devwrap.style.opacity=devOp.toFixed(2);
   /* it arrives rather than appears: in from the right on entry, and it
      leaves the same way it came. The centring translate has to stay in the
@@ -1051,7 +1071,7 @@ function frame(p,t){
      fading up as a block */
 
   /* the lifestyle band, timed as it always was on desktop */
-  photo.style.opacity=(win(p,.70,.75)*(1-win(p,.80,.84))).toFixed(2);
+  photo.style.opacity=(win(p,.705,.762)*(1-win(p,.872,.912))).toFixed(2);
   photo.style.transform='translateY('+lerp(-44,-56,win(p,.70,.85))+'%)';
 
   /* --- captions --- */
@@ -1075,7 +1095,7 @@ function frame(p,t){
   /* pointing at a feeling still swells its ribbon and steps the others back */
   for(var hk=0;hk<5;hk++){hi[hk]+=((hk===hoverK?1:0)-hi[hk])*.11;}
   cap(caps.c4,p,.455,.49,.70,.75);      /* Frequency, made simple — held */
-  cap(caps.c6,p,.755,.80,1.01,1.02);
+  cap(caps.c6,p,.772,.822,1.01,1.02);
 
   /* the shop drawer: up at two screens, held through the intentions, gone
      before the generator takes the stage */
@@ -1212,6 +1232,6 @@ document.addEventListener('DOMContentLoaded',function(){
   addEventListener('scroll',turn,{passive:true});turn();
 });
 </script>
-<script src="../../assets/em-versions.js?v=8" defer></script>
+<script src="../../assets/em-versions.js?v=9" defer></script>
 <script src="/assets/em-depth.js?v=2" defer></script>
 </body></html>

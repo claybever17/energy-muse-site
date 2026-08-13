@@ -53,14 +53,19 @@ function build(canvas){
   part(new THREE.CylinderGeometry(0.71,0.71,0.024,120),matDisc,0,0.096,0,base);
   var ring=new THREE.Mesh(new THREE.TorusGeometry(0.70,0.008,16,160),matRing);ring.rotation.x=Math.PI/2;ring.position.y=0.112;ring.castShadow=true;base.add(ring);
   (function(){ // the gold spiral coil
-    var turns=36,N=isMobile?1800:3200,r0=0.012,rMax=0.665,A=turns*Math.PI*2;var pts=[];
+    /* 36 turns put the rings about 6px apart at the sizes this actually gets
+       displayed, which beats against the sample grid and throws a moire over
+       the whole face — the antialiasing cannot help, because the aliasing is
+       in the geometry rather than at its edges. 24 turns of slightly fatter
+       wire reads the same at a glance and stays well clear of the grid. */
+    var turns=24,N=isMobile?1500:2600,r0=0.012,rMax=0.665,A=turns*Math.PI*2;var pts=[];
     for(var i=0;i<=N;i++){
       var a=i/N*A,u=a/A;
       var f=0.9*u+0.1*(1-Math.pow(1-u,6));
       var r=r0+(rMax-r0)*f;
       pts.push(new THREE.Vector3(Math.cos(a)*r,0,Math.sin(a)*r));
     }
-    var g=new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),isMobile?1700:3000,0.0046,isMobile?6:8,false);
+    var g=new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),isMobile?1400:2400,0.0060,isMobile?6:8,false);
     var m=new THREE.Mesh(g,matGold);m.position.y=0.115;m.castShadow=true;m.receiveShadow=true;base.add(m);
   })();
   function radialTex(rgb){var cv=document.createElement('canvas');cv.width=cv.height=256;var x=cv.getContext('2d');
