@@ -856,11 +856,11 @@ function frame(p,t){
     sctx.lineCap='round';sctx.lineJoin='round';
     var owD=.16+.84*ease(win(p,.035,.30));
     /*      offset,  awayX,  awayY, rolls, slip, rows */
-    var OW=[[-.128, .030,-.082,1.50,6.4,.70],
-            [-.058,-.022,-.128,2.20,8.6,.86],
-            [ .004, .052,-.108,1.70,7.2,1.00],
-            [ .067, .014,-.146,1.00,5.2,.78],
-            [ .135,-.040,-.088,2.40,9.4,.62]];
+    var OW=[[-.128, .030,-.082,0.85,3.4,.70],
+            [-.058,-.022,-.128,1.20,4.6,.86],
+            [ .004, .052,-.108,0.95,3.9,1.00],
+            [ .067, .014,-.146,0.62,2.8,.78],
+            [ .135,-.040,-.088,1.35,5.1,.62]];
     /* While the mark is still unwinding the body has to belong to the mark.
        Drawing the plain wave here is what made a flat band form beside the
        tangle, related to nothing. These are the same values the strokes use —
@@ -877,8 +877,12 @@ function frame(p,t){
         var oa=owV*Math.pow(1-odz,.70)*.14;
         if(oa<.004)continue;
         sctx.beginPath();
-        for(var oq=0;oq<=34;oq++){
-          var ou=oq/34, oroll=ou*Math.PI*oc[3]+t*.10+oi;
+        /* 34 samples across a curve that rolls two and a half times is a
+           polyline, not a curve — the corners between segments are what read
+           as clinical. 72 puts a vertex roughly every ten pixels, below what
+           the eye resolves as a straight run. */
+        for(var oq=0;oq<=72;oq++){
+          var ou=oq/72, oroll=ou*Math.PI*oc[3]+t*.10+oi;
           var ox=lerp(x0-W*.14,x1+W*.14,.5+(ou-.5)*(1-odz*.07));
           var oy=cy+oc[0]*spread*H+sig(2,ou,t,amp*(1-odz*.32),-odz*oc[4]);
           if(omk&&morph<1){
