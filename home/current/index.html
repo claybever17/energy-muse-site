@@ -618,6 +618,7 @@ if(reduce){document.documentElement.classList.add('static');return;}
 var film=document.getElementById('film'),stage=document.getElementById('stage');
 var svg=document.getElementById('lines');
 var paths=[0,1,2,3,4].map(function(i){return document.getElementById('p'+i);});
+var GLOW=[];   /* this frame's strand paths, for the halo — refilled, never regrown */
 /* Each strand is swept back into a surface.
    One stroke per signal is a wire diagram — it states the shape and stops.
    A wave moving through a medium has a body, so the same signal is repeated
@@ -835,6 +836,7 @@ function frame(p,t){
      would just be noise. Hidden outright when unused, so the ribs cost
      nothing for most of the film. */
   var meshVis=ease(win(p,.245,.34))*(1-ease(win(p,.40,.50)));
+  GLOW.length=0;
   mctx.clearRect(0,0,W,H);
   if(meshVis>.004){
     /* lc is the same value the CSS variable is about to be set to. Reading it
@@ -1043,6 +1045,9 @@ function frame(p,t){
     }
     path.setAttribute('d',d);
     path.style.opacity=op.toFixed(2);
+    /* kept for the halo below, with its own opacity so a strand fading out
+       takes its glow with it */
+    if(op>.02)GLOW.push([new Path2D(d),op]);
     var baseW=(k===2? lerp(1.6,2.2,Math.max(lineBack*.55,ringT)) : 1.4);
     path.style.strokeWidth = mk? lerp(2.1,baseW,morph).toFixed(2) : baseW;
     var REST={1:'#A9683E',2:'#C08356',3:'#35907B'};
@@ -1090,7 +1095,38 @@ function frame(p,t){
 
   var mg=(1-win(p,.07,.14))*(0.55+0.25*Math.sin(t*1.6));
   var gAmt=Math.max(mg*.7,win(p,.4,.7));
-  svg.style.filter='drop-shadow(0 0 '+lerp(0,10,gAmt).toFixed(1)+'px rgba(224,168,120,'+lerp(0,.85,gAmt).toFixed(2)+'))';
+  /* A 10px drop-shadow on the SVG, at full strength from .4 onward, over five
+     paths rewritten every frame — a full-screen blur re-rasterised every
+     frame, and with the radius riding a sine the filter string changed every
+     frame too, so nothing could be cached even in principle.
+
+     Three widening passes on the canvas instead: fifteen polylines against
+     everything already going down, and it recedes with the line rather than
+     hanging off the whole layer. */
+  if(gAmt>.01&&GLOW.length){
+    mctx.lineCap='round';mctx.lineJoin='round';mctx.strokeStyle='#E0A878';
+    for(var gp=0;gp<3;gp++){
+      mctx.lineWidth=lerp(3.2,11,gp/2)*lerp(.55,1,gAmt);
+      var ga=lerp(.15,.045,gp/2)*gAmt;
+      for(var gi=0;gi<GLOW.length;gi++){
+        mctx.globalAlpha=ga*GLOW[gi][1];
+        mctx.stroke(GLOW[gi][0]);
+      }
+    }
+    mctx.globalAlpha=1;
+  }
+
+  /* The stage is sticky, so the film holds full-screen right up to the last
+     frame and then the whole block detaches and slides away in one piece —
+     the picture is simply there, and then it is not. It thins out on the way
+     out instead, tied to scroll like everything else here, so the energy
+     disperses as you leave it rather than being carried off whole. The
+     captions are their own elements and keep their weight: the call to action
+     should not fade while you are reading it. */
+  var outro=1-ease(win(p,.90,1));
+  spiroc.style.opacity=outro.toFixed(3);
+  meshc.style.opacity=outro.toFixed(3);
+  svg.style.opacity=outro.toFixed(3);
 
   /* --- layers --- */
   var ecxg=W>700?W*0.655:W*0.5, ecyg=W>700?H*0.425:H*0.54;
@@ -1217,21 +1253,41 @@ function cap(el,p,a,b,c,d){
   el.classList.toggle('live',o>.5);
 }
 
-var t0=performance.now();
-function step(){
+var t0=performance.now(), lastStep=0;
+function step(force){
+  lastStep=performance.now();
   var t=(performance.now()-t0)/1000;
   var total=film.offsetHeight-innerHeight;
+  var r=film.getBoundingClientRect();
+  /* Below the film none of this is anyone's business, and it went on drawing
+     the whole thing the entire way down the shop — under a full-screen filter
+     — for a picture nobody could see. */
+  if(!force&&(r.bottom<=0||r.top>=innerHeight))return;
   /* a zero-height viewport (a collapsed or hidden frame) divided to NaN and
      poisoned every coordinate downstream — hold at the start instead */
-  var p=total>0?clamp(-film.getBoundingClientRect().top/total,0,1):0;
+  var p=total>0?clamp(-r.top/total,0,1):0;
   frame(p,t);
 }
+/* This was the single worst thing on the page, and it is why this one felt
+   heavy where v2 did not: the film redrew from rAF AND from every scroll
+   event. A trackpad or a smooth wheel fires scroll far faster than the
+   display refreshes, so the heaviest beat was drawing itself two, three,
+   four times over for one painted frame — all but one of them thrown away
+   before anything reached the glass. Work that can only ever cost.
+
+   rAF is the sole driver now. The scroll handler stays as a backstop for the
+   case it was really there for — rAF actually stalling — and fires only when
+   nothing has drawn for longer than a frame. */
 function loop(){step();requestAnimationFrame(loop);}
 requestAnimationFrame(loop);
-addEventListener('scroll',step,{passive:true});   // immediate scrub even when rAF throttles
+addEventListener('scroll',function(){
+  if(performance.now()-lastStep>24)step();
+},{passive:true});
 
 /* verification hook */
-window.__film={go:function(p){var total=film.offsetHeight-innerHeight;scrollTo(0,film.offsetTop+p*total);step();},step:step};
+/* force, so a verification sweep still draws if it lands a hair outside */
+window.__film={go:function(p){var total=film.offsetHeight-innerHeight;scrollTo(0,film.offsetTop+p*total);step(1);},
+               step:function(){return step(1);}};
 })();
 </script>
 <script src="../../assets/em-bag.js?v=3" defer></script>
