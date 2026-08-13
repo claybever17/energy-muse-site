@@ -2,13 +2,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Energy Muse &#8212; The Collection</title>
-<meta name="description" content="The whole collection on one page. Filter by intention, form and colour and the archive answers instantly — every crystal mounted, photographed and priced.">
-<meta property="og:type" content="website"><meta property="og:site_name" content="Energy Muse">
-<meta property="og:title" content="The Collection — browse every crystal at once">
-<meta property="og:description" content="An archive rather than a story: filter by intention, form and colour and the collection answers instantly.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Energy Muse">
+<meta property="og:title" content="Energy Muse — The Collection">
+<meta property="og:description" content="Every crystal in one place, filterable by intention, form and colour.">
 <meta property="og:url" content="https://energy-muse-workingfolder.vercel.app/home/crystallize/">
-<meta property="og:image" content="https://energy-muse-workingfolder.vercel.app/assets/og-current.jpg">
+<meta property="og:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:alt" content="An Energy Muse frequency generator lit on a wood floor beside a clear quartz point">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Energy Muse — The Collection">
+<meta name="twitter:description" content="Every crystal in one place, filterable by intention, form and colour.">
+<meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
+
+<meta name="description" content="The whole collection on one page. Filter by intention, form and colour and the archive answers instantly — every crystal mounted, photographed and priced.">
 <link rel="icon" type="image/svg+xml" href="../../assets/img/mark.svg">
 <script type="importmap">{"imports":{"three":"../../assets/three.module.min.js"}}</script>
 <style>
@@ -346,6 +354,11 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
+/* Same rule as the other pages: a clause gets a line rather than being cut
+   wherever the measure runs out. The em dash went too — it was only there to
+   join two halves that now sit on their own lines. */
+@media (min-width:701px){.said span{display:block}}
+.said{text-wrap:balance}
 </style>
 </head>
 <body>
@@ -359,7 +372,7 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
 <section class="state">
   <span class="kicker">Energy Muse</span>
   <h1>Start with the feeling. <em>The stone follows.</em></h1>
-  <p class="said">Crystals, jewelry and fixed-frequency generators &mdash; chosen by what you want more of.</p>
+  <p class="said"><span>Crystals, jewelry and fixed-frequency generators,</span><span>chosen by what you want more&nbsp;of.</span></p>
   <div class="acts">
     <a class="act solid" href="#feeling">Shop by intention</a>
     <a class="act ghost" href="../cascade/">The frequency room</a>
