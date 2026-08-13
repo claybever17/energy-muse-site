@@ -673,6 +673,9 @@ var spiroc=document.getElementById('spiroc'), sctx=spiroc.getContext('2d');
 var meshc=document.getElementById('meshc'), mctx=meshc.getContext('2d');
 var meshf=document.getElementById('meshf'), mctxf=meshf.getContext('2d');
 var FC=null;   /* the surface field() is currently drawing onto */
+var GLOW=[];   /* this frame's strand paths, for the halo — refilled, never regrown */
+var FDREW=false; /* did any field draw this frame — the edge mask is a full-screen
+                    fill and there is no sense paying for it over an empty layer */
 var c3kids=[].slice.call(document.getElementById('c3').children);
 /* which ribbon the reader is pointing at, -1 for none, and a smoothed weight
    per strand so the field swells and recedes instead of snapping */
@@ -788,10 +791,20 @@ function hex(c){return [parseInt(c.slice(1,3),16),parseInt(c.slice(3,5),16),pars
    rgb() string — mix(lc,...) was returning "rgb(NaN,NaN,105)", which canvas
    silently discards while keeping whatever strokeStyle was set last. The
    depth recession looked like it was working and was drawing nothing. */
+/* The shaded filaments ask for this twice per colour stop, and at the device
+   there are 2,807 stops in a frame — 5,600 regex parses a frame to re-answer
+   a question about six or seven colours. Memoised; the answer is returned by
+   reference, so nothing may mutate it. */
+var RGBC={},RGBN=0;
 function toRGB(c){
-  if(c.charAt(0)==='#')return hex(c);
-  var m=c.match(/[\d.]+/g);
-  return m&&m.length>2?[+m[0],+m[1],+m[2]]:[169,104,62];
+  var v=RGBC[c];
+  if(v)return v;
+  if(c.charAt(0)==='#')v=hex(c);
+  else{var m=c.match(/[\d.]+/g);v=m&&m.length>2?[+m[0],+m[1],+m[2]]:[169,104,62];}
+  /* the grade hands over a new colour string every frame, so this would grow
+     for as long as the page is open — dropped wholesale rather than tracked */
+  if(++RGBN>600){RGBC={};RGBN=0;}
+  RGBC[c]=v;return v;
 }
 function mix(c1,c2,t){var a=toRGB(c1),b=toRGB(c2);return 'rgb('+Math.round(lerp(a[0],b[0],t))+','+Math.round(lerp(a[1],b[1],t))+','+Math.round(lerp(a[2],b[2],t))+')'}
 function grade(stops,p){
@@ -856,7 +869,16 @@ function sig(k,u,t,A,ph){
    where it turns edge-on and opens right out where it comes back round.
    That contrast between pinched and open is what the refs actually have
    that a uniform band does not. */
-var RIBS=(innerWidth<=700)?40:116, RIB_N=(innerWidth<=700)?26:34;
+/* The balance was wrong for what this has to be. 116 filaments described by 34
+   points each is a vertex every 56px across the open wave — the filaments are
+   dense but every one of them is a polyline, and no amount of stacking makes a
+   polyline read as flowing. v1 went the other way, 72 points and 26 rows, and
+   that is the one that got approved on exactly this question.
+
+   Points bought with filaments, at roughly the budget the drop-shadow gave
+   back: 96 x 56 against 116 x 34. Fewer threads, each of them actually a
+   curve. */
+var RIBS=(innerWidth<=700)?34:96, RIB_N=(innerWidth<=700)?40:56;
 /* The mark needs a finer stencil than the wave does. 34 samples is a vertex
    every ~40px across a shape that is turning the whole way round, so wrapping
    a sheet onto the logo's own curvature at that count draws a polygon of the
@@ -904,9 +926,15 @@ function field(pt,ribs,base,colF,depth,shade,nseg){
        instead, so the far side of the fabric compresses the way it should. */
     var lin=(j+1)/(ribs+1);
     var dz=(1-1/(1+2.4*lin))/(1-1/3.4);
-    var a=base*Math.pow(1-dz,.62)*.155;
+    /* Depth is contrast, not distance. The near filaments were only a little
+       brighter and a little fatter than the far ones, so a hundred of them
+       read as one flat mat however far back they actually went. The falloff on
+       both is steeper now, and the base is lifted so the front holds its
+       weight while the back drops away. */
+    var a=base*Math.pow(1-dz,.82)*.175;
     if(a<.004)continue;
-    var w=.72-dz*.30;
+    FDREW=true;
+    var w=.80-dz*.42;
     FC.beginPath();
     /* A callback may hand back a third value: the largest step that still
        belongs to one continuous run. The mark is several separate strokes
@@ -932,7 +960,12 @@ function field(pt,ribs,base,colF,depth,shade,nseg){
        where two sheets cross, the crossing is what reads as depth. */
     /* the leading filament reads as the lit edge of the sheet */
     if(j<2){FC.lineWidth=w*1.5;} else FC.lineWidth=w;
-    if(shade){
+    /* Aerial perspective washes contrast out with distance, so a filament far
+       enough back has nothing left to shade — and shading it costs a gradient
+       and five colour stops all the same. Only the near half is lit, and the
+       lighting fades to flat exactly at the cut, so there is no seam where the
+       two branches meet. Halves the gradient count for no visible difference. */
+    if(shade&&dz<.55){
       /* The single biggest thing missing was light. Every filament carried one
          flat alpha from end to end, so a surface that rolls right over on
          itself was lit as though it never turned. Each is a gradient now,
@@ -941,11 +974,14 @@ function field(pt,ribs,base,colF,depth,shade,nseg){
          the gradient does the shading, not extra geometry. */
       var A=pt(0,dz*depth), B=pt(1,dz*depth);
       var gr=FC.createLinearGradient(A[0],A[1],B[0],B[1]);
-      for(var gi=0;gi<=6;gi++){
+      /* five stops, not seven: the curve between them is smooth and this runs
+         on every filament of every sheet */
+      var sk=1-dz/.55;                 /* how much light is left at this depth */
+      for(var gi=0;gi<=4;gi++){
         /* a hard falloff rather than a gentle one: the sheet should be bright
            where it faces you and almost gone where it turns, not evenly lit */
-        var gu=gi/6, lam=.10+.90*Math.pow(Math.abs(Math.cos(shade(gu))),1.6);
-        gr.addColorStop(gu,rgba(colF,FAR,dz*.88,a*lam));
+        var gu=gi/4, lam=1-sk*(1-(.10+.90*Math.pow(Math.abs(Math.cos(shade(gu))),1.6)));
+        gr.addColorStop(gu,rgba(colF,FAR,dz*.93,a*lam));
       }
       FC.strokeStyle=gr;FC.globalAlpha=1;
     } else {
@@ -1032,6 +1068,7 @@ function frame(p,t){
   var meshDepth=.05+.95*ease(win(p,.035,.30));
   var anyHi=Math.max(hi[0],hi[1],hi[2],hi[3],hi[4]);
   FAR=mix(bg,'#6E7F94',.34);
+  GLOW.length=0;FDREW=false;
   mctx.clearRect(0,0,W,H);mctxf.clearRect(0,0,W,H);
   mctx.lineCap='round';mctx.lineJoin='round';
   mctxf.lineCap='round';mctxf.lineJoin='round';
@@ -1159,7 +1196,13 @@ function frame(p,t){
              instead, and both ends blend on morph so nothing steps. */
           Math.round(RIBS*FRB[kk]*lerp(1,RIB_N/RIB_MK,mkAt)),
           meshVis*opk*clamp(1+hi[kk]*1.05-(anyHi-hi[kk])*.58,.3,2.2),lc,meshDepth,
-          undefined, mkSeg);
+          /* The opening and the strands were the only fields drawn with no
+             light on them at all — one flat alpha end to end, on a surface
+             whose whole point is that it rolls over. Lit off the same roll
+             that shapes it, so it is bright where the fabric faces you and
+             nearly gone where it turns edge-on. This is most of the depth. */
+          function(uu){return uu*Math.PI*FTW[kk]+t*.11+kk;},
+          mkSeg);
       })(k,off,op);
     }
     var d='';
@@ -1207,6 +1250,9 @@ function frame(p,t){
     }
     path.setAttribute('d',d);
     path.style.opacity=op.toFixed(2);
+    /* kept for the halo below, with its own opacity so a strand fading out
+       takes its glow with it */
+    if(op>.02)GLOW.push([new Path2D(d),op]);
     var baseW=(k===2? lerp(1.6,2.2,Math.max(lineBack*.55,ringT)) : 1.4);
     path.style.strokeWidth = mk? lerp(2.1,baseW,morph).toFixed(2) : baseW;
     var REST={1:'#A9683E',2:'#C08356',3:'#35907B'};
@@ -1334,7 +1380,51 @@ function frame(p,t){
 
   var mg=(1-win(p,.07,.14))*(0.55+0.25*Math.sin(t*1.6));
   var gAmt=Math.max(mg*.7,win(p,.4,.7));
-  svg.style.filter='drop-shadow(0 0 '+lerp(0,10,gAmt).toFixed(1)+'px rgba(224,168,120,'+lerp(0,.85,gAmt).toFixed(2)+'))';
+  /* This was a 10px drop-shadow on the SVG, at full strength from .4 onward —
+     a full-screen blur re-rasterised every frame over five paths that are
+     rewritten every frame, and with the radius riding a sine the filter string
+     changed every frame too, so nothing could be cached. It was the most
+     expensive thing on the page by a distance and none of it was drawing.
+
+     The halo is three widening passes on the canvas instead, which the mesh
+     layer's own blur softens for free. It costs fifteen polylines against
+     eighteen thousand points already going down, and unlike the filter it
+     recedes with depth — the glow belongs to the line rather than to the
+     whole layer. */
+  /* The sheets run past both margins so their envelope converges off-screen,
+     but they still met the frame at full strength and were cut off square by
+     it — a hard vertical edge on a thing that is supposed to be moving
+     through. Both ends of the layer ramp to nothing instead, so the wave
+     arrives from somewhere and leaves for somewhere.
+
+     One ramp over the whole layer rather than a gradient per filament: the
+     shaded ones already cost 2,800 colour stops a frame and there are up to
+     five hundred of them, where this is a single fill. destination-in keeps
+     what is under the ramp and takes its alpha, which is exactly a mask. */
+  var fadeW=W*(mob?0.16:0.13);
+  if(FDREW)[mctx,mctxf].forEach(function(cx){
+    var gr=cx.createLinearGradient(0,0,W,0);
+    gr.addColorStop(0,'rgba(0,0,0,0)');
+    gr.addColorStop(fadeW/W,'rgba(0,0,0,1)');
+    gr.addColorStop(1-fadeW/W,'rgba(0,0,0,1)');
+    gr.addColorStop(1,'rgba(0,0,0,0)');
+    cx.globalCompositeOperation='destination-in';
+    cx.fillStyle=gr;cx.fillRect(0,0,W,H);
+    cx.globalCompositeOperation='source-over';
+  });
+
+  if(gAmt>.01&&GLOW.length){
+    mctx.lineCap='round';mctx.lineJoin='round';mctx.strokeStyle='#E0A878';
+    for(var gp=0;gp<3;gp++){
+      mctx.lineWidth=lerp(3.2,11,gp/2)*lerp(.55,1,gAmt);
+      var ga=lerp(.15,.045,gp/2)*gAmt;
+      for(var gi=0;gi<GLOW.length;gi++){
+        mctx.globalAlpha=ga*GLOW[gi][1];
+        mctx.stroke(GLOW[gi][0]);
+      }
+    }
+    mctx.globalAlpha=1;
+  }
 
   /* --- layers --- */
   var ecxg=W>700?W*0.655:W*0.5, ecyg=W>700?H*0.425:H*0.54;
@@ -1501,13 +1591,20 @@ function warp(s){
 }
 
 var t0=performance.now();
-function step(){
+function step(force){
   lastStep=performance.now();
   var t=(performance.now()-t0)/1000;
   var total=film.offsetHeight-innerHeight;
+  var r=film.getBoundingClientRect();
+  /* Nothing below the film was ever the film's business, and it kept drawing
+     five hundred strokes and eighteen thousand points a frame the whole way
+     down the shop — under three full-screen filter passes. The rest of the
+     page was paying for a picture nobody could see, which is most of why
+     scrolling felt heavy once you were past it. */
+  if(!force&&(r.bottom<=0||r.top>=innerHeight))return;
   /* a zero-height viewport (a collapsed or hidden frame) divided to NaN and
      poisoned every coordinate downstream — hold at the start instead */
-  var p=total>0?warp(clamp(-film.getBoundingClientRect().top/total,0,1)):0;
+  var p=total>0?warp(clamp(-r.top/total,0,1)):0;
   frame(p,t);
 }
 /* Frame budget.
@@ -1539,7 +1636,9 @@ addEventListener('scroll',function(){
 },{passive:true});
 
 /* verification hook */
-window.__film={go:function(p){var total=film.offsetHeight-innerHeight;scrollTo(0,film.offsetTop+p*total);step();},step:step};
+/* force, so a verification sweep still draws if it lands a hair outside */
+window.__film={go:function(p){var total=film.offsetHeight-innerHeight;scrollTo(0,film.offsetTop+p*total);step(1);},
+               step:function(){return step(1);}};
 })();
 </script>
 <script src="../../assets/em-bag.js?v=3" defer></script>
