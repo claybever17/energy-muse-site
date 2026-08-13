@@ -99,6 +99,7 @@ p{text-wrap:pretty}
 #meshc,#meshf{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;
   filter:blur(.7px)}
 #meshf{filter:blur(1.15px);z-index:4}
+#spiroc{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
 #lines{position:absolute;inset:0;width:100%;height:100%;display:block}
 #lines path{fill:none;stroke:var(--line);stroke-width:1.6;vector-effect:non-scaling-stroke;stroke-linecap:round}
 
@@ -416,6 +417,7 @@ html.static .fallback{display:block}
     <!-- behind the device and the photograph, not over them -->
     <canvas id="meshc" aria-hidden="true"></canvas>
     <div class="photo" id="photo"></div>
+    <canvas id="spiroc" aria-hidden="true"></canvas>
     <div class="devwrap" id="devwrap"><canvas id="dev"></canvas></div>
     <svg id="lines" aria-hidden="true">
       <path id="p0"/><path id="p1"/><path id="p2"/><path id="p3"/><path id="p4"/>
@@ -592,6 +594,7 @@ var devwrap=document.getElementById('devwrap'),devCanvas=document.getElementById
 var caps={c1:document.getElementById('c1'),c2:document.getElementById('c2'),c3:document.getElementById('c3'),
           c4:document.getElementById('c4'),c6:document.getElementById('c6')};
 var hzval=document.getElementById('hzval');
+var spiroc=document.getElementById('spiroc'), sctx=spiroc.getContext('2d');
 var meshc=document.getElementById('meshc'), mctx=meshc.getContext('2d');
 var meshf=document.getElementById('meshf'), mctxf=meshf.getContext('2d');
 var FC=null;   /* the surface field() is currently drawing onto */
@@ -680,7 +683,10 @@ function sampleMark(){
   /* true center of the emblem's outer circle — the artwork is not centered in its viewBox */
   MK.ccx=(xmin+xmax)/2;MK.ccy=(ymin+ymax)/2;
 }
-function resize(){W=stage.clientWidth;H=stage.clientHeight;svg.setAttribute('viewBox','0 0 '+W+' '+H);N=W<700?150:200;
+function resize(){var sdpr=Math.min(devicePixelRatio||1,1.6);
+  spiroc.width=Math.round(stage.clientWidth*sdpr);spiroc.height=Math.round(stage.clientHeight*sdpr);
+  sctx.setTransform(sdpr,0,0,sdpr,0,0);
+  W=stage.clientWidth;H=stage.clientHeight;svg.setAttribute('viewBox','0 0 '+W+' '+H);N=W<700?150:200;
   /* 1.4 rather than the full device ratio: these are sub-pixel hairlines over
      a large box, so the cost is fill rate, and 2x doubles it for detail that
      nobody can resolve in a moving field */
@@ -913,6 +919,7 @@ function frame(p,t){
   mctxf.lineCap='round';mctxf.lineJoin='round';
   FC=mctx;
 
+  sctx.clearRect(0,0,W,H);
   for(var k=0;k<5;k++){
     var path=paths[k];
     var off=SIG_OFF[k]*spread*H;
@@ -1064,17 +1071,24 @@ function frame(p,t){
        rates, passing behind the product rather than under it. Dark ground
        carries more ink than paper does, so it can afford the weight.
        [ yOff, spreadX, spreadY, rolls, slip, filaments ] */
-    var DEVF=[[-.055,-.042,-.126,2.10,9.2,.80],
-              [ 0.000, .058,-.088,1.35,7.4,1.00],
-              [ .050, .036,-.060,0.85,5.6,.72]];
-    for(var dvi=0;dvi<3;dvi++){
+    /* On navy the copper was reading at almost nothing — the alpha here is
+       tuned for paper, where anything stronger goes muddy, and dark ground
+       will take several times that before it is even noticeable. Five sheets
+       instead of three, deeper spread, and the whole beat carried at 2.8x. */
+    var DEVF=[[-.105,-.052,-.168,2.60,10.4,.86],
+              [-.052,-.038,-.140,2.05, 9.2,1.00],
+              [ 0.000, .066,-.112,1.45, 7.4,1.14],
+              [ .052, .044,-.086,0.95, 6.0,.94],
+              [ .104, .030,-.062,0.62, 4.8,.74]];
+    for(var dvi=0;dvi<DEVF.length;dvi++){
       (function(c){
         field(function(u,dz){
           var roll=u*Math.PI*c[3]+t*.09+dvi*2.1;
           return [lerp(-W*.08,W*1.08,.5+(u-.5)*(1-dz*.07))+dfx+dz*W*c[1]*(.35+.95*Math.cos(roll)),
                   H*(.5+c[0])+dz*H*c[2]*(.45+.85*Math.sin(roll))+
                   sig(2,u,t,H*.072*(1-dz*.3),-dz*c[4])];
-        },Math.round((mob?14:30)*c[5]),devF,lc,1);
+        },Math.round((mob?18:42)*c[5]),devF*2.8,lc,1,
+          function(uu){return uu*Math.PI*c[3]+t*.09+dvi*2.1;});
       })(DEVF[dvi]);
     }
     /* And rings leaving the coil. The field behind it travelled past the
@@ -1113,6 +1127,42 @@ function frame(p,t){
      was moving off it before anyone had finished reading */
   /* it was arriving after its own caption had already finished reading;
      it comes in while the words are still settling now */
+  /* The close was one drawn circle around the words. Rings expand out of that
+     centre now — each one a stack of copies stepped back and up, so it has a
+     wall rather than being a line, and each is born, swells and dies on its
+     own clock. Concentric, because this is the beat where the mark closes. */
+  var rp=ease(win(p,.760,.830))*(1-ease(win(p,.930,.975)));
+  if(rp>.004){
+    /* the same centre the closing ring itself uses — it sat 4% of the height
+       above it, so the ripples and the mark were never concentric */
+    var rcx=ringCx, rcy=ringCy, rmax=Math.min(W,H)*(mob?.62:.86);
+    for(var ri=0;ri<(mob?6:11);ri++){
+      var ph=((t*.052+ri/(mob?6:11))%1);
+      var rad=rmax*(.10+.90*ph);
+      var born=Math.sin(Math.PI*ph);
+      var ra=rp*born*.34;
+      if(ra<.004)continue;
+      for(var rw=0;rw<(mob?4:7);rw++){
+        var dz=rw/(mob?4:7);
+        sctx.beginPath();
+        for(var q=0;q<=76;q++){
+          var th=q/76*Math.PI*2;
+          var rr=rad*(1-dz*.055);
+          /* true circles: the ring they surround is circular, and a flattened
+             ripple around a round mark reads as an error */
+          sctx.lineTo(rcx+Math.cos(th)*rr+dz*W*.009,
+                      rcy+Math.sin(th)*rr-dz*H*.020);
+        }
+        sctx.closePath();
+        sctx.globalAlpha=ra*Math.pow(1-dz,1.1);
+        sctx.lineWidth=(.95-dz*.45)*(1-ph*.35);
+        sctx.strokeStyle=lc;
+        sctx.stroke();
+      }
+    }
+    sctx.globalAlpha=1;
+  }
+
   var devOp=win(p,.452,.528)*(1-win(p,.688,.748));
   devwrap.style.opacity=devOp.toFixed(2);
   /* it arrives rather than appears: in from the right on entry, and it

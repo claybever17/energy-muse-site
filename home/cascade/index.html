@@ -344,6 +344,13 @@ img{display:block;max-width:100%}
   .state-dev{grid-column:1;width:min(62vw,290px);margin-top:6px;justify-self:center;}
 }
 
+/* It opens the page now, so it needs the header's clearance and a little
+   more air than a mid-page section wants. The statement it used to sit under
+   follows it instead: you tune the thing first, and only then are told whose
+   it is — the same order the room itself argues for. */
+.room.isfirst{padding-top:calc(78px + clamp(20px,4vh,54px))}
+.state{border-top:1px solid #E4DCCB}
+@media (max-width:860px){.room.isfirst{padding-top:calc(70px + 18px)}}
 </style>
 <script>
 (function(){
@@ -371,6 +378,32 @@ img{display:block;max-width:100%}
   <a href="../../" aria-label="Energy Muse home"><img class="blogo" src="../../assets/img/logo.svg" alt="Energy Muse" onerror="this.src='../../assets/img/logo.png'"></a>
   <a class="bag" href="#" aria-label="Open bag">Bag (<span class="bagn">0</span>)</a>
 </header>
+
+<section class="room roomin isfirst" id="instrument">
+  <div class="field" aria-hidden="true"></div>
+
+  <div class="lede">
+    <span class="eyebrow">The frequency room</span>
+    <div class="readout">
+      <span class="num" id="num">528</span><span class="unit">Hz</span>
+    </div>
+    <div class="tname" id="tname">Repair</div>
+    <p class="tsay" id="tsay"></p>
+
+    <div class="wave"><canvas id="wave" aria-hidden="true"></canvas></div>
+
+    <div class="dial">
+      <div class="track"><div class="fillbar" id="fill"></div></div>
+      <div class="stops" id="stops" role="tablist" aria-label="Choose a frequency"></div>
+      <div class="dialhint">Turn the dial &mdash; the room re-tunes</div>
+    </div>
+  </div>
+
+  <div class="device" id="device">
+    <img src="../../assets/img/generator-render.webp" alt="The Energy Muse frequency generator">
+    <canvas id="dev"></canvas>
+  </div>
+</section>
 
 <section class="state">
   <span class="cue" aria-hidden="true"><i></i></span>
@@ -413,32 +446,6 @@ img{display:block;max-width:100%}
       <p style="margin-top:18px;font-size:12px;color:#8994A6;max-width:46ch">Frequency generators are not medical devices and are not a substitute for healthcare. Experiences vary.</p>
     </div>
     <div class="buyart"></div>
-  </div>
-</section>
-
-<section class="room roomin" id="instrument">
-  <div class="field" aria-hidden="true"></div>
-
-  <div class="lede">
-    <span class="eyebrow">The frequency room</span>
-    <div class="readout">
-      <span class="num" id="num">528</span><span class="unit">Hz</span>
-    </div>
-    <div class="tname" id="tname">Repair</div>
-    <p class="tsay" id="tsay"></p>
-
-    <div class="wave"><canvas id="wave" aria-hidden="true"></canvas></div>
-
-    <div class="dial">
-      <div class="track"><div class="fillbar" id="fill"></div></div>
-      <div class="stops" id="stops" role="tablist" aria-label="Choose a frequency"></div>
-      <div class="dialhint">Turn the dial &mdash; the room re-tunes</div>
-    </div>
-  </div>
-
-  <div class="device" id="device">
-    <img src="../../assets/img/generator-render.webp" alt="The Energy Muse frequency generator">
-    <canvas id="dev"></canvas>
   </div>
 </section>
 

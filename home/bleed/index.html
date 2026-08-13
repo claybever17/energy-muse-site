@@ -338,13 +338,19 @@ html.static .fallback{display:block}
 @media (max-width:900px){.bleed{height:calc(100svh - 116px);min-height:380px;}
   /* 18% frames the room on a wide screen and crops the generator clean out
      of a narrow one — a hero photograph with its subject outside the frame */
-  .bleed>img{object-position:57% 46%;}}
+}
 /* The source is 2000x750 and the box is taller than that ratio, so the crop
    only ever slides horizontally — which is the one axis that decides whether
    the device lands under the headline. Pushed to 18%, the device sits well
    right of where the type ends, and the empty floor and pouf take the left
    where the words are. */
 .bleed>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:18% 50%;}
+/* On a narrow tall box, cover keeps only about a fifth of a 2000x750 frame.
+   18% frames the room on a wide screen and lands squarely on the throw here,
+   so the phone crop centres on the product instead. This has to sit after the
+   base rule, not before it — the earlier attempt was in a media query above
+   and simply lost. */
+@media (max-width:900px){.bleed>img{object-position:50% 48%;}}
 /* two scrims, not one: the vertical for the type's footing, and a soft
    left-weighted one so the words always have something behind them wherever
    the crop lands */
@@ -464,7 +470,7 @@ html.static .fallback{display:block}
    as a paragraph, and neither of these is a paragraph */
 .c1 .lede{max-width:none;white-space:nowrap;}
 .c2 p{max-width:none;}
-@media (max-width:700px){.c1 .lede{white-space:normal;max-width:15ch;}}
+@media (max-width:700px){.c1 .lede{white-space:nowrap;font-size:clamp(19px,5.6vw,26px);max-width:none;}}
 
 
 /* the cap wrapper is what was holding it to three lines, not the paragraph */

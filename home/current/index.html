@@ -95,6 +95,7 @@ p{text-wrap:pretty}
 @media (min-width:900px){.devwrap{left:69%;width:min(720px,48vw)}}
 .devwrap canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
 #meshc{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+#spiroc{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
 #lines{position:absolute;inset:0;width:100%;height:100%;display:block}
 #lines path{fill:none;stroke:var(--line);stroke-width:1.6;vector-effect:non-scaling-stroke;stroke-linecap:round}
 
@@ -394,6 +395,7 @@ html.static .fallback{display:block}
     <div class="bgglow"></div>
     <div class="markglow" id="markglow"></div>
     <div class="photo" id="photo"></div>
+    <canvas id="spiroc" aria-hidden="true"></canvas>
     <div class="devwrap" id="devwrap"><canvas id="dev"></canvas></div>
     <canvas id="meshc" aria-hidden="true"></canvas>
     <svg id="lines" aria-hidden="true">
@@ -585,6 +587,7 @@ var devwrap=document.getElementById('devwrap'),devCanvas=document.getElementById
 var caps={c1:document.getElementById('c1'),c2:document.getElementById('c2'),c3:document.getElementById('c3'),
           c4:document.getElementById('c4'),c6:document.getElementById('c6')};
 var hzval=document.getElementById('hzval');
+var spiroc=document.getElementById('spiroc'), sctx=spiroc.getContext('2d');
 var W=0,H=0,N=200;
 
 var MK=null;
@@ -660,7 +663,10 @@ function sampleMark(){
   /* true center of the emblem's outer circle — the artwork is not centered in its viewBox */
   MK.ccx=(xmin+xmax)/2;MK.ccy=(ymin+ymax)/2;
 }
-function resize(){W=stage.clientWidth;H=stage.clientHeight;svg.setAttribute('viewBox','0 0 '+W+' '+H);N=W<700?150:200;
+function resize(){var sdpr=Math.min(devicePixelRatio||1,1.6);
+  spiroc.width=Math.round(stage.clientWidth*sdpr);spiroc.height=Math.round(stage.clientHeight*sdpr);
+  sctx.setTransform(sdpr,0,0,sdpr,0,0);
+  W=stage.clientWidth;H=stage.clientHeight;svg.setAttribute('viewBox','0 0 '+W+' '+H);N=W<700?150:200;
   /* the mesh canvas matches the SVG's box, at device resolution — hairlines
      drawn at 1x on a retina screen come out muddy, and muddy is the one
      thing a field of fine filaments cannot survive */
@@ -780,6 +786,7 @@ function frame(p,t){
     mctx.lineCap='round';mctx.lineJoin='round';
   }
 
+  sctx.clearRect(0,0,W,H);
   for(var k=0;k<5;k++){
     var path=paths[k];
     var off=SIG_OFF[k]*spread*H;
@@ -883,6 +890,42 @@ function frame(p,t){
 
   /* the device stays on stage longer — this is the product, and the film
      was moving off it before anyone had finished reading */
+  /* The close was one drawn circle around the words. Rings expand out of that
+     centre now — each one a stack of copies stepped back and up, so it has a
+     wall rather than being a line, and each is born, swells and dies on its
+     own clock. Concentric, because this is the beat where the mark closes. */
+  var rp=ease(win(p,.760,.830))*(1-ease(win(p,.930,.975)));
+  if(rp>.004){
+    /* the same centre the closing ring itself uses — it sat 4% of the height
+       above it, so the ripples and the mark were never concentric */
+    var rcx=ringCx, rcy=ringCy, rmax=Math.min(W,H)*(mob?.62:.86);
+    for(var ri=0;ri<(mob?6:11);ri++){
+      var ph=((t*.052+ri/(mob?6:11))%1);
+      var rad=rmax*(.10+.90*ph);
+      var born=Math.sin(Math.PI*ph);
+      var ra=rp*born*.34;
+      if(ra<.004)continue;
+      for(var rw=0;rw<(mob?4:7);rw++){
+        var dz=rw/(mob?4:7);
+        sctx.beginPath();
+        for(var q=0;q<=76;q++){
+          var th=q/76*Math.PI*2;
+          var rr=rad*(1-dz*.055);
+          /* true circles: the ring they surround is circular, and a flattened
+             ripple around a round mark reads as an error */
+          sctx.lineTo(rcx+Math.cos(th)*rr+dz*W*.009,
+                      rcy+Math.sin(th)*rr-dz*H*.020);
+        }
+        sctx.closePath();
+        sctx.globalAlpha=ra*Math.pow(1-dz,1.1);
+        sctx.lineWidth=(.95-dz*.45)*(1-ph*.35);
+        sctx.strokeStyle=lc;
+        sctx.stroke();
+      }
+    }
+    sctx.globalAlpha=1;
+  }
+
   var devOp=win(p,.50,.57)*(1-win(p,.688,.748));
   devwrap.style.opacity=devOp.toFixed(2);
   /* the lifestyle band, timed as it always was on desktop */
