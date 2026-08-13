@@ -907,7 +907,11 @@ function frame(p,t){
   var gwV=ease(win(p,.505,.60))*(1-ease(win(p,.700,.762)));
   if(gwV>.004){
     sctx.lineCap='round';
-    var gcx=W>700?W*.66:W*.5, gcy=H*.50, gmax=Math.min(W,H)*(mob?.66:.92);
+    /* the rings have to leave from where the device actually is, and that is
+       69% at the desktop breakpoint, not 66% — three percent of the width is
+       enough for the whole figure to read as sitting beside the product
+       rather than coming out of it */
+    var gcx=W>=900?W*.69:W*.5, gcy=H*.50, gmax=Math.min(W,H)*(mob?.66:.92);
     var gN=mob?6:12, gW=mob?4:8;
     for(var gi=0;gi<gN;gi++){
       var gph=((t*.058+gi/gN)%1);
