@@ -996,6 +996,46 @@ function frame(p,t){
     var REST={1:'#A9683E',2:'#C08356',3:'#35907B'};
     path.style.stroke = (mk&&morph<1)? mix(REST[k],'#A9683E',morph) : '';
   }
+  /* Behind the generator: not the closed rings that were here before, which
+     read as a radar dish. These are open arcs on the plane in front of it —
+     the same swept-sheet language as the opening, which is the one that
+     works: each arc a small stack of copies stepped back and lifted, sampled
+     finely enough to stay a curve. They do not march outward; they breathe,
+     so it reads as something the device is doing rather than something being
+     emitted at you. */
+  var gvV=ease(win(p,.505,.60))*(1-ease(win(p,.700,.762)));
+  if(gvV>.004){
+    sctx.lineCap='round';sctx.lineJoin='round';
+    var gvx=W>=900?W*.69:W*.5, gvy=H*.52;
+    var gvN=mob?5:9;
+    for(var gv=0;gv<gvN;gv++){
+      var gf=gv/(gvN-1);
+      var puls=0.5+0.5*Math.sin(t*.55-gf*2.1);          /* the breath */
+      var grad=Math.min(W,H)*(0.20+gf*0.62)*(0.94+0.06*puls);
+      var ga=gvV*(0.16-gf*0.105)*(0.55+0.45*puls);
+      if(ga<.003)continue;
+      var rows=mob?3:5;
+      for(var gr=0;gr<rows;gr++){
+        var gdz=gr/rows;
+        sctx.beginPath();
+        for(var gq=0;gq<=64;gq++){
+          /* the near arc only: from a little past the left of the device round
+             to a little past its right, so it frames the product rather than
+             enclosing it */
+          var ga2=Math.PI*(0.12+0.76*(gq/64));
+          var rr=grad*(1-gdz*.045);
+          sctx.lineTo(gvx-Math.cos(ga2)*rr+gdz*W*.008,
+                      gvy+Math.sin(ga2)*rr*0.34-gdz*H*.020);
+        }
+        sctx.globalAlpha=ga*Math.pow(1-gdz,1.0);
+        sctx.lineWidth=0.9-gdz*0.38;
+        sctx.strokeStyle=lc;
+        sctx.stroke();
+      }
+    }
+    sctx.globalAlpha=1;
+  }
+
   var mg=(1-win(p,.07,.14))*(0.55+0.25*Math.sin(t*1.6));
   var gAmt=Math.max(mg*.7,win(p,.4,.7));
   svg.style.filter='drop-shadow(0 0 '+lerp(0,10,gAmt).toFixed(1)+'px rgba(224,168,120,'+lerp(0,.85,gAmt).toFixed(2)+'))';
