@@ -512,7 +512,11 @@ html.static .fallback{display:block}
   .bleed-in{left:clamp(16px,5vw,26px);right:clamp(16px,5vw,26px);bottom:clamp(16px,3vh,26px);}
   .bleed h1{white-space:nowrap;font-size:clamp(24px,8.2vw,36px);}
   .bleed .sub{font-size:13.5px;margin-top:7px;}
-  .bleed .row{margin-top:12px;}
+  /* the button was inheriting a desktop-sized target and reading as a slab
+     across half the panel — a call to action, not a banner */
+  .bleed .row{margin-top:11px;}
+  .bleed .row .btn{padding:11px 18px;font-size:12px;letter-spacing:.09em;
+    border-radius:3px;width:auto;flex:0 0 auto;}
   .scrollcue{height:22px;}
   /* Chasing the crop could not solve this: wherever the product lands, its own
      printed wordmark is somewhere in the frame, and on a phone the copy has

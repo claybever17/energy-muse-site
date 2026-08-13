@@ -342,13 +342,17 @@ html.static .fallback{display:block}
   /* Two across put five photographic tiles into three rows, 748px of them in
      an 812px screen, so the last row sat behind the shop drawer. Three across
      in two rows clears it, and the taller crop stops the faces being cut. */
-  .c3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;top:19svh;padding:0 14px}
-  .c3 a{aspect-ratio:3/3.7}
-  .c3 a .lb{padding:0 9px 11px}
-  .c3 a i{font-size:7.5px;letter-spacing:.16em}
-  .c3 a b{font-size:14px;margin-top:3px}
-  .c3 a:nth-child(4){grid-column:1/2}
-  .c3 a:nth-child(5){grid-column:2/4;aspect-ratio:auto}
+  /* Three across put the fourth card in its own column and the fifth across
+     two, and the pair came out 25px left of the grid with "Love" hanging off
+     the screen edge at x=-11. Two across is the arrangement this actually
+     wants: even columns, no spanning, the odd fifth centred underneath. There
+     is room for three rows now that the drawer sits clear. */
+  .c3{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;top:9svh;padding:0 15px}
+  .c3 a{aspect-ratio:3/3.05;max-width:none}
+  .c3 a .lb{padding:0 11px 12px}
+  .c3 a i{font-size:8px;letter-spacing:.17em}
+  .c3 a b{font-size:15px;margin-top:3px}
+  .c3 a:nth-child(5){grid-column:1/-1;justify-self:center;width:calc(50% - 4.5px);aspect-ratio:3/3.05}
   .c6{justify-content:flex-start;padding-top:52svh}
   .c6 h2{font-size:30px}
   .c6 .row{flex-direction:column;align-items:center;width:min(320px,86vw);margin-top:22px;gap:12px}
@@ -1276,7 +1280,10 @@ function frame(p,t){
      empty above and below is what the arc now occupies. */
   var rideIn=ease(win(p,.28,.40));
   for(var ci=0;ci<c3kids.length;ci++){
-    var trail=((1-c3in)+c3out)*ci*2.2;
+    /* the trail belongs to a five-across row sweeping in as one piece. On a
+       2-up grid it pushed rows two and three 16px left of their columns,
+       hanging "Calm" off the screen edge. */
+    var trail=W>900?((1-c3in)+c3out)*ci*2.2:0;
     var cu=(ci+.5)/c3kids.length;
     /* the ride belongs to a five-across row. On a phone the cards wrap to a
        2-up grid, where the same offsets stagger them to different heights
