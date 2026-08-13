@@ -898,6 +898,41 @@ function frame(p,t){
     sctx.globalAlpha=1;
   }
 
+  /* Behind the generator, and deliberately not what v2 does there. v2 sweeps
+     horizontal sheets past the product; this is the coil's own geometry
+     leaving it — rings born at the face, expanding and dying, each one a
+     stack of copies stepped back and lifted so it has a wall rather than
+     being a line. Flattened hard on the vertical so they read as lying on a
+     plane the device is sitting on, not as circles pasted on the glass. */
+  var gwV=ease(win(p,.505,.60))*(1-ease(win(p,.700,.762)));
+  if(gwV>.004){
+    sctx.lineCap='round';
+    var gcx=W>700?W*.66:W*.5, gcy=H*.50, gmax=Math.min(W,H)*(mob?.66:.92);
+    var gN=mob?6:12, gW=mob?4:8;
+    for(var gi=0;gi<gN;gi++){
+      var gph=((t*.058+gi/gN)%1);
+      var grad=gmax*(.08+.92*gph);
+      var ga=gwV*Math.sin(Math.PI*gph)*.30;
+      if(ga<.004)continue;
+      for(var gw=0;gw<gW;gw++){
+        var gdz=gw/gW;
+        sctx.beginPath();
+        for(var gq=0;gq<=80;gq++){
+          var gth=gq/80*Math.PI*2;
+          var grr=grad*(1-gdz*.05);
+          sctx.lineTo(gcx+Math.cos(gth)*grr+gdz*W*.010,
+                      gcy+Math.sin(gth)*grr*.30-gdz*H*.026);
+        }
+        sctx.closePath();
+        sctx.globalAlpha=ga*Math.pow(1-gdz,1.05);
+        sctx.lineWidth=(1.0-gdz*.45)*(1-gph*.30);
+        sctx.strokeStyle=lc;
+        sctx.stroke();
+      }
+    }
+    sctx.globalAlpha=1;
+  }
+
   for(var k=0;k<5;k++){
     var path=paths[k];
     var off=SIG_OFF[k]*spread*H;
