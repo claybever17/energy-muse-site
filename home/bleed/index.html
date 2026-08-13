@@ -322,7 +322,9 @@ html.static .fallback{display:block}
   .c3 a{padding:12px 8px 28px;font-size:17px}
   .c3 a::after{bottom:9px;font-size:9px}
   .c3 a:nth-child(5){grid-column:1/-1;justify-self:center;min-width:62%}
-  .c6{justify-content:flex-start;padding-top:52svh}
+  /* pinned 52% down with flex-start, so the entire lower half of the screen
+     sat empty under the buttons. Centred, the air divides evenly. */
+  .c6{justify-content:center;padding-top:0}
   .c6 h2{font-size:30px}
   .c6 .row{flex-direction:column;align-items:center;width:min(320px,86vw);margin-top:22px;gap:12px}
   .c6 .row .btn{width:100%;justify-content:center}
@@ -540,6 +542,41 @@ html.static .fallback{display:block}
   .c4{bottom:14svh}
   .c2{top:30svh}
 }
+
+/* ---------- the wave, as an undertone ----------
+   Not a feature anywhere it appears. The film argues in waves and then the
+   page under it goes quiet, which is what made the lower half read as a
+   different site. This is the same line laid in behind a handful of sections
+   at a tenth of the weight — you register it without looking at it, and it
+   stops the page changing its mind halfway down.
+
+   Three paths, so the crossings give it a little depth; no canvas and no
+   script, because an undertone should not cost a frame. Each placement gets
+   its own size, angle and height, so it never repeats a shape you have
+   already seen. */
+.wavehint{position:absolute;left:50%;pointer-events:none;z-index:0;
+  width:min(1600px,168%);color:var(--copper,#A9683E);opacity:.085;}
+.wavehint svg{width:100%;height:auto;display:block;overflow:visible;}
+.wavehint path{fill:none;stroke:currentColor;stroke-width:1;vector-effect:non-scaling-stroke;}
+.wavehint path:nth-child(2){opacity:.6}
+.wavehint path:nth-child(3){opacity:.38}
+.wavehint.wa{top:8%;transform:translateX(-51%) rotate(-2deg);}
+.wavehint.wb{top:52%;transform:translateX(-46%) rotate(1.6deg) scaleY(1.5);opacity:.07;}
+.wavehint.wc{top:26%;transform:translateX(-56%) rotate(-1deg) scaleY(.72);opacity:.10;}
+.wavehint.wd{top:60%;transform:translateX(-42%) rotate(2.6deg) scaleX(-1) scaleY(1.2);opacity:.075;}
+@media (max-width:840px){.wavehint{width:230%;opacity:.06;}}
+@media (prefers-reduced-motion:no-preference){
+  .wavehint{animation:wavedrift 38s ease-in-out infinite alternate;}
+  .wavehint.wb{animation-duration:47s;animation-delay:-9s;}
+  .wavehint.wc{animation-duration:41s;animation-delay:-19s;}
+  .wavehint.wd{animation-duration:53s;animation-delay:-5s;}
+}
+@keyframes wavedrift{to{translate:2.2% 0;}}
+
+.cstore,.csub,.why,.tuned,.shop,.join,.band,.gen,.sign{position:relative;overflow:hidden;}
+.cstore > *:not(.wavehint),.csub > *:not(.wavehint),.why > *:not(.wavehint),
+.tuned > *:not(.wavehint),.shop > *:not(.wavehint),.join > *:not(.wavehint),
+.band > *:not(.wavehint),.gen > *:not(.wavehint),.sign > *:not(.wavehint){position:relative;z-index:1;}
 </style>
 <script>
 (function(){
@@ -780,6 +817,7 @@ html.static .fallback{display:block}
   </section>
 
   <section class="cstore" id="shop" aria-label="Shop crystals">
+  <div class="wavehint wd" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,134 C90,60 180,58 268,120 S440,198 520,126 S690,44 772,118 S930,184 1000,142"/><path d="M0,86 C74,152 158,160 246,96 S404,18 496,92 S672,172 760,104 S918,38 1000,76"/></svg></div>
     <div class="in">
       <div class="hd">
         <span class="eyebrow">The shop</span>
@@ -828,6 +866,7 @@ html.static .fallback{display:block}
   </section>
 
   <section class="csub" aria-label="Email signup">
+  <div class="wavehint wc" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,134 C90,60 180,58 268,120 S440,198 520,126 S690,44 772,118 S930,184 1000,142"/><path d="M0,86 C74,152 158,160 246,96 S404,18 496,92 S672,172 760,104 S918,38 1000,76"/></svg></div>
     <div class="in">
       <div>
         <h2>One practice, once a week.</h2>
