@@ -360,6 +360,18 @@ html.static .fallback{display:block}
 @media (min-width:701px){.c2 p span{display:block;}}
 
 .cpromo p,.after .lede,.after p{text-wrap:balance;}
+/* On a phone the line sat at a third of the screen and the mark at seven
+   tenths, with nothing between them — two things too far apart to read as
+   one. Closed up into a group. */
+@media (max-width:700px){.c1{top:24svh}}
+/* Per-beat spacing on a phone: the device sat centred with the caption
+   pinned near the foot, which left the top quarter of the screen empty on
+   every frame of that chapter. The pair moves up and closes together. */
+@media (max-width:700px){
+  .devwrap{top:41%}
+  .c4{bottom:14svh}
+  .c2{top:30svh}
+}
 </style>
 </head>
 <body>
@@ -598,7 +610,7 @@ function sampleMark(){
      centre line makes them one composition; the extra width moves it clear
      of where the headline now ends. */
   var vb=[231.33,238.67], scale=Math.min(W,H)*0.40/vb[1];
-  var ecx=W>700?W*0.655:W*0.5, ecy=W>700?H*0.425:H*0.70;
+  var ecx=W>700?W*0.655:W*0.5, ecy=W>700?H*0.425:H*0.54;
   var host=document.getElementById('mksrc'), NS='http://www.w3.org/2000/svg';
   MK=[0,1,2].map(function(i){
     var subs=document.getElementById('mk'+i).getAttribute('d').split(/(?=M)/);
@@ -880,7 +892,7 @@ function frame(p,t){
   svg.style.filter='drop-shadow(0 0 '+lerp(0,10,gAmt).toFixed(1)+'px rgba(224,168,120,'+lerp(0,.85,gAmt).toFixed(2)+'))';
 
   /* --- layers --- */
-  var ecxg=W>700?W*0.655:W*0.5, ecyg=W>700?H*0.425:H*0.70;
+  var ecxg=W>700?W*0.655:W*0.5, ecyg=W>700?H*0.425:H*0.54;
   markglow.style.left=ecxg+'px';markglow.style.top=ecyg+'px';
   markglow.style.opacity=((1-win(p,.10,.22))*(0.5+0.16*Math.sin(t*1.3))).toFixed(2);
   st.setProperty('--cornero',(1-win(p,.3,.55)).toFixed(2));

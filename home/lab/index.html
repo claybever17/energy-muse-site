@@ -249,7 +249,15 @@ p{text-wrap:pretty}
 .cpromo .row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:20px;}
 .cpromo .price{font-family:var(--serif);font-weight:300;font-size:25px;color:#8F5330;}
 .cpromo .price s{font-size:.62em;color:#8D8778;margin-right:8px;}
+/* the same line that runs the film, laid in behind the product here so the
+   promo belongs to the page rather than reading as a stock panel */
 .cpromo .art{position:relative;display:flex;align-items:center;justify-content:center;}
+.artwave{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;
+  color:#A9683E;opacity:.20;overflow:visible}
+.artwave path{fill:none;stroke:currentColor;stroke-width:1;vector-effect:non-scaling-stroke}
+.artwave path:nth-child(2){opacity:.66}.artwave path:nth-child(3){opacity:.5}
+.artwave path:nth-child(4){opacity:.38}.artwave path:nth-child(5){opacity:.28}
+.cpromo .art img{position:relative;z-index:1}
 .cpromo .art img{width:min(72%,290px);border-radius:10px;
   filter:drop-shadow(0 14px 28px rgba(61,41,23,.22));}
 
@@ -370,7 +378,9 @@ html.static .fallback{display:block}
 /* At 72px the line ran to x=821 while the mark begins at 732 — 89px of the
    headline sitting on top of the logo. Sized to finish clear of it. */
 .c1 h1{white-space:nowrap;font-size:clamp(31px,4.15vw,58px);}
-@media (max-width:700px){.c1 h1{white-space:normal;font-size:clamp(31px,9.4vw,52px);}}
+/* one line on a phone as well: it fits at 8vw, and the break after "made"
+   was leaving the italic stranded on a line by itself */
+@media (max-width:700px){.c1 h1{white-space:nowrap;font-size:clamp(23px,7.9vw,34px);}}
 
 
 /* Same rule as the hero copy: a sentence gets a line, it does not get chopped
@@ -380,6 +390,27 @@ html.static .fallback{display:block}
 @media (min-width:701px){.c2 p span{display:block;}}
 
 .cpromo p,.after .lede,.after p{text-wrap:balance;}
+/* On a phone the line sat at a third of the screen and the mark at seven
+   tenths, with nothing between them — two things too far apart to read as
+   one. Closed up into a group. */
+@media (max-width:700px){.c1{top:24svh}}
+/* On a phone the film's last caption keeps a desktop-sized run-out under it
+   and the promo opens with its own full padding, so two lots of air stack
+   into a dead screen between them. Both come in. */
+@media (max-width:700px){
+  .c6{padding-top:44svh}
+  .cpromo{padding:clamp(24px,5vw,40px) 0}
+  .cpromo .in{gap:14px}
+  .cpromo .art img{width:min(58%,220px)}
+}
+/* Per-beat spacing on a phone: the device sat centred with the caption
+   pinned near the foot, which left the top quarter of the screen empty on
+   every frame of that chapter. The pair moves up and closes together. */
+@media (max-width:700px){
+  .devwrap{top:41%}
+  .c4{bottom:14svh}
+  .c2{top:30svh}
+}
 </style>
 </head>
 <body>
@@ -504,7 +535,7 @@ html.static .fallback{display:block}
           <a class="btn btn-c" href="../../generator/">Shop the generator</a>
         </div>
       </div>
-      <div class="art"><img src="../../assets/img/generator-render.webp" alt="The Energy Muse frequency generator in a copper housing" loading="lazy"></div>
+      <div class="art"><svg class="artwave" viewBox="0 0 600 420" preserveAspectRatio="none" aria-hidden="true"><path d="M-20,210 C90,120 190,120 300,210 S510,300 620,210"/><path d="M-20,238 C100,166 210,158 318,222 S520,318 620,252"/><path d="M-20,182 C86,254 196,262 306,196 S508,116 620,168"/><path d="M-20,262 C110,200 200,196 300,252 S500,340 620,290"/><path d="M-20,158 C96,206 206,214 312,166 S512,92 620,140"/></svg><img src="../../assets/img/generator-render.webp" alt="The Energy Muse frequency generator in a copper housing" loading="lazy"></div>
     </div>
   </section>
 
@@ -617,8 +648,10 @@ function sampleMark(){
      0.33H — two objects at two heights with a void under both. Sharing a
      centre line makes them one composition; the extra width moves it clear
      of where the headline now ends. */
-  var vb=[231.33,238.67], scale=Math.min(W,H)*0.40/vb[1];
-  var ecx=W>700?W*0.655:W*0.5, ecy=W>700?H*0.425:H*0.70;
+  /* larger: at 0.40 of the short side it read as a small badge sitting in a
+     lot of empty screen rather than the thing the film is about */
+  var vb=[231.33,238.67], scale=Math.min(W,H)*(W>700?0.52:0.62)/vb[1];
+  var ecx=W>700?W*0.655:W*0.5, ecy=W>700?H*0.425:H*0.54;
   var host=document.getElementById('mksrc'), NS='http://www.w3.org/2000/svg';
   MK=[0,1,2].map(function(i){
     var subs=document.getElementById('mk'+i).getAttribute('d').split(/(?=M)/);
@@ -910,8 +943,14 @@ function frame(p,t){
      The body now opens as they settle: visible almost as soon as the mark has
      let go, and inflating from nothing to full depth across the chapter, so
      it reads as the wave gaining volume rather than a texture switching on. */
-  var meshVis=ease(win(p,.145,.25))*(1-ease(win(p,.40,.50)));
-  var meshDepth=.16+.84*ease(win(p,.15,.34));
+  /* The opening had almost no body: the field only arrived once the strands
+     had already separated, so the beat where the mark lets go — the one that
+     should read as something coming apart in three dimensions — was the
+     flattest in the film. It starts while the mark is still unwinding and
+     inflates from nearly nothing, so the volume grows out of the tangle
+     rather than switching on after it. */
+  var meshVis=ease(win(p,.085,.20))*(1-ease(win(p,.40,.50)));
+  var meshDepth=.05+.95*ease(win(p,.09,.34));
   var anyHi=Math.max(hi[0],hi[1],hi[2],hi[3],hi[4]);
   FAR=mix(bg,'#6E7F94',.34);
   mctx.clearRect(0,0,W,H);mctxf.clearRect(0,0,W,H);
@@ -940,6 +979,7 @@ function frame(p,t){
            hard vertical edge — the clipped look. Pushed past both margins, the
            convergence happens off-screen where it belongs. */
         var fx0=x0-W*.15, fx1=x1+W*.15;
+        var mkf=mk, brf=breathe, caf=ca, saf=sa;
         field(function(u,dz){
           /* The direction "away" points is not fixed along the ribbon — it
              rotates. That is the whole difference between a stack of bands and
@@ -948,9 +988,24 @@ function frame(p,t){
              lobe. Flat offsets can only ever make bands, however many of them
              you draw and however much they slip. */
           var roll=u*Math.PI*FTW[kk]+t*.11+kk;
-          return [lerp(fx0,fx1,.5+(u-.5)*(1-dz*FSQ[kk]))+dz*W*FDX[kk]*(.35+.95*Math.cos(roll)),
-                  cy+offk+dz*H*FDY[kk]*(.45+.85*Math.sin(roll))+
-                  sig(kk,u,t,amp*(1-dz*FAM[kk]),-dz*FSL[kk])];
+          var bx=lerp(fx0,fx1,.5+(u-.5)*(1-dz*FSQ[kk]));
+          var by=cy+offk+sig(kk,u,t,amp*(1-dz*FAM[kk]),-dz*FSL[kk]);
+          /* While the mark is still unwinding, the body belongs to the mark:
+             the same lerp the stroke itself uses, so the volume is wrapped
+             around the logo and comes apart with it rather than appearing
+             beside it out of nowhere. */
+          if(mkf&&morph<1){
+            var idx=Math.min(Math.round(u*N), mkf.pts.length-1);
+            var p0=mkf.pts[idx];
+            var qx=(p0[0]-mkf.cx)*brf, qy=(p0[1]-mkf.cy)*brf;
+            var mx=mkf.cx+qx*caf-qy*saf, my=mkf.cy+qx*saf+qy*caf;
+            var mi=ease(clamp(morph*1.62-u*.62,0,1));
+            bx=lerp(mx,bx,mi); by=lerp(my,by,mi);
+          }
+          /* the depth offset is added last, so the sweep survives the morph
+             instead of collapsing flat onto the mark's own path */
+          return [bx+dz*W*FDX[kk]*(.35+.95*Math.cos(roll)),
+                  by+dz*H*FDY[kk]*(.45+.85*Math.sin(roll))];
         },Math.round(RIBS*FRB[kk]),
           meshVis*opk*clamp(1+hi[kk]*1.05-(anyHi-hi[kk])*.58,.3,2.2),lc,meshDepth);
       })(k,off,op);
@@ -1064,7 +1119,22 @@ function frame(p,t){
 
   var devF=ease(win(p,.505,.60))*(1-ease(win(p,.725,.795)));
   if(devF>.004){
-    var dfx=lerp(-W*.58,0,ease(win(p,.505,.63)))+ease(win(p,.725,.80))*W*.52;
+    /* It used to leave by translating the whole field sideways off the page —
+       one rigid object sliding away, which is what read as a swipe. It settles
+       instead: the sheets flatten toward a single line and the depth folds
+       shut, so the wave stops being a wave rather than being removed. The
+       entrance still travels, because arriving from somewhere is fine; it is
+       leaving that wanted to look like the wave coming to rest. */
+    /* Neither end travels now. It used to enter by sliding in from half a
+       screen to the left and leave the same way — one rigid object swiping
+       across, which is exactly what looked wrong. It comes into being instead:
+       flat and invisible, then the amplitude and the depth open together, so
+       the wave rises out of the ground rather than arriving from off-stage.
+       It leaves by the same move in reverse. */
+    var dfIn=ease(win(p,.500,.625));
+    var dfOut=ease(win(p,.712,.80));
+    var dfFlat=dfIn*(1-dfOut);          /* amplitude and depth open, then close */
+    var dfx=0, dfDrift=0;
     /* One flat ribbon here against five rolling ones everywhere else — it was
        the thinnest beat in the film and the only one that never learned to
        fold. Three surfaces now, at different heights, rolling at different
@@ -1075,19 +1145,22 @@ function frame(p,t){
        tuned for paper, where anything stronger goes muddy, and dark ground
        will take several times that before it is even noticeable. Five sheets
        instead of three, deeper spread, and the whole beat carried at 2.8x. */
-    var DEVF=[[-.105,-.052,-.168,2.60,10.4,.86],
-              [-.052,-.038,-.140,2.05, 9.2,1.00],
-              [ 0.000, .066,-.112,1.45, 7.4,1.14],
-              [ .052, .044,-.086,0.95, 6.0,.94],
-              [ .104, .030,-.062,0.62, 4.8,.74]];
+    var DEVF=[[-.140,-.060,-.205,3.05,11.6,.78],
+              [-.092,-.048,-.176,2.60,10.4,.90],
+              [-.045,-.034,-.148,2.05, 9.2,1.06],
+              [ 0.000, .072,-.120,1.45, 7.4,1.22],
+              [ .048, .050,-.094,0.95, 6.0,1.02],
+              [ .096, .034,-.070,0.62, 4.8,.82],
+              [ .142, .024,-.052,0.44, 3.9,.66]];
     for(var dvi=0;dvi<DEVF.length;dvi++){
       (function(c){
         field(function(u,dz){
           var roll=u*Math.PI*c[3]+t*.09+dvi*2.1;
-          return [lerp(-W*.08,W*1.08,.5+(u-.5)*(1-dz*.07))+dfx+dz*W*c[1]*(.35+.95*Math.cos(roll)),
-                  H*(.5+c[0])+dz*H*c[2]*(.45+.85*Math.sin(roll))+
-                  sig(2,u,t,H*.072*(1-dz*.3),-dz*c[4])];
-        },Math.round((mob?18:42)*c[5]),devF*2.8,lc,1,
+          return [lerp(-W*.08,W*1.08,.5+(u-.5)*(1-dz*.07))+dfx+dfDrift
+                    +dz*W*c[1]*(.35+.95*Math.cos(roll))*dfFlat,
+                  H*(.5+c[0]*dfFlat)+dz*H*c[2]*(.45+.85*Math.sin(roll))*dfFlat+
+                  sig(2,u,t,H*.072*(1-dz*.3)*dfFlat,-dz*c[4])];
+        },Math.round((mob?24:56)*c[5]),devF*4.1,lc,1,
           function(uu){return uu*Math.PI*c[3]+t*.09+dvi*2.1;});
       })(DEVF[dvi]);
     }
@@ -1115,7 +1188,7 @@ function frame(p,t){
   svg.style.filter='drop-shadow(0 0 '+lerp(0,10,gAmt).toFixed(1)+'px rgba(224,168,120,'+lerp(0,.85,gAmt).toFixed(2)+'))';
 
   /* --- layers --- */
-  var ecxg=W>700?W*0.655:W*0.5, ecyg=W>700?H*0.425:H*0.70;
+  var ecxg=W>700?W*0.655:W*0.5, ecyg=W>700?H*0.425:H*0.54;
   markglow.style.left=ecxg+'px';markglow.style.top=ecyg+'px';
   markglow.style.opacity=((1-win(p,.10,.22))*(0.5+0.16*Math.sin(t*1.3))).toFixed(2);
   st.setProperty('--cornero',(1-win(p,.3,.55)).toFixed(2));

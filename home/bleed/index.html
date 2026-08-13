@@ -335,10 +335,7 @@ html.static .fallback{display:block}
    an image. */
 .bleed{position:relative;margin-top:70px;height:calc(100svh - 96px);min-height:430px;
   min-height:400px;overflow:hidden;background:#1A1208;}
-@media (max-width:900px){.bleed{height:calc(100svh - 116px);min-height:380px;}
-  /* 18% frames the room on a wide screen and crops the generator clean out
-     of a narrow one — a hero photograph with its subject outside the frame */
-}
+
 /* The source is 2000x750 and the box is taller than that ratio, so the crop
    only ever slides horizontally — which is the one axis that decides whether
    the device lands under the headline. Pushed to 18%, the device sits well
@@ -350,7 +347,11 @@ html.static .fallback{display:block}
    so the phone crop centres on the product instead. This has to sit after the
    base rule, not before it — the earlier attempt was in a media query above
    and simply lost. */
-@media (max-width:900px){.bleed>img{object-position:50% 48%;}}
+/* the device carries its own printed wordmark, and at 46% it landed exactly
+   on the line of copy — two wordmarks arguing in the same 20px. Showing
+   more of the frame's lower half lifts the product, and its mark with it,
+   clear of where the type sits. */
+@media (max-width:900px){.bleed>img{object-position:50% 64%;}}
 /* two scrims, not one: the vertical for the type's footing, and a soft
    left-weighted one so the words always have something behind them wherever
    the crop lands */
@@ -498,6 +499,43 @@ html.static .fallback{display:block}
 @media (prefers-reduced-motion:reduce){.brandbar{transition:none;}}
 
 .cpromo p,.after .lede,.after p{text-wrap:balance;}
+@media (max-width:900px){
+  /* A 2.67:1 photograph in a full-height portrait box keeps only about a fifth
+     of its width, which is why the device filled the screen. Shorter, so the
+     crop is gentler and it reads as a room again — but the copy stays
+     absolutely positioned over it, as it is on desktop. Taking it out of that
+     flow collapsed the whole hero. */
+  .bleed{height:min(58svh,440px);min-height:280px;}
+  /* and a deeper foot on the scrim, so the copy has ground of its own
+     rather than sitting on whatever tone the photograph happens to give it */
+  .bleed::after{background:linear-gradient(180deg,rgba(26,18,8,.08) 0%,rgba(26,18,8,.14) 38%,rgba(26,18,8,.58) 72%,rgba(26,18,8,.88) 100%);}
+  .bleed-in{left:clamp(16px,5vw,26px);right:clamp(16px,5vw,26px);bottom:clamp(16px,3vh,26px);}
+  .bleed h1{white-space:nowrap;font-size:clamp(24px,8.2vw,36px);}
+  .bleed .sub{font-size:13.5px;margin-top:7px;}
+  .bleed .row{margin-top:12px;}
+  .scrollcue{height:22px;}
+  /* Chasing the crop could not solve this: wherever the product lands, its own
+     printed wordmark is somewhere in the frame, and on a phone the copy has
+     nowhere else to go. So the copy carries its own ground — a soft panel
+     behind the text block only, wide enough to cover the type and no more, so
+     whatever sits under it cannot argue with it. */
+  .bleed-in{padding:14px 14px 12px;}
+  .bleed-in::before{content:"";position:absolute;inset:-2px -8px -6px -8px;z-index:-1;
+    background:linear-gradient(180deg,rgba(24,16,8,0) 0%,rgba(24,16,8,.52) 26%,rgba(24,16,8,.72) 100%);
+    -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);border-radius:3px;}
+}
+/* On a phone the line sat at a third of the screen and the mark at seven
+   tenths, with nothing between them — two things too far apart to read as
+   one. Closed up into a group. */
+@media (max-width:700px){.c1{top:24svh}}
+/* Per-beat spacing on a phone: the device sat centred with the caption
+   pinned near the foot, which left the top quarter of the screen empty on
+   every frame of that chapter. The pair moves up and closes together. */
+@media (max-width:700px){
+  .devwrap{top:41%}
+  .c4{bottom:14svh}
+  .c2{top:30svh}
+}
 </style>
 <script>
 (function(){
@@ -851,7 +889,11 @@ var W=0,H=0,N=200;
 var MK=null;
 function sampleMark(){
   var vb=[231.33,238.67], scale=Math.min(W,H)*0.34/vb[1];
-  var ecx=W>700?W*0.60:W*0.5, ecy=W>700?H*0.44:H*0.70;
+  /* On a phone the line sat near a third of the screen and the mark at seven
+     tenths, with nothing in between — two things too far apart to read as one
+     composition. This page kept the old value because its number differed
+     from the others and the earlier edit skipped it silently. */
+  var ecx=W>700?W*0.60:W*0.5, ecy=W>700?H*0.44:H*0.54;
   var host=document.getElementById('mksrc'), NS='http://www.w3.org/2000/svg';
   MK=[0,1,2].map(function(i){
     var subs=document.getElementById('mk'+i).getAttribute('d').split(/(?=M)/);
@@ -1169,7 +1211,7 @@ function frame(p,t){
   svg.style.filter='drop-shadow(0 0 '+lerp(0,10,gAmt).toFixed(1)+'px rgba(224,168,120,'+lerp(0,.85,gAmt).toFixed(2)+'))';
 
   /* --- layers --- */
-  var ecxg=W>700?W*0.60:W*0.5, ecyg=W>700?H*0.44:H*0.70;
+  var ecxg=W>700?W*0.60:W*0.5, ecyg=W>700?H*0.44:H*0.54;
   markglow.style.left=ecxg+'px';markglow.style.top=ecyg+'px';
   markglow.style.opacity=((1-win(p,.10,.22))*(0.5+0.16*Math.sin(t*1.3))).toFixed(2);
   st.setProperty('--cornero',(1-win(p,.3,.55)).toFixed(2));
