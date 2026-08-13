@@ -129,6 +129,12 @@ p{text-wrap:pretty}
   padding:15px 24px 34px;border-radius:14px;color:#1D2739;
   background:#FFFDF9;border:1px solid rgba(169,104,62,.35);
   box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 2px 5px rgba(61,41,23,.10),0 14px 30px rgba(61,41,23,.13);
+  /* The arrival and the hover both want to move this card, and a second
+     `transform` rule simply wins — the entrance would be thrown away the
+     moment the pointer landed. They compose through variables instead, which
+     is how v2 carries the same two motions on one element. */
+  transform:translate(var(--inx,0px),calc(var(--iny,0px) + var(--hovy,0px)));
+  opacity:var(--ino,1);
   transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s,border-color .25s,background .25s}
 /* The affordance line. It read "Shop" on all five, which is the same word
    five times in a row across a row of five different feelings. Each card
@@ -140,10 +146,10 @@ p{text-wrap:pretty}
 .c3 a:nth-child(3)::after{content:"Soften \2192"}
 .c3 a:nth-child(4)::after{content:"Settle \2192"}
 .c3 a:nth-child(5)::after{content:"Clear \2192"}
-.c3 a:hover{transform:translateY(-4px);border-color:#A9683E;background:#fff;
+.c3 a:hover{--hovy:-4px;border-color:#A9683E;background:#fff;
   box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 4px 10px rgba(61,41,23,.12),0 22px 44px rgba(169,104,62,.24)}
 .c3 a:hover::after{opacity:1;transform:translateX(3px)}
-.c3 a:active{transform:translateY(-1px)}
+.c3 a:active{--hovy:-1px}
 .c3 a i{font-style:normal;display:block;font:700 9px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:#8D8778}
 .c4{left:clamp(20px,7vw,110px);bottom:9svh}
 .c4 h2{font-size:clamp(26px,3.4vw,44px)}
@@ -637,6 +643,7 @@ var photo=document.getElementById('photo');
 var devwrap=document.getElementById('devwrap'),devCanvas=document.getElementById('dev');
 var caps={c1:document.getElementById('c1'),c2:document.getElementById('c2'),c3:document.getElementById('c3'),
           c4:document.getElementById('c4'),c6:document.getElementById('c6')};
+var c3kids=caps.c3?caps.c3.children:[];   /* the five feelings, for the trail */
 var hzval=document.getElementById('hzval');
 var spiroc=document.getElementById('spiroc'), sctx=spiroc.getContext('2d');
 var W=0,H=0,N=200;
@@ -1134,6 +1141,31 @@ function frame(p,t){
 
   var devOp=win(p,.50,.57)*(1-win(p,.688,.748));
   devwrap.style.opacity=devOp.toFixed(2);
+  /* It arrives rather than appears: in from the right, and back out the way
+     it came rather than continuing left through the screen. Keyed to this
+     page's own opacity windows, not v2's, so the move and the fade are the
+     same gesture. The centring translate has to stay inside the expression
+     or the device jumps to the corner. */
+  var devIn=ease(win(p,.50,.57)), devOut=ease(win(p,.688,.748));
+  devwrap.style.transform='translate(calc(-50% + '+lerp(13,0,devIn).toFixed(2)+'vw + '+
+                          (devOut*13).toFixed(2)+'vw),-50%)';
+
+  /* The five feelings are one section, not five cards that happen to be
+     adjacent: the row swipes in from the left, holds while the film dwells on
+     it, and leaves back the way it came. The per-card offset trails the
+     motion rather than staggering against it, so it reads as a single piece
+     with momentum instead of five things arriving separately. */
+  var c3in=ease(win(p,.250,.312)), c3out=ease(win(p,.366,.442));
+  caps.c3.style.setProperty('--capx',(lerp(-40,0,c3in)-c3out*40).toFixed(2)+'vw');
+  for(var ci=0;ci<c3kids.length;ci++){
+    /* The trail belongs to a five-across row sweeping in as one piece. Below
+       900 the cards wrap to a 2-up grid, where the same offset pushes the
+       lower rows out of their columns and hangs the last one off the edge —
+       the fault this page already had to fix once. Flat there. */
+    var trail=W>900?((1-c3in)+c3out)*ci*2.2:0;
+    c3kids[ci].style.setProperty('--inx',(-trail).toFixed(2)+'vw');
+    c3kids[ci].style.setProperty('--ino',ease(clamp(c3in*1.5-ci*.08,0,1)).toFixed(3));
+  }
   /* the lifestyle band, timed as it always was on desktop */
   photo.style.opacity=(win(p,.705,.762)*(1-win(p,.872,.912))).toFixed(2);
   photo.style.transform='translateY('+lerp(-44,-56,win(p,.70,.85))+'%)';
@@ -1177,7 +1209,11 @@ function frame(p,t){
 function cap(el,p,a,b,c,d){
   var o=win(p,a,b)*(1-win(p,c,d));
   el.style.opacity=o.toFixed(2);
-  el.style.transform='translateY('+((1-win(p,a,b))*14-win(p,c,d)*10).toFixed(1)+'px)';
+  /* Whatever else moves a caption has to survive this line. Writing a bare
+     translateY here silently threw away the row's swipe, because cap() runs
+     after it — so the sideways motion goes through a variable and the two
+     compose instead of racing. */
+  el.style.transform='translate(var(--capx,0px),'+((1-win(p,a,b))*14-win(p,c,d)*10).toFixed(1)+'px)';
   el.classList.toggle('live',o>.5);
 }
 
