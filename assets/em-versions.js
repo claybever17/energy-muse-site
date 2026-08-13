@@ -22,15 +22,12 @@ var SIG={
   atelier:'<circle cx="13" cy="12" r="7.5" opacity=".45"/><circle cx="13" cy="4.5" r="2"/><circle cx="19.4" cy="8.2" r="2"/><circle cx="19.4" cy="15.8" r="2"/><circle cx="13" cy="19.5" r="2"/><circle cx="6.6" cy="15.8" r="2"/><circle cx="6.6" cy="8.2" r="2"/>'
 };
 var VERSIONS=[
-  ['/','1 · Classic','the main homepage',SIG.classic],
-  ['/home/current/','2 · Current','energy, visualized',SIG.current],
-  ['/home/lab/','3 · Current v2','a sandbox to build on',SIG.current],
-  ['/home/bleed/','4 · Full Bleed','one photograph, the whole screen',SIG.bleed],
-  ['/home/enter/','5 · Choose First','no hero: the feelings, full height',SIG.enter]
+  ['/home/current/','1 · Current','energy, visualized',SIG.current],
+  ['/home/lab/','2 · Current v2','a sandbox to build on',SIG.current],
+  ['/home/bleed/','3 · Full Bleed','one photograph, the whole screen',SIG.bleed],
+  ['/','4 · Classic','the main homepage',SIG.classic]
 ];
-/* three homepages to choose between, and three things you actually operate.
-   The Collection sits here rather than above: it is the shop, not a fourth
-   answer to the same question the other three are answering. */
+/* five directions to choose between, and three things you actually operate */
 var TOOLS=[
   ['/designer/','Atelier','build one',SIG.atelier],
   ['/home/cascade/','Frequency Room','tune it',SIG.cascade],

@@ -361,7 +361,22 @@ html.static .fallback{display:block}
 /* Current's bar is deliberately barely there — it is a film, and a film wants
    nothing on top of it. A landing page is not that: it needs somewhere to go.
    Solid from the start, with the actual navigation in it. */
-.brandbar{background:#FBF8F2;border-bottom:1px solid #E4DCCB;gap:24px;}
+/* A flat sheet of paper laid over a warm amber photograph reads as a bar
+   that arrived from a different site. Frosted instead: the photograph
+   tints it from underneath and the saturation lift keeps that warmth
+   rather than greying it, while the fill stays light enough that the
+   navy mark and the links are still properly legible. Over the paper
+   further down the page it simply reads as paper. */
+/* Paper over a warm photograph reads as a bar from another site, and the
+   frosted version was still landing near-white because most of what sits
+   under it is bright. This is a warm sand instead — clearly not white,
+   picked from the room in the photograph, and still light enough that the
+   two-tone mark keeps its own colours rather than flattening to a white
+   disc the way it does on a dark bar. Navy on it measures about 7:1. */
+.brandbar{background:rgba(222,206,186,.86);
+  -webkit-backdrop-filter:blur(16px) saturate(1.35);backdrop-filter:blur(16px) saturate(1.35);
+  border-bottom:1px solid rgba(150,120,92,.34);gap:24px;}
+@supports not (backdrop-filter:blur(1px)){.brandbar{background:#DECEBA;}}
 .brandbar::before{display:none;}
 .bb-nav{display:flex;align-items:center;gap:clamp(14px,2.2vw,30px);margin-left:auto;}
 .bb-nav a{font:600 12.5px var(--sans);letter-spacing:.01em;color:#1D2739;text-decoration:none;
@@ -390,6 +405,15 @@ html.static .fallback{display:block}
 .cpromo h2,.promo h2{line-height:1.06;}
 .cpromo h2 .in-cu,.promo h2 .in-cu{display:block;font-size:.44em;font-style:italic;
   letter-spacing:.005em;color:#A9683E;margin-top:.36em;}
+
+
+/* The bar gets out of the way going down and comes back the moment you turn
+   round — the reading direction is down, and a fixed bar spends that whole
+   time covering the thing being read. Coming back on the way up is the half
+   that matters: that is when someone is looking for navigation. */
+.brandbar{transition:transform .34s cubic-bezier(.16,1,.3,1);will-change:transform;}
+.brandbar.tucked{transform:translateY(-104%);}
+@media (prefers-reduced-motion:reduce){.brandbar{transition:none;}}
 
 </style>
 </head>
@@ -979,7 +1003,7 @@ function frame(p,t){
 
   /* device mount (once) */
   if(p>.34&&!frame.dev){frame.dev=1;
-    import('../../assets/em-device.js').then(function(m){m.mount(devCanvas,{zoom:1});}).catch(function(){});}
+    import('../../assets/em-device.js?v=2').then(function(m){m.mount(devCanvas,{zoom:1});}).catch(function(){});}
 }
 function cap(el,p,a,b,c,d){
   var o=win(p,a,b)*(1-win(p,c,d));
@@ -1041,6 +1065,38 @@ document.addEventListener('DOMContentLoaded',function(){
   addEventListener('scroll',turn,{passive:true});turn();
 });
 </script>
-<script src="../../assets/em-versions.js?v=9" defer></script>
+<script src="../../assets/em-versions.js?v=12" defer></script>
 <script src="/assets/em-depth.js?v=2" defer></script>
 </body></html>
+<script>
+(function(){
+  function boot(){
+    var bar=document.querySelector('.brandbar'); if(!bar)return;
+    var film=document.getElementById('film');
+    var last=scrollY, acc=0, queued=false;
+    function paint(){
+      queued=false;
+      var y=scrollY, d=y-last; last=y;
+      /* near the top it is always present, whatever the direction */
+      if(y<90){acc=0;bar.classList.remove('tucked');return;}
+      /* Once the film owns the screen the bar is simply in the way — it is a
+         full-height stage and the header sits on top of the picture. It tucks
+         for the whole of it regardless of direction, and hands control back
+         to the scroll direction on the way out either end. */
+      if(film){
+        var fr=film.getBoundingClientRect();
+        if(fr.top<=4 && fr.bottom>innerHeight*0.6){bar.classList.add('tucked');acc=12;return;}
+      }
+      /* a small accumulator so a trackpad's jitter cannot flap it — it takes
+         a deliberate 12px in one direction to change the bar's mind */
+      acc = (d>0)===(acc>0) ? acc+d : d;
+      if(acc>12){bar.classList.add('tucked');acc=12;}
+      else if(acc<-12){bar.classList.remove('tucked');acc=-12;}
+    }
+    addEventListener('scroll',function(){if(!queued){queued=true;requestAnimationFrame(paint);}},{passive:true});
+    /* a drawer or a menu opening must not leave it hidden behind them */
+    addEventListener('keydown',function(e){if(e.key==='Escape')bar.classList.remove('tucked');});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>

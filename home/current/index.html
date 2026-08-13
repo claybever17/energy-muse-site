@@ -97,7 +97,10 @@ p{text-wrap:pretty}
 .cap h1,.cap h2{font-family:var(--serif);font-weight:300;letter-spacing:-.02em;line-height:1.06;text-wrap:balance}
 .cap .sub{font-family:var(--serif);font-style:italic;color:var(--line);margin-top:14px;font-size:clamp(17px,2vw,22px)}
 .cap .small{font-size:13px;color:var(--tc-soft);margin-top:10px}
-.c1{left:clamp(20px,7vw,110px);top:29svh}
+/* the pair sat high with roughly 350px of nothing under it and the shop
+   drawer peeking below that; both move down together so the alignment
+   between them survives the shift */
+.c1{left:clamp(20px,7vw,110px);top:35svh}
 .c1 h1{font-size:clamp(42px,6vw,80px);line-height:1.04}
 .c1 h1 em{font-style:italic;color:var(--line)}
 .c2{left:clamp(20px,7vw,110px);top:40svh;max-width:min(430px,80vw)}
@@ -323,6 +326,31 @@ html.static .fallback{display:block}
 .cpromo h2 .in-cu,.promo h2 .in-cu{display:block;font-size:.44em;font-style:italic;
   letter-spacing:.005em;color:#A9683E;margin-top:.36em;}
 
+
+/* The bar gets out of the way going down and comes back the moment you turn
+   round — the reading direction is down, and a fixed bar spends that whole
+   time covering the thing being read. Coming back on the way up is the half
+   that matters: that is when someone is looking for navigation. */
+.brandbar{transition:transform .34s cubic-bezier(.16,1,.3,1);will-change:transform;}
+.brandbar.tucked{transform:translateY(-104%);}
+@media (prefers-reduced-motion:reduce){.brandbar{transition:none;}}
+
+
+/* one line: the <br> was forcing the break and the cap's 560px measure would
+   have re-broken it anyway once the tag was gone */
+.c1{max-width:min(920px,92vw);}
+/* At 72px the line ran to x=821 while the mark begins at 732 — 89px of the
+   headline sitting on top of the logo. Sized to finish clear of it. */
+.c1 h1{white-space:nowrap;font-size:clamp(31px,4.15vw,58px);}
+@media (max-width:700px){.c1 h1{white-space:normal;font-size:clamp(31px,9.4vw,52px);}}
+
+
+/* Same rule as the hero copy: a sentence gets a line, it does not get chopped
+   wherever the measure runs out. The cap has to be wide enough to hold the
+   longer of the two, or the fix just moves the break somewhere else. */
+.c2{max-width:min(760px,92vw);}
+@media (min-width:701px){.c2 p span{display:block;}}
+
 </style>
 </head>
 <body>
@@ -365,11 +393,11 @@ html.static .fallback{display:block}
     </svg>
 
     <div class="cap c1" id="c1">
-      <h1>Energy,<br>made <em>personal.</em></h1>
+      <h1>Energy, made <em>personal.</em></h1>
       <p class="sub">Choose your energy. Live in it.</p>
     </div>
     <div class="cap c2" id="c2">
-      <p><b>Energy is invisible.</b> Which is exactly why it&rsquo;s so easy to&nbsp;overlook.</p>
+      <p><b>Energy is invisible.</b><span>Which is exactly why it&rsquo;s so easy to overlook.</span></p>
     </div>
     <div class="cap c3" id="c3">
       <a href="../../intention/protection/"><i>Boundaries</i>Protection</a>
@@ -553,8 +581,13 @@ var W=0,H=0,N=200;
 
 var MK=null;
 function sampleMark(){
-  var vb=[231.33,238.67], scale=Math.min(W,H)*0.34/vb[1];
-  var ecx=W>700?W*0.60:W*0.5, ecy=W>700?H*0.44:H*0.70;
+  /* Bigger, and on the same optical line as the type. It was set at 0.34 of
+     the short side with its centre at 0.44H while the headline centres near
+     0.33H — two objects at two heights with a void under both. Sharing a
+     centre line makes them one composition; the extra width moves it clear
+     of where the headline now ends. */
+  var vb=[231.33,238.67], scale=Math.min(W,H)*0.40/vb[1];
+  var ecx=W>700?W*0.655:W*0.5, ecy=W>700?H*0.425:H*0.70;
   var host=document.getElementById('mksrc'), NS='http://www.w3.org/2000/svg';
   MK=[0,1,2].map(function(i){
     var subs=document.getElementById('mk'+i).getAttribute('d').split(/(?=M)/);
@@ -832,7 +865,7 @@ function frame(p,t){
   svg.style.filter='drop-shadow(0 0 '+lerp(0,10,gAmt).toFixed(1)+'px rgba(224,168,120,'+lerp(0,.85,gAmt).toFixed(2)+'))';
 
   /* --- layers --- */
-  var ecxg=W>700?W*0.60:W*0.5, ecyg=W>700?H*0.44:H*0.70;
+  var ecxg=W>700?W*0.655:W*0.5, ecyg=W>700?H*0.425:H*0.70;
   markglow.style.left=ecxg+'px';markglow.style.top=ecyg+'px';
   markglow.style.opacity=((1-win(p,.10,.22))*(0.5+0.16*Math.sin(t*1.3))).toFixed(2);
   st.setProperty('--cornero',(1-win(p,.3,.55)).toFixed(2));
@@ -882,7 +915,7 @@ function frame(p,t){
 
   /* device mount (once) */
   if(p>.34&&!frame.dev){frame.dev=1;
-    import('../../assets/em-device.js').then(function(m){m.mount(devCanvas,{zoom:1});}).catch(function(){});}
+    import('../../assets/em-device.js?v=2').then(function(m){m.mount(devCanvas,{zoom:1});}).catch(function(){});}
 }
 function cap(el,p,a,b,c,d){
   var o=win(p,a,b)*(1-win(p,c,d));
@@ -944,6 +977,38 @@ document.addEventListener('DOMContentLoaded',function(){
   addEventListener('scroll',turn,{passive:true});turn();
 });
 </script>
-<script src="../../assets/em-versions.js?v=9" defer></script>
+<script src="../../assets/em-versions.js?v=12" defer></script>
 <script src="/assets/em-depth.js?v=2" defer></script>
 </body></html>
+<script>
+(function(){
+  function boot(){
+    var bar=document.querySelector('.brandbar'); if(!bar)return;
+    var film=document.getElementById('film');
+    var last=scrollY, acc=0, queued=false;
+    function paint(){
+      queued=false;
+      var y=scrollY, d=y-last; last=y;
+      /* near the top it is always present, whatever the direction */
+      if(y<90){acc=0;bar.classList.remove('tucked');return;}
+      /* Once the film owns the screen the bar is simply in the way — it is a
+         full-height stage and the header sits on top of the picture. It tucks
+         for the whole of it regardless of direction, and hands control back
+         to the scroll direction on the way out either end. */
+      if(film){
+        var fr=film.getBoundingClientRect();
+        if(fr.top<=4 && fr.bottom>innerHeight*0.6){bar.classList.add('tucked');acc=12;return;}
+      }
+      /* a small accumulator so a trackpad's jitter cannot flap it — it takes
+         a deliberate 12px in one direction to change the bar's mind */
+      acc = (d>0)===(acc>0) ? acc+d : d;
+      if(acc>12){bar.classList.add('tucked');acc=12;}
+      else if(acc<-12){bar.classList.remove('tucked');acc=-12;}
+    }
+    addEventListener('scroll',function(){if(!queued){queued=true;requestAnimationFrame(paint);}},{passive:true});
+    /* a drawer or a menu opening must not leave it hidden behind them */
+    addEventListener('keydown',function(e){if(e.key==='Escape')bar.classList.remove('tucked');});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>

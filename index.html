@@ -292,8 +292,12 @@ body.menu-open{overflow:hidden;}
 @media (min-width:841px){
   /* the aspect-ratio cap was limiting its width, so it could never reach the
      edge — on desktop it is sized by height instead and runs off the page */
+  /* No crop at all. The photograph is 2.67:1 and the frame was portrait, so
+     half its width was being thrown away and something was always going to be
+     cut in two — first the crystal, then the generator. The frame takes the
+     picture's own proportions instead, and nothing has to be sacrificed. */
   .hero-grid .hero-media{aspect-ratio:auto;max-height:none;
-    height:min(76svh,640px);
+    height:min(52svh,470px);
     /* percentages in margin resolve against the containing block, not the
        element, so both sides use one explicit measure of the outside space */
     /* the fr track shrinks once the negative margin is applied, so overshoot
@@ -301,7 +305,12 @@ body.menu-open{overflow:hidden;}
     --out:calc(max(0px,(100vw - var(--maxw)) / 2) + var(--gutter) + 60px);
     margin-right:calc(var(--out) * -1);
     width:calc(100% + var(--out));max-width:none;}
-  .hero-grid .hero-media>img{height:100%;object-position:46% 42%;}
+  /* The frame is portrait and the photograph is 2.67:1, so roughly half its
+   width is cropped away. At 52% the quartz point landed exactly on the
+   right edge and got sliced down the middle. Pulled left, the crystal
+   falls cleanly outside the frame instead — a thing half-shown at an edge
+   reads as a mistake, a thing not shown reads as a crop. */
+.hero-grid .hero-media>img{height:100%;object-position:50% 50%;}
   .hero-grid .hero-copy{position:relative;z-index:4;margin-right:clamp(-96px,-5vw,-40px);
     max-width:none;}
   .hero-grid .hero-copy h1{max-width:none;}
@@ -312,7 +321,7 @@ body.menu-open{overflow:hidden;}
   max-height:calc(100vh - 300px);max-height:calc(100svh - 300px);
   --arch:6px;filter:drop-shadow(0 6px 16px rgba(61,41,23,.10)) drop-shadow(0 34px 70px rgba(61,41,23,.18));}
 /* the photo bobs; the mark spins in place and stays put */
-.hero-media>img{width:100%;height:100%;object-fit:cover;object-position:50% 42%;filter:var(--imgf);
+.hero-media>img{width:100%;height:100%;object-fit:cover;object-position:36% 52%;filter:var(--imgf);
   border-radius:var(--arch);position:relative;z-index:1;will-change:transform;}
 /* light travels across the print every so often, then leaves it alone */
 .hero-ring{position:absolute;right:-56px;bottom:-56px;width:210px;height:210px;pointer-events:none;opacity:.9;z-index:3;
@@ -367,14 +376,21 @@ body.menu-open{overflow:hidden;}
 .hero-copy{max-width:680px;padding-block:clamp(36px,6vh,72px);}
 .hero .eyebrow{color:var(--hero-accent);display:block;overflow:hidden;}
 /* no eyebrow above it now, so the headline does not need to clear one */
-.hero h1{font-size:clamp(42px,6.4vw,92px);line-height:1.0;letter-spacing:-.032em;font-weight:300;text-shadow:var(--hero-shadow);margin-top:0;}
+/* one line: at 6.4vw it needed more width than the copy column has, so it
+   broke after "made" and left the italic stranded on its own line */
+.hero h1{font-size:clamp(37px,4.55vw,80px);line-height:1.0;letter-spacing:-.032em;font-weight:300;text-shadow:var(--hero-shadow);margin-top:0;}
 
 /* mask clips only BELOW (for the rise-in) — italic overhangs stay visible */
 .hero h1 .line{display:block;clip-path:inset(-.35em -100vw 0 -100vw);padding-bottom:.16em;margin-bottom:-.16em;}
 .hero h1 .line span{display:block;transform:translateY(105%);}
 .hero .sub{font-family:var(--sans);font-weight:500;font-style:normal;font-size:clamp(18px,1.9vw,23px);line-height:1.4;
   color:var(--hero-sub);margin-top:26px;max-width:30ch;line-height:1.25;}
-.hero p.body{margin-top:24px;color:var(--hero-soft);max-width:48ch;font-size:16.5px;line-height:1.7;}
+/* Each clause gets its own line rather than being chopped wherever the
+   measure happens to run out — a sentence broken mid-thought reads as a
+   paragraph that was poured in, not written. Below 700 they fall back to
+   ordinary wrapping, where forcing breaks would look worse. */
+.hero p.body{margin-top:22px;color:var(--hero-soft);max-width:none;font-size:16px;line-height:1.62;}
+@media (min-width:701px){.hero p.body span{display:block;}}
 .hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px;}
 .hero .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:30px;}
 .chip{font-size:12.5px;letter-spacing:.03em;padding:8px 15px;border:1px solid #2C3B54;border-radius:100px;
@@ -1159,16 +1175,19 @@ p{text-wrap:pretty;}
     <div class="hero-copy">
       <h1><span class="line"><span>Energy, made <em class="hl gemword">personal.</em></span></span></h1>
       <p class="sub anim">Choose your energy. Live in it.</p>
-      <p class="body anim">Energy Muse brings together intention-based jewelry, crystals, and frequency generators
-        to help you build a practice around the energy you want more of. No experience needed &mdash; we'll meet you
-        exactly where you are, and help you find your way from there.</p>
+      <p class="body anim"><span>Jewelry, crystals and frequency generators,</span>
+        <span>built around the energy you want more of.</span>
+        <span>No experience needed.</span></p>
       <div class="cta-row anim">
         <a href="quiz/" class="btn btn-copper">Find My Energy Match</a>
         <a href="#intention" class="btn btn-light">Explore by Intention</a>
       </div>
     </div>
     <div class="hero-media anim">
-      <img src="assets/img/hero.jpg" alt="A quiet everyday moment: meditating at home beside an Energy Muse tool">
+      <img src="assets/img/hero-generator.jpg"
+           srcset="assets/img/hero-generator-1200.webp 1200w, assets/img/hero-generator-1800.webp 1800w, assets/img/hero-generator-2000.webp 2000w"
+           sizes="(max-width:840px) 100vw, 58vw" fetchpriority="high"
+           alt="The copper frequency generator lit on a wood floor beside a clear quartz point">
       <svg class="hero-ring" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
     </div>
   </div>
@@ -1684,7 +1703,7 @@ p{text-wrap:pretty;}
     var fBooted=false;
     var fio=new IntersectionObserver(function(es){es.forEach(function(e){
       if(e.isIntersecting&&!fBooted){fBooted=true;fio.disconnect();
-        import('./assets/em-device.js').then(function(m){
+        import('./assets/em-device.js?v=2').then(function(m){
           if(m.mount(freqCanvas,{zoom:0.9}))golive(freqStage);
         }).catch(function(){});}});},{rootMargin:'600px'});
     fio.observe(freqStage);
@@ -1717,7 +1736,7 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 </script>
 
 <script src="assets/em-bag.js?v=3" defer></script>
-<script src="assets/em-versions.js?v=9" defer></script>
+<script src="assets/em-versions.js?v=12" defer></script>
 <script>
 (function(){
   var btns=[].slice.call(document.querySelectorAll('.skin'));

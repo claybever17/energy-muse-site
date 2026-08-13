@@ -266,7 +266,144 @@ img{display:block;max-width:100%}
   .stop b{font-size:8.5px;letter-spacing:.06em}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* The opening is the words and the object, side by side — the page's whole
+   subject is one instrument, so it should be on screen from the first frame
+   rather than introduced three sections down. The type keeps the left and
+   the device the right; nothing is stacked on top of anything. */
+/* two lines: the claim, then the instruction. Balanced across three it read
+   as a paragraph that happened to be large. */
+/* The opening is the words and the figure, side by side. Two things had to
+   give for that to work: the headline was sized for a full-width hero at
+   94px, which cannot hold "Every room has a frequency." on one line inside
+   half the page; and the text was being centred against a square canvas
+   taller than itself, which is where the empty band above the kicker came
+   from. */
+/* The opening takes the screen. It was running 447px in a 900px viewport,
+   which put a full row of crystals under it before you had finished reading
+   the headline — the fold answered its own question. It holds everything but
+   a sliver now, and the sliver is deliberately too small to identify. */
+.state{display:grid;grid-template-columns:1.24fr .76fr;align-items:center;
+  gap:clamp(18px,3.4vw,56px);padding-block:clamp(26px,4.4vw,58px);
+  min-height:calc(100svh - 126px);}
+@media (max-width:860px){.state{min-height:calc(100svh - 108px);}}
+/* A screen that ends exactly at the fold gives no reason to keep going. The
+   smallest thing that says otherwise: a hairline on the centre line with a
+   faint segment falling down it. No arrow, no word, nothing to read — you
+   register it without looking at it, which is the whole idea. */
+.cue{position:absolute;z-index:2;left:50%;bottom:0;width:1px;height:clamp(34px,5vh,54px);
+  transform:translateX(-50%);overflow:hidden;background:rgba(140,116,92,.16);}
+.cue i{position:absolute;left:0;top:0;width:100%;height:44%;display:block;
+  background:linear-gradient(180deg,transparent,rgba(169,104,62,.55));
+  animation:cueDrop 3.2s cubic-bezier(.62,0,.36,1) infinite;}
+@keyframes cueDrop{0%{transform:translateY(-108%)}58%,100%{transform:translateY(236%)}}
+@media (prefers-reduced-motion:reduce){.cue i{animation:none;transform:translateY(58%)}}
+/* Standing open with the object removed, the room read as a section that had
+   lost something. Closed, it is an invitation with a job description — and
+   the device only appears once you have asked to tune it, which is the one
+   place a second look at it is worth having. */
+.roomcta{padding:clamp(30px,5vw,64px) clamp(16px,3.4vw,40px);max-width:1400px;margin:0 auto;}
+.roomopen{width:100%;display:grid;grid-template-columns:1fr auto;align-items:center;
+  gap:16px;text-align:left;cursor:pointer;font:inherit;
+  padding:clamp(20px,2.6vw,32px) clamp(20px,2.8vw,36px);
+  background:linear-gradient(120deg,rgba(169,104,62,.09),transparent 62%),#FBF8F2;
+  border:1px solid #E4DCCB;border-radius:6px;transition:border-color .25s,transform .25s,box-shadow .25s;}
+.roomopen:hover{border-color:#A9683E;transform:translateY(-2px);
+  box-shadow:0 14px 34px rgba(61,41,23,.12);}
+.ro-t{grid-column:1;font-family:var(--serif);font-weight:400;font-size:clamp(20px,2.3vw,30px);
+  letter-spacing:-.015em;color:#1D2739;}
+.ro-s{grid-column:1;font:600 11.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;
+  color:#8D8778;margin-top:7px;}
+.ro-i{grid-column:2;grid-row:1/-1;width:34px;height:34px;border-radius:50%;
+  border:1px solid #C9B79E;position:relative;transition:transform .35s,border-color .25s;}
+.ro-i::before,.ro-i::after{content:"";position:absolute;left:50%;top:50%;background:#A9683E;
+  transform:translate(-50%,-50%);}
+.ro-i::before{width:11px;height:1px;}
+.ro-i::after{width:1px;height:11px;transition:opacity .3s;}
+.roomopen[aria-expanded="true"] .ro-i{transform:rotate(180deg);border-color:#A9683E;}
+.roomopen[aria-expanded="true"] .ro-i::after{opacity:0;}
+.roomwrap[hidden]{display:none;}
+/* The room used to be fully drawn before you reached it. Its parts arrive as
+   it comes into view — the readout first, then the dial it belongs to, then
+   the object itself in from the side — and leave the same way, so the
+   section has a beginning and an end rather than just a position. */
+.roomin .lede,.roomin .device,.roomin .dial,.roomin .wave{
+  opacity:0;transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .95s cubic-bezier(.16,1,.3,1);}
+.roomin .lede{transform:translateY(26px);}
+.roomin .wave{transform:translateY(20px);transition-delay:.10s;}
+.roomin .dial{transform:translateY(18px);transition-delay:.18s;}
+.roomin .device{transform:translateX(9%) scale(.965);transition-delay:.06s;}
+.roomin.live .lede,.roomin.live .device,.roomin.live .dial,
+.roomin.live .wave{opacity:1;transform:none;}
+@media (prefers-reduced-motion:reduce){
+  .roomin .lede,.roomin .device,.roomin .dial,.roomin .wave{
+    opacity:1;transform:none;transition:none;}}
+.state-copy{grid-column:1;position:relative;z-index:1;}
+.state-dev{position:relative;z-index:1;}
+/* 19ch was narrower than "Every room has a frequency." is at this size, so
+   the measure itself was forcing the break it was meant to prevent */
+/* sized so the claim holds one line inside the column the photograph left
+   it — at 56px it needed 730px of a 708px column, which is where the third
+   line came from */
+.state h1{font-size:clamp(29px,3.3vw,48px);max-width:34ch;text-wrap:balance;margin-top:12px;}
+.state h1 em{display:block;}
+.state .said{margin-top:14px;max-width:44ch;}
+.state .acts{margin-top:22px;}
+/* the photograph is 2000x750, so it wants width rather than a square box */
+.state-dev{grid-column:2;justify-self:stretch;align-self:center;
+  position:relative;z-index:1;border-radius:4px;overflow:hidden;
+  -webkit-mask-image:radial-gradient(112% 104% at 46% 50%,#000 56%,transparent 100%);
+          mask-image:radial-gradient(112% 104% at 46% 50%,#000 56%,transparent 100%);}
+.state-dev img{width:100%;height:auto;display:block;}
+@media (min-width:861px){.state{grid-template-columns:1.1fr .9fr;}}
+@media (max-width:860px){
+  .state{grid-template-columns:1fr;}
+  .state-dev{grid-column:1;width:min(62vw,290px);margin-top:6px;justify-self:center;}
+}
+
 </style>
+<script>
+(function(){
+  function boot(){
+    var b=document.getElementById('roomopen'), w=document.getElementById('roomwrap');
+    if(!b||!w)return;
+    b.addEventListener('click',function(){
+      var open=b.getAttribute('aria-expanded')==='true';
+      b.setAttribute('aria-expanded', open?'false':'true');
+      w.hidden=open;
+      b.querySelector('.ro-t').textContent = open?'Open the frequency room':'Close the frequency room';
+      if(!open){
+        /* the 3D device measures itself on first layout, so it has to be
+           visible before anything asks it how big it is */
+        requestAnimationFrame(function(){
+          dispatchEvent(new Event('resize'));
+          w.scrollIntoView({behavior:'smooth',block:'start'});
+        });
+      }
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>
+<script>
+(function(){
+  function boot(){
+    var r=document.getElementById('instrument'); if(!r)return;
+    /* it has to be able to leave as well as arrive, so this toggles rather
+       than unobserving on the first hit */
+    if(!('IntersectionObserver' in window)){r.classList.add('live');return;}
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){r.classList.toggle('live', e.isIntersecting);});
+    },{threshold:.16,rootMargin:'0px 0px -8% 0px'}).observe(r);
+    setTimeout(function(){                      /* never leave it hidden */
+      if(!r.classList.contains('live')&&r.getBoundingClientRect().top<innerHeight)r.classList.add('live');
+    },4000);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>
+
+
 </head>
 <body>
 
@@ -276,38 +413,20 @@ img{display:block;max-width:100%}
 </header>
 
 <section class="state">
-  <span class="kicker">Energy Muse</span>
+  <span class="cue" aria-hidden="true"><i></i></span>
+  <div class="state-copy">
   <h1>Every room has a frequency. <em>Choose yours.</em></h1>
   <p class="said">Crystals and fixed-frequency generators, for real rooms and real days.</p>
   <div class="acts">
-    <a class="act solid" href="#shop">Shop the collection</a>
+    <a class="act solid" href="#instrument">Hear the seven tunings</a>
     <a class="act ghost" href="../crystallize/">Browse every crystal</a>
   </div>
-</section>
-
-<section class="room">
-  <div class="field" aria-hidden="true"></div>
-
-  <div class="lede">
-    <span class="eyebrow">The frequency room</span>
-    <div class="readout">
-      <span class="num" id="num">528</span><span class="unit">Hz</span>
-    </div>
-    <div class="tname" id="tname">Repair</div>
-    <p class="tsay" id="tsay"></p>
-
-    <div class="wave"><canvas id="wave" aria-hidden="true"></canvas></div>
-
-    <div class="dial">
-      <div class="track"><div class="fillbar" id="fill"></div></div>
-      <div class="stops" id="stops" role="tablist" aria-label="Choose a frequency"></div>
-      <div class="dialhint">Turn the dial &mdash; the room re-tunes</div>
-    </div>
   </div>
-
-  <div class="device" id="device">
-    <img src="../../assets/img/generator-render.webp" alt="The Energy Muse frequency generator">
-    <canvas id="dev"></canvas>
+  <div class="state-dev">
+    <img src="../../assets/img/hero-generator.jpg"
+         srcset="../../assets/img/hero-generator-1200.webp 1200w, ../../assets/img/hero-generator-1800.webp 1800w, ../../assets/img/hero-generator-2000.webp 2000w"
+         sizes="(max-width:860px) 92vw, 46vw"
+         alt="The copper frequency generator lit on a wood floor beside a clear quartz point">
   </div>
 </section>
 
@@ -333,9 +452,44 @@ img{display:block;max-width:100%}
       </dl>
       <p style="margin-top:18px;font-size:12px;color:#8994A6;max-width:46ch">Frequency generators are not medical devices and are not a substitute for healthcare. Experiences vary.</p>
     </div>
-    <div class="buyart"><img src="../../assets/img/generator-render.webp" alt="The frequency generator" loading="lazy"></div>
+    <div class="buyart"></div>
   </div>
 </section>
+
+<section class="roomcta" id="instrument">
+  <button class="roomopen" id="roomopen" aria-expanded="false" aria-controls="roomwrap">
+    <span class="ro-t">Open the frequency room</span>
+    <span class="ro-s">Seven tunings &middot; hear what changes</span>
+    <span class="ro-i" aria-hidden="true"></span>
+  </button>
+</section>
+<div class="roomwrap" id="roomwrap" hidden>
+<section class="room roomin live" id="theroom">
+  <div class="field" aria-hidden="true"></div>
+
+  <div class="lede">
+    <span class="eyebrow">The frequency room</span>
+    <div class="readout">
+      <span class="num" id="num">528</span><span class="unit">Hz</span>
+    </div>
+    <div class="tname" id="tname">Repair</div>
+    <p class="tsay" id="tsay"></p>
+
+    <div class="wave"><canvas id="wave" aria-hidden="true"></canvas></div>
+
+    <div class="dial">
+      <div class="track"><div class="fillbar" id="fill"></div></div>
+      <div class="stops" id="stops" role="tablist" aria-label="Choose a frequency"></div>
+      <div class="dialhint">Turn the dial &mdash; the room re-tunes</div>
+    </div>
+  </div>
+
+  <div class="device" id="device">
+    <img src="../../assets/img/generator-render.webp" alt="The Energy Muse frequency generator">
+    <canvas id="dev"></canvas>
+  </div>
+</section>
+</div>
 
 <section class="why">
   <h2>Why fixed beats variable.</h2>
@@ -548,7 +702,7 @@ window.__wave={get cur(){return cur;},get shown(){return shown;},get cycles(){re
   var stage=document.getElementById('device'), cv=document.getElementById('dev'), booted=false;
   function boot(){
     if(booted)return; booted=true;
-    import('../../assets/em-device.js').then(function(m){
+    import('../../assets/em-device.js?v=2').then(function(m){
       if(m.mount(cv,{zoom:1}))requestAnimationFrame(function(){
         requestAnimationFrame(function(){stage.classList.add('live');});});
     }).catch(function(){});
@@ -695,5 +849,57 @@ addEventListener('storage',syncBag); setInterval(syncBag,700); syncBag();
 </script>
 
 <script src="../../assets/em-bag.js?v=3" defer></script>
-<script src="../../assets/em-versions.js?v=9" defer></script>
+<script src="../../assets/em-versions.js?v=12" defer></script>
 </body></html>
+<script>
+/* deferred: this sat above the markup, so getElementById returned null and
+   the whole thing bailed on its first line */
+(function(){
+  function boot(){
+  var c=document.getElementById('rosette'); if(!c)return;
+  var x=c.getContext('2d'), t0=performance.now();
+  function gcd(a,b){while(b){var t=b;b=a%b;a=t;}return a;}
+  /* R/gcd(R,r) petals, and it only closes after r/gcd(R,r) turns — sampled
+     over one revolution it comes out an open scribble rather than a rosette */
+  function ring(cx,cy,rad,R,r,d,rot,alpha,wid){
+    var turns=r/gcd(R,r), n=Math.round(170*turns), k=(R-r)/r,
+        norm=1/((R-r)+Math.abs(d));
+    x.beginPath();
+    for(var i=0;i<=n;i++){
+      var th=i/n*Math.PI*2*turns;
+      var px=((R-r)*Math.cos(th)+d*Math.cos(k*th))*norm*rad;
+      var py=((R-r)*Math.sin(th)-d*Math.sin(k*th))*norm*rad;
+      var qx=px*Math.cos(rot)-py*Math.sin(rot), qy=px*Math.sin(rot)+py*Math.cos(rot);
+      if(i)x.lineTo(cx+qx,cy+qy);else x.moveTo(cx+qx,cy+qy);
+    }
+    x.globalAlpha=alpha;x.lineWidth=wid;x.stroke();
+  }
+  var W=0,H=0;
+  function size(){var r=c.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);
+    W=r.width;H=r.height;c.width=Math.round(W*dpr);c.height=Math.round(H*dpr);
+    x.setTransform(dpr,0,0,dpr,0,0);}
+  var RS=[[5,2],[7,3],[8,3],[9,4],[11,4],[13,5]];
+  function frame(){
+    var t=(performance.now()-t0)/1000;
+    if(!W)size();
+    x.clearRect(0,0,W,H);
+    x.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--copper').trim()||'#A9683E';
+    x.lineCap='round';
+    for(var i=0;i<RS.length;i++){
+      var f=i/(RS.length-1);
+      ring(W/2,H/2,Math.min(W,H)*.46*(1-f*.30),RS[i][0],RS[i][1],
+           1.5+f*1.4+Math.sin(t*.13+i)*.4,
+           t*(.030+i*.013)*(i%2?-1:1), .30-f*.19, 1.05-f*.34);
+    }
+    x.globalAlpha=1;
+    requestAnimationFrame(frame);
+  }
+  addEventListener('resize',size);
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches){size();
+    var t=0;x.strokeStyle='#A9683E';for(var i=0;i<RS.length;i++){var f=i/(RS.length-1);
+      ring(W/2,H/2,Math.min(W,H)*.46*(1-f*.30),RS[i][0],RS[i][1],1.5+f*1.4,0,.30-f*.19,1.05-f*.34);}}
+  else requestAnimationFrame(frame);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>

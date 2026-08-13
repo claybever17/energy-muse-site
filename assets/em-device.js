@@ -173,8 +173,12 @@ function mount(canvas,opts){
     var r=canvas.parentElement.getBoundingClientRect();if(!r.width)return;
     renderer.setSize(r.width,r.height,false);
     camera.aspect=r.width/r.height;
-    /* zoom now means how much of the frame to fill: 1 is edge to edge */
-    var target=0.94*Math.min(1,zoom);
+    /* How much of the frame to fill; 1 would be edge to edge. It sat at 0.94,
+       which is six percent of margin — and the fit is measured once while the
+       device then keeps turning and breathing, so the widest pose overran what
+       had been measured and clipped against the sides. 0.84 leaves room for
+       the motion the fit cannot see. */
+    var target=0.84*Math.min(1,zoom);
     for(var i=0;i<6;i++){
       place(dist);
       var e=silhouette();

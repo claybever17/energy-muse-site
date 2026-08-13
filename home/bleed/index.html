@@ -88,6 +88,7 @@ p{text-wrap:pretty}
 @media (min-width:900px){.devwrap{left:69%;width:min(720px,48vw)}}
 .devwrap canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
 #meshc{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+#spiroc{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
 #lines{position:absolute;inset:0;width:100%;height:100%;display:block}
 #lines path{fill:none;stroke:var(--line);stroke-width:1.6;vector-effect:non-scaling-stroke;stroke-linecap:round}
 
@@ -216,7 +217,11 @@ p{text-wrap:pretty}
 /* promo — a slot for whatever is new */
 .cpromo{border-top:1px solid #E4DCCB;padding:clamp(38px,5vw,64px) 0;
   background:linear-gradient(120deg,rgba(169,104,62,.09),transparent 62%);}
-.cpromo .in{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(22px,4vw,60px);align-items:center;}
+/* the object leads on this version and the words answer it, which is the
+   same order the page opens in */
+.cpromo .in{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(22px,4vw,60px);align-items:center;}
+.cpromo .art{order:-1;}
+@media (max-width:840px){.cpromo .art{order:0;}}
 .cpromo .tag{display:inline-flex;font:700 10px var(--sans);letter-spacing:.24em;text-transform:uppercase;
   color:#fff;background:#A9683E;border-radius:100px;padding:6px 13px;}
 .cpromo h2{font-size:clamp(26px,3.3vw,44px);margin-top:14px;}
@@ -364,11 +369,23 @@ html.static .fallback{display:block}
 @media (prefers-reduced-motion:reduce){.scrollcue i{animation:none;transform:translateY(60%)}}
 @media (max-width:700px){.bleed h1{white-space:normal;font-size:clamp(32px,9.6vw,52px);}}
 /* the intentions, edge to edge, nothing between them */
-.tilerow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;}
+/* The handoff from the tiles into the film was a hard cut: the row simply
+   scrolled away and the film simply began. They overlap now — the row lifts
+   and recedes as it leaves, the film's stage comes up to meet it from
+   slightly under scale, and the mark's glow blooms through the crossover.
+   Nothing here changes what either section is; it stops them being strangers. */
+.tilerow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;
+  transform-origin:50% 100%;will-change:transform,opacity;}
+.film .stage{will-change:transform;}
 .tilerow a{position:relative;aspect-ratio:3/4;overflow:hidden;background:#0B1320;display:flex;
   align-items:flex-end;text-decoration:none;}
+/* Each photograph drifts up inside its own frame as the row passes — the
+   scale is what buys the room to move without exposing an edge, and the
+   stagger stops five images travelling as one sheet. */
 .tilerow img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  transition:transform .8s cubic-bezier(.16,1,.3,1);}
+  transform:translate3d(0,var(--py,0px),0) scale(var(--ps,1.07));
+  will-change:transform;transition:none;}
+.tilerow a:hover img{--ps:1.13;transition:transform .8s cubic-bezier(.16,1,.3,1);}
 .tilerow a::before{content:"";position:absolute;inset:0;z-index:1;
   background:linear-gradient(180deg,rgba(11,19,32,0) 42%,rgba(11,19,32,.84));}
 .tilerow a:hover img{transform:scale(1.06);}
@@ -397,7 +414,22 @@ html.static .fallback{display:block}
 /* Current's bar is deliberately barely there — it is a film, and a film wants
    nothing on top of it. A landing page is not that: it needs somewhere to go.
    Solid from the start, with the actual navigation in it. */
-.brandbar{background:#FBF8F2;border-bottom:1px solid #E4DCCB;gap:24px;}
+/* A flat sheet of paper laid over a warm amber photograph reads as a bar
+   that arrived from a different site. Frosted instead: the photograph
+   tints it from underneath and the saturation lift keeps that warmth
+   rather than greying it, while the fill stays light enough that the
+   navy mark and the links are still properly legible. Over the paper
+   further down the page it simply reads as paper. */
+/* Paper over a warm photograph reads as a bar from another site, and the
+   frosted version was still landing near-white because most of what sits
+   under it is bright. This is a warm sand instead — clearly not white,
+   picked from the room in the photograph, and still light enough that the
+   two-tone mark keeps its own colours rather than flattening to a white
+   disc the way it does on a dark bar. Navy on it measures about 7:1. */
+.brandbar{background:rgba(222,206,186,.86);
+  -webkit-backdrop-filter:blur(16px) saturate(1.35);backdrop-filter:blur(16px) saturate(1.35);
+  border-bottom:1px solid rgba(150,120,92,.34);gap:24px;}
+@supports not (backdrop-filter:blur(1px)){.brandbar{background:#DECEBA;}}
 .brandbar::before{display:none;}
 .bb-nav{display:flex;align-items:center;gap:clamp(14px,2.2vw,30px);margin-left:auto;}
 .bb-nav a{font:600 12.5px var(--sans);letter-spacing:.01em;color:#1D2739;text-decoration:none;
@@ -431,7 +463,51 @@ html.static .fallback{display:block}
    against it, and the hover lift composes instead of clobbering the entrance */
 .c3 a{transform:translate(var(--inx,0px),var(--hovy,0px));opacity:var(--ino,1)}
 .c3 a:hover{--hovy:-4px}
+
+/* The bar gets out of the way going down and comes back the moment you turn
+   round — the reading direction is down, and a fixed bar spends that whole
+   time covering the thing being read. Coming back on the way up is the half
+   that matters: that is when someone is looking for navigation. */
+.brandbar{transition:transform .34s cubic-bezier(.16,1,.3,1);will-change:transform;}
+.brandbar.tucked{transform:translateY(-104%);}
+@media (prefers-reduced-motion:reduce){.brandbar{transition:none;}}
+
 </style>
+<script>
+(function(){
+  function boot(){
+    var row=document.querySelector('.tilerow'), film=document.getElementById('film');
+    if(!row||!film)return;
+    var stage=film.querySelector('.stage');
+    var imgs=row.querySelectorAll('img');
+    var queued=false;
+    function paint(){
+      queued=false;
+      var r=row.getBoundingClientRect();
+      /* 0 while the row still owns the screen, 1 once the film has taken it */
+      var t=Math.min(1,Math.max(0,(innerHeight-r.bottom)/(innerHeight*0.9)));
+      var e=t*t*(3-2*t);
+      row.style.transform='translate3d(0,'+(-e*7).toFixed(2)+'%,0) scale('+(1-e*0.035).toFixed(4)+')';
+      row.style.opacity=(1-e*0.42).toFixed(3);
+      if(stage) stage.style.transform='scale('+(0.955+e*0.045).toFixed(4)+')';
+      /* the drift runs on the row's own travel, not the handoff, so it is
+         already moving while the row still owns the screen */
+      var d=Math.min(1,Math.max(0,(innerHeight-r.top)/(innerHeight+r.height)));
+      for(var i=0;i<imgs.length;i++){
+        imgs[i].style.setProperty('--py', (-(d-0.5)*2*(16+i*3.2)).toFixed(1)+'px');
+      }
+    }
+    function onScroll(){ if(!queued){queued=true;requestAnimationFrame(paint);} }
+    addEventListener('scroll',onScroll,{passive:true});
+    addEventListener('resize',onScroll);
+    paint();
+    /* a transform that never resolves would leave the row shrunk and half
+       transparent, so this is the floor it can always fall back to */
+    setTimeout(function(){ if(!row.style.transform){row.style.opacity='1';} },4000);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>
 </head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><symbol id="em-logo" viewBox="0 0 1167 247.5">
@@ -495,6 +571,8 @@ html.static .fallback{display:block}
     <div class="bgglow"></div>
     <div class="markglow" id="markglow"></div>
     <div class="photo" id="photo"></div>
+    <!-- behind the product, never over it -->
+    <canvas id="spiroc" aria-hidden="true"></canvas>
     <div class="devwrap" id="devwrap"><canvas id="dev"></canvas></div>
     <canvas id="meshc" aria-hidden="true"></canvas>
     <svg id="lines" aria-hidden="true">
@@ -685,6 +763,8 @@ var devwrap=document.getElementById('devwrap'),devCanvas=document.getElementById
 var caps={c1:document.getElementById('c1'),c2:document.getElementById('c2'),c3:document.getElementById('c3'),
           c4:document.getElementById('c4'),c6:document.getElementById('c6')};
 var hzval=document.getElementById('hzval');
+/* the staged card row needs its children cached; this went out with the
+   rosette module and could not come back from Current, which never had it */
 var c3kids=[].slice.call(document.getElementById('c3').children);
 var W=0,H=0,N=200;
 
@@ -756,7 +836,47 @@ function sampleMark(){
   /* true center of the emblem's outer circle — the artwork is not centered in its viewBox */
   MK.ccx=(xmin+xmax)/2;MK.ccy=(ymin+ymax)/2;
 }
+
+var spiroc=document.getElementById('spiroc'), sctx=spiroc.getContext('2d');
+/* A spirograph is a hypotrochoid: a small circle rolling inside a bigger one
+   with the pen held off its centre. It earns its place here rather than being
+   a flourish — the coil on the face of this device is a spiral wound inside a
+   circle, and so is the brand mark. The figure has R/gcd(R,r) petals and only
+   closes after r/gcd(R,r) turns, so the sampling has to run that many
+   revolutions or the rosette comes out an open scribble. */
+/* Swept ribbons rather than the rosette. The spirograph was a hard geometric
+   star — correct as the device's own figure, wrong as a backdrop: it read as
+   an object competing with the object. This is a family of sine curves offset
+   into depth, each later in its cycle than the one in front, so the crests
+   travel across the surface and it folds instead of spinning. Each ribbon
+   gets a mirrored copy below it, dimmer and squashed, which is what puts the
+   whole thing on a floor rather than in the air. */
+function ribbon(cx,cy,w,amp,freq,phase,rolls,rows,alpha,col,flip){
+  for(var r=0;r<rows;r++){
+    var dz=(r+1)/(rows+1);
+    var a=alpha*Math.pow(1-dz,.8);
+    if(a<.003)continue;
+    sctx.beginPath();
+    for(var q=0;q<=54;q++){
+      var u=q/54;
+      var roll=u*Math.PI*rolls+phase*.6;
+      var env=Math.sin(Math.PI*Math.pow(u,.9));
+      var x=cx-w/2+u*w+dz*w*.06*Math.cos(roll);
+      var y=cy - dz*amp*1.15*(.45+.85*Math.sin(roll))
+              + Math.sin(u*Math.PI*2*freq+phase-dz*3.4)*amp*(1-dz*.3)*env;
+      if(flip)y=cy+(cy-y)*.52;
+      if(q)sctx.lineTo(x,y);else sctx.moveTo(x,y);
+    }
+    sctx.globalAlpha=flip?a*.34:a;
+    sctx.lineWidth=(.85-dz*.4)*(flip?.85:1);
+    sctx.strokeStyle=col;
+    sctx.stroke();
+  }
+}
 function resize(){W=stage.clientWidth;H=stage.clientHeight;svg.setAttribute('viewBox','0 0 '+W+' '+H);N=W<700?150:200;
+  var sdpr=Math.min(devicePixelRatio||1,1.6);
+  spiroc.width=Math.round(W*sdpr);spiroc.height=Math.round(H*sdpr);
+  sctx.setTransform(sdpr,0,0,sdpr,0,0);
   /* the mesh canvas matches the SVG's box, at device resolution — hairlines
      drawn at 1x on a retina screen come out muddy, and muddy is the one
      thing a field of fine filaments cannot survive */
@@ -979,12 +1099,32 @@ function frame(p,t){
 
   /* the device stays on stage longer — this is the product, and the film
      was moving off it before anyone had finished reading */
-  var devOp=win(p,.50,.57)*(1-win(p,.688,.748));
+  /* The device chapter played on empty navy with one product floating in it.
+     Nested rosettes sit behind it now — the same figure with the pen moved a
+     hole further out each time, which is what the toy itself does — turning
+     slowly, arriving and leaving with the product. */
+  sctx.clearRect(0,0,W,H);
+  var sp=win(p,.500,.585)*(1-win(p,.672,.735));
+  if(sp>.004){
+    var scx=W>700?W*.66:W*.5, scy=H*.46;
+    var RB=[[1.02,.150,0.85,1.5],[0.86,.108,1.30,2.3],[1.14,.078,0.62,1.0],[0.72,.056,1.75,3.1]];
+    for(var si=0;si<RB.length;si++){
+      var c=RB[si], f=si/(RB.length-1);
+      var rows=Math.round((mob?9:20)*(1-f*.35));
+      ribbon(scx,scy,W*c[0],H*c[1],c[2],t*(.30+si*.09)+si*1.7,c[3],rows,
+             sp*(.30-f*.12),lc,false);
+      ribbon(scx,scy+H*.30,W*c[0],H*c[1],c[2],t*(.30+si*.09)+si*1.7,c[3],
+             Math.max(4,rows>>1), sp*(.30-f*.12),lc,true);
+    }
+    sctx.globalAlpha=1;
+  }
+
+  var devOp=win(p,.452,.528)*(1-win(p,.688,.748));
   devwrap.style.opacity=devOp.toFixed(2);
   /* it arrives rather than appears: in from the right on entry, and it
      leaves the same way it came. The centring translate has to stay in the
      expression or the device jumps to the corner. */
-  var devIn=ease(win(p,.495,.60)), devOut=ease(win(p,.725,.80));
+  var devIn=ease(win(p,.448,.556)), devOut=ease(win(p,.725,.80));
   /* It used to drift left on the way out — through the screen rather than
      back where it came from. It retreats the way it arrived now, and the
      field is already rebuilding in the space it vacates, so it dissolves
@@ -1037,7 +1177,7 @@ function frame(p,t){
 
   /* device mount (once) */
   if(p>.34&&!frame.dev){frame.dev=1;
-    import('../../assets/em-device.js').then(function(m){m.mount(devCanvas,{zoom:1});}).catch(function(){});}
+    import('../../assets/em-device.js?v=2').then(function(m){m.mount(devCanvas,{zoom:1});}).catch(function(){});}
 }
 function cap(el,p,a,b,c,d){
   var o=win(p,a,b)*(1-win(p,c,d));
@@ -1122,6 +1262,38 @@ document.addEventListener('DOMContentLoaded',function(){
   addEventListener('scroll',turn,{passive:true});turn();
 });
 </script>
-<script src="../../assets/em-versions.js?v=9" defer></script>
+<script src="../../assets/em-versions.js?v=12" defer></script>
 <script src="/assets/em-depth.js?v=2" defer></script>
 </body></html>
+<script>
+(function(){
+  function boot(){
+    var bar=document.querySelector('.brandbar'); if(!bar)return;
+    var film=document.getElementById('film');
+    var last=scrollY, acc=0, queued=false;
+    function paint(){
+      queued=false;
+      var y=scrollY, d=y-last; last=y;
+      /* near the top it is always present, whatever the direction */
+      if(y<90){acc=0;bar.classList.remove('tucked');return;}
+      /* Once the film owns the screen the bar is simply in the way — it is a
+         full-height stage and the header sits on top of the picture. It tucks
+         for the whole of it regardless of direction, and hands control back
+         to the scroll direction on the way out either end. */
+      if(film){
+        var fr=film.getBoundingClientRect();
+        if(fr.top<=4 && fr.bottom>innerHeight*0.6){bar.classList.add('tucked');acc=12;return;}
+      }
+      /* a small accumulator so a trackpad's jitter cannot flap it — it takes
+         a deliberate 12px in one direction to change the bar's mind */
+      acc = (d>0)===(acc>0) ? acc+d : d;
+      if(acc>12){bar.classList.add('tucked');acc=12;}
+      else if(acc<-12){bar.classList.remove('tucked');acc=-12;}
+    }
+    addEventListener('scroll',function(){if(!queued){queued=true;requestAnimationFrame(paint);}},{passive:true});
+    /* a drawer or a menu opening must not leave it hidden behind them */
+    addEventListener('keydown',function(e){if(e.key==='Escape')bar.classList.remove('tucked');});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>
