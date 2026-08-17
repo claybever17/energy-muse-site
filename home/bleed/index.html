@@ -371,12 +371,16 @@ html.static .fallback{display:block}
    rather than running under the wordmark printed on the product itself */
 .bleed h1{font-family:var(--serif);font-weight:300;font-size:clamp(32px,5.3vw,86px);line-height:1.0;
   letter-spacing:-.038em;color:#fff;white-space:nowrap;margin:0;}
-.roll{display:inline-block;overflow:hidden;height:1.5em;vertical-align:bottom;margin-bottom:-.26em;}
-.roll .stack{display:block;animation:rollWords 15s cubic-bezier(.72,0,.18,1) infinite;}
-.roll b{display:block;height:1.5em;line-height:1.5em;font-weight:inherit;font-style:italic;color:#E8B183;}
-@keyframes rollWords{0%,16%{transform:translateY(0)}20%,36%{transform:translateY(-20%)}
- 40%,56%{transform:translateY(-40%)}60%,76%{transform:translateY(-60%)}80%,100%{transform:translateY(-80%)}}
-@media (prefers-reduced-motion:reduce){.roll .stack{animation:none}}
+/* The word used to cycle through a vertical stack — personal / yours / simple
+   / daily. It was flagged as resembling a Schumann-frequency site's banner,
+   and it was the weakest thing here anyway: a word roller is a device that
+   belongs to any brand, and the movement it added competed with the wave
+   for the same attention.
+
+   The headline holds still now and the frequency field behind it does the
+   moving. That is motion this brand actually owns — it is the thing the
+   product in the photograph is doing. */
+.bleed h1 .hl{font-style:italic;color:#E8B183;}
 .bleed .sub{font-family:var(--sans);font-weight:500;font-size:clamp(14px,1.5vw,19px);
   color:rgba(255,255,255,.88);margin-top:14px;}
 .bleed .row{display:flex;gap:11px;flex-wrap:wrap;margin-top:clamp(18px,2.6vh,30px);}
@@ -710,7 +714,7 @@ html.static .fallback{display:block}
   <canvas class="herowave" id="herowave" aria-hidden="true"></canvas>
   <span class="scrollcue" aria-hidden="true"><i></i></span>
   <div class="bleed-in">
-    <h1>Energy, made <span class="roll" aria-label="yours"><span class="stack"><b>personal.</b><b>yours.</b><b>simple.</b><b>daily.</b><b>personal.</b></span></span></h1>
+    <h1>Energy, made <em class="hl">personal.</em></h1>
     <p class="sub">Choose your energy. Live in it.</p>
     <div class="row">
       <a href="../../quiz/" class="btn btn-c">Find My Energy Match</a>
