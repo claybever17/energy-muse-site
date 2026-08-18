@@ -258,6 +258,18 @@ p{text-wrap:pretty;}
     <h3>Guided energy, made tangible.</h3>
     <p class="end-sub">Every generator is a fixed-frequency instrument &mdash; one coil, one designation, one job.</p>
     <div class="gens">
+      <!-- The 528 is promoted, priced and added to the bag on five surfaces —
+           the homepage promo, three of the films and Cascade — and every one
+           of their "Shop the generator" buttons lands here, where it did not
+           exist. Its name, price and image all come from the promo that was
+           already selling it; nothing here is invented. -->
+      <a class="gen" href="https://energymuse.com/products/528hz-frequency-generator" target="_blank" rel="noopener">
+        <span class="hz">528<em>Hz</em></span>
+        <img src="/assets/img/generator-render.webp" alt="528Hz Frequency Generator in copper" loading="lazy">
+        <strong>Repair</strong>
+        <span class="gprice">$219.88</span>
+        <button class="gadd" data-hz="528" type="button">Add to Bag</button>
+      </a>
       <a class="gen" href="https://energymuse.com/products/639hz-frequency-generator" target="_blank" rel="noopener">
         <span class="hz">639<em>Hz</em></span>
         <img src="https://cdn.shopify.com/s/files/1/0159/0942/1110/files/639HzFrequencyGenerator_1800x1800_9b252a60-6cdd-4f5f-b8a8-b9a3789e61d0_600x.png" alt="639Hz Frequency Generator" loading="lazy">
@@ -640,6 +652,7 @@ window.__ready=true;window.__setP=v=>{targetP=scrollP=clamp01(v);if(v>0.12)loadC
 <script>
 (function(){
   var G={
+    '528':{name:'The 528Hz Generator, in Copper',price:219.88,img:'/assets/img/generator-render.webp'},
     '639':{name:'639Hz Frequency Generator',img:'https://cdn.shopify.com/s/files/1/0159/0942/1110/files/639HzFrequencyGenerator_1800x1800_9b252a60-6cdd-4f5f-b8a8-b9a3789e61d0_600x.png'},
     '963':{name:'963Hz Frequency Generator',img:'https://cdn.shopify.com/s/files/1/0159/0942/1110/files/963HzFrequencyGenerator-mockup_19a65c8a-da71-4e1b-991c-7ce29e3ed2da_600x.png'},
     '1111':{name:'1111Hz Frequency Generator',img:'https://cdn.shopify.com/s/files/1/0159/0942/1110/files/1111HzFrequencyGenerator_600x.png'}
@@ -648,7 +661,10 @@ window.__ready=true;window.__setP=v=>{targetP=scrollP=clamp01(v);if(v>0.12)loadC
     b.addEventListener('click',function(e){
       e.preventDefault();e.stopPropagation();
       var hz=b.getAttribute('data-hz');
-      if(window.EMBag&&G[hz])EMBag.add({id:'gen-'+hz,name:G[hz].name,price:99.88,img:G[hz].img,link:'/generator/'});
+      if(window.EMBag&&G[hz])EMBag.add({id:'gen-'+hz,name:G[hz].name,
+        /* the copper 528 is a different body at a different price; the rest
+           of the range shares one */
+        price:G[hz].price||99.88,img:G[hz].img,link:'/generator/'});
     });
   });
 })();

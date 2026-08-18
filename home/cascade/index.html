@@ -691,7 +691,7 @@ stonesEl.addEventListener('click',function(e){
   setTimeout(function(){a.textContent='Add';a.classList.remove('done');},1400);
 });
 document.getElementById('buy').addEventListener('click',function(){
-  addToBag('generator-528','The '+ROOM[cur].hz+' Hz Generator, in Copper','219.88','/assets/img/generator-render.webp');
+  addToBag('gen-528','The '+ROOM[cur].hz+' Hz Generator, in Copper','219.88','/assets/img/generator-render.webp');
   this.textContent='Added to bag'; this.classList.add('done');
   var self=this; setTimeout(function(){self.textContent='Add the generator';self.classList.remove('done');},1600);
 });
