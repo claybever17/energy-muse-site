@@ -592,9 +592,27 @@ body.menu-open{overflow:hidden;}
 .int img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 32%;z-index:0;filter:var(--imgf);
   transition:transform .8s cubic-bezier(.16,1,.3,1);}
 .int::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(11,19,32,0) 34%,rgba(11,19,32,.82));}
-.int-ring{position:absolute;inset:0;z-index:2;display:grid;place-items:center;opacity:0;transition:opacity .5s;}
-.int-ring svg{width:64%;color:var(--copper-hi);}
-.int:hover img{transform:scale(1.07);}.int:hover .int-ring{opacity:.85;}
+/* Hovering used to stamp the logo over the photograph — the mark used as a
+   sticker, on top of the one image on the card that is doing the work. It is
+   light now: a soft white bloom that rises from where the crystal sits and
+   lifts the picture with it, which is the thing the product is supposed to do
+   rather than a badge saying whose product it is.
+
+   Two layers, because one flat wash reads as fog: a broad low bloom for the
+   lift, and a tighter core so there is somewhere the light is coming FROM. */
+.int-light{position:absolute;inset:0;z-index:2;opacity:0;pointer-events:none;
+  transition:opacity .55s cubic-bezier(.16,1,.3,1);
+  background:
+    radial-gradient(58% 42% at 50% 34%,rgba(255,252,246,.42),rgba(255,250,240,.10) 58%,transparent 76%),
+    radial-gradient(120% 78% at 50% 18%,rgba(255,248,236,.20),transparent 62%);
+  mix-blend-mode:screen;}
+/* No brightness composed onto the filter here: --imgf is literally `none` on
+   the default skin, and `filter:none brightness(...)` is invalid, so the whole
+   declaration gets dropped and the scale goes with it. The bloom above is
+   screen-blended and already does the lifting. */
+.int:hover img,.int:focus-visible img{transform:scale(1.07);}
+.int:hover .int-light,.int:focus-visible .int-light{opacity:1;}
+@media (prefers-reduced-motion:reduce){.int-light{transition:none;}}
 .int-label{position:relative;z-index:3;color:#fff;padding:0 16px 18px;width:100%;}
 .int-label .n{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#E6C9AE;}
 .int-label .t{font-family:var(--serif);font-weight:400;font-size:20px;margin-top:5px;line-height:1.05;}
@@ -1246,7 +1264,7 @@ p{text-wrap:pretty;}
       <h2>Start with how you want to feel.</h2>
       <p class="lead">No need to know a crystal by name. Start with the energy you want more of.</p>
     </div>
-    <div class="int-grid reveal"><a class="int" href="intention/protection/"><img src="assets/img/protection.jpg" alt="Protection intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div></a><a class="int" href="intention/abundance/"><img src="assets/img/wealth.jpg" alt="Abundance intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div></a><a class="int" href="intention/calm/"><img src="assets/img/frequency.jpg" alt="Grounding and Calm intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Steadiness &middot; nervous-system ease</div><div class="t">Calm</div></div></a><a class="int" href="intention/connection/"><img src="assets/img/jewelry.jpg?v=2" alt="Love and Self-Worth intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Heart-opening &middot; connection</div><div class="t">Love</div></div></a><a class="int" href="intention/clarity/"><img src="assets/img/clarity.jpg" alt="Clarity and Intuition intention"><div class="int-ring"><svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg></div><div class="int-label"><div class="n">Focus &middot; intuition</div><div class="t">Clarity</div></div></a></div>
+    <div class="int-grid reveal"><a class="int" href="intention/protection/"><img src="assets/img/protection.jpg" alt="Protection intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div></a><a class="int" href="intention/abundance/"><img src="assets/img/wealth.jpg" alt="Abundance intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div></a><a class="int" href="intention/calm/"><img src="assets/img/frequency.jpg" alt="Grounding and Calm intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Steadiness &middot; nervous-system ease</div><div class="t">Calm</div></div></a><a class="int" href="intention/connection/"><img src="assets/img/jewelry.jpg?v=2" alt="Love and Self-Worth intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Heart-opening &middot; connection</div><div class="t">Love</div></div></a><a class="int" href="intention/clarity/"><img src="assets/img/clarity.jpg" alt="Clarity and Intuition intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Focus &middot; intuition</div><div class="t">Clarity</div></div></a></div>
     <div class="int-cta"><a href="quiz/" class="link">Take the Energy Quiz <span class="a">&rarr;</span></a></div>
   </div>
 </section>
