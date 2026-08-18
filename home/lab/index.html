@@ -405,7 +405,14 @@ html.static .fallback{display:block}
   /* it was pinned 44% down the screen with flex-start, which left the whole
      lower half empty under the buttons. Centred, the air sits evenly above
      and below it instead of pooling in one place. */
-  .c6{justify-content:center;padding-top:0}
+  /* The mark reforms centred at 26% of the stage with a radius of up to 135px,
+     so its lower edge lands around 346px — and a vertically centred headline
+     starts at about 319. They were overlapping by the better part of thirty
+     pixels, which is what reads as the swirl running through the type.
+     Dropping the block to the lower half clears the mark, and it closes the
+     other complaint at the same time: with the words centred there was half a
+     stage of empty paper under them as the film released. */
+  .c6{justify-content:flex-end;padding-top:0;padding-bottom:9svh}
   .cpromo{padding:clamp(24px,5vw,40px) 0}
   .cpromo .in{gap:14px}
   .cpromo .art img{width:min(58%,220px)}
