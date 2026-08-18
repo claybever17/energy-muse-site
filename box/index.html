@@ -1,0 +1,564 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Energy Muse &#8212; Build Your Own Box</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Energy Muse">
+<meta property="og:title" content="Energy Muse — Build Your Own Box">
+<meta property="og:description" content="Choose your crystals. We box them together.">
+<meta property="og:url" content="https://energy-muse-workingfolder.vercel.app/box/">
+<meta property="og:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Energy Muse — Build Your Own Box">
+<meta name="twitter:description" content="Choose your crystals. We box them together.">
+<meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
+<meta name="description" content="Build your own crystal box — choose crystals by intention, fill the box, send it as a link.">
+<link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
+<link rel="apple-touch-icon" href="/assets/img/touch-icon.png">
+<style>
+@font-face{font-family:'Fraunces';src:url(/assets/fonts/fraunces_300.woff2?v=3) format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:'Fraunces';src:url(/assets/fonts/fraunces_400.woff2?v=3) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url(/assets/fonts/instrument_400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url(/assets/fonts/instrument_500.woff2) format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url(/assets/fonts/instrument_600.woff2) format('woff2');font-weight:600;font-display:swap}
+:root{
+  --paper:#FBF8F2;--fg:#1D2739;--soft:#4E5A70;--stone:#8D8778;--copper:#A9683E;--copper-lo:#8F5330;
+  --hair:#E4DCCB;--serif:'Fraunces',Georgia,serif;--sans:'Instrument Sans',-apple-system,sans-serif;
+}
+:root{
+  --paper:#FBF8F2;--fg:#1D2739;--soft:#4E5A70;--stone:#8D8778;--copper:#A9683E;--copper-lo:#8F5330;
+  --hair:#E4DCCB;--serif:'Fraunces',Georgia,serif;--sans:'Instrument Sans',-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+p{text-wrap:pretty}
+
+/* A definite height, not a minimum. With min-height the grid row sizes to
+   whichever column is taller, the tray's crystal list has no ceiling to
+   scroll against, and the stage stretches until the box sizes fall off the
+   bottom of the screen. min-height:0 on the flex children is what actually
+   lets the list scroll rather than push. */
+.wrap{display:grid;grid-template-columns:1fr 380px;height:100svh}
+.stagecol{display:flex;flex-direction:column;min-width:0;min-height:0}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding:clamp(22px,3.6vw,44px) clamp(20px,3.4vw,44px) 0}
+.eyeb{font:600 9.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--copper)}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(27px,3.4vw,44px);letter-spacing:-.02em;line-height:1.05;margin-top:5px}
+.namewrap input{font-family:var(--serif);font-size:17px;font-weight:300;color:var(--fg);
+  background:transparent;border:0;border-bottom:1px solid var(--hair);padding:5px 2px;min-width:210px;outline:none}
+.namewrap input:focus{border-color:var(--copper)}
+
+.stage{position:relative;flex:1;min-height:0;margin:clamp(12px,2vw,24px) 0 0}
+#boxc{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:manipulation}
+.read{position:absolute;z-index:2;display:flex;flex-direction:column;line-height:1.15}
+.read .k{font:600 9px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
+.read b{font-family:var(--serif);font-weight:300;font-size:26px;margin-top:3px}
+.read span:last-child{font-size:11px;color:var(--stone)}
+.r-size{left:clamp(20px,3.4vw,44px);top:6px}
+.r-total{right:clamp(20px,3.4vw,44px);top:6px;text-align:right}
+.stagenote{position:absolute;left:0;right:0;bottom:10px;text-align:center;font:600 10px var(--sans);
+  letter-spacing:.16em;text-transform:uppercase;color:var(--stone);opacity:0;transition:opacity .4s}
+
+/* three boxes we make, each holding a fixed number of crystals — the same
+   decision the bracelet sizer arrived at, for the same reason */
+.sizer{padding:0 clamp(20px,3.4vw,44px) 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.sizer label{font:600 9.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--stone)}
+.sizes{display:flex;gap:8px;flex:1;flex-wrap:wrap}
+.sizes button{flex:1 1 auto;min-width:104px;cursor:pointer;text-align:center;background:var(--paper);
+  border:1px solid var(--hair);border-radius:10px;padding:9px 10px 8px;line-height:1.15;color:inherit;
+  transition:border-color .18s,background .18s,box-shadow .18s}
+.sizes button:hover{border-color:color-mix(in srgb,var(--copper) 55%,var(--hair))}
+.sizes button .sz{display:block;font:400 16px var(--serif)}
+.sizes button .bd{display:block;font:600 9.5px var(--sans);letter-spacing:.13em;text-transform:uppercase;
+  color:var(--stone);margin-top:3px}
+.sizes button[aria-checked="true"]{border-color:var(--copper);background:#fff;box-shadow:0 2px 10px rgba(61,41,23,.10)}
+.sizes button[aria-checked="true"] .bd{color:var(--copper)}
+.sizes button:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+
+.tray{border-left:1px solid var(--hair);background:#fff;display:flex;flex-direction:column;min-width:0;min-height:0}
+.tabs{display:flex;gap:4px;padding:14px 14px 0;flex-wrap:wrap}
+.tabs button{border:1px solid var(--hair);background:var(--paper);border-radius:100px;padding:5px 11px;
+  font:600 10px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--soft);cursor:pointer;
+  transition:border-color .18s,color .18s,background .18s}
+.tabs button[aria-selected="true"]{border-color:var(--copper);color:var(--copper);background:#fff}
+.tabs button:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+.compose{margin:12px 14px 0;display:flex;align-items:center;gap:10px;cursor:pointer;text-align:left;
+  background:linear-gradient(180deg,#FFFDF9,#FBF6EE);border:1px solid var(--hair);border-radius:12px;
+  padding:10px 12px;color:inherit;transition:border-color .18s,box-shadow .18s}
+.compose:hover{border-color:var(--copper);box-shadow:0 2px 12px rgba(61,41,23,.09)}
+.compose svg{width:19px;height:19px;color:var(--copper);flex:none}
+.compose span{font:600 12px var(--sans);letter-spacing:.02em}
+.compose small{display:block;font-weight:400;font-size:11px;color:var(--stone);letter-spacing:0}
+.gems{flex:1;min-height:0;overflow-y:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px 14px}
+.gem{position:relative;cursor:pointer;border:1px solid var(--hair);border-radius:12px;background:var(--paper);
+  padding:8px 6px 7px;text-align:center;transition:border-color .18s,transform .18s,box-shadow .18s}
+.gem:hover{border-color:var(--copper);transform:translateY(-2px);box-shadow:0 6px 16px rgba(61,41,23,.10)}
+.gem:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+.gem[disabled]{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;border-color:var(--hair)}
+.gem img{width:100%;aspect-ratio:1;object-fit:contain;display:block}
+.gem .n{display:block;font:600 9.5px var(--sans);letter-spacing:.02em;color:var(--soft);margin-top:4px;
+  line-height:1.25;text-wrap:balance}
+.gem .p{display:block;font-size:10px;color:var(--stone);margin-top:1px}
+.trayfoot{border-top:1px solid var(--hair);padding:12px 14px 16px;display:flex;flex-direction:column;gap:9px}
+.count{display:flex;align-items:baseline;justify-content:space-between;font:600 10px var(--sans);
+  letter-spacing:.16em;text-transform:uppercase;color:var(--stone)}
+.count b{font-family:var(--serif);font-weight:300;font-size:21px;color:var(--fg);letter-spacing:0}
+.btn{border:0;border-radius:100px;padding:11px 16px;font:600 12px var(--sans);letter-spacing:.06em;cursor:pointer}
+.btn-c{background:var(--copper);color:#fff}
+.btn-c[disabled]{background:var(--hair);color:#fff;cursor:not-allowed}
+.btn-g{background:transparent;border:1px solid var(--hair);color:var(--soft)}
+.btn-g:hover{border-color:var(--copper);color:var(--copper)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.disc{font-size:10px;line-height:1.5;color:var(--stone);margin-top:2px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,12px);background:var(--fg);color:#fff;
+  padding:10px 16px;border-radius:100px;font:600 12px var(--sans);opacity:0;pointer-events:none;
+  transition:opacity .3s,transform .3s;z-index:60}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:900px){
+  .wrap{grid-template-columns:1fr;height:auto}
+  .tray{border-left:0;border-top:1px solid var(--hair)}
+  .stage{min-height:52svh}
+  .r-size,.r-total{position:static;flex-direction:row;align-items:baseline;gap:8px}
+  .reads{display:flex;justify-content:space-between;padding:0 clamp(20px,3.4vw,44px)}
+  .sizes{flex-basis:100%;gap:6px}
+  .sizes button{min-width:0;padding:8px 4px 7px}
+  .sizes button .sz{font-size:15px}
+  .sizes button .bd{font-size:8.5px;letter-spacing:.08em;margin-top:2px}
+  .gems{grid-template-columns:repeat(4,1fr);max-height:none;overflow:visible}
+}
+@media (max-width:560px){.gems{grid-template-columns:repeat(3,1fr)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stagecol">
+    <div class="head">
+      <div class="title">
+        <span class="eyeb">Build your own &middot; crystal box</span>
+        <h1>Choose your crystals.</h1>
+      </div>
+      <div class="namewrap">
+        <input id="bname" placeholder="Name your box" maxlength="34" aria-label="Box name">
+      </div>
+    </div>
+
+    <div class="stage" id="stage">
+      <canvas id="boxc"></canvas>
+      <div class="read r-size"><span class="k">Box</span><b id="bval">The Five</b><span id="bsub">5 crystals</span></div>
+      <div class="read r-total"><span class="k">Total</span><b id="tval">&mdash;</b><span>illustrative</span></div>
+      <div class="stagenote" id="note">Tap a crystal to add &middot; tap one in the box to take it out</div>
+    </div>
+
+    <div class="sizer">
+      <label>Box</label>
+      <div class="sizes" id="sizes" role="radiogroup" aria-label="Box size"></div>
+    </div>
+  </div>
+
+  <aside class="tray">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <button class="compose" id="compose" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/>
+      </svg>
+      <span>Fill it for me<small>A balanced box for this intention</small></span>
+    </button>
+    <div class="gems" id="gems"></div>
+    <div class="trayfoot">
+      <div class="count"><span>In the box</span><b id="cval">0 / 5</b></div>
+      <button class="btn btn-c" id="addbag" disabled>Add to Bag</button>
+      <div class="frow">
+        <button class="btn btn-g" id="share" type="button">Copy share link</button>
+        <button class="btn btn-g" id="clear" type="button">Start over</button>
+      </div>
+      <p class="disc">Pricing shown is illustrative for this prototype. Energy Muse products are intended for
+        personal practice and general wellbeing &mdash; not medical devices, and not a substitute for healthcare.</p>
+    </div>
+  </aside>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/assets/em-bag.js?v=3" defer></script>
+<script src="/assets/em-versions.js?v=12" defer></script>
+<script>
+/* ---------- Build your own box ----------
+   The Atelier's engine, pointed at whole crystals instead of 8mm beads.
+   Everything that made that page work is reused deliberately: the dirty-flag
+   paint loop, the per-stone colour sampled from its own pixels, the contact
+   shadow sprite, and the design-is-a-link encoding. What changes is the
+   container — a box holds a fixed number of crystals and does not care what
+   order they are in, so there is no wrist maths and no drag-to-reorder. */
+(function(){
+'use strict';
+
+/* the shop's own catalogue and its own categories — inventing a second
+   taxonomy here would mean two names for the same crystal on one site */
+var GEMS=[
+  {slug:'protection',  name:'Black Tourmaline',        cat:'Protection',   price:8.88},
+  {slug:'rose-heart',  name:'Rose Quartz Heart',       cat:'Love',         price:12.88},
+  {slug:'merkaba',     name:'Merkaba Star',            cat:'Spirituality', price:14.88},
+  {slug:'fresh-start', name:'Clear Quartz Pyramid',    cat:'Fresh Start',  price:18.88},
+  {slug:'wealth',      name:'Pyrite Cube',             cat:'Wealth',       price:24.88},
+  {slug:'blue-opal',   name:'Blue Opal',               cat:'Wellness',     price:24.88},
+  {slug:'labradorite', name:'Labradorite Stone',       cat:'Power',        price:27.92},
+  {slug:'malachite',   name:'Malachite',               cat:'Protection',   price:34.88},
+  {slug:'spirituality',name:'Amethyst Cluster',        cat:'Spirituality', price:34.88},
+  {slug:'power',       name:"Tiger's Eye Diamond",     cat:'Power',        price:39.88},
+  {slug:'trapiche',    name:'Trapiche Amethyst Slice', cat:'Spirituality', price:39.88},
+  {slug:'love',        name:'Rhodochrosite Point',     cat:'Love',         price:48.88},
+  {slug:'blue-agate',  name:'Blue Sky Agate Point',    cat:'Calm',         price:48.88},
+  {slug:'wellness',    name:'Quantum Quattro',         cat:'Wellness',     price:229.88},
+  {slug:'himalayan',   name:'Himalayan Quartz',        cat:'Fresh Start',  price:399.88}
+];
+var CATS=['All','Protection','Love','Calm','Wealth','Power','Wellness','Spirituality','Fresh Start'];
+
+/* three boxes, each holding a set number. The bracelet sizer landed on three
+   real sizes for the same reason: a control that offers what we make. */
+var BOXES=[{n:3,label:'The Three'},{n:5,label:'The Five'},{n:7,label:'The Seven'}];
+
+var box=[], boxN=5, cat='All', dirty=true, paints=0;
+var stage=document.getElementById('stage'), cv=document.getElementById('boxc');
+var ctx=cv.getContext('2d'), W=0,H=0,dpr=1,mob=false;
+var slots=[];                       /* filled during paint, read by hit-testing */
+
+/* ---------- art ---------- */
+GEMS.forEach(function(g){
+  g.img=new Image();
+  g.img.src='/assets/img/products/'+g.slug+'.png';
+  /* repaint when a crystal finishes decoding — the canvas only repaints on
+     change, so one tapped before its PNG landed would never be drawn again */
+  g.img.addEventListener('load',invalidate);
+});
+function byId(slug){for(var i=0;i<GEMS.length;i++)if(GEMS[i].slug===slug)return GEMS[i];return null;}
+
+var SHADOW=(function(){
+  var g=document.createElement('canvas');g.width=g.height=96;
+  var c=g.getContext('2d');
+  var rg=c.createRadialGradient(48,48,1,48,48,48);
+  rg.addColorStop(0,'rgba(61,41,23,.40)');
+  rg.addColorStop(.55,'rgba(61,41,23,.17)');
+  rg.addColorStop(1,'rgba(61,41,23,0)');
+  c.fillStyle=rg;c.fillRect(0,0,96,96);
+  return g;
+})();
+
+/* Each crystal's halo is its own colour, sampled from its pixels. A single
+   copper glow on everything was tried on the shop and rejected — the brown
+   glow on a blue stone looks like dirt. Channels are clamped because the
+   saturation boost can push one negative, which yields invalid rgba and
+   silently kills the glow rather than erroring. */
+function stoneColor(img){
+  var n=24,c=document.createElement('canvas');c.width=c.height=n;
+  var g=c.getContext('2d');g.drawImage(img,0,0,n,n);
+  var d;try{d=g.getImageData(0,0,n,n).data;}catch(e){return [200,140,88];}
+  var r=0,gg=0,b=0,w=0;
+  for(var i=0;i<d.length;i+=4){
+    if(d[i+3]<160)continue;
+    var mx=Math.max(d[i],d[i+1],d[i+2]),mn=Math.min(d[i],d[i+1],d[i+2]);
+    var sat=(mx-mn)/(mx||1), lum=mx/255;
+    var wt=0.12+sat*1.9; wt*=(lum>0.16&&lum<0.97)?1:0.25;
+    r+=d[i]*wt;gg+=d[i+1]*wt;b+=d[i+2]*wt;w+=wt;
+  }
+  if(!w)return [200,140,88];
+  r/=w;gg/=w;b/=w;
+  var mx2=Math.max(r,gg,b)||1,k=Math.min(255/mx2,1.9);
+  r=Math.min(255,r*k*0.98);gg=Math.min(255,gg*k*0.98);b=Math.min(255,b*k*0.98);
+  var avg=(r+gg+b)/3;
+  function cl(v){return v<0?0:v>255?255:v;}
+  return [Math.round(cl(avg+(r-avg)*1.3)),Math.round(cl(avg+(gg-avg)*1.3)),Math.round(cl(avg+(b-avg)*1.3))];
+}
+function makeGlow(col){
+  var g=document.createElement('canvas');g.width=g.height=128;
+  var c=g.getContext('2d'), rgb=col[0]+','+col[1]+','+col[2];
+  var rg=c.createRadialGradient(64,64,2,64,64,64);
+  rg.addColorStop(0,'rgba('+rgb+',.44)');
+  rg.addColorStop(.42,'rgba('+rgb+',.20)');
+  rg.addColorStop(.72,'rgba('+rgb+',.06)');
+  rg.addColorStop(1,'rgba('+rgb+',0)');
+  c.fillStyle=rg;c.fillRect(0,0,128,128);
+  return g;
+}
+function glowOf(g){
+  if(!g.glow&&g.img.complete&&g.img.naturalWidth){g.col=stoneColor(g.img);g.glow=makeGlow(g.col);}
+  return g.glow;
+}
+
+/* ---------- the box ----------
+   Slot layouts are hand-set rather than derived. Three in a row, five as
+   three over two, seven as four over three — a packing algorithm gets the
+   maths right and the composition wrong, and this is the only picture on
+   the page. Coordinates are fractions of the tray so they scale with it. */
+var LAYOUT={
+  3:[[.5,.5],[.5,.5],[.5,.5]],
+  5:[[.5,.5]],
+  7:[[.5,.5]]
+};
+function slotsFor(n){
+  var rows = n===3 ? [3] : n===5 ? [3,2] : [4,3];
+  var out=[], ry=rows.length===1?[0.5]:rows.length===2?[0.36,0.66]:[0.5];
+  rows.forEach(function(count,ri){
+    for(var i=0;i<count;i++){
+      var x=(i+0.5)/count;
+      /* the shorter row sits inset, so the block reads as a nest rather than
+         a grid with a ragged last line */
+      var inset=count===Math.max.apply(null,rows)?0:0.5/Math.max.apply(null,rows);
+      out.push([inset+x*(1-inset*2), ry[ri]]);
+    }
+  });
+  return out;
+}
+
+function invalidate(){dirty=true;}
+function resize(){
+  W=stage.clientWidth;H=stage.clientHeight;
+  mob=W<=900||matchMedia('(pointer:coarse)').matches;
+  dpr=Math.min(devicePixelRatio||1,mob?1.5:2);
+  cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+  cv.style.width=W+'px';cv.style.height=H+'px';
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  invalidate();
+}
+function rrect(c,x,y,w,h,r){
+  c.beginPath();
+  c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);
+  c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();
+}
+
+function paint(){
+  paints++;
+  ctx.clearRect(0,0,W,H);
+  var pad=Math.min(W,H)*0.09;
+  var bw=Math.min(W-pad*2, (H-pad*2)*1.42), bh=Math.min(H-pad*2, bw/1.42);
+  var bx=(W-bw)/2, by=(H-bh)/2;
+
+  /* the box: a lidless tray seen from above, warm board with a linen floor */
+  ctx.save();
+  ctx.shadowColor='rgba(61,41,23,.20)';ctx.shadowBlur=Math.max(18,bh*0.09);ctx.shadowOffsetY=bh*0.035;
+  rrect(ctx,bx,by,bw,bh,Math.min(20,bw*0.03));
+  ctx.fillStyle='#E7DCC8';ctx.fill();
+  ctx.restore();
+  /* the wall, so it reads as a container with depth rather than a card */
+  var wall=Math.max(9,bh*0.055);
+  rrect(ctx,bx+wall,by+wall,bw-wall*2,bh-wall*2,Math.min(14,bw*0.022));
+  var fg=ctx.createLinearGradient(0,by,0,by+bh);
+  fg.addColorStop(0,'#F6EFE2');fg.addColorStop(1,'#EDE2D0');
+  ctx.fillStyle=fg;ctx.fill();
+  ctx.strokeStyle='rgba(120,92,58,.16)';ctx.lineWidth=1;ctx.stroke();
+
+  /* slots */
+  var pts=slotsFor(boxN);
+  var iw=bw-wall*2, ih=bh-wall*2;
+  var cell=Math.min(iw/(boxN===7?4.2:boxN===5?3.2:3.2), ih/(boxN===3?1.5:2.35));
+  slots=[];
+  pts.forEach(function(p,i){
+    var cx=bx+wall+p[0]*iw, cy=by+wall+p[1]*ih;
+    slots.push({x:cx,y:cy,r:cell*0.5});
+    var g=box[i]?byId(box[i]):null;
+    if(!g){
+      /* an empty slot is a dimple in the lining, not a dashed outline */
+      var dg=ctx.createRadialGradient(cx,cy,cell*0.06,cx,cy,cell*0.46);
+      dg.addColorStop(0,'rgba(120,92,58,.10)');
+      dg.addColorStop(.75,'rgba(120,92,58,.035)');
+      dg.addColorStop(1,'rgba(120,92,58,0)');
+      ctx.fillStyle=dg;ctx.beginPath();ctx.arc(cx,cy,cell*0.46,0,6.283);ctx.fill();
+      return;
+    }
+    var gl=glowOf(g);
+    if(gl){ctx.globalAlpha=.85;ctx.drawImage(gl,cx-cell*0.72,cy-cell*0.72,cell*1.44,cell*1.44);ctx.globalAlpha=1;}
+    ctx.globalAlpha=.7;
+    ctx.drawImage(SHADOW,cx-cell*0.56,cy-cell*0.42+cell*0.20,cell*1.12,cell*0.78);
+    ctx.globalAlpha=1;
+    if(g.img.complete&&g.img.naturalWidth){
+      var ar=g.img.naturalWidth/g.img.naturalHeight;
+      var dw=ar>=1?cell*0.92:cell*0.92*ar, dh=ar>=1?cell*0.92/ar:cell*0.92;
+      ctx.drawImage(g.img,cx-dw/2,cy-dh/2,dw,dh);
+    }
+  });
+
+  if(!box.length){
+    ctx.save();
+    ctx.fillStyle='rgba(141,135,120,.85)';
+    ctx.font='600 '+Math.max(10,Math.min(12,bw*0.018))+'px "Instrument Sans",sans-serif';
+    ctx.textAlign='center';
+    ctx.fillText('AN EMPTY BOX', W/2, by+bh+Math.max(22,bh*0.10));
+    ctx.restore();
+  }
+}
+function loop(){
+  if(dirty){dirty=false;paint();}
+  requestAnimationFrame(loop);
+}
+
+/* ---------- interaction ---------- */
+cv.addEventListener('click',function(e){
+  var r=cv.getBoundingClientRect(), px=e.clientX-r.left, py=e.clientY-r.top;
+  for(var i=0;i<slots.length;i++){
+    var s=slots[i], dx=px-s.x, dy=py-s.y;
+    if(dx*dx+dy*dy<=s.r*s.r){
+      if(box[i]){box.splice(i,1);sync();toast('Taken out');}
+      return;
+    }
+  }
+});
+
+function add(slug){
+  if(box.length>=boxN){toast('That fills '+BOXES.filter(function(b){return b.n===boxN;})[0].label);return;}
+  box.push(slug);sync();
+}
+
+/* ---------- controls ---------- */
+var sizesEl=document.getElementById('sizes'), tabsEl=document.getElementById('tabs'), gemsEl=document.getElementById('gems');
+function buildSizes(){
+  sizesEl.innerHTML='';
+  BOXES.forEach(function(b){
+    var el=document.createElement('button');
+    el.type='button';el.setAttribute('role','radio');
+    el.innerHTML='<span class="sz">'+b.label+'</span><span class="bd">'+b.n+' crystals</span>';
+    el.setAttribute('aria-label',b.label+', '+b.n+' crystals');
+    el.addEventListener('click',function(){
+      boxN=b.n;
+      /* shrinking keeps what was chosen first rather than emptying the box */
+      if(box.length>boxN)box=box.slice(0,boxN);
+      sync();
+    });
+    sizesEl.appendChild(el);
+  });
+}
+function buildTabs(){
+  tabsEl.innerHTML='';
+  CATS.forEach(function(c){
+    var b=document.createElement('button');
+    b.type='button';b.setAttribute('role','tab');b.textContent=c;
+    b.addEventListener('click',function(){cat=c;sync();});
+    tabsEl.appendChild(b);
+  });
+}
+function buildGems(){
+  gemsEl.innerHTML='';
+  GEMS.filter(function(g){return cat==='All'||g.cat===cat;}).forEach(function(g){
+    var b=document.createElement('button');
+    b.type='button';b.className='gem';
+    b.innerHTML='<img src="/assets/img/products/'+g.slug+'.png" alt="" loading="lazy">'+
+      '<span class="n">'+g.name+'</span><span class="p">$'+g.price.toFixed(2)+'</span>';
+    b.setAttribute('aria-label','Add '+g.name+', $'+g.price.toFixed(2));
+    if(box.length>=boxN)b.disabled=true;
+    b.addEventListener('click',function(){add(g.slug);});
+    gemsEl.appendChild(b);
+  });
+}
+
+document.getElementById('compose').addEventListener('click',function(){
+  /* fills what is left, cheapest-first within the chosen intention so the
+     suggestion is a starting point rather than the most expensive box we
+     could sell — the customer trades up from here if they want to */
+  var pool=GEMS.filter(function(g){return cat==='All'||g.cat===cat;})
+               .slice().sort(function(a,b){return a.price-b.price;});
+  if(!pool.length)return;
+  var i=0;
+  while(box.length<boxN){box.push(pool[i%pool.length].slug);i++;}
+  sync();toast('Filled '+BOXES.filter(function(b){return b.n===boxN;})[0].label);
+});
+document.getElementById('clear').addEventListener('click',function(){box=[];sync();});
+
+/* ---------- readouts ---------- */
+function total(){return box.reduce(function(t,s){var g=byId(s);return t+(g?g.price:0);},0);}
+function sync(){
+  var b=BOXES.filter(function(x){return x.n===boxN;})[0];
+  document.getElementById('bval').textContent=b.label;
+  document.getElementById('bsub').textContent=b.n+' crystals';
+  document.getElementById('cval').textContent=box.length+' / '+boxN;
+  var t=total();
+  document.getElementById('tval').textContent=t?'$'+t.toFixed(2):'—';
+  [].forEach.call(sizesEl.children,function(el,i){
+    el.setAttribute('aria-checked',BOXES[i].n===boxN?'true':'false');});
+  [].forEach.call(tabsEl.children,function(el){
+    el.setAttribute('aria-selected',el.textContent===cat?'true':'false');});
+  document.getElementById('addbag').disabled=box.length===0;
+  document.getElementById('note').style.opacity=box.length?0:1;
+  buildGems();
+  invalidate();
+}
+
+/* ---------- toast + bag ---------- */
+var toastEl=document.getElementById('toast'),toastT;
+function toast(m){
+  toastEl.textContent=m;toastEl.classList.add('on');
+  clearTimeout(toastT);toastT=setTimeout(function(){toastEl.classList.remove('on');},2200);
+}
+document.getElementById('addbag').addEventListener('click',function(){
+  if(!box.length)return;
+  if(!window.EMBag){toast('Bag is still loading — try again');return;}
+  /* a hashed id, so two identical boxes stack in the bag and two different
+     ones do not — the same contract the Atelier uses for a strand */
+  var sig=0, key=boxN+':'+box.join(',');
+  for(var i=0;i<key.length;i++){sig=(sig*33+key.charCodeAt(i))>>>0;}
+  var nm=(document.getElementById('bname').value||'').trim();
+  var b=BOXES.filter(function(x){return x.n===boxN;})[0];
+  var lead=byId(box[0]);
+  window.EMBag.add({
+    id:'box-'+sig.toString(36),
+    name:(nm||'Crystal box')+' · '+b.label,
+    price:Math.round(total()*100)/100,
+    img:lead?'/assets/img/products/'+lead.slug+'.png':'/assets/img/mark.svg',
+    link:'/box/'
+  });
+  toast('Added to bag');
+});
+
+/* ---------- a box is a link ----------
+   Same encoding as the Atelier: one character per crystal, so a whole box
+   fits in a URL you can text — /box/?s=bdf&b=5&n=For%20Mom */
+var CODE={},FROMCODE={};
+GEMS.forEach(function(g,i){var ch=String.fromCharCode(97+i);CODE[g.slug]=ch;FROMCODE[ch]=g.slug;});
+function boxURL(){
+  var q='?s='+box.map(function(s){return CODE[s]||'';}).join('')+'&b='+boxN;
+  var nm=(document.getElementById('bname').value||'').trim();
+  if(nm)q+='&n='+encodeURIComponent(nm.slice(0,34));
+  return location.origin+location.pathname+q;
+}
+document.getElementById('share').addEventListener('click',function(){
+  var u=boxURL();
+  /* rewrite the address bar too, so a plain copy-paste works for anyone who
+     reaches for the URL instead of the button */
+  try{history.replaceState(null,'',u);}catch(e){}
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    navigator.clipboard.writeText(u).then(function(){toast('Link copied');},function(){toast('Link is in the address bar');});
+  else toast('Link is in the address bar');
+});
+function restore(){
+  var q=new URLSearchParams(location.search);
+  var s=q.get('s'), n=parseInt(q.get('b'),10), nm=q.get('n');
+  /* an unknown size snaps to the nearest one we make rather than opening a
+     box that does not exist */
+  if(n){var best=BOXES[1],d=Infinity;
+    BOXES.forEach(function(b){var k=Math.abs(b.n-n);if(k<d){d=k;best=b;}});boxN=best.n;}
+  if(nm)document.getElementById('bname').value=nm;
+  if(s){var got=[];
+    for(var i=0;i<s.length;i++){var slug=FROMCODE[s[i]];if(slug)got.push(slug);}
+    box=got.slice(0,boxN);
+  }
+  sync();
+  if(s&&box.length)toast('Opened a shared box — make it yours');
+}
+
+/* ---------- boot ---------- */
+addEventListener('resize',resize);
+buildSizes();buildTabs();resize();restore();
+requestAnimationFrame(loop);
+
+/* the same shape of hook the Atelier exposes, so this is checkable */
+window.__box={state:function(){return {box:box.slice(),boxN:boxN,cat:cat,total:total()};},
+              add:add,url:boxURL,paints:function(){return paints;},
+              tick:function(){dirty=true;paint();}};
+})();
+</script>
+<script src="/assets/em-depth.js?v=2" defer></script>
+</body></html>
