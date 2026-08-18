@@ -73,14 +73,35 @@ p{text-wrap:pretty}
 .sigbar i{position:absolute;inset:0 auto 0 0;background:var(--copper);transition:width .5s cubic-bezier(.16,1,.3,1)}
 .siglab{width:74px;font:600 9.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--stone)}
 
-/* ---------- wrist sizer ---------- */
+/* ---------- size control ---------- */
 .sizer{padding:0 clamp(20px,3.4vw,44px) 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .sizer label{font:600 9.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--stone)}
-#wrist{-webkit-appearance:none;appearance:none;flex:1;min-width:180px;height:2px;background:var(--hair);outline:none}
-#wrist::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;
-  background:var(--paper);border:1.5px solid var(--copper);cursor:pointer;box-shadow:0 2px 8px rgba(61,41,23,.18)}
-#wrist::-moz-range-thumb{width:17px;height:17px;border-radius:50%;background:var(--paper);
-  border:1.5px solid var(--copper);cursor:pointer}
+/* Three sizes we actually make, not a slider through sizes we do not. Each
+   carries its own bead count, because that is the question people are really
+   asking when they pick one. */
+.sizes{display:flex;gap:8px;flex:1;flex-wrap:wrap}
+.sizes button{flex:1 1 auto;min-width:96px;cursor:pointer;text-align:center;
+  background:var(--paper);border:1px solid var(--hair);border-radius:10px;
+  padding:9px 10px 8px;line-height:1.15;color:inherit;
+  transition:border-color .18s,background .18s,box-shadow .18s}
+.sizes button:hover{border-color:color-mix(in srgb,var(--copper) 55%,var(--hair))}
+.sizes button .sz{display:block;font:400 16px var(--serif)}
+.sizes button .bd{display:block;font:600 9.5px var(--sans);letter-spacing:.13em;
+  text-transform:uppercase;color:var(--stone);margin-top:3px}
+.sizes button[aria-checked="true"]{border-color:var(--copper);background:#fff;
+  box-shadow:0 2px 10px rgba(61,41,23,.10)}
+.sizes button[aria-checked="true"] .bd{color:var(--copper)}
+.sizes button:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+/* On a phone the label takes the first part of the row and the three sizes
+   were left stacking one per line down the page. They get the full row and
+   sit three across — nothing later in the sheet touches .sizes, so this is
+   the last word on it. */
+@media (max-width:900px){
+  .sizes{flex-basis:100%;gap:6px}
+  .sizes button{min-width:0;padding:8px 4px 7px}
+  .sizes button .sz{font-size:15px}
+  .sizes button .bd{font-size:8.5px;letter-spacing:.08em;margin-top:2px}
+}
 .unit{display:flex;gap:2px;border:1px solid var(--hair);border-radius:100px;padding:2px}
 .unit button{border:none;background:transparent;font:600 10px var(--sans);letter-spacing:.12em;text-transform:uppercase;
   color:var(--stone);padding:5px 11px;border-radius:100px;cursor:pointer;transition:background .2s,color .2s}
@@ -144,14 +165,15 @@ p{text-wrap:pretty}
   .r-size,.r-total,.sig{display:none}
   .stagenote{bottom:auto;top:6px;font-size:9px;letter-spacing:.16em}
   .sizer{gap:10px 12px;padding-bottom:16px}
-  .sizer .mval{font-family:var(--serif);font-weight:300;font-size:20px;color:var(--fg);line-height:1}
-  .sizer .msub{font-size:11px;color:var(--stone);margin-left:-6px}
+  /* the stage readouts hide on a phone and used to be mirrored here; the size
+     buttons carry the size and its bead count themselves now, so there is
+     nothing left to mirror */
   .count .dsk{display:none}
   .count .mtotal{font-family:var(--serif);font-weight:300;font-size:19px;color:var(--fg)}
   .count .mtotal i{font-style:normal;font-size:10px;color:var(--stone);letter-spacing:.14em;
     text-transform:uppercase;margin-right:6px}
 }
-@media (min-width:901px){.sizer .mval,.sizer .msub,.count .mtotal{display:none}}
+@media (min-width:901px){.count .mtotal{display:none}}
 @media (max-width:560px){
   .beads{grid-template-columns:repeat(3,1fr)}
   .head{flex-direction:column;gap:10px;align-items:stretch}
@@ -176,16 +198,15 @@ p{text-wrap:pretty}
 
     <div class="stage" id="stage">
       <canvas id="strand"></canvas>
-      <div class="read r-size"><span class="k">Wrist</span><b id="wval">6.5&Prime;</b><span id="wsub">16.5 cm</span></div>
+      <div class="read r-size"><span class="k">Size</span><b id="wval">7&frac12;&Prime;</b><span id="wsub">24 beads</span></div>
       <div class="read r-total"><span class="k">Total</span><b id="tval">&mdash;</b><span>illustrative</span></div>
       <div class="sig" id="sig"></div>
       <div class="stagenote" id="note">Tap a stone to add &middot; drag to rearrange</div>
     </div>
 
     <div class="sizer">
-      <label for="wrist">Wrist</label>
-      <span class="mval" id="mval">6.5&Prime;</span><span class="msub" id="msub">16.5 cm</span>
-      <input id="wrist" type="range" min="5" max="9" step="0.25" value="6.5">
+      <label>Size</label>
+      <div class="sizes" id="sizes" role="radiogroup" aria-label="Bracelet size"></div>
       <div class="unit" role="radiogroup" aria-label="Units">
         <button id="uin" class="on" role="radio" aria-checked="true">in</button>
         <button id="ucm" role="radio" aria-checked="false">cm</button>
@@ -264,7 +285,7 @@ var RECIPES={
 /* ---------- state ---------- */
 var strand=[];              /* array of stone ids, in order around the circle */
 var tab='protection';
-var wristIn=6.5, unit='in';
+var wristIn=7.5, unit='in';
 var BEAD_MM=8;              /* 8mm beads — the house standard */
 function capacity(){return Math.max(6,Math.round(wristIn*25.4/BEAD_MM));}
 
@@ -288,22 +309,6 @@ var SHADOW=(function(){
 })();
 /* the copper spacer: their own strands are strung with small metal rounds
    between the stones, and ours had none — the beads simply floated in a ring */
-var SPACER=(function(){
-  var g=document.createElement('canvas');g.width=g.height=64;
-  var c=g.getContext('2d');
-  var rg=c.createRadialGradient(24,20,2,32,32,32);
-  rg.addColorStop(0,'#F0CBA6');
-  rg.addColorStop(.34,'#C88A56');
-  rg.addColorStop(.72,'#9E6038');
-  rg.addColorStop(1,'#7A4526');
-  c.beginPath();c.arc(32,32,30,0,6.283);c.fillStyle=rg;c.fill();
-  /* one specular, so it reads as metal rather than a brown dot */
-  var hl=c.createRadialGradient(23,19,1,23,19,13);
-  hl.addColorStop(0,'rgba(255,244,230,.92)');hl.addColorStop(1,'rgba(255,244,230,0)');
-  c.beginPath();c.arc(23,19,13,0,6.283);c.fillStyle=hl;c.fill();
-  return g;
-})();
-
 var dirty=true,paints=0;
 function invalidate(){dirty=true;}
 function resize(){
@@ -390,9 +395,11 @@ function radius(){return Math.min(W,H)*0.30;}
 function beadPx(){
   /* beads scale with how full the strand is, so a big wrist reads bigger */
   var n=Math.max(strand.length,8);
-  /* 0.84, not 0.92: the stones give back a little of their arc so a copper
-     round fits in every gap, the way the real strands are strung */
-  return Math.min(radius()*2*Math.PI/n*0.84, radius()*0.42);
+  /* The stones used to give back a sixth of their arc so a copper round could
+     sit in every gap. There are no rounds now, and a strung elastic bracelet
+     has no gaps — the stones bear on each other. A hair under the full share
+     so neighbours read as separate spheres rather than merging into a tube. */
+  return Math.min(radius()*2*Math.PI/n*0.97, radius()*0.42);
 }
 function angleOf(i,n){return -Math.PI/2+(i/n)*Math.PI*2;}
 
@@ -438,20 +445,6 @@ function draw(ts){
     ctx.beginPath();ctx.arc(cx,cy-cw*0.22,R,Math.PI*1.08,Math.PI*1.92);ctx.stroke();
   }
   ctx.restore();
-
-  /* a copper round in each gap, under the stones so they overlap it */
-  if(n>1){
-    var sd=Math.max(5,bpc*0.30);
-    for(var q=0;q<n;q++){
-      var mid=angleOf(q,n)+spin+Math.PI/n;
-      var sx=cx+Math.cos(mid)*R, sy=cy+Math.sin(mid)*R;
-      ctx.save();
-      ctx.globalAlpha=.55;
-      ctx.drawImage(SHADOW,sx-sd*0.9,sy-sd*0.9+sd*0.16,sd*1.8,sd*1.8);
-      ctx.restore();
-      ctx.drawImage(SPACER,sx-sd/2,sy-sd/2,sd,sd);
-    }
-  }
 
   /* the copper pulse travelling the ring after each addition */
   if(pulse>0){
@@ -617,20 +610,45 @@ document.getElementById('clear').addEventListener('click',function(){
   strand=[];anim=[];invalidate();sync();
 });
 
-/* ---------- wrist sizing ---------- */
-var wrist=document.getElementById('wrist');
-function fmtWrist(){return unit==='in'? wristIn.toFixed(2).replace(/\.?0+$/,'')+'"' : (wristIn*2.54).toFixed(1)+' cm';}
+/* ---------- sizing ----------
+   Standard sizes only. The slider offered every quarter inch from 5 to 9 —
+   thirty-three sizes for a product that comes in three, and every one of them
+   reading as orderable. Each size carries its bead count, because that is the
+   question people are actually asking when they choose one. */
+var SIZES=[{in:6.75,label:'6¾″'},{in:7.5,label:'7½″'},{in:8.5,label:'8½″'}];
+function beadsFor(inches){return Math.round(inches*25.4/BEAD_MM);}
+function nearestSize(inches){
+  var best=SIZES[1], d=Infinity;
+  SIZES.forEach(function(z){var k=Math.abs(z.in-inches);if(k<d){d=k;best=z;}});
+  return best;
+}
+var sizesEl=document.getElementById('sizes');
+function fmtWrist(){return unit==='in'? nearestSize(wristIn).label : (wristIn*2.54).toFixed(1)+' cm';}
+function buildSizes(){
+  sizesEl.innerHTML='';
+  SIZES.forEach(function(z){
+    var b=document.createElement('button');
+    b.type='button';b.setAttribute('role','radio');
+    var label=unit==='in'?z.label:(z.in*2.54).toFixed(1)+' cm';
+    var n=beadsFor(z.in);
+    b.innerHTML='<span class="sz">'+label+'</span><span class="bd">'+n+' beads</span>';
+    b.setAttribute('aria-label',label+', '+n+' beads');
+    b.addEventListener('click',function(){wristIn=z.in;syncWrist();});
+    sizesEl.appendChild(b);
+  });
+}
 function syncWrist(){
-  var wmain=unit==='in'?wristIn.toFixed(2).replace(/\.?0+$/,'')+'″':(wristIn*2.54).toFixed(1)+' cm';
-  var wsecond=unit==='in'?(wristIn*2.54).toFixed(1)+' cm':wristIn.toFixed(2).replace(/\.?0+$/,'')+' in';
-  document.getElementById('wval').textContent=wmain;
-  document.getElementById('wsub').textContent=wsecond;
-  document.getElementById('mval').textContent=wmain;
-  document.getElementById('msub').textContent=wsecond;
+  var z=nearestSize(wristIn);
+  wristIn=z.in;
+  document.getElementById('wval').textContent=unit==='in'?z.label:(z.in*2.54).toFixed(1)+' cm';
+  document.getElementById('wsub').textContent=beadsFor(z.in)+' beads';
+  [].forEach.call(sizesEl.children,function(b,k){
+    b.setAttribute('aria-checked',SIZES[k].in===z.in?'true':'false');
+  });
   if(strand.length>capacity()){strand=strand.slice(0,capacity());anim=anim.slice(0,capacity());}
   sync();
 }
-wrist.addEventListener('input',function(){wristIn=parseFloat(wrist.value);syncWrist();});
+buildSizes();
 document.getElementById('uin').addEventListener('click',function(){setUnit('in');});
 document.getElementById('ucm').addEventListener('click',function(){setUnit('cm');});
 function setUnit(u){
@@ -639,7 +657,7 @@ function setUnit(u){
   document.getElementById('ucm').classList.toggle('on',u==='cm');
   document.getElementById('uin').setAttribute('aria-checked',u==='in');
   document.getElementById('ucm').setAttribute('aria-checked',u==='cm');
-  syncWrist();
+  buildSizes();syncWrist();
 }
 
 /* ---------- readouts ---------- */
@@ -714,7 +732,9 @@ function designURL(){
 function restore(){
   var q=new URLSearchParams(location.search);
   var s=q.get('s'),w=parseFloat(q.get('w')),nm=q.get('n');
-  if(w>=5&&w<=9){wristIn=Math.round(w*4)/4;wrist.value=wristIn;}
+  /* links made before we settled on three sizes carry any quarter inch, so
+     they snap to the nearest size we make rather than opening at one we do not */
+  if(w>=5&&w<=9)wristIn=nearestSize(w).in;
   if(nm)document.getElementById('bname').value=nm;
   if(s){
     var got=[];
