@@ -351,6 +351,40 @@ body.menu-open{overflow:hidden;}
   44%{opacity:.9;transform:scale(1.12)}70%{opacity:.42;transform:scale(.95)}100%{opacity:.34;transform:scale(.86)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(8px,-10px)}}
+/* ---- the energy story ------------------------------------------------
+   Two screens of scroll, not six. The stage pins and the mark comes apart
+   across it, so the whole beat is over before the reader has decided whether
+   to keep going — which is the difference between a feature and a film. */
+.story{position:relative;height:200svh;background:var(--paper);}
+.story-stage{position:sticky;top:0;height:100svh;min-height:520px;overflow:hidden;
+  display:grid;place-items:center;}
+.story-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+/* the drawing takes the upper part of the stage and the words sit under it —
+   centred on the same axis, but never on top of the mark itself */
+.story-copy{position:relative;z-index:2;text-align:center;align-self:end;
+  margin-bottom:clamp(28px,9vh,104px);}
+.sl{font-family:var(--serif);font-weight:300;letter-spacing:-.022em;line-height:1.12;
+  margin:0 auto;max-width:22ch;opacity:0;transform:translateY(14px);
+  transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);}
+.sl1{font-size:clamp(30px,4.4vw,64px);}
+.sl2{font-size:clamp(21px,2.5vw,34px);color:var(--copper);font-style:italic;max-width:26ch;}
+.sl3{font-family:var(--sans);font-size:clamp(15px,1.5vw,19px);font-style:normal;
+  color:var(--ink-soft,var(--stone));max-width:44ch;line-height:1.6;letter-spacing:0;}
+.sl.on{opacity:1;transform:none;}
+.story-cta{margin-top:26px;opacity:0;transform:translateY(14px);
+  transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);}
+.story-cta.on{opacity:1;transform:none;}
+/* the lines occupy the same space and hand over, so only one is ever readable */
+.story-copy{display:grid;}
+.story-copy>*{grid-area:1/1;align-self:center;}
+.story-fallback{max-width:52ch;text-align:center;}
+@media (prefers-reduced-motion:reduce){
+  .sl,.story-cta{transition:none;}
+}
+@media (max-width:840px){
+  .story{height:190svh;}
+  .story-stage{min-height:440px;}
+}
 .hero-copy{max-width:min(680px,46ch);padding-block:0;}
 .hero .eyebrow{color:var(--hero-accent);display:block;overflow:hidden;}
 /* no eyebrow above it now, so the headline does not need to clear one */
@@ -1185,6 +1219,26 @@ p{text-wrap:pretty;}
 
 <!-- ===== INTENTION ===== -->
 
+<!-- ===== THE ENERGY STORY =====
+     The client asked for the logo-into-frequency-wave beat as brand
+     storytelling rather than as a film. This is the first fifth of the
+     Current film compressed into two screens: the mark unwinds into the
+     energy line, and the approved founder copy opens on it. -->
+<section class="story" id="story" aria-label="Energy is invisible">
+  <div class="story-stage">
+    <canvas class="story-canvas" id="storyc" aria-hidden="true"></canvas>
+    <div class="wrap story-copy">
+      <p class="sl sl1">Energy is invisible.</p>
+      <p class="sl sl2">Which is exactly why it&rsquo;s so easy to overlook.</p>
+      <p class="sl sl3">But small shifts in your energy can lead to the biggest
+        transformations in your life.</p>
+      <div class="story-cta"><a class="btn btn-ghost" href="generator/">How frequency works</a></div>
+    </div>
+    <noscript><p class="story-fallback">Energy is invisible &mdash; which is exactly why it&rsquo;s so easy
+      to overlook. But small shifts in your energy can lead to the biggest transformations in your life.</p></noscript>
+  </div>
+</section>
+
 <section class="section" id="intention">
   <div class="wrap">
     <div class="head reveal">
@@ -1590,6 +1644,176 @@ p{text-wrap:pretty;}
       /* one still frame: the sheet is there, it just is not moving */
       run=true;frame();run=false;}
     else requestAnimationFrame(frame);
+  })();
+
+  /* ---- the energy story: the mark unwinds into the line -----------------
+     Ported down from the Current film. The one piece that cannot be skipped
+     is the straightening: the mark is a closed swirl and the line reads left
+     to right, so feeding the swirl's own point order into that mapping makes
+     every point cross its neighbours mid-morph and the whole thing reads as a
+     scribble. Each subpath is rotated to begin at its leftmost point, run
+     rightward, and the subpaths are laid out left to right — then the same
+     animation reads as a thread coming unwound. */
+  (function(){
+    var cv=document.getElementById('storyc'), sec=document.getElementById('story');
+    if(!cv||!sec)return;
+    var ctx=cv.getContext('2d'), N=150, W=0,H=0,dpr=1, MK=null, t0=performance.now();
+    var host=document.getElementById('em-markline');
+    if(!host)return;
+    var lines=[].slice.call(host.querySelectorAll('path'));
+
+    function sample(){
+      var vb=[231.33,238.67], scale=Math.min(W,H)*0.34/vb[1];
+      var cx=W*0.5, cy=H*0.5;
+      var NS='http://www.w3.org/2000/svg';
+      var pen=document.createElementNS(NS,'svg');
+      pen.setAttribute('style','position:absolute;width:0;height:0;visibility:hidden');
+      document.body.appendChild(pen);
+      MK=lines.map(function(el){
+        var subs=el.getAttribute('d').split(/(?=M)/);
+        var els=subs.map(function(d){var p=document.createElementNS(NS,'path');
+          p.setAttribute('d',d);pen.appendChild(p);return p;});
+        var lens=els.map(function(p){return p.getTotalLength();});
+        var total=lens.reduce(function(a,b){return a+b;},0);
+        var counts=lens.map(function(L){return Math.max(8,Math.round(N*L/total));});
+        counts[0]+=(N+1)-counts.reduce(function(a,b){return a+b;},0);
+        var strokes=[];
+        els.forEach(function(p,si){
+          var sp=[];
+          for(var j=0;j<counts[si];j++){
+            var pt=p.getPointAtLength(lens[si]*j/Math.max(1,counts[si]-1));
+            sp.push([cx+(pt.x-vb[0]/2)*scale, cy+(pt.y-vb[1]/2)*scale]);
+          }
+          var st=0,mx=Infinity;
+          for(var q=0;q<sp.length;q++){if(sp[q][0]<mx){mx=sp[q][0];st=q;}}
+          /* a closed stroke samples its start twice; rotating the run would
+             leave the loop open at a visible nick, so drop the duplicate,
+             rotate the core, then close it again on the new start */
+          var shut=sp.length>2&&Math.abs(sp[0][0]-sp[sp.length-1][0])<0.5
+                              &&Math.abs(sp[0][1]-sp[sp.length-1][1])<0.5;
+          if(shut){var core=sp.slice(0,sp.length-1);st=st%core.length;
+            core=core.slice(st).concat(core.slice(0,st));sp=core.concat([core[0].slice()]);}
+          else sp=sp.slice(st).concat(sp.slice(0,st));
+          if(sp.length>2&&sp[1][0]<sp[0][0])sp.reverse();
+          strokes.push(sp);
+        });
+        strokes.sort(function(a,b){
+          return Math.min.apply(null,a.map(function(q){return q[0];}))
+               - Math.min.apply(null,b.map(function(q){return q[0];}));});
+        var pts=[],brk={};
+        strokes.forEach(function(sp,si){
+          if(si>0)brk[pts.length]=1;
+          for(var j=0;j<sp.length;j++)pts.push(sp[j]);
+        });
+        return {pts:pts,brk:brk};
+      });
+      document.body.removeChild(pen);
+    }
+
+    function size(){
+      var r=cv.getBoundingClientRect();
+      dpr=Math.min(devicePixelRatio||1,1.6);
+      W=r.width;H=r.height;
+      cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      sample();
+    }
+
+    function ease(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2}
+    function clamp(v,a,b){return v<a?a:v>b?b:v}
+    function lerp(a,b,u){return a+(b-a)*u}
+
+    var OFF=[-0.085,0,0.085];                 /* the three strands, apart */
+    function draw(p,t){
+      if(!MK)return;
+      ctx.clearRect(0,0,W,H);
+      /* the mark holds, then lets go; by .62 it is a line and the rest of the
+         scroll is the line breathing, so the beat lands well before the
+         section ends and nobody is left waiting on a finished animation */
+      var morph=ease(clamp((p-.14)/.44,0,1));
+      var spread=ease(clamp((p-.40)/.34,0,1));
+      var cy=H*0.40, amp=lerp(6,H*.085,morph);
+      /* Runs past both margins rather than stopping at them. A wave cut
+         square by the frame reads as a cropped picture; one that leaves the
+         frame reads as passing through. The amplitude envelope pinches at the
+         domain ends, which are now off-screen, so nothing visibly tapers. */
+      var span=lerp(.14,1.34,morph);
+      var x0=W*(0.5-span/2), x1=W*(0.5+span/2);
+      ctx.lineCap='round';ctx.lineJoin='round';
+      for(var k=0;k<MK.length;k++){
+        var mk=MK[k], d='';
+        ctx.beginPath();
+        for(var i=0;i<=N;i++){
+          var u=i/N, P=mk.pts[Math.min(i,mk.pts.length-1)];
+          var wx=lerp(x0,x1,u);
+          var wy=cy+OFF[k]*spread*H
+                 +Math.sin(u*Math.PI*2*(1.1+k*0.35)+t*0.5-k*0.7)*amp
+                 *Math.sin(Math.PI*Math.pow(u,.9));
+          /* the far end lets go last, so it unwinds rather than dissolving */
+          var mi=ease(clamp(morph*1.6-u*.6,0,1));
+          var X=lerp(P[0],wx,mi), Y=lerp(P[1],wy,mi);
+          if(i===0||(mi<1&&mk.brk[i]))ctx.moveTo(X,Y);else ctx.lineTo(X,Y);
+        }
+        ctx.globalAlpha=k===1?1:lerp(1,.55,morph);
+        ctx.lineWidth=lerp(1.9,1.5,morph);
+        ctx.strokeStyle=k===2?'#35907B':'#A9683E';
+        ctx.stroke();
+      }
+      ctx.globalAlpha=1;
+    }
+
+    var lines3=[].slice.call(sec.querySelectorAll('.sl'));
+    var cta=sec.querySelector('.story-cta');
+    function beats(p){
+      /* One line readable at a time, with a clear beat between them. The
+         three sit in the same grid cell, so any overlap is literally two
+         sentences printed over each other — the same fault Cascade hit when
+         its intention captions cross-faded. Out finishes before in starts. */
+      var on=[p>=.04&&p<.29, p>=.34&&p<.55, p>=.60];
+      lines3.forEach(function(el,i){el.classList.toggle('on',!!on[i]);});
+      if(cta)cta.classList.toggle('on',p>=.70);
+    }
+
+    var vis=false, raf=0, last=0;
+    function prog(){
+      var r=sec.getBoundingClientRect();
+      var total=r.height-window.innerHeight;
+      return total>0?clamp(-r.top/total,0,1):0;
+    }
+    function tick(){
+      raf=0; last=performance.now();
+      if(!W)size();
+      var p=prog();
+      draw(p,(performance.now()-t0)/1000);
+      beats(p);
+      if(vis)raf=requestAnimationFrame(tick);
+    }
+    function kick(){if(!raf&&vis)raf=requestAnimationFrame(tick);}
+
+    addEventListener('resize',function(){W=0;kick();});
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(e){
+        vis=e[0].isIntersecting;
+        if(vis)kick();
+      },{rootMargin:'120px 0px'}).observe(sec);
+    } else {vis=true;kick();}
+    /* rAF is the driver; the scroll handler only steps in when it has actually
+       stalled. Drawing from both is what made the films feel heavy — a
+       trackpad fires scroll far faster than the display refreshes. */
+    addEventListener('scroll',function(){
+      if(performance.now()-last>24)tick();
+    },{passive:true});
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){W=0;kick();});
+    /* the same hook the films expose, so this beat can be scrubbed and checked
+       rather than eyeballed */
+    /* behavior:'instant' matters — the page sets scroll-behavior:smooth for its
+       anchor links, so a plain scrollTo here starts an animation and the very
+       next read of the position is still the old one */
+    window.__story={go:function(p){var total=sec.offsetHeight-window.innerHeight;
+        try{scrollTo({top:sec.offsetTop+p*total,behavior:'instant'});}
+        catch(e){scrollTo(0,sec.offsetTop+p*total);}
+        tick();},step:tick,prog:prog};
+    vis=true; tick();
   })();
 
   var annx=document.getElementById('annx');
