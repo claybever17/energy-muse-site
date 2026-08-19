@@ -1266,7 +1266,14 @@ p{text-wrap:pretty;}
   <canvas class="herowave" id="herowave" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <h1><span class="line"><span>Energy, made <em class="hl gemword">personal.</em></span></span></h1>
+      <!-- Two lines, structurally. On one line the headline ran to x536 while
+           the generator's glass panel starts at x512, so "personal." sat on the
+           device — and object-position cannot fix it, because at 1024 the panel
+           is still at 559 even pushed fully right. Split, the longest line is
+           "Energy, made" and the type clears the product at every desktop
+           width. The staggered reveal for .line:nth-child(1)/(2) was already
+           written for two lines and only now has them. -->
+      <h1><span class="line"><span>Energy, made</span></span><span class="line"><span><em class="hl gemword">personal.</em></span></span></h1>
       <p class="sub anim">Choose your energy. Live in it.</p>
       <!-- The reference the client sent is headline, tagline, button — no
            descriptor. The paragraph was a holdover from the old two-column
