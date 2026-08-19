@@ -400,7 +400,9 @@ img{display:block;max-width:100%}
   </div>
 
   <div class="device" id="device">
-    <img src="../../assets/img/generator-render.webp" alt="The Energy Muse frequency generator">
+    <!-- one render used to stand in for all seven designations; this is the
+         still behind the live device, so it is what anyone without WebGL sees -->
+    <img id="genimg" src="../../assets/img/generators/528.png" alt="528Hz Frequency Generator">
     <canvas id="dev"></canvas>
   </div>
 </section>
@@ -575,7 +577,7 @@ ROOM.forEach(function(r,i){
   b.className='stop'; b.type='button'; b.setAttribute('role','tab');
   b.setAttribute('aria-selected',i===cur?'true':'false');
   b.setAttribute('aria-label',r.hz+' hertz, '+r.name);
-  b.innerHTML='<i></i><b>'+r.hz+'</b>';
+  b.innerHTML='<i></i><b>'+r.hz+'<em>Hz</em></b>';
   b.addEventListener('click',function(){tune(i);});
   stopsEl.appendChild(b);
 });
@@ -588,6 +590,9 @@ function tune(i){
   root.style.setProperty('--tone-soft',r.soft);
   root.style.setProperty('--room',r.room);
   numEl.textContent=r.hz; nameEl.textContent=r.name; sayEl.textContent=r.say;
+  var gi=document.getElementById('genimg');
+  if(gi){gi.src='../../assets/img/generators/'+r.hz.replace('.','-')+'.png';
+         gi.alt=r.hz+'Hz Frequency Generator';}
   ansEl.innerHTML=r.hz+'&#8239;Hz'; specHz.innerHTML=r.hz+'&#8239;Hz';
   fill.style.width=(i/(ROOM.length-1)*100)+'%';
   [].slice.call(stopsEl.children).forEach(function(b,k){b.setAttribute('aria-selected',k===i?'true':'false');});
@@ -679,10 +684,14 @@ window.__wave={get cur(){return cur;},get shown(){return shown;},get cycles(){re
 })();
 
 /* --- bag --- */
+/* This used to build a hidden .padd button and click it, on the assumption
+   that something was listening for .padd. em-bag.js never bound that class —
+   each page binds its own, and this page never did, so every Add to Bag here
+   has been doing nothing at all. It calls the cart directly now. */
 function addToBag(id,n,p,img){
-  var b=document.createElement('button'); b.className='padd'; b.style.display='none';
-  b.dataset.id=id;b.dataset.n=n;b.dataset.p=p;b.dataset.img=img;
-  document.body.appendChild(b); b.click(); setTimeout(function(){b.remove();},0);
+  if(!window.EMBag)return false;
+  window.EMBag.add({id:id,name:n,price:parseFloat(p),img:img,link:location.pathname});
+  return true;
 }
 stonesEl.addEventListener('click',function(e){
   var a=e.target.closest('.a'); if(!a)return;
@@ -691,7 +700,9 @@ stonesEl.addEventListener('click',function(e){
   setTimeout(function(){a.textContent='Add';a.classList.remove('done');},1400);
 });
 document.getElementById('buy').addEventListener('click',function(){
-  addToBag('gen-528','The '+ROOM[cur].hz+' Hz Generator, in Copper','219.88','/assets/img/generator-render.webp');
+  var r=ROOM[cur];
+  addToBag('gen-'+r.hz+'-copper', 'The '+r.hz+'Hz Generator, in Copper', '219.88',
+           '/assets/img/generators/'+r.hz.replace('.','-')+'.png');
   this.textContent='Added to bag'; this.classList.add('done');
   var self=this; setTimeout(function(){self.textContent='Add the generator';self.classList.remove('done');},1600);
 });

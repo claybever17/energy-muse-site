@@ -707,12 +707,14 @@ function showScan(g){
 }
 
 /* --- bag: em-bag.js binds .padd itself, so mirror its contract --- */
+/* This used to build a hidden .padd button and click it, on the assumption
+   that something was listening for .padd. em-bag.js never bound that class —
+   each page binds its own, and this page never did, so every Add to Bag here
+   has been doing nothing at all. It calls the cart directly now. */
 function addToBag(id,n,p,img){
-  var b=document.createElement('button');
-  b.className='padd';b.style.display='none';
-  b.dataset.id=id;b.dataset.n=n;b.dataset.p=p;b.dataset.img=img;
-  document.body.appendChild(b);b.click();
-  setTimeout(function(){b.remove();},0);
+  if(!window.EMBag)return false;
+  window.EMBag.add({id:id,name:n,price:parseFloat(p),img:img,link:location.pathname});
+  return true;
 }
 grid.addEventListener('click',function(e){
   var a=e.target.closest('.add'); if(!a)return;
