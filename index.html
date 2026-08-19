@@ -209,12 +209,21 @@ header.nav.solid::after{opacity:1;}
   /* optical baseline: the wordmark's text sits low in the logo's box — nudge links to meet it */
   .nav-links,.nav-utils{transform:translateY(4px);}
 }
-/* The page has no centred column any more — the photography bleeds off both
-   edges and the splits are uneven — so links that merely sat "somewhere in
-   the middle" read as unanchored. Above 1100px they lock to the centre of
-   the viewport itself, which is the one axis the layout cannot move. */
+/* They used to lock to the centre of the viewport, on the reasoning that it is
+   the one axis the layout cannot move. It is — but it is not the axis the eye
+   uses. The generator sits 167px right of viewport centre at 1280 (the crop
+   pushes it there so it clears the headline), and the eye takes the product as
+   the middle of the picture, so a mathematically perfect centre reads as a
+   near-miss. Nothing is wrong with the nav; it is being compared to something
+   else. So stop offering a centre to compare: the four spread across the span
+   between the wordmark and the utilities and read as a rhythm rather than a
+   cluster. */
 @media (min-width:1100px){
-  .nav-links{position:absolute;left:50%;transform:translate(-50%,4px);}
+  /* capped, or the spread scales with the screen — 124px gaps at 1280 became
+     246px at 1920 and four links stop reading as a nav and start reading as
+     four scattered words. Bounded, the rhythm is the same on every monitor and
+     the group stays anchored to the wordmark rather than drifting to a centre. */
+  .nav-links{flex:1;justify-content:space-evenly;max-width:820px;}
 }
 /* and the nav says where you are, so it belongs to the page it sits on */
 .nav-links a.here{color:var(--copper-lo);}
@@ -397,9 +406,26 @@ body.menu-open{overflow:hidden;}
   margin:0 auto;max-width:22ch;opacity:0;transform:translateY(14px);
   transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);}
 .sl1{font-size:clamp(30px,4.4vw,64px);}
-.sl2{font-size:clamp(21px,2.5vw,34px);color:var(--copper);font-style:italic;max-width:26ch;}
-.sl3{font-family:var(--sans);font-size:clamp(15px,1.5vw,19px);font-style:normal;
-  color:var(--ink-soft,var(--stone));max-width:44ch;line-height:1.6;letter-spacing:0;}
+.sl2{font-size:clamp(21px,2.5vw,34px);color:var(--copper);font-style:italic;
+  /* 26ch broke it after "so easy" and left "to overlook." alone on the
+     second line. The sentence is short enough to hold one line on any
+     desktop, and one line is the beat. */
+  max-width:none;}
+.sl3{font-family:var(--sans);font-size:clamp(16px,1.7vw,22px);font-style:normal;
+  color:var(--ink-soft,var(--stone));max-width:40ch;line-height:1.55;letter-spacing:0;}
+/* The close was a small grey sentence sitting over an outlined rectangle —
+   the same shape every page gives every button, at the one moment the section
+   has been building toward. The whole beat is a line resolving, so the call
+   resolves with it: a label, and a rule that draws itself when the beat lands.
+   Scoped to .story-cta; the boxed ghost button is right everywhere else. */
+.story-cta .btn{border:0;background:none;padding:0;border-radius:0;
+  font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--copper-lo);position:relative;}
+.story-cta .btn::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:1px;
+  background:var(--copper);transform:scaleX(0);transform-origin:0 50%;
+  transition:transform .9s cubic-bezier(.16,1,.3,1) .25s;}
+.story-cta.on .btn::after{transform:scaleX(1);}
+.story-cta .btn:hover{color:var(--copper);}
 .sl.on{opacity:1;transform:none;}
 .story-cta{margin-top:clamp(18px,3.4vh,34px);opacity:0;transform:translateY(14px);
   transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);}
@@ -414,6 +440,7 @@ body.menu-open{overflow:hidden;}
 .story-fallback{max-width:52ch;text-align:center;}
 @media (prefers-reduced-motion:reduce){
   .sl,.story-cta{transition:none;}
+  .story-cta .btn::after{transition:none;transform:scaleX(1);}
 }
 @media (max-width:840px){
   .story{height:190svh;}
@@ -1635,21 +1662,25 @@ p{text-wrap:pretty;}
   // announcement bar: dismiss for the session
   try{if(sessionStorage.getItem('em-ann')==='off')document.body.classList.add('ann-off');}catch(e){}
 
-  // fold-cut: size the hero so the frequency marquee sits complete against the
-  // bottom of the first screen, its lower hairline on the fold. The band that
-  // used to be here was a line of small grey credentials, which is a footnote
-  // and cannot ask anyone to scroll; the marquee is large, copper and moving,
-  // and motion at the edge of the screen is the pull. Landing its bottom edge
-  // rather than cutting through it — a sliced sentence read as a broken layout
-  // the last time, and there is no need to cut anything when the thing itself
-  // moves. Deterministic on every screen.
+  // fold-cut: size the hero so the fold lands across the TOP of the frequency
+  // numerals — their crowns showing and the rest below. The band that used to
+  // sit here was a line of small grey credentials, which is a footnote and
+  // cannot ask anyone to scroll; the marquee is large, copper and moving, and
+  // motion at the edge of the screen is the pull. Showing it whole spent a
+  // sixth of the screen on it and shortened the photograph to pay for it;
+  // showing only the crowns buys that height back and asks the question
+  // instead of answering it. Numerals survive being cut where a sentence does
+  // not — a half-height 5 is still a 5. Deterministic on every screen.
   function foldCut(){
     var hero=document.querySelector('.hero'),au=document.querySelector('.hzband');
     if(!hero||!au)return;
     hero.style.minHeight='';
     var base=hero.getBoundingClientRect().height;
-    var r=au.getBoundingClientRect();
-    var targetDocY=r.bottom+window.scrollY;   // the marquee whole, its hairline on the fold
+    /* the digits themselves, not the band — the band's padding is half its
+       height and landing on that would show a strip of empty tint */
+    var trk=au.querySelector('.track')||au;
+    var r=trk.getBoundingClientRect();
+    var targetDocY=r.top+window.scrollY+r.height*0.30;   // crowns only
     var mh=base+(window.innerHeight-targetDocY);
     /* On a phone the three trust items stack, so seating the author line on
        the fold asks for a hero half again as tall as the screen. That was
