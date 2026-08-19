@@ -249,11 +249,20 @@ header.nav.solid::after{opacity:1;}
 @keyframes markIn{0%{--m-rot:-32deg}100%{--m-rot:0deg}}
 .brand:hover .blogo{transform:rotateX(7deg) rotateY(-9deg) scale(1.03);
   filter:drop-shadow(0 2px 2px rgba(29,39,57,.26)) drop-shadow(0 16px 28px rgba(29,39,57,.22));}
-.nav-links{display:flex;gap:24px;font-family:var(--sans);font-size:13.5px;letter-spacing:.03em;}
-/* the nav was set light and soft; it is the primary wayfinding on a sales
-   site, so it reads at a heavier weight and full contrast */
+.nav-links{display:flex;gap:26px;font-family:var(--sans);font-size:13.5px;letter-spacing:.03em;}
+/* It was 15px semibold in sentence case at full contrast — heavier than
+   anything else in the bar, and set in the one idiom this page does not
+   otherwise use. Every considered label here is uppercase and letterspaced:
+   the eyebrows at .28em, HZ CHANGE under the numerals, the credentials line,
+   the story's call. The nav was the only element still wearing the default
+   theme's plain semibold, which is exactly why it read as generic while
+   everything around it read as designed.
+
+   Same family and weight, set as wayfinding: smaller, tracked out, uppercase.
+   It carries less ink at the same authority, and it now belongs to the page
+   it sits on. */
 .nav-links a{position:relative;padding:8px 0 12px;color:var(--fg);font-weight:600;
-  font-size:15px;letter-spacing:.005em;transition:color .2s;}
+  font-size:12px;letter-spacing:.16em;text-transform:uppercase;transition:color .2s;}
 .nav-links a::after{content:"";position:absolute;left:50%;bottom:2px;width:5px;height:5px;border-radius:50%;
   border:1px solid var(--copper);transform:translateX(-50%) scale(0);transition:transform .28s cubic-bezier(.16,1,.3,1);}
 .nav-links a:hover{color:var(--fg);}
@@ -1050,7 +1059,11 @@ footer.site{background:
 /* ===== Responsive ===== */
 @media (max-width:1100px){
   .nav-in{gap:16px;}
-  .nav-links{gap:15px;font-size:12.5px;}
+  /* on the anchor, not the container — .nav-links a sets its own size, so
+     this rule had been doing nothing but narrowing the gap since it was
+     written. */
+  .nav-links{gap:15px;}
+  .nav-links a{font-size:11px;letter-spacing:.12em;}
   .nav-utils{gap:12px;}
 }
 @media (max-width:840px){
