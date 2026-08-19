@@ -249,7 +249,8 @@ header.nav.solid::after{opacity:1;}
 @keyframes markIn{0%{--m-rot:-32deg}100%{--m-rot:0deg}}
 .brand:hover .blogo{transform:rotateX(7deg) rotateY(-9deg) scale(1.03);
   filter:drop-shadow(0 2px 2px rgba(29,39,57,.26)) drop-shadow(0 16px 28px rgba(29,39,57,.22));}
-.nav-links{display:flex;gap:26px;font-family:var(--sans);font-size:13.5px;letter-spacing:.03em;}
+.nav-links{display:flex;gap:clamp(34px,2.8vw,48px);
+  font-family:var(--sans);font-size:13.5px;letter-spacing:.03em;}
 /* It was 15px semibold in sentence case at full contrast — heavier than
    anything else in the bar, and set in the one idiom this page does not
    otherwise use. Every considered label here is uppercase and letterspaced:
