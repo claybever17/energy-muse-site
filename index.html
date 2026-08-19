@@ -499,7 +499,10 @@ body.menu-open{overflow:hidden;}
      phone keeps its left edge, where a narrow column gives the text its own
      anchor and centring would fight the hero. */
   .trust .wrap{text-align:center;}
-  .trust-lead{margin-inline:auto;max-width:56ch;}
+  /* no max-width: the sentence fits on one line from 841 up and a single line
+     is the whole point of a colophon — two centred lines start to look like a
+     paragraph, which is what it stopped being. */
+  .trust-lead{margin-inline:auto;max-width:none;}
   .trust-facts{margin-top:12px;flex-direction:row;gap:0;
     align-items:baseline;justify-content:center;}
   .trust-facts span+span::before{content:'\00B7';margin:0 .85em;opacity:.5;}
@@ -1313,15 +1316,15 @@ p{text-wrap:pretty;}
 
 
 <!-- ===== TRUST ===== -->
+<section class="hzband" aria-label="The seven tuned frequencies">
+  <div class="track" id="hztrack"></div>
+</section>
+
 <section class="trust">
   <div class="wrap">
     <p class="trust-lead">Founder-led for two decades by <em class="who">Heather Askinosie</em>, best-selling author of <em>Crystal&nbsp;365</em> and <em>Crystal&nbsp;Muse</em>.</p>
     <p class="trust-facts"><span>World's largest generator collection</span><span>Guidance before and after</span></p>
   </div>
-</section>
-
-<section class="hzband" aria-label="The seven tuned frequencies">
-  <div class="track" id="hztrack"></div>
 </section>
 
 <!-- ===== INTENTION ===== -->
@@ -1668,19 +1671,21 @@ p{text-wrap:pretty;}
   // announcement bar: dismiss for the session
   try{if(sessionStorage.getItem('em-ann')==='off')document.body.classList.add('ann-off');}catch(e){}
 
-  // fold-cut: size the hero so the first fold lands just inside the top of the
-  // credentials band — a sliver of the next surface shows, which is the invitation
-  // to scroll. It used to cut 45% into the caption itself, which worked while that
-  // was a light throwaway line and stopped working when it became the one real
-  // sentence on the page: a claim sliced mid-word reads as a broken layout, not a
-  // tease. Deterministic on every screen.
+  // fold-cut: size the hero so the frequency marquee sits complete against the
+  // bottom of the first screen, its lower hairline on the fold. The band that
+  // used to be here was a line of small grey credentials, which is a footnote
+  // and cannot ask anyone to scroll; the marquee is large, copper and moving,
+  // and motion at the edge of the screen is the pull. Landing its bottom edge
+  // rather than cutting through it — a sliced sentence read as a broken layout
+  // the last time, and there is no need to cut anything when the thing itself
+  // moves. Deterministic on every screen.
   function foldCut(){
-    var hero=document.querySelector('.hero'),au=document.querySelector('.trust');
+    var hero=document.querySelector('.hero'),au=document.querySelector('.hzband');
     if(!hero||!au)return;
     hero.style.minHeight='';
     var base=hero.getBoundingClientRect().height;
     var r=au.getBoundingClientRect();
-    var targetDocY=r.top+window.scrollY+16;   // inside the band, above its first line
+    var targetDocY=r.bottom+window.scrollY;   // the marquee whole, its hairline on the fold
     var mh=base+(window.innerHeight-targetDocY);
     /* On a phone the three trust items stack, so seating the author line on
        the fold asks for a hero half again as tall as the screen. That was
