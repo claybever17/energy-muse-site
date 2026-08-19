@@ -1189,7 +1189,11 @@ p{text-wrap:pretty;}
 @keyframes sineDrift{to{translate:2.5% 0;}}
 
 /* ---------- a band of frequencies, running slowly, as texture ---------- */
-.hzband{position:relative;overflow:hidden;padding:clamp(26px,4vw,44px) 0;
+/* The padding was 44px top and bottom. At the fold that meant 45px of empty
+   tint between the photograph and the crowns of the numerals — the strip read
+   as a white gap with something behind it rather than as the numbers arriving.
+   Halved, so what shows below the picture is mostly digit. */
+.hzband{position:relative;overflow:hidden;padding:clamp(10px,1.2vw,18px) 0;
   border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
   background:color-mix(in srgb,var(--copper) 4%,transparent);}
 .hzband .track{display:flex;gap:clamp(28px,4vw,64px);width:max-content;
@@ -1680,7 +1684,7 @@ p{text-wrap:pretty;}
        height and landing on that would show a strip of empty tint */
     var trk=au.querySelector('.track')||au;
     var r=trk.getBoundingClientRect();
-    var targetDocY=r.top+window.scrollY+r.height*0.30;   // crowns only
+    var targetDocY=r.top+window.scrollY+r.height*0.42;   // crowns only
     var mh=base+(window.innerHeight-targetDocY);
     /* On a phone the three trust items stack, so seating the author line on
        the fold asks for a hero half again as tall as the screen. That was
