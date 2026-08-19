@@ -316,21 +316,34 @@ body.menu-open{overflow:hidden;}
    which is the same composition read top-to-bottom instead of left-to-right.
    foldCut still owns the height; the words are pushed to the bottom of
    whatever it decides, so the trust line is still cut by the fold. */
+/* A 2.67:1 photograph cropped into a full-height portrait frame has to be
+   scaled 3.4x on a phone — that is the blur, and it also drives the crop so
+   far into the coil that the device stops reading as a device, and puts the
+   product's own printed wordmark behind the copy. A band close to the
+   picture's own proportions is 1.2x: effectively native, whole instrument in
+   frame, nothing printed behind the words.
+
+   The band alone still read as a stock theme, and the reasons were all
+   layout. Everything was centred, where the desktop and the reference are
+   both ranged left. The picture and the type were two rectangles stacked with
+   a gap between them. And a fifth of the hero was empty ground under the
+   button. So: ranged left, the type lifted up over the foot of the picture so
+   the two interlock instead of stacking, and the dead ground taken out. */
 @media (max-width:840px){
-  .hero{display:flex;flex-direction:column;}
-  .hero-shot{position:relative;flex:none;height:min(58svh,470px);object-position:50% 56%;}
-  /* The scrim was pinned to the hero's top while the photograph starts 40px
-     down it, so the photograph's bottom 40px sat outside the gradient — a lit
-     strip of floor against the dark ground, which is the rectangle. Both
-     layers span the whole hero now and the gradient reaches solid before the
-     picture ends, so it meets the ground with nothing to see. Nothing here
-     depends on knowing where the photograph starts. */
+  .hero{display:flex;flex-direction:column;padding-bottom:0;}
+  .hero-shot{position:relative;flex:none;height:auto;aspect-ratio:5/4;
+    object-position:50% 46%;}
   .hero-bg,.herowave{inset:0;height:auto;}
+  /* solid well before the picture ends, because the type now sits on its foot */
   .hero-bg{background:linear-gradient(180deg,
-      rgba(20,14,7,.30) 0%,rgba(20,14,7,.06) 26%,
-      rgba(20,14,7,.72) 50%,rgba(26,18,8,1) 62%,rgba(26,18,8,1) 100%);}
-  .hero-grid{margin-top:auto;padding-top:clamp(16px,3vh,26px);}
-  .hero-grid .hero-copy{max-width:none;}
+      rgba(20,14,7,.18) 0%,rgba(20,14,7,.02) 30%,
+      rgba(20,14,7,.46) 46%,rgba(26,18,8,.94) 56%,rgba(26,18,8,1) 66%);}
+  .hero-grid{margin-top:-16%;padding-top:0;
+    padding-bottom:clamp(26px,4.5vh,44px);text-align:left;}
+  .hero-grid .hero-copy{max-width:none;text-align:left;}
+  .hero .sub{margin-inline:0;}
+  .hero .cta-row{justify-content:flex-start;}
+  .hero .cta-row .btn{width:auto;}
 }
 /* two scrims: the vertical gives the type its footing, the left-weighted one
    guarantees something behind the words wherever the crop lands */
@@ -993,12 +1006,14 @@ footer.site{background:
   .reel figcaption span{font-size:10px;}
   /* padding-block put 40px above the photograph as well as below it, and a
      full-bleed picture that starts 40px down is not full bleed. Bottom only. */
-  .hero{min-height:auto;padding-top:0;padding-bottom:40px;}
+  .hero{min-height:auto;padding-top:0;padding-bottom:0;}
   /* the grid's align-items:center carries over into the column flex, so the
      copy shrank to fit and floated off the page's left margin — every other
      block on the page starts at the gutter, and so should this one. */
   .hero-grid{display:flex;flex-direction:column;align-items:stretch;}
-  .hero-copy{padding-block:20px 40px;max-width:none;}
+  /* the hero block below sets the one bottom pad; three elements each adding
+     forty pixels is where the empty ground under the button came from */
+  .hero-copy{padding-block:0;max-width:none;}
     .int-grid{grid-template-columns:repeat(3,1fr);}
   .ways{grid-template-columns:repeat(2,1fr);}
   .split,.split.rev{grid-template-columns:1fr;}.split.rev .media{order:0;}
@@ -1027,10 +1042,13 @@ footer.site{background:
   .split .copy>p:not(.freq-note){display:none;}
   .hero .sub{margin-top:18px;}
   /* centered hero: copy + stacked CTAs share one axis */
-  .hero-copy{text-align:center;}
+  /* ranged left on a phone as well, like the desktop and the reference —
+     centred type in a dark box is the stock-theme tell */
+  .hero-copy{text-align:left;}
   .hero .sub{margin-inline:auto;}
-  .hero .cta-row{justify-content:center;}
-  .hero .cta-row .btn{width:min(300px,100%);justify-content:center;padding:13px 22px;font-size:13.5px;}
+  /* ranged left with the rest of the block, not centred under it */
+  .hero .cta-row{justify-content:flex-start;}
+  .hero .cta-row .btn{width:auto;justify-content:center;padding:13px 22px;font-size:13.5px;}
   .big-num{display:none;}
   /* calm the small screen: captions, echo outlines and the corner mark are desktop-only */
   .plab{display:none;}
@@ -1622,8 +1640,10 @@ p{text-wrap:pretty;}
        the invitation, without buying a second screen of nothing to get there.
        clientWidth, not innerWidth: some embedded viewports report the latter
        in device pixels and would take the desktop path on a phone. */
-    if(document.documentElement.clientWidth<=840)
-      mh=Math.min(mh, document.documentElement.clientHeight*1.04);
+    /* On a phone the hero is a band plus a short block of type — there is
+       nothing to spend extra height on but empty ground, and the trust row
+       peeking under it is already the invitation to scroll. */
+    if(document.documentElement.clientWidth<=840)return;
     if(mh>0)hero.style.minHeight=mh+'px';
   }
   foldCut();
