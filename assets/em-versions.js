@@ -27,14 +27,14 @@ var SIG={
    made yet, and the work has been going into the first of these. */
 var VERSIONS=[
   ['/','1 · Classic','the main homepage',SIG.classic],
-  ['/home/lab/','2 · Current v2','a sandbox to build on',SIG.current]
+  ['/home/lab/','2 · Current v2','a sandbox to build on',SIG.current],
+  ['/designer/','3 · Atelier','build one',SIG.atelier]
 ];
-/* two directions to choose between, and three things you actually operate */
-var TOOLS=[
-  ['/designer/','Atelier','build one',SIG.atelier],
-  ['/home/cascade/','Frequency Room','tune it',SIG.cascade],
-  ['/home/crystallize/','Collection','browse all',SIG.crystallize]
-];
+/* There used to be a second group below a rule — Atelier, Frequency Room and
+   Collection, set as filled copper tiles so they read as things you use rather
+   than skins to choose between. Frequency Room and Collection are gone from
+   the switcher on Clay's call (both still live at their URLs), and Atelier
+   moves up to sit as the third direction. One group, three rows, no rule. */
 
 function lum(){try{var m=getComputedStyle(document.body).backgroundColor.match(/\d+/g);
   if(!m)return 1;return (0.2126*m[0]+0.7152*m[1]+0.0722*m[2])/255;}catch(e){return 1;}}
@@ -78,33 +78,15 @@ var css=[
 '  border-color:'+(dark?'rgba(196,133,90,.45)':'rgba(169,104,62,.34)')+';}',
 '.emv-pop a.cur .emv-txt strong{color:'+P.accent+';}',
 '.emv-pop a.cur .emv-ico{opacity:1;}',
-/* tools are not another skin — they are something you use */
-'.emv-rule{height:1px;background:'+P.line+';margin:9px 6px 8px;opacity:.8;}',
-/* the tools sit two across. At half the popover's width a row of
-   icon-then-text cannot hold "Frequency Room" on one line, so each tile
-   stacks instead: signature above the name. */
-'.emv-tools{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;}',
-'.emv-pop a.tool{flex-direction:column;align-items:flex-start;gap:7px;padding:10px 9px 9px;}',
-'.emv-pop a.tool .emv-txt strong{font-size:12.5px;line-height:1.15;}',
-'.emv-pop a.tool .emv-txt span{font-size:9px;}',
-'.emv-pop a.tool{background:linear-gradient(150deg,#9E6038,#96592F 52%,#8A4E2C);border-color:transparent;',
-'  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 22px rgba(169,104,62,.32);}',
-'.emv-pop a.tool .emv-txt strong{color:#fff;}',
-'.emv-pop a.tool .emv-txt span{color:rgba(255,255,255,.82);}',
-'.emv-pop a.tool .emv-ico{color:#fff;opacity:.95;}',
-'.emv-pop a.tool:hover{transform:translateY(-1px);',
-'  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 12px 30px rgba(169,104,62,.44);}',
-'.emv-pop a.tool.cur{outline:2px solid '+(dark?'rgba(241,234,223,.5)':'rgba(29,39,57,.28)')+';outline-offset:2px;}',
 '@media(max-width:700px){.emv{bottom:12px;right:12px;}}'
 ].join('\n');
 
-function row(v,isTool,here){
+function row(v,_unused,here){
   var norm=v[0]==='/'?'/':v[0].replace(/\/$/,'');
-  var cls=(isTool?'tool':'')+(norm===here?' cur':'');
-  return '<a href="'+v[0]+'"'+(cls?' class="'+cls.trim()+'"':'')+'>'+
+  var cls=(norm===here?'cur':'');
+  return '<a href="'+v[0]+'"'+(cls?' class="'+cls+'"':'')+'>'+
     '<span class="emv-ico"><svg viewBox="0 0 26 24" aria-hidden="true">'+v[3]+'</svg></span>'+
-    '<span class="emv-txt"><strong>'+v[1]+'</strong>'+
-    (isTool?'<span>'+v[2]+'</span>':'')+'</span></a>';
+    '<span class="emv-txt"><strong>'+v[1]+'</strong></span></a>';
 }
 
 function boot(){
@@ -113,9 +95,7 @@ function boot(){
   var pop=document.createElement('div');pop.className='emv-pop';
   var here=location.pathname.replace(/index\.html$/,'').replace(/\/$/,'')||'/';
   pop.innerHTML='<div class="emv-lab">Design directions</div>'+
-    VERSIONS.map(function(v){return row(v,false,here);}).join('')+
-    '<div class="emv-rule"></div><div class="emv-lab">Try it</div>'+
-    '<div class="emv-tools">'+TOOLS.map(function(v){return row(v,true,here);}).join('')+'</div>';
+    VERSIONS.map(function(v){return row(v,false,here);}).join('');
   var btn=document.createElement('button');btn.className='emv-btn';btn.setAttribute('aria-expanded','false');
   btn.innerHTML='<span class="emv-dot"></span><span>Versions</span>';
   function set(o){pop.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');}
