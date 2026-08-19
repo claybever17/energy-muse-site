@@ -2,6 +2,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Energy Muse &#8212; The Frequency Room</title>
+<!-- the range, before the inline block that maps it -->
+<script src="/assets/em-frequencies.js?v=1"></script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Energy Muse">
 <meta property="og:title" content="Energy Muse — The Frequency Room">
@@ -528,29 +530,16 @@ img{display:block;max-width:100%}
    The dial is the page. Everything below reads from ROOM[i]: the readout, the
    wave's own wavelength, the light in the room, and which crystals surface.
 --------------------------------------------------------------------------- */
-var ROOM=[
- {hz:'7.83', name:'Earth',      cats:['Calm','Wellness'],
-  tone:'#5E8C7A', soft:'#DDE9E3', room:'#F7F8F4',
-  say:'The Schumann resonance — the pulse the planet itself keeps. The steadying one: put it where you want the room to slow down.'},
- {hz:'174',  name:'Foundation', cats:['Protection'],
-  tone:'#4E6070', soft:'#DCE3E9', room:'#F6F7F8',
-  say:'The lowest of the tuned tones, and the most grounding. For entryways, desks, and any threshold you want to feel solid.'},
- {hz:'417',  name:'Change',     cats:['Wealth','Fresh Start'],
-  tone:'#B0803A', soft:'#F0E3CC', room:'#FBF7EE',
-  say:'For beginnings and for shifting something that has been stuck. Keep it where plans get made.'},
- {hz:'528',  name:'Repair',     cats:['Wellness','Fresh Start'],
-  tone:'#A9683E', soft:'#EBD9C9', room:'#FBF8F2',
-  say:'The best known of them, and our most asked for. The one people keep on through the working day.'},
- {hz:'639',  name:'Connection', cats:['Love'],
-  tone:'#B76A7C', soft:'#F2DDE2', room:'#FCF6F6'},
- {hz:'963',  name:'Clarity',    cats:['Spirituality'],
-  tone:'#7B62A8', soft:'#E4DCEF', room:'#F9F7FC'},
- {hz:'1111', name:'Alignment',  cats:['Power','Wealth'],
-  tone:'#8A6A3C', soft:'#EAE0CC', room:'#FAF8F1'}
-];
-ROOM[4].say='For the rooms where people are together — the table, the sofa, the bedroom. Named for connection because that is what it is for.';
-ROOM[5].say='The highest tuning we wind, and the quietest in feel. For reading, writing, meditation — anywhere thinking happens.';
-ROOM[6].say='For the moment something clicks into place. Keep it where you go to decide.';
+/* The dial reads the canonical range. This used to be its own copy of the
+   seven frequencies — the one that named 174 "Foundation" for protection when
+   it is Tension & Stress Release for pain relief, and that carried 1111 Hz,
+   which is not a product. Everything the page draws from a frequency — the
+   readout, the wave's wavelength, the light in the room, which stones surface
+   — comes from these fields, so they are mapped rather than restated. */
+var ROOM=(window.EM_FREQ||[]).map(function(f){
+  return {hz:f.hz, name:f.name, short:window.EM_FREQ_BY.short(f.hz),
+          cats:f.cats, tone:f.tone, soft:f.soft, room:f.room, say:f.say};
+});
 
 /* the catalogue, filed by the intention each frequency belongs to */
 var STONES=[

@@ -1249,7 +1249,8 @@ function frame(p,t){
   }
 
   /* --- Hz ticker --- */
-  var HZ=[7.83,174,417,528,639,963,1111];
+  /* six instruments, not seven — 1111 Hz was never a product */
+  var HZ=[7.83,174,417,528,639,963];
   var hu=win(p,.425,.69);               /* the Hz ticker climbs across the hold */
   hzval.textContent=String(HZ[Math.min(6,Math.floor(hu*6.999))]);
 

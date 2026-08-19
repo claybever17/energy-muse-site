@@ -13,6 +13,11 @@
 
    1111 Hz is gone. It was never a product; we invented it.
 
+   The `url` slugs come from their own page. Five follow {hz}hz-frequency-generator;
+   7.83 is the exception. The 639 link on their page appeared to point at the
+   417 product — almost certainly a fault on their side, so ours follows the
+   pattern. Worth one confirmation before launch.
+
    This file has no side effects beyond defining EM_FREQ — nothing is
    injected, so it is safe to load anywhere, in any order. */
 (function () {
@@ -20,7 +25,7 @@
 
   var FREQ = [
     {
-      hz: '7.83', slug: 'better-sleep', id: 'gen-7.83',
+      hz: '7.83', url: 'https://energymuse.com/products/7-83-hz-earth-frequency-generator', slug: 'better-sleep', id: 'gen-7.83',
       name: 'Better Sleep',
       purpose: ['Grounding', 'Nervous System Reset', 'Deep Calm'],
       cats: ['Calm', 'Wellness'],
@@ -31,7 +36,7 @@
       say: 'The Schumann resonance — the rate the planet itself keeps. The steadying one: put it where you want the room to slow down.'
     },
     {
-      hz: '174', slug: 'tension-stress-release', id: 'gen-174',
+      hz: '174', url: 'https://energymuse.com/products/174hz-frequency-generator', slug: 'tension-stress-release', id: 'gen-174',
       name: 'Tension & Stress Release',
       purpose: ['Pain Relief', 'Comfort', 'Restoration'],
       cats: ['Wellness'],
@@ -42,7 +47,7 @@
       say: 'The lowest of the tuned tones. Kept where the body is asked to hold still for a long time — a desk, a bedside, a treatment room.'
     },
     {
-      hz: '417', slug: 'energy-clearing', id: 'gen-417',
+      hz: '417', url: 'https://energymuse.com/products/417hz-frequency-generator', slug: 'energy-clearing', id: 'gen-417',
       name: 'Energy Clearing',
       purpose: ['Removes Negativity', 'Emotional Reset', 'Renewal'],
       cats: ['Fresh Start', 'Protection'],
@@ -53,7 +58,7 @@
       say: 'For a room that needs to start again — after an argument, a long week, a house guest. Entryways and thresholds.'
     },
     {
-      hz: '528', slug: 'accelerates-manifestation', id: 'gen-528',
+      hz: '528', url: 'https://energymuse.com/products/528hz-frequency-generator', slug: 'accelerates-manifestation', id: 'gen-528',
       name: 'Accelerates Manifestation',
       purpose: ['Joy', 'Magnetism', 'Heart-Opening'],
       cats: ['Wealth', 'Wellness'],
@@ -64,7 +69,7 @@
       say: 'The best known of them, and our most asked for. The one people keep on through the working day.'
     },
     {
-      hz: '639', slug: 'emotional-balance', id: 'gen-639',
+      hz: '639', url: 'https://energymuse.com/products/639hz-frequency-generator', slug: 'emotional-balance', id: 'gen-639',
       name: 'Emotional Balance',
       purpose: ['Connection', 'Relationship Healing', 'Harmony'],
       cats: ['Love'],
@@ -75,7 +80,7 @@
       say: 'For the rooms people share. Kitchens, dining tables, anywhere a household actually sits together.'
     },
     {
-      hz: '963', slug: 'mental-focus', id: 'gen-963',
+      hz: '963', url: 'https://energymuse.com/products/963hz-frequency-generator', slug: 'mental-focus', id: 'gen-963',
       name: 'Mental Focus',
       purpose: ['Connection', 'Awareness', 'Clarity'],
       cats: ['Spirituality', 'Clarity'],

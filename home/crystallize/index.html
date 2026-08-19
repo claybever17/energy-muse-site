@@ -509,8 +509,11 @@ select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);
    from its own colour, and the frequency from the intention it is filed under.
 --------------------------------------------------------------------------- */
 var SCANS={protection:1,wellness:1};   /* assets/gems/<slug>.glb */
-var HZ={Calm:'7.83',Protection:'174',Wealth:'417','Fresh Start':'417',
-        Wellness:'528',Love:'639',Spirituality:'963',Power:'1111'};
+/* Against the real range: Protection is 417 (Energy Clearing), not 174, which
+   is Tension & Stress Release; Wealth is 528 (Accelerates Manifestation); and
+   Power had been pointing at 1111, which is not a product. */
+var HZ={Calm:'7.83',Protection:'417',Wealth:'528','Fresh Start':'417',
+        Wellness:'174',Love:'639',Spirituality:'963',Power:'528'};
 
 var GEMS=[
  {slug:'protection',name:'Black Tourmaline',cat:'Protection',form:'Raw',hue:'Black',tint:'#5A6472',price:8.88,
