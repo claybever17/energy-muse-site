@@ -464,22 +464,34 @@ body.menu-open{overflow:hidden;}
 .hero .sub{transition-delay:.5s;}.hero p.body{transition-delay:.6s;}
 .hero .cta-row{transition-delay:.7s;}.hero .chips{transition-delay:.8s;}
 
-/* ===== Marquee trust ===== */
+/* ===== Credentials ===== */
+/* The band said the same thing twice: "Founder-led for two decades" as a bare
+   claim, then "Co-founder Heather Askinosie, best-selling author..." as its
+   proof — and the proof was the one set smallest and greyest, last, under
+   three icons. Merged into one sentence the claim keeps its specifics and the
+   band loses an element instead of gaining one.
+
+   The icons went with it. A star, a cube and a speech bubble are stock marks
+   that say nothing about crystals or frequency, and they were the reason the
+   column carried two left edges: rules and glyphs on the gutter, labels 33px
+   inside it. Gone, the page ranges from a single line, hero to footer. */
 .trust{border-block:1px solid var(--hair);background:var(--tint);}
-/* credentials band: three content-sized items on one centered line, quiet caption beneath */
-.trust-in{display:flex;justify-content:center;align-items:stretch;}
-.trust-item{padding:20px clamp(20px,3vw,46px);display:flex;gap:14px;align-items:center;text-align:left;
-  font-size:13.5px;line-height:1.5;color:var(--ink-soft);letter-spacing:.01em;max-width:400px;}
-.trust-item+.trust-item{border-left:1px solid var(--hair);}
-/* one line each. The middle claim ran to two and the row went ragged
-   around it, which is most of why the band read as busy. */
-.trust-item span{text-wrap:balance;}
-.trust-author{text-align:center;font-size:12.5px;color:var(--stone);margin:0 auto;max-width:82ch;padding:13px var(--gutter) 17px;
-  line-height:1.6;text-wrap:balance;border-top:1px solid color-mix(in srgb,var(--hair) 65%,transparent);}
-.trust-author em{font-style:italic;font-weight:400;color:inherit;}
-.trust-author em.who{font-style:normal;font-weight:600;color:var(--copper-lo);}
+.trust .wrap{padding-block:clamp(18px,2.2vw,26px);}
+.trust-lead{margin:0;max-width:64ch;
+  font-size:clamp(15px,1.15vw,17px);line-height:1.55;color:var(--ink-soft);
+  text-wrap:pretty;}
+.trust-lead em{font-style:italic;font-weight:400;color:inherit;}
+.trust-lead em.who{font-style:normal;font-weight:600;color:var(--copper-lo);}
+/* what is left of the other two claims, set the way a hotel lists its
+   credentials rather than the way a feature grid lists its features */
+.trust-facts{margin:11px 0 0;display:flex;flex-direction:column;gap:5px;
+  font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--stone);line-height:1.4;}
+@media (min-width:841px){
+  .trust-facts{flex-direction:row;gap:0;align-items:baseline;}
+  .trust-facts span+span::before{content:'\00B7';margin:0 .85em;opacity:.5;}
+}
 /* embossed copper-coin icons */
-.trust-item svg{flex:none;color:var(--copper);width:19px;height:19px;}
 
 /* ===== PROMO — a slot the client can point at whatever is new =====
    Everything here is content, not layout: swap the eyebrow, headline,
@@ -1040,16 +1052,7 @@ footer.site{background:
   .burger{display:flex;order:3;}
   .nav-utils .bag{order:2;margin-left:auto;}
   .nav-utils a[href="#"]:not(.bag){display:none;}
-  .trust-in{flex-direction:column;align-items:center;}
-  /* One left edge down the whole phone column. The headline, the sub and the
-     button all range from the page gutter; the trust rows were adding their own
-     20px inline padding on top of it, so the icons sat at 40 and their labels at
-     73 — three edges in a column that should have one. The gutter belongs to the
-     container, not to each row. */
-  .trust-item{max-width:none;width:100%;justify-content:flex-start;padding-block:14px;
-    padding-inline:0;}
-  .trust-author{text-align:left;padding-inline:0;margin-inline:0;max-width:none;}
-  .trust-item+.trust-item{border-left:0;border-top:1px solid var(--hair);}
+
   .specs{flex-wrap:wrap;}.spec{flex-basis:100%;}
 }
 @media (max-width:700px){
@@ -1113,7 +1116,7 @@ p{text-wrap:pretty;}
 /* ===== Anchored text reads as a link, not as prose =====
    Inline links in body copy were the same weight and colour as the text
    around them, so nothing invited a click on a site that has to sell. */
-.copy p a,.lead a,.trust-author a,.head p a,.email p a,.prose a{
+.copy p a,.lead a,.trust-lead a,.head p a,.email p a,.prose a{
   font-weight:600;color:var(--copper-lo);
   text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;
   text-decoration-color:color-mix(in srgb,var(--copper) 45%,transparent);
@@ -1298,12 +1301,9 @@ p{text-wrap:pretty;}
 
 <!-- ===== TRUST ===== -->
 <section class="trust">
-  <div class="wrap"><div class="trust-in">
-    <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.9 6 6.6.6-5 4.3 1.5 6.5L12 16.9 5.9 20.4 7.4 12.9l-5-4.3L9 8z"/></svg> <span>Founder-led for two&nbsp;decades</span></div>
-    <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l8 4.5v9L12 20l-8-4.5v-9z"/><path d="M12 11l8-4.5M12 11v9M12 11L4 6.5"/></svg> <span>The world's largest generator&nbsp;collection</span></div>
-    <div class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.4 8.4 0 01-.9 3.8A8.5 8.5 0 0112.5 20a8.4 8.4 0 01-3.8-.9L3 20l1.9-5.7a8.4 8.4 0 01-.9-3.8A8.5 8.5 0 018.7 3 8.4 8.4 0 0112.5 2H13a8.5 8.5 0 018 8z"/></svg> <span>Guidance before and after</span></div>
-  </div>
-  <p class="trust-author">Co-founder <em class="who">Heather Askinosie</em>, best-selling author of <em>Crystal 365</em> and <em>Crystal Muse</em>.</p>
+  <div class="wrap">
+    <p class="trust-lead">Founder-led for two decades by <em class="who">Heather Askinosie</em>, best-selling author of <em>Crystal&nbsp;365</em> and <em>Crystal&nbsp;Muse</em>.</p>
+    <p class="trust-facts"><span>World's largest generator collection</span><span>Guidance before and after</span></p>
   </div>
 </section>
 
@@ -1658,7 +1658,7 @@ p{text-wrap:pretty;}
   // fold-cut: size the hero so the first fold slices the trust caption mid-line — the reader
   // can start the sentence but must scroll to finish it. Deterministic on every screen.
   function foldCut(){
-    var hero=document.querySelector('.hero'),au=document.querySelector('.trust-author');
+    var hero=document.querySelector('.hero'),au=document.querySelector('.trust-lead');
     if(!hero||!au)return;
     hero.style.minHeight='';
     var base=hero.getBoundingClientRect().height;
