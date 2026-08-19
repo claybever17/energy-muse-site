@@ -1144,6 +1144,14 @@ p{text-wrap:pretty;}
 .sinemark.d{top:44%;transform:translateX(-40%) rotate(3.1deg) scaleY(1.2) scaleX(-1);opacity:.11;}
 /* the content has to sit above it */
 .section{position:relative;}
+/* and the flourish has to stay inside it. These are 210% wide on a phone and
+   absolutely positioned, so they ran 315px past the right edge of a 390px
+   screen. body{overflow-x:hidden} hid that in Chrome and did NOT on iOS
+   Safari, which sized the layout viewport to the content instead and rendered
+   the whole page zoomed out with dead space beside it. Clip at the section:
+   'clip' rather than 'hidden' so no scroll container is created and sticky
+   still works. */
+.section:has(.sinemark){overflow:clip;}
 .section > .wrap{position:relative;z-index:1;}
 @media (max-width:840px){.sinemark{opacity:.09;width:210%;}}
 @media (prefers-reduced-motion:no-preference){

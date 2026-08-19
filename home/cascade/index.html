@@ -81,7 +81,12 @@ img{display:block;max-width:100%}
 }
 
 /* ---------- the room ---------- */
-.room{position:relative;max-width:1400px;margin:0 auto;padding:clamp(20px,3vw,40px) clamp(16px,3.4vw,40px) 0;
+/* .roomin .device slides in from translateX(9%), which on a 390px phone put
+   its right edge 10px past the viewport. A transient overflow is still an
+   overflow: iOS Safari sizes the layout viewport to it and the page renders
+   zoomed out. Clip on x only — y stays visible for the copy that rides out
+   of the room. */
+.room{overflow-x:clip;position:relative;max-width:1400px;margin:0 auto;padding:clamp(20px,3vw,40px) clamp(16px,3.4vw,40px) 0;
   display:grid;grid-template-columns:1fr minmax(0,540px);gap:clamp(24px,4vw,64px);align-items:center;
   min-height:min(84svh,760px)}
 /* the glow used to bleed 30% past the room on each side, which pushed the

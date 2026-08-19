@@ -170,6 +170,17 @@ Motion = Classic + transforms. To regenerate after ANY Classic change, run the p
   and `gen-<hz>` for devices; the quiz derives it from its image path via `bagId()`. Atelier is the
   one deliberate exception — a custom bracelet is a hashed design id, since two different strands
   are genuinely different products. **Any new surface must key on the slug.**
+- **Horizontal overflow reads as a "spacing/box issue" on iPhone, not as a scrollbar.**
+  `body{overflow-x:hidden}` contains an over-wide element in Chrome and does **not** on iOS
+  Safari — Safari sizes the layout viewport to the content instead, so the whole page renders
+  zoomed out with dead space down the right and the user can pinch out further. Two real causes
+  found so far: `.sinemark` decorative waves at `width:210%` on the landing, and cascade's
+  `.roomin .device{transform:translateX(9%)}` reveal, which overflows only *during* the
+  animation — a transient overflow counts. Fix at the element's own container with
+  `overflow-x:clip` (not `hidden`: clip creates no scroll container, so `position:sticky`
+  survives). **Check with `document.documentElement.scrollWidth - clientWidth === 0` at 320,
+  390 and 430 across every page** — iframes at a fixed width make this a one-shot sweep, and a
+  page can be clean at 390 and broken at 320.
 
 ## Backlog (agreed with Clay, in priority order)
 
