@@ -21,6 +21,9 @@
 <link rel="icon" type="image/png" sizes="64x64" href="assets/img/favicon.png">
 <link rel="apple-touch-icon" href="assets/img/touch-icon.png">
 <script>document.documentElement.dataset.skin=localStorage.getItem("em-skin")||"ivory";</script>
+<!-- the generators, once. Not deferred: the marquee and the frequency band are
+     built by inline script, which runs before any deferred file exists. -->
+<script src="assets/em-frequencies.js?v=1"></script>
 <style>
 /* ===== Fonts: Fraunces (display serif) + Instrument Sans (grotesk body) ===== */
 @font-face{font-family:'Fraunces';src:url(assets/fonts/fraunces_300.woff2?v=3) format('woff2');font-weight:300;font-style:normal;font-display:swap;}
@@ -1351,7 +1354,7 @@ p{text-wrap:pretty;}
 
 
 <!-- ===== TRUST ===== -->
-<section class="hzband" aria-label="The seven tuned frequencies">
+<section class="hzband" aria-label="The six tuned frequencies">
   <div class="track" id="hztrack"></div>
 </section>
 
@@ -2166,11 +2169,14 @@ p{text-wrap:pretty;}
     /* the frequency band: two identical runs so the loop is seamless */
     var track=document.getElementById('hztrack');
     if(track){
-      var HZ=[['7.83','Earth'],['174','Foundation'],['417','Change'],['528','Repair'],
-              ['639','Connection'],['963','Clarity'],['1111','Alignment']];
+      /* was a seventh hardcoded copy of the range, and a wrong one: it carried
+         1111 Hz, which is not a product, and one-word labels we had invented.
+         Reads the canonical list now, with the short labels — "Tension &
+         Stress Release" cannot sit under a 64px numeral. */
       var run='';
-      HZ.forEach(function(v,i){
-        run+='<span'+(i%3===1?' class="solid"':'')+'>'+v[0]+'<i>Hz '+v[1]+'</i></span>';
+      (window.EM_FREQ||[]).forEach(function(f,i){
+        run+='<span'+(i%3===1?' class="solid"':'')+'>'+f.hz+
+             '<i>Hz '+window.EM_FREQ_BY.short(f.hz)+'</i></span>';
       });
       track.innerHTML=run+run;
     }
