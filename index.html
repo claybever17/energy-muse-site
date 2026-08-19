@@ -218,15 +218,22 @@ header.nav.solid::after{opacity:1;}
    else. So stop offering a centre to compare: the four spread across the span
    between the wordmark and the utilities and read as a rhythm rather than a
    cluster. */
-/* Back to the centre, on Clay's call, with three links instead of four. The
-   objection to centring was that the generator sits ~167px right of viewport
-   centre, so a perfect centre read as a near miss — but spreading the links
-   across the header cost the group entirely, and anchoring them to the
-   wordmark was further from what he wanted. Three is the change that makes
-   centring work: a shorter cluster reads as a mark placed in the middle
-   rather than as a row that ought to line up with the picture behind it. */
+/* Centred, and the centre is the thing that was wrong. The links were pinned
+   to 50% of the viewport, but the viewport's middle is not the middle of the
+   space they actually sit in: the wordmark is 198px wide and Search/Bag is
+   105, so the mass on the left is 93px heavier and the gap on the right ran
+   93px longer at every width. Perfectly centred on the page, visibly pushed
+   left in the bar — by 47px, constant from 1280 to 1920.
+
+   A three-column grid centres them in the track between the two, which is
+   the span the eye is actually judging, and it re-derives itself if the
+   wordmark or the utilities ever change width. */
 @media (min-width:1100px){
-  .nav-links{position:absolute;left:50%;transform:translate(-50%,4px);}
+  .nav-in{display:grid;grid-template-columns:auto 1fr auto;
+    gap:clamp(20px,2vw,32px);}
+  .brand{justify-self:start;}
+  .nav-links{position:static;transform:translateY(4px);justify-self:center;}
+  .nav-utils{margin-left:0;justify-self:end;}
 }
 /* and the nav says where you are, so it belongs to the page it sits on */
 .nav-links a.here{color:var(--copper-lo);}
@@ -1265,7 +1272,7 @@ p{text-wrap:pretty;}
   <div class="wrap nav-in">
     <a class="brand" href="./"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo"/></svg></a>
     <nav class="nav-links">
-      <a href="gems/">Shop</a><a href="#intention">By Intention</a><a href="#learn2">Learn</a>
+      <a href="quiz/">Start Here</a><a href="gems/">Shop</a><a href="#intention">By Intention</a><a href="#learn2">Learn</a>
     </nav>
     <div class="nav-utils">
       <a href="#">Search</a><a href="#" class="bag">Bag (0)</a>
