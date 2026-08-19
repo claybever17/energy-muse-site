@@ -112,8 +112,6 @@ p{margin:0;}
 /* a line of body copy stops being readable somewhere around 75 characters,
    well before the page runs out of room. These three sat in full-width
    containers with no measure of their own. */
-.final .wrap > .lead{max-width:58ch;}
-.final .wrap > .lead{margin-inline:auto;}
 .subband .wrap p{max-width:66ch;}
 em.hl{font-style:italic;font-family:var(--serif);color:var(--copper);font-weight:400;}
 /* gem words: a slow light sweep lives inside the letterforms */
@@ -959,24 +957,6 @@ body.menu-open{overflow:hidden;}
 .quote figcaption{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin-top:auto;}
 
 /* ===== Final ===== */
-.final{text-align:center;position:relative;border-block:1px solid var(--hair);background:
-  radial-gradient(58% 90% at 50% -18%,color-mix(in srgb,var(--copper) 11%,transparent),transparent 62%),
-  radial-gradient(46% 68% at 88% 112%,color-mix(in srgb,var(--copper) 7%,transparent),transparent 60%),
-  var(--tint);}
-.final-gem{position:relative;width:min(280px,56vw);aspect-ratio:1/1;margin:0 auto 10px;}
-.final-gem .gem-rings{position:absolute;inset:6%;}
-.final-gem .gem-rings{color:var(--copper);opacity:.4;transition:opacity 1s;}
-.final-gem.live .gem-rings{opacity:.22;}
-.final-gem canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block;z-index:2;
-  opacity:0;transition:opacity 1.2s ease;}
-.final-gem.live canvas{opacity:1;}
-.gem-ground{position:absolute;left:22%;right:22%;bottom:8%;height:9%;z-index:1;opacity:0;transition:opacity 1.2s ease;
-  background:radial-gradient(50% 50% at 50% 50%,color-mix(in srgb,var(--ink) 22%,transparent),transparent 70%);filter:blur(5px);}
-.final-gem.live .gem-ground{opacity:.85;}
-.final h2{font-size:clamp(36px,5.6vw,72px);max-width:15ch;margin:14px auto 0;font-weight:400;letter-spacing:-.02em;}
-.final p{margin-top:18px;color:var(--ink-soft);}
-.final .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px;}
-
 /* ===== Email ===== */
 /* daylight: the only dark surface on the site is the frequency generator */
 .email{color:var(--fg);position:relative;overflow:hidden;background:
@@ -1118,7 +1098,7 @@ footer.site{background:
   .reveal,.hero .anim{opacity:1;transform:none;transition:none;}
   .hero h1 .line span{transform:none;}
   .int img{transition:none;}
-  .veza-rings,.way .thumb.quiz svg,.gem-rings,.foot-mark svg,.foot-mark img,.step .rn svg,.brand .blogo,.gemword,.mini-wave path{animation:none;}
+  .veza-rings,.way .thumb.quiz svg,.foot-mark svg,.foot-mark img,.step .rn svg,.brand .blogo,.gemword,.mini-wave path{animation:none;}
   .fqw path,.fq-core,.freq .media.live3d::before{animation:none;}
   .fqw path{opacity:.22;transform:scale(1.5);}
   .fqw path:nth-child(n+2){display:none;}
@@ -1584,22 +1564,6 @@ p{text-wrap:pretty;}
         </article>
     </div>
     <div class="store-more"><a class="btn btn-ghost" href="gems/">Shop all crystals</a></div>
-  </div>
-</section>
-
-<!-- ===== FINAL ===== -->
-<section class="section final">
-  <div class="sinemark d" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
-  <div class="wrap reveal">
-    <div class="final-gem" aria-hidden="true">
-      <svg class="gem-rings" viewBox="0 0 231.33 238.67"><use href="#em-markline"/></svg>
-      <canvas id="gem-canvas"></canvas>
-      <div class="gem-ground"></div>
-    </div>
-    <span class="eyebrow">Your next step</span>
-    <h2>You already know how you want to feel.</h2>
-    <p class="lead">We're here to help you shift your energy. Find your energy match, and start today.</p>
-    <div class="cta-row"><a href="quiz/" class="btn btn-primary">Find My Energy Match</a><a href="#intention" class="btn btn-ghost">Shop by Intention</a></div>
   </div>
 </section>
 
@@ -2120,17 +2084,6 @@ p{text-wrap:pretty;}
     fio.observe(freqStage);
   }
 
-  // final-CTA crystal: a real 3D-scanned stone, streamed only if the reader gets there
-  var gemStage=document.querySelector('.final-gem'),gemCanvas=document.getElementById('gem-canvas');
-  if(gemStage&&gemCanvas){
-    var gBooted=false;
-    var gio=new IntersectionObserver(function(es){es.forEach(function(e){
-      if(e.isIntersecting&&!gBooted){gBooted=true;gio.disconnect();
-        import('./assets/em-crystal.js').then(function(m){
-          return m.mount(gemCanvas,{src:'assets/gems/wellness.glb',yaw:4.2,pitch:0.15});
-        }).then(function(){golive(gemStage);}).catch(function(){});}});},{rootMargin:'700px'});
-    gio.observe(gemStage);
-  }
 })();
 
 // reels: auto-upgrade placeholders when real films are dropped in assets/video/
@@ -2147,7 +2100,7 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 </script>
 
 <script src="assets/em-bag.js?v=3" defer></script>
-<script src="assets/em-versions.js?v=12" defer></script>
+<script src="assets/em-versions.js?v=13" defer></script>
 <script>
 (function(){
   var btns=[].slice.call(document.querySelectorAll('.skin'));

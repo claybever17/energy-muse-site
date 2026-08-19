@@ -21,13 +21,15 @@ var SIG={
   enter:'<rect x="2" y="3" width="4" height="18"/><rect x="7.5" y="3" width="4" height="18" opacity=".72"/><rect x="13" y="3" width="4" height="18" opacity=".52"/><rect x="18.5" y="3" width="4" height="18" opacity=".34"/>',
   atelier:'<circle cx="13" cy="12" r="7.5" opacity=".45"/><circle cx="13" cy="4.5" r="2"/><circle cx="19.4" cy="8.2" r="2"/><circle cx="19.4" cy="15.8" r="2"/><circle cx="13" cy="19.5" r="2"/><circle cx="6.6" cy="15.8" r="2"/><circle cx="6.6" cy="8.2" r="2"/>'
 };
+/* Narrowed to two on Clay's call. Current (v1) and Full Bleed are still in
+   the repo and still reachable by URL — they are just no longer offered as
+   choices, because four directions on a switcher is a decision nobody has
+   made yet, and the work has been going into the first of these. */
 var VERSIONS=[
-  ['/home/current/','1 · Current','energy, visualized',SIG.current],
-  ['/home/lab/','2 · Current v2','a sandbox to build on',SIG.current],
-  ['/home/bleed/','3 · Full Bleed','one photograph, the whole screen',SIG.bleed],
-  ['/','4 · Classic','the main homepage',SIG.classic]
+  ['/','1 · Classic','the main homepage',SIG.classic],
+  ['/home/lab/','2 · Current v2','a sandbox to build on',SIG.current]
 ];
-/* five directions to choose between, and three things you actually operate */
+/* two directions to choose between, and three things you actually operate */
 var TOOLS=[
   ['/designer/','Atelier','build one',SIG.atelier],
   ['/home/cascade/','Frequency Room','tune it',SIG.cascade],
