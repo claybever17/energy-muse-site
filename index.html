@@ -318,10 +318,18 @@ body.menu-open{overflow:hidden;}
    whatever it decides, so the trust line is still cut by the fold. */
 @media (max-width:840px){
   .hero{display:flex;flex-direction:column;}
-  .hero-shot{position:relative;flex:none;height:min(52svh,400px);object-position:50% 56%;}
-  .hero-bg,.herowave{height:min(52svh,400px);bottom:auto;}
-  .hero-bg{background:linear-gradient(180deg,rgba(20,14,7,.26) 0%,rgba(20,14,7,.04) 42%,rgba(20,14,7,.55) 100%);}
-  .hero-grid{margin-top:auto;padding-top:clamp(20px,4vh,34px);}
+  .hero-shot{position:relative;flex:none;height:min(58svh,470px);object-position:50% 56%;}
+  /* The scrim was pinned to the hero's top while the photograph starts 40px
+     down it, so the photograph's bottom 40px sat outside the gradient — a lit
+     strip of floor against the dark ground, which is the rectangle. Both
+     layers span the whole hero now and the gradient reaches solid before the
+     picture ends, so it meets the ground with nothing to see. Nothing here
+     depends on knowing where the photograph starts. */
+  .hero-bg,.herowave{inset:0;height:auto;}
+  .hero-bg{background:linear-gradient(180deg,
+      rgba(20,14,7,.30) 0%,rgba(20,14,7,.06) 26%,
+      rgba(20,14,7,.72) 50%,rgba(26,18,8,1) 62%,rgba(26,18,8,1) 100%);}
+  .hero-grid{margin-top:auto;padding-top:clamp(16px,3vh,26px);}
   .hero-grid .hero-copy{max-width:none;}
 }
 /* two scrims: the vertical gives the type its footing, the left-weighted one
@@ -404,7 +412,7 @@ body.menu-open{overflow:hidden;}
    cramped for that reason rather than because the gap was wrong. Smaller, so
    it supports the line above instead of arguing with it. */
 .hero .sub{font-family:var(--sans);font-weight:500;font-style:normal;font-size:clamp(17px,1.45vw,19.5px);
-  color:var(--hero-sub);margin-top:27px;max-width:32ch;line-height:1.35;letter-spacing:.002em;}
+  color:var(--hero-sub);margin-top:16px;max-width:32ch;line-height:1.35;letter-spacing:.002em;}
 /* Each clause gets its own line rather than being chopped wherever the
    measure happens to run out — a sentence broken mid-thought reads as a
    paragraph that was poured in, not written. Below 700 they fall back to
@@ -417,7 +425,7 @@ body.menu-open{overflow:hidden;}
 @media (min-width:701px){.hero p.body span{display:block;}}
 /* one call to action: the second sent people to a grid that is the very
    next thing they would scroll to anyway */
-.hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:42px;}
+.hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px;}
 .hero .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:30px;}
 .chip{font-size:12.5px;letter-spacing:.03em;padding:8px 15px;border:1px solid #2C3B54;border-radius:100px;
   color:#C3CAD6;cursor:pointer;transition:.2s;}
@@ -983,7 +991,9 @@ footer.site{background:
   .reel figcaption{padding:30px 10px 10px;}
   .reel figcaption strong{font-size:14px;}
   .reel figcaption span{font-size:10px;}
-  .hero{min-height:auto;padding-block:40px;}
+  /* padding-block put 40px above the photograph as well as below it, and a
+     full-bleed picture that starts 40px down is not full bleed. Bottom only. */
+  .hero{min-height:auto;padding-top:0;padding-bottom:40px;}
   /* the grid's align-items:center carries over into the column flex, so the
      copy shrank to fit and floated off the page's left margin — every other
      block on the page starts at the gutter, and so should this one. */
@@ -1222,8 +1232,11 @@ p{text-wrap:pretty;}
     <div class="hero-copy">
       <h1><span class="line"><span>Energy, made <em class="hl gemword">personal.</em></span></span></h1>
       <p class="sub anim">Choose your energy. Live in it.</p>
-      <p class="body anim"><span>Jewelry, crystals and frequency generators,</span>
-        <span>built around the energy you want more of.</span></p>
+      <!-- The reference the client sent is headline, tagline, button — no
+           descriptor. The paragraph was a holdover from the old two-column
+           hero, where there was room for it; over a photograph it is the thing
+           that makes a poster read as a text block. The positioning it carried
+           is said again by the trust band immediately below. -->
       <div class="cta-row anim">
         <a href="quiz/" class="btn btn-copper">Find My Energy Match</a>
       </div>
