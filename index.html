@@ -1841,6 +1841,22 @@ p{text-wrap:pretty;}
       document.body.removeChild(pen);
     }
 
+    /* The strands run 17% past each side of the frame so the wave reads as
+       passing through rather than as a cropped picture. But past the frame is
+       still cut AT the frame: twenty ribs all ending on the same vertical line
+       is the hard edge down both sides. This mask fades the outer eighth to
+       nothing, on a smootherstep curve so the fade has no edge of its own.
+       Built once per resize, not per frame. */
+    var edgeMask=null;
+    function buildMask(){
+      var FADE=0.12,S=8;
+      edgeMask=ctx.createLinearGradient(0,0,W,0);
+      for(var q=0;q<=S;q++){var f=q/S,e=f*f*f*(f*(f*6-15)+10);
+        edgeMask.addColorStop(FADE*f,'rgba(0,0,0,'+e.toFixed(4)+')');}
+      for(var q2=0;q2<=S;q2++){var f2=q2/S,e2=1-(f2*f2*f2*(f2*(f2*6-15)+10));
+        edgeMask.addColorStop(1-FADE+FADE*f2,'rgba(0,0,0,'+e2.toFixed(4)+')');}
+    }
+
     function size(){
       var r=cv.getBoundingClientRect();
       dpr=Math.min(devicePixelRatio||1,1.6);
@@ -1852,6 +1868,7 @@ p{text-wrap:pretty;}
       W=r.width;H=r.height;
       cv.width=nw;cv.height=nh;
       ctx.setTransform(dpr,0,0,dpr,0,0);
+      buildMask();
       sample();
     }
 
@@ -1885,26 +1902,51 @@ p{text-wrap:pretty;}
          The depth arrives with the morph. While it is still a mark it is one
          clean line, because a volume packed around a recognisable logo turns
          it to mush; as it unwinds it gains body. */
-      var RIBS=(W<=700)?9:20;   /* the story scope has its own W; there is no mob here */
+      var RIBS=(W<=700)?12:28;  /* the story scope has its own W; there is no mob here */
       var depth=ease(clamp((morph-.18)/.62,0,1));
       /* which way "away" points, per strand, and how far the cycle slips
          front to back — the slip is what twists it into a surface instead of
          stacking parallel copies */
       var DX=[.030,-.020,.042], DY=[-.052,-.076,-.040], SLIP=[3.1,4.4,2.6];
+      /* Rolls were 1.10 / 1.45 / 1.80 turns. Anything over about 1.35 reads as
+         an EKG rather than a wave, so two of the three were out of range and
+         the third sat on the ceiling. And each strand was a single sine, which
+         is a pure tone — regular by definition, and the reason this looked
+         mechanical next to the hero field, which sums seven bands. Each strand
+         now carries a fundamental plus two partials at ratios that do not
+         divide into it, so the line never repeats, and its own drift rate so
+         the three never pulse together. */
+      /* The ceiling applies to every component, not just the fundamental. A
+         first pass put the partials at 1.87-2.13x the roll, which landed two
+         of them above two turns — chop, at 30% amplitude, which is exactly the
+         thing being avoided. Ratios chosen so no component exceeds ~1.36
+         turns, and none divides evenly into the fundamental. */
+      var ROLL=[0.62,0.88,1.15];            /* 0.62 / 0.88 / 1.15 turns */
+      var P2=[2.10,1.55,1.18], A2=0.30;     /* 1.30 / 1.36 / 1.36 turns */
+      var P3=[0.41,0.53,0.37], A3=0.18;     /* 0.25 / 0.47 / 0.43 — the slow drift */
+      var DRIFT=[0.32,0.24,0.39], NORM=1/(1+A2+A3);
+      /* and depth is not linear. Evenly spaced ribs read as parallel copies
+         stacked; real distance compresses, so the near ones spread and the far
+         ones bunch. K sets how hard the perspective bites. */
+      var K=2.2, KN=1-1/(1+K);
       for(var k=0;k<MK.length;k++){
         var mk=MK[k];
         for(var j=RIBS;j>=0;j--){
           /* j===0 is the lit stroke itself; the rest recede behind it */
-          var dz=(j/(RIBS+1))*depth;
+          var zn=j/RIBS;
+          var dz=depth*(1-1/(1+K*zn))/KN;
           var a=(j===0)?1:Math.pow(1-dz,1.5)*.42;
           if(a<.006)continue;
           ctx.beginPath();
           for(var i=0;i<=N;i++){
             var u=i/N, P=mk.pts[Math.min(i,mk.pts.length-1)];
             var wx=lerp(x0,x1,.5+(u-.5)*(1-dz*.06))+dz*W*DX[k];
+            var ph=u*Math.PI*2, tt=t*DRIFT[k], sl=dz*SLIP[k];
+            var sig=(Math.sin(ph*ROLL[k]+tt-k*0.7-sl)
+                    +A2*Math.sin(ph*P2[k]*ROLL[k]+tt*1.31-sl*0.6+1.7)
+                    +A3*Math.sin(ph*P3[k]*ROLL[k]-tt*0.83-sl*1.4+0.4))*NORM;
             var wy=cy+OFF[k]*spread*H+dz*H*DY[k]
-                   +Math.sin(u*Math.PI*2*(1.1+k*0.35)+t*0.5-k*0.7-dz*SLIP[k])
-                    *amp*(1-dz*.28)*Math.sin(Math.PI*Math.pow(u,.9));
+                   +sig*amp*(1-dz*.28)*Math.sin(Math.PI*Math.pow(u,.9));
             /* the far end lets go last, so it unwinds rather than dissolving */
             var mi=ease(clamp(morph*1.6-u*.6,0,1));
             var X=lerp(P[0],wx,mi), Y=lerp(P[1],wy,mi);
@@ -1920,7 +1962,16 @@ p{text-wrap:pretty;}
           ctx.stroke();
         }
       }
+      /* and now dissolve both margins, so nothing terminates on a straight
+         vertical line. Cheaper than it looks: one fill, against the five
+         hundred-odd strokes above it. */
       ctx.globalAlpha=1;
+      if(edgeMask){
+        ctx.globalCompositeOperation='destination-in';
+        ctx.fillStyle=edgeMask;
+        ctx.fillRect(0,0,W,H);
+        ctx.globalCompositeOperation='source-over';
+      }
     }
 
     var lines3=[].slice.call(sec.querySelectorAll('.sl'));
