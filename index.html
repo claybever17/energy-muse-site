@@ -316,6 +316,18 @@ body.menu-open{overflow:hidden;}
    which is the same composition read top-to-bottom instead of left-to-right.
    foldCut still owns the height; the words are pushed to the bottom of
    whatever it decides, so the trust line is still cut by the fold. */
+/* two scrims: the vertical gives the type its footing, the left-weighted one
+   guarantees something behind the words wherever the crop lands */
+.hero-bg{position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,rgba(20,14,7,.30) 0%,rgba(20,14,7,.05) 30%,rgba(20,14,7,.42) 66%,rgba(20,14,7,.88) 100%),
+             linear-gradient(100deg,rgba(20,14,7,.52) 0%,rgba(20,14,7,.18) 36%,transparent 60%);}
+/* the wave belongs to the device, so it is drawn over the room and under the
+   type — what the generator is putting out, not a graphic laid on top */
+.herowave{position:absolute;inset:0;width:100%;height:100%;z-index:1;
+  pointer-events:none;mix-blend-mode:screen;opacity:.5;}
+.hero-grain{position:absolute;inset:0;z-index:3;opacity:.05;pointer-events:none;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
 /* A 2.67:1 photograph cropped into a full-height portrait frame has to be
    scaled 3.4x on a phone — that is the blur, and it also drives the crop so
    far into the coil that the device stops reading as a device, and puts the
@@ -331,13 +343,23 @@ body.menu-open{overflow:hidden;}
    the two interlock instead of stacking, and the dead ground taken out. */
 @media (max-width:840px){
   .hero{display:flex;flex-direction:column;padding-bottom:0;}
-  .hero-shot{position:relative;flex:none;height:auto;aspect-ratio:5/4;
+  /* One token for the picture band. The wave is drawn as fractions of its own
+     canvas height, so when it was left at height:auto it collapsed to the
+     canvas's intrinsic 195px and the whole field bunched into the top 40% of a
+     490px photograph, stopping dead partway down. It belongs to the picture,
+     so it gets the picture's height. */
+  .hero{--band:58svh;}
+  .hero-shot{position:relative;flex:none;aspect-ratio:auto;height:var(--band);
     object-position:50% 46%;}
-  .hero-bg,.herowave{inset:0;height:auto;}
-  /* solid well before the picture ends, because the type now sits on its foot */
-  .hero-bg{background:linear-gradient(180deg,
-      rgba(20,14,7,.18) 0%,rgba(20,14,7,.02) 30%,
-      rgba(20,14,7,.46) 46%,rgba(26,18,8,.94) 56%,rgba(26,18,8,1) 66%);}
+  .hero-bg{inset:0;height:auto;}
+  .herowave{inset:0 0 auto 0;height:var(--band);}
+  /* A linear ramp to solid leaves a visible horizontal edge where it lands —
+     the rate of change jumps, and the eye reads the jump as a line drawn
+     across the photograph. These stops sit on a smootherstep curve instead, so
+     the alpha eases in and eases out and there is no point to see. Seventeen
+     stops rather than four, which is what it costs to have no edge. */
+  .hero-bg{background:linear-gradient(180deg,rgba(20,14,7,.20) 0%,rgba(20,14,7,.05) 18%,rgba(26,18,8,0.0000) 30.00%,rgba(26,18,8,0.0033) 33.00%,rgba(26,18,8,0.0233) 36.00%,rgba(26,18,8,0.0695) 39.00%,rgba(26,18,8,0.1447) 42.00%,rgba(26,18,8,0.2464) 45.00%,rgba(26,18,8,0.3679) 48.00%,rgba(26,18,8,0.5000) 51.00%,rgba(26,18,8,0.6321) 54.00%,rgba(26,18,8,0.7536) 57.00%,rgba(26,18,8,0.8553) 60.00%,rgba(26,18,8,0.9305) 63.00%,rgba(26,18,8,0.9767) 66.00%,rgba(26,18,8,0.9967) 69.00%,rgba(26,18,8,1.0000) 72.00%,rgba(26,18,8,1) 100%);}
+
   .hero-grid{margin-top:-16%;padding-top:0;
     padding-bottom:clamp(26px,4.5vh,44px);text-align:left;}
   .hero-grid .hero-copy{max-width:none;text-align:left;}
@@ -345,17 +367,6 @@ body.menu-open{overflow:hidden;}
   .hero .cta-row{justify-content:flex-start;}
   .hero .cta-row .btn{width:auto;}
 }
-/* two scrims: the vertical gives the type its footing, the left-weighted one
-   guarantees something behind the words wherever the crop lands */
-.hero-bg{position:absolute;inset:0;z-index:2;pointer-events:none;
-  background:linear-gradient(180deg,rgba(20,14,7,.30) 0%,rgba(20,14,7,.05) 30%,rgba(20,14,7,.42) 66%,rgba(20,14,7,.88) 100%),
-             linear-gradient(100deg,rgba(20,14,7,.52) 0%,rgba(20,14,7,.18) 36%,transparent 60%);}
-/* the wave belongs to the device, so it is drawn over the room and under the
-   type — what the generator is putting out, not a graphic laid on top */
-.herowave{position:absolute;inset:0;width:100%;height:100%;z-index:1;
-  pointer-events:none;mix-blend-mode:screen;opacity:.5;}
-.hero-grain{position:absolute;inset:0;z-index:3;opacity:.05;pointer-events:none;mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 /* The photograph runs off the right edge of the page and the headline
    reaches over it — the hero stops being two tidy halves. */
 .hero-grid{position:relative;z-index:4;width:100%;display:block;
@@ -1030,7 +1041,14 @@ footer.site{background:
   .nav-utils .bag{order:2;margin-left:auto;}
   .nav-utils a[href="#"]:not(.bag){display:none;}
   .trust-in{flex-direction:column;align-items:center;}
-  .trust-item{max-width:none;width:100%;justify-content:flex-start;padding-block:14px;}
+  /* One left edge down the whole phone column. The headline, the sub and the
+     button all range from the page gutter; the trust rows were adding their own
+     20px inline padding on top of it, so the icons sat at 40 and their labels at
+     73 — three edges in a column that should have one. The gutter belongs to the
+     container, not to each row. */
+  .trust-item{max-width:none;width:100%;justify-content:flex-start;padding-block:14px;
+    padding-inline:0;}
+  .trust-author{text-align:left;padding-inline:0;margin-inline:0;max-width:none;}
   .trust-item+.trust-item{border-left:0;border-top:1px solid var(--hair);}
   .specs{flex-wrap:wrap;}.spec{flex-basis:100%;}
 }
@@ -1040,7 +1058,7 @@ footer.site{background:
   .hero p.body{display:none;}
   .head .lead{display:none;}
   .split .copy>p:not(.freq-note){display:none;}
-  .hero .sub{margin-top:18px;}
+  .hero .sub{margin-top:18px;font-size:18px;}
   /* centered hero: copy + stacked CTAs share one axis */
   /* ranged left on a phone as well, like the desktop and the reference —
      centred type in a dark box is the stock-theme tell */
@@ -1243,7 +1261,7 @@ p{text-wrap:pretty;}
   <img class="hero-shot"
        src="assets/img/hero-generator.jpg"
        srcset="assets/img/hero-generator-1200.webp 1200w, assets/img/hero-generator-1800.webp 1800w, assets/img/hero-generator-2000.webp 2000w"
-       sizes="100vw" fetchpriority="high"
+       sizes="(max-width:840px) 260vw, 100vw" fetchpriority="high"
        alt="The copper frequency generator lit on a wood floor beside a clear quartz point">
   <canvas class="herowave" id="herowave" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
@@ -1664,8 +1682,13 @@ p{text-wrap:pretty;}
   (function(){
     var c=document.getElementById('herowave'); if(!c)return;
     var x=c.getContext('2d'), t0=performance.now(), W=0,H=0, run=true;
+    /* A phone fires 'resize' continuously while the URL bar slides away, and
+       assigning canvas.width reallocates the backing store every time. Bail out
+       when the pixel size has not actually changed and scrolling stays free. */
     function size(){var r=c.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,1.5);
-      W=r.width;H=r.height;c.width=Math.round(W*d);c.height=Math.round(H*d);x.setTransform(d,0,0,d,0,0);}
+      var nw=Math.round(r.width*d),nh=Math.round(r.height*d);
+      if(W&&nw===c.width&&nh===c.height)return;
+      W=r.width;H=r.height;c.width=nw;c.height=nh;x.setTransform(d,0,0,d,0,0);}
     /* [y, amp, freq, drift, rows, rgb] */
     var B=[[0.22,0.058,1.15, 0.80, 9,[255,222,178]],
            [0.31,0.072,0.85,-0.55,12,[255,206,150]],
@@ -1784,8 +1807,13 @@ p{text-wrap:pretty;}
     function size(){
       var r=cv.getBoundingClientRect();
       dpr=Math.min(devicePixelRatio||1,1.6);
+      var nw=Math.round(r.width*dpr),nh=Math.round(r.height*dpr);
+      /* same URL-bar guard as the hero wave, and worth more here: sample()
+         re-walks the whole mark path, so an unguarded resize storm re-sampled
+         it on every frame of the browser chrome sliding away. */
+      if(W&&nw===cv.width&&nh===cv.height)return;
       W=r.width;H=r.height;
-      cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+      cv.width=nw;cv.height=nh;
       ctx.setTransform(dpr,0,0,dpr,0,0);
       sample();
     }

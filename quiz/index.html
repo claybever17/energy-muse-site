@@ -144,6 +144,9 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper)}
   .stage-mark{width:300px;right:-100px;bottom:-110px}
 }
 @media (prefers-reduced-motion:reduce){
+  /* smooth anchor scrolling is itself motion — the one page that asked for it
+     was not handing it back to people who opted out */
+  html{scroll-behavior:auto}
   .scr.on{animation:none}
   .stage-mark,.gemword{animation:none}
 }
