@@ -479,7 +479,10 @@ body.menu-open{overflow:hidden;}
 .trust .wrap{padding-block:clamp(18px,2.2vw,26px);}
 .trust-lead{margin:0;max-width:64ch;
   font-size:clamp(15px,1.15vw,17px);line-height:1.55;color:var(--ink-soft);
-  text-wrap:pretty;}
+  /* balance, not pretty: pretty only protects against a single-word orphan and
+     was happily leaving "and Crystal Muse." hanging on a line of its own.
+     balance evens the lines instead, so the block reads as a shape. */
+  text-wrap:balance;}
 .trust-lead em{font-style:italic;font-weight:400;color:inherit;}
 .trust-lead em.who{font-style:normal;font-weight:600;color:var(--copper-lo);}
 /* what is left of the other two claims, set the way a hotel lists its
@@ -488,16 +491,17 @@ body.menu-open{overflow:hidden;}
   font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
   color:var(--stone);line-height:1.4;}
 @media (min-width:841px){
-  /* Left-ranged text in a full-bleed band left the right 40% of the strip
-     empty, which read as an unfinished footer rather than a designed beat.
-     The two facts were already sitting under the sentence doing nothing for
-     it; moved to the far end they give the band its second anchor and the
-     width becomes a rail instead of a gap. */
-  .trust .wrap{display:flex;align-items:first baseline;
-    justify-content:space-between;gap:clamp(28px,4vw,80px);}
-  .trust-lead{max-width:74ch;}
-  .trust-facts{margin:0;flex:none;flex-direction:row;gap:0;align-items:baseline;
-    text-align:right;}
+  /* A short left-ranged text in a full-bleed band reads as unanchored — it was
+     the one thing on the page floating in its own empty width. Pushing the
+     facts to the far end to fill that width only made the block lopsided: two
+     lines on the left against one on the right. Centred and stacked, the band
+     becomes a seal under the hero rather than a strip beside nothing. The
+     phone keeps its left edge, where a narrow column gives the text its own
+     anchor and centring would fight the hero. */
+  .trust .wrap{text-align:center;}
+  .trust-lead{margin-inline:auto;max-width:56ch;}
+  .trust-facts{margin-top:12px;flex-direction:row;gap:0;
+    align-items:baseline;justify-content:center;}
   .trust-facts span+span::before{content:'\00B7';margin:0 .85em;opacity:.5;}
 }
 /* embossed copper-coin icons */
