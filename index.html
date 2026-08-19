@@ -488,7 +488,16 @@ body.menu-open{overflow:hidden;}
   font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
   color:var(--stone);line-height:1.4;}
 @media (min-width:841px){
-  .trust-facts{flex-direction:row;gap:0;align-items:baseline;}
+  /* Left-ranged text in a full-bleed band left the right 40% of the strip
+     empty, which read as an unfinished footer rather than a designed beat.
+     The two facts were already sitting under the sentence doing nothing for
+     it; moved to the far end they give the band its second anchor and the
+     width becomes a rail instead of a gap. */
+  .trust .wrap{display:flex;align-items:first baseline;
+    justify-content:space-between;gap:clamp(28px,4vw,80px);}
+  .trust-lead{max-width:74ch;}
+  .trust-facts{margin:0;flex:none;flex-direction:row;gap:0;align-items:baseline;
+    text-align:right;}
   .trust-facts span+span::before{content:'\00B7';margin:0 .85em;opacity:.5;}
 }
 /* embossed copper-coin icons */
@@ -1655,15 +1664,19 @@ p{text-wrap:pretty;}
   // announcement bar: dismiss for the session
   try{if(sessionStorage.getItem('em-ann')==='off')document.body.classList.add('ann-off');}catch(e){}
 
-  // fold-cut: size the hero so the first fold slices the trust caption mid-line — the reader
-  // can start the sentence but must scroll to finish it. Deterministic on every screen.
+  // fold-cut: size the hero so the first fold lands just inside the top of the
+  // credentials band — a sliver of the next surface shows, which is the invitation
+  // to scroll. It used to cut 45% into the caption itself, which worked while that
+  // was a light throwaway line and stopped working when it became the one real
+  // sentence on the page: a claim sliced mid-word reads as a broken layout, not a
+  // tease. Deterministic on every screen.
   function foldCut(){
-    var hero=document.querySelector('.hero'),au=document.querySelector('.trust-lead');
+    var hero=document.querySelector('.hero'),au=document.querySelector('.trust');
     if(!hero||!au)return;
     hero.style.minHeight='';
     var base=hero.getBoundingClientRect().height;
     var r=au.getBoundingClientRect();
-    var targetDocY=r.top+window.scrollY+r.height*.45;
+    var targetDocY=r.top+window.scrollY+16;   // inside the band, above its first line
     var mh=base+(window.innerHeight-targetDocY);
     /* On a phone the three trust items stack, so seating the author line on
        the fold asks for a hero half again as tall as the screen. That was
