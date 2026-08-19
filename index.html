@@ -399,17 +399,25 @@ body.menu-open{overflow:hidden;}
 /* mask clips only BELOW (for the rise-in) — italic overhangs stay visible */
 .hero h1 .line{display:block;clip-path:inset(-.35em -100vw 0 -100vw);padding-bottom:.16em;margin-bottom:-.16em;}
 .hero h1 .line span{display:block;transform:translateY(105%);}
-.hero .sub{font-family:var(--sans);font-weight:500;font-style:normal;font-size:clamp(18px,1.9vw,23px);line-height:1.4;
-  color:var(--hero-sub);margin-top:26px;max-width:30ch;line-height:1.25;}
+/* The tagline was 23px at weight 500 in the sans — near enough to a second
+   headline that the two were competing, and the 17px between them read as
+   cramped for that reason rather than because the gap was wrong. Smaller, so
+   it supports the line above instead of arguing with it. */
+.hero .sub{font-family:var(--sans);font-weight:500;font-style:normal;font-size:clamp(17px,1.45vw,19.5px);
+  color:var(--hero-sub);margin-top:27px;max-width:32ch;line-height:1.35;letter-spacing:.002em;}
 /* Each clause gets its own line rather than being chopped wherever the
    measure happens to run out — a sentence broken mid-thought reads as a
    paragraph that was poured in, not written. Below 700 they fall back to
    ordinary wrapping, where forcing breaks would look worse. */
-.hero p.body{margin-top:22px;color:var(--hero-soft);max-width:none;font-size:16px;line-height:1.62;}
+/* The three pauses were 17, 22 and 36 — the right order, but 17 against 22 is
+   not a difference anyone reads as hierarchy. They step properly now: the
+   headline and its tagline are one thought and stay close, the descriptor is
+   a new one, and the button is the furthest thing from both. */
+.hero p.body{margin-top:30px;color:var(--hero-soft);max-width:none;font-size:16.5px;line-height:1.66;}
 @media (min-width:701px){.hero p.body span{display:block;}}
 /* one call to action: the second sent people to a grid that is the very
    next thing they would scroll to anyway */
-.hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px;}
+.hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:42px;}
 .hero .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:30px;}
 .chip{font-size:12.5px;letter-spacing:.03em;padding:8px 15px;border:1px solid #2C3B54;border-radius:100px;
   color:#C3CAD6;cursor:pointer;transition:.2s;}
@@ -1770,24 +1778,49 @@ p{text-wrap:pretty;}
       var span=lerp(.14,1.34,morph);
       var x0=W*(0.5-span/2), x1=W*(0.5+span/2);
       ctx.lineCap='round';ctx.lineJoin='round';
+      /* Three bare strokes is a diagram of the idea, not the idea. The films
+         earn their wave by repeating each signal back into depth until the eye
+         stops counting lines and starts seeing a surface — that density IS the
+         picture, and dropping it to make the section short made it look like a
+         cheaper version of the same thought rather than a briefer one.
+
+         The depth arrives with the morph. While it is still a mark it is one
+         clean line, because a volume packed around a recognisable logo turns
+         it to mush; as it unwinds it gains body. */
+      var RIBS=(W<=700)?9:20;   /* the story scope has its own W; there is no mob here */
+      var depth=ease(clamp((morph-.18)/.62,0,1));
+      /* which way "away" points, per strand, and how far the cycle slips
+         front to back — the slip is what twists it into a surface instead of
+         stacking parallel copies */
+      var DX=[.030,-.020,.042], DY=[-.052,-.076,-.040], SLIP=[3.1,4.4,2.6];
       for(var k=0;k<MK.length;k++){
-        var mk=MK[k], d='';
-        ctx.beginPath();
-        for(var i=0;i<=N;i++){
-          var u=i/N, P=mk.pts[Math.min(i,mk.pts.length-1)];
-          var wx=lerp(x0,x1,u);
-          var wy=cy+OFF[k]*spread*H
-                 +Math.sin(u*Math.PI*2*(1.1+k*0.35)+t*0.5-k*0.7)*amp
-                 *Math.sin(Math.PI*Math.pow(u,.9));
-          /* the far end lets go last, so it unwinds rather than dissolving */
-          var mi=ease(clamp(morph*1.6-u*.6,0,1));
-          var X=lerp(P[0],wx,mi), Y=lerp(P[1],wy,mi);
-          if(i===0||(mi<1&&mk.brk[i]))ctx.moveTo(X,Y);else ctx.lineTo(X,Y);
+        var mk=MK[k];
+        for(var j=RIBS;j>=0;j--){
+          /* j===0 is the lit stroke itself; the rest recede behind it */
+          var dz=(j/(RIBS+1))*depth;
+          var a=(j===0)?1:Math.pow(1-dz,1.5)*.42;
+          if(a<.006)continue;
+          ctx.beginPath();
+          for(var i=0;i<=N;i++){
+            var u=i/N, P=mk.pts[Math.min(i,mk.pts.length-1)];
+            var wx=lerp(x0,x1,.5+(u-.5)*(1-dz*.06))+dz*W*DX[k];
+            var wy=cy+OFF[k]*spread*H+dz*H*DY[k]
+                   +Math.sin(u*Math.PI*2*(1.1+k*0.35)+t*0.5-k*0.7-dz*SLIP[k])
+                    *amp*(1-dz*.28)*Math.sin(Math.PI*Math.pow(u,.9));
+            /* the far end lets go last, so it unwinds rather than dissolving */
+            var mi=ease(clamp(morph*1.6-u*.6,0,1));
+            var X=lerp(P[0],wx,mi), Y=lerp(P[1],wy,mi);
+            if(i===0||(mi<1&&mk.brk[i]))ctx.moveTo(X,Y);else ctx.lineTo(X,Y);
+          }
+          ctx.globalAlpha=a*(k===1?1:lerp(1,.55,morph));
+          ctx.lineWidth=(j===0)?lerp(1.9,1.5,morph):Math.max(.55,1.1-dz*.5);
+          /* distance desaturates — the far filaments cool toward stone, which
+             is what the eye actually sorts near from far on */
+          ctx.strokeStyle=(j===0)?(k===2?'#35907B':'#A9683E')
+            :(k===2?'rgba(90,150,140,'+(1-dz*.5).toFixed(2)+')'
+                   :'rgba(169,104,62,'+(1-dz*.5).toFixed(2)+')');
+          ctx.stroke();
         }
-        ctx.globalAlpha=k===1?1:lerp(1,.55,morph);
-        ctx.lineWidth=lerp(1.9,1.5,morph);
-        ctx.strokeStyle=k===2?'#35907B':'#A9683E';
-        ctx.stroke();
       }
       ctx.globalAlpha=1;
     }
