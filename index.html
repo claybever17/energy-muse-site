@@ -864,6 +864,14 @@ body.menu-open{overflow:hidden;}
   box-shadow:0 12px 28px rgba(0,0,0,.38);}
 .spec .k{color:var(--navy-soft);letter-spacing:.16em;text-transform:uppercase;font-size:10px;display:block;font-weight:600;}
 .spec .v{font-family:var(--serif);font-weight:400;font-size:19px;margin-top:4px;}
+/* .btn-ghost takes its colour from --fg, which is the light-theme ink. On this
+   navy ground that was rgb(29,39,57) on rgb(11,19,32) — a contrast ratio of
+   1.24, where AA asks for 4.5. It was not a quiet button, it was an invisible
+   one, which is why the second call read as an empty rectangle. */
+.freq .btn-ghost{color:var(--navy-text);
+  border-color:color-mix(in srgb,var(--navy-text) 38%,transparent);}
+.freq .btn-ghost:hover{color:#fff;border-color:var(--navy-text);
+  background:color-mix(in srgb,var(--navy-text) 8%,transparent);}
 .freq-note{font-size:12px;color:var(--navy-soft);margin-top:24px;max-width:52ch;line-height:1.5;}
 /* ===== Ritual: waveform threads the three rings ===== */
 .steps-zone{position:relative;}
@@ -1405,7 +1413,7 @@ p{text-wrap:pretty;}
         we help you find the right frequency device to accomplish your personal wellness goals.</p>
       <div class="cta-row">
         <a class="btn btn-copper" href="generator/#gens">Shop Frequency Generators</a>
-        <a class="btn btn-ghost" href="generator/">How Frequency Tools Work</a>
+        <a class="btn btn-ghost" href="generator/#how">How Frequency Tools Work</a>
       </div>
       <p class="freq-note">The world&rsquo;s most extensive fixed-frequency collection. Not medical
         devices, and not a substitute for healthcare.</p>

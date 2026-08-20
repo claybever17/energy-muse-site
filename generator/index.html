@@ -87,7 +87,8 @@ body{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-
 .vs .vrow .k{color:var(--soft);letter-spacing:.04em}
 .vs .vrow .v{color:var(--ink);text-align:right}
 .vs .vcol.fixed .vrow .v{color:#EFDCC2}
-.vs .vnote{max-width:720px;margin:26px auto 0;text-align:center;font-size:11.5px;color:var(--soft);line-height:1.6}
+.vs .vlede{margin-top:14px;max-width:56ch;color:var(--navy-soft,#B4C0D0);font-size:15.5px;line-height:1.6}
+.vnote{max-width:720px;margin:26px auto 0;text-align:center;font-size:11.5px;color:var(--soft);line-height:1.6}
 @media(max-width:760px){.vs .vgrid{grid-template-columns:1fr}}
 .end{display:grid;place-items:center;text-align:center;padding:14vh 8vw 12vh;position:relative;overflow:hidden;
   background:radial-gradient(60% 110% at 50% 130%,rgba(192,138,78,.15),transparent 62%),linear-gradient(var(--navy),#0d1622)}
@@ -220,10 +221,17 @@ p{text-wrap:pretty;}
     </div>
   </div>
 </section>
-<section class="vs">
+<!-- The homepage's "How Frequency Tools Work" used to land at the top of this
+     page, on the film's own full-screen hero — a label promising an
+     explanation and delivering a product opening, which read as arriving at
+     another homepage. It lands here now, where the explanation actually is. -->
+<section class="vs" id="how">
   <div class="vhead">
-    <div class="veye">Fixed vs. variable</div>
+    <div class="veye">How they work</div>
     <h3>Why a fixed frequency reaches further.</h3>
+    <p class="vlede">Every Energy Muse generator starts with a crystal oscillator and a copper
+      tensor coil, matched with a specific sacred geometric shape &mdash; a design and engineering
+      combination exclusive to us.</p>
   </div>
   <div class="vgrid">
     <div class="vcol fixed">
