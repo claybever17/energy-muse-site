@@ -110,7 +110,7 @@ p{margin:0;}
 /* Short blocks even their lines rather than filling each one and orphaning
    whatever is left over. It cannot stop a sentence breaking, but it stops
    the break landing in the worst place available. */
-.lead,.way p,.promo p,.head p{text-wrap:balance;}
+.lead,.way p,.head p{text-wrap:balance;}
 .lead{color:var(--ink-soft);}
 /* a line of body copy stops being readable somewhere around 75 characters,
    well before the page runs out of room. These three sat in full-width
@@ -566,74 +566,26 @@ body.menu-open{overflow:hidden;}
    copy, price, image and link and the band restyles itself. */
 /* The site reads light/day. Dark is reserved for the frequency generator,
    where it is the product's own context — not used as a default accent. */
-.promo{position:relative;overflow:hidden;
-  background:linear-gradient(120deg,color-mix(in srgb,var(--copper) 10%,var(--bg)),var(--bg) 62%);
-  border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);color:var(--fg);}
-.promo .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,64px);
-  align-items:center;padding-block:clamp(44px,6.6vw,92px);}
-.promo-copy{position:relative;z-index:2;}
-.promo .tag{display:inline-flex;align-items:center;gap:9px;font:700 10px var(--sans);
-  letter-spacing:.24em;text-transform:uppercase;color:#fff;background:var(--copper);
-  border-radius:100px;padding:6px 13px;}
-.promo h2{font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.5vw,48px);
-  line-height:1.06;letter-spacing:-.02em;margin-top:16px;color:var(--fg);
-  /* it broke after "Hz", splitting the product's own name across two lines
-     at the worst point available */
-  text-wrap:balance;max-width:22ch;}
-.promo p{margin-top:12px;color:var(--ink-soft);max-width:46ch;font-size:15.5px;}
-.promo .row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:22px;}
-.promo .price{font-family:var(--serif);font-weight:300;font-size:26px;color:var(--copper-lo);}
-.promo .price s{font-size:.62em;color:var(--stone);margin-right:8px;}
-.promo-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:300px;}
 /* It was drawn at 300px from a 1300px asset, floating in a column that was
    half empty — the hero item of a launch rendered smaller than a store card.
    It fills the column now and runs off the right edge, the way the hero
    photograph and the split sections already do. */
-.promo-dev{position:relative;z-index:2;display:block;width:100%;
-  /* the shadow lives on the wrapper: on the image itself it would rotate with
-     it, and the light would come from a different direction than everywhere
-     else on the page */
-  filter:drop-shadow(0 18px 34px rgba(61,41,23,.20)) drop-shadow(0 4px 10px rgba(61,41,23,.12));}
 /* The render is shot as a diamond with the wordmark running down the
    left-hand edge at about 44 degrees, which is unreadable at this size.
    Turned level, the mark sits along the bottom of the housing where a
    product shot would put it. The scale covers the corners the rotation
    opens up. */
-.promo-art img{width:100%;max-width:none;height:auto;display:block;
-  transform:rotate(-44deg) scale(1.34);transform-origin:50% 50%;}
 @media (min-width:841px){
-  .promo-art{margin-right:calc(var(--edge) * -1);width:calc(100% + var(--edge));}
-  .promo-dev{width:min(112%,720px);}
 }
 /* and it sits on something: a contact shadow under the body, warm, tight,
    with the light coming from the same side as everywhere else on the page */
-.promo-art::after{content:"";position:absolute;z-index:1;left:50%;bottom:8%;
-  width:58%;height:26px;transform:translateX(-50%);pointer-events:none;
-  background:radial-gradient(ellipse at center,rgba(61,41,23,.30),rgba(61,41,23,.10) 46%,transparent 72%);
-  filter:blur(9px);}
-.promo-glow{position:absolute;width:78%;aspect-ratio:1;border-radius:50%;pointer-events:none;
-  background:radial-gradient(circle,rgba(224,168,120,.32),rgba(169,104,62,.10) 55%,transparent 72%);filter:blur(6px);}
 /* the ripple: the film's own motif, radiating out of the coil, so the promo
    belongs to this page rather than reading as a stock product panel */
-.promo-ripple{position:absolute;z-index:0;inset:auto;left:50%;top:50%;
-  width:min(150%,880px);aspect-ratio:1;transform:translate(-50%,-50%);
-  pointer-events:none;color:var(--copper);opacity:.30}
-.promo-ripple circle{fill:none;stroke:currentColor;vector-effect:non-scaling-stroke;
-  transform-origin:50% 50%;animation:promoRipple 7s cubic-bezier(.22,.61,.36,1) infinite}
-.promo-ripple circle:nth-child(2){animation-delay:1.4s}
-.promo-ripple circle:nth-child(3){animation-delay:2.8s}
-.promo-ripple circle:nth-child(4){animation-delay:4.2s}
-.promo-ripple circle:nth-child(5){animation-delay:5.6s}
 @keyframes promoRipple{
   0%{transform:scale(.14);opacity:0}
   12%{opacity:.85}
   100%{transform:scale(1);opacity:0}}
-@media (prefers-reduced-motion:reduce){.promo-ripple circle{animation:none;opacity:.32}}
 @media (max-width:840px){
-  .promo .wrap{grid-template-columns:1fr;gap:20px;text-align:left;}
-  .promo-art{order:-1;min-height:0;}
-  .promo-dev{width:min(78%,320px);}
-  .promo-ripple{width:min(150%,420px)}
 }
 
 /* ===== STORE — the shop, made unmissable two thirds down ===== */
@@ -913,6 +865,23 @@ body.menu-open{overflow:hidden;}
 .spec .k{color:var(--navy-soft);letter-spacing:.16em;text-transform:uppercase;font-size:10px;display:block;font-weight:600;}
 .spec .v{font-family:var(--serif);font-weight:400;font-size:19px;margin-top:4px;}
 .freq-note{font-size:12px;color:var(--navy-soft);margin-top:24px;max-width:52ch;line-height:1.5;}
+/* the featured product, inside the dark section */
+.freq-feature{display:flex;flex-direction:column;gap:22px;}
+.ff-tag{display:inline-flex;font:700 10px var(--sans);letter-spacing:.24em;text-transform:uppercase;
+  color:#fff;background:var(--copper);padding:6px 11px;border-radius:2px;}
+.ff-name{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.2vw,30px);line-height:1.08;
+  letter-spacing:-.02em;color:var(--navy-text);margin-top:12px;}
+.ff-cu{display:block;font-size:.5em;font-style:italic;color:var(--copper-hi);margin-top:4px;}
+.ff-say{margin-top:10px;color:var(--navy-soft);font-size:15px;max-width:40ch;}
+.ff-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:18px;}
+.ff-price{font-family:var(--serif);font-weight:300;font-size:24px;color:var(--copper-hi);}
+.ff-price s{font-size:.62em;color:var(--navy-soft);margin-right:8px;}
+@media (min-width:841px){
+  /* the copy column runs long; without this the media column ended early and
+     left a couple of hundred pixels of empty dark under the disclaimer */
+  .freq .split{align-items:stretch;}
+  .freq-feature{justify-content:center;}
+}
 /* three specs across a phone gives each about 110px, and "7.83-1111 Hz"
    does not fit that. Stacked, they stay readable. */
 @media (max-width:560px){
@@ -1283,8 +1252,8 @@ p{text-wrap:pretty;}
 /* "in copper" is the news, but it is not the product's name — it reads as a
    second line under the headline rather than a clause inside it, which also
    stops the name being split across two lines. */
-.cpromo h2,.promo h2{line-height:1.06;}
-.cpromo h2 .in-cu,.promo h2 .in-cu{display:block;font-size:.44em;font-style:italic;
+.cpromo h2{line-height:1.06;}
+.cpromo h2 .in-cu{display:block;font-size:.44em;font-style:italic;
   letter-spacing:.005em;color:#A9683E;margin-top:.36em;}
 
 </style>
@@ -1472,37 +1441,27 @@ p{text-wrap:pretty;}
         devices others sell. Frequency generators are not medical devices and are not a substitute for
         healthcare. Experiences vary.</p>
     </div>
-    <div class="media live3d">
-      <img id="freq-poster" src="assets/img/generators/7-83.png" alt="An Energy Muse fixed-frequency generator">
-      <canvas id="freq-canvas" aria-hidden="true"></canvas>
-    </div>
-  </div>
-</section>
-
-<!-- ===== PROMO =====
-     A slot for whatever is new. Everything below is content: swap the tag,
-     headline, copy, price, image and link. Delete the section to remove it. -->
-<section class="promo" id="promo" aria-label="New release">
-  <div class="wrap">
-    <div class="promo-copy">
-      <span class="tag">Just landed</span>
-      <h2>The 528&#8239;Hz Generator.<span class="in-cu">in copper</span></h2>
-      <p>The same tuned coil, in a hand&#8209;finished copper body built to be left&nbsp;out.</p>
-      <div class="row">
-        <span class="price"><s>$248.88</s>$219.88</span>
-        <a class="btn btn-primary" href="generator/#gens">Shop the generator</a>
+    <!-- The copper 528 used to be its own light section directly under this
+         dark one — two generator pitches back to back with a colour flip
+         between them, which read as the same argument twice. It is the
+         featured product inside the category now: the left column makes the
+         case for fixed frequency, this column sells the one that just landed.
+         Everything here is content — swap the tag, name, price, image and
+         link, or delete the block to drop the feature. -->
+    <div class="freq-feature">
+      <div class="media live3d">
+        <img id="freq-poster" src="assets/img/generator-render.webp" alt="The 528Hz frequency generator in a copper body">
+        <canvas id="freq-canvas" aria-hidden="true"></canvas>
       </div>
-    </div>
-    <div class="promo-art">
-      <span class="promo-glow" aria-hidden="true"></span>
-      <svg class="promo-ripple" viewBox="0 0 200 200" aria-hidden="true">
-        <circle cx="100" cy="100" r="98" stroke-width="1"/>
-        <circle cx="100" cy="100" r="98" stroke-width="1"/>
-        <circle cx="100" cy="100" r="98" stroke-width="1"/>
-        <circle cx="100" cy="100" r="98" stroke-width="1"/>
-        <circle cx="100" cy="100" r="98" stroke-width="1"/>
-      </svg>
-      <span class="promo-dev"><img src="assets/img/generator-render.webp" srcset="assets/img/generator-render-640.webp 640w, assets/img/generator-render-900.webp 900w, assets/img/generator-render.webp 1300w" sizes="(max-width:840px) 78vw, min(112vw, 720px)" alt="The Energy Muse frequency generator in a copper housing" loading="lazy"></span>
+      <div class="ff-copy">
+        <span class="ff-tag">Just landed</span>
+        <h3 class="ff-name">The 528&#8239;Hz Generator.<span class="ff-cu">in copper</span></h3>
+        <p class="ff-say">The same tuned coil, in a hand&#8209;finished copper body built to be left&nbsp;out.</p>
+        <div class="ff-row">
+          <span class="ff-price"><s>$248.88</s>$219.88</span>
+          <a class="btn btn-copper" href="generator/#gens">Shop the generator</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -2304,14 +2263,13 @@ p{text-wrap:pretty;}
      section shows what "seven instruments" means rather than asserting it.
      Paused for anyone who asked for less motion — they get the first one. */
   (function(){
-    var hzEl=document.getElementById('freqhz'), poster=document.getElementById('freq-poster');
+    var hzEl=document.getElementById('freqhz');
     if(!hzEl||!window.EM_FREQ||!window.EM_FREQ.length)return;
     var i=0, sec=document.getElementById('freq'), on=false;
-    function paint(){
-      var f=window.EM_FREQ[i%window.EM_FREQ.length];
-      hzEl.textContent=f.hz;
-      if(poster&&!poster.closest('.live3d').classList.contains('live'))poster.src=f.img;
-    }
+    /* the readout ticks the range; the poster does NOT follow it any more.
+       That column is the copper 528 feature now, and swapping it through seven
+       plain bodies would have contradicted the thing it is selling. */
+    function paint(){ hzEl.textContent=window.EM_FREQ[i%window.EM_FREQ.length].hz; }
     paint();
     if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
     if('IntersectionObserver' in window && sec){
