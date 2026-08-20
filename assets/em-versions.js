@@ -28,7 +28,8 @@ var SIG={
 var VERSIONS=[
   ['/','1 · Classic','the main homepage',SIG.classic],
   ['/home/lab/','2 · Current v2','a sandbox to build on',SIG.current],
-  ['/designer/','3 · Atelier','build one',SIG.atelier]
+  ['/designer/','3 · Atelier','build one',SIG.atelier],
+  ['/box/','4 · Build a Box','fill one',SIG.crystallize]
 ];
 /* There used to be a second group below a rule — Atelier, Frequency Room and
    Collection, set as filled copper tiles so they read as things you use rather

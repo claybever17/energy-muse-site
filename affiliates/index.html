@@ -1,0 +1,150 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Energy Muse — Affiliates</title>
+<meta name="description" content="Share the practice you already keep. Apply to the Energy Muse affiliate programme.">
+<link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
+<link rel="stylesheet" href="/assets/em-page.css?v=1">
+<script src="/assets/em-header.js?v=4" defer></script>
+<script src="/assets/em-bag.js?v=3" defer></script>
+<script src="/assets/em-versions.js?v=15" defer></script>
+<style>
+/* Form styles only. Everything else is the shared page shell — this is the
+   one page here with an actual form, so its styles live with it rather than
+   in em-page.css where nothing else would use them. */
+.form{margin-top:clamp(28px,4vw,44px);max-width:640px}
+.field{margin-bottom:20px}
+.field label{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;
+  text-transform:uppercase;font-weight:600;color:var(--stone);margin-bottom:8px}
+.field input,.field select,.field textarea{width:100%;font-family:var(--sans);font-size:16px;
+  color:var(--ink);background:var(--surface);border:1px solid var(--hair);border-radius:3px;
+  padding:14px 16px;transition:border-color .25s,box-shadow .25s}
+.field textarea{min-height:120px;resize:vertical;line-height:1.55}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--copper);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--copper) 16%,transparent)}
+.field .hint{font-size:12.5px;color:var(--stone);margin-top:7px}
+.field.bad input,.field.bad textarea{border-color:#B4432F}
+.field .err{display:none;font-size:12.5px;color:#B4432F;margin-top:7px}
+.field.bad .err{display:block}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:620px){.two{grid-template-columns:1fr;gap:0}}
+.sent{display:none;border:1px solid var(--hair);border-left:3px solid var(--copper);
+  background:var(--tint);padding:22px 24px;border-radius:3px;margin-top:8px}
+.sent h3{margin-bottom:8px}
+.sent p{color:var(--ink-soft);font-size:16px}
+.form.done .field,.form.done .cta-row{display:none}
+.form.done .sent{display:block}
+</style>
+</head><body>
+<main>
+
+<section class="sect">
+  <div class="wrap">
+    <span class="eyebrow">Affiliates</span>
+    <h1>Share the practice you already keep.</h1>
+    <p class="lead">If you write, teach, or build a community around wellbeing, the Energy Muse
+      affiliate programme lets you point people to tools you actually use &mdash; and earn on what
+      they choose. No quotas, no scripts, and nothing you have to pretend to believe.</p>
+    <div class="cta-row"><a class="btn btn-copper" href="#apply">Apply to Join</a></div>
+  </div>
+</section>
+
+<section class="sect tint">
+  <div class="wrap">
+    <h2>How it works.</h2>
+    <div class="cols">
+      <div><h3>Apply</h3><p>Tell us where you write or teach and what you already recommend. We read
+        every application ourselves.</p></div>
+      <div><h3>Get your link</h3><p>You&rsquo;ll receive a personal link and a small kit &mdash; product
+        photography, plain descriptions, and the guidance we give our own customers.</p></div>
+      <div><h3>Earn on what fits</h3><p>Commission on every order through your link. Recommend only
+        what suits the person in front of you; that is the whole brief.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sect" id="apply">
+  <div class="wrap">
+    <h2>Apply to join.</h2>
+    <p>A few questions, and a person on our side reads the answers.</p>
+
+    <form class="form" id="affform" novalidate>
+      <div class="two">
+        <div class="field"><label for="af-name">Your name</label>
+          <input id="af-name" name="name" type="text" autocomplete="name" required>
+          <span class="err">Please tell us your name.</span></div>
+        <div class="field"><label for="af-email">Email</label>
+          <input id="af-email" name="email" type="email" autocomplete="email" required>
+          <span class="err">Please enter an email we can reply to.</span></div>
+      </div>
+
+      <div class="field"><label for="af-where">Where you write, teach, or gather people</label>
+        <input id="af-where" name="where" type="text" placeholder="A site, a newsletter, a studio, a handle" required>
+        <span class="hint">A link is ideal, but a description is fine.</span>
+        <span class="err">Please tell us where you reach people.</span></div>
+
+      <div class="two">
+        <div class="field"><label for="af-audience">Roughly how many people</label>
+          <select id="af-audience" name="audience">
+            <option>Under 1,000</option><option>1,000 &ndash; 10,000</option>
+            <option>10,000 &ndash; 50,000</option><option>50,000 &ndash; 250,000</option>
+            <option>More than 250,000</option><option>I&rsquo;d rather explain below</option>
+          </select></div>
+        <div class="field"><label for="af-focus">What you focus on</label>
+          <select id="af-focus" name="focus">
+            <option>Crystals and stones</option><option>Frequency and sound</option>
+            <option>Jewelry and style</option><option>Yoga, breathwork or meditation</option>
+            <option>General wellbeing</option><option>Something else</option>
+          </select></div>
+      </div>
+
+      <div class="field"><label for="af-why">What you&rsquo;d recommend, and why</label>
+        <textarea id="af-why" name="why" placeholder="Which Energy Muse tools fit the people you talk to?"></textarea>
+        <span class="hint">Optional, but it is the part we read most closely.</span></div>
+
+      <div class="cta-row"><button class="btn btn-copper" type="submit">Send My Application</button></div>
+
+      <div class="sent" role="status" aria-live="polite">
+        <h3>Thank you &mdash; that&rsquo;s with us.</h3>
+        <p>We read applications in the order they arrive and reply either way. If it&rsquo;s a fit,
+          your link and kit come with the reply.</p>
+      </div>
+    </form>
+
+    <p class="note">This form is not yet connected to a mailbox &mdash; it validates and confirms in the
+      browser so the flow can be reviewed, but nothing is sent or stored. Point it at the
+      Energy Muse system before launch.</p>
+  </div>
+</section>
+
+<section class="sect">
+  <div class="wrap"><a class="backlink" href="/">&larr; Back to Energy Muse</a></div>
+</section>
+
+</main>
+<script>
+(function(){
+  var f=document.getElementById('affform');
+  if(!f)return;
+  function mark(el,bad){ el.closest('.field').classList.toggle('bad',bad); }
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var ok=true;
+    ['af-name','af-where'].forEach(function(id){
+      var el=document.getElementById(id), bad=!el.value.trim();
+      mark(el,bad); if(bad)ok=false;
+    });
+    var em=document.getElementById('af-email');
+    var badEm=!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim());
+    mark(em,badEm); if(badEm)ok=false;
+    if(!ok){ f.querySelector('.field.bad input').focus(); return; }
+    f.classList.add('done');
+    f.querySelector('.sent').scrollIntoView({block:'center',behavior:
+      matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});
+  });
+  f.addEventListener('input',function(e){
+    if(e.target.closest('.field.bad')) e.target.closest('.field').classList.remove('bad');
+  });
+})();
+</script>
+</body></html>
