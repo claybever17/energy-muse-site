@@ -381,149 +381,70 @@ img{display:block;max-width:100%}
 </head>
 <body>
 
-<header class="bar">
-  <a href="../../" aria-label="Energy Muse home"><img class="blogo" src="../../assets/img/logo.svg" alt="Energy Muse" onerror="this.src='../../assets/img/logo.png'"></a>
-  <a class="bag" href="#" aria-label="Open bag">Bag (<span class="bagn">0</span>)</a>
-</header>
+<!-- One screen, one tool.
 
-<section class="room roomin isfirst" id="instrument">
-  <div class="field" aria-hidden="true"></div>
+     This was 6.6 screens and nine sections: the dial, then a hero, then the
+     crystals, then a product pitch, then why-fixed-beats-variable, then a
+     testimonial, then a shop grid, then an email capture. Everything after the
+     dial now exists somewhere better — /generator/ makes the fixed-frequency
+     case, the homepage carries the testimonial and the capture, /gems/ is the
+     shop — so this page keeps only the thing that is unique to it: turn the
+     dial, watch the room re-tune, see what answers.
 
-  <div class="lede">
-    <span class="eyebrow">The frequency room</span>
-    <div class="readout">
-      <span class="num" id="num">528</span><span class="unit">Hz</span>
-    </div>
-    <div class="tname" id="tname">Repair</div>
-    <p class="tsay" id="tsay"></p>
+     Shaped like the other two "try its" — /designer/ and /box/ are each
+     exactly one screen, one wrap, no header, cream. -->
+<div class="wrap">
 
-    <div class="wave"><canvas id="wave" aria-hidden="true"></canvas></div>
-
-    <div class="dial">
-      <div class="track"><div class="fillbar" id="fill"></div></div>
-      <div class="stops" id="stops" role="tablist" aria-label="Choose a frequency"></div>
-      <div class="dialhint">Turn the dial &mdash; the room re-tunes</div>
+  <div class="tophead">
+    <a class="home" href="../../" aria-label="Energy Muse home">
+      <img class="blogo" src="../../assets/img/logo.svg" alt="Energy Muse"></a>
+    <div class="tt">
+      <span class="eyebrow">The frequency room</span>
+      <h1>Choose your frequency.</h1>
     </div>
   </div>
 
-  <div class="device" id="device">
-    <!-- one render used to stand in for all seven designations; this is the
-         still behind the live device, so it is what anyone without WebGL sees -->
-    <img id="genimg" src="../../assets/img/generators/528.png" alt="528Hz Frequency Generator">
-    <canvas id="dev"></canvas>
-  </div>
-</section>
+  <section class="room roomin isfirst" id="instrument">
+    <div class="field" aria-hidden="true"></div>
 
-<section class="state">
-  <span class="cue" aria-hidden="true"><i></i></span>
-  <div class="state-copy">
-  <h1>Every room has a frequency. <em>Choose yours.</em></h1>
-  <p class="said">Crystals and fixed-frequency generators, for real rooms and real days.</p>
-  <div class="acts">
-    <a class="act solid" href="#instrument">See the seven frequencies</a>
-    <a class="act ghost" href="../crystallize/">Browse every crystal</a>
-  </div>
-  </div>
-  <div class="state-dev">
-    <img src="../../assets/img/hero-generator.jpg"
-         srcset="../../assets/img/hero-generator-1200.webp 1200w, ../../assets/img/hero-generator-1800.webp 1800w, ../../assets/img/hero-generator-2000.webp 2000w"
-         sizes="(max-width:860px) 92vw, 46vw"
-         alt="The copper frequency generator lit on a wood floor beside a clear quartz point">
-  </div>
-</section>
+    <div class="lede">
+      <div class="readout">
+        <span class="num" id="num">528</span><span class="unit">Hz</span>
+      </div>
+      <div class="tname" id="tname">Repair</div>
+      <p class="tsay" id="tsay"></p>
 
-<section class="answers">
-  <div class="ahead">
-    <h2>Crystals that answer to <em id="ansname">528&#8239;Hz</em></h2>
-    <a href="../crystallize/">See the whole collection &rarr;</a>
-  </div>
-  <div class="stones" id="stones"></div>
-</section>
+      <div class="wave"><canvas id="wave" aria-hidden="true"></canvas></div>
 
-<section class="buy">
-  <div class="buyin">
-    <div>
-      <h2>One coil, tuned once,<br>and left that way.</h2>
-      <p>Wound to one frequency and left there.<span class="lessmob"> It reaches further than the variable devices others sell.</span></p>
-      <div class="pricerow"><span class="was">$248.88</span><span class="now">$219.88</span></div>
-      <button class="cta" id="buy">Add the generator</button>
-      <dl class="specs">
-        <div class="spec"><dt>Tuning</dt><dd id="spec-hz">528&#8239;Hz</dd></div>
-        <div class="spec"><dt>Housing</dt><dd>Hand-finished copper</dd></div>
-        <div class="spec"><dt>Coil</dt><dd>Single, fixed</dd></div>
-      </dl>
-      <p style="margin-top:18px;font-size:12px;color:#8994A6;max-width:46ch">Frequency generators are not medical devices and are not a substitute for healthcare. Experiences vary.</p>
+      <div class="dial">
+        <div class="track"><div class="fillbar" id="fill"></div></div>
+        <div class="stops" id="stops" role="tablist" aria-label="Choose a frequency"></div>
+        <div class="dialhint">Turn the dial &mdash; the room re-tunes</div>
+      </div>
+
+      <div class="roombuy">
+        <button class="cta" id="buy">Add the generator</button>
+        <a class="alt" href="../../generator/#gens">See all seven &rarr;</a>
+      </div>
     </div>
-    <div class="buyart"></div>
-  </div>
-</section>
 
-<section class="why">
-  <h2>Why fixed beats variable.</h2>
-  <div class="whygrid">
-    <div><h3>It reaches further</h3><p>One frequency gets the whole coil. Variable devices split the same power across a range.</p></div>
-    <div><h3>It never drifts</h3><p>Nothing to set. Nothing to wander off overnight.</p></div>
-    <div><h3>It pairs cleanly</h3><p>A known tuning means known crystals &mdash; which is what the dial is doing.</p></div>
-  </div>
-</section>
-
-
-<section class="tuned">
-  <h2 class="reveal">Pick the feeling. <em>The dial follows.</em></h2>
-  <p class="sub reveal">You don't need to know a frequency to choose one.</p>
-  <div class="ints" id="ints"></div>
-</section>
-
-<section class="people">
-  <div class="peoplein">
-    <div class="reveal">
-      <h2>Twenty years, one belief.</h2>
-      <p>One necklace, and a belief: your energy deserves to be a priority.<span class="lessmob"> Twenty years later, that is still the whole idea.</span></p>
-      <div class="who">Heather Askinosie &amp; Timmi Jandro &middot; founders</div>
+    <div class="device" id="device">
+      <img id="genimg" src="../../assets/img/generators/528.png" alt="528Hz Frequency Generator">
+      <canvas id="dev"></canvas>
     </div>
-    <div class="pshot reveal"><img src="../../assets/img/founders.jpg" alt="Heather Askinosie and Timmi Jandro" loading="lazy"></div>
-  </div>
-</section>
+  </section>
 
-<section class="shop" id="shop">
-  <div class="shophead">
-    <h2>Start with one stone.</h2>
-    <a href="../crystallize/">See the whole collection &rarr;</a>
-  </div>
-  <div class="stones" id="shopgrid"></div>
-</section>
-
-<section class="join">
-  <div class="joinin">
-    <div class="reveal">
-      <h2>One frequency, one crystal, once a week.</h2>
-      <p>Something for the shelf, and something to do with it.</p>
+  <section class="answers">
+    <div class="ahead">
+      <h2>Crystals that answer to <em id="ansname">528&#8239;Hz</em></h2>
+      <a href="../../gems/">See the whole collection &rarr;</a>
     </div>
-    <div class="reveal">
-      <form class="jform" id="jform" novalidate>
-        <input type="email" name="email" placeholder="Your email" aria-label="Your email" required>
-        <button type="submit">Join</button>
-      </form>
-      <div class="jnote" id="jnote">No more than once a week. Unsubscribe whenever.</div>
-    </div>
-  </div>
-</section>
+    <div class="stones" id="stones"></div>
+  </section>
 
-<footer class="foot">
-  <div class="footin">
-    <div class="fl">Guided energy for real life.</div>
-    <nav aria-label="Footer">
-      <a href="../crystallize/">The collection</a>
-      <a href="../../generator/#gens">Generators</a>
-      <a href="../../quiz/">The quiz</a>
-      <a href="../../designer/">Atelier</a>
-    </nav>
-  </div>
-  <div class="legal">
-    <span>&copy; 2026 Energy Muse. All rights reserved.</span>
-    <span>Not medical devices. Not a substitute for healthcare. Experiences vary.</span>
-  </div>
-</footer>
+  <p class="roomnote">Frequency generators are not medical devices and are not a substitute for
+    healthcare. Experiences vary.</p>
+</div>
 
 <script>
 /* ---------------------------------------------------------------------------
@@ -710,57 +631,6 @@ document.getElementById('buy').addEventListener('click',function(){
 
 
 /* ---- the intentions set the dial, so the interface stays one instrument ---- */
-var INTENTS=[
- {cat:'Protection',img:'protection.jpg',note:'Boundaries, grounded confidence',hz:'174'},
- {cat:'Wealth',    img:'wealth.jpg',    note:'Momentum, opportunity',          hz:'417'},
- {cat:'Calm',      img:'calm.jpg',      note:'Steadiness, nervous-system ease', hz:'7.83'},
- {cat:'Love',      img:'jewelry.jpg?v=2',note:'Heart-opening, connection',      hz:'639'},
- {cat:'Spirituality',img:'clarity.jpg', note:'Focus, intuition',               hz:'963'}
-];
-var intsEl=document.getElementById('ints');
-INTENTS.forEach(function(t){
-  var b=document.createElement('button');
-  b.type='button'; b.className='int'; b.dataset.hz=t.hz;
-  b.setAttribute('aria-pressed','false');
-  b.innerHTML='<img src="../../assets/img/'+t.img+'" alt="'+t.cat+'" loading="lazy">'+
-    '<span class="veil"></span><span class="lab"><b>'+t.cat+'</b><span>'+t.note+'</span></span>';
-  b.addEventListener('click',function(){
-    var i=ROOM.map(function(r){return r.hz;}).indexOf(t.hz);
-    if(i<0)return;
-    tune(i);
-    document.querySelector('.room').scrollIntoView({behavior:'smooth',block:'start'});
-  });
-  intsEl.appendChild(b);
-});
-markIntents();
-window.markIntents=markIntents;
-function markIntents(){
-  /* tune() runs once at init, before this block has declared intsEl — so the
-     tiles may genuinely not exist yet the first time through */
-  if(!intsEl)return;
-  var hz=ROOM[cur].hz;
-  [].slice.call(intsEl.children).forEach(function(b){
-    b.setAttribute('aria-pressed',b.dataset.hz===hz?'true':'false');});
-}
-
-/* ---- the shop grid below reuses the same plate as the paired stones ---- */
-function plate(s){
-  return '<article class="st" style="--sc:'+s.c+'">'+
-    '<div class="plate"><img src="../../assets/img/products/'+s.slug+'.png?v=2" alt="'+s.n.replace(/"/g,'&quot;')+'" loading="lazy"></div>'+
-    '<div class="c"><div class="n">'+s.n+'</div><div class="k">'+s.cat+'</div>'+
-      '<div class="f"><span class="p">'+money(s.p)+'</span>'+
-        '<button class="a" data-id="'+s.slug+'" data-n="'+s.n.replace(/"/g,'&quot;')+'" data-p="'+s.p.toFixed(2)+'" '+
-          'data-img="/assets/img/products/'+s.slug+'.png">Add</button></div></div></article>';
-}
-var shopGrid=document.getElementById('shopgrid');
-shopGrid.innerHTML=STONES.slice(0,8).map(plate).join('');
-shopGrid.addEventListener('click',function(e){
-  var a=e.target.closest('.a'); if(!a)return;
-  addToBag(a.dataset.id,a.dataset.n,a.dataset.p,a.dataset.img);
-  a.textContent='Added'; a.classList.add('done');
-  setTimeout(function(){a.textContent='Add';a.classList.remove('done');},1400);
-});
-
 /* ---- sections arrive as you reach them ---- */
 (function(){
   var els=[].slice.call(document.querySelectorAll('.reveal'));
