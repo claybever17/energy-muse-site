@@ -1,0 +1,86 @@
+/* em-page.css — the shell for the written pages.
+
+   The intention pages each carry their own ~200-line copy of the tokens, the
+   type scale and the button. Eleven more pages built that way would be two
+   thousand lines of duplicated stylesheet and eleven places to change a colour.
+   These pages share this instead and stay thin: a head, a heading, and their
+   copy.
+
+   Deliberately small. It styles prose, a heading scale, a button, and three
+   list shapes — nothing bespoke. Anything a page needs beyond that belongs in
+   that page, not in here. */
+
+@font-face{font-family:'Fraunces';src:url(/assets/fonts/fraunces_300.woff2?v=3) format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:'Fraunces';src:url(/assets/fonts/fraunces_400.woff2?v=3) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url(/assets/fonts/instrument_400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url(/assets/fonts/instrument_600.woff2) format('woff2');font-weight:600;font-display:swap}
+
+:root{
+  --bg:#FBF8F2; --surface:#fff; --ink:#1D2739; --ink-soft:#4E5A70; --stone:#8D8778;
+  --hair:#EAE3D6; --tint:#F4EFE5;
+  --copper:#A9683E; --copper-lo:#8F5330; --copper-hi:#B87A4B;
+  --navy:#0B1320; --navy-text:#EFE7D9; --navy-soft:#B4C0D0; --navy-line:#26344A;
+  --serif:'Fraunces',Georgia,serif; --sans:'Instrument Sans',-apple-system,sans-serif;
+  --edge:clamp(20px,4vw,56px);
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:radial-gradient(90% 60% at 88% -8%,rgba(169,104,62,.10),transparent 58%),var(--bg);
+  color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+img{max-width:100%;display:block}
+
+.wrap{max-width:1080px;margin:0 auto;padding-inline:var(--edge)}
+.wrap.narrow{max-width:760px}
+.sect{padding-block:clamp(48px,7vw,96px)}
+.sect+.sect{border-top:1px solid var(--hair)}
+.sect.tint{background:var(--tint)}
+
+.eyebrow{font-family:var(--sans);font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--copper);font-weight:600;display:block;margin-bottom:14px}
+
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.022em;line-height:1.1}
+h1{font-size:clamp(34px,5vw,64px);max-width:18ch;text-wrap:balance}
+h2{font-size:clamp(26px,3.2vw,42px);max-width:22ch;text-wrap:balance}
+h3{font-size:clamp(18px,1.5vw,22px);max-width:30ch}
+.lead{font-size:clamp(17px,1.4vw,20px);color:var(--ink-soft);max-width:62ch;margin-top:20px;text-wrap:pretty}
+p{max-width:66ch;text-wrap:pretty}
+p+p{margin-top:16px}
+.sect h2+p,.sect h1+p{margin-top:18px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--sans);
+  font-weight:600;font-size:14px;padding:15px 28px;border-radius:3px;border:1px solid transparent;
+  text-decoration:none;cursor:pointer;transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s,color .3s,border-color .3s}
+.btn:hover{transform:translateY(-2px)}
+.btn-copper{background:var(--copper);color:#fff}
+.btn-copper:hover{background:var(--copper-lo)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:color-mix(in srgb,var(--ink) 32%,transparent)}
+.btn-ghost:hover{border-color:var(--ink)}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+
+/* the three list shapes these pages actually need */
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(22px,3vw,40px);margin-top:clamp(28px,4vw,48px)}
+.cols>*>h3{margin-bottom:8px}
+.cols>*>p{color:var(--ink-soft);font-size:16px}
+
+.steps{list-style:none;counter-reset:s;margin-top:clamp(26px,4vw,44px);display:grid;gap:22px}
+.steps li{counter-increment:s;padding-left:52px;position:relative;max-width:62ch}
+.steps li::before{content:counter(s);position:absolute;left:0;top:-2px;width:34px;height:34px;
+  display:grid;place-items:center;border:1px solid var(--hair);border-radius:50%;
+  font-family:var(--serif);font-size:16px;color:var(--copper)}
+
+.qa{margin-top:clamp(26px,4vw,44px);display:grid;gap:0}
+.qa details{border-top:1px solid var(--hair);padding:20px 0}
+.qa details:last-of-type{border-bottom:1px solid var(--hair)}
+.qa summary{font-family:var(--serif);font-size:clamp(17px,1.5vw,21px);cursor:pointer;list-style:none;
+  display:flex;justify-content:space-between;gap:20px;align-items:baseline}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";color:var(--copper);font-family:var(--sans);font-size:20px;line-height:1;flex:none}
+.qa details[open] summary::after{content:"\2013"}
+.qa p{margin-top:12px;color:var(--ink-soft)}
+
+.note{font-size:12.5px;color:var(--stone);margin-top:26px;max-width:56ch;line-height:1.5}
+.backlink{display:inline-block;margin-top:40px;font-size:13px;color:var(--ink-soft)}
+.backlink:hover{color:var(--copper)}
