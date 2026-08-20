@@ -5,7 +5,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Energy Muse">
 <meta property="og:title" content="Energy Muse — Guided Energy for Real Life">
-<meta property="og:description" content="Crystal jewelry, natural crystals and frequency generators. Energy, made personal.">
+<meta property="og:description" content="Crystal jewelry, natural crystals and frequency generators. Energy, made simple.">
 <meta property="og:url" content="https://energy-muse-workingfolder.vercel.app/">
 <meta property="og:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <meta property="og:image:width" content="2400">
@@ -13,7 +13,7 @@
 <meta property="og:image:alt" content="An Energy Muse frequency generator lit on a wood floor beside a clear quartz point">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Energy Muse — Guided Energy for Real Life">
-<meta name="twitter:description" content="Crystal jewelry, natural crystals and frequency generators. Energy, made personal.">
+<meta name="twitter:description" content="Crystal jewelry, natural crystals and frequency generators. Energy, made simple.">
 <meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 
 <meta name="description" content="Guided energy for real life. Crystal jewelry, natural crystals, frequency and trusted guidance.">
@@ -474,7 +474,11 @@ body.menu-open{overflow:hidden;}
 /* no eyebrow above it now, so the headline does not need to clear one */
 /* one line: at 6.4vw it needed more width than the copy column has, so it
    broke after "made" and left the italic stranded on its own line */
-.hero h1{font-size:clamp(34px,3.9vw,64px);line-height:1.0;letter-spacing:-.032em;font-weight:300;text-shadow:var(--hero-shadow);margin-top:0;}
+/* 3.9vw cleared the generator's glass panel by only 13-19px between 841 and
+   1280 — true clearance, but against a soft edge it reads as touching.
+   3.6vw buys 45px+ and sits closer to the proportion in their mock, where
+   the headline takes about a third of the frame. */
+.hero h1{font-size:clamp(34px,3.6vw,64px);line-height:1.0;letter-spacing:-.032em;font-weight:300;text-shadow:var(--hero-shadow);margin-top:0;}
 
 /* mask clips only BELOW (for the rise-in) — italic overhangs stay visible */
 .hero h1 .line{display:block;clip-path:inset(-.35em -100vw 0 -100vw);padding-bottom:.16em;margin-bottom:-.16em;}
@@ -1331,14 +1335,12 @@ p{text-wrap:pretty;}
   <canvas class="herowave" id="herowave" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <!-- Two lines, structurally. On one line the headline ran to x536 while
-           the generator's glass panel starts at x512, so "personal." sat on the
-           device — and object-position cannot fix it, because at 1024 the panel
-           is still at 559 even pushed fully right. Split, the longest line is
-           "Energy, made" and the type clears the product at every desktop
-           width. The staggered reveal for .line:nth-child(1)/(2) was already
-           written for two lines and only now has them. -->
-      <h1><span class="line"><span>Energy, made</span></span><span class="line"><span><em class="hl gemword">personal.</em></span></span></h1>
+      <!-- One line, and "simple" — both confirmed by Energy Muse against the
+           mock they sent. It was split across two lines because "personal."
+           ran onto the generator's glass panel; "simple." is the shorter word
+           and buys back the room that made the split necessary. Measured
+           against the panel edge at every desktop width before landing. -->
+      <h1><span class="line"><span>Energy, made <em class="hl gemword">simple.</em></span></span></h1>
       <p class="sub anim">Choose your energy. Live in it.</p>
       <!-- The reference the client sent is headline, tagline, button — no
            descriptor. The paragraph was a holdover from the old two-column
