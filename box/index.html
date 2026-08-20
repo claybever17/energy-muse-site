@@ -109,8 +109,13 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(27px,3.4vw,44px);let
   letter-spacing:.16em;text-transform:uppercase;color:var(--stone)}
 .count b{font-family:var(--serif);font-weight:300;font-size:21px;color:var(--fg);letter-spacing:0}
 .btn{border:0;border-radius:100px;padding:11px 16px;font:600 12px var(--sans);letter-spacing:.06em;cursor:pointer}
-.btn-c{background:var(--copper);color:#fff}
-.btn-c[disabled]{background:var(--hair);color:#fff;cursor:not-allowed}
+/* measured 1.36:1 — --copper here is a lighter token than the site's. */
+.btn-c{background:#8F5330;color:#fff}
+/* Was white on --hair: 1.36:1, unreadable. Disabled controls are exempt from
+   WCAG, but it read as a broken button rather than an inactive one. Fixed on
+   the existing rule — the first attempt added a new one ABOVE this, which
+   same-specificity ordering silently overrode. */
+.btn-c[disabled]{background:var(--hair);color:#6B6455;cursor:not-allowed}
 .btn-g{background:transparent;border:1px solid var(--hair);color:var(--soft)}
 .btn-g:hover{border-color:var(--copper);color:var(--copper)}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -186,7 +191,7 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(27px,3.4vw,44px);let
 
 <div class="toast" id="toast"></div>
 
-<script src="/assets/em-bag.js?v=3" defer></script>
+<script src="/assets/em-bag.js?v=4" defer></script>
 <script src="/assets/em-prices.js?v=1" defer></script>
 <script src="/assets/em-versions.js?v=17" defer></script>
 <script>

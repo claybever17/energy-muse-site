@@ -31,7 +31,9 @@ var css=[
 '@media(max-width:640px){.emh-ann-in{gap:8px;padding-inline:38px;flex-wrap:wrap;}',
 '  .emh-ann-more{display:none;}}',
 '.emh-ann a:hover{color:'+P.copper+';}',
-'.emh-annx{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:0;color:'+P.stone+';cursor:pointer;font-size:15px;line-height:1;padding:6px;}',
+/* P.stone against the announcement ground measured 3.12:1, under the 4.5 a
+   small control needs. P.ink is the same family, and legible. */
+'.emh-annx{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:0;color:'+P.ink+';opacity:.72;cursor:pointer;font-size:16px;line-height:1;padding:6px;}',
 '.emh-nav{position:sticky;top:0;z-index:90;background:'+P.navbg+';backdrop-filter:blur(12px);border-bottom:1px solid '+P.line+';}',
 '.emh-in{max-width:1240px;margin:0 auto;padding:0 clamp(20px,4vw,44px);height:70px;display:flex;align-items:center;gap:clamp(22px,3vw,40px);}',
 '.emh-brand{display:flex;align-items:center;flex-shrink:0;}',

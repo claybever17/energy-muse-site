@@ -170,7 +170,7 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper);font-weight
   white-space:nowrap;}
 .ann-in a:hover{color:var(--copper);}
 .annx{position:absolute;right:0;top:50%;transform:translateY(-50%);background:none;border:0;
-  color:var(--stone);cursor:pointer;font-size:16px;line-height:1;padding:6px;}
+  color:var(--ink-soft);cursor:pointer;font-size:16px;line-height:1;padding:6px;}
 .annx:hover{color:var(--copper);}
 body.ann-off .ann{display:none;}
 @media (max-width:640px){.ann-in{font-size:11px;gap:8px;padding-inline:38px;flex-wrap:wrap;}
@@ -627,9 +627,11 @@ body.menu-open{overflow:hidden;}
   border:1px solid var(--hair);background:var(--surface);color:var(--fg);
   font-family:var(--sans);font-size:15px;}
 .sub-inline input:focus{outline:none;border-color:var(--copper);}
-.sub-inline button{font:700 12px var(--sans);letter-spacing:.1em;text-transform:uppercase;
+/* white on --copper-hi measured 3.55:1 against a 4.5 requirement at 12px.
+   The gradient runs light-to-dark; reversed, the text sits on the dark end. */
+.sub-inline button{font:700 13px var(--sans);letter-spacing:.1em;text-transform:uppercase;
   padding:14px 22px;border-radius:8px;border:none;cursor:pointer;color:#fff;
-  background:linear-gradient(160deg,var(--copper-hi),var(--copper) 46%,var(--copper-lo));}
+  background:linear-gradient(160deg,var(--copper-lo),var(--copper) 54%,var(--copper-lo));}
 .sub-note{font-size:12px;color:var(--stone);margin-top:9px;}
 .subband{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
   background:color-mix(in srgb,var(--copper) 4%,transparent);}
@@ -2263,7 +2265,7 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 });
 </script>
 
-<script src="assets/em-bag.js?v=3" defer></script>
+<script src="assets/em-bag.js?v=4" defer></script>
 <script src="assets/em-prices.js?v=1" defer></script>
 <script src="assets/em-versions.js?v=17" defer></script>
 <script>
