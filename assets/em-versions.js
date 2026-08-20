@@ -26,16 +26,16 @@ var SIG={
    choices, because four directions on a switcher is a decision nobody has
    made yet, and the work has been going into the first of these. */
 var VERSIONS=[
-  ['/','1 · Classic','the main homepage',SIG.classic],
-  ['/home/lab/','2 · Current v2','a sandbox to build on',SIG.current],
-  ['/designer/','3 · Atelier','build one',SIG.atelier],
-  ['/box/','4 · Build a Box','fill one',SIG.crystallize]
+  ['/designer/','Atelier','build a bracelet',SIG.atelier],
+  ['/box/','Build a Box','fill one with crystals',SIG.crystallize],
+  ['/home/cascade/','Frequency Room','turn the dial',SIG.cascade]
 ];
-/* There used to be a second group below a rule — Atelier, Frequency Room and
-   Collection, set as filled copper tiles so they read as things you use rather
-   than skins to choose between. Frequency Room and Collection are gone from
-   the switcher on Clay's call (both still live at their URLs), and Atelier
-   moves up to sit as the third direction. One group, three rows, no rule. */
+/* No longer a version switcher. There is one homepage now — Classic — so
+   offering a choice between directions was offering a decision that has been
+   made. What is left is the three interactive pieces, which are worth finding
+   and are not otherwise on a menu: build a bracelet, fill a box, turn the
+   frequency dial. Bottom LEFT, because the bag and the announcement bar own
+   the right. Every other direction still lives at its URL. */
 
 function lum(){try{var m=getComputedStyle(document.body).backgroundColor.match(/\d+/g);
   if(!m)return 1;return (0.2126*m[0]+0.7152*m[1]+0.0722*m[2])/255;}catch(e){return 1;}}
@@ -44,7 +44,7 @@ var P=dark?{solid:'#0E1826',bg:'rgba(14,24,38,.94)',fg:'#F1EADF',soft:'#AEB9C8',
           :{solid:'#FBF8F2',bg:'rgba(251,248,242,.94)',fg:'#1D2739',soft:'#5A6478',line:'#E4DCCB',accent:'#A9683E',glow:'0 18px 60px rgba(10,16,23,.24)'};
 
 var css=[
-'.emv{position:fixed;bottom:22px;right:22px;z-index:120;display:flex;flex-direction:column;align-items:flex-end;gap:10px;',
+'.emv{position:fixed;bottom:22px;left:22px;z-index:120;display:flex;flex-direction:column;align-items:flex-start;gap:10px;',
 '  font-family:"Instrument Sans",-apple-system,BlinkMacSystemFont,sans-serif;}',
 /* a plain pill. The translucent fill plus a backdrop blur plus a 40px
    diffuse shadow together rendered a second, larger shape behind it. */
@@ -79,7 +79,7 @@ var css=[
 '  border-color:'+(dark?'rgba(196,133,90,.45)':'rgba(169,104,62,.34)')+';}',
 '.emv-pop a.cur .emv-txt strong{color:'+P.accent+';}',
 '.emv-pop a.cur .emv-ico{opacity:1;}',
-'@media(max-width:700px){.emv{bottom:12px;right:12px;}}'
+'@media(max-width:700px){.emv{bottom:12px;left:12px;}}'
 ].join('\n');
 
 function row(v,_unused,here){
@@ -87,7 +87,7 @@ function row(v,_unused,here){
   var cls=(norm===here?'cur':'');
   return '<a href="'+v[0]+'"'+(cls?' class="'+cls+'"':'')+'>'+
     '<span class="emv-ico"><svg viewBox="0 0 26 24" aria-hidden="true">'+v[3]+'</svg></span>'+
-    '<span class="emv-txt"><strong>'+v[1]+'</strong></span></a>';
+    '<span class="emv-txt"><strong>'+v[1]+'</strong><span>'+v[2]+'</span></span></a>';
 }
 
 function boot(){
@@ -95,10 +95,10 @@ function boot(){
   var wrap=document.createElement('div');wrap.className='emv';wrap.id='emv';
   var pop=document.createElement('div');pop.className='emv-pop';
   var here=location.pathname.replace(/index\.html$/,'').replace(/\/$/,'')||'/';
-  pop.innerHTML='<div class="emv-lab">Design directions</div>'+
+  pop.innerHTML='<div class="emv-lab">Try it</div>'+
     VERSIONS.map(function(v){return row(v,false,here);}).join('');
   var btn=document.createElement('button');btn.className='emv-btn';btn.setAttribute('aria-expanded','false');
-  btn.innerHTML='<span class="emv-dot"></span><span>Versions</span>';
+  btn.innerHTML='<span class="emv-dot"></span><span>Try it</span>';
   function set(o){pop.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');}
   btn.addEventListener('click',function(e){e.stopPropagation();set(!pop.classList.contains('open'));});
   document.addEventListener('click',function(e){if(!wrap.contains(e.target))set(false);});

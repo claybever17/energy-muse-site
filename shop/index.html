@@ -1,0 +1,111 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Energy Muse — Shop</title>
+<meta name="description" content="Start with the energy you want more of. Shop intention-based jewelry, crystals, frequency generators and curated sets.">
+<link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
+<link rel="stylesheet" href="/assets/em-page.css?v=1">
+<script src="/assets/em-header.js?v=5" defer></script>
+<script src="/assets/em-bag.js?v=3" defer></script>
+<script src="/assets/em-prices.js?v=1" defer></script>
+<script src="/assets/em-versions.js?v=16" defer></script>
+<style>
+/* Four category cards. The only thing this page needs that the shared shell
+   does not already have — everywhere else uses .cols, but a shop landing is
+   the one place where the pictures are the navigation. */
+.ways{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px);
+  margin-top:clamp(28px,4vw,48px)}
+@media (max-width:900px){.ways{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.ways{grid-template-columns:1fr}}
+.way{display:block;text-decoration:none;color:inherit;border:1px solid var(--hair);
+  border-radius:4px;overflow:hidden;background:var(--surface);
+  transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}
+.way:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--copper) 45%,transparent);
+  box-shadow:0 16px 34px rgba(61,41,23,.10)}
+.way .shot{aspect-ratio:4/3.4;background:var(--tint);overflow:hidden;position:relative}
+.way .shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.way:hover .shot img{transform:scale(1.04)}
+.way .txt{padding:18px 20px 22px}
+.way h3{font-size:20px;margin-bottom:6px}
+.way p{font-size:14.5px;color:var(--ink-soft);max-width:none}
+.way .go{display:inline-block;margin-top:12px;font-family:var(--sans);font-weight:600;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--copper)}
+</style>
+</head><body>
+<main>
+
+<section class="sect">
+  <div class="wrap">
+    <span class="eyebrow">Shop</span>
+    <h1>Start with the energy you want more of.</h1>
+    <p class="lead">Shop intention-based jewelry, crystals, frequency generators, and curated sets &mdash;
+      all created to help you bring that intention into your everyday life.</p>
+    <div class="cta-row">
+      <a class="btn btn-copper" href="/intention/">Shop by Intention</a>
+      <a class="btn btn-ghost" href="/gems/">Browse All Products</a>
+    </div>
+  </div>
+</section>
+
+<section class="sect tint">
+  <div class="wrap">
+    <h2>Four ways to begin.</h2>
+    <div class="ways">
+
+      <a class="way" href="/jewelry/">
+        <span class="shot"><img src="/assets/img/jewelry.jpg?v=2" alt="Stacked crystal-bead bracelets in warm tones" loading="lazy"></span>
+        <span class="txt">
+          <h3>Jewelry</h3>
+          <p>Beautiful jewelry, intentionally designed to bring you good energy wherever you are.</p>
+          <span class="go">Shop Jewelry &rarr;</span>
+        </span>
+      </a>
+
+      <a class="way" href="/gems/">
+        <span class="shot"><img src="/assets/img/clarity.jpg" alt="A clear quartz point held to the light" loading="lazy"></span>
+        <span class="txt">
+          <h3>Crystals</h3>
+          <p>Energetic support for every room, every moment, every part of your practice.</p>
+          <span class="go">Shop Crystals &rarr;</span>
+        </span>
+      </a>
+
+      <a class="way" href="/generator/#gens">
+        <span class="shot"><img src="/assets/img/generators/528.png" alt="The 528Hz frequency generator" loading="lazy" style="object-fit:contain;padding:12%"></span>
+        <span class="txt">
+          <h3>Frequency</h3>
+          <p>Where wellness meets tech. Infuse your environment with the energy you need.</p>
+          <span class="go">Shop Frequency &rarr;</span>
+        </span>
+      </a>
+
+      <a class="way" href="/sets/">
+        <span class="shot"><img src="/assets/img/frequency.jpg" alt="A curated set of crystals and tools" loading="lazy"></span>
+        <span class="txt">
+          <h3>Kits &amp; Sets</h3>
+          <p>Curated collections with clear guidance, so you feel confident from day one.</p>
+          <span class="go">Shop Kits &amp; Sets &rarr;</span>
+        </span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section class="sect">
+  <div class="wrap narrow">
+    <h2>Not sure where to begin?</h2>
+    <p>Take the Energy Quiz to get a personalized starting point to begin your wellness journey.</p>
+    <div class="cta-row">
+      <a class="btn btn-copper" href="/quiz/">Find My Energy Match</a>
+      <a class="btn btn-ghost" href="/box/">Build a Box of Crystals</a>
+    </div>
+  </div>
+</section>
+
+<section class="sect">
+  <div class="wrap"><a class="backlink" href="/">&larr; Back to Energy Muse</a></div>
+</section>
+
+</main>
+</body></html>

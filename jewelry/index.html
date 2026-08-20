@@ -5,10 +5,30 @@
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=1">
-<script src="/assets/em-header.js?v=4" defer></script>
+<script src="/assets/em-header.js?v=5" defer></script>
 <script src="/assets/em-bag.js?v=3" defer></script>
 <script src="/assets/em-prices.js?v=1" defer></script>
-<script src="/assets/em-versions.js?v=15" defer></script>
+<script src="/assets/em-versions.js?v=16" defer></script>
+<style>
+/* The product grid. Lives here rather than in em-page.css: this is the only
+   written page that lists products, and the shared sheet should hold what
+   pages share. */
+.jgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px);
+  margin-top:clamp(26px,3.6vw,42px)}
+@media (max-width:900px){.jgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:460px){.jgrid{grid-template-columns:1fr}}
+.jcard{display:flex;flex-direction:column;border:1px solid var(--hair);border-radius:4px;
+  background:var(--surface);padding:14px 14px 16px;transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}
+.jcard:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--copper) 42%,transparent);
+  box-shadow:0 14px 30px rgba(61,41,23,.10)}
+.jcard img{aspect-ratio:1;object-fit:contain;background:var(--tint);border-radius:3px;padding:8%}
+.jcard strong{font-family:var(--serif);font-weight:400;font-size:16px;line-height:1.25;margin-top:12px}
+.jcard .jp{font-family:var(--serif);font-size:17px;color:var(--copper-lo);margin-top:4px}
+.jadd{margin-top:12px;border:1px solid color-mix(in srgb,var(--ink) 26%,transparent);
+  background:transparent;color:var(--ink);font-family:var(--sans);font-weight:600;font-size:12px;
+  letter-spacing:.04em;padding:11px 12px;border-radius:3px;cursor:pointer;transition:.25s}
+.jadd:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+</style>
 </head><body>
 <main>
 <section class="sect">
@@ -21,6 +41,27 @@
 </section>
 
 <section class="sect tint">
+  <div class="wrap">
+    <h2>Founder favorites.</h2>
+    <p>Real pieces from the Energy Muse collection, each formulated for one intention.</p>
+    <div class="jgrid">
+      <div class="jcard"><img src="/assets/img/jewelry-shop/infinite-prosperity-bracelet.png" alt="Infinite Prosperity Bracelet" loading="lazy"><strong>Infinite Prosperity Bracelet</strong><span class="jp">$64.88</span><button class="jadd" type="button" data-id="infinite-prosperity-bracelet" data-n="Infinite Prosperity Bracelet" data-p="64.88" data-img="/assets/img/jewelry-shop/infinite-prosperity-bracelet.png" data-link="/jewelry/">Add to Bag</button></div>
+      <div class="jcard"><img src="/assets/img/jewelry-shop/rose-quartz-bracelet-3.png" alt="Rose Quartz Bracelet" loading="lazy"><strong>Rose Quartz Bracelet</strong><span class="jp">$26.88</span><button class="jadd" type="button" data-id="rose-quartz-bracelet-3" data-n="Rose Quartz Bracelet" data-p="26.88" data-img="/assets/img/jewelry-shop/rose-quartz-bracelet-3.png" data-link="/jewelry/">Add to Bag</button></div>
+      <div class="jcard"><img src="/assets/img/jewelry-shop/breakthrough-bracelet-1.png" alt="Breakthrough Bracelet" loading="lazy"><strong>Breakthrough Bracelet</strong><span class="jp">$26.88</span><button class="jadd" type="button" data-id="breakthrough-bracelet-1" data-n="Breakthrough Bracelet" data-p="26.88" data-img="/assets/img/jewelry-shop/breakthrough-bracelet-1.png" data-link="/jewelry/">Add to Bag</button></div>
+      <div class="jcard"><img src="/assets/img/jewelry-shop/ground-anklet.png" alt="Grounding Anklet" loading="lazy"><strong>Grounding Anklet</strong><span class="jp">$28.88</span><button class="jadd" type="button" data-id="ground-anklet" data-n="Grounding Anklet" data-p="28.88" data-img="/assets/img/jewelry-shop/ground-anklet.png" data-link="/jewelry/">Add to Bag</button></div>
+      <div class="jcard"><img src="/assets/img/jewelry-shop/protection-bracelet.png" alt="Protection Crystal Bracelet" loading="lazy"><strong>Protection Crystal Bracelet</strong><span class="jp">$26.88</span><button class="jadd" type="button" data-id="protection-bracelet" data-n="Protection Crystal Bracelet" data-p="26.88" data-img="/assets/img/jewelry-shop/protection-bracelet.png" data-link="/jewelry/">Add to Bag</button></div>
+      <div class="jcard"><img src="/assets/img/jewelry-shop/the-millionaire-mindset-bracelet.png" alt="The Millionaire Mindset Bracelet" loading="lazy"><strong>The Millionaire Mindset Bracelet</strong><span class="jp">$54.88</span><button class="jadd" type="button" data-id="the-millionaire-mindset-bracelet" data-n="The Millionaire Mindset Bracelet" data-p="54.88" data-img="/assets/img/jewelry-shop/the-millionaire-mindset-bracelet.png" data-link="/jewelry/">Add to Bag</button></div>
+      <div class="jcard"><img src="/assets/img/jewelry-shop/seven-stone-necklace.png" alt="Seven & Stone Necklace" loading="lazy"><strong>Seven & Stone Necklace</strong><span class="jp">$124.88</span><button class="jadd" type="button" data-id="seven-stone-necklace" data-n="Seven & Stone Necklace" data-p="124.88" data-img="/assets/img/jewelry-shop/seven-stone-necklace.png" data-link="/jewelry/">Add to Bag</button></div>
+      <div class="jcard"><img src="/assets/img/jewelry-shop/infinite-prosperity-necklace.png" alt="Infinite Prosperity Necklace" loading="lazy"><strong>Infinite Prosperity Necklace</strong><span class="jp">$149.88</span><button class="jadd" type="button" data-id="infinite-prosperity-necklace" data-n="Infinite Prosperity Necklace" data-p="149.88" data-img="/assets/img/jewelry-shop/infinite-prosperity-necklace.png" data-link="/jewelry/">Add to Bag</button></div>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-copper" href="/intention/">Shop by Intention</a>
+      <a class="btn btn-ghost" href="/designer/">Build Your Own</a>
+    </div>
+  </div>
+</section>
+
+<section class="sect">
   <div class="wrap">
     <h2>What jewelry you choose, and where you wear it, matters.</h2>
     <div class="cols">
@@ -44,4 +85,13 @@
   <div class="wrap"><a class="backlink" href="/">&larr; Back to Energy Muse</a></div>
 </section>
 </main>
+<script>
+document.querySelectorAll('.jadd').forEach(function(b){
+  b.addEventListener('click',function(){
+    if(!window.EMBag)return;
+    EMBag.add({id:b.dataset.id,name:b.dataset.n,price:parseFloat(b.dataset.p),
+               img:b.dataset.img,link:b.dataset.link});
+  });
+});
+</script>
 </body></html>

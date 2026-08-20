@@ -86,7 +86,7 @@ function boot(){
     (!isQuiz&&!dismissed?'<div class="emh-ann"><div class="emh-ann-in"><span>New to Energy Muse?<span class="emh-ann-more"> Find your energy match in a few simple questions.</span></span><a href="/quiz/">Take the Energy Quiz →</a><button class="emh-annx" aria-label="Dismiss">×</button></div></div>':'')
     +'<header class="emh-nav"><div class="emh-in">'
     +'<a class="emh-brand" href="/"><svg class="emh-logo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo-hdr"/></svg></a>'
-    +'<nav class="emh-links"><a href="/quiz/">Start Here</a><a href="/gems/">Shop</a><a href="/#intention">By Intention</a><a href="/#learn2">Learn</a></nav>'
+    +'<nav class="emh-links"><a href="/quiz/">Start Here</a><a href="/shop/">Shop</a><a href="/intention/">By Intention</a><a href="/learn/">Learn</a></nav>'
     +'<div class="emh-utils"><a href="#">Search</a><a href="#" class="bag">Bag (0)</a>'
     +'<button class="emh-burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div>'
     +'</div></header>';
@@ -94,7 +94,7 @@ function boot(){
 
   var menu=document.createElement('div');menu.className='emh-menu';menu.setAttribute('role','dialog');menu.setAttribute('aria-modal','true');menu.setAttribute('aria-label','Menu');
   menu.innerHTML='<div class="emh-menu-top"><svg class="emh-logo" viewBox="0 0 1167 247.5" aria-label="Energy Muse"><use href="#em-logo-hdr"/></svg><button class="emh-close" aria-label="Close menu">×</button></div>'
-    +'<nav><a href="/quiz/">Start Here</a><a href="/gems/">Shop</a><a href="/#intention">By Intention</a><a href="/#learn2">Learn</a><a href="/#about">About</a></nav>';
+    +'<nav><a href="/quiz/">Start Here</a><a href="/shop/">Shop</a><a href="/intention/">By Intention</a><a href="/learn/">Learn</a><a href="/about/">About</a></nav>';
   document.body.appendChild(menu);
 
   var foot=document.createElement('footer');foot.className='emh-foot';
@@ -104,7 +104,7 @@ function boot(){
       +'<p>A short note on what to work with — and first access to new releases.</p>'
       +'<form novalidate><input type="email" placeholder="you@email.com" aria-label="Email address" required>'
       +'<button type="submit">Join</button></form></div>'
-    +'<div class="emh-foot-links"><a href="/quiz/">Energy Quiz</a><a href="/gems/">Crystals</a><a href="/generator/">Frequency</a><a href="/#intention">By Intention</a><a href="/#learn2">Learn</a><a href="/#about">About</a></div>'
+    +'<div class="emh-foot-links"><a href="/quiz/">Energy Quiz</a><a href="/gems/">Crystals</a><a href="/generator/">Frequency</a><a href="/intention/">By Intention</a><a href="/learn/">Learn</a><a href="/about/">About</a></div>'
     +'<p class="emh-foot-legal">© 2026 Energy Muse. Energy Muse products and content are intended for personal practice and general wellbeing. They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease. Individual experiences vary.</p>'
     +'</div>';
   document.body.appendChild(foot);
