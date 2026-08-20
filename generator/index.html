@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Energy Muse — The Frequency Generator</title>
 <!-- the range, before any inline script reads it -->
-<script src="/assets/em-frequencies.js?v=1"></script>
+<script src="/assets/em-frequencies.js?v=2"></script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Energy Muse">
 <meta property="og:title" content="Energy Muse — The Frequency Generator">
@@ -232,7 +232,7 @@ p{text-wrap:pretty;}
       <div class="vrow"><span class="k">Output</span><span class="v">One tuned frequency, always exact</span></div>
       <div class="vrow"><span class="k">Signal</span><span class="v">Stronger &mdash; a single dedicated coil</span></div>
       <div class="vrow"><span class="k">Radius</span><span class="v">Larger &mdash; fills the room you live in</span></div>
-      <div class="vrow"><span class="k">Designation</span><span class="v">Six instruments, 7.83Hz&ndash;963Hz</span></div>
+      <div class="vrow"><span class="k">Designation</span><span class="v">Seven instruments, 7.83Hz&ndash;1111Hz</span></div>
     </div>
     <div class="vcol">
       <div class="vtitle">Typical alternatives</div>
@@ -259,12 +259,11 @@ p{text-wrap:pretty;}
     <div class="eye">Choose your frequency</div>
     <h3>Guided energy, made tangible.</h3>
     <p class="end-sub">Every generator is a fixed-frequency instrument &mdash; one coil, one designation, one job.</p>
-    <!-- Six instruments, built from assets/em-frequencies.js. This grid used to
-         list four, one of which (1111 Hz) was not a product at all, and it
-         carried its own copy of the names and images — a fifth place for the
-         range to drift. The copper 528 keeps its own card because it is a
-         different body at a different price and is promoted as such across
-         the site; the standard 528 sits with the rest of the range. -->
+    <!-- Seven instruments, built from assets/em-frequencies.js. This grid used
+         to list four and carried its own copy of the names and images — a fifth
+         place for the range to drift. The copper 528 keeps its own card because
+         it is a different body at a different price and is promoted as such
+         across the site; the standard 528 sits with the rest of the range. -->
     <div class="gens" id="gens"></div>
     </div>
     <a class="btn" href="https://energymuse.com/collections/energy-tools" target="_blank" rel="noopener">Shop All Energy Tools</a>
@@ -558,9 +557,7 @@ function frame(){
   const dOp=smooth(0.585,0.625,p)*(1-smooth(0.675,0.71,p));
   if(dOp>0.005){
     const dprog=Math.min(0.999,Math.max(0,(p-0.585)/0.095));
-    /* ticks through real designations — it used to end on 1111, which is
-       not one of the instruments */
-    dialV.textContent=[417,639,963][Math.floor(dprog*3)];
+    dialV.textContent=[639,963,1111][Math.floor(dprog*3)];
     dialEl.style.opacity=dOp.toFixed(3);
   } else dialEl.style.opacity=0;
   // finale light: the studio warms as the stone arrives
@@ -647,8 +644,11 @@ window.__ready=true;window.__setP=v=>{targetP=scrollP=clamp01(v);if(v>0.12)loadC
     cards().forEach(function(c){
       G[c.id]=c;
       if(!host)return;
-      var a=document.createElement('a');
-      a.className='gen';a.href=c.url;a.target='_blank';a.rel='noopener';
+      /* no outbound link: this is the page those buttons pointed at, and Clay
+         does not want the prototype handing people off to the Shopify store.
+         The card's only action is adding to the bag. */
+      var a=document.createElement('div');
+      a.className='gen';
       a.innerHTML='<span class="hz">'+c.hz+'<em>Hz</em></span>'+
         '<img src="'+c.img+'" alt="'+c.hz+'Hz Frequency Generator" loading="lazy">'+
         '<strong>'+c.label+'</strong>'+

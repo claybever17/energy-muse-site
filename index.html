@@ -23,7 +23,7 @@
 <script>document.documentElement.dataset.skin=localStorage.getItem("em-skin")||"ivory";</script>
 <!-- the generators, once. Not deferred: the marquee and the frequency band are
      built by inline script, which runs before any deferred file exists. -->
-<script src="assets/em-frequencies.js?v=1"></script>
+<script src="assets/em-frequencies.js?v=2"></script>
 <style>
 /* ===== Fonts: Fraunces (display serif) + Instrument Sans (grotesk body) ===== */
 @font-face{font-family:'Fraunces';src:url(assets/fonts/fraunces_300.woff2?v=3) format('woff2');font-weight:300;font-style:normal;font-display:swap;}
@@ -208,7 +208,7 @@ header.nav.solid::after{opacity:1;}
 @media (min-width:841px){
   .nav-in{gap:clamp(24px,3.4vw,44px);position:relative;}
   .nav-utils{margin-left:auto;}
-  .brand .blogo{height:42px;}
+  .brand .blogo{height:50px;}
   /* optical baseline: the wordmark's text sits low in the logo's box — nudge links to meet it */
   .nav-links,.nav-utils{transform:translateY(4px);}
 }
@@ -1030,6 +1030,25 @@ body.menu-open{overflow:hidden;}
 .email input:focus{outline:none;border-color:var(--copper);background:rgba(255,255,255,.05);
   box-shadow:0 0 0 1px var(--copper),0 10px 34px rgba(196,133,90,.30);}
 
+/* ===== Social proof + final call ===== */
+.proof-h{font-size:clamp(26px,3.4vw,44px);font-weight:400;max-width:22ch;margin-top:14px;}
+.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,44px);margin-top:clamp(26px,4vh,44px);}
+.proof blockquote{margin:0;padding-top:18px;border-top:1px solid var(--hair);
+  font-family:var(--serif);font-weight:300;font-size:clamp(17px,1.5vw,21px);line-height:1.45;
+  color:var(--ink);text-wrap:pretty;}
+.proof blockquote::before{content:"\201C";}
+.proof blockquote::after{content:"\201D";}
+.final-cta{text-align:center;border-top:1px solid var(--hair);background:var(--tint);}
+.final-cta h2{font-size:clamp(30px,4.4vw,58px);font-weight:400;max-width:16ch;margin-inline:auto;letter-spacing:-.02em;}
+.final-cta .lead{margin:18px auto 0;max-width:52ch;color:var(--ink-soft);}
+.final-cta .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:32px;}
+@media (max-width:840px){
+  .proof{grid-template-columns:1fr;gap:22px;}
+  .final-cta{text-align:left;}
+  .final-cta h2,.final-cta .lead{margin-inline:0;}
+  .final-cta .cta-row{justify-content:flex-start;}
+}
+
 /* ===== Footer ===== */
 footer.site{background:
   radial-gradient(52% 80% at 96% 4%,color-mix(in srgb,var(--copper) 8%,transparent),transparent 58%),
@@ -1356,14 +1375,14 @@ p{text-wrap:pretty;}
 
 
 <!-- ===== TRUST ===== -->
-<section class="hzband" aria-label="The six tuned frequencies">
+<section class="hzband" aria-label="The seven tuned frequencies">
   <div class="track" id="hztrack"></div>
 </section>
 
 <section class="trust">
   <div class="wrap">
     <p class="trust-lead">Founder-led for two decades by <em class="who">Heather Askinosie</em>, best-selling author of <em>Crystal&nbsp;365</em> and <em>Crystal&nbsp;Muse</em>.</p>
-    <p class="trust-facts"><span>World's largest generator collection</span><span>Guidance before and after</span></p>
+    <p class="trust-facts"><span>World&rsquo;s largest collection of fixed-frequency generators</span><span>Guidance before and after you buy</span></p>
   </div>
 </section>
 
@@ -1374,6 +1393,18 @@ p{text-wrap:pretty;}
      storytelling rather than as a film. This is the first fifth of the
      Current film compressed into two screens: the mark unwinds into the
      energy line, and the approved founder copy opens on it. -->
+<section class="section" id="intention">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Start with the feeling</span>
+      <h2>Start with how you want to feel.</h2>
+      <p class="lead">No need to know a crystal by name. Start with the energy you want more of.</p>
+    </div>
+    <div class="int-grid reveal"><a class="int" href="intention/protection/"><img src="assets/img/protection.jpg" alt="Protection intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div></a><a class="int" href="intention/abundance/"><img src="assets/img/wealth.jpg" alt="Abundance intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div></a><a class="int" href="intention/calm/"><img src="assets/img/frequency.jpg" alt="Grounding and Calm intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Steadiness &middot; nervous-system ease</div><div class="t">Calm</div></div></a><a class="int" href="intention/connection/"><img src="assets/img/jewelry.jpg?v=2" alt="Love and Self-Worth intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Heart-opening &middot; connection</div><div class="t">Love</div></div></a><a class="int" href="intention/clarity/"><img src="assets/img/clarity.jpg" alt="Clarity and Intuition intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Focus &middot; intuition</div><div class="t">Clarity</div></div></a></div>
+    <div class="int-cta"><a href="quiz/" class="link">Take the Energy Quiz <span class="a">&rarr;</span></a></div>
+  </div>
+</section>
+
 <section class="story" id="story" aria-label="Energy is invisible">
   <div class="story-stage">
     <canvas class="story-canvas" id="storyc" aria-hidden="true"></canvas>
@@ -1386,18 +1417,6 @@ p{text-wrap:pretty;}
     </div>
     <noscript><p class="story-fallback">Energy is invisible &mdash; which is exactly why it&rsquo;s so easy
       to overlook. But small shifts in your energy can lead to the biggest transformations in your life.</p></noscript>
-  </div>
-</section>
-
-<section class="section" id="intention">
-  <div class="wrap">
-    <div class="head reveal">
-      <span class="eyebrow">Start with the feeling</span>
-      <h2>Start with how you want to feel.</h2>
-      <p class="lead">No need to know a crystal by name. Start with the energy you want more of.</p>
-    </div>
-    <div class="int-grid reveal"><a class="int" href="intention/protection/"><img src="assets/img/protection.jpg" alt="Protection intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div></a><a class="int" href="intention/abundance/"><img src="assets/img/wealth.jpg" alt="Abundance intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div></a><a class="int" href="intention/calm/"><img src="assets/img/frequency.jpg" alt="Grounding and Calm intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Steadiness &middot; nervous-system ease</div><div class="t">Calm</div></div></a><a class="int" href="intention/connection/"><img src="assets/img/jewelry.jpg?v=2" alt="Love and Self-Worth intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Heart-opening &middot; connection</div><div class="t">Love</div></div></a><a class="int" href="intention/clarity/"><img src="assets/img/clarity.jpg" alt="Clarity and Intuition intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Focus &middot; intuition</div><div class="t">Clarity</div></div></a></div>
-    <div class="int-cta"><a href="quiz/" class="link">Take the Energy Quiz <span class="a">&rarr;</span></a></div>
   </div>
 </section>
 
@@ -1624,6 +1643,38 @@ p{text-wrap:pretty;}
         </article>
     </div>
     <div class="store-more"><a class="btn btn-ghost" href="gems/">Shop all crystals</a></div>
+  </div>
+</section>
+
+<!-- ===== SOCIAL PROOF =====
+     Approved copy, Part 4. Plain first pass: three quotes on one rule, no
+     portraits or star ratings, because we have neither and inventing them
+     would be inventing customers. -->
+<section class="section" id="stories" aria-label="Customer stories">
+  <div class="wrap">
+    <span class="eyebrow">Social proof</span>
+    <h2 class="proof-h">Real energy. Real people. Real transformations.</h2>
+    <div class="proof">
+      <blockquote>The first time I felt like I did not have to understand everything before I could begin.</blockquote>
+      <blockquote>Beautiful enough to wear every day, meaningful enough to notice.</blockquote>
+      <blockquote>The instructions made the product feel approachable instead of mysterious.</blockquote>
+    </div>
+    <div class="cta-row"><a class="btn btn-ghost" href="#stories">Read customer stories</a></div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA =====
+     Back, on Clay's word, and plain: the approved copy asks for it and the
+     version removed earlier carried a scanned-crystal canvas that was never
+     sized. Headline, line, two buttons. -->
+<section class="section final-cta">
+  <div class="wrap">
+    <h2>You already know how you want to feel.</h2>
+    <p class="lead">We&rsquo;re here to help you shift your energy. Find your energy match, and start today.</p>
+    <div class="cta-row">
+      <a href="quiz/" class="btn btn-copper">Find My Energy Match</a>
+      <a href="#intention" class="btn btn-ghost">Shop by Intention</a>
+    </div>
   </div>
 </section>
 
@@ -2171,10 +2222,9 @@ p{text-wrap:pretty;}
     /* the frequency band: two identical runs so the loop is seamless */
     var track=document.getElementById('hztrack');
     if(track){
-      /* was a seventh hardcoded copy of the range, and a wrong one: it carried
-         1111 Hz, which is not a product, and one-word labels we had invented.
-         Reads the canonical list now, with the short labels — "Tension &
-         Stress Release" cannot sit under a 64px numeral. */
+      /* was a seventh hardcoded copy of the range, with one-word labels we had
+         invented. Reads the canonical list now, with the short labels — "Tension
+         & Stress Release" cannot sit under a 64px numeral. */
       var run='';
       (window.EM_FREQ||[]).forEach(function(f,i){
         run+='<span'+(i%3===1?' class="solid"':'')+'>'+f.hz+

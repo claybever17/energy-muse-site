@@ -11,7 +11,12 @@
    copy, and must not be rewritten for tone. The `say` prose is ours and
    follows the rigorous voice: what it is and where to put it, no claims.
 
-   1111 Hz is gone. It was never a product; we invented it.
+   SEVEN generators. Their live shop page lists six and omits 1111 Hz, so an
+   earlier pass here removed it as invented — it is not. The approved copy
+   (Website Copy Re-write, Part 4) states plainly: "Energy Muse offers seven
+   different fixed frequency generators ... 1111Hz for manifestation mastery."
+   The copy document wins. Worth one confirmation that 1111 is still stocked,
+   since their own shop does not currently list it.
 
    The `url` slugs come from their own page. Five follow {hz}hz-frequency-generator;
    7.83 is the exception. The 639 link on their page appeared to point at the
@@ -89,6 +94,17 @@
       price: 99.88,
       tone: '#7B62A8', soft: '#E4DCEF', room: '#F9F7FC',
       say: 'The one for work that needs a quiet head. Studios, studies, and the desk you actually think at.'
+    },
+    {
+      hz: '1111', url: 'https://energymuse.com/products/1111hz-frequency-generator', slug: 'manifestation-mastery', id: 'gen-1111',
+      name: 'Manifestation Mastery',
+      purpose: ['Alignment', 'Momentum', 'Manifestation'],
+      cats: ['Power', 'Wealth'],
+      intention: null,
+      img: 'assets/img/generators/1111.png',
+      price: 99.88,
+      tone: '#8A6A3C', soft: '#EAE0CC', room: '#FAF8F1',
+      say: 'The highest we wind, and the one people reach for at a turning point. Keep it where decisions get made.'
     }
   ];
 
@@ -96,7 +112,7 @@
      because "Tension & Stress Release" cannot sit under a 64px numeral */
   var SHORT = {
     '7.83': 'Sleep', '174': 'Release', '417': 'Clearing',
-    '528': 'Manifestation', '639': 'Balance', '963': 'Focus'
+    '528': 'Manifestation', '639': 'Balance', '963': 'Focus', '1111': 'Mastery'
   };
 
   function byHz(hz) {
