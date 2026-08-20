@@ -689,6 +689,26 @@ body.menu-open{overflow:hidden;}
 .int:hover img,.int:focus-visible img{transform:scale(1.07);}
 .int:hover .int-light,.int:focus-visible .int-light{opacity:1;}
 @media (prefers-reduced-motion:reduce){.int-light{transition:none;}}
+/* Founder favourite, on the card.
+
+   The intentions sit 1.2 screens down and were pure navigation — five links
+   to five pages. The first thing you could actually buy was five screens
+   further on. Each card now carries the piece the copy document names for
+   that intention, with its real price, so the section says "there is
+   something here" without becoming a product grid: no add-to-bag, no second
+   photograph competing with the first. The tile still goes to the page. */
+.int-buy{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;align-items:center;gap:9px;
+  padding:10px 14px;background:linear-gradient(180deg,transparent,rgba(9,14,22,.82) 42%);
+  pointer-events:none;}
+.int-buy img{width:30px;height:30px;flex:none;border-radius:50%;object-fit:contain;
+  background:rgba(255,255,255,.92);padding:3px;}
+.int-buy .ib-n{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.02em;
+  color:#fff;opacity:.92;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.int-buy .ib-p{margin-left:auto;font-family:var(--serif);font-size:14px;color:var(--copper-hi);}
+@media (max-width:700px){
+  .int-buy .ib-n{font-size:10px}
+  .int-buy img{width:26px;height:26px}
+}
 .int-label{position:relative;z-index:3;color:#fff;padding:0 16px 18px;width:100%;}
 .int-label .n{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#E6C9AE;}
 .int-label .t{font-family:var(--serif);font-weight:400;font-size:20px;margin-top:5px;line-height:1.05;}
@@ -1388,7 +1408,7 @@ p{text-wrap:pretty;}
       <h2>Start with how you want to feel.</h2>
       <p class="lead">No need to know a crystal by name. Start with the energy you want more of.</p>
     </div>
-    <div class="int-grid reveal"><a class="int" href="intention/protection/"><img src="assets/img/protection.jpg" alt="Protection intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div></a><a class="int" href="intention/abundance/"><img src="assets/img/wealth.jpg" alt="Abundance intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div></a><a class="int" href="intention/calm/"><img src="assets/img/frequency.jpg" alt="Grounding and Calm intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Steadiness &middot; nervous-system ease</div><div class="t">Calm</div></div></a><a class="int" href="intention/connection/"><img src="assets/img/jewelry.jpg?v=2" alt="Love and Self-Worth intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Heart-opening &middot; connection</div><div class="t">Love</div></div></a><a class="int" href="intention/clarity/"><img src="assets/img/clarity.jpg" alt="Clarity and Intuition intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Focus &middot; intuition</div><div class="t">Clarity</div></div></a></div>
+    <div class="int-grid reveal"><a class="int" href="intention/protection/"><img src="assets/img/protection.jpg" alt="Protection intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div><div class="int-buy"><img src="assets/img/favorites/protection-wear.png" alt="" loading="lazy"><span class="ib-n">Protection Crystal Bracelet</span><span class="ib-p">$26.88</span></div></a><a class="int" href="intention/abundance/"><img src="assets/img/wealth.jpg" alt="Abundance intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div><div class="int-buy"><img src="assets/img/favorites/abundance-wear.png" alt="" loading="lazy"><span class="ib-n">Infinite Prosperity Bracelet</span><span class="ib-p">$64.88</span></div></a><a class="int" href="intention/calm/"><img src="assets/img/frequency.jpg" alt="Grounding and Calm intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Steadiness &middot; nervous-system ease</div><div class="t">Calm</div></div><div class="int-buy"><img src="assets/img/favorites/calm-wear.png" alt="" loading="lazy"><span class="ib-n">Grounding Anklet</span><span class="ib-p">$28.88</span></div></a><a class="int" href="intention/connection/"><img src="assets/img/jewelry.jpg?v=2" alt="Love and Self-Worth intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Heart-opening &middot; connection</div><div class="t">Love</div></div><div class="int-buy"><img src="assets/img/favorites/connection-wear.png" alt="" loading="lazy"><span class="ib-n">Rose Quartz Bracelet</span><span class="ib-p">$26.88</span></div></a><a class="int" href="intention/clarity/"><img src="assets/img/clarity.jpg" alt="Clarity and Intuition intention"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Focus &middot; intuition</div><div class="t">Clarity</div></div><div class="int-buy"><img src="assets/img/favorites/clarity-wear.png" alt="" loading="lazy"><span class="ib-n">Breakthrough Bracelet</span><span class="ib-p">$26.88</span></div></a></div>
     <div class="int-cta"><a href="quiz/" class="link">Take the Energy Quiz <span class="a">&rarr;</span></a></div>
   </div>
 </section>
