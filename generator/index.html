@@ -120,6 +120,12 @@ body{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-
   border-radius:2px;
   transition:transform .25s,filter .3s}
 .gadd:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.gen.is-out{opacity:.62}
+.gen.is-out img{filter:saturate(.35)}
+.gsoldout{display:inline-flex;align-items:center;margin-top:10px;font-family:var(--sans);
+  font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--navy-soft,#B4C0D0);border:1px solid currentColor;border-radius:3px;
+  padding:8px 12px;opacity:.8}
 @media (max-width:760px){.gens{grid-template-columns:1fr;max-width:340px}}
 .end-mark{position:absolute;right:-90px;bottom:-110px;width:340px;height:340px;color:var(--copper);opacity:.3;
   animation:spin 90s linear infinite;transform-origin:50% 50%;pointer-events:none}
@@ -151,7 +157,8 @@ p{text-wrap:pretty;}
 .lead,.head p{text-wrap:balance;}
 </style>
 <script src="../assets/em-header.js?v=4" defer></script>
-<script src="../assets/em-bag.js?v=3" defer></script></head>
+<script src="../assets/em-bag.js?v=3" defer></script>
+<script src="../assets/em-prices.js?v=1" defer></script></head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
@@ -633,7 +640,7 @@ window.__ready=true;window.__setP=v=>{targetP=scrollP=clamp01(v);if(v>0.12)loadC
   function cards(){
     var out=(window.EM_FREQ||[]).map(function(f){
       return {hz:f.hz,id:f.id,name:f.hz+'Hz Frequency Generator',price:f.price,
-              img:'/'+f.img,url:f.url,label:f.name};
+              img:'/'+f.img,url:f.url,label:f.name,stock:f.stock||'in'};
     });
     out.splice(4,0,COPPER);            /* beside the standard 528 */
     return out;
@@ -653,7 +660,13 @@ window.__ready=true;window.__setP=v=>{targetP=scrollP=clamp01(v);if(v>0.12)loadC
         '<img src="'+c.img+'" alt="'+c.hz+'Hz Frequency Generator" loading="lazy">'+
         '<strong>'+c.label+'</strong>'+
         '<span class="gprice">$'+c.price.toFixed(2)+'</span>'+
-        '<button class="gadd" data-id="'+c.id+'" type="button">Add to Bag</button>';
+        /* shown, not sold. An Add to Bag that fails at checkout is worse than
+           an honest label, and hiding the card would misrepresent a range the
+           copy calls seven. */
+        (c.stock==='out'
+          ? '<span class="gsoldout">Currently unavailable</span>'
+          : '<button class="gadd" data-id="'+c.id+'" type="button">Add to Bag</button>');
+      if(c.stock==='out')a.classList.add('is-out');
       host.appendChild(a);
     });
   })();

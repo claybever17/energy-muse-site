@@ -98,6 +98,10 @@
     {
       hz: '1111', url: 'https://energymuse.com/products/1111hz-frequency-generator', slug: 'manifestation-mastery', id: 'gen-1111',
       name: 'Manifestation Mastery',
+      /* real product, currently out of stock — which is why it is missing from
+         their collection page. Shown, not sold: hiding it would misrepresent the
+         range the copy document describes as seven. */
+      stock: 'out',
       purpose: ['Alignment', 'Momentum', 'Manifestation'],
       cats: ['Power', 'Wealth'],
       intention: null,
