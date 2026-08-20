@@ -34,8 +34,7 @@ var VERSIONS=[
    offering a choice between directions was offering a decision that has been
    made. What is left is the three interactive pieces, which are worth finding
    and are not otherwise on a menu: build a bracelet, fill a box, turn the
-   frequency dial. Bottom LEFT, because the bag and the announcement bar own
-   the right. Every other direction still lives at its URL. */
+   frequency dial. Bottom right. Every other direction still lives at its URL. */
 
 function lum(){try{var m=getComputedStyle(document.body).backgroundColor.match(/\d+/g);
   if(!m)return 1;return (0.2126*m[0]+0.7152*m[1]+0.0722*m[2])/255;}catch(e){return 1;}}
@@ -44,7 +43,7 @@ var P=dark?{solid:'#0E1826',bg:'rgba(14,24,38,.94)',fg:'#F1EADF',soft:'#AEB9C8',
           :{solid:'#FBF8F2',bg:'rgba(251,248,242,.94)',fg:'#1D2739',soft:'#5A6478',line:'#E4DCCB',accent:'#A9683E',glow:'0 18px 60px rgba(10,16,23,.24)'};
 
 var css=[
-'.emv{position:fixed;bottom:22px;left:22px;z-index:120;display:flex;flex-direction:column;align-items:flex-start;gap:10px;',
+'.emv{position:fixed;bottom:22px;right:22px;z-index:120;display:flex;flex-direction:column;align-items:flex-end;gap:10px;',
 '  font-family:"Instrument Sans",-apple-system,BlinkMacSystemFont,sans-serif;}',
 /* a plain pill. The translucent fill plus a backdrop blur plus a 40px
    diffuse shadow together rendered a second, larger shape behind it. */
@@ -79,7 +78,7 @@ var css=[
 '  border-color:'+(dark?'rgba(196,133,90,.45)':'rgba(169,104,62,.34)')+';}',
 '.emv-pop a.cur .emv-txt strong{color:'+P.accent+';}',
 '.emv-pop a.cur .emv-ico{opacity:1;}',
-'@media(max-width:700px){.emv{bottom:12px;left:12px;}}'
+'@media(max-width:700px){.emv{bottom:12px;right:12px;}}'
 ].join('\n');
 
 function row(v,_unused,here){
