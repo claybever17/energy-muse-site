@@ -88,9 +88,27 @@ img{display:block;max-width:100%}
    overflow: iOS Safari sizes the layout viewport to it and the page renders
    zoomed out. Clip on x only — y stays visible for the copy that rides out
    of the room. */
+/* The header called for .tophead, .home and .tt and not one of them had a
+   rule, so the logo and the title sat flush against the viewport edge while
+   every other thing on the page was inset. Same max-width and same gutter as
+   the room, so the page has one left edge — and laid out like the other two
+   try-its: the eyebrow over the title, and the way home on the right, where
+   the composition had been leaving a hole. */
+.tophead{max-width:1400px;margin:0 auto;
+  padding:clamp(18px,2.6vw,30px) clamp(16px,3.4vw,40px) 0;
+  display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+.tophead .tt{min-width:0}
+.tophead h1{font-family:var(--serif);font-weight:300;font-size:clamp(26px,3.2vw,44px);
+  line-height:1.05;letter-spacing:-.025em;margin-top:5px}
+.tophead .home{flex:none;opacity:.72;transition:opacity .3s}
+.tophead .home:hover{opacity:1}
+@media (max-width:640px){
+  .tophead{align-items:flex-start;flex-direction:column-reverse;gap:14px}
+}
+
 .room{overflow-x:clip;position:relative;max-width:1400px;margin:0 auto;padding:clamp(20px,3vw,40px) clamp(16px,3.4vw,40px) 0;
   display:grid;grid-template-columns:1fr minmax(0,540px);gap:clamp(24px,4vw,64px);align-items:center;
-  min-height:min(84svh,760px)}
+  min-height:min(74svh,680px)}
 /* the glow used to bleed 30% past the room on each side, which pushed the
    document 400px wider than the viewport. The gradient's own falloff does
    the same job without leaving the box. */
@@ -364,9 +382,9 @@ img{display:block;max-width:100%}
    more air than a mid-page section wants. The statement it used to sit under
    follows it instead: you tune the thing first, and only then are told whose
    it is — the same order the room itself argues for. */
-.room.isfirst{padding-top:calc(78px + clamp(20px,4vh,54px))}
+.room.isfirst{padding-top:clamp(8px,2.2vh,26px)}
 .state{border-top:1px solid #E4DCCB}
-@media (max-width:860px){.room.isfirst{padding-top:calc(70px + 18px)}}
+@media (max-width:860px){.room.isfirst{padding-top:10px}}
 </style>
 <script>
 (function(){
@@ -405,12 +423,12 @@ img{display:block;max-width:100%}
 <div class="wrap">
 
   <div class="tophead">
-    <a class="home" href="../../" aria-label="Energy Muse home">
-      <img class="blogo" src="../../assets/img/logo.svg" alt="Energy Muse"></a>
     <div class="tt">
       <span class="eyebrow">The frequency room</span>
       <h1>Choose your frequency.</h1>
     </div>
+    <a class="home" href="../../" aria-label="Energy Muse home">
+      <img class="blogo" src="../../assets/img/logo.svg" alt="Energy Muse"></a>
   </div>
 
   <section class="room roomin isfirst" id="instrument">
