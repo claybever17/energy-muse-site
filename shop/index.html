@@ -5,18 +5,21 @@
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=2">
+<script src="/assets/em-frequencies.js?v=2"></script>
 <script src="/assets/em-header.js?v=7" defer></script>
 <script src="/assets/em-bag.js?v=4" defer></script>
 <script src="/assets/em-prices.js?v=2" defer></script>
+<script src="/assets/em-depth.js" defer></script>
 <script src="/assets/em-versions.js?v=17" defer></script>
 <style>
-/* Four category cards. The only thing this page needs that the shared shell
-   does not already have — everywhere else uses .cols, but a shop landing is
-   the one place where the pictures are the navigation. */
+/* A shop landing is the one page where the pictures are the navigation, so
+   this page carries three shapes the shared shell has no business owning:
+   the category cards, a product grid, and the intention chips. Everything
+   else on the page is em-page.css. */
+
+/* --- the four category cards --- */
 .ways{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px);
   margin-top:clamp(28px,4vw,48px)}
-@media (max-width:900px){.ways{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:520px){.ways{grid-template-columns:1fr}}
 .way{display:block;text-decoration:none;color:inherit;border:1px solid var(--hair);
   border-radius:4px;overflow:hidden;background:var(--surface);
   transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}
@@ -30,6 +33,86 @@
 .way p{font-size:14.5px;color:var(--ink-soft);max-width:none}
 .way .go{display:inline-block;margin-top:12px;font-family:var(--sans);font-weight:600;font-size:11px;
   letter-spacing:.16em;text-transform:uppercase;color:var(--copper)}
+
+/* --- the product grid: the thing this page was missing entirely --- */
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px);
+  margin-top:clamp(28px,4vw,48px)}
+.pcard{display:flex;flex-direction:column;border:1px solid var(--hair);border-radius:4px;
+  background:var(--surface);padding:14px 16px 18px;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}
+.pcard:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--copper) 42%,transparent);
+  box-shadow:0 14px 30px rgba(61,41,23,.10)}
+.pcard .shot{aspect-ratio:1;background:var(--tint);border-radius:3px;display:grid;place-items:center;padding:9%}
+.pcard .shot img{width:100%;height:100%;object-fit:contain}
+.pcard .kind{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--stone);margin-top:14px}
+.pcard .nm{font-family:var(--sans);font-weight:600;font-size:14px;line-height:1.3;margin-top:6px;
+  color:var(--ink);flex:1}
+.pcard .pr{font-family:var(--serif);font-size:19px;color:var(--copper-lo);margin-top:10px}
+.padd{margin-top:12px;border:1px solid color-mix(in srgb,var(--ink) 26%,transparent);
+  background:transparent;color:var(--ink);font-family:var(--sans);font-weight:600;font-size:13px;
+  letter-spacing:.03em;padding:11px 12px;border-radius:3px;cursor:pointer;transition:.25s}
+.padd:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* --- shop by intention: five feelings, five colours --- */
+.ints{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(12px,1.4vw,18px);
+  margin-top:clamp(28px,4vw,44px)}
+.int{display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;
+  color:inherit;border:1px solid var(--hair);border-radius:4px;background:var(--surface);
+  padding:20px 14px 18px;transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s}
+.int:hover{transform:translateY(-3px);border-color:var(--ic)}
+.int .ring{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;
+  background:color-mix(in srgb,var(--ic) 14%,transparent);border:1px solid color-mix(in srgb,var(--ic) 34%,transparent)}
+.int .ring img{width:78%;height:78%;object-fit:contain}
+.int strong{font-family:var(--serif);font-weight:400;font-size:18px;margin-top:12px;letter-spacing:-.01em}
+.int span{font-size:12.5px;color:var(--ink-soft);margin-top:4px;line-height:1.4}
+
+/* --- the generator, on black, the way they asked for it --- */
+.sect.dark{background:var(--navy);color:var(--navy-text);border-top-color:var(--navy-line)}
+.sect.dark h2{color:var(--navy-text)}
+.sect.dark p{color:var(--navy-soft)}
+.sect.dark .eyebrow{color:var(--copper-hi)}
+.gband{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:center}
+.gband .lit{position:relative;aspect-ratio:1;display:grid;place-items:center}
+.gband .lit::before{content:"";position:absolute;inset:8%;border-radius:50%;
+  background:radial-gradient(circle,color-mix(in srgb,var(--copper-hi) 34%,transparent),transparent 68%)}
+.gband .lit img{position:relative;width:80%;height:80%;object-fit:contain}
+.hzrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.hzrow a{font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.06em;
+  text-decoration:none;color:var(--navy-text);border:1px solid var(--navy-line);
+  border-radius:99px;padding:8px 14px;transition:.25s}
+.hzrow a:hover{border-color:var(--copper-hi);color:var(--copper-hi)}
+
+/* --- make it yourself --- */
+.mk{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,26px);margin-top:clamp(28px,4vw,44px)}
+.mkc{border:1px solid var(--hair);border-radius:4px;background:var(--surface);padding:26px 28px 28px;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s}
+.mkc:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--copper) 45%,transparent)}
+.mkc h3{margin-bottom:8px}
+.mkc p{color:var(--ink-soft);font-size:15.5px}
+
+/* Every narrowing rule lives below the rules it narrows. Putting a media
+   block above its base rule loses silently and has cost this project a
+   session already. */
+@media (max-width:1000px){
+  .pgrid{grid-template-columns:repeat(3,1fr)}
+  .ints{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:900px){
+  .ways{grid-template-columns:repeat(2,1fr)}
+  .gband{grid-template-columns:1fr;gap:28px}
+  .gband .lit{max-width:360px;margin:0 auto}
+}
+@media (max-width:760px){
+  .pgrid{grid-template-columns:repeat(2,1fr)}
+  .mk{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .ints{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:520px){
+  .ways{grid-template-columns:1fr}
+}
 </style>
 </head><body>
 <main>
@@ -41,8 +124,8 @@
     <p class="lead">Shop intention-based jewelry, crystals, frequency generators, and curated sets &mdash;
       all created to help you bring that intention into your everyday life.</p>
     <div class="cta-row">
-      <a class="btn btn-copper" href="/intention/">Shop by Intention</a>
-      <a class="btn btn-ghost" href="/gems/">Browse All Products</a>
+      <a class="btn btn-copper" href="#favourites">Shop Best Sellers</a>
+      <a class="btn btn-ghost" href="/quiz/">Find My Energy Match</a>
     </div>
   </div>
 </section>
@@ -92,13 +175,89 @@
   </div>
 </section>
 
+<section class="sect" id="favourites">
+  <div class="wrap">
+    <h2>Start with a favourite.</h2>
+    <p>The pieces people reach for first &mdash; a bracelet to wear, a stone to place.</p>
+    <div class="pgrid" id="pgrid"></div>
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="/jewelry/">All Jewelry</a>
+      <a class="btn btn-ghost" href="/gems/">All Crystals</a>
+    </div>
+  </div>
+</section>
+
+<section class="sect tint">
+  <div class="wrap">
+    <h2>Or start with how you want to feel.</h2>
+    <p>Five intentions, each with pieces to wear and stones to place.</p>
+    <div class="ints">
+      <a class="int" href="/intention/calm/" style="--ic:#6E8BA8">
+        <span class="ring"><img src="/assets/img/favorites/calm-wear.png" alt="" loading="lazy"></span>
+        <strong>Calm</strong><span>Quiet the noise</span></a>
+      <a class="int" href="/intention/clarity/" style="--ic:#8A7BB0">
+        <span class="ring"><img src="/assets/img/favorites/clarity-wear.png" alt="" loading="lazy"></span>
+        <strong>Clarity</strong><span>See it plainly</span></a>
+      <a class="int" href="/intention/protection/" style="--ic:#4E5A70">
+        <span class="ring"><img src="/assets/img/favorites/protection-wear.png" alt="" loading="lazy"></span>
+        <strong>Protection</strong><span>Hold your edges</span></a>
+      <a class="int" href="/intention/abundance/" style="--ic:#A9683E">
+        <span class="ring"><img src="/assets/img/favorites/abundance-wear.png" alt="" loading="lazy"></span>
+        <strong>Abundance</strong><span>Make room for more</span></a>
+      <a class="int" href="/intention/connection/" style="--ic:#B06E7A">
+        <span class="ring"><img src="/assets/img/favorites/connection-wear.png" alt="" loading="lazy"></span>
+        <strong>Connection</strong><span>Come back to people</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="sect dark">
+  <div class="wrap">
+    <div class="gband">
+      <div class="lit"><img src="/assets/img/generators/528.png" alt="The 528Hz frequency generator" loading="lazy"></div>
+      <div>
+        <span class="eyebrow">Frequency generators</span>
+        <h2>Where wellness meets tech.</h2>
+        <p>Each generator is tuned to one frequency and left there &mdash; a crystal oscillator and a
+          copper tensor coil, matched with a sacred geometric shape. Fixed-frequency devices reach a
+          larger radius and carry a stronger signal than the variable ones others sell.</p>
+        <div class="hzrow" id="hzrow"></div>
+        <div class="cta-row">
+          <a class="btn btn-copper" href="/frequency/">Shop Frequency Generators</a>
+          <a class="btn btn-ghost" href="/generator/" style="color:var(--navy-text);border-color:var(--navy-line)">See It Up Close</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="sect">
+  <div class="wrap">
+    <h2>Or make it yourself.</h2>
+    <div class="mk">
+      <div class="mkc">
+        <h3>The Atelier</h3>
+        <p>Design your own bracelet stone by stone, on your own wrist size. Every one comes
+          with the Energy Muse rondelle.</p>
+        <div class="cta-row"><a class="btn btn-copper" href="/designer/">Design a Bracelet</a></div>
+      </div>
+      <div class="mkc">
+        <h3>Build a Box</h3>
+        <p>Choose the stones you want and we&rsquo;ll pack them together, with a card for each
+          one explaining what it is for.</p>
+        <div class="cta-row"><a class="btn btn-ghost" href="/box/">Build a Box of Crystals</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sect tint">
   <div class="wrap narrow">
     <h2>Not sure where to begin?</h2>
     <p>Take the Energy Quiz to get a personalized starting point to begin your wellness journey.</p>
     <div class="cta-row">
       <a class="btn btn-copper" href="/quiz/">Find My Energy Match</a>
-      <a class="btn btn-ghost" href="/box/">Build a Box of Crystals</a>
+      <a class="btn btn-ghost" href="/learn/">Read the Guides</a>
     </div>
   </div>
 </section>
@@ -108,4 +267,53 @@
 </section>
 
 </main>
+<script>
+/* The products. Names, prices and cut-outs are the same ones /jewelry/ and
+   /gems/ already sell — this page was showing none of them, which is the
+   whole reason it read as a placeholder. Built from a list rather than typed
+   into the markup eight times so a price only ever exists in one place. */
+(function(){
+  var J='/assets/img/jewelry-shop/', C='/assets/img/products/';
+  var PICKS=[
+    {id:'rose-quartz-bracelet-3',   n:'Rose Quartz Bracelet',        p:26.88,  img:J+'rose-quartz-bracelet-3.png',   kind:'Jewelry', link:'/jewelry/'},
+    {id:'protection-bracelet',      n:'Protection Crystal Bracelet', p:26.88,  img:J+'protection-bracelet.png',      kind:'Jewelry', link:'/jewelry/'},
+    {id:'infinite-prosperity-bracelet', n:'Infinite Prosperity Bracelet', p:64.88, img:J+'infinite-prosperity-bracelet.png', kind:'Jewelry', link:'/jewelry/'},
+    {id:'seven-stone-necklace',     n:'Seven &amp; Stone Necklace',  p:124.88, img:J+'seven-stone-necklace.png',     kind:'Jewelry', link:'/jewelry/'},
+    {id:'protection',               n:'Black Tourmaline',            p:8.88,   img:C+'protection.png',               kind:'Crystal', link:'/gems/'},
+    {id:'fresh-start',              n:'Clear Quartz Pyramid',        p:18.88,  img:C+'fresh-start.png',              kind:'Crystal', link:'/gems/'},
+    {id:'wealth',                   n:'Pyrite Cube',                 p:24.88,  img:C+'wealth.png',                   kind:'Crystal', link:'/gems/'},
+    {id:'spirituality',             n:'Amethyst Cluster',            p:34.88,  img:C+'spirituality.png',             kind:'Crystal', link:'/gems/'}
+  ];
+  var host=document.getElementById('pgrid');
+  if(host){
+    PICKS.forEach(function(c){
+      var el=document.createElement('div');
+      el.className='pcard';
+      el.innerHTML='<span class="shot"><img src="'+c.img+'" alt="'+c.n.replace(/&amp;/g,'and')+'" loading="lazy"></span>'
+        +'<span class="kind">'+c.kind+'</span>'
+        +'<span class="nm">'+c.n+'</span>'
+        +'<span class="pr">$'+c.p.toFixed(2)+'</span>'
+        +'<button class="padd" type="button" data-id="'+c.id+'">Add to Bag</button>';
+      host.appendChild(el);
+    });
+    var byId={}; PICKS.forEach(function(c){byId[c.id]=c;});
+    host.addEventListener('click',function(e){
+      var b=e.target.closest('.padd'); if(!b||!window.EMBag)return;
+      var c=byId[b.getAttribute('data-id')]; if(!c)return;
+      EMBag.add({id:c.id,name:c.n.replace(/&amp;/g,'&'),price:c.p,img:c.img,link:c.link});
+    });
+  }
+
+  /* the frequency chips come from em-frequencies.js when it is present, and
+     the band simply goes without them when it is not */
+  var row=document.getElementById('hzrow');
+  if(row&&window.EM_FREQ){
+    window.EM_FREQ.forEach(function(f){
+      var a=document.createElement('a');
+      a.href='/frequency/#all'; a.textContent=f.hz+' Hz';
+      row.appendChild(a);
+    });
+  }
+})();
+</script>
 </body></html>
