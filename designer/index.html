@@ -263,11 +263,63 @@ var STONES=[
   {id:'blue-opal',    name:'Blue Opal',          intent:'calm',       price:2.10},
   {id:'amethyst',     name:'Amethyst',           intent:'clarity',    price:1.50}
 ];
+
+/* The Energy Muse rondelle.
+
+   A rondelle is a flat washer-shaped spacer. Theirs is copper with ENERGY MUSE
+   stamped round the rim, and they want one on every bracelet by default. There
+   is no product photo cut out for it yet, so it is drawn here instead: an
+   annulus with a lit bevel and the name curved round the ring. Drawn rather
+   than shipped as a PNG so it stays sharp at any device pixel ratio, and so it
+   can be re-tuned without a round trip to a photo.
+
+   Priced at 0 — included, on Clay's word, not sold as an extra bead. */
+var RONDELLE_ID='em-rondelle';
+function drawRondelle(px){
+  var c=document.createElement('canvas'); c.width=c.height=px;
+  var g=c.getContext('2d'), R=px/2, ro=px*0.46, ri=px*0.17;
+
+  /* the body: copper, lit from upper-left the way the stone beads are */
+  var body=g.createRadialGradient(R-ro*0.34,R-ro*0.34,ro*0.10,R,R,ro);
+  body.addColorStop(0,'#E0A874'); body.addColorStop(0.42,'#B97845');
+  body.addColorStop(0.78,'#8E5730'); body.addColorStop(1,'#6E4224');
+  g.beginPath(); g.arc(R,R,ro,0,Math.PI*2); g.fillStyle=body; g.fill();
+
+  /* a rim so it reads as a disc with thickness rather than a flat circle */
+  g.beginPath(); g.arc(R,R,ro*0.985,0,Math.PI*2);
+  g.strokeStyle='rgba(255,226,196,.34)'; g.lineWidth=px*0.012; g.stroke();
+
+  /* ENERGY MUSE, curved round the ring */
+  var txt='ENERGY MUSE', rad=ro*0.70;
+  g.save(); g.translate(R,R); g.rotate(-Math.PI/2 - (txt.length-1)*0.108);
+  g.font='600 '+(px*0.088).toFixed(1)+'px "Instrument Sans",system-ui,sans-serif';
+  g.textAlign='center'; g.textBaseline='middle';
+  for(var i=0;i<txt.length;i++){
+    g.save(); g.rotate(i*0.216); g.translate(0,-rad); g.rotate(Math.PI);
+    g.fillStyle='rgba(58,32,14,.62)'; g.fillText(txt[i],0,0);
+    g.restore();
+  }
+  g.restore();
+
+  /* the hole, with the cord shadow inside it */
+  var hole=g.createRadialGradient(R,R,ri*0.2,R,R,ri);
+  hole.addColorStop(0,'#2A1A0E'); hole.addColorStop(1,'#4A2E19');
+  g.globalCompositeOperation='destination-out';
+  g.beginPath(); g.arc(R,R,ri,0,Math.PI*2); g.fill();
+  g.globalCompositeOperation='source-over';
+  g.beginPath(); g.arc(R,R,ri*1.06,0,Math.PI*2);
+  g.strokeStyle='rgba(58,32,14,.5)'; g.lineWidth=px*0.02; g.stroke();
+  return c;
+}
+STONES.push({id:RONDELLE_ID, name:'Energy Muse rondelle', intent:'*', price:0,
+             fixed:true, img:drawRondelle(256)});
+
 /* Repaint when a stone finishes decoding. Without this, a bead tapped before
    its PNG arrived was skipped by the paint pass and — because the canvas only
    repaints on change — never drawn again: on a cold phone cache it looked like
    only the one cached stone would add. */
 STONES.forEach(function(s){
+  if(s.fixed)return;                 /* the rondelle is drawn, not fetched */
   s.img=new Image();
   s.img.onload=function(){invalidate();};
   s.img.src='/assets/img/beads/'+s.id+'.png';
@@ -288,7 +340,10 @@ var strand=[];              /* array of stone ids, in order around the circle */
 var tab='protection';
 var wristIn=7.5, unit='in';
 var BEAD_MM=8;              /* 8mm beads — the house standard */
-function capacity(){return Math.max(6,Math.round(wristIn*25.4/BEAD_MM));}
+var RONDELLE_MM=3;          /* the Energy Muse rondelle is thinner than a bead */
+/* stones only — the rondelle takes a slot but not a bead's worth of cord */
+function stoneCount(){return Math.max(6,Math.round((wristIn*25.4-RONDELLE_MM)/BEAD_MM));}
+function capacity(){return stoneCount()+1;}
 
 /* ---------- canvas ---------- */
 var cv=document.getElementById('strand'),ctx=cv.getContext('2d');
@@ -598,15 +653,30 @@ function addBead(id){
 document.getElementById('compose').addEventListener('click',function(){
   var r=RECIPES[tab]||[];if(!r.length)return;
   /* the pattern repeats around the whole wrist, so the strand is a real one */
-  strand=[];for(var i=0;i<capacity();i++)strand.push(r[i%r.length]);
+  strand=[];for(var i=0;i<stoneCount();i++)strand.push(r[i%r.length]);
+  ensureRondelle();
   anim=strand.map(function(_,i){return {born:performance.now()+i*32};});
   pulse=performance.now();
   var label='';INTENTS.forEach(function(p){if(p[0]===tab)label=p[1];});
   toast('A '+label.toLowerCase()+' strand — adjust it however you like');
   sync();
 });
+/* One rondelle, always, wherever the wearer has dragged it to. It is a normal
+   strand entry so it can be moved like any other bead; this only guarantees
+   there is exactly one, and puts it at the clasp point when there is none. */
+function ensureRondelle(){
+  var at=strand.indexOf(RONDELLE_ID);
+  if(at<0){ strand.splice(Math.floor(strand.length/2),0,RONDELLE_ID); }
+  else {
+    for(var i=strand.length-1;i>=0;i--)
+      if(i!==at && strand[i]===RONDELLE_ID) strand.splice(i,1);
+  }
+  if(anim.length!==strand.length)
+    anim=strand.map(function(_,i){return {born:performance.now()+i*32};});
+}
+
 document.getElementById('clear').addEventListener('click',function(){
-  strand=[];anim=[];invalidate();sync();
+  strand=[];anim=[];ensureRondelle();invalidate();sync();
 });
 
 /* ---------- sizing ----------
@@ -614,8 +684,12 @@ document.getElementById('clear').addEventListener('click',function(){
    thirty-three sizes for a product that comes in three, and every one of them
    reading as orderable. Each size carries its bead count, because that is the
    question people are actually asking when they choose one. */
-var SIZES=[{in:6.75,label:'6¾″'},{in:7.5,label:'7½″'},{in:8.5,label:'8½″'}];
-function beadsFor(inches){return Math.round(inches*25.4/BEAD_MM);}
+/* Their three sizes, and their bead counts. 8½ was not one of them.
+   Energy Muse: 6¾ is 21 beads plus the rondelle, 7½ is 23 plus, 8 is 25
+   plus — which is exactly round((circumference - 3mm) / 8mm), so the
+   rondelle is about 3mm and the count is derived rather than tabulated. */
+var SIZES=[{in:6.75,label:'6¾″'},{in:7.5,label:'7½″'},{in:8,label:'8″'}];
+function beadsFor(inches){return Math.round((inches*25.4-RONDELLE_MM)/BEAD_MM);}
 function nearestSize(inches){
   var best=SIZES[1], d=Infinity;
   SIZES.forEach(function(z){var k=Math.abs(z.in-inches);if(k<d){d=k;best=z;}});
@@ -645,6 +719,7 @@ function syncWrist(){
     b.setAttribute('aria-checked',SIZES[k].in===z.in?'true':'false');
   });
   if(strand.length>capacity()){strand=strand.slice(0,capacity());anim=anim.slice(0,capacity());}
+  ensureRondelle();   /* a trim can cut it off the end */
   sync();
 }
 buildSizes();
@@ -744,6 +819,9 @@ function restore(){
       pulse=performance.now();
     }
   }
+  /* every bracelet carries the rondelle, including one opened from a link made
+     before it existed, and an empty board on a cold visit */
+  ensureRondelle();
   syncWrist();sync();
   if(s&&strand.length)toast('Opened a shared design — make it yours');
 }
@@ -771,7 +849,7 @@ restore();
 addEventListener('keydown',function(e){if(e.key==='Escape'&&dragIdx>=0){dragIdx=-1;cv.classList.remove('drag');}});
 
 /* verification hook */
-window.__atelier={add:addBead,url:function(){return designURL();},paints:function(){return paints;},tick:function(){draw(performance.now());},compose:function(){document.getElementById('compose').click();},
+window.__atelier={add:addBead,rondelle:drawRondelle,strand:function(){return strand.slice();},url:function(){return designURL();},paints:function(){return paints;},tick:function(){draw(performance.now());},compose:function(){document.getElementById('compose').click();},
   state:function(){return {strand:strand.slice(),cap:capacity(),wristIn:wristIn,unit:unit};}};
 })();
 </script>
