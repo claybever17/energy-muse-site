@@ -81,11 +81,22 @@ function boot(){
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
   var holder=document.createElement('div');holder.innerHTML=SPRITE;document.body.insertBefore(holder.firstChild,document.body.firstChild);
 
+  /* The bar used to be dropped entirely on /quiz/, because its call to action
+     is the quiz and pointing someone at the page they are already on is silly.
+     But dropping it changed the chrome: the header is the same 71px everywhere,
+     and losing the 39px band above it made the whole page jump and the cream
+     band disappear on the one click between Shop and Start Here. Same bar on
+     every page; only the sentence inside it changes. */
   var isQuiz=location.pathname.indexOf('/quiz')===0;
+  var ann=isQuiz
+    ? {say:'Not sure where to start?', more:' Every piece here is chosen for how you want to feel.',
+       cta:'Shop by Intention \u2192', href:'/intention/'}
+    : {say:'New to Energy Muse?', more:' Find your energy match in a few simple questions.',
+       cta:'Take the Energy Quiz \u2192', href:'/quiz/'};
   var dismissed=false;try{dismissed=sessionStorage.getItem('em-ann')==='off';}catch(e){}
   var frag=document.createElement('div');frag.id='emh';
   frag.innerHTML=
-    (!isQuiz&&!dismissed?'<div class="emh-ann"><div class="emh-ann-in"><span>New to Energy Muse?<span class="emh-ann-more"> Find your energy match in a few simple questions.</span></span><a href="/quiz/">Take the Energy Quiz →</a><button class="emh-annx" aria-label="Dismiss">×</button></div></div>':'')
+    (!dismissed?'<div class="emh-ann"><div class="emh-ann-in"><span>'+ann.say+'<span class="emh-ann-more">'+ann.more+'</span></span><a href="'+ann.href+'">'+ann.cta+'</a><button class="emh-annx" aria-label="Dismiss">\u00d7</button></div></div>':'')
     +'<header class="emh-nav"><div class="emh-in">'
     +'<a class="emh-brand" href="/"><svg class="emh-logo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo-hdr"/></svg></a>'
     +'<nav class="emh-links"><a href="/quiz/">Start Here</a><a href="/shop/">Shop</a><a href="/intention/">By Intention</a><a href="/learn/">Learn</a></nav>'
