@@ -1,0 +1,168 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Energy Muse — Frequency Generators</title>
+<meta name="description" content="Where wellness meets tech. Seven fixed-frequency generators, each tuned to one frequency and left there.">
+<link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
+<link rel="stylesheet" href="/assets/em-page.css?v=2">
+<script src="/assets/em-frequencies.js?v=2"></script>
+<script src="/assets/em-header.js?v=6" defer></script>
+<script src="/assets/em-bag.js?v=4" defer></script>
+<script src="/assets/em-prices.js?v=2" defer></script>
+<script src="/assets/em-versions.js?v=17" defer></script>
+<style>
+/* The product grid. This is the shop page for the generators — the thing
+   "Shop Frequency Generators" should always have pointed at. /generator/ is
+   the film: a showcase you scroll through. Sending a shop link into the middle
+   of a seven-screen film was a patch over the fact that this page did not
+   exist. */
+.fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px);
+  margin-top:clamp(28px,4vw,48px)}
+@media (max-width:1000px){.fgrid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:760px){.fgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:430px){.fgrid{grid-template-columns:1fr}}
+.fcard{display:flex;flex-direction:column;border:1px solid var(--hair);border-radius:4px;
+  background:var(--surface);padding:16px 16px 18px;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}
+.fcard:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--copper) 42%,transparent);
+  box-shadow:0 14px 30px rgba(61,41,23,.10)}
+.fcard .shot{aspect-ratio:1;background:var(--tint);border-radius:3px;display:grid;place-items:center;padding:9%}
+.fcard .shot img{width:100%;height:100%;object-fit:contain}
+.fcard .hz{font-family:var(--serif);font-weight:300;font-size:30px;line-height:1;
+  letter-spacing:-.03em;color:var(--copper);margin-top:14px}
+.fcard .hz em{font-style:normal;font-family:var(--sans);font-weight:600;font-size:.36em;
+  letter-spacing:.18em;text-transform:uppercase;margin-left:.4em;color:var(--stone);vertical-align:.5em}
+.fcard .nm{font-family:var(--sans);font-weight:600;font-size:13.5px;line-height:1.3;margin-top:8px;
+  color:var(--ink)}
+.fcard .pu{font-size:12.5px;color:var(--ink-soft);margin-top:6px;line-height:1.45;flex:1}
+.fcard .pr{font-family:var(--serif);font-size:18px;color:var(--copper-lo);margin-top:12px}
+.fadd{margin-top:12px;border:1px solid color-mix(in srgb,var(--ink) 26%,transparent);
+  background:transparent;color:var(--ink);font-family:var(--sans);font-weight:600;font-size:13px;
+  letter-spacing:.03em;padding:11px 12px;border-radius:3px;cursor:pointer;transition:.25s}
+.fadd:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.fcard.out{opacity:.66}
+.fcard.out .shot img{filter:saturate(.35)}
+.fsold{margin-top:12px;font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--stone);border:1px solid var(--hair);border-radius:3px;
+  padding:11px 12px;text-align:center}
+.ftag{display:inline-flex;font:700 9.5px var(--sans);letter-spacing:.2em;text-transform:uppercase;
+  color:#fff;background:var(--copper-lo);padding:5px 9px;border-radius:2px;margin-bottom:10px;align-self:flex-start}
+</style>
+</head><body>
+<main>
+
+<section class="sect">
+  <div class="wrap">
+    <span class="eyebrow">Frequency generators</span>
+    <h1>Where wellness meets tech.</h1>
+    <p class="lead">Frequency generators are precision-crafted to emit specific frequencies, so you&rsquo;re
+      always in control of how your space feels. Whether it&rsquo;s at your desk where you work or by your
+      bed where you sleep, we help you find the right device for your own wellness goals.</p>
+    <div class="cta-row">
+      <a class="btn btn-copper" href="#all">Shop All Seven</a>
+      <a class="btn btn-ghost" href="/generator/">See It Up Close</a>
+    </div>
+  </div>
+</section>
+
+<section class="sect tint" id="all">
+  <div class="wrap">
+    <h2>Find the frequency for you.</h2>
+    <p>Energy Muse offers seven fixed-frequency generators. Start with one, or build a system.</p>
+    <div class="fgrid" id="fgrid"></div>
+    <p class="note">Frequency generators are not medical devices and are not a substitute for
+      healthcare. Experiences vary.</p>
+  </div>
+</section>
+
+<section class="sect">
+  <div class="wrap narrow">
+    <h2>A simple starting routine.</h2>
+    <ol class="steps">
+      <li>Choose the frequency that best fits what you&rsquo;re working toward.</li>
+      <li>Place the device in the recommended location and follow the instructions.</li>
+      <li>Use it consistently as part of your practice, and notice your own experience over time.</li>
+    </ol>
+    <div class="cta-row">
+      <a class="btn btn-copper" href="/quiz/">Find My Frequency Generator</a>
+      <a class="btn btn-ghost" href="/systems/">Build a System</a>
+    </div>
+  </div>
+</section>
+
+<section class="sect tint">
+  <div class="wrap">
+    <h2>What people notice over time.</h2>
+    <div class="cols">
+      <div><h3>The beginning</h3><p>Some people notice a subtle hum. Others just notice a bit more calm
+        in the room.</p></div>
+      <div><h3>The shift</h3><p>With regular use, many describe a steadier, more grounded feeling in the
+        space &mdash; less noise, more ease.</p></div>
+      <div><h3>The integration</h3><p>Over time, people often say the space simply feels more like their
+        own &mdash; a place they return to on purpose.</p></div>
+    </div>
+    <div class="cta-row"><a class="btn btn-ghost" href="/faq/">Read the FAQs</a></div>
+  </div>
+</section>
+
+<section class="sect">
+  <div class="wrap narrow">
+    <h2>The science behind the device.</h2>
+    <p>Every Energy Muse generator starts with a crystal oscillator and a copper tensor coil, matched
+      with a specific sacred geometric shape &mdash; a design and engineering combination exclusive to us.
+      We&rsquo;re home to the world&rsquo;s most extensive fixed-frequency collection, and fixed-frequency
+      devices reach a larger radius and carry a stronger signal than the variable-frequency devices
+      others sell.</p>
+    <div class="cta-row"><a class="btn btn-copper" href="/generator/">See It Up Close</a></div>
+  </div>
+</section>
+
+<section class="sect">
+  <div class="wrap"><a class="backlink" href="/shop/">&larr; Back to Shop</a></div>
+</section>
+
+</main>
+<script>
+/* Built from assets/em-frequencies.js, so the range, the names, the prices and
+   the stock state all come from the one place the rest of the site reads. */
+(function(){
+  var host=document.getElementById('fgrid');
+  if(!host||!window.EM_FREQ)return;
+
+  var COPPER={hz:'528',id:'gen-528-copper',name:'528Hz Generator, in copper',
+              purpose:['The same tuned coil','in a hand-finished copper body'],
+              price:219.88,img:'/assets/img/generator-render.webp',tag:'Just landed'};
+
+  function card(c){
+    var out=(c.stock==='out');
+    var el=document.createElement('div');
+    el.className='fcard'+(out?' out':'');
+    el.innerHTML=
+      (c.tag?'<span class="ftag">'+c.tag+'</span>':'')+
+      '<span class="shot"><img src="'+c.img+'" alt="'+c.hz+'Hz Frequency Generator" loading="lazy"></span>'+
+      '<span class="hz">'+c.hz+'<em>Hz</em></span>'+
+      '<span class="nm">'+c.name+'</span>'+
+      '<span class="pu">'+c.purpose.join(' &middot; ')+'</span>'+
+      '<span class="pr">$'+c.price.toFixed(2)+'</span>'+
+      (out ? '<span class="fsold">Currently unavailable</span>'
+           : '<button class="fadd" type="button" data-id="'+c.id+'">Add to Bag</button>');
+    return el;
+  }
+
+  var list=window.EM_FREQ.map(function(f){
+    return {hz:f.hz,id:f.id,name:f.name,purpose:f.purpose,price:f.price,
+            img:'/'+f.img,stock:f.stock||'in'};
+  });
+  list.splice(4,0,COPPER);              /* beside the standard 528 */
+  list.forEach(function(c){ host.appendChild(card(c)); });
+
+  var byId={}; list.forEach(function(c){byId[c.id]=c;});
+  host.addEventListener('click',function(e){
+    var b=e.target.closest('.fadd'); if(!b||!window.EMBag)return;
+    var c=byId[b.getAttribute('data-id')]; if(!c)return;
+    EMBag.add({id:c.id,name:c.hz+'Hz Frequency Generator',price:c.price,
+               img:c.img,link:'/frequency/'});
+  });
+})();
+</script>
+</body></html>

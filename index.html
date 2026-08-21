@@ -870,6 +870,14 @@ body.menu-open{overflow:hidden;}
    navy ground that was rgb(29,39,57) on rgb(11,19,32) — a contrast ratio of
    1.24, where AA asks for 4.5. It was not a quiet button, it was an invisible
    one, which is why the second call read as an empty rectangle. */
+@media (min-width:841px){
+  /* The render carries a wide transparent margin, so object-fit:contain sized
+     the device to the box and the device to about half of it — technically
+     full-bleed, visually small. More column, and scaled past its own padding. */
+  .freq .split{grid-template-columns:1fr 1fr;}
+  .freq .media.live3d{overflow:visible;}
+  .freq .media.live3d img,.freq .media.live3d canvas{transform:scale(1.34);}
+}
 .freq .btn-ghost{color:var(--navy-text);
   border-color:color-mix(in srgb,var(--navy-text) 38%,transparent);}
 .freq .btn-ghost:hover{color:#fff;border-color:var(--navy-text);
@@ -1006,12 +1014,24 @@ body.menu-open{overflow:hidden;}
 
 /* ===== Social proof + final call ===== */
 .proof-h{font-size:clamp(26px,3.4vw,44px);font-weight:400;max-width:22ch;margin-top:14px;}
-.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,44px);margin-top:clamp(26px,4vh,44px);}
-.proof blockquote{margin:0;padding-top:18px;border-top:1px solid var(--hair);
-  font-family:var(--serif);font-weight:300;font-size:clamp(17px,1.5vw,21px);line-height:1.45;
-  color:var(--ink);text-wrap:pretty;}
-.proof blockquote::before{content:"\201C";}
-.proof blockquote::after{content:"\201D";}
+/* Three quotes on three hairlines was honest and completely flat. They are the
+   only human voices on the page, so they get the room to sound like it: a
+   copper quotation mark to open, larger type, and the call centred under all
+   three rather than tucked beneath the first — where it read as belonging to
+   that quote rather than to the section. No portraits and no star ratings,
+   because we have neither and inventing customers is not an option. */
+.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3.4vw,52px);margin-top:clamp(30px,4.4vh,52px);}
+.proof blockquote{margin:0;padding-top:22px;border-top:1px solid var(--hair);position:relative;
+  font-family:var(--serif);font-weight:300;font-size:clamp(19px,1.75vw,24px);line-height:1.4;
+  letter-spacing:-.012em;color:var(--ink);text-wrap:pretty;}
+.proof blockquote::before{content:"\201C";position:absolute;top:8px;left:-2px;
+  font-size:2.6em;line-height:1;color:var(--copper);opacity:.28;pointer-events:none;}
+.proof blockquote::after{content:"\201D";color:var(--copper);opacity:.5;}
+#stories .cta-row{justify-content:center;margin-top:clamp(30px,4.4vh,52px);}
+@media (max-width:840px){
+  #stories .cta-row{justify-content:flex-start;}
+  .proof blockquote::before{font-size:2.1em;}
+}
 .final-cta{text-align:center;border-top:1px solid var(--hair);background:var(--tint);}
 .final-cta h2{font-size:clamp(30px,4.4vw,58px);font-weight:400;max-width:16ch;margin-inline:auto;letter-spacing:-.02em;}
 .final-cta .lead{margin:18px auto 0;max-width:52ch;color:var(--ink-soft);}
@@ -1413,9 +1433,12 @@ p{text-wrap:pretty;}
         precision-crafted to emit specific frequencies, so you&rsquo;re always in control of how your
         space feels. Whether it&rsquo;s at your desk where you work or by your bed where you sleep,
         we help you find the right frequency device to accomplish your personal wellness goals.</p>
+      <!-- One call. Both buttons pointed at the same page after the shop link
+           was given a real destination, and two identical destinations is one
+           button too many. /frequency/ carries the shop, the routine, what
+           people notice, and the science; it offers the film from there. -->
       <div class="cta-row">
-        <a class="btn btn-copper" href="generator/#gens">Shop Frequency Generators</a>
-        <a class="btn btn-ghost" href="generator/#how">How Frequency Tools Work</a>
+        <a class="btn btn-copper" href="frequency/">Shop Frequency Generators</a>
       </div>
       <p class="freq-note">The world&rsquo;s most extensive fixed-frequency collection. Not medical
         devices, and not a substitute for healthcare.</p>
@@ -1676,9 +1699,9 @@ p{text-wrap:pretty;}
       <div class="foot-brand"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse" style="height:34px"><use href="#em-logo"/></svg>
         <p>Guided energy for real life.<span class="foot-more"> Crystal jewelry, natural crystals, frequency and personal guidance &mdash; created to help you choose with confidence and build a practice that fits.</span></p></div>
       <div class="foot-col"><h4>Start Here</h4><a href="quiz/">Energy Quiz</a><a href="learn/">Beginner&rsquo;s Guide</a><a href="faq/">How It Works</a><a href="intention/">By Intention</a></div>
-      <div class="foot-col"><h4>Shop</h4><a href="shop/">All Shop</a><a href="jewelry/">Jewelry</a><a href="gems/">Crystals</a><a href="generator/#gens">Frequency</a><a href="sets/">Kits &amp; Sets</a><a href="systems/">Frequency Systems</a><a href="box/">Build a Box</a></div>
+      <div class="foot-col"><h4>Shop</h4><a href="shop/">All Shop</a><a href="jewelry/">Jewelry</a><a href="gems/">Crystals</a><a href="frequency/">Frequency</a><a href="sets/">Kits &amp; Sets</a><a href="systems/">Frequency Systems</a><a href="box/">Build a Box</a></div>
       <div class="foot-col"><h4>Learn</h4><a href="learn/">Learning Center</a><a href="generator/">Frequency Guide</a><a href="craft/">Materials &amp; Craft</a><a href="heather/">With Heather</a><a href="veza/">Veza</a></div>
-      <div class="foot-col"><h4>Help</h4><a href="support/">Contact</a><a href="support/#orders">Shipping &amp; Returns</a><a href="faq/">FAQ</a><a href="support/#accessibility">Accessibility</a><a href="about/">Our Story</a><a href="affiliates/">Affiliates</a></div>
+      <div class="foot-col"><h4>Help</h4><a href="support/">Contact</a><a href="support/">Shipping &amp; Returns</a><a href="faq/">FAQ</a><a href="support/">Accessibility</a><a href="about/">Our Story</a><a href="affiliates/">Affiliates</a></div>
     </div>
     <div class="foot-bottom"><span>&copy; 2026 Energy Muse. All rights reserved.</span>
       <span>Energy Muse products and content are intended for personal practice and general wellbeing. They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease. Individual experiences vary.</span></div>
@@ -2266,7 +2289,7 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 </script>
 
 <script src="assets/em-bag.js?v=4" defer></script>
-<script src="assets/em-prices.js?v=1" defer></script>
+<script src="assets/em-prices.js?v=2" defer></script>
 <script src="assets/em-versions.js?v=17" defer></script>
 <script>
 (function(){

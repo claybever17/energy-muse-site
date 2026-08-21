@@ -51,8 +51,11 @@
       if (!card) return;
       card.querySelectorAll(PRICE_IN_CARD).forEach(hold);
     });
-    /* 2. the generator page's grid, where the class is unambiguous */
-    document.querySelectorAll('.gprice').forEach(hold);
+    /* 2. grids where the class is unambiguous. .fcard is the frequency shop:
+       its sold-out card has no Add button, so the association in step 1 finds
+       nothing for it and its price would otherwise be the one real number left
+       on the page. */
+    document.querySelectorAll('.gprice, .fcard .pr').forEach(hold);
     /* 3. the homepage promo, which sells a generator and says so in its heading */
     document.querySelectorAll('.cpromo, .promo').forEach(function (sec) {
       if (!/generator/i.test(sec.textContent || '')) return;
