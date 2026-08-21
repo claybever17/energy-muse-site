@@ -324,6 +324,13 @@ STONES.forEach(function(s){
   s.img.onload=function(){invalidate();};
   s.img.src='/assets/img/beads/'+s.id+'.png';
 });
+/* Sprites come two ways now: the stones are <img> and load asynchronously, the
+   rondelle is a <canvas> drawn at startup. An Image reports readiness through
+   .complete/.naturalWidth, a canvas has neither and is ready the moment it
+   exists — so guarding on the Image properties alone silently skipped the
+   rondelle on every frame, and left the paint loop marking itself dirty
+   forever waiting for a load that had already happened. */
+function ready(img){ return !!img && (img.tagName==='CANVAS' ? img.width>0 : (img.complete && img.naturalWidth>0)); }
 function byId(id){for(var i=0;i<STONES.length;i++)if(STONES[i].id===id)return STONES[i];return null;}
 
 /* recipes: a focal stone plus grounding companions, per intention */
@@ -424,7 +431,7 @@ function makeGlow(col,peak){
   return g;
 }
 function glowOf(s){
-  if(!s.glow&&s.img.complete&&s.img.naturalWidth){
+  if(!s.glow&&ready(s.img)){
     s.col=stoneColor(s.img);s.glow=makeGlow(s.col);
   }
   return s.glow;
@@ -436,7 +443,7 @@ function poolGlow(){
   if(key===poolKey&&POOL)return POOL;
   var r=0,g=0,b=0,n=0;
   strand.forEach(function(id){
-    var s=byId(id);if(!s||!s.img.complete||!s.img.naturalWidth)return;
+    var s=byId(id);if(!s||!ready(s.img))return;
     if(!s.col)s.col=stoneColor(s.img);
     r+=s.col[0];g+=s.col[1];b+=s.col[2];n++;
   });
@@ -524,7 +531,7 @@ function draw(ts){
   for(var i=0;i<n;i++){
     var s=byId(strand[i]);
     /* not decoded yet — stay dirty so this stone gets drawn the moment it is */
-    if(!s||!s.img.complete||!s.img.naturalWidth){dirty=true;continue;}
+    if(!s||!ready(s.img)){dirty=true;continue;}
     var target=angleOf(i,n)+spin;
     var a=target,sc=1,extra=0;
     if(i===dragIdx){a=dragAng;sc=1.14;extra=6;}
@@ -746,7 +753,9 @@ function sync(){
   var tstr=strand.length?'$'+total.toFixed(2):'—';
   document.getElementById('tval').textContent=tstr;
   document.getElementById('mtotal').textContent=tstr;
-  document.getElementById('cval').textContent=strand.length+' / '+capacity();
+  /* the label says stones, so count stones — the rondelle is fitted, not chosen */
+  var stones=strand.filter(function(id){return id!==RONDELLE_ID;}).length;
+  document.getElementById('cval').textContent=stones+' / '+stoneCount();
   document.getElementById('addbag').disabled=strand.length<4;
   document.getElementById('note').style.opacity=(strand.length&&strand.length<3)?1:0;
 
