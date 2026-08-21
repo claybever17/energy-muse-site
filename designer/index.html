@@ -266,80 +266,131 @@ var STONES=[
 
 /* The Energy Muse rondelle.
 
-   A rondelle is a flat washer-shaped spacer. Theirs is copper with ENERGY MUSE
-   stamped round the rim, and they want one on every bracelet by default. There
-   is no product photo cut out for it yet, so it is drawn here instead: an
-   annulus with a lit bevel and the name curved round the ring. Drawn rather
-   than shipped as a PNG so it stays sharp at any device pixel ratio, and so it
-   can be re-tuned without a round trip to a photo.
+   A rondelle is a spacer that strings like a bead. Theirs is a short copper
+   barrel with ENERGY MUSE stamped round its waist, and they want one on every
+   bracelet by default. There is no product photo cut out for it yet, so it is
+   drawn here instead, from their own photographs. Drawn rather than shipped as
+   a PNG so it stays sharp at any device pixel ratio, and so it can be re-tuned
+   without a round trip to a photo.
 
    Priced at 0 — included, on Clay's word, not sold as an extra bead. */
 var RONDELLE_ID='em-rondelle';
 function drawRondelle(px){
   var c=document.createElement('canvas'); c.width=c.height=px;
   var g=c.getContext('2d');
-  var cx=px/2, cy=px*0.505;
-  var rx=px*0.40, ry=rx*0.72;        /* an easy tilt — it sits with the beads, not flat */
-  var th=rx*0.30;                     /* the washer's thickness */
-  var hx=rx*0.33, hy=hx*0.72;
+  var cx=px/2, cy=px/2;
 
-  function ell(x,y,a,b,s,e,cc){ g.beginPath(); g.ellipse(x,y,a,b,0,s===undefined?0:s,e===undefined?Math.PI*2:e,!!cc); }
+  /* Geometry read off Energy Muse's own photographs. The cord runs through the
+     AXIS, so on the strand this is a short copper BARREL seen from the side —
+     narrow in the cord's direction, tall across it, with ENERGY MUSE cut round
+     its waist. About 0.58 as wide as it is tall, a shade shorter than an 8mm
+     bead, and there is no hole to see: straight on, the barrel hides its bore.
 
-  /* ---- the rim: the band of metal you see below the top face ---- */
-  g.beginPath();
-  g.ellipse(cx,cy+th,rx,ry,0,0,Math.PI);
-  g.lineTo(cx-rx,cy);
-  g.ellipse(cx,cy,rx,ry,0,Math.PI,0,true);
-  g.closePath();
-  var rim=g.createLinearGradient(cx-rx,0,cx+rx,0);
-  rim.addColorStop(0,'#4A2B13'); rim.addColorStop(.16,'#8A5730');
-  rim.addColorStop(.40,'#C9905C'); rim.addColorStop(.54,'#E7B98C');
-  rim.addColorStop(.70,'#B87A4B'); rim.addColorStop(.88,'#7A4926');
-  rim.addColorStop(1,'#3E240F');
-  g.fillStyle=rim; g.fill();
+     It is ONE plain cylinder. An earlier pass turned the middle down between
+     two raised flanges, and that shoulder is the whole difference between a
+     spacer bead and a cotton reel. The ends are not proud of the waist — they
+     simply darken as the metal turns away toward the hole.
 
-  /* turned-metal tooling: fine vertical lines round the rim. This is where the
-     ENERGY MUSE stamp sits on the real bead. Eleven characters wrapped round a
-     foreshortened edge cannot be read at bead size — they came out as jumble —
-     so the rim carries the machining instead, which is what the stamp reads as
-     at wrist distance anyway. */
+     Sized against the bead it sits beside, not against the sprite square: a
+     bead PNG fills 0.953 of its own square, and their photographs put the
+     rondelle at 0.853 of a bead, so 2*rF = 0.813 of the square. */
+  var rF    = px*0.407;        /* half the height, across the cord */
+  var halfW = px*0.236;        /* half the length, along the cord */
+  var cr    = px*0.060;        /* the corners are broken, not sharp */
+
+  function barrel(){
+    var x=cx-halfW, y=cy-rF, w=halfW*2, h=rF*2;
+    g.beginPath();
+    g.moveTo(x+cr,y); g.lineTo(x+w-cr,y); g.quadraticCurveTo(x+w,y,x+w,y+cr);
+    g.lineTo(x+w,y+h-cr); g.quadraticCurveTo(x+w,y+h,x+w-cr,y+h);
+    g.lineTo(x+cr,y+h);   g.quadraticCurveTo(x,y+h,x,y+h-cr);
+    g.lineTo(x,y+cr);     g.quadraticCurveTo(x,y,x+cr,y);
+    g.closePath();
+  }
+
+  /* the cylinder curves top-to-bottom as we see it, so the shading runs
+     vertically: dark at both silhouette edges, one hot band a third down
+     where the light wraps over the crown */
+  barrel();
+  var cyl=g.createLinearGradient(0,cy-rF,0,cy+rF);
+  cyl.addColorStop(0,   '#2C1507');
+  cyl.addColorStop(.10, '#5C3317');
+  cyl.addColorStop(.26, '#A76D40');
+  cyl.addColorStop(.37, '#D09E6F');
+  cyl.addColorStop(.48, '#AC7446');
+  cyl.addColorStop(.68, '#784625');
+  cyl.addColorStop(.86, '#48270E');
+  cyl.addColorStop(1,   '#291306');
+  g.fillStyle=cyl; g.fill();
+
+  g.save(); barrel(); g.clip();
+
+  /* the ends: the metal rolls off toward the bore and goes into shadow, with a
+     thin lit line right on the broken edge. This is what the photographs show
+     at each side of the lettering — shadow, not a raised collar. */
+  var ends=g.createLinearGradient(cx-halfW,0,cx+halfW,0);
+  ends.addColorStop(0,   'rgba(30,15,5,.70)');
+  ends.addColorStop(.085,'rgba(36,18,6,.34)');
+  ends.addColorStop(.24, 'rgba(36,18,6,0)');
+  ends.addColorStop(.76, 'rgba(36,18,6,0)');
+  ends.addColorStop(.915,'rgba(36,18,6,.34)');
+  ends.addColorStop(1,   'rgba(30,15,5,.66)');
+  g.fillStyle=ends; g.fillRect(cx-halfW,cy-rF,halfW*2,rF*2);
+  [cx-halfW+px*0.021, cx+halfW-px*0.021].forEach(function(ex){
+    var lg=g.createLinearGradient(0,cy-rF,0,cy+rF);
+    lg.addColorStop(0,'rgba(255,222,182,0)');
+    lg.addColorStop(.34,'rgba(255,230,196,.26)');
+    lg.addColorStop(.62,'rgba(255,222,182,.10)');
+    lg.addColorStop(1,'rgba(255,222,182,0)');
+    g.strokeStyle=lg; g.lineWidth=px*0.013;
+    g.beginPath(); g.moveTo(ex,cy-rF); g.lineTo(ex,cy+rF); g.stroke();
+  });
+
+  /* sheen across the crown, and the warm bounce off the bottom */
+  var sp=g.createLinearGradient(0,cy-rF*0.66,0,cy-rF*0.02);
+  sp.addColorStop(0,'rgba(255,240,220,0)');
+  sp.addColorStop(.48,'rgba(255,241,220,.21)');
+  sp.addColorStop(1,'rgba(255,240,220,0)');
+  g.fillStyle=sp; g.fillRect(cx-halfW,cy-rF,halfW*2,rF*2);
+  var bo=g.createLinearGradient(0,cy+rF*0.52,0,cy+rF);
+  bo.addColorStop(0,'rgba(190,116,64,0)'); bo.addColorStop(1,'rgba(190,116,64,.28)');
+  g.fillStyle=bo; g.fillRect(cx-halfW,cy-rF,halfW*2,rF*2);
+
+  /* THE STAMP, last: a cut stays dark through a highlight rather than being
+     polished away by it. "ENERGY MUSE" is cut round the waist, so on the near
+     face we see three or four letters at a time, lying on their side and
+     squeezing together as the surface turns away above and below. Twelve
+     characters round the full circumference is what the photographs show. */
   g.save();
-  g.beginPath();
-  g.ellipse(cx,cy+th,rx,ry,0,0,Math.PI);
-  g.lineTo(cx-rx,cy);
-  g.ellipse(cx,cy,rx,ry,0,Math.PI,0,true);
-  g.closePath(); g.clip();
-  for(var i=-26;i<=26;i++){
-    var t=i/26, x=cx+t*rx;
-    var fade=Math.max(0,1-Math.abs(t));
-    g.beginPath(); g.moveTo(x,cy-ry); g.lineTo(x,cy+ry+th);
-    g.strokeStyle='rgba(58,32,14,'+(0.16*fade).toFixed(3)+')';
-    g.lineWidth=px*0.006; g.stroke();
+  g.beginPath(); g.rect(cx-halfW*0.70, cy-rF, halfW*1.40, rF*2); g.clip();
+  var txt='ENERGY MUSE ', step=(Math.PI*2)/txt.length;
+  g.textAlign='center'; g.textBaseline='middle';
+  g.font='700 '+(px*0.156).toFixed(1)+'px "Instrument Sans",-apple-system,system-ui,sans-serif';
+  for(var i=0;i<txt.length;i++){
+    var th=((i*step+Math.PI)%(Math.PI*2))-Math.PI;   /* only the near face */
+    if(Math.abs(th)>1.30) continue;
+    var ch=txt.charAt(i); if(ch===' ') continue;
+    var k=Math.cos(th);                              /* foreshortening */
+    g.save();
+    g.translate(cx, cy-rF*0.86*Math.sin(th));
+    g.rotate(-Math.PI/2);                            /* tops point along the cord */
+    g.scale(k,1);                                    /* squeeze toward the edges */
+    g.fillStyle='rgba(43,21,7,'+(0.40+0.46*k).toFixed(3)+')';
+    g.fillText(ch,0,0);
+    g.fillStyle='rgba(255,226,190,'+(0.05+0.15*k).toFixed(3)+')';
+    g.fillText(ch,px*0.007,0);                       /* the lit lower wall of the cut */
+    g.restore();
   }
   g.restore();
 
-  /* ---- the top face ---- */
-  ell(cx,cy,rx,ry);
-  var top=g.createLinearGradient(cx-rx*0.6,cy-ry,cx+rx*0.6,cy+ry);
-  top.addColorStop(0,'#F0C097'); top.addColorStop(.30,'#D09A66');
-  top.addColorStop(.62,'#A96B3E'); top.addColorStop(1,'#7B4A26');
-  g.fillStyle=top; g.fill();
+  g.restore();
 
-  /* a lit edge along the top-left of the face, the way the stone beads catch light */
-  ell(cx,cy,rx*0.985,ry*0.985,Math.PI*1.05,Math.PI*1.95);
-  g.strokeStyle='rgba(255,236,212,.55)'; g.lineWidth=px*0.009; g.stroke();
-
-  /* ---- the bore, punched through so the cord shows ---- */
-  g.save(); g.globalCompositeOperation='destination-out';
-  ell(cx,cy,hx,hy); g.fill(); g.restore();
-  ell(cx,cy,hx*1.05,hy*1.05,0,Math.PI);
-  g.strokeStyle='rgba(44,24,10,.55)'; g.lineWidth=px*0.018; g.stroke();
-  ell(cx,cy,hx*1.05,hy*1.05,Math.PI,0);
-  g.strokeStyle='rgba(255,224,190,.34)'; g.lineWidth=px*0.010; g.stroke();
+  /* a hair of a dark edge so it separates from the stone either side */
+  barrel(); g.strokeStyle='rgba(36,18,6,.42)'; g.lineWidth=px*0.008; g.stroke();
   return c;
 }
 STONES.push({id:RONDELLE_ID, name:'Energy Muse rondelle', intent:'*', price:0,
-             fixed:true, img:drawRondelle(256)});
+             fixed:true, tangent:true, img:drawRondelle(256)});
 
 /* Repaint when a stone finishes decoding. Without this, a bead tapped before
    its PNG arrived was skipped by the paint pass and — because the canvas only
@@ -593,7 +644,13 @@ function draw(ts){
     ctx.globalAlpha=lit?.85:.7;
     ctx.drawImage(SHADOW,x-sh/2,y-sh/2+d*0.14,sh,sh);
     ctx.restore();
-    ctx.drawImage(s.img,x-d/2,y-d/2,d,d);
+    if(s.tangent){
+      /* the barrel is drawn lying along +x; on the strand it has to lie along
+         the tangent, or it reads as a barrel at the top of the ring and a
+         squashed brick at the sides */
+      ctx.save(); ctx.translate(x,y); ctx.rotate(a+Math.PI/2);
+      ctx.drawImage(s.img,-d/2,-d/2,d,d); ctx.restore();
+    }else ctx.drawImage(s.img,x-d/2,y-d/2,d,d);
   }
   requestAnimationFrame(draw);
 }
