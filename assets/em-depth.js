@@ -88,7 +88,11 @@ function boot(){
   document.head.appendChild(st);
 
   /* --- decide what may be lifted: it must own an opaque surface --- */
-  var LIFT='.card,.int,.gem,.prod,.panel,.vcol,.way,.tile,.pcard';
+  /* .fcard .jcard .mkc are the card classes the copy-rewrite pages use. Without
+     them those pages loaded this file and lifted nothing — /jewelry/ has eight
+     product cut-outs and grounded none of them, while the same cut-outs sat
+     properly on the pages whose class names happened to be in this list. */
+  var LIFT='.card,.int,.gem,.prod,.panel,.vcol,.way,.tile,.pcard,.fcard,.jcard,.mkc';
   var HIGH='.t3d,.figure,.shot';
   function opaque(el){
     var cs=getComputedStyle(el);
