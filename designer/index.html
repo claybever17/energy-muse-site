@@ -658,9 +658,15 @@ requestAnimationFrame(draw);
 
 /* ---------- pointer: drag to rearrange, drag out to remove ---------- */
 function pos(e){var r=cv.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top];}
+/* Fixed pieces are not pickable. The rondelle is included on every bracelet
+   and is not the wearer's to take off, so it must never answer a hit test —
+   hover, pointerdown and drag-out all come through here, so refusing it once
+   here means it cannot be grabbed, cannot be reordered, cannot be flung off
+   the ring, and never shows the grab cursor that would invite the attempt. */
 function nearest(x,y){
   var cx=W/2,cy=H/2,R=radius(),n=strand.length,bp=beadPx(),best=-1,bd=bp*0.75;
   for(var i=0;i<n;i++){
+    var st=byId(strand[i]); if(st&&st.fixed) continue;
     var a=angleOf(i,n)+spin;
     var dx=x-(cx+Math.cos(a)*R), dy=y-(cy+Math.sin(a)*R);
     var d=Math.sqrt(dx*dx+dy*dy);
@@ -752,9 +758,10 @@ document.getElementById('compose').addEventListener('click',function(){
   toast('A '+label.toLowerCase()+' strand — adjust it however you like');
   sync();
 });
-/* One rondelle, always, wherever the wearer has dragged it to. It is a normal
-   strand entry so it can be moved like any other bead; this only guarantees
-   there is exactly one, and puts it at the clasp point when there is none. */
+/* One rondelle, always. It is a normal strand entry so the arithmetic, the
+   spacing and the reordering of its neighbours all treat it as a bead, but it
+   is marked fixed and so cannot be picked up — see nearest(). This guarantees
+   there is exactly one and puts it at the clasp point when there is none. */
 function ensureRondelle(){
   var at=strand.indexOf(RONDELLE_ID);
   if(at<0){ strand.splice(Math.floor(strand.length/2),0,RONDELLE_ID); }
