@@ -277,38 +277,65 @@ var STONES=[
 var RONDELLE_ID='em-rondelle';
 function drawRondelle(px){
   var c=document.createElement('canvas'); c.width=c.height=px;
-  var g=c.getContext('2d'), R=px/2, ro=px*0.46, ri=px*0.17;
+  var g=c.getContext('2d');
+  var cx=px/2, cy=px*0.505;
+  var rx=px*0.40, ry=rx*0.72;        /* an easy tilt — it sits with the beads, not flat */
+  var th=rx*0.30;                     /* the washer's thickness */
+  var hx=rx*0.33, hy=hx*0.72;
 
-  /* the body: copper, lit from upper-left the way the stone beads are */
-  var body=g.createRadialGradient(R-ro*0.34,R-ro*0.34,ro*0.10,R,R,ro);
-  body.addColorStop(0,'#E0A874'); body.addColorStop(0.42,'#B97845');
-  body.addColorStop(0.78,'#8E5730'); body.addColorStop(1,'#6E4224');
-  g.beginPath(); g.arc(R,R,ro,0,Math.PI*2); g.fillStyle=body; g.fill();
+  function ell(x,y,a,b,s,e,cc){ g.beginPath(); g.ellipse(x,y,a,b,0,s===undefined?0:s,e===undefined?Math.PI*2:e,!!cc); }
 
-  /* a rim so it reads as a disc with thickness rather than a flat circle */
-  g.beginPath(); g.arc(R,R,ro*0.985,0,Math.PI*2);
-  g.strokeStyle='rgba(255,226,196,.34)'; g.lineWidth=px*0.012; g.stroke();
+  /* ---- the rim: the band of metal you see below the top face ---- */
+  g.beginPath();
+  g.ellipse(cx,cy+th,rx,ry,0,0,Math.PI);
+  g.lineTo(cx-rx,cy);
+  g.ellipse(cx,cy,rx,ry,0,Math.PI,0,true);
+  g.closePath();
+  var rim=g.createLinearGradient(cx-rx,0,cx+rx,0);
+  rim.addColorStop(0,'#4A2B13'); rim.addColorStop(.16,'#8A5730');
+  rim.addColorStop(.40,'#C9905C'); rim.addColorStop(.54,'#E7B98C');
+  rim.addColorStop(.70,'#B87A4B'); rim.addColorStop(.88,'#7A4926');
+  rim.addColorStop(1,'#3E240F');
+  g.fillStyle=rim; g.fill();
 
-  /* ENERGY MUSE, curved round the ring */
-  var txt='ENERGY MUSE', rad=ro*0.70;
-  g.save(); g.translate(R,R); g.rotate(-Math.PI/2 - (txt.length-1)*0.108);
-  g.font='600 '+(px*0.088).toFixed(1)+'px "Instrument Sans",system-ui,sans-serif';
-  g.textAlign='center'; g.textBaseline='middle';
-  for(var i=0;i<txt.length;i++){
-    g.save(); g.rotate(i*0.216); g.translate(0,-rad); g.rotate(Math.PI);
-    g.fillStyle='rgba(58,32,14,.62)'; g.fillText(txt[i],0,0);
-    g.restore();
+  /* turned-metal tooling: fine vertical lines round the rim. This is where the
+     ENERGY MUSE stamp sits on the real bead. Eleven characters wrapped round a
+     foreshortened edge cannot be read at bead size — they came out as jumble —
+     so the rim carries the machining instead, which is what the stamp reads as
+     at wrist distance anyway. */
+  g.save();
+  g.beginPath();
+  g.ellipse(cx,cy+th,rx,ry,0,0,Math.PI);
+  g.lineTo(cx-rx,cy);
+  g.ellipse(cx,cy,rx,ry,0,Math.PI,0,true);
+  g.closePath(); g.clip();
+  for(var i=-26;i<=26;i++){
+    var t=i/26, x=cx+t*rx;
+    var fade=Math.max(0,1-Math.abs(t));
+    g.beginPath(); g.moveTo(x,cy-ry); g.lineTo(x,cy+ry+th);
+    g.strokeStyle='rgba(58,32,14,'+(0.16*fade).toFixed(3)+')';
+    g.lineWidth=px*0.006; g.stroke();
   }
   g.restore();
 
-  /* the hole, with the cord shadow inside it */
-  var hole=g.createRadialGradient(R,R,ri*0.2,R,R,ri);
-  hole.addColorStop(0,'#2A1A0E'); hole.addColorStop(1,'#4A2E19');
-  g.globalCompositeOperation='destination-out';
-  g.beginPath(); g.arc(R,R,ri,0,Math.PI*2); g.fill();
-  g.globalCompositeOperation='source-over';
-  g.beginPath(); g.arc(R,R,ri*1.06,0,Math.PI*2);
-  g.strokeStyle='rgba(58,32,14,.5)'; g.lineWidth=px*0.02; g.stroke();
+  /* ---- the top face ---- */
+  ell(cx,cy,rx,ry);
+  var top=g.createLinearGradient(cx-rx*0.6,cy-ry,cx+rx*0.6,cy+ry);
+  top.addColorStop(0,'#F0C097'); top.addColorStop(.30,'#D09A66');
+  top.addColorStop(.62,'#A96B3E'); top.addColorStop(1,'#7B4A26');
+  g.fillStyle=top; g.fill();
+
+  /* a lit edge along the top-left of the face, the way the stone beads catch light */
+  ell(cx,cy,rx*0.985,ry*0.985,Math.PI*1.05,Math.PI*1.95);
+  g.strokeStyle='rgba(255,236,212,.55)'; g.lineWidth=px*0.009; g.stroke();
+
+  /* ---- the bore, punched through so the cord shows ---- */
+  g.save(); g.globalCompositeOperation='destination-out';
+  ell(cx,cy,hx,hy); g.fill(); g.restore();
+  ell(cx,cy,hx*1.05,hy*1.05,0,Math.PI);
+  g.strokeStyle='rgba(44,24,10,.55)'; g.lineWidth=px*0.018; g.stroke();
+  ell(cx,cy,hx*1.05,hy*1.05,Math.PI,0);
+  g.strokeStyle='rgba(255,224,190,.34)'; g.lineWidth=px*0.010; g.stroke();
   return c;
 }
 STONES.push({id:RONDELLE_ID, name:'Energy Muse rondelle', intent:'*', price:0,
