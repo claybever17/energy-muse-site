@@ -118,11 +118,12 @@ p{margin:0;}
   + .section:not(.band):not(.freq):not(.final-cta):not(.email){
   padding-top:calc(var(--step) * .42);
 }
-/* .final-cta is --tint and .email is a cream three RGB values away from it, so
-   the rule above does not see them as the same ground — and the eye does. That
-   left 154px of pad meeting 154px of pad under the closing headline, which is
-   most of why that section read as empty. Close the seam and trim the tail. */
-.final-cta{padding-bottom:calc(var(--step) * .46);}
+/* The same seam problem, twice more, between grounds that differ by a shade
+   rather than by a colour: cream into --tint into a second cream. Each of
+   those boundaries was stacking two full measures — 308px of nothing under
+   the testimonials, and again under the closing headline. A tint change that
+   subtle does not need a third of a screen to announce itself. */
+.final-cta{padding-block:calc(var(--step) * .52) calc(var(--step) * .46);}
 .section.email{padding-top:calc(var(--step) * .46);}
 /* Short blocks even their lines rather than filling each one and orphaning
    whatever is left over. It cannot stop a sentence breaking, but it stops
