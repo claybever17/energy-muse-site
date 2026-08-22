@@ -99,6 +99,31 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper)}
   text-transform:uppercase;font-weight:600;color:var(--stone);padding:10px 14px}
 .qback:hover{color:var(--copper)}
 .reassure{margin-top:26px;font-size:12.5px;letter-spacing:.05em;color:var(--stone)}
+/* ===== the practice, and what completes it ===== */
+.res-practice{margin-top:clamp(34px,5vw,56px);text-align:left;max-width:640px;margin-left:auto;margin-right:auto}
+.res-practice h2,.res-also h2{font-family:var(--serif);font-weight:300;font-size:clamp(22px,2.6vw,30px);
+  letter-spacing:-.02em;text-align:center}
+.pr-sub{font-size:14.5px;color:var(--stone);text-align:center;margin-top:7px}
+.pr-steps{list-style:none;counter-reset:pr;margin-top:26px;display:grid;gap:16px}
+.pr-steps li{counter-increment:pr;position:relative;padding-left:50px;font-size:16px;
+  line-height:1.6;color:var(--ink-soft);text-align:left}
+.pr-steps li::before{content:counter(pr);position:absolute;left:0;top:-2px;width:32px;height:32px;
+  display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;
+  font-family:var(--serif);font-size:15px;color:var(--copper)}
+.res-also{margin-top:clamp(34px,5vw,56px)}
+.also-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px;
+  max-width:640px;margin-left:auto;margin-right:auto}
+.also{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:center;text-decoration:none;
+  color:inherit;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:12px 14px;
+  transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.also:hover{transform:translateY(-3px);border-color:var(--copper)}
+.also .im{width:64px;height:64px;border-radius:5px;background:var(--bg);display:grid;place-items:center;padding:7%}
+.also .im img{width:100%;height:100%;object-fit:contain}
+.also>span:last-child{text-align:left}
+.also b{display:block;font-size:13.5px;line-height:1.3;text-align:left}
+.also span span{display:block;font-family:var(--serif);font-size:15px;color:var(--copper);margin-top:4px;text-align:left}
+@media (max-width:560px){.also-grid{grid-template-columns:1fr}}
+
 /* ===== result ===== */
 .res-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:38px auto 0;max-width:820px}
 .rcard{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;padding:24px 18px 22px;
@@ -156,7 +181,10 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper)}
 /* typographic hygiene: no orphan words on wrapped lines */
 p{text-wrap:pretty;}
 .lead,.head p{text-wrap:balance;}
-</style></head><body>
+</style><!-- data before consumers: both are read by the result screen -->
+<script src="/assets/em-frequencies.js?v=2"></script>
+<script src="/assets/em-catalog.js?v=1"></script>
+</head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
     <g><path fill="var(--logo-body,#152445)" d="M189.69,194.19c-31.47,34.37-81.82,42.71-122.32,21.22-27.62-14.65-46.73-41.52-52.64-69.96-7.48-36.05,4.02-73.41,32.42-99.17,21.07-19.11,47.83-27.9,76.41-25.64,20.11,1.59,39.11,9.16,54.56,21.91,3.46,2.86,6.54,5.38,9.57,8.56,38.14,40.05,39.83,101.74,1.99,143.08ZM77.98,184.32c5.79,7.06,13.04,11.43,22.12,13.24,19.2,3.84,38.84-.55,55.55-10.91,29.03-17.98,42.78-50.33,39.88-84.29-3.17-37.1-31.15-67.2-68.24-72.09-4.79-.63-9.09-.96-14.66.35,20.78,4.81,36.06,16.44,35.82,41.81-.11,11.35-1.96,22.44-9.2,31.49-7.28,9.09-15.29,13.33-25.03,19.07-10.51,6.2-20.7,12.26-30.15,19.94-13.07,10.62-16.61,28.55-6.09,41.39ZM63.38,129.87c4.91-4.01,9.64-7.75,14.76-11.43,11.66-8.38,21.05-14.26,23.07-30.52.17-7.96-2.49-16.33-8.68-22-10.58-9.68-26.8-9.43-37.85.02-27.94,23.93-29.6,71.37-3.11,97.33l-.32-8.07c-.4-10.18,4.14-18.82,12.12-25.33Z"/><path fill="#e0e0e0" d="M77.98,184.32c-10.52-12.84-6.98-30.77,6.09-41.39,9.44-7.68,19.64-13.74,30.15-19.94,9.73-5.74,17.75-9.98,25.03-19.07,7.24-9.05,9.09-20.14,9.2-31.49.25-25.38-15.03-37-35.82-41.81,5.57-1.31,9.86-.98,14.66-.35,37.09,4.89,65.07,34.99,68.24,72.09,2.9,33.96-10.85,66.3-39.88,84.29-16.71,10.36-36.35,14.74-55.55,10.91-9.07-1.81-16.33-6.18-22.12-13.24Z"/><path fill="#44b891" d="M63.38,129.87c-7.98,6.51-12.52,15.15-12.12,25.33l.32,8.07c-26.49-25.96-24.83-73.4,3.11-97.33,11.04-9.46,27.26-9.71,37.85-.02,6.2,5.67,8.85,14.04,8.68,22-2.03,16.26-11.41,22.14-23.07,30.52-5.12,3.68-9.86,7.43-14.76,11.43Z"/></g>
@@ -222,9 +250,24 @@ p{text-wrap:pretty;}
          appear wherever it is. It was the one such page without it. -->
     <p class="res-disc">Frequency generators are not medical devices and are not a substitute for
       healthcare. They are objects for intentional practice and environmental use; experiences vary.</p>
+    <!-- The result used to stop at three products. The approved copy asks for
+         the practice as well: knowing what to buy is not the same as knowing
+         what to do on the first evening. -->
+    <div class="res-practice">
+      <h2>Your three-step practice.</h2>
+      <p class="pr-sub">Small enough to keep. Nothing here needs more than a minute.</p>
+      <ol class="pr-steps" id="r-practice"></ol>
+    </div>
+
+    <div class="res-also" id="r-also-wrap" hidden>
+      <h2>Complete the practice.</h2>
+      <p class="pr-sub">Same intention, different part of the day.</p>
+      <div class="also-grid" id="r-also"></div>
+    </div>
+
     <div class="res-ctas">
-      <a class="btn" href="../gems/">Shop My Match</a>
-      <a class="btn btn-ghost" href="../frequency/">Explore Frequency</a>
+      <a class="btn" href="../shop/">Shop the Full Range</a>
+      <a class="btn btn-ghost" href="../learn/start/">How to Begin</a>
     </div>
     <div class="res-mail">
       <p>Keep your result and receive the next step.</p>
@@ -232,7 +275,9 @@ p{text-wrap:pretty;}
         <input type="email" placeholder="Email address" aria-label="Email address" required>
         <button class="btn" type="submit" id="r-send">Send My Result</button>
       </form>
-      <span class="note">Your recommendation, how-to guidance and a short follow-up. Unsubscribe any time.</span>
+      <span class="note">Your recommendation, how-to guidance and a short follow-up. Unsubscribe any time.<br>
+        <em style="font-style:normal;opacity:.72">Not yet connected to a mailbox &mdash; it confirms in the browser so the flow
+        can be reviewed. Point it at the Energy Muse system before launch.</em></span>
     </div>
     <div class="qnav" style="margin-top:30px"><button class="qback" id="r-again">&larr; Retake the quiz</button></div>
   </section>
@@ -262,27 +307,32 @@ const QUESTIONS=[
   ]},
 ];
 const INTENTS={
-  protection:{name:'Protection',lead:'Stronger boundaries and a steadier center — energy that stays yours.',
+  protection:{practice:['Put the Black Tourmaline at the threshold you cross most — a front door, the edge of a desk.','Keep the malachite where the hard part of the day happens, or carry it into it.','Run 417Hz in the room that takes the most, and leave it running.'],also:['protection-bracelet','healing-ritual-set'],
+    name:'Protection',lead:'Stronger boundaries and a steadier center — energy that stays yours.',
     gems:[{n:'Black Tourmaline',img:'../assets/img/thumbs/protection.jpg',why:'The classic boundary crystal for entries, desks and thresholds.',price:'$8.88'},
           {n:'Malachite Crystal Point',img:'../assets/img/products/malachite.png',why:'A strong, grounding guardian for the space you return to.',price:'$34.88'}],
     gen:{id:'gen-417',n:'417Hz \u2014 Energy Clearing',img:'../assets/img/generators/417.png',
          why:'Energy Clearing — resets a room that has taken on the week.',price:'$99.88'}},
-  abundance:{name:'Abundance',lead:'An open, energetic state — aligned, in motion, ready to receive.',
+  abundance:{practice:['Set the pyrite where plans get made — the desk, the ledger, wherever the work is.','Keep the second stone somewhere you will handle it, not somewhere it will be admired.','Run 528Hz through the working day rather than saving it for a moment.'],also:['infinite-prosperity-bracelet','the-millionaire-mindset-bracelet'],
+    name:'Abundance',lead:'An open, energetic state — aligned, in motion, ready to receive.',
     gems:[{n:'Pyrite Cube',img:'../assets/img/products/wealth.png',why:'Bright, metallic and grounded — kept where plans are made.',price:'$24.88'},
           {n:"Tiger's Eye Diamond",img:'../assets/img/products/power.png',why:'Confidence and grounded strength you can hold.',price:'$39.88'}],
     gen:{id:'gen-528',n:'528Hz \u2014 Accelerates Manifestation',img:'../assets/img/generators/528.png',
          why:'Accelerates Manifestation — for the room where you build.',price:'$99.88'}},
-  love:{name:'Connection',lead:'Heart-opening energy — for yourself, and the people around you.',
+  love:{practice:['Place the rose quartz in the room people actually share, not the one you show visitors.','Keep the rhodochrosite close on the days you would rather not be reached.','Run 639Hz where the household sits together — a kitchen, a dining table.'],also:['rose-quartz-bracelet-3','angel-111'],
+    name:'Connection',lead:'Heart-opening energy — for yourself, and the people around you.',
     gems:[{n:'Rose Quartz Heart',img:'../assets/img/products/rose-heart.png',why:'The classic crystal of gentle affection, carved to hold.',price:'$12.88'},
           {n:'Rhodochrosite Point',img:'../assets/img/products/love.png',why:'A tender rose-banded point for the relationships you nurture.',price:'$48.88'}],
     gen:{id:'gen-639',n:'639Hz \u2014 Emotional Balance',img:'../assets/img/generators/639.png',
          why:'Emotional Balance — a warmer baseline for shared spaces.',price:'$99.88'}},
-  calm:{name:'Calm',lead:'A calmer daily rhythm your nervous system can settle into.',
+  calm:{practice:['Set the geode where your eye lands when you stop — a shelf, a bedside, a windowsill.','Keep the agate point somewhere you can reach without looking for it.','Run 7.83Hz overnight in the room you sleep in, and change nothing else for a fortnight.'],also:['ground-anklet','glow-back-kit'],
+    name:'Calm',lead:'A calmer daily rhythm your nervous system can settle into.',
     gems:[{n:'Agate Geode Slice',img:'../assets/img/thumbs/calm.jpg',why:'Banded, slow-formed agate — a soft visual pause.',price:'$48.88'},
           {n:'Blue Sky Agate Point',img:'../assets/img/products/blue-agate.png',why:'A quiet horizon for desk or bedside.',price:'$48.88'}],
     gen:{id:'gen-7.83',n:'7.83Hz \u2014 Better Sleep',img:'../assets/img/generators/7-83.png',
          why:'Better Sleep — grounding, for the room you unwind in.',price:'$99.88'}},
-  clarity:{name:'Clarity',lead:'Mental clarity, focus and a clear line to your own intuition.',
+  clarity:{practice:['Put the quartz pyramid on the surface you work at, not the one you tidy.','Keep the amethyst slice where the thinking gets stuck.','Run 963Hz while you work, and stop running it when you stop.'],also:['breakthrough-bracelet-1','ultimate-bundle'],
+    name:'Clarity',lead:'Mental clarity, focus and a clear line to your own intuition.',
     gems:[{n:'Clear Quartz Pyramid',img:'../assets/img/products/fresh-start.png',why:'A bright, clean point of focus for beginning again.',price:'$18.88'},
           {n:'Trapiche Amethyst Slice',img:'../assets/img/products/trapiche.png',why:'A rare star-patterned slice for reflection and intuition.',price:'$39.88'}],
     gen:{id:'gen-963',n:'963Hz \u2014 Mental Focus',img:'../assets/img/generators/963.png',
@@ -347,6 +397,28 @@ function renderResult(){
     });
     wrap.appendChild(a);
   });
+
+  /* the practice — what to actually do with the three things above */
+  var pr=document.getElementById('r-practice');
+  if(pr){
+    pr.innerHTML=(it.practice||[]).map(function(t){return '<li>'+t+'</li>';}).join('');
+  }
+
+  /* and what completes it. Read out of em-catalog.js so the name, the price
+     and the photograph are the ones the shop is selling — a quiz that quotes
+     its own prices is a quiz that will eventually quote the wrong one. */
+  var alsoWrap=document.getElementById('r-also-wrap'), alsoEl=document.getElementById('r-also');
+  if(alsoEl&&window.EM_CATALOG){
+    var picks=(it.also||[]).map(function(id){return window.EM_CATALOG.get(id);}).filter(Boolean);
+    if(picks.length){
+      alsoWrap.hidden=false;
+      alsoEl.innerHTML=picks.map(function(pk){
+        return '<a class="also" href="/product/?id='+encodeURIComponent(pk.id)+'">'
+          +'<span class="im"><img src="'+pk.img+'" alt="" loading="lazy"></span>'
+          +'<span><b>'+pk.name+'</b><span>$'+pk.price.toFixed(2)+'</span></span></a>';
+      }).join('');
+    }
+  }
   // Cart ids must match the rest of the site or the same stone lands twice.
   // The shop and intention pages key on the catalog slug (and gen-<hz> for
   // devices); the quiz has no slug field, but its image path carries one.
@@ -380,6 +452,5 @@ document.getElementById('r-form').addEventListener('submit',e=>{
   b.textContent='Saved ✓';b.disabled=true;b.style.opacity=.7; // prototype: no backend yet
 });
 </script>
-<script src="/assets/em-frequencies.js?v=2"></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
 </body></html>
