@@ -408,14 +408,17 @@ const grid=document.getElementById('grid');
 GEMS.forEach(g=>{
   const el=document.createElement('div');el.className='card';
   el.style.setProperty('--glow','#'+g.color.toString(16).padStart(6,'0'));
-  /* The scan thumbnails were rendered against the old dark viewer, so using
+  /* The scan thumbnails were rendered against the old dark viewer and carried
+     that navy plate baked in — a dark rectangle sitting among cut-outs on cream.
+     They are keyed out to transparent PNGs now (*-cut.png). Original JPGs kept.
+     The old note follows: rendered against the old dark viewer, so using
      them full-bleed put black tiles through the grid. Where a clean cut-out
      of the same specimen exists it wins; the one that has none is inset on a
      light card instead of covering the tile. */
   const HAS_CUTOUT={protection:1,wellness:1};
   el.innerHTML=`<span class="chip${g.scan?' live':''}">3D scan</span>
     <div class="tile">${g.scan&&!HAS_CUTOUT[g.slug]
-      ?`<img class="fimg" src="../assets/img/thumbs/${g.slug}.jpg" alt="" loading="lazy">`
+      ?`<img class="fimg" src="../assets/img/thumbs/${g.slug}-cut.png" alt="" loading="lazy">`
       :g.scan
       ?`<img class="pimg" src="../assets/img/products/${g.slug}.png" alt="" loading="lazy">`
       :`<img class="pimg" src="../assets/img/products/${g.slug}.png?v=2" alt="" loading="lazy">`}</div>
@@ -514,7 +517,7 @@ function openViewer(g){
   document.getElementById('vprice').textContent=g.price;
   // views: the scan (or cutout) first, then the audited real photos
   const views=[];
-  if(g.scan)views.push({kind:'scan',thumb:`../assets/img/thumbs/${g.slug}.jpg`});
+  if(g.scan)views.push({kind:'scan',thumb:`../assets/img/thumbs/${g.slug}-cut.png`});
   else views.push({kind:'photo',src:`../assets/img/products/${g.slug}.png`,thumb:`../assets/img/products/${g.slug}.png`});
   (GALLERY[g.slug]||[]).forEach(u=>views.push({kind:'photo',src:imgSize(u,1000),thumb:imgSize(u,160),
     label:'Photograph of the actual product line.'}));
@@ -543,7 +546,7 @@ document.getElementById('vadd').addEventListener('click',()=>{
   if(!currentGem||!window.EMBag)return;
   EMBag.add({id:currentGem.slug,name:currentGem.name,
     price:parseFloat(currentGem.price.replace('$','')),
-    img:currentGem.scan?('/assets/img/thumbs/'+currentGem.slug+'.jpg'):('/assets/img/products/'+currentGem.slug+'.png'),
+    img:currentGem.scan?('/assets/img/thumbs/'+currentGem.slug+'-cut.png'):('/assets/img/products/'+currentGem.slug+'.png'),
     link:'/gems/'});
 });
 
