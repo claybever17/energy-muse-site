@@ -1,6 +1,6 @@
 /* em-header.js — unified site header + footer shared by the inner pages.
    Injects (same pattern as em-bag/em-versions): announcement bar (not on /quiz/),
-   logo-left nav (Start Here · Shop · By Intention · Learn | Search · Bag), a full
+   logo-left nav (Start Here · Shop · By Intention · Learn | Bag), a full
    mobile menu, and a compact footer with the non-medical disclaimer. Light/dark
    palette auto-picked from the page background. Include BEFORE em-bag.js so the
    injected Bag link gets bound by the cart. Root-absolute links work at any depth. */
@@ -100,7 +100,11 @@ function boot(){
     +'<header class="emh-nav"><div class="emh-in">'
     +'<a class="emh-brand" href="/"><svg class="emh-logo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo-hdr"/></svg></a>'
     +'<nav class="emh-links"><a href="/quiz/">Start Here</a><a href="/shop/">Shop</a><a href="/intention/">By Intention</a><a href="/learn/">Learn</a></nav>'
-    +'<div class="emh-utils"><a href="#">Search</a><a href="#" class="bag">Bag (0)</a>'
+    /* Search was <a href="#">, wired to nothing, on every page of the site — a
+       control in the primary nav that silently did nothing when clicked. Gone
+       until there is something to search: product pages will give every item
+       its own URL, and that index is what a real search needs to point at. */
+    +'<div class="emh-utils"><a href="#" class="bag">Bag (0)</a>'
     +'<button class="emh-burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div>'
     +'</div></header>';
   document.body.insertBefore(frag,document.body.firstChild.nextSibling);
