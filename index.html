@@ -849,9 +849,9 @@ body.menu-open{overflow:hidden;}
   animation:fqField 5.6s ease-in-out infinite;}
 @keyframes fqField{0%,100%{opacity:.45}50%{opacity:1}}
 .freq .fq-core{opacity:.5;width:150px;height:150px;margin:-75px 0 0 -75px;filter:blur(12px);}
-.freq .media.live3d img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:6px;
+.freq .media.live3d img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;border-radius:6px;
   box-shadow:var(--shadow-lg);transition:opacity .8s ease;z-index:1;}
-.freq .media.live3d.live img{opacity:0;}
+#freq-poster2{opacity:0;}
 .freq .media.live3d canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block;
   opacity:0;transition:opacity 1.2s ease;z-index:2;}
 .freq .media.live3d.live canvas{opacity:1;}
@@ -1265,7 +1265,6 @@ p{text-wrap:pretty;}
 </style>
 
 
-<script type="importmap">{"imports":{"three":"./assets/three.module.min.js"}}</script>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
@@ -1415,11 +1414,11 @@ p{text-wrap:pretty;}
 </section>
 
 <!-- ===== FREQUENCY (dark) =====
-     The styles and the 3D mount for this have been in the file all along —
-     .freq, .big-num, .mini-wave, .specs, .freq-note, and an IntersectionObserver
-     that streams em-device.js into #freq-canvas — with no markup to hang them
-     on. Dead code since it was written. Copy is the approved "Frequency Tools
-     Feature" module, verbatim. -->
+     Copy is the approved "Frequency Tools Feature" module, verbatim. The
+     readout ticks through all seven and the device follows it — seven real
+     photographs, cross-faded. The WebGL device that used to mount here is
+     gone: it rendered one generic body with no notion of frequency, so it
+     could not follow the readout, and it cost 666KB of three.js to do it. -->
 <section class="section freq" id="freq" aria-label="Frequency generators">
   <div class="wrap split">
     <div class="copy reveal">
@@ -1443,9 +1442,15 @@ p{text-wrap:pretty;}
       <p class="freq-note">The world&rsquo;s most extensive fixed-frequency collection. Not medical
         devices, and not a substitute for healthcare.</p>
     </div>
+    <!-- The readout ticks through all seven, and the device follows it now.
+         It used to hold one fixed image of a copper-bodied 528 while the
+         number counted past it, because this column was selling that copper
+         device — a product that does not exist anywhere in Energy Muse's
+         catalogue. So the front door advertised a fiction AND disagreed with
+         its own readout. Seven real photographs, cross-faded. -->
     <div class="media live3d">
-      <img id="freq-poster" src="assets/img/generator-render.webp" alt="The 528Hz frequency generator in a copper body">
-      <canvas id="freq-canvas" aria-hidden="true"></canvas>
+      <img id="freq-poster" src="assets/img/generators/7-83.png" alt="The 7.83Hz frequency generator">
+      <img id="freq-poster2" alt="" aria-hidden="true">
     </div>
   </div>
 </section>
@@ -2250,11 +2255,32 @@ p{text-wrap:pretty;}
     var hzEl=document.getElementById('freqhz');
     if(!hzEl||!window.EM_FREQ||!window.EM_FREQ.length)return;
     var i=0, sec=document.getElementById('freq'), on=false;
-    /* the readout ticks the range; the poster does NOT follow it any more.
-       That column is the copper 528 feature now, and swapping it through seven
-       plain bodies would have contradicted the thing it is selling. */
-    function paint(){ hzEl.textContent=window.EM_FREQ[i%window.EM_FREQ.length].hz; }
+    /* The poster follows the readout again. It was decoupled when this column
+       sold a copper-bodied 528; that product does not exist, so the reason for
+       holding one fixed image went with it. Cross-faded between two stacked
+       photographs, all seven shot at one angle, so the device re-tunes in
+       place rather than cutting between pictures. */
+    var pa=document.getElementById('freq-poster'), pb=document.getElementById('freq-poster2');
+    var front=pa, back=pb;
+    function src(hz){ return 'assets/img/generators/'+String(hz).replace('.','-')+'.png'; }
+    function paint(){
+      var f=window.EM_FREQ[i%window.EM_FREQ.length];
+      hzEl.textContent=f.hz;
+      if(!pa||!pb)return;
+      var next=src(f.hz);
+      if(front.getAttribute('src')===next)return;
+      back.onload=function(){
+        back.style.opacity='1'; front.style.opacity='0';
+        var t=front; front=back; back=t;
+      };
+      back.alt=''; back.src=next;
+    }
     paint();
+    /* the other six on idle, so the first tick never fades to nothing */
+    (function(){
+      function pre(){ window.EM_FREQ.forEach(function(f){ var im=new Image(); im.src=src(f.hz); }); }
+      if('requestIdleCallback' in window) requestIdleCallback(pre); else setTimeout(pre,1600);
+    })();
     if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
     if('IntersectionObserver' in window && sec){
       new IntersectionObserver(function(e){on=e[0].isIntersecting;},{threshold:.25}).observe(sec);
@@ -2262,16 +2288,10 @@ p{text-wrap:pretty;}
     setInterval(function(){ if(on){i++;paint();} },2600);
   })();
 
-  var freqStage=document.querySelector('.freq .media.live3d'),freqCanvas=document.getElementById('freq-canvas');
-  if(freqStage&&freqCanvas){
-    var fBooted=false;
-    var fio=new IntersectionObserver(function(es){es.forEach(function(e){
-      if(e.isIntersecting&&!fBooted){fBooted=true;fio.disconnect();
-        import('./assets/em-device.js?v=2').then(function(m){
-          if(m.mount(freqCanvas,{zoom:0.9}))golive(freqStage);
-        }).catch(function(){});}});},{rootMargin:'600px'});
-    fio.observe(freqStage);
-  }
+  /* The WebGL generator that used to mount here rendered one generic device
+     with no notion of frequency, so it could never follow the readout — and it
+     cost 666KB of three.js on the front door to say nothing the photographs do
+     not say better. Gone; the seven photographs cycle instead. */
 
 })();
 
