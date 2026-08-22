@@ -3,8 +3,15 @@
 **Read `HANDOFF.md` first** — it is the full project handoff (setup, site map, design
 system, asset pipelines, gotchas, backlog). This file is just the working rules.
 
-Static prototype site, no build step, no framework. Three pages:
-`/` landing · `/generator` 3D device showcase · `/gems` shop (Stone Gallery).
+Static prototype site, no framework. **32 live pages** — a landing, a shop with real
+products throughout (`/shop/`, `/jewelry/`, `/gems/`, `/frequency/`, `/sets/`, `/systems/`),
+one product template serving all 39 products (`/product/?id=`), a Learning Center with four
+guides, the written pages from the copy rewrite, and three interactive tools (`/designer/`
+Atelier, `/box/`, `/home/cascade/` Frequency Room).
+
+There **is** a build step now, but only just: `package.json` exists solely to declare
+`@vercel/functions` for `middleware.js`, the password gate. Deleting both restores a
+zero-build static site.
 
 ## Working rules
 
@@ -20,6 +27,14 @@ Static prototype site, no build step, no framework. Three pages:
   language; the non-medical-device disclaimer stays on device/shop pages.
 - Copy comes from the creative brief PDF (see HANDOFF.md → Source documents); don't
   invent new marketing copy when the brief already has approved language.
+- **Never invent a product.** Every name, price and photograph must exist in Energy Muse's
+  catalogue. A fabricated copper 528 generator at $219.88 reached four live surfaces before it
+  was caught — see HANDOFF.md → Backlog. If you cannot find it on their store, it does not ship.
+- **A dead control is worse than no control.** `<a href="#">Search</a>` sat in the nav of every
+  page for months. Search now injects its own button so it cannot exist without the code behind
+  it. Apply the same test to anything new.
+- **A price lives in one file.** `em-catalog.js` for products, `em-frequencies.js` for the seven
+  frequencies. Never copy a price into markup.
 - three.js r160: `mesh.position` is read-only — `.position.set(...)` only. The shop
   uses ES modules + importmap; the generator uses the UMD build (`assets/three.min.js`).
 - Desktop layout holds to 840px; phone collapse below. Keep the viewport meta on ALL pages.
@@ -28,9 +43,15 @@ Static prototype site, no build step, no framework. Three pages:
 
 ## Deploy
 
+Vercel **is** connected to GitHub now. Pushing to `main` deploys:
+
 ```bash
 git push origin main
-vercel deploy --prod --scope claybever17s-projects
 ```
-(Vercel Git auto-deploy not connected; CLI JSON "next" hints may require running the
-suggested command twice.)
+
+The site is behind a password (`middleware.js`, reading `SITE_PASSWORD` from Vercel's
+environment), so a deployed URL answers `401` until you log in — including paths that do not
+exist, since the gate runs before routing. **A 401 is therefore not proof that a new route
+built.** Delete `middleware.js` and `package.json` to make the site public.
+
+Never push without being asked. Clay says "push".
