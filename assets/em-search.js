@@ -192,7 +192,11 @@
   ].join('');
 
   function boot() {
-    var utils = document.querySelector('.emh-utils');
+    /* .emh-utils is the shared header. .nav-utils is the homepage, which has
+       its own hand-built nav — and which kept a dead href="#" Search long
+       after the shared one was fixed, because the fix only reached pages
+       using the shared header. */
+    var utils = document.querySelector('.emh-utils, .nav-utils');
     if (!utils) return false;
 
     var st = document.createElement('style'); st.textContent = CSS;
@@ -202,6 +206,20 @@
     btn.type = 'button'; btn.className = 'ems-open'; btn.textContent = 'Search';
     btn.setAttribute('aria-label', 'Search Energy Muse');
     utils.insertBefore(btn, utils.firstChild);
+
+    /* the homepage's mobile menu has its own footer row */
+    var foot = document.querySelector('.mobmenu-foot');
+    if (foot) {
+      var mb = document.createElement('button');
+      mb.type = 'button'; mb.className = 'ems-open'; mb.textContent = 'Search';
+      mb.setAttribute('aria-label', 'Search Energy Muse');
+      foot.insertBefore(mb, foot.firstChild);
+      mb.addEventListener('click', function () {
+        var mm = document.getElementById('mobmenu');
+        if (mm) mm.classList.remove('open');
+        open();
+      });
+    }
 
     var wrap = document.createElement('div');
     wrap.className = 'ems-wrap'; wrap.setAttribute('role', 'dialog');

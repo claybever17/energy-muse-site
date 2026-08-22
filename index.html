@@ -1308,7 +1308,9 @@ p{text-wrap:pretty;}
       <a href="quiz/">Start Here</a><a href="shop/">Shop</a><a href="intention/">By Intention</a><a href="learn/">Learn</a>
     </nav>
     <div class="nav-utils">
-      <a href="#">Search</a><a href="#" class="bag">Bag (0)</a>
+      <!-- Search is injected by em-search.js, so the control cannot exist
+           without the code behind it. This was <a href="#">, wired to nothing. -->
+      <a href="#" class="bag">Bag (0)</a>
       <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobmenu">
         <span></span><span></span><span></span>
       </button>
@@ -1332,7 +1334,9 @@ p{text-wrap:pretty;}
     <a href="#veza">Veza</a>
     <a href="#about">About</a>
   </nav>
-  <div class="mobmenu-foot"><a href="#">Search</a><a href="#">Account</a><a href="#" class="bag">Bag (0)</a></div>
+  <!-- Search is injected here too. "Account" was also href="#" and there is
+       no account system to send anyone to, so it is gone rather than dead. -->
+  <div class="mobmenu-foot"><a href="#" class="bag">Bag (0)</a></div>
 </div>
 
 <!-- ===== HERO ===== -->
@@ -1450,7 +1454,7 @@ p{text-wrap:pretty;}
          its own readout. Seven real photographs, cross-faded. -->
     <div class="media live3d">
       <img id="freq-poster" src="assets/img/generators/7-83.png" alt="The 7.83Hz frequency generator">
-      <img id="freq-poster2" alt="" aria-hidden="true">
+      <img id="freq-poster2" src="assets/img/generators/7-83.png" alt="" aria-hidden="true">
     </div>
   </div>
 </section>
@@ -2310,6 +2314,7 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 
 <script src="assets/em-bag.js?v=4" defer></script>
 <script src="assets/em-prices.js?v=2" defer></script>
+<script src="/assets/em-search.js?v=2" defer></script>
 <script src="assets/em-versions.js?v=17" defer></script>
 <script>
 (function(){
