@@ -39,8 +39,9 @@
 .fcard{display:flex;flex-direction:column;border:1px solid var(--hair);border-radius:4px;
   background:var(--surface);padding:16px 16px 18px;
   transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}
-.fcard:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--copper) 42%,transparent);
-  box-shadow:0 14px 30px rgba(61,41,23,.10)}
+/* No lift and no scale. A card that jumps under a cursor crossing it during a
+   scroll reads as a glitch, not as feedback. Colour responds; nothing moves. */
+.fcard:hover{border-color:color-mix(in srgb,var(--copper) 55%,transparent)}
 .fcard .shot{aspect-ratio:1;background:var(--tint);border-radius:3px;display:grid;place-items:center;padding:9%}
 .fcard .shot img{width:100%;height:100%;object-fit:contain}
 .fcard .hz{font-family:var(--serif);font-weight:300;font-size:30px;line-height:1;

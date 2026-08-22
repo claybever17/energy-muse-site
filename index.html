@@ -107,6 +107,17 @@ p{margin:0;}
 .eyebrow{font-family:var(--sans);font-weight:600;font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);}
 .eyebrow.muted{color:var(--stone);}
 .section{padding-block:var(--step);}
+/* Two sections on the SAME ground stack their padding into a void: --step of
+   bottom pad meets --step of top pad — 308px at desktop — with no change of
+   colour to explain any of it. Where the background does change, the change
+   itself reads as the boundary and the full measure is right, which is why
+   this only shows up in the run of four plain sections in the lower half
+   (Small practices -> Everything you need -> Start with one stone -> Real
+   energy). Halve the top pad where the neighbour shares the ground. */
+.section:not(.band):not(.freq):not(.final-cta):not(.email)
+  + .section:not(.band):not(.freq):not(.final-cta):not(.email){
+  padding-top:calc(var(--step) * .42);
+}
 /* Short blocks even their lines rather than filling each one and orphaning
    whatever is left over. It cannot stop a sentence breaking, but it stops
    the break landing in the worst place available. */
@@ -819,12 +830,14 @@ body.menu-open{overflow:hidden;}
 .freq .eyebrow{color:var(--copper-hi);}
 .freq h2{color:var(--navy-text);}
 .freq .copy p{color:var(--navy-soft);}
-.freq .media{background:#070C15;}
+/* No fill. This was #070C15 against a #0B1320 section — near-black, but not
+   the SAME near-black, so it drew a visible rectangle behind a cut-out that
+   should simply float. */
+.freq .media{background:transparent;}
 /* the generator is photographed as a diamond; cover-cropping sliced its
    left and right points, so it is contained within the frame instead */
 .freq .media .t3d{overflow:visible;}
-#freq-poster{object-fit:contain!important;background:#070C15;}
-.freq .media canvas{object-fit:contain;}
+#freq-poster{object-fit:contain!important;background:transparent;}
 
 /* the readout: the number is the product, so it is set like one */
 .freq-hz{font-family:var(--serif);font-weight:300;font-size:clamp(52px,6vw,86px);
@@ -840,22 +853,19 @@ body.menu-open{overflow:hidden;}
 @keyframes signal{to{stroke-dashoffset:-52;}}
 /* live 3D device: no card box — the generator itself floats beside the copy */
 .freq .media.live3d{background:transparent;box-shadow:none;overflow:visible;border-radius:0;aspect-ratio:5/4;}
-/* wavy resonance rings: near-circular with a hint of the device's tilt, born at the coil's
-   edge and spreading outward — organic wobble, like the ripples in the hero photograph */
-.freq .fq-waves{z-index:3;transform:rotate(-8deg) scaleY(.9);}
+/* .fq-waves / .fq-core had no markup on this page at all — the resonance rings
+   were removed long ago and only their rules survived. */
 /* the room responds: a whisper of copper field breathing on the emission cycle */
 .freq .media.live3d::before{content:"";position:absolute;inset:-14%;z-index:0;border-radius:50%;pointer-events:none;
   background:radial-gradient(circle at 50% 47%,color-mix(in srgb,var(--copper) 14%,transparent),transparent 62%);
   animation:fqField 5.6s ease-in-out infinite;}
 @keyframes fqField{0%,100%{opacity:.45}50%{opacity:1}}
-.freq .fq-core{opacity:.5;width:150px;height:150px;margin:-75px 0 0 -75px;filter:blur(12px);}
-.freq .media.live3d img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;border-radius:6px;
-  box-shadow:var(--shadow-lg);transition:opacity .8s ease;z-index:1;}
+/* No radius and no shadow: the generators are cut-outs, and a box-shadow on a
+   transparent image shadows the BOX, not the object — which is what put a
+   panel round the device. */
+.freq .media.live3d img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  transition:opacity .45s ease;z-index:1;}
 #freq-poster2{opacity:0;}
-.freq .media.live3d canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block;
-  opacity:0;transition:opacity 1.2s ease;z-index:2;}
-.freq .media.live3d.live canvas{opacity:1;}
-.freq .media.live3d:hover img{transform:none;}
 .specs{display:flex;gap:12px;margin-top:30px;}
 .spec{padding:16px 20px;flex:1;position:relative;border:1px solid var(--navy-line);border-radius:6px;
   background:linear-gradient(180deg,#14212F,#0D1724);
@@ -876,7 +886,7 @@ body.menu-open{overflow:hidden;}
      full-bleed, visually small. More column, and scaled past its own padding. */
   .freq .split{grid-template-columns:1fr 1fr;}
   .freq .media.live3d{overflow:visible;}
-  .freq .media.live3d img,.freq .media.live3d canvas{transform:scale(1.34);}
+  .freq .media.live3d img{transform:scale(1.34);}
 }
 .freq .btn-ghost{color:var(--navy-text);
   border-color:color-mix(in srgb,var(--navy-text) 38%,transparent);}
@@ -1170,9 +1180,7 @@ footer.site{background:
   .hero h1 .line span{transform:none;}
   .int img{transition:none;}
   .veza-rings,.way .thumb.quiz svg,.foot-mark svg,.foot-mark img,.step .rn svg,.brand .blogo,.gemword,.mini-wave path{animation:none;}
-  .fqw path,.fq-core,.freq .media.live3d::before{animation:none;}
-  .fqw path{opacity:.22;transform:scale(1.5);}
-  .fqw path:nth-child(n+2){display:none;}
+  .freq .media.live3d::before{animation:none;}
   .steps-wave path{transition:none;stroke-dashoffset:0;}
 }
 

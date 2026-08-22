@@ -34,7 +34,7 @@
 .fcell{display:flex;flex-direction:column;border:1px solid var(--hair);border-radius:5px;
   background:var(--surface);overflow:hidden;
   transition:transform .45s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}
-.fcell:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--copper) 45%,transparent)}
+.fcell:hover{border-color:color-mix(in srgb,var(--copper) 55%,transparent)}
 .fcell .shot{aspect-ratio:16/11;background:var(--tint);display:grid;place-items:center;padding:5%}
 .fcell .shot img{width:100%;height:100%;object-fit:contain}
 .fcell .body{padding:24px 26px 26px;display:flex;flex-direction:column;flex:1}
@@ -63,7 +63,9 @@
 .pcard{display:flex;flex-direction:column;border:1px solid var(--hair);border-radius:4px;
   background:var(--surface);padding:14px 16px 18px;
   transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}
-.pcard:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--copper) 42%,transparent)}
+/* no lift on hover — see /frequency/; a card that moves under a scrolling
+   cursor reads as a glitch */
+.pcard:hover{border-color:color-mix(in srgb,var(--copper) 55%,transparent)}
 .pcard .shot{aspect-ratio:1;background:var(--tint);border-radius:3px;display:grid;place-items:center;padding:9%}
 .pcard .shot img{width:100%;height:100%;object-fit:contain}
 .pcard .kind{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.18em;
