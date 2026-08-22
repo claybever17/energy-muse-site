@@ -229,7 +229,15 @@ sells real products throughout.
 6. Localize the remaining **Shopify CDN hotlinks** on `/gems/` via the photo pipeline.
 7. Quiz deep-links / shareable results (`/quiz/?intent=…`).
 8. Vercel project rename + custom domain. The project is called `energy-muse-workingfolder`,
-   after the folder rather than the brand.
+   after the folder rather than the brand. **When the domain changes, the Open Graph tags must
+   change with it** — `og:url` and `og:image` are absolute by necessity and are hardcoded to
+   `https://energy-muse-workingfolder.vercel.app` on all 32 pages. One find-replace, but if it is
+   missed every share card on the site breaks silently:
+
+   ```bash
+   grep -rl 'energy-muse-workingfolder.vercel.app' --include='*.html' . \
+     | xargs sed -i '' 's|https://energy-muse-workingfolder.vercel.app|https://NEW-DOMAIN|g'
+   ```
 
 **A rule this project learned the hard way:** never invent a product. A copper-bodied 528
 generator at $219.88, marked down from $248.88, reached `/frequency/`, `/generator/`, the
