@@ -140,6 +140,8 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(27px,3.4vw,44px);let
 @media (max-width:560px){.gems{grid-template-columns:repeat(3,1fr)}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
+<script src="/assets/em-frequencies.js?v=2"></script>
+<script src="/assets/em-catalog.js?v=3"></script>
 </head>
 <body>
 <div class="wrap">
@@ -207,24 +209,22 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(27px,3.4vw,44px);let
 
 /* the shop's own catalogue and its own categories — inventing a second
    taxonomy here would mean two names for the same crystal on one site */
-var GEMS=[
-  {slug:'protection',  name:'Black Tourmaline',        cat:'Protection',   price:8.88},
-  {slug:'rose-heart',  name:'Rose Quartz Heart',       cat:'Love',         price:12.88},
-  {slug:'merkaba',     name:'Merkaba Star',            cat:'Spirituality', price:14.88},
-  {slug:'fresh-start', name:'Clear Quartz Pyramid',    cat:'Fresh Start',  price:18.88},
-  {slug:'wealth',      name:'Pyrite Cube',             cat:'Wealth',       price:24.88},
-  {slug:'blue-opal',   name:'Blue Opal',               cat:'Wellness',     price:24.88},
-  {slug:'labradorite', name:'Labradorite Stone',       cat:'Power',        price:27.92},
-  {slug:'malachite',   name:'Malachite',               cat:'Protection',   price:34.88},
-  {slug:'spirituality',name:'Amethyst Cluster',        cat:'Spirituality', price:34.88},
-  {slug:'power',       name:"Tiger's Eye Diamond",     cat:'Power',        price:39.88},
-  {slug:'trapiche',    name:'Trapiche Amethyst Slice', cat:'Spirituality', price:39.88},
-  {slug:'love',        name:'Rhodochrosite Point',     cat:'Love',         price:48.88},
-  {slug:'blue-agate',  name:'Blue Sky Agate Point',    cat:'Calm',         price:48.88},
-  {slug:'wellness',    name:'Quantum Quattro',         cat:'Wellness',     price:229.88},
-  {slug:'himalayan',   name:'Himalayan Quartz',        cat:'Fresh Start',  price:399.88}
-];
-var CATS=['All','Protection','Love','Calm','Wealth','Power','Wellness','Spirituality','Fresh Start'];
+/* The stones ARE the catalogue. This page used to carry its own list of
+   fifteen with their own prices and its own nine categories — Love, Wealth,
+   Power, Wellness, Spirituality, Fresh Start — none of which exist anywhere
+   else on the site. A shopper who filtered /gems/ by Abundance arrived here
+   and had to work out that it was called Wealth, and six stones had drifted
+   to different names than the shop sells them under (Merkaba Star for Clear
+   Quartz Merkaba, Blue Opal for Owyhee Blue Opal, and so on). Worst of all,
+   fifteen prices lived in a second file.
+
+   Now: every crystal the shop sells, under the shop's names, at the shop's
+   prices, filed under the same five intentions as everything else. */
+var GEMS=(window.EM_CATALOG?window.EM_CATALOG.all():[])
+  .filter(function(p){return p.cat==='Crystal';})
+  .map(function(p){return {slug:p.id,name:p.name,cat:p.group||'',price:p.price,src:p.img};})
+  .sort(function(x,y){return x.price-y.price;});
+var CATS=['All','Calm','Clarity','Protection','Abundance','Connection'];
 
 /* three boxes, each holding a set number. The bracelet sizer landed on three
    real sizes for the same reason: a control that offers what we make. */
@@ -238,7 +238,7 @@ var slots=[];                       /* filled during paint, read by hit-testing 
 /* ---------- art ---------- */
 GEMS.forEach(function(g){
   g.img=new Image();
-  g.img.src='/assets/img/products/'+g.slug+'.png';
+  g.img.src=g.src;   /* the catalogue knows where each one lives */
   /* repaint when a crystal finishes decoding — the canvas only repaints on
      change, so one tapped before its PNG landed would never be drawn again */
   g.img.addEventListener('load',invalidate);
@@ -452,7 +452,7 @@ function buildGems(){
   GEMS.filter(function(g){return cat==='All'||g.cat===cat;}).forEach(function(g){
     var b=document.createElement('button');
     b.type='button';b.className='gem';
-    b.innerHTML='<img src="/assets/img/products/'+g.slug+'.png" alt="" loading="lazy">'+
+    b.innerHTML='<img src="'+g.src+'" alt="" loading="lazy">'+
       '<span class="n">'+g.name+'</span><span class="p">$'+g.price.toFixed(2)+'</span>';
     b.setAttribute('aria-label','Add '+g.name+', $'+g.price.toFixed(2));
     if(box.length>=boxN)b.disabled=true;
@@ -513,7 +513,7 @@ document.getElementById('addbag').addEventListener('click',function(){
     id:'box-'+sig.toString(36),
     name:(nm||'Crystal box')+' · '+b.label,
     price:Math.round(total()*100)/100,
-    img:lead?'/assets/img/products/'+lead.slug+'.png':'/assets/img/mark.svg',
+    img:lead?lead.src:'/assets/img/mark.svg',
     link:'/box/'
   });
   toast('Added to bag');
@@ -522,8 +522,24 @@ document.getElementById('addbag').addEventListener('click',function(){
 /* ---------- a box is a link ----------
    Same encoding as the Atelier: one character per crystal, so a whole box
    fits in a URL you can text — /box/?s=bdf&b=5&n=For%20Mom */
+/* One character per stone. This was String.fromCharCode(97+i), which is fine
+   for the fifteen stones this page used to carry — a to o — and breaks the
+   moment there are more than twenty-six: stone 27 onwards got {, |, }, ~ and
+   then control characters, none of them safe in a URL. There are forty-two
+   now, so two thirds of the shelf would have produced share links that did not
+   survive being pasted.
+
+   Sixty-four URL-safe characters instead, and the code is assigned in slug
+   order rather than display order — the shelf is sorted by price, and a price
+   change would otherwise silently repoint every link ever shared. */
 var CODE={},FROMCODE={};
-GEMS.forEach(function(g,i){var ch=String.fromCharCode(97+i);CODE[g.slug]=ch;FROMCODE[ch]=g.slug;});
+var ALPHA='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_';
+GEMS.slice().sort(function(a,b){return a.slug<b.slug?-1:a.slug>b.slug?1:0;})
+    .forEach(function(g,i){
+      var ch=ALPHA.charAt(i);
+      if(!ch)return;              /* past 64 stones a link cannot encode it */
+      CODE[g.slug]=ch;FROMCODE[ch]=g.slug;
+    });
 function boxURL(){
   var q='?s='+box.map(function(s){return CODE[s]||'';}).join('')+'&b='+boxN;
   var nm=(document.getElementById('bname').value||'').trim();
