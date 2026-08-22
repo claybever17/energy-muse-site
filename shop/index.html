@@ -150,6 +150,14 @@
   .way:nth-child(even),.way:nth-child(2n){margin-top:0}
   .way .shot{aspect-ratio:5/4}
 }
+
+/* Cards link to the product page now. The anchor replaces what used to be a
+   plain span, so it has to lay out like one — an inline <a> would collapse
+   the image frame the way .shot already did once on the shop's category
+   cards. Colour and underline are inherited so nothing looks like a link
+   inside a card that is already obviously clickable. */
+.plink{display:block;text-decoration:none;color:inherit}
+.plink:focus-visible{outline:2px solid var(--copper);outline-offset:3px;border-radius:3px}
 </style>
 </head><body>
 <main>
@@ -330,9 +338,10 @@
     PICKS.forEach(function(c){
       var el=document.createElement('div');
       el.className='pcard';
-      el.innerHTML='<span class="shot"><img src="'+c.img+'" alt="'+c.n.replace(/&amp;/g,'and')+'" loading="lazy"></span>'
+      var href='/product/?id='+encodeURIComponent(c.id);
+      el.innerHTML='<a class="plink" href="'+href+'"><span class="shot"><img src="'+c.img+'" alt="'+c.n.replace(/&amp;/g,'and')+'" loading="lazy"></span>'
         +'<span class="kind">'+c.kind+'</span>'
-        +'<span class="nm">'+c.n+'</span>'
+        +'<span class="nm">'+c.n+'</span></a>'
         +'<span class="pr">$'+c.p.toFixed(2)+'</span>'
         +'<button class="padd" type="button" data-id="'+c.id+'">Add to Bag</button>';
       host.appendChild(el);

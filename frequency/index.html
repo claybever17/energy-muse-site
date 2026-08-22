@@ -48,6 +48,14 @@
   padding:11px 12px;text-align:center}
 .ftag{display:inline-flex;font:700 9.5px var(--sans);letter-spacing:.2em;text-transform:uppercase;
   color:#fff;background:var(--copper-lo);padding:5px 9px;border-radius:2px;margin-bottom:10px;align-self:flex-start}
+
+/* Cards link to the product page now. The anchor replaces what used to be a
+   plain span, so it has to lay out like one — an inline <a> would collapse
+   the image frame the way .shot already did once on the shop's category
+   cards. Colour and underline are inherited so nothing looks like a link
+   inside a card that is already obviously clickable. */
+.plink{display:block;text-decoration:none;color:inherit}
+.plink:focus-visible{outline:2px solid var(--copper);outline-offset:3px;border-radius:3px}
 </style>
 </head><body>
 <main>
@@ -136,9 +144,10 @@
     el.className='fcard'+(out?' out':'');
     el.innerHTML=
       (c.tag?'<span class="ftag">'+c.tag+'</span>':'')+
+      '<a class="plink" href="/product/?id='+encodeURIComponent(c.id)+'">'+
       '<span class="shot"><img src="'+c.img+'" alt="'+c.hz+'Hz Frequency Generator" loading="lazy"></span>'+
       '<span class="hz">'+c.hz+'<em>Hz</em></span>'+
-      '<span class="nm">'+c.name+'</span>'+
+      '<span class="nm">'+c.name+'</span></a>'+
       '<span class="pu">'+c.purpose.join(' &middot; ')+'</span>'+
       '<span class="pr">$'+c.price.toFixed(2)+'</span>'+
       (out ? '<span class="fsold">Currently unavailable</span>'

@@ -1,0 +1,149 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Energy Muse</title>
+<meta name="description" content="A single product from the Energy Muse collection.">
+<link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
+<link rel="stylesheet" href="/assets/em-page.css?v=2">
+<script src="/assets/em-frequencies.js?v=2"></script>
+<script src="/assets/em-catalog.js?v=1"></script>
+<script src="/assets/em-header.js?v=8" defer></script>
+<script src="/assets/em-bag.js?v=4" defer></script>
+<script src="/assets/em-prices.js?v=2" defer></script>
+<script src="/assets/em-depth.js?v=3" defer></script>
+<script src="/assets/em-versions.js?v=17" defer></script>
+<style>
+/* One product, two columns: the thing on the left, the reason to want it on
+   the right. Everything here is driven by ?id= — there is one of these pages,
+   not thirty-nine. */
+.pdp{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,72px);align-items:start}
+.pshot{position:relative;background:var(--tint);border-radius:6px;aspect-ratio:1;
+  display:grid;place-items:center;padding:7%;overflow:hidden}
+.pshot img{width:100%;height:100%;object-fit:contain}
+/* No mark in here. em-page.css already turns one behind the first section of
+   every page, and a second copy of the same asset a few hundred pixels away
+   read as exactly what it was: the same thing twice, both competing with the
+   product the frame exists to show. */
+.crumb{font-family:var(--sans);font-size:12px;color:var(--stone);margin-bottom:16px}
+.crumb a{color:var(--stone);text-decoration:none}
+.crumb a:hover{color:var(--copper)}
+.pcat{font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--copper);display:block;margin-bottom:10px}
+.pdp h1{font-size:clamp(28px,3.6vw,46px);max-width:16ch}
+.pprice{font-family:var(--serif);font-weight:300;font-size:clamp(26px,2.8vw,34px);
+  color:var(--copper-lo);margin-top:16px}
+.pdesc{font-size:16.5px;color:var(--ink-soft);margin-top:18px;max-width:52ch;line-height:1.62}
+.pbuy{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.bigadd{border:1px solid var(--copper);background:var(--copper);color:#fff;font-family:var(--sans);
+  font-weight:600;font-size:15px;padding:16px 34px;border-radius:3px;cursor:pointer;
+  transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s}
+.bigadd:hover{background:var(--copper-lo);transform:translateY(-2px)}
+.bigadd.done{background:var(--ink);border-color:var(--ink)}
+.soldout{border:1px solid var(--hair);color:var(--stone);font-family:var(--sans);font-weight:600;
+  font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding:16px 26px;border-radius:3px}
+.pfacts{list-style:none;margin-top:30px;border-top:1px solid var(--hair)}
+.pfacts li{display:grid;grid-template-columns:118px 1fr;gap:16px;padding:13px 0;
+  border-bottom:1px solid var(--hair);font-size:14px}
+.pfacts b{font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--stone);align-self:center}
+.pfacts span{color:var(--ink-soft)}
+.rel{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px);margin-top:clamp(26px,3.5vw,40px)}
+.rcard{display:block;text-decoration:none;color:inherit;border:1px solid var(--hair);border-radius:4px;
+  background:var(--surface);padding:13px 14px 16px;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s}
+.rcard:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--copper) 42%,transparent)}
+.rcard .shot{display:block;aspect-ratio:1;background:var(--tint);border-radius:3px;padding:9%}
+.rcard .shot img{width:100%;height:100%;object-fit:contain}
+.rcard .n{display:block;font-family:var(--sans);font-weight:600;font-size:13px;line-height:1.3;
+  margin-top:11px;color:var(--ink)}
+.rcard .p{display:block;font-family:var(--serif);font-size:16px;color:var(--copper-lo);margin-top:5px}
+.missing{text-align:center;padding:clamp(40px,8vw,90px) 0}
+
+@media (max-width:1000px){.rel{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:860px){.pdp{grid-template-columns:1fr;gap:26px}}
+@media (max-width:640px){.rel{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head><body>
+<main>
+<section class="sect">
+  <div class="wrap" id="pdp"></div>
+</section>
+<section class="sect tint" id="relwrap" hidden>
+  <div class="wrap">
+    <h2>Goes with this.</h2>
+    <div class="rel" id="rel"></div>
+  </div>
+</section>
+</main>
+<script>
+(function(){
+  var C = window.EM_CATALOG;
+  var host = document.getElementById('pdp');
+  var id = new URLSearchParams(location.search).get('id') || '';
+  var p = C && C.get(id);
+
+  if (!p) {
+    /* An unknown id is a normal thing to hit — a stale link, a typo, a product
+       retired. Say so and offer the way on, rather than rendering an empty
+       shell that looks broken. */
+    host.innerHTML = '<div class="missing"><span class="pcat">Not found</span>'
+      + '<h1>We couldn&rsquo;t find that one.</h1>'
+      + '<p class="lead" style="margin-left:auto;margin-right:auto">It may have been retired, or the '
+      + 'link may have picked up a typo along the way.</p>'
+      + '<div class="cta-row" style="justify-content:center">'
+      + '<a class="btn btn-copper" href="/shop/">Back to the Shop</a>'
+      + '<a class="btn btn-ghost" href="/quiz/">Find My Energy Match</a></div></div>';
+    return;
+  }
+
+  document.title = 'Energy Muse — ' + p.name;
+  var md = document.querySelector('meta[name="description"]');
+  if (md) md.setAttribute('content', p.desc || p.name);
+
+  var out = (p.stock === 'out');
+  var facts = [];
+  if (p.group) facts.push(['Intention', p.group]);
+  facts.push(['Category', p.cat]);
+  if (p.scan) facts.push(['See it in 3D', '<a href="/gems/" style="color:var(--copper)">Open the crystal viewer &rarr;</a>']);
+  if (p.cat === 'Frequency') facts.push(['Tuned to', p.name.replace(' Frequency Generator', '') + ', and left there']);
+
+  host.innerHTML =
+    '<div class="pdp">'
+    + '<div><div class="pshot"><img src="' + p.img + '" alt="' + p.name.replace(/"/g,'') + '"></div></div>'
+    + '<div>'
+    + '<p class="crumb"><a href="/shop/">Shop</a> &nbsp;/&nbsp; <a href="' + p.home + '">' + p.cat + '</a></p>'
+    + '<span class="pcat">' + (p.group || p.cat) + '</span>'
+    + '<h1>' + p.name + '</h1>'
+    + '<div class="pprice">$' + p.price.toFixed(2) + '</div>'
+    + '<p class="pdesc">' + (p.desc || '') + '</p>'
+    + '<div class="pbuy">'
+    + (out ? '<span class="soldout">Currently unavailable</span>'
+           : '<button class="bigadd" id="bigadd" type="button">Add to Bag</button>')
+    + '<a class="btn btn-ghost" href="' + p.home + '">See all ' + p.cat.toLowerCase() + '</a>'
+    + '</div>'
+    + '<ul class="pfacts">' + facts.map(function(f){
+        return '<li><b>' + f[0] + '</b><span>' + f[1] + '</span></li>'; }).join('') + '</ul>'
+    + '</div></div>';
+
+  var add = document.getElementById('bigadd');
+  if (add) add.addEventListener('click', function(){
+    if (!window.EMBag) return;
+    EMBag.add({ id: p.id, name: p.name, price: p.price, img: p.img,
+                link: '/product/?id=' + p.id });
+    add.textContent = 'Added to bag'; add.classList.add('done');
+    setTimeout(function(){ add.textContent = 'Add to Bag'; add.classList.remove('done'); }, 1600);
+  });
+
+  var rel = C.related(p.id, 4);
+  if (rel.length) {
+    document.getElementById('relwrap').hidden = false;
+    document.getElementById('rel').innerHTML = rel.map(function(r){
+      return '<a class="rcard" href="/product/?id=' + r.id + '">'
+        + '<span class="shot"><img src="' + r.img + '" alt="" loading="lazy"></span>'
+        + '<span class="n">' + r.name + '</span>'
+        + '<span class="p">$' + r.price.toFixed(2) + '</span></a>';
+    }).join('');
+  }
+})();
+</script>
+</body></html>

@@ -41,6 +41,14 @@
 
 @media (max-width:1000px){.pgrid{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:760px){.pgrid{grid-template-columns:repeat(2,1fr)}.mk{grid-template-columns:1fr}}
+
+/* Cards link to the product page now. The anchor replaces what used to be a
+   plain span, so it has to lay out like one — an inline <a> would collapse
+   the image frame the way .shot already did once on the shop's category
+   cards. Colour and underline are inherited so nothing looks like a link
+   inside a card that is already obviously clickable. */
+.plink{display:block;text-decoration:none;color:inherit}
+.plink:focus-visible{outline:2px solid var(--copper);outline-offset:3px;border-radius:3px}
 </style>
 </head><body>
 <main>
@@ -137,8 +145,9 @@
   var host=document.getElementById('kitgrid');
   KITS.forEach(function(c){
     var el=document.createElement('div'); el.className='pcard';
-    el.innerHTML='<span class="shot"><img src="'+c.img+'" alt="'+c.n.replace(/"/g,'')+'" loading="lazy"></span>'
-      +'<span class="kind">'+c.kind+'</span><span class="nm">'+c.n+'</span>'
+    var href='/product/?id='+encodeURIComponent(c.id);
+    el.innerHTML='<a class="plink" href="'+href+'"><span class="shot"><img src="'+c.img+'" alt="'+c.n.replace(/"/g,'')+'" loading="lazy"></span>'
+      +'<span class="kind">'+c.kind+'</span><span class="nm">'+c.n+'</span></a>'
       +'<span class="say">'+c.say+'</span>'
       +'<span class="pr">$'+c.p.toFixed(2)+'</span>'
       +'<button class="padd" type="button" data-id="'+c.id+'">Add to Bag</button>';
