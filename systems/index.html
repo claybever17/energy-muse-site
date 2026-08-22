@@ -1,38 +1,112 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Energy Muse — Build a Complete Frequency System</title>
-<meta name="description" content="Many of our clients rely on us to create a system of products that complement each other. Here are some founder favorites.">
+<title>Energy Muse — Frequency Systems</title>
+<meta name="description" content="Build a frequency system: the Formula bundles, the copper that conducts them, and the accessories that carry them.">
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=2">
+<script src="/assets/em-frequencies.js?v=2"></script>
 <script src="/assets/em-header.js?v=7" defer></script>
 <script src="/assets/em-bag.js?v=4" defer></script>
 <script src="/assets/em-prices.js?v=2" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
 <script src="/assets/em-versions.js?v=17" defer></script>
+<style>
+/* Two shapes only: a wide feature for the two Formulas, which are the whole
+   argument of this page, and the ordinary product grid for everything you add
+   underneath. Both are the shop's, so a system reads like the rest of the
+   store rather than a separate microsite. */
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,32px);margin-top:clamp(30px,4vw,52px)}
+.fcell{display:flex;flex-direction:column;border:1px solid var(--hair);border-radius:5px;
+  background:var(--surface);overflow:hidden;
+  transition:transform .45s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}
+.fcell:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--copper) 45%,transparent)}
+.fcell .shot{aspect-ratio:16/11;background:var(--tint);display:grid;place-items:center;padding:5%}
+.fcell .shot img{width:100%;height:100%;object-fit:contain}
+.fcell .body{padding:24px 26px 26px;display:flex;flex-direction:column;flex:1}
+.fcell h3{font-size:clamp(20px,1.9vw,26px)}
+.fcell .say{font-size:15px;color:var(--ink-soft);margin-top:9px;flex:1}
+/* Clear, stabilize, direct. This IS a sequence - the frequencies are layered
+   in that order and the order is the product - so unlike the shop's four
+   doorways, a stepped list is telling the truth here. */
+.fcell .room{display:block;font-family:var(--sans);font-weight:600;font-size:10.5px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--copper);margin-bottom:9px}
+.fcell .arch{list-style:none;margin-top:18px;display:grid;gap:0;border-top:1px solid var(--hair)}
+.fcell .arch li{display:grid;grid-template-columns:auto 1fr;column-gap:14px;row-gap:3px;
+  padding:13px 0;border-bottom:1px solid var(--hair);align-items:baseline}
+.fcell .step{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--stone);grid-column:1;align-self:center}
+.fcell .ahz{font-family:var(--serif);font-weight:300;font-size:21px;line-height:1;
+  color:var(--copper);grid-column:2}
+.fcell .ahz em{font-style:normal;font-family:var(--sans);font-weight:600;font-size:.42em;
+  letter-spacing:.14em;margin-left:.35em;color:var(--stone);vertical-align:.35em}
+.fcell .asay{grid-column:2;font-size:13px;line-height:1.5;color:var(--ink-soft)}
+.fcell .inc{font-size:12.5px;color:var(--stone);margin-top:14px;line-height:1.5}
+.fcell .pr{font-family:var(--serif);font-size:24px;color:var(--copper-lo);margin-top:18px}
+
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px);
+  margin-top:clamp(28px,4vw,48px)}
+.pcard{display:flex;flex-direction:column;border:1px solid var(--hair);border-radius:4px;
+  background:var(--surface);padding:14px 16px 18px;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}
+.pcard:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--copper) 42%,transparent)}
+.pcard .shot{aspect-ratio:1;background:var(--tint);border-radius:3px;display:grid;place-items:center;padding:9%}
+.pcard .shot img{width:100%;height:100%;object-fit:contain}
+.pcard .kind{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--stone);margin-top:14px}
+.pcard .nm{font-family:var(--sans);font-weight:600;font-size:14px;line-height:1.3;margin-top:6px;color:var(--ink);flex:1}
+.pcard .pr{font-family:var(--serif);font-size:19px;color:var(--copper-lo);margin-top:10px}
+.padd{margin-top:12px;border:1px solid color-mix(in srgb,var(--ink) 26%,transparent);
+  background:transparent;color:var(--ink);font-family:var(--sans);font-weight:600;font-size:13px;
+  letter-spacing:.03em;padding:11px 12px;border-radius:3px;cursor:pointer;transition:.25s}
+.padd:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pcard.out{opacity:.62}
+.psold{margin-top:12px;font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--stone);border:1px solid var(--hair);border-radius:3px;
+  padding:11px 12px;text-align:center}
+
+/* Narrowing rules sit below the rules they narrow. */
+@media (max-width:1000px){.pgrid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:860px){.feat{grid-template-columns:1fr}}
+@media (max-width:760px){.pgrid{grid-template-columns:repeat(2,1fr)}}
+</style>
 </head><body>
 <main>
+
 <section class="sect">
   <div class="wrap">
     <span class="eyebrow">Frequency systems</span>
     <h1>Start your journey.</h1>
-    <p class="lead">Many of our clients rely on us to create a system of products that all complement each other to support your wellness journey. Here are some of our founder favorites.</p>
-    <div class="cta-row"><a class="btn btn-copper" href="/frequency/">Shop Frequency Generators</a></div>
-  </div>
-</section>
-
-<section class="sect tint">
-  <div class="wrap">
-    <h2>Founder favorites.</h2>
-    <div class="cols">
-      <div><h3>Beginner Frequency System</h3><p>417&#8239;Hz Frequency Generator. Copper Plate. Copper Pyramid. Clear Quartz Pyramid.</p></div>
-      <div><h3>Sleep Frequency System</h3><p>7.83&#8239;Hz Frequency Generator, Copper Plate, Copper Activation Spheres and Amethyst Cluster. Get better rest.</p></div>
-      <div><h3>The must-have trio</h3><p>7.83, 417 and 528&#8239;Hz together &mdash; a combination many of our clients choose. It calms, clears and uplifts your space.</p></div>
+    <p class="lead">Many of our clients rely on us to create a system of products that all complement
+      each other to support your wellness journey. Here are some of our founder favorites.</p>
+    <div class="cta-row">
+      <a class="btn btn-copper" href="#formulas">Shop the Formulas</a>
+      <a class="btn btn-ghost" href="/frequency/">Shop Generators</a>
     </div>
   </div>
 </section>
 
+<section class="sect tint" id="formulas">
+  <div class="wrap">
+    <h2>The Frequency Formulas.</h2>
+    <p>Heather&rsquo;s own systems, built room by room. Each one pairs the generator with the copper
+      that carries it, so the whole space is doing the work rather than one object on a shelf.</p>
+    <div class="feat" id="feat"></div>
+  </div>
+</section>
+
 <section class="sect">
+  <div class="wrap">
+    <h2>Or build it up a piece at a time.</h2>
+    <p>Start with a generator and add to it. Copper conducts and steadies what the device emits, which
+      is why every system here is built around it.</p>
+    <div class="pgrid" id="parts"></div>
+    <p class="note">Frequency generators are not medical devices and are not a substitute for
+      healthcare. Experiences vary.</p>
+  </div>
+</section>
+
+<section class="sect tint">
   <div class="wrap narrow">
     <h2>A simple starting routine.</h2>
     <ol class="steps">
@@ -40,12 +114,88 @@
       <li>Place the device in the recommended location and follow the instructions.</li>
       <li>Use it consistently as part of your practice, and notice your own experience over time.</li>
     </ol>
-    <div class="cta-row"><a class="btn btn-copper" href="/quiz/">Find My Frequency Generator</a></div>
+    <div class="cta-row">
+      <a class="btn btn-copper" href="/quiz/">Find My Frequency Generator</a>
+      <a class="btn btn-ghost" href="/sets/">Crystal Kits &amp; Sets</a>
+    </div>
   </div>
 </section>
 
 <section class="sect">
-  <div class="wrap"><a class="backlink" href="/">&larr; Back to Energy Muse</a></div>
+  <div class="wrap"><a class="backlink" href="/shop/">&larr; Back to Shop</a></div>
 </section>
+
 </main>
+<script>
+/* Every product, price and photograph on this page is Energy Muse's own, taken
+   from their live catalogue. The three "founder favourites" this page used to
+   list in prose — a beginner system, a sleep system, a must-have trio — turned
+   out to be the Formulas and the bundles, which are real things you can buy,
+   so they are sold here instead of described. */
+(function(){
+  var S='/assets/img/sets/';
+  /* The three-part architecture is Energy Muse's own and it is the whole point
+     of a Formula: one frequency clears the room, one steadies it, one aims it
+     at what the room is for. An earlier draft of this page guessed at the
+     contents and got them wrong - these are read off their product copy. */
+  var FORMULAS=[
+    {id:'formula-home', n:'Harmonious Home Frequency Formula', room:'For the living room',
+     p:299.88, img:S+'formula-home.png',
+     say:'A living room holds onto more than you notice \u2014 the friction of a hard conversation, the static of a long commute, the weight of a full day. Most spaces just keep it. This one is built to move it on.',
+     arch:[['Clear','417','Releases the friction you carried home, so the room is not holding onto your day.'],
+           ['Stabilize','639','Holds the space in softness, easing tension back to a steady baseline.'],
+           ['Direct','963','Aims the room at open communication and mental ease.']],
+     inc:'All three generators, a display case that houses them as one piece, and a canvas bag.'},
+    {id:'formula-sleep', n:'Restorative Sleep Frequency Formula', room:'For the bedroom',
+     p:299.88, img:S+'formula-sleep.png',
+     say:'A bedroom absorbs the loop of unfinished thoughts and the static of a day that never fully powered down. The next Formula in the system, tuned for the room you are least awake in.',
+     arch:[['Clear','417','Releases the day\u2019s overthinking, so the room is not holding what you brought into it.'],
+           ['Stabilize','7.83','Earth\u2019s own resonance \u2014 grounds the room in safety and familiarity.'],
+           ['Direct','528','Aims the room at cellular restoration and emotional reset.']],
+     inc:'All three generators, a display case that houses them as one piece, and a canvas bag.'}
+  ];
+  var PARTS=[
+    {id:'home-frequency', n:'Home Frequency Bundle',     p:158.88, kind:'Bundle',    img:S+'home-frequency.png'},
+    {id:'copper-conductor', n:'Copper Conductor Bundle', p:84.88,  kind:'Bundle',    img:S+'copper-conductor.png'},
+    {id:'copper-plate', n:'Solid Copper Plate',          p:44.88,  kind:'Copper',    img:S+'copper-plate.png'},
+    {id:'copper-spheres', n:'Copper Activation Mini-Spheres', p:24.88, kind:'Copper', img:S+'copper-spheres.png'},
+    {id:'copper-pyramid', n:'Solid Copper Pyramid',      p:24.88,  kind:'Copper',    img:S+'copper-pyramid.png', out:true},
+    {id:'frequency-bag', n:'Frequency Generator Bag',    p:18.88,  kind:'Accessory', img:S+'frequency-bag.png'}
+  ];
+
+  var feat=document.getElementById('feat');
+  FORMULAS.forEach(function(c){
+    var el=document.createElement('div'); el.className='fcell';
+    var arch=c.arch.map(function(a){
+      return '<li><span class="step">'+a[0]+'</span><span class="ahz">'+a[1]+'<em>Hz</em></span>'
+           + '<span class="asay">'+a[2]+'</span></li>';}).join('');
+    el.innerHTML='<span class="shot"><img src="'+c.img+'" alt="'+c.n+'" loading="lazy"></span>'
+      +'<div class="body"><span class="room">'+c.room+'</span><h3>'+c.n+'</h3>'
+      +'<p class="say">'+c.say+'</p>'
+      +'<ol class="arch">'+arch+'</ol>'
+      +'<p class="inc">'+c.inc+'</p>'
+      +'<span class="pr">$'+c.p.toFixed(2)+'</span>'
+      +'<button class="padd" type="button" data-id="'+c.id+'">Add to Bag</button></div>';
+    feat.appendChild(el);
+  });
+
+  var parts=document.getElementById('parts');
+  PARTS.forEach(function(c){
+    var el=document.createElement('div'); el.className='pcard'+(c.out?' out':'');
+    el.innerHTML='<span class="shot"><img src="'+c.img+'" alt="'+c.n+'" loading="lazy"></span>'
+      +'<span class="kind">'+c.kind+'</span><span class="nm">'+c.n+'</span>'
+      +'<span class="pr">$'+c.p.toFixed(2)+'</span>'
+      +(c.out?'<span class="psold">Currently unavailable</span>'
+             :'<button class="padd" type="button" data-id="'+c.id+'">Add to Bag</button>');
+    parts.appendChild(el);
+  });
+
+  var byId={}; FORMULAS.concat(PARTS).forEach(function(c){byId[c.id]=c;});
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('.padd'); if(!b||!window.EMBag)return;
+    var c=byId[b.getAttribute('data-id')]; if(!c)return;
+    EMBag.add({id:c.id,name:c.n,price:c.p,img:c.img,link:'/systems/'});
+  });
+})();
+</script>
 </body></html>

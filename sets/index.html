@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Energy Muse — Kits &amp; Sets</title>
-<meta name="description" content="Wellness combinations. We have already done the thinking, so you do not have to guess what goes together.">
+<meta name="description" content="Wellness combinations. Ritual kits, crystal sets and bundles with the thinking already done — or build your own.">
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=2">
@@ -10,39 +10,146 @@
 <script src="/assets/em-prices.js?v=2" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
 <script src="/assets/em-versions.js?v=17" defer></script>
+<style>
+/* The shop's own product grid, so a kit reads like everything else in the
+   store. The only addition is the pair of build-your-own panels, which are a
+   different kind of thing and should not pretend to be a product card. */
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px);
+  margin-top:clamp(28px,4vw,48px)}
+.pcard{display:flex;flex-direction:column;border:1px solid var(--hair);border-radius:4px;
+  background:var(--surface);padding:14px 16px 18px;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}
+.pcard:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--copper) 42%,transparent)}
+.pcard .shot{aspect-ratio:1;background:var(--tint);border-radius:3px;display:grid;place-items:center;padding:9%}
+.pcard .shot img{width:100%;height:100%;object-fit:contain}
+.pcard .kind{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--stone);margin-top:14px}
+.pcard .nm{font-family:var(--sans);font-weight:600;font-size:14px;line-height:1.3;margin-top:6px;color:var(--ink)}
+.pcard .say{font-size:12.5px;color:var(--ink-soft);margin-top:6px;line-height:1.45;flex:1}
+.pcard .pr{font-family:var(--serif);font-size:19px;color:var(--copper-lo);margin-top:10px}
+.padd{margin-top:12px;border:1px solid color-mix(in srgb,var(--ink) 26%,transparent);
+  background:transparent;color:var(--ink);font-family:var(--sans);font-weight:600;font-size:13px;
+  letter-spacing:.03em;padding:11px 12px;border-radius:3px;cursor:pointer;transition:.25s}
+.padd:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+.mk{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,26px);margin-top:clamp(28px,4vw,44px)}
+.mkc{border:1px solid var(--hair);border-radius:4px;background:var(--surface);padding:26px 28px 28px;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s}
+.mkc:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--copper) 45%,transparent)}
+.mkc h3{margin-bottom:8px}
+.mkc p{color:var(--ink-soft);font-size:15.5px}
+
+@media (max-width:1000px){.pgrid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:760px){.pgrid{grid-template-columns:repeat(2,1fr)}.mk{grid-template-columns:1fr}}
+</style>
 </head><body>
 <main>
+
 <section class="sect">
   <div class="wrap">
     <span class="eyebrow">Kits &amp; sets</span>
     <h1>Wellness combinations.</h1>
-    <p class="lead">We&rsquo;ve already done the thinking, so you don&rsquo;t have to guess what goes together. Just choose your focus, and begin.</p>
-    <div class="cta-row"><a class="btn btn-copper" href="/box/">Build a Box of Crystals</a><a class="btn btn-ghost" href="/designer/">Build a Bracelet</a></div>
+    <p class="lead">We&rsquo;ve already done the thinking, so you don&rsquo;t have to guess what goes
+      together. Just choose your focus, and begin.</p>
+    <div class="cta-row">
+      <a class="btn btn-copper" href="#kits">Shop the Kits</a>
+      <a class="btn btn-ghost" href="#make">Build Your Own</a>
+    </div>
   </div>
 </section>
 
 <section class="sect tint">
   <div class="wrap narrow">
-    <h2>Formulated with intention. Explained step-by-step.</h2>
-    <p>Every set is built around one energetic outcome. Whether it&rsquo;s crystals, jewelry, or both, each piece was chosen for a reason, with a recommended practice you can make your own.</p>
+    <h2>Formulated with intention. Explained step by step.</h2>
+    <p>Every set is built around one energetic outcome. Whether it&rsquo;s crystals, jewelry, or both,
+      each piece was chosen for a reason, with a recommended practice you can make your own.</p>
     <p>A done-for-you starting point, with all the thinking already in place.</p>
   </div>
 </section>
 
-<section class="sect">
+<section class="sect" id="kits">
   <div class="wrap">
     <h2>Founder favorites.</h2>
-    <div class="cols">
-      <div><h3>Beginner Frequency System</h3><p>417&#8239;Hz Frequency Generator, Copper Plate, Copper Pyramid and Clear Quartz Pyramid.</p></div>
-      <div><h3>Sleep Frequency System</h3><p>7.83&#8239;Hz Frequency Generator, Copper Plate, Copper Activation Spheres and Amethyst Cluster.</p></div>
-      <div><h3>The must-have trio</h3><p>Many of our clients choose 7.83, 417 and 528&#8239;Hz together. This trio calms, clears and uplifts your space.</p></div>
+    <p>Curated by Heather, each with the ritual written out so you know what to do with it.</p>
+    <div class="pgrid" id="kitgrid"></div>
+  </div>
+</section>
+
+<section class="sect tint" id="make">
+  <div class="wrap">
+    <h2>Or make the set yourself.</h2>
+    <div class="mk">
+      <div class="mkc">
+        <h3>Build a Box</h3>
+        <p>Choose the stones you want and we&rsquo;ll pack them together, with a card for each one
+          explaining what it is for.</p>
+        <div class="cta-row"><a class="btn btn-copper" href="/box/">Build a Box of Crystals</a></div>
+      </div>
+      <div class="mkc">
+        <h3>The Atelier</h3>
+        <p>Design your own bracelet stone by stone, on your own wrist size. Every one comes with the
+          Energy Muse rondelle.</p>
+        <div class="cta-row"><a class="btn btn-ghost" href="/designer/">Design a Bracelet</a></div>
+      </div>
     </div>
-    <div class="cta-row"><a class="btn btn-copper" href="/systems/">Explore Frequency Systems</a></div>
   </div>
 </section>
 
 <section class="sect">
-  <div class="wrap"><a class="backlink" href="/">&larr; Back to Energy Muse</a></div>
+  <div class="wrap narrow">
+    <h2>Looking for a frequency system?</h2>
+    <p>The Formulas pair a generator with the copper that carries it, room by room. They live on their
+      own page.</p>
+    <div class="cta-row">
+      <a class="btn btn-copper" href="/systems/">Explore Frequency Systems</a>
+      <a class="btn btn-ghost" href="/quiz/">Find My Energy Match</a>
+    </div>
+  </div>
 </section>
+
+<section class="sect">
+  <div class="wrap"><a class="backlink" href="/shop/">&larr; Back to Shop</a></div>
+</section>
+
 </main>
+<script>
+/* Energy Muse's own kits, prices and photography, from their live catalogue.
+   This page described sets in prose and sold none of them; these are the real
+   things, so they are on sale here. */
+(function(){
+  var S='/assets/img/sets/';
+  var KITS=[
+    {id:'glow-back-kit', n:'Get Your Glow Back Ritual Kit', p:29.91, kind:'Ritual kit', img:S+'glow-back-kit.png',
+     say:'For clearing emotional heaviness and coming back to yourself.'},
+    {id:'healing-ritual-set', n:'Healing Ritual Set', p:37.41, kind:'Ritual set', img:S+'healing-ritual-set.png',
+     say:'Three of the most potent botanica tools, for intentions around health and protection.'},
+    {id:'supercharge-bundle', n:'Super-Charging Station Bundle', p:54.95, kind:'Bundle', img:S+'supercharge-bundle.png',
+     say:'A copper pyramid and a selenite plate — where your other crystals go to be cleared.'},
+    {id:'ultimate-bundle', n:"The Ultimate Crystal Lover's Bundle", p:46.95, kind:'Bundle', img:S+'ultimate-bundle.png',
+     say:'The Crystal365 book with the stones to practise it — one crystal, one purpose, one practice.'},
+    {id:'diy-bracelet-kit', n:'DIY Crystal Bracelet Kit', p:28.88, kind:'Make it yourself', img:S+'diy-bracelet-kit.png',
+     say:'Cord, needle, glue, 50 crystal beads and two stamped Energy Muse logo beads.'},
+    {id:'angel-111', n:'111 Angel Number Jewelry Set', p:17.33, kind:'Jewelry set', img:S+'angel-111.png',
+     say:'Necklace, ring and bracelet — the sequence for alignment and new beginnings.'},
+    {id:'angel-444', n:'444 Angel Number Jewelry Set', p:17.33, kind:'Jewelry set', img:S+'angel-444.png',
+     say:'Necklace, ring and bracelet — the sequence for steadiness and protection.'}
+  ];
+  var host=document.getElementById('kitgrid');
+  KITS.forEach(function(c){
+    var el=document.createElement('div'); el.className='pcard';
+    el.innerHTML='<span class="shot"><img src="'+c.img+'" alt="'+c.n.replace(/"/g,'')+'" loading="lazy"></span>'
+      +'<span class="kind">'+c.kind+'</span><span class="nm">'+c.n+'</span>'
+      +'<span class="say">'+c.say+'</span>'
+      +'<span class="pr">$'+c.p.toFixed(2)+'</span>'
+      +'<button class="padd" type="button" data-id="'+c.id+'">Add to Bag</button>';
+    host.appendChild(el);
+  });
+  var byId={}; KITS.forEach(function(c){byId[c.id]=c;});
+  host.addEventListener('click',function(e){
+    var b=e.target.closest('.padd'); if(!b||!window.EMBag)return;
+    var c=byId[b.getAttribute('data-id')]; if(!c)return;
+    EMBag.add({id:c.id,name:c.n,price:c.p,img:c.img,link:'/sets/'});
+  });
+})();
+</script>
 </body></html>

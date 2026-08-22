@@ -641,16 +641,14 @@ window.__ready=true;window.__setP=v=>{targetP=scrollP=clamp01(v);if(v>0.12)loadC
 <script>
 (function(){
   /* was a hand-kept map of four devices. The range lives in one file now. */
-  var COPPER={hz:'528',id:'gen-528-copper',name:'528Hz Frequency Generator, in copper',
-              price:219.88,img:'/assets/img/generator-render.webp',
-              url:'https://energymuse.com/products/528hz-frequency-generator',
-              label:'in copper'};
   function cards(){
     var out=(window.EM_FREQ||[]).map(function(f){
       return {hz:f.hz,id:f.id,name:f.hz+'Hz Frequency Generator',price:f.price,
               img:'/'+f.img,url:f.url,label:f.name,stock:f.stock||'in'};
     });
-    out.splice(4,0,COPPER);            /* beside the standard 528 */
+    /* A copper-bodied 528 at $219.88 used to be spliced in here. No such
+       product exists — a sweep of all 1500 items in Energy Muse's live
+       catalogue finds no copper generator at any price. Invented, and gone. */
     return out;
   }
   var G={};

@@ -648,8 +648,16 @@ stonesEl.addEventListener('click',function(e){
 });
 document.getElementById('buy').addEventListener('click',function(){
   var r=ROOM[cur];
-  addToBag('gen-'+r.hz+'-copper', 'The '+r.hz+'Hz Generator, in Copper', '219.88',
-           '/assets/img/generators/'+r.hz.replace('.','-')+'.png');
+  /* This used to add a COPPER generator at $219.88, whatever frequency the dial
+     was on. No copper generator exists in Energy Muse's catalogue and no
+     product of theirs costs $219.88 — it was invented, and it meant the one
+     buy button on this page sold a thing that is not for sale. It now adds the
+     real device at the real price, straight out of em-frequencies.js. */
+  var f = window.EM_FREQ_BY && window.EM_FREQ_BY.hz(r.hz);
+  addToBag(f ? f.id : 'gen-' + r.hz,
+           r.hz + 'Hz Frequency Generator',
+           (f ? f.price : 99.88).toFixed(2),
+           '/assets/img/generators/' + r.hz.replace('.', '-') + '.png');
   this.textContent='Added to bag'; this.classList.add('done');
   var self=this; setTimeout(function(){self.textContent='Add the generator';self.classList.remove('done');},1600);
 });

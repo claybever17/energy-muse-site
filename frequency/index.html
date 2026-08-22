@@ -130,10 +130,6 @@
   var host=document.getElementById('fgrid');
   if(!host||!window.EM_FREQ)return;
 
-  var COPPER={hz:'528',id:'gen-528-copper',name:'528Hz Generator, in copper',
-              purpose:['The same tuned coil','in a hand-finished copper body'],
-              price:219.88,img:'/assets/img/generator-render.webp',tag:'Just landed'};
-
   function card(c){
     var out=(c.stock==='out');
     var el=document.createElement('div');
@@ -154,7 +150,11 @@
     return {hz:f.hz,id:f.id,name:f.name,purpose:f.purpose,price:f.price,
             img:'/'+f.img,stock:f.stock||'in'};
   });
-  list.splice(4,0,COPPER);              /* beside the standard 528 */
+  /* A copper-bodied 528 used to be spliced in here at $219.88. There is no
+     such product: a sweep of all 1500 items in Energy Muse's live catalogue
+     turns up no copper generator at any price. It was invented, and a made-up
+     product with a made-up price does not belong on a shop page. The seven
+     real generators are all $99.88, which the live store confirms. */
   list.forEach(function(c){ host.appendChild(card(c)); });
 
   var byId={}; list.forEach(function(c){byId[c.id]=c;});
