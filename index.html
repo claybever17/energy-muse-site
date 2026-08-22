@@ -1038,13 +1038,15 @@ body.menu-open{overflow:hidden;}
    that quote rather than to the section. No portraits and no star ratings,
    because we have neither and inventing customers is not an option. */
 .proof{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3.4vw,52px);margin-top:clamp(30px,4.4vh,52px);}
-.proof blockquote{margin:0;padding-top:22px;border-top:1px solid var(--hair);position:relative;
-  font-family:var(--serif);font-weight:300;font-size:clamp(19px,1.75vw,24px);line-height:1.4;
-  letter-spacing:-.012em;color:var(--ink);text-wrap:pretty;}
+.proof blockquote{margin:0;padding-top:26px;position:relative;
+  border-top:1px solid color-mix(in srgb,var(--copper) 30%,transparent);
+  font-family:var(--serif);font-weight:300;font-size:clamp(20px,2vw,27px);line-height:1.42;
+  letter-spacing:-.014em;color:var(--ink);text-wrap:pretty;}
 .proof blockquote::before{content:"\201C";position:absolute;top:8px;left:-2px;
   font-size:2.6em;line-height:1;color:var(--copper);opacity:.28;pointer-events:none;}
 .proof blockquote::after{content:"\201D";color:var(--copper);opacity:.5;}
-#stories .cta-row{justify-content:center;margin-top:clamp(30px,4.4vh,52px);}
+#stories .cta-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+  margin-top:clamp(30px,4.4vh,52px);}
 @media (max-width:840px){
   #stories .cta-row{justify-content:flex-start;}
   .proof blockquote::before{font-size:2.1em;}
