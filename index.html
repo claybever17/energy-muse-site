@@ -2266,6 +2266,14 @@ p{text-wrap:pretty;}
   (function(){
     var hzEl=document.getElementById('freqhz');
     if(!hzEl||!window.EM_FREQ||!window.EM_FREQ.length)return;
+    /* The loop is a showcase, so it shows the range as one object turning. The
+       1111 breaks that twice: it is the one unit with a white body rather than
+       black glass, and it is out of stock. Both are reasons to keep it off the
+       front door's rotation — it still has its product page, its card on
+       /frequency/ and its stop on the Frequency Room dial, where it is a thing
+       you chose rather than a thing being shown to you. */
+    var LOOP = window.EM_FREQ.filter(function(f){ return (f.stock||'in') !== 'out'; });
+    if(!LOOP.length) LOOP = window.EM_FREQ;
     var i=0, sec=document.getElementById('freq'), on=false;
     /* The poster follows the readout again. It was decoupled when this column
        sold a copper-bodied 528; that product does not exist, so the reason for
@@ -2276,7 +2284,7 @@ p{text-wrap:pretty;}
     var front=pa, back=pb;
     function src(hz){ return 'assets/img/generators/'+String(hz).replace('.','-')+'.png'; }
     function paint(){
-      var f=window.EM_FREQ[i%window.EM_FREQ.length];
+      var f=LOOP[i%LOOP.length];
       hzEl.textContent=f.hz;
       if(!pa||!pb)return;
       var next=src(f.hz);
@@ -2290,7 +2298,7 @@ p{text-wrap:pretty;}
     paint();
     /* the other six on idle, so the first tick never fades to nothing */
     (function(){
-      function pre(){ window.EM_FREQ.forEach(function(f){ var im=new Image(); im.src=src(f.hz); }); }
+      function pre(){ LOOP.forEach(function(f){ var im=new Image(); im.src=src(f.hz); }); }
       if('requestIdleCallback' in window) requestIdleCallback(pre); else setTimeout(pre,1600);
     })();
     if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
