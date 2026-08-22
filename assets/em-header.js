@@ -121,7 +121,15 @@ function boot(){
       +'<p>A short note on what to work with — and first access to new releases.</p>'
       +'<form novalidate><input type="email" placeholder="you@email.com" aria-label="Email address" required>'
       +'<button type="submit">Join</button></form></div>'
-    +'<div class="emh-foot-links"><a href="/quiz/">Energy Quiz</a><a href="/gems/">Crystals</a><a href="/generator/">Frequency</a><a href="/intention/">By Intention</a><a href="/learn/">Learn</a><a href="/about/">About</a></div>'
+    /* Six links that predate most of the site: no route to the shop at all, and
+       "Frequency" pointed at /generator/, which is the film rather than the
+       page that sells the devices. */
+    +'<div class="emh-foot-links">'
+    +'<a href="/shop/">Shop</a><a href="/jewelry/">Jewelry</a><a href="/gems/">Crystals</a>'
+    +'<a href="/frequency/">Frequency</a><a href="/sets/">Kits &amp; Sets</a>'
+    +'<a href="/intention/">By Intention</a><a href="/quiz/">Energy Quiz</a>'
+    +'<a href="/learn/">Learn</a><a href="/faq/">FAQ</a>'
+    +'<a href="/about/">About</a><a href="/support/">Support</a></div>'
     +'<p class="emh-foot-legal">© 2026 Energy Muse. Energy Muse products and content are intended for personal practice and general wellbeing. They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease. Individual experiences vary.</p>'
     +'</div>';
   document.body.appendChild(foot);
