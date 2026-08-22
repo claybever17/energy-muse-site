@@ -18,6 +18,8 @@
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=2">
+<script src="/assets/em-frequencies.js?v=2"></script>
+<script src="/assets/em-catalog.js?v=2"></script>
 <script src="/assets/em-header.js?v=8" defer></script>
 <script src="/assets/em-bag.js?v=4" defer></script>
 <script src="/assets/em-prices.js?v=2" defer></script>
@@ -46,6 +48,16 @@
 
 .plink{display:block;text-decoration:none;color:inherit}
 .plink:focus-visible{outline:2px solid var(--copper);outline-offset:3px}
+
+.jfilter{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.jf{font-family:var(--sans);font-weight:600;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-soft);background:var(--surface);border:1px solid var(--hair);border-radius:99px;
+  padding:9px 16px;cursor:pointer;transition:border-color .25s,color .25s,background .25s}
+.jf:hover{border-color:color-mix(in srgb,var(--copper) 50%,transparent);color:var(--copper)}
+.jf.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.jcount{font-size:12.5px;color:var(--stone);margin-top:14px}
+.jcard .jg{font-family:var(--sans);font-weight:600;font-size:9.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--stone);margin-top:9px;display:block}
 </style>
 </head><body>
 <main>
@@ -63,16 +75,17 @@
   <div class="wrap">
     <h2>Founder favorites.</h2>
     <p>Real pieces from the Energy Muse collection, each formulated for one intention.</p>
-    <div class="jgrid">
-      <div class="jcard"><a class="plink" href="/product/?id=infinite-prosperity-bracelet"><img src="/assets/img/jewelry-shop/infinite-prosperity-bracelet.png" alt="Infinite Prosperity Bracelet" loading="lazy"><strong>Infinite Prosperity Bracelet</strong></a><span class="jp">$64.88</span><button class="jadd" type="button" data-id="infinite-prosperity-bracelet" data-n="Infinite Prosperity Bracelet" data-p="64.88" data-img="/assets/img/jewelry-shop/infinite-prosperity-bracelet.png" data-link="/jewelry/">Add to Bag</button></div>
-      <div class="jcard"><a class="plink" href="/product/?id=rose-quartz-bracelet-3"><img src="/assets/img/jewelry-shop/rose-quartz-bracelet-3.png" alt="Rose Quartz Bracelet" loading="lazy"><strong>Rose Quartz Bracelet</strong></a><span class="jp">$26.88</span><button class="jadd" type="button" data-id="rose-quartz-bracelet-3" data-n="Rose Quartz Bracelet" data-p="26.88" data-img="/assets/img/jewelry-shop/rose-quartz-bracelet-3.png" data-link="/jewelry/">Add to Bag</button></div>
-      <div class="jcard"><a class="plink" href="/product/?id=breakthrough-bracelet-1"><img src="/assets/img/jewelry-shop/breakthrough-bracelet-1.png" alt="Breakthrough Bracelet" loading="lazy"><strong>Breakthrough Bracelet</strong></a><span class="jp">$26.88</span><button class="jadd" type="button" data-id="breakthrough-bracelet-1" data-n="Breakthrough Bracelet" data-p="26.88" data-img="/assets/img/jewelry-shop/breakthrough-bracelet-1.png" data-link="/jewelry/">Add to Bag</button></div>
-      <div class="jcard"><a class="plink" href="/product/?id=ground-anklet"><img src="/assets/img/jewelry-shop/ground-anklet.png" alt="Grounding Anklet" loading="lazy"><strong>Grounding Anklet</strong></a><span class="jp">$28.88</span><button class="jadd" type="button" data-id="ground-anklet" data-n="Grounding Anklet" data-p="28.88" data-img="/assets/img/jewelry-shop/ground-anklet.png" data-link="/jewelry/">Add to Bag</button></div>
-      <div class="jcard"><a class="plink" href="/product/?id=protection-bracelet"><img src="/assets/img/jewelry-shop/protection-bracelet.png" alt="Protection Crystal Bracelet" loading="lazy"><strong>Protection Crystal Bracelet</strong></a><span class="jp">$26.88</span><button class="jadd" type="button" data-id="protection-bracelet" data-n="Protection Crystal Bracelet" data-p="26.88" data-img="/assets/img/jewelry-shop/protection-bracelet.png" data-link="/jewelry/">Add to Bag</button></div>
-      <div class="jcard"><a class="plink" href="/product/?id=the-millionaire-mindset-bracelet"><img src="/assets/img/jewelry-shop/the-millionaire-mindset-bracelet.png" alt="The Millionaire Mindset Bracelet" loading="lazy"><strong>The Millionaire Mindset Bracelet</strong></a><span class="jp">$54.88</span><button class="jadd" type="button" data-id="the-millionaire-mindset-bracelet" data-n="The Millionaire Mindset Bracelet" data-p="54.88" data-img="/assets/img/jewelry-shop/the-millionaire-mindset-bracelet.png" data-link="/jewelry/">Add to Bag</button></div>
-      <div class="jcard"><a class="plink" href="/product/?id=seven-stone-necklace"><img src="/assets/img/jewelry-shop/seven-stone-necklace.png" alt="Seven & Stone Necklace" loading="lazy"><strong>Seven & Stone Necklace</strong></a><span class="jp">$124.88</span><button class="jadd" type="button" data-id="seven-stone-necklace" data-n="Seven & Stone Necklace" data-p="124.88" data-img="/assets/img/jewelry-shop/seven-stone-necklace.png" data-link="/jewelry/">Add to Bag</button></div>
-      <div class="jcard"><a class="plink" href="/product/?id=infinite-prosperity-necklace"><img src="/assets/img/jewelry-shop/infinite-prosperity-necklace.png" alt="Infinite Prosperity Necklace" loading="lazy"><strong>Infinite Prosperity Necklace</strong></a><span class="jp">$149.88</span><button class="jadd" type="button" data-id="infinite-prosperity-necklace" data-n="Infinite Prosperity Necklace" data-p="149.88" data-img="/assets/img/jewelry-shop/infinite-prosperity-necklace.png" data-link="/jewelry/">Add to Bag</button></div>
+    <!-- Thirty-three pieces now, from Energy Muse's own catalogue, filtered by
+         the intention THEY tag each one with rather than a meaning we assigned. -->
+    <div class="jfilter" id="jfilter">
+      <button class="jf on" type="button" data-g="">Everything</button>
+      <button class="jf" type="button" data-g="Protection">Protection</button>
+      <button class="jf" type="button" data-g="Abundance">Abundance</button>
+      <button class="jf" type="button" data-g="Connection">Connection</button>
+      <button class="jf" type="button" data-g="Clarity">Clarity</button>
     </div>
+    <p class="jcount" id="jcount"></p>
+    <div class="jgrid" id="jgrid"></div>
     <div class="cta-row">
       <a class="btn btn-copper" href="/intention/">Shop by Intention</a>
       <a class="btn btn-ghost" href="/designer/">Build Your Own</a>
@@ -112,5 +125,44 @@ document.querySelectorAll('.jadd').forEach(function(b){
                img:b.dataset.img,link:b.dataset.link});
   });
 });
+</script>
+
+<script>
+/* Built from em-catalog.js. This page carried eight pieces typed into the
+   markup with their prices; it now carries every piece in the catalogue, and a
+   price still exists in exactly one file. */
+(function(){
+  var host=document.getElementById('jgrid'), count=document.getElementById('jcount');
+  if(!host||!window.EM_CATALOG)return;
+  var ALL=window.EM_CATALOG.all().filter(function(p){return p.cat==='Jewelry';})
+            .sort(function(a,b){return a.price-b.price;});
+  function card(c){
+    return '<div class="jcard" data-g="'+(c.group||'')+'">'
+      +'<a class="plink" href="/product/?id='+encodeURIComponent(c.id)+'">'
+      +'<img src="'+c.img+'" alt="'+String(c.name).replace(/"/g,'')+'" loading="lazy">'
+      +'<strong>'+c.name+'</strong></a>'
+      +(c.group?'<span class="jg">'+c.group+'</span>':'')
+      +'<span class="jp">$'+c.price.toFixed(2)+'</span>'
+      +'<button class="jadd" type="button" data-id="'+c.id+'">Add to Bag</button></div>';
+  }
+  function paint(g){
+    var list=g?ALL.filter(function(c){return c.group===g;}):ALL;
+    host.innerHTML=list.map(card).join('');
+    count.textContent=list.length+(list.length===1?' piece':' pieces')+(g?' for '+g.toLowerCase():'');
+  }
+  paint('');
+  var bar=document.getElementById('jfilter');
+  if(bar) bar.addEventListener('click',function(e){
+    var b=e.target.closest('.jf'); if(!b)return;
+    [].forEach.call(bar.children,function(x){x.classList.toggle('on',x===b);});
+    paint(b.getAttribute('data-g'));
+  });
+  var byId={}; ALL.forEach(function(c){byId[c.id]=c;});
+  host.addEventListener('click',function(e){
+    var b=e.target.closest('.jadd'); if(!b||!window.EMBag)return;
+    var c=byId[b.getAttribute('data-id')]; if(!c)return;
+    EMBag.add({id:c.id,name:c.name,price:c.price,img:c.img,link:'/product/?id='+c.id});
+  });
+})();
 </script>
 </body></html>

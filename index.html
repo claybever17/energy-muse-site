@@ -1044,6 +1044,31 @@ body.menu-open{overflow:hidden;}
 }
 .final-cta{text-align:center;border-top:1px solid var(--hair);background:var(--tint);}
 .final-cta h2{font-size:clamp(30px,4.4vw,58px);font-weight:400;max-width:16ch;margin-inline:auto;letter-spacing:-.02em;}
+
+/* Five feelings, set as type rather than as cards — a card here would read as
+   five more products at the exact moment the page should be offering a choice,
+   not another shelf. The rule under each is the only ornament, and it draws
+   itself in the feeling's own colour on hover. */
+.feelings{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(8px,1.4vw,20px);
+  margin-top:clamp(30px,4vw,46px);max-width:1000px;margin-inline:auto;}
+.feel{position:relative;display:block;text-decoration:none;color:inherit;text-align:center;
+  padding:20px 8px 22px;border-radius:4px;transition:background .3s;}
+.feel::after{content:"";position:absolute;left:14%;right:14%;bottom:10px;height:1px;
+  background:var(--fc);transform:scaleX(.18);transform-origin:50% 50%;opacity:.35;
+  transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .35s;}
+.feel:hover::after,.feel:focus-visible::after{transform:scaleX(1);opacity:1;}
+.feel:hover{background:color-mix(in srgb,var(--fc) 7%,transparent);}
+.feel:focus-visible{outline:2px solid var(--fc);outline-offset:2px;}
+.feel em{display:block;font-style:normal;font-family:var(--serif);font-weight:400;
+  font-size:clamp(19px,2vw,26px);letter-spacing:-.015em;color:var(--fg);}
+.feel span{display:block;font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:6px;}
+.final-cta .cta-row{justify-content:center;margin-top:clamp(24px,3vw,34px);}
+@media (max-width:860px){
+  .feelings{grid-template-columns:repeat(2,1fr);gap:6px;}
+  .feel{padding:16px 8px 20px;}
+  .feel:last-child{grid-column:1 / -1;}
+}
+@media (prefers-reduced-motion:reduce){.feel::after{transition:none;}}
 .final-cta .lead{margin:18px auto 0;max-width:52ch;color:var(--ink-soft);}
 .final-cta .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:32px;}
 @media (max-width:840px){
@@ -1686,13 +1711,25 @@ p{text-wrap:pretty;}
      Back, on Clay's word, and plain: the approved copy asks for it and the
      version removed earlier carried a scanned-crystal canvas that was never
      sized. Headline, line, two buttons. -->
+<!-- The headline sets up a choice, so the section gives you one. It used to
+     say "you already know how you want to feel" and then offer two generic
+     buttons, which is a question with no answer under it — and it left a band
+     of empty cream doing nothing. The five feelings ARE the answer, and the
+     page now opens and closes on the same idea: Start with how you want to
+     feel at the top, pick it at the bottom. -->
 <section class="section final-cta">
   <div class="wrap">
     <h2>You already know how you want to feel.</h2>
-    <p class="lead">We&rsquo;re here to help you shift your energy. Find your energy match, and start today.</p>
+    <p class="lead">We&rsquo;re here to help you shift your energy. Choose the one you want more of.</p>
+    <div class="feelings">
+      <a class="feel" href="intention/calm/"       style="--fc:#6E8BA8"><em>Calm</em><span>Quiet the noise</span></a>
+      <a class="feel" href="intention/clarity/"    style="--fc:#8A7BB0"><em>Clarity</em><span>See it plainly</span></a>
+      <a class="feel" href="intention/protection/" style="--fc:#4E5A70"><em>Protection</em><span>Hold your edges</span></a>
+      <a class="feel" href="intention/abundance/"  style="--fc:#A9683E"><em>Abundance</em><span>Make room for more</span></a>
+      <a class="feel" href="intention/connection/" style="--fc:#B06E7A"><em>Connection</em><span>Come back to people</span></a>
+    </div>
     <div class="cta-row">
-      <a href="quiz/" class="btn btn-copper">Find My Energy Match</a>
-      <a href="#intention" class="btn btn-ghost">Shop by Intention</a>
+      <a href="quiz/" class="btn btn-ghost">Not sure? Take the Energy Quiz</a>
     </div>
   </div>
 </section>

@@ -191,11 +191,35 @@ h1{font-family:'Fraunces';font-weight:300;font-size:clamp(38px,6vw,72px);letter-
 p{text-wrap:pretty;}
 .lead,.head p{text-wrap:balance;}
 @media (max-width:640px){.lessmob{display:none}}
+
+/* the full shelf */
+.sfilter{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.sf{font-family:var(--sans,'Instrument Sans',sans-serif);font-weight:600;font-size:11.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);background:var(--panel);border:1px solid var(--line);
+  border-radius:99px;padding:9px 16px;cursor:pointer;transition:border-color .25s,color .25s,background .25s}
+.sf:hover{border-color:var(--copper);color:var(--copper)}
+.sf.on{background:var(--ink);border-color:var(--ink);color:var(--navy)}
+.scount{font-size:12.5px;color:var(--soft);opacity:.75;margin-top:14px}
+.sgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:20px}
+.scard{display:flex;flex-direction:column;text-decoration:none;color:inherit;background:var(--panel);
+  border:1px solid var(--line);border-radius:6px;padding:12px 13px 15px;transition:border-color .3s}
+.scard:hover{border-color:var(--copper)}
+.scard .sim{aspect-ratio:1;border-radius:4px;display:grid;place-items:center;padding:8%}
+.scard .sim img{width:100%;height:100%;object-fit:contain}
+.scard b{font-family:var(--sans,'Instrument Sans',sans-serif);font-weight:600;font-size:12.5px;
+  line-height:1.3;margin-top:10px}
+.scard .sg{font-family:var(--sans,'Instrument Sans',sans-serif);font-weight:600;font-size:9px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--soft);opacity:.7;margin-top:6px}
+.scard .sp{font-family:var(--serif,'Fraunces',Georgia,serif);font-size:15px;color:var(--copper);margin-top:7px}
+@media (max-width:1000px){.sgrid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:620px){.sgrid{grid-template-columns:repeat(2,1fr)}}
 </style>
 <script src="../assets/em-header.js?v=8" defer></script>
 <script src="/assets/em-search.js?v=2" defer></script>
 <script src="../assets/em-bag.js?v=4" defer></script>
-<script src="../assets/em-prices.js?v=2" defer></script></head><body>
+<script src="../assets/em-prices.js?v=2" defer></script><script src="/assets/em-frequencies.js?v=2"></script>
+<script src="/assets/em-catalog.js?v=2"></script>
+</head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
     <g><path fill="var(--logo-body,#152445)" d="M189.69,194.19c-31.47,34.37-81.82,42.71-122.32,21.22-27.62-14.65-46.73-41.52-52.64-69.96-7.48-36.05,4.02-73.41,32.42-99.17,21.07-19.11,47.83-27.9,76.41-25.64,20.11,1.59,39.11,9.16,54.56,21.91,3.46,2.86,6.54,5.38,9.57,8.56,38.14,40.05,39.83,101.74,1.99,143.08ZM77.98,184.32c5.79,7.06,13.04,11.43,22.12,13.24,19.2,3.84,38.84-.55,55.55-10.91,29.03-17.98,42.78-50.33,39.88-84.29-3.17-37.1-31.15-67.2-68.24-72.09-4.79-.63-9.09-.96-14.66.35,20.78,4.81,36.06,16.44,35.82,41.81-.11,11.35-1.96,22.44-9.2,31.49-7.28,9.09-15.29,13.33-25.03,19.07-10.51,6.2-20.7,12.26-30.15,19.94-13.07,10.62-16.61,28.55-6.09,41.39ZM63.38,129.87c4.91-4.01,9.64-7.75,14.76-11.43,11.66-8.38,21.05-14.26,23.07-30.52.17-7.96-2.49-16.33-8.68-22-10.58-9.68-26.8-9.43-37.85.02-27.94,23.93-29.6,71.37-3.11,97.33l-.32-8.07c-.4-10.18,4.14-18.82,12.12-25.33Z"/><path fill="#e0e0e0" d="M77.98,184.32c-10.52-12.84-6.98-30.77,6.09-41.39,9.44-7.68,19.64-13.74,30.15-19.94,9.73-5.74,17.75-9.98,25.03-19.07,7.24-9.05,9.09-20.14,9.2-31.49.25-25.38-15.03-37-35.82-41.81,5.57-1.31,9.86-.98,14.66-.35,37.09,4.89,65.07,34.99,68.24,72.09,2.9,33.96-10.85,66.3-39.88,84.29-16.71,10.36-36.35,14.74-55.55,10.91-9.07-1.81-16.33-6.18-22.12-13.24Z"/><path fill="#44b891" d="M63.38,129.87c-7.98,6.51-12.52,15.15-12.12,25.33l.32,8.07c-26.49-25.96-24.83-73.4,3.11-97.33,11.04-9.46,27.26-9.71,37.85-.02,6.2,5.67,8.85,14.04,8.68,22-2.03,16.26-11.41,22.14-23.07,30.52-5.12,3.68-9.86,7.43-14.76,11.43Z"/></g>
@@ -262,6 +286,27 @@ p{text-wrap:pretty;}
     <p class="glead">From there, our team cleanses and charges each crystal, so when it arrives, it&rsquo;s ready
       to become part of your practice.</p>
     <div class="hcta"><a class="gbtn gbtn-g" href="/craft/">Our Sourcing &amp; Process</a></div>
+  </div>
+</section>
+
+<!-- The gallery above is the curated set, and three of them are real 3D scans
+     you can turn. This is the rest of the shelf: every crystal in the
+     catalogue, filtered by the intention Energy Muse tag it with. The gallery
+     is the exhibit; this is the shop. -->
+<section class="gsec tinted" id="allstones">
+  <div class="gwrap">
+    <div class="eye">The whole shelf</div>
+    <h2>Every crystal, by what it is for.</h2>
+    <div class="sfilter" id="sfilter">
+      <button class="sf on" type="button" data-g="">Everything</button>
+      <button class="sf" type="button" data-g="Calm">Calm</button>
+      <button class="sf" type="button" data-g="Clarity">Clarity</button>
+      <button class="sf" type="button" data-g="Protection">Protection</button>
+      <button class="sf" type="button" data-g="Abundance">Abundance</button>
+      <button class="sf" type="button" data-g="Connection">Connection</button>
+    </div>
+    <p class="scount" id="scount"></p>
+    <div class="sgrid" id="sgrid"></div>
   </div>
 </section>
 
@@ -533,4 +578,31 @@ let t0=performance.now();
 window.__ready=true;
 </script>
 <script src="/assets/em-depth.js?v=3" defer></script>
+
+<script>
+/* Built from em-catalog.js — same source as the shop, so a stone cannot be one
+   price here and another there. */
+(function(){
+  var host=document.getElementById('sgrid'), count=document.getElementById('scount');
+  if(!host||!window.EM_CATALOG)return;
+  var ALL=window.EM_CATALOG.all().filter(function(p){return p.cat==='Crystal';})
+           .sort(function(a,b){return a.price-b.price;});
+  function paint(g){
+    var list=g?ALL.filter(function(c){return c.group===g;}):ALL;
+    host.innerHTML=list.map(function(c){
+      return '<a class="scard" href="/product/?id='+encodeURIComponent(c.id)+'">'
+        +'<span class="sim"><img src="'+c.img+'" alt="'+String(c.name).replace(/"/g,'')+'" loading="lazy"></span>'
+        +'<b>'+c.name+'</b>'+(c.group?'<span class="sg">'+c.group+'</span>':'')
+        +'<span class="sp">$'+c.price.toFixed(2)+'</span></a>';}).join('');
+    count.textContent=list.length+(list.length===1?' crystal':' crystals')+(g?' for '+g.toLowerCase():'');
+  }
+  paint('');
+  var bar=document.getElementById('sfilter');
+  bar.addEventListener('click',function(e){
+    var b=e.target.closest('.sf'); if(!b)return;
+    [].forEach.call(bar.children,function(x){x.classList.toggle('on',x===b);});
+    paint(b.getAttribute('data-g'));
+  });
+})();
+</script>
 </body></html>
