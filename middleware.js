@@ -35,13 +35,15 @@ export const config = {
   matcher: '/((?!_vercel/).*)',
 };
 
-/* Any username is accepted — the browser's dialog demands one and there is no
-   sense inventing a second secret to remember. Say so in the prompt itself.
+/* This is a private build, for Clay and nobody else, so the prompt gives a
+   stranger nothing: no hint about who to ask, no invitation to try. Any
+   username is accepted — the browser's dialog demands one and there is no
+   sense in a second secret to remember.
 
    ASCII ONLY. A header value is a ByteString, so a stray em dash here throws
    when the Response is constructed and every locked-out visitor gets a crash
    instead of a password box. The local test covers this. */
-const REALM = 'Energy Muse preview - any username, password from Clay';
+const REALM = 'Private';
 
 export default function middleware(request) {
   const expected = process.env.SITE_PASSWORD;
@@ -56,7 +58,7 @@ export default function middleware(request) {
     if (constantTimeEqual(supplied, expected)) return next();
   }
 
-  return new Response('This preview is private. A password is required.', {
+  return new Response('Not available.', {
     status: 401,
     headers: {
       'WWW-Authenticate': 'Basic realm="' + REALM + '", charset="UTF-8"',
