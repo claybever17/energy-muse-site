@@ -224,8 +224,14 @@ sells real products throughout.
    says $99.88, which is what `em-frequencies.js` already carries.
 4. **Three forms are not connected to a mailbox** — affiliate application, quiz result capture,
    Veza waitlist. All three say so on the page. Point them at the Energy Muse system.
-5. **`Agate Geode Slice`** is the one catalogue item with no match in the live Shopify
-   catalogue. Worth asking whether it is discontinued or named differently there.
+5. **`Agate Geode Slice` was removed from the catalogue.** It had no match anywhere in
+   Energy Muse's live store, and the only picture of it is a 3D scan rendered against the
+   old dark viewer — a grey plate beside forty-one cut-outs. It remains in the `/gems/`
+   gallery as a scan you can turn, which is what it is good for. If they confirm it is a
+   real product and send a photograph, it can go back in.
+
+   **Rule that came out of this: no 3D renders in a product grid.** They do not sit
+   with photography, and the grids are photography. Scans belong in the viewer.
 6. Localize the remaining **Shopify CDN hotlinks** on `/gems/` via the photo pipeline.
 7. Quiz deep-links / shareable results (`/quiz/?intent=…`).
 8. Vercel project rename + custom domain. The project is called `energy-muse-workingfolder`,

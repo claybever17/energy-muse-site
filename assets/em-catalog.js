@@ -17,7 +17,12 @@
   'use strict';
 
   var ITEMS = [
-  { id: "calm", name: "Agate Geode Slice", cat: "Crystal", group: "Calm", price: 48.88, img: "/assets/img/thumbs/calm.jpg", desc: "A real Energy Muse crystal, scanned in 3D. Banded, slow-formed agate — a soft visual pause for desk or shelf.", home: "/gems/", scan: true },
+  /* No Agate Geode Slice here on purpose. It is the one item that had no match
+     anywhere in Energy Muse's live catalogue, and the only picture of it we
+     have is a 3D scan rendered against the old dark viewer — which reads as a
+     grey plate beside forty-one cut-outs. It still exists in the /gems/
+     gallery as a scan you can turn, which is what it is good for. If they
+     confirm it is a real product and send a photograph, it can come back. */
   { id: "protection", name: "Black Tourmaline", cat: "Crystal", group: "Protection", price: 8.88, img: "/assets/img/products/protection.png", desc: "The classic boundary crystal, scanned in 3D — striated black crystal for entries, desks and thresholds.", home: "/gems/", scan: true },
   { id: "wellness", name: "Quantum Quattro Crystal", cat: "Crystal", group: "Wellness", price: 229.88, img: "/assets/img/products/wellness.png", desc: "A real Energy Muse specimen, scanned in 3D — shattuckite, dioptase, malachite and smoky quartz in quartz.", home: "/gems/", scan: true },
   { id: "spirituality", name: "Amethyst Cluster", cat: "Crystal", group: "Spirituality", price: 34.88, img: "/assets/img/products/spirituality.png", desc: "Natural amethyst points on a copper stand — the classic meditative crystal for clarity and quiet attention.", home: "/gems/" },
