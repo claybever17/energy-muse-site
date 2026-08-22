@@ -232,6 +232,14 @@ sells real products throughout.
 
    **Rule that came out of this: no 3D renders in a product grid.** They do not sit
    with photography, and the grids are photography. Scans belong in the viewer.
+
+6. **One intention is a guess: Labradorite Wand.** Every other product's intention is
+   read off Energy Muse's own tags ("Protection & Clearing", "Wealth & Success", and
+   so on), or matched to the same mineral already tagged elsewhere in the catalogue.
+   Labradorite carries no intention tag anywhere in their store and their copy calls
+   it transformation rather than focus, so it sits under Protection — the classic
+   framing, and the closest to the "Power" it used to be filed under. Worth one
+   sentence from them to confirm.
 6. Localize the remaining **Shopify CDN hotlinks** on `/gems/` via the photo pipeline.
 7. Quiz deep-links / shareable results (`/quiz/?intent=…`).
 8. Vercel project rename + custom domain. The project is called `energy-muse-workingfolder`,

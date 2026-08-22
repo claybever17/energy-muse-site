@@ -58,6 +58,16 @@
 .jcount{font-size:12.5px;color:var(--stone);margin-top:14px}
 .jcard .jg{font-family:var(--sans);font-weight:600;font-size:9.5px;letter-spacing:.18em;
   text-transform:uppercase;color:var(--stone);margin-top:9px;display:block}
+
+/* same fix as the crystal shelf: pieces are different heights, so without a
+   fixed frame and a common baseline the names and prices step up and down
+   across the row */
+.jcard{text-align:center}
+.jcard img{aspect-ratio:1;object-fit:contain;width:100%;height:auto}
+.jcard strong{min-height:2.6em;display:flex;align-items:center;justify-content:center;text-align:center}
+.jcard .jg{text-align:center}
+.jcard .jp{margin-top:2px}
+.jcard .jadd{margin-top:auto}
 </style>
 </head><body>
 <main>
