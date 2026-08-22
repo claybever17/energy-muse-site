@@ -118,6 +118,12 @@ p{margin:0;}
   + .section:not(.band):not(.freq):not(.final-cta):not(.email){
   padding-top:calc(var(--step) * .42);
 }
+/* .final-cta is --tint and .email is a cream three RGB values away from it, so
+   the rule above does not see them as the same ground — and the eye does. That
+   left 154px of pad meeting 154px of pad under the closing headline, which is
+   most of why that section read as empty. Close the seam and trim the tail. */
+.final-cta{padding-bottom:calc(var(--step) * .46);}
+.section.email{padding-top:calc(var(--step) * .46);}
 /* Short blocks even their lines rather than filling each one and orphaning
    whatever is left over. It cannot stop a sentence breaking, but it stops
    the break landing in the worst place available. */
@@ -1053,16 +1059,19 @@ body.menu-open{overflow:hidden;}
   margin-top:clamp(30px,4vw,46px);max-width:1000px;margin-inline:auto;}
 .feel{position:relative;display:block;text-decoration:none;color:inherit;text-align:center;
   padding:20px 8px 22px;border-radius:4px;transition:background .3s;}
-.feel::after{content:"";position:absolute;left:14%;right:14%;bottom:10px;height:1px;
-  background:var(--fc);transform:scaleX(.18);transform-origin:50% 50%;opacity:.35;
-  transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .35s;}
+.feel::after{content:"";position:absolute;left:18%;right:18%;bottom:12px;height:1px;
+  background:var(--fc);transform:scaleX(0);transform-origin:50% 50%;opacity:0;
+  transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .3s;}
 .feel:hover::after,.feel:focus-visible::after{transform:scaleX(1);opacity:1;}
 .feel:hover{background:color-mix(in srgb,var(--fc) 7%,transparent);}
 .feel:focus-visible{outline:2px solid var(--fc);outline-offset:2px;}
 .feel em{display:block;font-style:normal;font-family:var(--serif);font-weight:400;
   font-size:clamp(19px,2vw,26px);letter-spacing:-.015em;color:var(--fg);}
 .feel span{display:block;font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:6px;}
-.final-cta .cta-row{justify-content:center;margin-top:clamp(24px,3vw,34px);}
+.cta-quiet{margin-top:clamp(22px,2.6vw,30px);font-family:var(--sans);font-size:14px;}
+.cta-quiet a{color:var(--muted);text-decoration:none;border-bottom:1px solid transparent;
+  padding-bottom:2px;transition:color .25s,border-color .25s;}
+.cta-quiet a:hover{color:var(--copper);border-color:color-mix(in srgb,var(--copper) 45%,transparent);}
 @media (max-width:860px){
   .feelings{grid-template-columns:repeat(2,1fr);gap:6px;}
   .feel{padding:16px 8px 20px;}
@@ -1728,9 +1737,7 @@ p{text-wrap:pretty;}
       <a class="feel" href="intention/abundance/"  style="--fc:#A9683E"><em>Abundance</em><span>Make room for more</span></a>
       <a class="feel" href="intention/connection/" style="--fc:#B06E7A"><em>Connection</em><span>Come back to people</span></a>
     </div>
-    <div class="cta-row">
-      <a href="quiz/" class="btn btn-ghost">Not sure? Take the Energy Quiz</a>
-    </div>
+    <p class="cta-quiet"><a href="quiz/">Not sure which one? Take the Energy Quiz &rarr;</a></p>
   </div>
 </section>
 
