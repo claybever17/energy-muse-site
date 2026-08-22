@@ -17,7 +17,7 @@
 <meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
-<link rel="stylesheet" href="/assets/em-page.css?v=2">
+<link rel="stylesheet" href="/assets/em-page.css?v=3">
 <script src="/assets/em-frequencies.js?v=2"></script>
 <script src="/assets/em-header.js?v=9" defer></script>
 <script src="/assets/em-bag.js?v=4" defer></script>
@@ -71,6 +71,47 @@
    inside a card that is already obviously clickable. */
 .plink{display:block;text-decoration:none;color:inherit}
 .plink:focus-visible{outline:2px solid var(--copper);outline-offset:3px;border-radius:3px}
+
+/* The card's parts are <span>s. They used to be flex children of .pcard, which
+   made them block; wrapping them in the product link put them back inside an
+   ordinary block, so they went inline and ran together — "CRYSTALBlack
+   Tourmaline" on one line. Anything inside a .plink that is a row of the card
+   has to say so. */
+.plink{display:block}
+.pcard .kind,.pcard .nm,.pcard .say,.pcard .pr,
+.fcard .hz,.fcard .nm,.fcard .pu,.fcard .pr,
+.jcard strong,.jcard .jp{display:block}
+
+/* The image frame was not holding its square: heights ran 195 to 265 in the
+   same row, which pushed the name, the price and the button down by different
+   amounts in every card. aspect-ratio was set, but a grid or flex item has
+   min-height:auto, so a tall photograph simply grew the frame past it. The
+   image is constrained by max-height instead of stretched by height, and the
+   frame cannot be pushed past its own aspect. Same fix as the crystal shelf. */
+.pcard .shot,.fcard .shot{display:grid;place-items:center;overflow:hidden}
+.pcard .shot > img,.fcard .shot > img{width:100%;height:100%;object-fit:contain;
+  display:block;min-width:0;min-height:0}
+/* and a little air between the photograph and the type under it */
+.pcard .kind,.fcard .hz{margin-top:18px}
+
+/* Names wrap to one line or two ("Better Sleep" against "Tension & Stress
+   Release"), and the purpose list under them runs to one line or three, so
+   each card pushed its price down by a different amount. Reserve the space
+   rather than let the longest card decide where everything sits. */
+.fcard .nm{min-height:2.6em}
+/* Pin the price and the control to the bottom of the card rather than letting
+   the purpose list decide where they land. The list runs to two lines or
+   three, and reserving a min-height only works until some frequency needs one
+   line more; margin-top:auto is indifferent to how long the copy is. */
+.fcard .pu{min-height:2.4em;flex:1 1 auto}
+.fcard .pr{margin-top:auto}
+/* "Currently unavailable" wrapped to two lines where "Add to Bag" is one, so
+   the sold-out card's control was taller and its purpose list got that much
+   less room — which is why one price in the row sat higher than the rest. The
+   fix is the label, not a pile of compensating heights: one word, one line,
+   same footprint as the button beside it. */
+.fcard .fadd,.fcard .fsold{min-height:44px;display:flex;align-items:center;justify-content:center;
+  box-sizing:border-box}
 </style>
 </head><body>
 <main>
@@ -165,7 +206,7 @@
       '<span class="nm">'+c.name+'</span></a>'+
       '<span class="pu">'+c.purpose.join(' &middot; ')+'</span>'+
       '<span class="pr">$'+c.price.toFixed(2)+'</span>'+
-      (out ? '<span class="fsold">Currently unavailable</span>'
+      (out ? '<span class="fsold">Unavailable</span>'
            : '<button class="fadd" type="button" data-id="'+c.id+'">Add to Bag</button>');
     return el;
   }

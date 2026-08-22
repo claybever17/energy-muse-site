@@ -33,7 +33,18 @@ a{color:inherit}
 img{max-width:100%;display:block}
 
 .wrap{max-width:1080px;margin:0 auto;padding-inline:var(--edge)}
-.wrap.narrow{max-width:760px}
+/* narrow limits the MEASURE, not the container.
+
+   As a centred 760px box it also moved the left edge inward, so a page that
+   alternates full and narrow sections ran its own margin in and out — 77px,
+   77px, 307px, 307px, 77px down /gems/ — and every other section read as
+   indented for no reason anyone could see. Seventeen pages here use it, so
+   the same rag was on most of the site.
+
+   The container spans like every other now and the short line length is
+   imposed on the content instead. One left edge, top to bottom. */
+.wrap.narrow{max-width:1080px}
+.wrap.narrow > *{max-width:760px}
 .sect{padding-block:clamp(48px,7vw,96px)}
 .sect+.sect{border-top:1px solid var(--hair)}
 .sect.tint{background:var(--tint)}
