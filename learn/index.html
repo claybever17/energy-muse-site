@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Energy Muse — Learning Center</title>
-<meta name="description" content="Start with the basics. Build your practice from there — crystal meanings, frequency guides, care, and founder-led teaching.">
+<meta name="description" content="Start with the basics. Guides to crystals, frequency, and wearing your intention — plus the questions everyone asks first.">
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=2">
@@ -10,26 +10,95 @@
 <script src="/assets/em-prices.js?v=2" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
 <script src="/assets/em-versions.js?v=17" defer></script>
+<style>
+/* The five paths used to be five plain <div>s. They read as navigation, they
+   were styled like navigation, and not one of them was a link — the whole
+   point of a learning centre, sitting inert. They are anchors now, and each
+   goes somewhere that exists. */
+.paths{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,1.8vw,22px);
+  margin-top:clamp(28px,4vw,46px)}
+.path{display:flex;flex-direction:column;text-decoration:none;color:inherit;
+  border:1px solid var(--hair);border-radius:5px;background:var(--surface);
+  padding:24px 26px 26px;position:relative;overflow:hidden;
+  transition:transform .42s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}
+.path:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--copper) 46%,transparent);
+  box-shadow:0 16px 34px rgba(61,41,23,.09)}
+.path:focus-visible{outline:2px solid var(--copper);outline-offset:3px}
+.path .n{font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--copper)}
+.path h3{margin-top:9px;font-size:clamp(19px,1.7vw,24px)}
+.path p{color:var(--ink-soft);font-size:15px;margin-top:8px;flex:1;max-width:38ch}
+.path .go{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--copper);margin-top:16px;
+  transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.path:hover .go{transform:translateX(5px)}
+.path.wide{grid-column:1 / -1;flex-direction:row;align-items:center;gap:26px;flex-wrap:wrap}
+.path.wide p{margin-top:0}
+.path.wide .col{flex:1;min-width:240px}
+@media (prefers-reduced-motion:reduce){.path,.path .go{transition:none}.path:hover{transform:none}}
+@media (max-width:760px){.paths{grid-template-columns:1fr}.path.wide{flex-direction:column;align-items:flex-start;gap:10px}}
+</style>
 </head><body>
 <main>
+
 <section class="sect">
   <div class="wrap">
     <span class="eyebrow">Learning center</span>
     <h1>Start with the basics. Build your practice from there.</h1>
-    <p class="lead">Begin with simple guidance that helps you understand your intention, choose the right tools, and create a practice that feels natural in your life. As your needs evolve, Energy Muse is here to help you explore, learn, and go deeper at your own pace.</p>
-    <div class="cta-row"><a class="btn btn-copper" href="/quiz/">Find My Energy Match</a></div>
+    <p class="lead">Begin with simple guidance that helps you understand your intention, choose the
+      right tools, and create a practice that feels natural in your life. As your needs evolve,
+      Energy Muse is here to help you explore, learn, and go deeper at your own pace.</p>
+    <div class="cta-row">
+      <a class="btn btn-copper" href="/learn/start/">Start at the Beginning</a>
+      <a class="btn btn-ghost" href="/quiz/">Find My Energy Match</a>
+    </div>
   </div>
 </section>
 
 <section class="sect tint">
   <div class="wrap">
     <h2>Choose your learning path.</h2>
-    <div class="cols">
-      <div><h3>New to Energy Muse</h3><p>First steps, simple practices, and how to choose.</p></div>
-      <div><h3>Crystal Guide</h3><p>Meanings, shapes, care, cleansing, and everyday use.</p></div>
-      <div><h3>Frequency Guide</h3><p>Clear explanations, product setup, comparisons, and FAQs.</p></div>
-      <div><h3>Wear Your Intention</h3><p>Jewelry care, styling, and daily reminders.</p></div>
-      <div><h3>Learn with Heather</h3><p>Founder teaching, deeper practice, and category perspective.</p></div>
+    <p>Five ways in. Take them in order or go straight to the one you came for.</p>
+    <div class="paths">
+
+      <a class="path" href="/learn/start/">
+        <span class="n">Start here</span>
+        <h3>New to Energy Muse</h3>
+        <p>First steps, the three kinds of tool, and how to choose one without guessing.</p>
+        <span class="go">Read the guide &rarr;</span>
+      </a>
+
+      <a class="path" href="/learn/crystals/">
+        <span class="n">Crystals</span>
+        <h3>Crystal Guide</h3>
+        <p>What each stone is for, what the shapes mean, and how to look after them.</p>
+        <span class="go">Read the guide &rarr;</span>
+      </a>
+
+      <a class="path" href="/learn/frequency/">
+        <span class="n">Frequency</span>
+        <h3>Frequency Guide</h3>
+        <p>What the seven frequencies do, where to put a generator, and why fixed beats variable.</p>
+        <span class="go">Read the guide &rarr;</span>
+      </a>
+
+      <a class="path" href="/learn/jewelry/">
+        <span class="n">Jewelry</span>
+        <h3>Wear Your Intention</h3>
+        <p>Sizing, stacking, everyday care, and keeping a piece looking like the day it arrived.</p>
+        <span class="go">Read the guide &rarr;</span>
+      </a>
+
+      <a class="path wide" href="/heather/">
+        <div class="col">
+          <span class="n">Go deeper</span>
+          <h3>Learn with Heather</h3>
+        </div>
+        <p>Twenty-six years of practice, one conversation. For choosing between tools, entering a
+          transition, or connecting what you already own into something coherent.</p>
+        <span class="go">Book a session &rarr;</span>
+      </a>
+
     </div>
   </div>
 </section>
@@ -37,13 +106,18 @@
 <section class="sect">
   <div class="wrap narrow">
     <h2>Turn the guide into a personal starting point.</h2>
-    <p>Take the Energy Quiz to connect what you&rsquo;ve learned to a recommended tool and a simple practice.</p>
-    <div class="cta-row"><a class="btn btn-copper" href="/quiz/">Find My Energy Match</a><a class="btn btn-ghost" href="/faq/">Read the FAQs</a></div>
+    <p>Take the Energy Quiz to connect what you&rsquo;ve learned to a recommended tool and a simple
+      practice you can actually keep.</p>
+    <div class="cta-row">
+      <a class="btn btn-copper" href="/quiz/">Find My Energy Match</a>
+      <a class="btn btn-ghost" href="/faq/">Read the FAQs</a>
+    </div>
   </div>
 </section>
 
 <section class="sect">
   <div class="wrap"><a class="backlink" href="/">&larr; Back to Energy Muse</a></div>
 </section>
+
 </main>
 </body></html>
