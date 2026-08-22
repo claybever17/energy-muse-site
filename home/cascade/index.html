@@ -20,7 +20,6 @@
 
 <meta name="description" content="Seven tuned frequencies, one instrument. Turn the dial and the room re-tunes — the coil, the wave, the light and the crystals that answer to it.">
 <link rel="icon" type="image/svg+xml" href="../../assets/img/mark.svg">
-<script type="importmap">{"imports":{"three":"../../assets/three.module.min.js"}}</script>
 <style>
 @font-face{font-family:'Fraunces';src:url(../../assets/fonts/fraunces_300.woff2?v=3) format('woff2');font-weight:300;font-display:swap}
 @font-face{font-family:'Fraunces';src:url(../../assets/fonts/fraunces_400.woff2?v=3) format('woff2');font-weight:400;font-display:swap}
@@ -147,9 +146,15 @@ img{display:block;max-width:100%}
 
 /* ---------- the instrument ---------- */
 .device{position:relative;z-index:1;aspect-ratio:1;width:100%}
-.device canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
-.device img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .5s}
-.device.live img{opacity:0}
+.device img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  transition:opacity .45s ease;will-change:opacity;animation:emDrift 9s ease-in-out infinite}
+#genimg2{opacity:0}
+/* The 3D model floated. Losing it should not leave the panel dead, so the
+   photograph drifts instead — small enough to read as breathing, not motion. */
+@keyframes emDrift{0%,100%{transform:translateY(-1.1%)}50%{transform:translateY(1.1%)}}
+@media (prefers-reduced-motion:reduce){
+  .device img{animation:none;transition:none}
+}
 
 /* ---------- what answers to it ---------- */
 .answers{position:relative;max-width:1400px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(16px,3.4vw,40px)}
@@ -457,7 +462,7 @@ img{display:block;max-width:100%}
 
     <div class="device" id="device">
       <img id="genimg" src="../../assets/img/generators/528.png" alt="528Hz Frequency Generator">
-      <canvas id="dev"></canvas>
+      <img id="genimg2" alt="" aria-hidden="true">
     </div>
   </section>
 
@@ -532,9 +537,9 @@ function tune(i){
   root.style.setProperty('--tone-soft',r.soft);
   root.style.setProperty('--room',r.room);
   numEl.textContent=r.hz; nameEl.textContent=r.name; sayEl.textContent=r.say;
-  var gi=document.getElementById('genimg');
-  if(gi){gi.src='../../assets/img/generators/'+r.hz.replace('.','-')+'.png';
-         gi.alt=r.hz+'Hz Frequency Generator';}
+  /* the device on the right IS the frequency — cross-faded, so turning the
+     dial re-tunes the object rather than cutting to a different picture */
+  if(window.setDevice)setDevice(r.hz);
   /* guarded: the spec list lived in the product pitch that this page no
      longer carries, so specHz is null here. Unguarded it threw before
      paintStones ran, and the crystals never appeared — a silent failure,
@@ -606,28 +611,51 @@ function drawWave(t){
 (function loop(t){ if(!reduce)requestAnimationFrame(loop); drawWave(t||0); })();
 window.__wave={get cur(){return cur;},get shown(){return shown;},get cycles(){return 0.9+shown*0.62;},get W(){return W;},get frames(){return frames;},get reduce(){return reduce;},settle:function(){shown=cur;drawWave(performance.now());return 0.9+shown*0.62;}};
 
-/* --- the instrument itself --- */
+/* --- the instrument itself ---
+   This used to mount a WebGL generator over the photograph. It rendered ONE
+   generic device with no notion of frequency, so the object on the right
+   stayed identical however far you turned the dial — on a page whose entire
+   argument is that each frequency is a different device. It also read as a
+   different kind of image from the product photography everywhere else: a lit
+   3D render next to a photograph, which never agree.
+
+   The seven photographs are genuinely different objects — 7.83 is a copper
+   spiral, 963 a silver rosette, different coil geometry and different metal —
+   and all seven were shot at one angle under one light, so cross-fading
+   between them lands pixel-aligned and reads as the device re-tuning in place.
+
+   Removing it also takes 666KB of three.js off a page that was using it for
+   one static prop. */
 (function(){
-  if(!window.WebGLRenderingContext)return;
-  var stage=document.getElementById('device'), cv=document.getElementById('dev'), booted=false;
-  function boot(){
-    if(booted)return; booted=true;
-    import('../../assets/em-device.js?v=2').then(function(m){
-      if(m.mount(cv,{zoom:1}))requestAnimationFrame(function(){
-        requestAnimationFrame(function(){stage.classList.add('live');});});
-    }).catch(function(){});
+  var stage=document.getElementById('device');
+  if(!stage)return;
+  var a=document.getElementById('genimg'), b=document.getElementById('genimg2');
+  if(!a||!b)return;
+  var front=a, back=b, at=null;
+
+  /* Preload the rest once the page is quiet, so the first turn of the dial
+     does not fade to nothing while a file downloads. */
+  function preload(){
+    var list = window.EM_FREQ ? window.EM_FREQ.map(function(f){return f.hz;})
+                              : ['7.83','174','417','528','639','963','1111'];
+    list.forEach(function(hz){ var im=new Image(); im.src=src(hz); });
   }
-  /* the instrument is the hero, so it is on screen the moment the page is.
-     Waiting on an observer to tell us that is a race we do not need to run —
-     boot straight away when it is already in view, and keep the observer only
-     for the case where it is not. */
-  var r=stage.getBoundingClientRect();
-  if(r.top<innerHeight&&r.bottom>0){boot();}
-  else{
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){
-      if(e.isIntersecting){io.disconnect();boot();}});},{rootMargin:'400px'});
-    io.observe(stage);
-  }
+  function src(hz){ return '../../assets/img/generators/'+String(hz).replace('.','-')+'.png'; }
+
+  window.setDevice=function(hz){
+    var next=src(hz);
+    if(at===next)return;
+    at=next;
+    if(reduce){ front.src=next; front.alt=hz+'Hz Frequency Generator'; return; }
+    back.onload=function(){
+      back.style.opacity='1'; front.style.opacity='0';
+      var t=front; front=back; back=t;
+    };
+    back.alt=hz+'Hz Frequency Generator';
+    back.src=next;
+  };
+
+  if('requestIdleCallback' in window) requestIdleCallback(preload); else setTimeout(preload,1400);
 })();
 
 /* --- bag --- */
@@ -701,15 +729,10 @@ document.getElementById('buy').addEventListener('click',function(){
   setTimeout(function(){els.forEach(show);removeEventListener('scroll',sweep);},4000);
 })();
 
-document.getElementById('jform').addEventListener('submit',function(e){
-  e.preventDefault();
-  var v=this.querySelector('input').value.trim();
-  var ok=/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(v);
-  document.getElementById('jnote').textContent=ok
-    ? 'Thank you — check your inbox to confirm.'
-    : 'That email does not look right — try again?';
-  if(ok)this.reset();
-});
+/* The email capture this bound to was removed when the page was cut from 6.6
+   screens to one, and the handler was left behind. getElementById('jform')
+   returned null and the whole script died on that line — taking syncBag with
+   it, which is why the bag count on this page never moved. */
 
 function syncBag(){
   try{
