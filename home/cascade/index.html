@@ -298,6 +298,12 @@ img{display:block;max-width:100%}
   display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
 
 @media (max-width:900px){
+  /* the dial is what this page is for, so its stops get a thumb-sized hit box.
+     The dot stays the size it is; the tappable area around it grows. */
+  .stop{position:relative}
+  .stop::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:44px;height:44px}
+
   .peoplein,.joinin{grid-template-columns:1fr}
   .pshot{order:-1}
 }

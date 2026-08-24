@@ -43,6 +43,17 @@ var css=[
 '.emh-links a:hover{color:'+P.copper+';}',
 '.emh-utils{margin-left:auto;display:flex;gap:16px;align-items:center;font:500 12.5px "Instrument Sans",sans-serif;letter-spacing:.04em;transform:translateY(3px);}',
 '.emh-utils a{color:'+P.soft+';text-decoration:none;}',
+/* Hit areas. Search and Bag were 43x15 and 45x15 on a phone — a fifteen-pixel
+   target is hard to hit with a thumb, and these two are on every page. The
+   padding grows the tappable box to 44px without changing how any of it
+   looks, and the negative margin keeps the row the same height. */
+'@media (max-width:840px){',
+'  .emh-utils{gap:6px;}',
+'  .emh-utils a,.emh-utils button{min-height:44px;display:inline-flex;align-items:center;padding:0 10px;}',
+'  .emh-brand{min-height:44px;}',
+'  .emh-ann-in a{display:inline-flex;align-items:center;min-height:38px;}',
+'  .emh-annx{width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;right:4px;}',
+'}',
 '.emh-utils a.bag{color:'+P.ink+';font-weight:600;}',
 '.emh-burger{display:none;width:38px;height:38px;border:1px solid '+P.line+';background:none;border-radius:3px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;}',
 '.emh-burger span{width:16px;height:1.5px;background:'+P.ink+';display:block;}',

@@ -390,6 +390,12 @@ body.menu-open{overflow:hidden;}
    button. So: ranged left, the type lifted up over the foot of the picture so
    the two interlock instead of stacking, and the dead ground taken out. */
 @media (max-width:840px){
+  /* The homepage has its own nav, so the shared header's mobile hit areas do
+     not reach it — its Bag link was still 43x19 under a thumb. */
+  .nav-utils{gap:6px}
+  .nav-utils a,.nav-utils button{min-height:44px;display:inline-flex;align-items:center;padding:0 8px}
+  .brand{min-height:44px;display:inline-flex;align-items:center}
+
   .hero{display:flex;flex-direction:column;padding-bottom:0;}
   /* One token for the picture band. The wave is drawn as fractions of its own
      canvas height, so when it was left at height:auto it collapsed to the
@@ -2382,7 +2388,7 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 
 <script src="assets/em-bag.js?v=4" defer></script>
 <script src="assets/em-prices.js?v=2" defer></script>
-<script src="/assets/em-search.js?v=2" defer></script>
+<script src="/assets/em-search.js?v=3" defer></script>
 <script src="assets/em-versions.js?v=17" defer></script>
 <script>
 (function(){

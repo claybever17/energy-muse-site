@@ -163,6 +163,8 @@
 
   var CSS = [
     '.ems-open{background:none;border:0;padding:0;cursor:pointer;font:500 12.5px "Instrument Sans",sans-serif;letter-spacing:.04em;color:#4E5A70;}',
+    /* same thumb-sized hit area as the rest of the header row */
+    '@media (max-width:840px){.ems-open{min-height:44px;display:inline-flex;align-items:center;padding:0 10px;}}',
     '.ems-open:hover{color:#A9683E;}',
     '.ems-wrap{position:fixed;inset:0;z-index:400;display:none;}',
     '.ems-wrap.on{display:block;}',
