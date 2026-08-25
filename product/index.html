@@ -19,21 +19,30 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=3">
 <script src="/assets/em-frequencies.js?v=2"></script>
-<script src="/assets/em-catalog.js?v=4"></script>
-<script src="/assets/em-header.js?v=10" defer></script>
+<script src="/assets/em-catalog.js?v=7"></script>
+<script src="/assets/em-header.js?v=11" defer></script>
 <script src="/assets/em-bag.js?v=4" defer></script>
 <script src="/assets/em-prices.js?v=2" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=3" defer></script>
-<script src="/assets/em-versions.js?v=17" defer></script>
+<script src="/assets/em-versions.js?v=19" defer></script>
 <style>
 /* One product, two columns: the thing on the left, the reason to want it on
    the right. Everything here is driven by ?id= — there is one of these pages,
    not thirty-nine. */
 .pdp{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,72px);align-items:start}
+/* place-items:center here meant the image was never stretched to the grid
+   area, so width/height:100% had no definite box to resolve against: the
+   image laid out 402x463 inside a 402x402 content box and overflow:hidden
+   sheared the bottom off the stone. object-fit:contain never got to run,
+   because the element box was already the wrong size.
+
+   The default stretch gives the image the area's real dimensions and contain
+   does the letterboxing from there. Same mistake, smaller, collapsed the
+   gallery thumbnails to 6x7 pixels — see .pthumb. */
 .pshot{position:relative;background:var(--tint);border-radius:6px;aspect-ratio:1;
-  display:grid;place-items:center;padding:7%;overflow:hidden}
-.pshot img{width:100%;height:100%;object-fit:contain}
+  display:grid;padding:7%;overflow:hidden}
+.pshot img{width:100%;height:100%;min-width:0;min-height:0;object-fit:contain}
 /* No mark in here. em-page.css already turns one behind the first section of
    every page, and a second copy of the same asset a few hundred pixels away
    read as exactly what it was: the same thing twice, both competing with the
@@ -82,9 +91,14 @@
    decision. Thumbnails sit under the frame; the frame itself does not move. */
 .pgal{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
 .pthumb{width:64px;height:64px;flex:none;border:1px solid var(--hair);border-radius:4px;
-  background:var(--tint);padding:6%;cursor:pointer;display:grid;place-items:center;
-  transition:border-color .25s,transform .3s cubic-bezier(.16,1,.3,1)}
-.pthumb img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+  background:var(--tint);padding:5px;cursor:pointer;display:block;box-sizing:border-box;
+  transition:border-color .25s}
+/* Explicit size, not max-size. As max-width/max-height:100% on an auto-sized
+   image inside a centred grid, these collapsed to 6x7 pixels out of a 539x620
+   photograph — the percentage had nothing definite to resolve against. The
+   frame states the size and object-fit does the letterboxing, which is the
+   pattern that already works on every product grid. */
+.pthumb img{width:100%;height:100%;object-fit:contain;display:block}
 .pthumb:hover{border-color:color-mix(in srgb,var(--copper) 55%,transparent)}
 .pthumb[aria-current="true"]{border-color:var(--copper)}
 .pthumb:focus-visible{outline:2px solid var(--copper);outline-offset:2px}

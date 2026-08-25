@@ -141,7 +141,7 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(27px,3.4vw,44px);let
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 <script src="/assets/em-frequencies.js?v=2"></script>
-<script src="/assets/em-catalog.js?v=4"></script>
+<script src="/assets/em-catalog.js?v=7"></script>
 </head>
 <body>
 <div class="wrap">
@@ -195,7 +195,7 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(27px,3.4vw,44px);let
 
 <script src="/assets/em-bag.js?v=4" defer></script>
 <script src="/assets/em-prices.js?v=2" defer></script>
-<script src="/assets/em-versions.js?v=17" defer></script>
+<script src="/assets/em-versions.js?v=19" defer></script>
 <script>
 /* ---------- Build your own box ----------
    The Atelier's engine, pointed at whole crystals instead of 8mm beads.
@@ -394,7 +394,11 @@ function paint(){
     ctx.fillStyle='rgba(141,135,120,.85)';
     ctx.font='600 '+Math.max(10,Math.min(12,bw*0.018))+'px "Instrument Sans",sans-serif';
     ctx.textAlign='center';
-    ctx.fillText('AN EMPTY BOX', W/2, by+bh+Math.max(22,bh*0.10));
+    /* This used to sit below the box, which is exactly where .stagenote is
+       pinned (absolute, bottom:10px) — two different labels printed over each
+       other. Inside the box is where it belongs anyway: the empty container
+       is the thing being described, and the instruction keeps the bottom. */
+    ctx.fillText('AN EMPTY BOX', W/2, by+bh/2);
     ctx.restore();
   }
 }
@@ -529,15 +533,21 @@ document.getElementById('addbag').addEventListener('click',function(){
    now, so two thirds of the shelf would have produced share links that did not
    survive being pasted.
 
-   Sixty-four URL-safe characters instead, and the code is assigned in slug
-   order rather than display order — the shelf is sorted by price, and a price
-   change would otherwise silently repoint every link ever shared. */
+   Sixty-four URL-safe characters, and the code is assigned in slug order
+   rather than display order — the shelf is sorted by price, and a price
+   change would otherwise silently repoint every link ever shared.
+
+   TWO characters per stone, not one. A single character caps the shelf at 64
+   and the overflow failed quietly: past the 64th stone the code was empty
+   string, so those crystals dropped out of a shared link without a word and
+   the box reopened shorter than it was saved. The shelf is 70 crystals now
+   and will keep growing. Two characters carry 4,096. */
 var CODE={},FROMCODE={};
 var ALPHA='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_';
 GEMS.slice().sort(function(a,b){return a.slug<b.slug?-1:a.slug>b.slug?1:0;})
     .forEach(function(g,i){
-      var ch=ALPHA.charAt(i);
-      if(!ch)return;              /* past 64 stones a link cannot encode it */
+      if(i>=ALPHA.length*ALPHA.length)return;
+      var ch=ALPHA.charAt(Math.floor(i/ALPHA.length))+ALPHA.charAt(i%ALPHA.length);
       CODE[g.slug]=ch;FROMCODE[ch]=g.slug;
     });
 function boxURL(){
@@ -564,7 +574,7 @@ function restore(){
     BOXES.forEach(function(b){var k=Math.abs(b.n-n);if(k<d){d=k;best=b;}});boxN=best.n;}
   if(nm)document.getElementById('bname').value=nm;
   if(s){var got=[];
-    for(var i=0;i<s.length;i++){var slug=FROMCODE[s[i]];if(slug)got.push(slug);}
+    for(var i=0;i+1<s.length;i+=2){var slug=FROMCODE[s.substr(i,2)];if(slug)got.push(slug);}
     box=got.slice(0,boxN);
   }
   sync();

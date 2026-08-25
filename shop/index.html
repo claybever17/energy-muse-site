@@ -19,12 +19,13 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=3">
 <script src="/assets/em-frequencies.js?v=2"></script>
-<script src="/assets/em-header.js?v=10" defer></script>
+<script src="/assets/em-catalog.js?v=7"></script>
+<script src="/assets/em-header.js?v=11" defer></script>
 <script src="/assets/em-bag.js?v=4" defer></script>
 <script src="/assets/em-prices.js?v=2" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=3" defer></script>
-<script src="/assets/em-versions.js?v=17" defer></script>
+<script src="/assets/em-versions.js?v=19" defer></script>
 <style>
 /* A shop landing is the one page where the pictures are the navigation, so
    this page carries three shapes the shared shell has no business owning:
@@ -44,9 +45,15 @@
    read. The photograph is now the card: no border, no panel, sitting straight
    on the cream.
 
-   The arch is the one thing here doing the remembering. It is the shape of a
-   crystal point and the shape of a doorway, and the section is called four
-   ways to begin. Everything around it stays quiet.
+   The arch is retired here too, which makes it retired everywhere — the
+   intention pages had already squared their frames and left a note saying so,
+   and this row was the last place still cutting doorways. Squared at the same
+   small fixed radius they use.
+
+   The stagger went with it. Offsetting alternate cards read as rhythm under
+   an arch, where the curve gave the eye something to follow; under plain
+   rectangles the same offset just reads as four things that failed to line
+   up. One shape, one baseline.
 
    The frames were also silently broken: .shot is a <span>, so it computed
    display:inline, and aspect-ratio does not apply to a non-replaced inline
@@ -56,15 +63,13 @@
   margin-top:clamp(34px,4.6vw,58px);align-items:start}
 .way{display:block;text-decoration:none;color:inherit}
 .way .shot{display:block;position:relative;overflow:hidden;background:var(--tint);
-  aspect-ratio:4/5;border-radius:999px 999px 6px 6px / 34% 34% 4px 4px;
+  aspect-ratio:4/5;border-radius:10px;
   transition:transform .55s cubic-bezier(.16,1,.3,1),box-shadow .45s}
 .way .shot img{display:block;width:100%;height:100%;object-fit:cover;
   transition:transform .85s cubic-bezier(.16,1,.3,1)}
 .way:hover .shot{transform:translateY(-7px);box-shadow:0 24px 44px rgba(61,41,23,.17)}
 .way:hover .shot img{transform:scale(1.055)}
 .way:focus-visible .shot{outline:2px solid var(--copper);outline-offset:4px}
-/* alternate frames hang lower, so the row reads as a rhythm and not a wall */
-.way:nth-child(even){margin-top:clamp(18px,3.2vw,50px)}
 .way .txt{display:block;padding:17px 2px 0}
 .way .verb{display:block;font-family:var(--sans);font-weight:600;font-size:10.5px;
   letter-spacing:.24em;text-transform:uppercase;color:var(--copper)}
@@ -147,7 +152,6 @@
 }
 @media (max-width:900px){
   .ways{grid-template-columns:repeat(2,1fr)}
-  .way:nth-child(even){margin-top:0}
   .way:nth-child(2n){margin-top:clamp(18px,3.2vw,44px)}
   .gband{grid-template-columns:1fr;gap:28px}
   .gband .lit{max-width:360px;margin:0 auto}
@@ -161,7 +165,6 @@
 }
 @media (max-width:520px){
   .ways{grid-template-columns:1fr;gap:30px}
-  .way:nth-child(even),.way:nth-child(2n){margin-top:0}
   .way .shot{aspect-ratio:5/4}
 }
 
@@ -363,43 +366,77 @@
 
 </main>
 <script>
-/* The products. Names, prices and cut-outs are the same ones /jewelry/ and
-   /gems/ already sell — this page was showing none of them, which is the
-   whole reason it read as a placeholder. Built from a list rather than typed
-   into the markup eight times so a price only ever exists in one place. */
+/* The products come out of the catalogue, not out of this file.
+
+   They used to be eight objects typed here with their own names, prices and
+   image paths — a ninth copy of data that already had a home. It went stale
+   exactly the way that always goes: the first card in the rail was the Rose
+   Quartz Bracelet, which Energy Muse had sold out of. A hand-picked rail is a
+   rail that is wrong the moment the shop changes underneath it.
+
+   The selection rule instead of a list: walk the five intentions and take the
+   MEDIAN-priced in-stock piece from each, filling toward whichever of crystal
+   or jewelry is currently behind. Median rather than cheapest on purpose —
+   cheapest-first built a rail that ran $4.88 to $23 with no jewelry in the
+   first four cards, which reads as a bargain bin instead of a shop. The
+   second pass walks the intentions in reverse so the last two are not the
+   ones that get left with a single card.
+
+   Deterministic — same catalogue, same eight, no shuffle — but derived, so a
+   sold-out piece drops itself and a new one steps up without anyone editing
+   this page. */
 (function(){
-  var J='/assets/img/jewelry-shop/', C='/assets/img/products/';
-  var PICKS=[
-    {id:'rose-quartz-bracelet-3',   n:'Rose Quartz Bracelet',        p:26.88,  img:J+'rose-quartz-bracelet-3.png',   kind:'Jewelry', link:'/jewelry/'},
-    {id:'protection-bracelet',      n:'Protection Crystal Bracelet', p:26.88,  img:J+'protection-bracelet.png',      kind:'Jewelry', link:'/jewelry/'},
-    {id:'infinite-prosperity-bracelet', n:'Infinite Prosperity Bracelet', p:64.88, img:J+'infinite-prosperity-bracelet.png', kind:'Jewelry', link:'/jewelry/'},
-    {id:'seven-stone-necklace',     n:'Seven &amp; Stone Necklace',  p:124.88, img:J+'seven-stone-necklace.png',     kind:'Jewelry', link:'/jewelry/'},
-    {id:'protection',               n:'Black Tourmaline',            p:8.88,   img:C+'protection.png',               kind:'Crystal', link:'/gems/'},
-    {id:'fresh-start',              n:'Clear Quartz Pyramid',        p:18.88,  img:C+'fresh-start.png',              kind:'Crystal', link:'/gems/'},
-    {id:'wealth',                   n:'Pyrite Cube',                 p:24.88,  img:C+'wealth.png',                   kind:'Crystal', link:'/gems/'},
-    {id:'spirituality',             n:'Amethyst Cluster',            p:34.88,  img:C+'spirituality.png',             kind:'Crystal', link:'/gems/'}
-  ];
   var host=document.getElementById('pgrid');
-  if(host){
-    PICKS.forEach(function(c){
-      var el=document.createElement('div');
-      el.className='pcard';
-      var href='/product/?id='+encodeURIComponent(c.id);
-      el.innerHTML='<a class="plink" href="'+href+'"><span class="shot"><img src="'+c.img+'" alt="'+c.n.replace(/&amp;/g,'and')+'" loading="lazy"></span>'
-        +'<span class="kind">'+c.kind+'</span>'
-        +'<span class="nm">'+c.n+'</span></a>'
-        +'<span class="pr">$'+c.p.toFixed(2)+'</span>'
-        +'<button class="padd" type="button" data-id="'+c.id+'">Add to Bag</button>';
-      host.appendChild(el);
-    });
-    var byId={}; PICKS.forEach(function(c){byId[c.id]=c;});
-    host.addEventListener('click',function(e){
-      var b=e.target.closest('.padd'); if(!b||!window.EMBag)return;
-      var c=byId[b.getAttribute('data-id')]; if(!c)return;
-      EMBag.add({id:c.id,name:c.n.replace(/&amp;/g,'&'),price:c.p,img:c.img,link:c.link});
-    });
+  if(!host||!window.EM_CATALOG)return;
+
+  var GROUPS=['Protection','Calm','Abundance','Connection','Clarity'];
+  var pool=window.EM_CATALOG.all().filter(function(p){
+    return (p.cat==='Crystal'||p.cat==='Jewelry') && p.stock!=='out';
+  });
+
+  var used={}, PICKS=[], nC=0, nJ=0;
+
+  function pick(group,cat){
+    var m=pool.filter(function(p){
+      return p.group===group && p.cat===cat && !used[p.id];
+    }).sort(function(a,b){return a.price-b.price;});
+    return m.length ? m[Math.floor(m.length/2)] : null;
   }
 
+  for(var pass=0; pass<2 && PICKS.length<8; pass++){
+    var order = pass ? GROUPS.slice().reverse() : GROUPS;
+    for(var i=0; i<order.length && PICKS.length<8; i++){
+      /* ask for whichever category is behind rather than strictly alternating.
+         Calm has no jewelry in the catalogue, so a strict alternation stalls
+         there and the rail comes out five crystals to three. */
+      var want = (nJ < nC) ? 'Jewelry' : 'Crystal';
+      var c = pick(order[i],want) || pick(order[i], want==='Crystal'?'Jewelry':'Crystal');
+      if(c){ used[c.id]=1; PICKS.push(c); if(c.cat==='Crystal') nC++; else nJ++; }
+    }
+  }
+
+  var byId={};
+  PICKS.forEach(function(c){
+    byId[c.id]=c;
+    var el=document.createElement('div');
+    el.className='pcard';
+    el.innerHTML='<a class="plink" href="/product/?id='+encodeURIComponent(c.id)+'">'
+      +'<span class="shot"><img src="'+c.img+'" alt="'+String(c.name).replace(/"/g,'')+'" loading="lazy"></span>'
+      +'<span class="kind">'+c.cat+'</span>'
+      +'<span class="nm">'+c.name+'</span></a>'
+      +'<span class="pr">$'+c.price.toFixed(2)+'</span>'
+      +'<button class="padd" type="button" data-id="'+c.id+'">Add to Bag</button>';
+    host.appendChild(el);
+  });
+
+  host.addEventListener('click',function(e){
+    var b=e.target.closest('.padd'); if(!b||!window.EMBag)return;
+    var c=byId[b.getAttribute('data-id')]; if(!c)return;
+    EMBag.add({id:c.id,name:c.name,price:c.price,img:c.img,link:c.home||'/shop/'});
+  });
+})();
+
+(function(){
   /* the frequency chips come from em-frequencies.js when it is present, and
      the band simply goes without them when it is not */
   var row=document.getElementById('hzrow');

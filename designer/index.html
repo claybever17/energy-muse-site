@@ -239,14 +239,18 @@ p{text-wrap:pretty}
 
 <script src="/assets/em-bag.js?v=4" defer></script>
 <script src="/assets/em-prices.js?v=2" defer></script>
-<script src="/assets/em-versions.js?v=17" defer></script>
+<script src="/assets/em-versions.js?v=19" defer></script>
 <script>
 (function(){
 'use strict';
 var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
 /* ---------- the stone library: real products, grouped by intention ---------- */
+/* All leads and is the default. With eleven stones the tray opened on
+   Protection and showed three of them; with twenty-nine, opening on a filter
+   hides most of the range behind a tab nobody knows to press. */
 var INTENTS=[
+  ['*','All'],
   ['protection','Protection'],['abundance','Abundance'],['connection','Love'],
   ['calm','Calm'],['clarity','Clarity']
 ];
@@ -261,7 +265,39 @@ var STONES=[
   {id:'rhodochrosite',name:'Rhodochrosite',      intent:'connection', price:1.95},
   {id:'blue-agate',   name:'Blue Lace Agate',    intent:'calm',       price:1.30},
   {id:'blue-opal',    name:'Blue Opal',          intent:'calm',       price:2.10},
-  {id:'amethyst',     name:'Amethyst',           intent:'clarity',    price:1.50}
+  {id:'amethyst',     name:'Amethyst',           intent:'clarity',    price:1.50},
+
+  /* Eighteen more, and none of them invented: each is a real bead cut out of
+     the product photograph of the single-stone bracelet Energy Muse sells it
+     in. Their bracelets are shot flat on black, one bead deep, so the ring
+     can be found and a single bead lifted off it.
+
+     The intention is theirs too — taken from the tags on every product of
+     that stone across their catalogue and resolved by weight, not guessed
+     here. Black Tourmaline reads protection on 26 of their products;
+     Selenite on 40. Garnet and Hematite were cut and then dropped: both are
+     mirror-finish beads shot under a ring light, and the softbox reflection
+     reads as a flower rather than a stone.
+
+     Price is their own bracelet price over a 26-bead strand, to the nickel. */
+  {id:'carnelian',        name:'Carnelian',                intent:'abundance',    price:1.05},
+  {id:'fluorite',         name:'Fluorite',                 intent:'abundance',    price:0.95},
+  {id:'iolite',           name:'Iolite',                   intent:'abundance',    price:1.30},
+  {id:'jade',             name:'Jade',                     intent:'abundance',    price:0.95},
+  {id:'amazonite',        name:'Amazonite',                intent:'calm',         price:0.95},
+  {id:'apatite',          name:'Apatite',                  intent:'calm',         price:0.95},
+  {id:'aquamarine',       name:'Aquamarine',               intent:'calm',         price:1.40},
+  {id:'bloodstone',       name:'Bloodstone',               intent:'calm',         price:1.05},
+  {id:'sodalite',         name:'Sodalite',                 intent:'calm',         price:0.95},
+  {id:'angelite',         name:'Angelite',                 intent:'clarity',      price:1.05},
+  {id:'jasper',           name:'Jasper',                   intent:'clarity',      price:1.05},
+  {id:'rutilated-quartz',  name:'Rutilated Quartz',         intent:'clarity',      price:1.05},
+  {id:'rhodonite',        name:'Rhodonite',                intent:'connection',   price:1.05},
+  {id:'black-tourmaline',  name:'Black Tourmaline',         intent:'protection',   price:1.05},
+  {id:'obsidian',         name:'Obsidian',                 intent:'protection',   price:0.95},
+  {id:'selenite',         name:'Selenite',                 intent:'protection',   price:1.05},
+  {id:'shungite',         name:'Shungite',                 intent:'protection',   price:1.35},
+  {id:'tourmalinated-quartz',  name:'Tourmalinated Quartz',     intent:'protection',   price:1.05}
 ];
 
 /* The Energy Muse rondelle.
@@ -390,7 +426,7 @@ function drawRondelle(px){
   return c;
 }
 STONES.push({id:RONDELLE_ID, name:'Energy Muse rondelle', intent:'*', price:0,
-             fixed:true, tangent:true, img:drawRondelle(256)});
+             fixed:true, tangent:true, sizeK:0.74, img:drawRondelle(256)});
 
 /* Repaint when a stone finishes decoding. Without this, a bead tapped before
    its PNG arrived was skipped by the paint pass and — because the canvas only
@@ -422,7 +458,7 @@ var RECIPES={
 
 /* ---------- state ---------- */
 var strand=[];              /* array of stone ids, in order around the circle */
-var tab='protection';
+var tab='*';
 var wristIn=7.5, unit='in';
 var BEAD_MM=8;              /* 8mm beads — the house standard */
 var RONDELLE_MM=3;          /* the Energy Muse rondelle is thinner than a bead */
@@ -638,8 +674,12 @@ function draw(ts){
       ctx.drawImage(gl,x-gd/2,y-gd/2,gd,gd);
       ctx.restore();
     }
+    /* A rondelle is a spacer, not a bead — on a real strand it sits smaller
+       than the stones it separates. Drawn at the full bead diameter it read
+       as another bead that happened to be copper. */
+    var dk=d*(s.sizeK||1);
     /* baked contact shadow — no per-frame blur filter */
-    var sh=d*1.34;
+    var sh=dk*1.34;
     ctx.save();
     ctx.globalAlpha=lit?.85:.7;
     ctx.drawImage(SHADOW,x-sh/2,y-sh/2+d*0.14,sh,sh);
@@ -649,8 +689,8 @@ function draw(ts){
          the tangent, or it reads as a barrel at the top of the ring and a
          squashed brick at the sides */
       ctx.save(); ctx.translate(x,y); ctx.rotate(a+Math.PI/2);
-      ctx.drawImage(s.img,-d/2,-d/2,d,d); ctx.restore();
-    }else ctx.drawImage(s.img,x-d/2,y-d/2,d,d);
+      ctx.drawImage(s.img,-dk/2,-dk/2,dk,dk); ctx.restore();
+    }else ctx.drawImage(s.img,x-dk/2,y-dk/2,dk,dk);
   }
   requestAnimationFrame(draw);
 }
@@ -729,7 +769,10 @@ INTENTS.forEach(function(pair){
 });
 function renderTray(){
   beadsEl.innerHTML='';
-  STONES.filter(function(s){return s.intent===tab;}).forEach(function(s){
+  STONES.filter(function(s){
+    if(s.fixed)return false;              /* the rondelle is fitted, not chosen */
+    return tab==='*' || s.intent===tab;
+  }).forEach(function(s){
     var b=document.createElement('button');b.className='bead';
     b.innerHTML='<img src="/assets/img/beads/'+s.id+'.png" alt="'+s.name+' bead" width="52" height="52">'+
       '<span class="bn">'+s.name+'</span><span class="bp">$'+s.price.toFixed(2)+'</span>';
@@ -748,14 +791,25 @@ function addBead(id){
 }
 
 document.getElementById('compose').addEventListener('click',function(){
-  var r=RECIPES[tab]||[];if(!r.length)return;
+  var r=RECIPES[tab]||[];
+  if(tab==='*'){
+    /* under All there is no single intention to compose for, so take the lead
+       stone of each one in turn — a strand that shows the whole range */
+    r=[];
+    for(var q=0;q<INTENTS.length;q++){
+      var rec=RECIPES[INTENTS[q][0]];
+      if(rec&&rec.length)r.push(rec[0],rec[2]||rec[0]);
+    }
+  }
+  if(!r.length)return;
   /* the pattern repeats around the whole wrist, so the strand is a real one */
   strand=[];for(var i=0;i<stoneCount();i++)strand.push(r[i%r.length]);
   ensureRondelle();
   anim=strand.map(function(_,i){return {born:performance.now()+i*32};});
   pulse=performance.now();
   var label='';INTENTS.forEach(function(p){if(p[0]===tab)label=p[1];});
-  toast('A '+label.toLowerCase()+' strand — adjust it however you like');
+  toast(tab==='*' ? 'A strand across every intention — adjust it however you like'
+                  : 'A '+label.toLowerCase()+' strand — adjust it however you like');
   sync();
 });
 /* One rondelle, always. It is a normal strand entry so the arithmetic, the
@@ -895,7 +949,17 @@ document.getElementById('addbag').addEventListener('click',function(){
    fits in a short URL you can text: /designer/?s=aabcaab&w=6.5&n=Morning.
    Send it and it opens as *your* bracelet, not an empty stage. */
 var CODE={},FROMCODE={};
-STONES.forEach(function(s,i){var ch=String.fromCharCode(97+i);CODE[s.id]=ch;FROMCODE[ch]=s.id;});
+/* String.fromCharCode(97+i) ran off the end of the alphabet at the 27th stone
+   and started emitting '{', '|', '}' — characters a URL will not carry
+   intact. There are 29 stones now. This is the same 64-character URL-safe
+   alphabet the box builder uses, and it is indexed in id order so a link
+   shared today still opens tomorrow if the tray is reordered. */
+var ALPHA='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_';
+STONES.slice().sort(function(a,b){return a.id<b.id?-1:a.id>b.id?1:0;})
+  .forEach(function(s,i){
+    if(i>=ALPHA.length)return;
+    var ch=ALPHA.charAt(i);CODE[s.id]=ch;FROMCODE[ch]=s.id;
+  });
 
 function designURL(){
   var q='?s='+strand.map(function(id){return CODE[id]||'';}).join('')+'&w='+wristIn;
