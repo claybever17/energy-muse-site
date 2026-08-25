@@ -21,6 +21,16 @@
   'use strict';
 
   var ITEMS = [
+  /* Three removed 2026-08-25, after a pass looking for stones the cut-out had
+     damaged. Covellite is a near-black stone photographed on a black plate:
+     the two are within a few units of each other, so the background fill
+     walks straight through the stone and eats it, and no threshold separates
+     them. Lepidolite Point's only photograph is already cropped to a narrow
+     strip with black bars baked into it, so there is no plate to remove. The
+     Clear Quartz Merkaba was a duplicate — the catalogue already carried it
+     as "merkaba", which the 3D viewer and two homepages reference by that id.
+
+     Shipping a stone with its middle eaten out is worse than not carrying it. */
   /* Thirty more in-stock crystals, added 2026-08-25 straight off Energy
      Muse's own products.json: their title, their price, their photograph cut
      out against its plate, and their copy trimmed to the first sentences that
@@ -43,8 +53,6 @@
   { id: "selenite-pyramid", name: "Selenite Pyramid", cat: "Crystal", group: "Clarity", price: 12.88, img: "/assets/img/shop/selenite-pyramid.png", desc: "Don’t call this crystal soft! It may have a soft exterior, but Selenite’s metaphysical strength is tough on blocks and negative energies.", home: "/gems/" },
   { id: "rainbow-moonstone-stone", name: "Rainbow Moonstone Stone", cat: "Crystal", group: "Connection", price: 12.88, img: "/assets/img/shop/rainbow-moonstone-stone.png", desc: "Moonstone is a magical crystal that puts you back in touch with your divine feminine and inner goddess.", home: "/gems/" },
   { id: "chrysocolla-stone", name: "Chrysocolla Stone", cat: "Crystal", group: "Calm", price: 12.88, img: "/assets/img/shop/chrysocolla-stone.png", desc: "Chrysocolla was the original chill pill. This crystal has been helping people embrace their inner mellow since the time of Cleopatra.", home: "/gems/" },
-  { id: "covellite-stone", name: "Covellite Stone", cat: "Crystal", group: "Clarity", price: 14.88, img: "/assets/img/shop/covellite-stone.png", desc: "Our Covellite Tumbled Stone is a striking ally for those ready to explore the deeper layers of their own energy and consciousness.", home: "/gems/" },
-  { id: "clear-quartz-merkaba-crystal", name: "Clear Quartz Merkaba Crystal", cat: "Crystal", group: "Abundance", price: 14.88, img: "/assets/img/shop/clear-quartz-merkaba-crystal.png", desc: "Find the multifaceted star within you by embracing this multifaceted Merkaba clear quartz crystal.", home: "/gems/" },
   { id: "selenite-cleansing-crystal", name: "Selenite Cleansing Crystal", cat: "Crystal", group: "Protection", price: 14.88, img: "/assets/img/shop/selenite-cleansing-crystal.png", desc: "Crystal cleansing Selenite is especially suited to wand shapes because of the way it naturally forms into long columns.", home: "/gems/" },
   { id: "diamantina-etched-quartz-point", name: "Diamantina Etched Quartz Point", cat: "Crystal", group: "Clarity", price: 18.88, img: "/assets/img/shop/diamantina-etched-quartz-point.png", desc: "Diamantina Etched Quartz Points are among the most sought-after formations of Clear Quartz in the world—and for good reason.", home: "/gems/" },
   { id: "pink-cobaltian-calcite-stone", name: "Pink Cobaltian Calcite Stone", cat: "Crystal", group: "Connection", price: 18.88, img: "/assets/img/shop/pink-cobaltian-calcite-stone.png", desc: "Pink Cobaltian Calcite in tumbled form is exceptionally rare. This small batch was sourced from a single Tucson Gem Show vendor known for producing limited, high-quality runs.", home: "/gems/" },
@@ -56,7 +64,6 @@
   { id: "wernerite-scapolite-stone", name: "Wernerite (Scapolite) Stone", cat: "Crystal", group: "Clarity", price: 19.88, img: "/assets/img/shop/wernerite-scapolite-stone.png", desc: "This rare Wernerite (Scapolite) tumbled stone was sourced from one of the only vendors at the Tucson Gem Show producing limited runs in this format.", home: "/gems/" },
   { id: "specularite-crystal", name: "Specularite Crystal", cat: "Crystal", group: "Protection", price: 19.88, img: "/assets/img/shop/specularite-crystal.png", desc: "As a powerful stone for grounding, Hematite connects you to your foundation and the energy of the earth.", home: "/gems/" },
   { id: "malachite-crystal", name: "Malachite Crystal", cat: "Crystal", group: "Connection", price: 19.94, img: "/assets/img/shop/malachite-crystal.png", desc: "Tough love from a tough crystal, Malachite is the friend you go to when you need unfiltered relationship or life advice.", home: "/gems/" },
-  { id: "lepidolite-point", name: "Lepidolite Point", cat: "Crystal", group: "Calm", price: 24.88, img: "/assets/img/shop/lepidolite-point.png", desc: "Because Lepidolite naturally contains lithium, a compound used in some mood-regulating medications, it is one of the best crystals for managing worry and panic.", home: "/gems/" },
   { id: "tall-shungite-pyramid", name: "Tall Shungite Pyramid", cat: "Crystal", group: "Protection", price: 24.88, img: "/assets/img/shop/tall-shungite-pyramid.png", desc: "Regular use of a Shungite pyramid is said to balance and regulate your energy field, completely neutralizing it to correct any imbalances while also strengthening and reenergizing it.", home: "/gems/" },
   { id: "mexican-turquoise-stone", name: "Mexican Turquoise Stone", cat: "Crystal", group: "Calm", price: 24.88, img: "/assets/img/shop/mexican-turquoise-stone.png", desc: "This isn’t your typical turquoise.", home: "/gems/" },
 
