@@ -19,7 +19,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=3">
 <script src="/assets/em-frequencies.js?v=2"></script>
-<script src="/assets/em-catalog.js?v=3"></script>
+<script src="/assets/em-catalog.js?v=4"></script>
 <script src="/assets/em-header.js?v=10" defer></script>
 <script src="/assets/em-bag.js?v=4" defer></script>
 <script src="/assets/em-prices.js?v=2" defer></script>
@@ -76,6 +76,21 @@
 @media (max-width:1000px){.rel{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:860px){.pdp{grid-template-columns:1fr;gap:26px}}
 @media (max-width:640px){.rel{grid-template-columns:repeat(2,1fr)}}
+
+/* The gallery. Every product had exactly one photograph, and their catalogue
+   carries three to eleven — for a $124 necklace a second angle is most of the
+   decision. Thumbnails sit under the frame; the frame itself does not move. */
+.pgal{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.pthumb{width:64px;height:64px;flex:none;border:1px solid var(--hair);border-radius:4px;
+  background:var(--tint);padding:6%;cursor:pointer;display:grid;place-items:center;
+  transition:border-color .25s,transform .3s cubic-bezier(.16,1,.3,1)}
+.pthumb img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+.pthumb:hover{border-color:color-mix(in srgb,var(--copper) 55%,transparent)}
+.pthumb[aria-current="true"]{border-color:var(--copper)}
+.pthumb:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+.pshot img{transition:opacity .28s ease}
+.pshot.swapping img{opacity:0}
+@media (max-width:520px){.pthumb{width:56px;height:56px}}
 </style>
 </head><body>
 <main>
@@ -115,6 +130,8 @@
   if (md) md.setAttribute('content', p.desc || p.name);
 
   var out = (p.stock === 'out');
+  /* the main shot first, then whatever else the catalogue carries for it */
+  var shots = [p.img].concat(p.imgs || []);
   var facts = [];
   if (p.group) facts.push(['Intention', p.group]);
   facts.push(['Category', p.cat]);
@@ -123,7 +140,18 @@
 
   host.innerHTML =
     '<div class="pdp">'
-    + '<div><div class="pshot"><img src="' + p.img + '" alt="' + p.name.replace(/"/g,'') + '"></div></div>'
+    + '<div><div class="pshot"><img id="pmain" src="' + p.img + '" alt="' + p.name.replace(/"/g,'') + '"></div>'
+    + (shots.length > 1
+        ? '<div class="pgal" role="group" aria-label="More views">'
+          + shots.map(function(src, i){
+              return '<button class="pthumb" type="button" data-src="' + src + '"'
+                   + (i === 0 ? ' aria-current="true"' : '')
+                   + ' aria-label="View ' + (i + 1) + ' of ' + shots.length + '">'
+                   + '<img src="' + src + '" alt="" loading="lazy"></button>';
+            }).join('')
+          + '</div>'
+        : '')
+    + '</div>'
     + '<div>'
     + '<p class="crumb"><a href="/shop/">Shop</a> &nbsp;/&nbsp; <a href="' + p.home + '">' + p.cat + '</a></p>'
     + '<span class="pcat">' + (p.group || p.cat) + '</span>'
@@ -138,6 +166,40 @@
     + '<ul class="pfacts">' + facts.map(function(f){
         return '<li><b>' + f[0] + '</b><span>' + f[1] + '</span></li>'; }).join('') + '</ul>'
     + '</div></div>';
+
+  /* Thumbnails swap the frame rather than navigating. The image fades so the
+     change reads as the same object turning rather than a page flicker, and
+     the arrow keys walk the row because a gallery you can only mouse is a
+     gallery half the visitors cannot use. */
+  var gal = host.querySelector('.pgal');
+  if (gal) {
+    var main = document.getElementById('pmain');
+    var thumbs = [].slice.call(gal.querySelectorAll('.pthumb'));
+    function show(i) {
+      var b = thumbs[i]; if (!b) return;
+      var src = b.getAttribute('data-src');
+      if (main.getAttribute('src') === src) { b.focus(); return; }
+      var frame = main.parentNode;
+      frame.classList.add('swapping');
+      var pre = new Image();
+      pre.onload = function () {
+        main.src = src;
+        requestAnimationFrame(function(){ frame.classList.remove('swapping'); });
+      };
+      pre.src = src;
+      thumbs.forEach(function (t, n) { t.setAttribute('aria-current', n === i ? 'true' : 'false'); });
+    }
+    gal.addEventListener('click', function (e) {
+      var b = e.target.closest('.pthumb'); if (!b) return;
+      show(thumbs.indexOf(b));
+    });
+    gal.addEventListener('keydown', function (e) {
+      var i = thumbs.indexOf(document.activeElement.closest('.pthumb'));
+      if (i < 0) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); show((i + 1) % thumbs.length); thumbs[(i + 1) % thumbs.length].focus(); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); var j = (i - 1 + thumbs.length) % thumbs.length; show(j); thumbs[j].focus(); }
+    });
+  }
 
   var add = document.getElementById('bigadd');
   if (add) add.addEventListener('click', function(){

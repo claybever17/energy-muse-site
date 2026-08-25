@@ -219,11 +219,13 @@ sells real products throughout.
    says "Checkout — coming soon". This build is a design prototype to be set up on Shopify
    later, so the handoff is the point, not a gap. 37 of the 38 catalogue products already map
    to live Shopify variant ids if a cart hand-off is ever wanted.
-2. **Remove the password gate at launch** — delete `middleware.js` and `package.json`. The
-   site is private again: those two files are an edge Basic Auth gate reading `SITE_PASSWORD`
-   from Vercel's environment. It was briefly removed and put straight back, so if the site ever
-   answers 200 to a stranger, check those files are still there. Deleting them also returns the
-   project to a zero-build static deploy.
+2. ~~Remove the password gate at launch~~ **Done — the site is public.** `middleware.js` and
+   `package.json` are deleted, which also returns the project to a zero-build static deploy.
+   Both are in git history if the gate is wanted again; `SITE_PASSWORD` can stay in Vercel's
+   environment harmlessly, and restoring the two files closes the gate on the next deploy.
+
+   **Now that it is open it is also indexable** — there is no robots.txt and no noindex. If it
+   should not appear in search before launch, that is a two-file change.
 3. **Confirm generator pricing**, then flip `MODE` in `em-prices.js` to `'live'`. Their store
    says $99.88, which is what `em-frequencies.js` already carries.
 4. **Three forms are not connected to a mailbox** — affiliate application, quiz result capture,
