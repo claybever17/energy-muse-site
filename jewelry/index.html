@@ -68,6 +68,13 @@
 .jcard .jg{text-align:center}
 .jcard .jp{margin-top:2px}
 .jcard .jadd{margin-top:auto}
+
+.jtools{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:14px}
+.jsort{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;color:var(--ink-soft)}
+.jsort span{font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:10px;color:var(--stone)}
+.jsort select{font-family:inherit;font-size:12.5px;color:var(--ink);background:var(--surface);
+  border:1px solid var(--hair);border-radius:99px;padding:9px 12px;min-height:38px;cursor:pointer}
+.jsort select:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
 </style>
 </head><body>
 <main>
@@ -94,7 +101,16 @@
       <button class="jf" type="button" data-g="Connection">Connection</button>
       <button class="jf" type="button" data-g="Clarity">Clarity</button>
     </div>
-    <p class="jcount" id="jcount"></p>
+    <div class="jtools">
+      <p class="jcount" id="jcount"></p>
+      <label class="jsort"><span>Sort</span>
+        <select id="jsort">
+          <option value="price-asc">Price, low to high</option>
+          <option value="price-desc">Price, high to low</option>
+          <option value="name">Name, A to Z</option>
+        </select>
+      </label>
+    </div>
     <div class="jgrid" id="jgrid"></div>
     <div class="cta-row">
       <a class="btn btn-copper" href="/intention/">Shop by Intention</a>
@@ -144,8 +160,24 @@ document.querySelectorAll('.jadd').forEach(function(b){
 (function(){
   var host=document.getElementById('jgrid'), count=document.getElementById('jcount');
   if(!host||!window.EM_CATALOG)return;
-  var ALL=window.EM_CATALOG.all().filter(function(p){return p.cat==='Jewelry';})
-            .sort(function(a,b){return a.price-b.price;});
+  var ALL=window.EM_CATALOG.all().filter(function(p){return p.cat==='Jewelry';});
+  var SORTS={
+    'price-asc' :function(a,b){return a.price-b.price;},
+    'price-desc':function(a,b){return b.price-a.price;},
+    'name'      :function(a,b){return a.name.localeCompare(b.name);}
+  };
+  /* filter and sort belong in the URL — see the note on /gems/ */
+  function readURL(){
+    var q=new URLSearchParams(location.search);
+    return {g:q.get('for')||'', s:SORTS[q.get('sort')]?q.get('sort'):'price-asc'};
+  }
+  function writeURL(g,srt){
+    var q=new URLSearchParams(location.search);
+    g?q.set('for',g.toLowerCase()):q.delete('for');
+    srt&&srt!=='price-asc'?q.set('sort',srt):q.delete('sort');
+    var qs=q.toString();
+    history.replaceState(null,'',location.pathname+(qs?'?'+qs:'')+location.hash);
+  }
   function card(c){
     return '<div class="jcard" data-g="'+(c.group||'')+'">'
       +'<a class="plink" href="/product/?id='+encodeURIComponent(c.id)+'">'
@@ -155,18 +187,26 @@ document.querySelectorAll('.jadd').forEach(function(b){
       +'<span class="jp">$'+c.price.toFixed(2)+'</span>'
       +'<button class="jadd" type="button" data-id="'+c.id+'">Add to Bag</button></div>';
   }
-  function paint(g){
-    var list=g?ALL.filter(function(c){return c.group===g;}):ALL;
+  var bar=document.getElementById('jfilter'), sortEl=document.getElementById('jsort');
+  function paint(g,srt){
+    var list=(g?ALL.filter(function(c){return (c.group||'').toLowerCase()===g.toLowerCase();}):ALL.slice())
+              .sort(SORTS[srt]||SORTS['price-asc']);
     host.innerHTML=list.map(card).join('');
     count.textContent=list.length+(list.length===1?' piece':' pieces')+(g?' for '+g.toLowerCase():'');
+    if(bar)[].forEach.call(bar.children,function(x){
+      x.classList.toggle('on',(x.getAttribute('data-g')||'').toLowerCase()===(g||'').toLowerCase());});
+    if(sortEl) sortEl.value=srt;
   }
-  paint('');
-  var bar=document.getElementById('jfilter');
+  var st=readURL();
+  paint(st.g,st.s);
   if(bar) bar.addEventListener('click',function(e){
     var b=e.target.closest('.jf'); if(!b)return;
-    [].forEach.call(bar.children,function(x){x.classList.toggle('on',x===b);});
-    paint(b.getAttribute('data-g'));
+    st.g=b.getAttribute('data-g')||''; writeURL(st.g,st.s); paint(st.g,st.s);
   });
+  if(sortEl) sortEl.addEventListener('change',function(){
+    st.s=sortEl.value; writeURL(st.g,st.s); paint(st.g,st.s);
+  });
+  addEventListener('popstate',function(){ st=readURL(); paint(st.g,st.s); });
   var byId={}; ALL.forEach(function(c){byId[c.id]=c;});
   host.addEventListener('click',function(e){
     var b=e.target.closest('.jadd'); if(!b||!window.EMBag)return;
