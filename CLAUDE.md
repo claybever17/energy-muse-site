@@ -9,7 +9,8 @@ one product template serving all 39 products (`/product/?id=`), a Learning Cente
 guides, the written pages from the copy rewrite, and three interactive tools (`/designer/`
 Atelier, `/box/`, `/home/cascade/` Frequency Room).
 
-No build step: no `package.json`, no framework, no install. Files are served as they are.
+Almost no build step: `package.json` exists only to declare `@vercel/functions` for
+`middleware.js`, the password gate. Delete both and it is a zero-build static site.
 
 ## Working rules
 
@@ -47,8 +48,9 @@ Vercel **is** connected to GitHub now. Pushing to `main` deploys:
 git push origin main
 ```
 
-The site is public. It was behind an edge password gate during the build
-(`middleware.js` + `package.json`, reading `SITE_PASSWORD`); both are removed and are in git
-history if it is ever wanted again.
+The site is behind a password (`middleware.js`, reading `SITE_PASSWORD` from Vercel's
+environment), so a deployed URL answers `401` until you log in — including paths that do not
+exist, since the gate runs before routing. **A 401 is therefore not proof that a new route
+built.** Delete `middleware.js` and `package.json` to make the site public.
 
 Never push without being asked. Clay says "push".
