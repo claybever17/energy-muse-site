@@ -1,5 +1,6 @@
 <!doctype html><html lang="en">
 <meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Energy Muse &#8212; Guided Energy for Real Life</title>
 <meta property="og:type" content="website">
@@ -1060,7 +1061,20 @@ body.menu-open{overflow:hidden;}
   letter-spacing:-.014em;color:var(--ink);text-wrap:pretty;}
 .proof blockquote::before{content:"\201C";position:absolute;top:8px;left:-2px;
   font-size:2.6em;line-height:1;color:var(--copper);opacity:.28;pointer-events:none;}
-.proof blockquote::after{content:"\201D";color:var(--copper);opacity:.5;}
+/* The closing quote mark belongs to the quotation, not to the block. Left on
+   the blockquote it rendered after the placeholder label — the label read as
+   part of what the customer said. */
+.proof blockquote .qt::after{content:"\201D";color:var(--copper);opacity:.5;}
+/* These three quotes are written, not collected. Marked as such on the page
+   rather than in a comment nobody reading the site will see: a visitor — and
+   more to the point Energy Muse, looking at their own site — should not have
+   to guess which words came from a customer. The label goes under each quote
+   so it travels with it, and reads plainly rather than hiding in grey. */
+.proof blockquote .ph{display:block;margin-top:14px;font-family:var(--sans);
+  font-weight:600;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--copper);opacity:.85;}
+.proof blockquote .ph::before{content:"";display:inline-block;width:14px;
+  border-top:1px solid currentColor;vertical-align:middle;margin-right:8px;}
 #stories .cta-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
   margin-top:clamp(30px,4.4vh,52px);}
 @media (max-width:840px){
@@ -1731,11 +1745,13 @@ p{text-wrap:pretty;}
     <span class="eyebrow">Social proof</span>
     <h2 class="proof-h">Real energy. Real people. Real transformations.</h2>
     <div class="proof">
-      <blockquote>The first time I felt like I did not have to understand everything before I could begin.</blockquote>
-      <blockquote>Beautiful enough to wear every day, meaningful enough to notice.</blockquote>
-      <blockquote>The instructions made the product feel approachable instead of mysterious.</blockquote>
+      <blockquote><span class="qt">The first time I felt like I did not have to understand everything before I could begin.</span>
+        <span class="ph">Placeholder</span></blockquote>
+      <blockquote><span class="qt">Beautiful enough to wear every day, meaningful enough to notice.</span>
+        <span class="ph">Placeholder</span></blockquote>
+      <blockquote><span class="qt">The instructions made the product feel approachable instead of mysterious.</span>
+        <span class="ph">Placeholder</span></blockquote>
     </div>
-    <div class="cta-row"><a class="btn btn-ghost" href="#stories">Read customer stories</a></div>
   </div>
 </section>
 

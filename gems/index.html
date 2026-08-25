@@ -1,4 +1,5 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Energy Muse — The Crystal Gallery</title>
 <meta name="description" content="Shop natural crystals by the energy you want more of — explored in 3D.">
 <meta property="og:type" content="website">
@@ -388,8 +389,13 @@ import {GLTFLoader} from '../assets/jsm/loaders/GLTFLoader.js';
    photo: front-facing product PNG (tilt-card viewer)
    scan:  assets/gems/<slug>.glb (WebGL viewer + thumb jpg) ---- */
 const GEMS=[
- {slug:'calm',        name:'Agate Geode Slice', cat:'Calm',      color:0xA9C0DA, price:'$48.88', scan:true, yaw:-1.35, pitch:0.05,
-  desc:'A real Energy Muse crystal, scanned in 3D. Banded, slow-formed agate — a soft visual pause for desk or shelf.'},
+ /* The Agate Geode Slice is gone from here. It was the one item with no match
+    anywhere in Energy Muse's live catalogue — the catalogue excludes it on
+    purpose and says so — but this viewer went on showing it at $48.88 with an
+    Add to Bag button under it. A scan worth turning is one thing; a price and
+    a buy button on a product they do not sell is another, and that is what
+    this was. The .glb and its thumbnails are still in the repo if the scan is
+    ever wanted as a demo that does not pretend to be for sale. */
  {slug:'protection',  name:'Black Tourmaline',  cat:'Protection',color:0x5A6472, price:'$8.88', scan:true,
   desc:'The classic boundary crystal, scanned in 3D — striated black crystal for entries, desks and thresholds.'},
  {slug:'wellness',    name:'Quantum Quattro Crystal', cat:'Wellness', color:0x3EAFA5, price:'$229.88', scan:true, yaw:4.2, pitch:0.15,

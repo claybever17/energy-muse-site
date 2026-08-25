@@ -1,0 +1,9 @@
+# This site is a design prototype shown to Energy Muse. It is not their live
+# shop, it carries placeholder copy, and it should not appear in a search
+# result next to energymuse.com.
+#
+# REMOVE THIS FILE — and the <meta name="robots" content="noindex, nofollow">
+# in every page's <head> — before the site goes public. Searching the repo for
+# "noindex" finds all of them.
+User-agent: *
+Disallow: /
