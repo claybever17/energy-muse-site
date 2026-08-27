@@ -166,6 +166,25 @@
     /* same thumb-sized hit area as the rest of the header row */
     '@media (max-width:840px){.ems-open{min-height:44px;display:inline-flex;align-items:center;padding:0 10px;}}',
     '.ems-open:hover{color:#A9683E;}',
+    /* The word costs 63px in a 390px bar that already carries a logo, a bag
+       and a burger — four controls with 6px between them. A magnifier is the
+       glyph people look for anyway, and it hands ~40px back to the row.
+
+       Only the button in the header swaps. The one in the homepage's mobile
+       menu sits in a text row beside "Bag (0)" and stays a word, which is why
+       the icon is scoped to .ems-open-bar rather than to .ems-open. */
+    '.ems-ico{display:none;width:20px;height:20px;flex:none;}',
+    '.ems-open-bar{color:#4E5A70;}',
+    /* The header bar drops Search entirely on mobile — it lives in the
+       hamburger, where both menus now carry it. The icon stays defined
+       because the desktop bar still shows the word, and because putting it
+       back in the bar is then one line rather than a rewrite. */
+    /* Two classes, not one, and it matters: em-header.js sets
+       ".emh-utils button{display:inline-flex}" inside the same breakpoint,
+       which is specificity (0,1,1) and beats a bare ".ems-open-bar" (0,1,0)
+       however late it appears. The bar kept its Search button and the rule
+       looked like it simply had not loaded. */
+    '@media (max-width:840px){ .emh-utils .ems-open-bar,.nav-utils .ems-open-bar{display:none;} }',
     '.ems-wrap{position:fixed;inset:0;z-index:400;display:none;}',
     '.ems-wrap.on{display:block;}',
     '.ems-veil{position:absolute;inset:0;background:rgba(11,19,32,.42);backdrop-filter:blur(3px);}',
@@ -204,24 +223,39 @@
     var st = document.createElement('style'); st.textContent = CSS;
     document.head.appendChild(st);
 
+    var ICON = '<svg class="ems-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">'
+      + '<circle cx="11" cy="11" r="6.6" stroke="currentColor" stroke-width="1.7"/>'
+      + '<path d="M16.1 16.1 21 21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+
     var btn = document.createElement('button');
-    btn.type = 'button'; btn.className = 'ems-open'; btn.textContent = 'Search';
+    btn.type = 'button'; btn.className = 'ems-open ems-open-bar';
+    btn.innerHTML = ICON + '<span class="ems-lbl">Search</span>';
+    /* the icon carries no text, so the label has to come from here */
     btn.setAttribute('aria-label', 'Search Energy Muse');
+    btn.setAttribute('title', 'Search');
     utils.insertBefore(btn, utils.firstChild);
 
-    /* the homepage's mobile menu has its own footer row */
-    var foot = document.querySelector('.mobmenu-foot');
-    if (foot) {
+    /* Both mobile menus carry a footer row now — the homepage's .mobmenu-foot
+       and the shared header's .emh-menu-foot — and on mobile this is the only
+       way to reach search, so it mounts into every one it finds rather than
+       the first. */
+    var feet = document.querySelectorAll('.mobmenu-foot, .emh-menu-foot');
+    Array.prototype.forEach.call(feet, function (foot) {
       var mb = document.createElement('button');
       mb.type = 'button'; mb.className = 'ems-open'; mb.textContent = 'Search';
       mb.setAttribute('aria-label', 'Search Energy Muse');
       foot.insertBefore(mb, foot.firstChild);
       mb.addEventListener('click', function () {
+        /* close whichever menu this row belongs to before opening search */
         var mm = document.getElementById('mobmenu');
         if (mm) mm.classList.remove('open');
+        document.body.classList.remove('menu-open');
+        var em = document.querySelector('.emh-menu');
+        if (em) em.classList.remove('open');
+        document.body.classList.remove('emh-open');
         open();
       });
-    }
+    });
 
     var wrap = document.createElement('div');
     wrap.className = 'ems-wrap'; wrap.setAttribute('role', 'dialog');

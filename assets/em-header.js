@@ -85,6 +85,12 @@ var css=[
 '.emh-menu-sec{display:flex;flex-wrap:wrap;gap:4px 22px;padding-top:14px;}',
 '.emh-menu-sec a{font:500 13.5px "Instrument Sans",sans-serif;letter-spacing:.04em;color:'+P.soft+';text-decoration:none;min-height:44px;display:inline-flex;align-items:center;}',
 '.emh-menu-sec a:hover{color:'+P.copper+';}',
+/* one size for the row, so the injected Search button and the Bag link do not
+   centre their labels a pixel apart — the same fix the homepage row needed */
+'.emh-menu-foot{display:flex;align-items:center;gap:22px;padding-top:20px;}',
+'.emh-menu-foot > *{min-height:44px;display:inline-flex;align-items:center;font:500 13px "Instrument Sans",sans-serif;letter-spacing:.04em;color:'+P.soft+';text-decoration:none;}',
+'.emh-menu-foot a.bag{color:'+P.soft+';}',
+'.emh-menu-foot > *:hover{color:'+P.copper+';}',
 'body.emh-open{overflow:hidden;}',
 '.emh-foot{background:'+P.footbg+';border-top:1px solid '+P.line+';font-family:"Instrument Sans",sans-serif;}',
 '.emh-foot-in{max-width:1240px;margin:0 auto;padding:44px clamp(20px,4vw,44px) 30px;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;}',
@@ -147,7 +153,11 @@ function boot(){
        all — so the mobile menu stops being a different set of links from the
        one the header shows, and stops differing from the homepage's own. */
     +'<nav><a href="/quiz/">Start Here</a><a href="/shop/">Shop</a><a href="/intention/">By Intention</a><a href="/learn/">Learn</a></nav>'
-    +'<div class="emh-menu-sec"><a href="/heather/">With Heather</a><a href="/veza/">Veza</a><a href="/about/">About</a></div>';
+    +'<div class="emh-menu-sec"><a href="/heather/">With Heather</a><a href="/veza/">Veza</a><a href="/about/">About</a></div>'
+    /* Search and Bag live in the menu now, not in the header bar. The
+       homepage's own menu already had this row; this is the shared one
+       catching up, so the two menus finally carry the same things. */
+    +'<div class="emh-menu-foot"><a href="#" class="bag">Bag (0)</a></div>';
   document.body.appendChild(menu);
 
   var foot=document.createElement('footer');foot.className='emh-foot';
