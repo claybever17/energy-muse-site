@@ -77,9 +77,14 @@ var css=[
 '.emh-menu-top{display:flex;align-items:center;justify-content:space-between;height:58px;}',
 '.emh-menu-top .emh-logo{height:30px;}',
 '.emh-close{width:38px;height:38px;border:1px solid '+P.line+';background:none;border-radius:3px;font-size:20px;color:'+P.ink+';cursor:pointer;line-height:1;}',
-'.emh-menu nav{display:flex;flex-direction:column;margin-top:14px;flex:1;justify-content:center;}',
+/* starts under the logo, not centred — see the note on .mobmenu nav */
+'.emh-menu nav{display:flex;flex-direction:column;margin-top:clamp(22px,5vh,44px);flex:1;justify-content:flex-start;}',
 '.emh-menu nav a{font:300 28px "Fraunces",Georgia,serif;color:'+P.ink+';text-decoration:none;padding:13px 0;border-bottom:1px solid '+P.line+';}',
 '.emh-menu nav a:hover{color:'+P.copper+';}',
+/* the quiet tier — utility weight, still 44px to tap */
+'.emh-menu-sec{display:flex;flex-wrap:wrap;gap:4px 22px;padding-top:14px;}',
+'.emh-menu-sec a{font:500 13.5px "Instrument Sans",sans-serif;letter-spacing:.04em;color:'+P.soft+';text-decoration:none;min-height:44px;display:inline-flex;align-items:center;}',
+'.emh-menu-sec a:hover{color:'+P.copper+';}',
 'body.emh-open{overflow:hidden;}',
 '.emh-foot{background:'+P.footbg+';border-top:1px solid '+P.line+';font-family:"Instrument Sans",sans-serif;}',
 '.emh-foot-in{max-width:1240px;margin:0 auto;padding:44px clamp(20px,4vw,44px) 30px;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;}',
@@ -137,7 +142,12 @@ function boot(){
 
   var menu=document.createElement('div');menu.className='emh-menu';menu.setAttribute('role','dialog');menu.setAttribute('aria-modal','true');menu.setAttribute('aria-label','Menu');
   menu.innerHTML='<div class="emh-menu-top"><svg class="emh-logo" viewBox="0 0 1167 247.5" aria-label="Energy Muse"><use href="#em-logo-hdr"/></svg><button class="emh-close" aria-label="Close menu">×</button></div>'
-    +'<nav><a href="/quiz/">Start Here</a><a href="/shop/">Shop</a><a href="/intention/">By Intention</a><a href="/learn/">Learn</a><a href="/about/">About</a></nav>';
+    /* Four primary, matching the desktop bar. About drops into a quieter
+       second tier alongside the two destinations this menu never carried at
+       all — so the mobile menu stops being a different set of links from the
+       one the header shows, and stops differing from the homepage's own. */
+    +'<nav><a href="/quiz/">Start Here</a><a href="/shop/">Shop</a><a href="/intention/">By Intention</a><a href="/learn/">Learn</a></nav>'
+    +'<div class="emh-menu-sec"><a href="/heather/">With Heather</a><a href="/veza/">Veza</a><a href="/about/">About</a></div>';
   document.body.appendChild(menu);
 
   var foot=document.createElement('footer');foot.className='emh-foot';

@@ -17,7 +17,7 @@
 <meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <link rel="icon" type="image/svg+xml" href="../../assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="../../assets/img/favicon.png">
-<script src="../../assets/em-header.js?v=11" defer></script>
+<script src="../../assets/em-header.js?v=13" defer></script>
 <script src="/assets/em-search.js?v=3" defer></script>
 <script src="../../assets/em-bag.js?v=4" defer></script>
 <script src="../../assets/em-prices.js?v=2" defer></script>
@@ -133,6 +133,26 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper)}
 /* typographic hygiene: no orphan words on wrapped lines */
 p{text-wrap:pretty;}
 .lead,.head p{text-wrap:balance;}
+
+/* A headline of two sentences should break BETWEEN them, not wherever the
+   line happens to run out. "Start with the basics. Build your / practice from
+   there." reads as one sentence sawn in half.
+
+   Each sentence becomes its own block. Nothing else about the heading
+   changes — no margin, no padding, no line-height — so the only difference in
+   the layout is where the break falls. text-wrap:balance moves onto the
+   sentence, because once the children are blocks the parent's balance has
+   nothing left to balance; a sentence long enough to wrap still evens its own
+   lines. */
+h1 > .s, h2 > .s{display:block;text-wrap:balance}
+/* And a split headline needs room for its longest sentence. h1 is capped at
+   18ch, which is narrower than "Build your practice from there." — so the
+   sentence we just gave its own line wrapped in half anyway, and the break
+   came back one word later. Only headings that actually carry sentences
+   widen; every other h1 on the site keeps the 18ch measure it was designed
+   with. Capped at 100% so it can never outrun its column. */
+h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
+
 </style></head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
@@ -163,7 +183,7 @@ p{text-wrap:pretty;}
   </div>
   <div>
     <span class="eyebrow">Shop by intention</span>
-    <h1>Protect your energy. <em class="hl gemword">Hold your ground.</em></h1>
+    <h1><span class="s">Protect your energy.</span><span class="s"><em class="hl gemword">Hold your ground.</em></span></h1>
     <p class="lead">Your energy is yours — what you carry, what you take on, what you let in. Protection is what keeps it that way. It's the strength to say no, stay centered in a crowded room, close out the workday, or clear a heavy conversation before it becomes your own.</p>
     <div class="ctas">
       <a class="btn" href="../../gems/">Shop Protection</a>

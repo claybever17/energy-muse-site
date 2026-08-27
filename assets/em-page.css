@@ -121,3 +121,23 @@ p+p{margin-top:16px}
 .note{font-size:12.5px;color:var(--stone);margin-top:26px;max-width:56ch;line-height:1.5}
 .backlink{display:inline-block;margin-top:40px;font-size:13px;color:var(--ink-soft)}
 .backlink:hover{color:var(--copper)}
+
+/* A headline of two sentences should break BETWEEN them, not wherever the
+   line happens to run out. "Start with the basics. Build your / practice from
+   there." reads as one sentence sawn in half.
+
+   Each sentence becomes its own block. Nothing else about the heading
+   changes — no margin, no padding, no line-height — so the only difference in
+   the layout is where the break falls. text-wrap:balance moves onto the
+   sentence, because once the children are blocks the parent's balance has
+   nothing left to balance; a sentence long enough to wrap still evens its own
+   lines. */
+h1 > .s, h2 > .s{display:block;text-wrap:balance}
+/* And a split headline needs room for its longest sentence. h1 is capped at
+   18ch, which is narrower than "Build your practice from there." — so the
+   sentence we just gave its own line wrapped in half anyway, and the break
+   came back one word later. Only headings that actually carry sentences
+   widen; every other h1 on the site keeps the 18ch measure it was designed
+   with. Capped at 100% so it can never outrun its column. */
+h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
+

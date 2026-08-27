@@ -312,7 +312,12 @@ header.nav.solid::after{opacity:1;}
 .mobmenu-close{width:40px;height:40px;border:1px solid var(--hair);background:none;border-radius:3px;
   font-size:22px;color:var(--ink);cursor:pointer;line-height:1;}
 .mobmenu-close:hover{border-color:var(--copper);color:var(--copper);}
-.mobmenu nav{display:flex;flex-direction:column;margin-top:16px;flex:1;justify-content:center;gap:2px;}
+/* The links start under the logo rather than floating in the middle. Centred
+   was right when there were seven and they filled the screen; with four it
+   left 188px of air above and below and the menu read as half empty. The nav
+   still takes the remaining height, so the quiet tier and the Search/Bag row
+   stay pinned to the bottom where they belong. */
+.mobmenu nav{display:flex;flex-direction:column;margin-top:clamp(22px,5vh,44px);flex:1;justify-content:flex-start;gap:2px;}
 .mobmenu nav a{font-family:var(--serif);font-size:30px;font-weight:400;color:var(--ink);padding:12px 0;
   border-bottom:1px solid var(--hair);display:flex;align-items:center;justify-content:space-between;
   opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s,color .2s;}
@@ -321,9 +326,23 @@ header.nav.solid::after{opacity:1;}
 .mobmenu.open nav a{opacity:1;transform:none;}
 .mobmenu.open nav a:nth-child(1){transition-delay:.10s}.mobmenu.open nav a:nth-child(2){transition-delay:.15s}
 .mobmenu.open nav a:nth-child(3){transition-delay:.20s}.mobmenu.open nav a:nth-child(4){transition-delay:.25s}
-.mobmenu.open nav a:nth-child(5){transition-delay:.30s}.mobmenu.open nav a:nth-child(6){transition-delay:.35s}
-.mobmenu.open nav a:nth-child(7){transition-delay:.40s}
-.mobmenu-foot{display:flex;gap:22px;font-size:13px;letter-spacing:.04em;color:var(--ink-soft);padding-top:20px;}
+/* The quiet tier. Same family as the footer links so it reads as utility
+   rather than as more navigation, and each one still clears 44px to tap. */
+.mobmenu-sec{display:flex;flex-wrap:wrap;gap:4px 22px;padding-top:14px;
+  opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s;}
+.mobmenu.open .mobmenu-sec{opacity:1;transform:none;transition-delay:.30s;}
+.mobmenu-sec a{font-family:var(--sans);font-size:13.5px;letter-spacing:.04em;
+  color:var(--ink-soft);text-decoration:none;min-height:44px;display:inline-flex;align-items:center;}
+.mobmenu-sec a:hover{color:var(--copper);}
+/* Search is a <button> that centres its label in 44px; Bag is an <a> that
+   stretches to 44px and leaves its text at the top. Both boxes started at the
+   same y, both were 44px tall, and the two labels still sat 12px apart. */
+.mobmenu-foot{display:flex;align-items:center;gap:22px;font-size:13px;letter-spacing:.04em;color:var(--ink-soft);padding-top:20px;}
+.mobmenu-foot > *{min-height:44px;display:inline-flex;align-items:center;}
+/* and the last pixel: the injected Search button carries its own 12.5px,
+   the Bag link inherits 13px, so two centred labels still landed a pixel
+   apart. One size for the row. */
+.mobmenu-foot > *,.mobmenu-foot .ems-open{font-size:13px;}
 .mobmenu-foot a{color:var(--ink-soft);}.mobmenu-foot a:hover{color:var(--copper);}
 .mobmenu-rings{position:absolute;right:-90px;bottom:-90px;width:340px;height:340px;pointer-events:none;opacity:.5;}
 .mobmenu-rings{color:var(--copper);}
@@ -1337,6 +1356,26 @@ p{text-wrap:pretty;}
 .cpromo h2 .in-cu{display:block;font-size:.44em;font-style:italic;
   letter-spacing:.005em;color:#A9683E;margin-top:.36em;}
 
+
+/* A headline of two sentences should break BETWEEN them, not wherever the
+   line happens to run out. "Start with the basics. Build your / practice from
+   there." reads as one sentence sawn in half.
+
+   Each sentence becomes its own block. Nothing else about the heading
+   changes — no margin, no padding, no line-height — so the only difference in
+   the layout is where the break falls. text-wrap:balance moves onto the
+   sentence, because once the children are blocks the parent's balance has
+   nothing left to balance; a sentence long enough to wrap still evens its own
+   lines. */
+h1 > .s, h2 > .s{display:block;text-wrap:balance}
+/* And a split headline needs room for its longest sentence. h1 is capped at
+   18ch, which is narrower than "Build your practice from there." — so the
+   sentence we just gave its own line wrapped in half anyway, and the break
+   came back one word later. Only headings that actually carry sentences
+   widen; every other h1 on the site keeps the 18ch measure it was designed
+   with. Capped at 100% so it can never outrun its column. */
+h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
+
 </style>
 
 
@@ -1400,15 +1439,26 @@ p{text-wrap:pretty;}
     <svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse" style="height:26px"><use href="#em-logo"/></svg>
     <button class="mobmenu-close" id="mobclose" aria-label="Close menu">&times;</button>
   </div>
+  <!-- Four primary, matching the desktop bar exactly. The other three were
+       set at the same 30px as these, so seven destinations all read as
+       equally important and the menu looked like a different site to the one
+       the header shows. They are still here, in a quieter second tier.
+
+       "With Heather" pointed at #about — the same anchor as "About", so two
+       of the seven went to the same place and the /heather/ page they should
+       have opened was unreachable from the menu. All three point at their
+       real pages now, which is also what the shared header's menu links to. -->
   <nav>
     <a href="quiz/">Start Here</a>
     <a href="shop/">Shop</a>
     <a href="#intention">By Intention</a>
     <a href="#learn2">Learn</a>
-    <a href="#about">With Heather</a>
-    <a href="#veza">Veza</a>
-    <a href="#about">About</a>
   </nav>
+  <div class="mobmenu-sec">
+    <a href="/heather/">With Heather</a>
+    <a href="/veza/">Veza</a>
+    <a href="/about/">About</a>
+  </div>
   <!-- Search is injected here too. "Account" was also href="#" and there is
        no account system to send anyone to, so it is gone rather than dead. -->
   <div class="mobmenu-foot"><a href="#" class="bag">Bag (0)</a></div>
@@ -1743,7 +1793,7 @@ p{text-wrap:pretty;}
 <section class="section" id="stories" aria-label="Customer stories">
   <div class="wrap">
     <span class="eyebrow">Social proof</span>
-    <h2 class="proof-h">Real energy. Real people. Real transformations.</h2>
+    <h2 class="proof-h"><span class="s">Real energy.</span><span class="s">Real people.</span><span class="s">Real transformations.</span></h2>
     <div class="proof">
       <blockquote><span class="qt">The first time I felt like I did not have to understand everything before I could begin.</span>
         <span class="ph">Placeholder</span></blockquote>
