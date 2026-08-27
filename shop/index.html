@@ -208,6 +208,69 @@
   display:block;min-width:0;min-height:0}
 /* and a little air between the photograph and the type under it */
 .pcard .kind,.fcard .hz{margin-top:18px}
+
+/* Add straight from the grid — their own shop does this, and it is the
+   difference between one tap and three (card, product page, add).
+
+   The card is a wrapper now rather than one big <a>: a <button> nested inside
+   an <a> is invalid and the anchor swallows its clicks, so the link covers the
+   photo and the name, and the button sits beside it as a sibling. A sold-out
+   card keeps the "Unavailable" label where the button would be, so the row
+   does not jump. */
+.qwrap{display:flex;flex-direction:column;background:var(--surface);
+  border:1px solid var(--hair);border-radius:6px;padding:14px 13px 14px;
+  transition:border-color .3s}
+.qwrap:hover{border-color:var(--copper)}
+.qwrap.out{opacity:.68}
+.qadd{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.04em;
+  border:1px solid var(--hair);background:var(--surface);color:var(--ink);
+  border-radius:4px;min-height:40px;margin-top:10px;cursor:pointer;width:100%;
+  transition:background .2s,color .2s,border-color .2s}
+.qadd:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.qadd.done{background:var(--copper);border-color:var(--copper);color:#fff}
+.qsold{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--stone);border:1px solid var(--hair);
+  border-radius:4px;min-height:40px;margin-top:10px;display:flex;align-items:center;
+  justify-content:center}
+</style>
+<style>
+/* -------------------------------------------------------------------------
+   You clicked "Shop" and got a hero, then four category cards, then eight
+   hand-picked products 3.4 screens down — on a phone, past 274 words. Six of
+   this page's seven sections were navigation you had to scroll through to
+   reach the one that sold anything.
+
+   The whole catalogue is here now, at the top, with the categories as filters
+   instead of as cards that cost a page load each. Same grid and same
+   behaviour as /intention/ — that page facets by feeling, this one by kind.
+   ------------------------------------------------------------------------- */
+.sfilter{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.sfb{font-family:var(--sans);font-weight:600;font-size:11.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-soft);background:var(--surface);
+  border:1px solid var(--hair);border-radius:99px;padding:0 16px;min-height:44px;
+  display:inline-flex;align-items:center;cursor:pointer;
+  transition:border-color .25s,color .25s,background .25s}
+.sfb:hover{border-color:var(--copper);color:var(--copper)}
+.sfb.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.scount{font-family:var(--sans);font-size:12.5px;color:var(--stone);margin-top:16px}
+.sgridall{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:18px}
+.sc{display:flex;flex-direction:column;text-align:center;text-decoration:none;color:inherit}
+
+.sc .sim{aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;
+  padding:9%;overflow:hidden;background:var(--tint)}
+.sc .sim img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+.sc b{font-family:var(--sans);font-weight:600;font-size:12.5px;line-height:1.3;margin-top:12px;
+  min-height:2.6em;display:flex;align-items:center;justify-content:center}
+.sc .sg{font-family:var(--sans);font-weight:600;font-size:9px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--stone);opacity:.75;margin-top:4px}
+.sc .sp{font-family:var(--serif);font-size:15px;color:var(--copper);margin-top:auto;padding-top:7px}
+.sc .ss{font-family:var(--sans);font-weight:600;font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--stone);margin-top:4px}
+.sc.out{opacity:.68}
+.sc.out .sim img{filter:saturate(.35)}
+@media (max-width:1080px){.sgridall{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:860px){.sgridall{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.sgridall{grid-template-columns:repeat(2,1fr);gap:10px}}
 </style>
 </head><body>
 <main>
@@ -216,100 +279,17 @@
   <div class="wrap">
     <span class="eyebrow">Shop</span>
     <h1>Start with the energy you want more of.</h1>
-    <p class="lead">Shop intention-based jewelry, crystals, frequency generators, and curated sets &mdash;
-      all created to help you bring that intention into your everyday life.</p>
-    <div class="cta-row">
-      <a class="btn btn-copper" href="#favourites">Shop Best Sellers</a>
-      <a class="btn btn-ghost" href="/gems/">Browse All Products</a>
-    </div>
+    <p class="lead">Jewelry, crystals, frequency generators and sets &mdash; all of it, here.</p>
+
+    <div class="sfilter" id="sfilter" role="group" aria-label="Shop by category"></div>
+    <p class="scount" id="scount"></p>
+    <div class="sgridall" id="sgridall"></div>
   </div>
 </section>
 
-<section class="sect tint">
-  <div class="wrap">
-    <h2>Four ways to begin.</h2>
-    <div class="ways">
-
-      <a class="way" href="/jewelry/">
-        <span class="shot"><img src="/assets/img/jewelry.jpg?v=2" alt="Stacked crystal-bead bracelets in warm tones" loading="lazy"></span>
-        <span class="txt">
-          <span class="verb">Wear it</span>
-          <h3>Jewelry</h3>
-          <p>Beautiful jewelry, intentionally designed to bring you good energy wherever you are.</p>
-          <span class="go">Shop Jewelry &rarr;</span>
-        </span>
-      </a>
-
-      <a class="way" href="/gems/">
-        <span class="shot"><img src="/assets/img/clarity.jpg" alt="A clear quartz point held to the forehead" loading="lazy"></span>
-        <span class="txt">
-          <span class="verb">Place it</span>
-          <h3>Crystals</h3>
-          <p>Energetic support for every room, every moment, every part of your practice.</p>
-          <span class="go">Shop Crystals &rarr;</span>
-        </span>
-      </a>
-
-      <a class="way" href="/frequency/">
-        <span class="shot"><img src="/assets/img/frequency.jpg" alt="A frequency generator resting on a wooden table" loading="lazy"></span>
-        <span class="txt">
-          <span class="verb">Tune the room</span>
-          <h3>Frequency</h3>
-          <p>Where wellness meets tech. Infuse your environment with the energy you need.</p>
-          <span class="go">Shop Frequency &rarr;</span>
-        </span>
-      </a>
-
-      <a class="way" href="/sets/">
-        <span class="shot"><img src="/assets/img/wealth.jpg" alt="A hand wearing stacked bracelets and holding a pyrite stone" loading="lazy"></span>
-        <span class="txt">
-          <span class="verb">Begin with a set</span>
-          <h3>Kits &amp; Sets</h3>
-          <p>Curated collections with clear guidance, so you feel confident from day one.</p>
-          <span class="go">Shop Kits &amp; Sets &rarr;</span>
-        </span>
-      </a>
-
-    </div>
-  </div>
-</section>
-
-<section class="sect" id="favourites">
-  <div class="wrap">
-    <h2>Start with a favourite.</h2>
-    <p>The pieces people reach for first &mdash; a bracelet to wear, a stone to place.</p>
-    <div class="pgrid" id="pgrid"></div>
-    <div class="cta-row">
-      <a class="btn btn-ghost" href="/jewelry/">All Jewelry</a>
-      <a class="btn btn-ghost" href="/gems/">All Crystals</a>
-    </div>
-  </div>
-</section>
-
-<section class="sect tint">
-  <div class="wrap">
-    <h2>Or start with how you want to feel.</h2>
-    <p>Five intentions, each with pieces to wear and stones to place.</p>
-    <div class="ints">
-      <a class="int" href="/intention/calm/" style="--ic:#6E8BA8">
-        <span class="ring"><img src="/assets/img/favorites/calm-wear.png" alt="" loading="lazy"></span>
-        <strong>Calm</strong><span>Quiet the noise</span></a>
-      <a class="int" href="/intention/clarity/" style="--ic:#8A7BB0">
-        <span class="ring"><img src="/assets/img/favorites/clarity-wear.png" alt="" loading="lazy"></span>
-        <strong>Clarity</strong><span>See it plainly</span></a>
-      <a class="int" href="/intention/protection/" style="--ic:#4E5A70">
-        <span class="ring"><img src="/assets/img/favorites/protection-wear.png" alt="" loading="lazy"></span>
-        <strong>Protection</strong><span>Hold your edges</span></a>
-      <a class="int" href="/intention/abundance/" style="--ic:#A9683E">
-        <span class="ring"><img src="/assets/img/favorites/abundance-wear.png" alt="" loading="lazy"></span>
-        <strong>Abundance</strong><span>Make room for more</span></a>
-      <a class="int" href="/intention/connection/" style="--ic:#B06E7A">
-        <span class="ring"><img src="/assets/img/favorites/connection-wear.png" alt="" loading="lazy"></span>
-        <strong>Connection</strong><span>Come back to people</span></a>
-    </div>
-  </div>
-</section>
-
+<!-- "Start with a favourite" (eight hand-picked) and "Or start with how you
+     want to feel" both went: the first is a subset of the grid above it, and
+     the second is /intention/, which is one tap away in the nav. -->
 <section class="sect dark">
   <div class="wrap">
     <div class="gband">
@@ -367,74 +347,78 @@
 
 </main>
 <script>
-/* The products come out of the catalogue, not out of this file.
+/* The whole catalogue, faceted by kind.
 
-   They used to be eight objects typed here with their own names, prices and
-   image paths — a ninth copy of data that already had a home. It went stale
-   exactly the way that always goes: the first card in the rail was the Rose
-   Quartz Bracelet, which Energy Muse had sold out of. A hand-picked rail is a
-   rail that is wrong the moment the shop changes underneath it.
+   This used to build a rail of eight: the median-priced in-stock piece per
+   intention, chosen so a small hand-picked row would still span the shop.
+   That rail was a good answer to the wrong question — the page needed the
+   shop, not a sample of it. The selection logic goes with the rail.
 
-   The selection rule instead of a list: walk the five intentions and take the
-   MEDIAN-priced in-stock piece from each, filling toward whichever of crystal
-   or jewelry is currently behind. Median rather than cheapest on purpose —
-   cheapest-first built a rail that ran $4.88 to $23 with no jewelry in the
-   first four cards, which reads as a bargain bin instead of a shop. The
-   second pass walks the intentions in reverse so the last two are not the
-   ones that get left with a single card.
-
-   Deterministic — same catalogue, same eight, no shuffle — but derived, so a
-   sold-out piece drops itself and a new one steps up without anyone editing
-   this page. */
+   Kits and Systems share one filter. They are two categories in the catalogue
+   for reasons that matter to /sets/ and /systems/, and to nobody shopping. */
 (function(){
-  var host=document.getElementById('pgrid');
+  var host=document.getElementById('sgridall'),
+      bar=document.getElementById('sfilter'),
+      count=document.getElementById('scount');
   if(!host||!window.EM_CATALOG)return;
 
-  var GROUPS=['Protection','Calm','Abundance','Connection','Clarity'];
-  var pool=window.EM_CATALOG.all().filter(function(p){
-    return (p.cat==='Crystal'||p.cat==='Jewelry') && p.stock!=='out';
+  var CATS=[['','All'],['Jewelry','Jewelry'],['Crystal','Crystals'],
+            ['Frequency','Frequency'],['Kit|System','Kits & Sets']];
+  var ALL=window.EM_CATALOG.all();
+
+  CATS.forEach(function(c){
+    var b=document.createElement('button');
+    b.type='button'; b.className='sfb'; b.textContent=c[1];
+    b.setAttribute('data-c',c[0]); bar.appendChild(b);
   });
 
-  var used={}, PICKS=[], nC=0, nJ=0;
-
-  function pick(group,cat){
-    var m=pool.filter(function(p){
-      return p.group===group && p.cat===cat && !used[p.id];
-    }).sort(function(a,b){return a.price-b.price;});
-    return m.length ? m[Math.floor(m.length/2)] : null;
+  function card(p){
+    var out=(p.stock==='out');
+    return '<div class="qwrap'+(out?' out':'')+'">'
+      +'<a class="sc'+(out?' out':'')+'" href="/product/?id='+encodeURIComponent(p.id)+'">'
+      +'<span class="sim"><img src="'+p.img+'" alt="'+String(p.name).replace(/"/g,'')+'" loading="lazy"></span>'
+      +'<b>'+p.name+'</b><span class="sg">'+p.cat+'</span>'
+      +'<span class="sp">$'+p.price.toFixed(2)+'</span></a>'
+      +(out?'<span class="qsold">Unavailable</span>'
+           :'<button class="qadd" type="button" data-add="'+encodeURIComponent(p.id)+'">Add to Bag</button>')
+      +'</div>';
   }
+  function label(k){for(var i=0;i<CATS.length;i++)if(CATS[i][0]===k)return CATS[i][1];return 'All';}
 
-  for(var pass=0; pass<2 && PICKS.length<8; pass++){
-    var order = pass ? GROUPS.slice().reverse() : GROUPS;
-    for(var i=0; i<order.length && PICKS.length<8; i++){
-      /* ask for whichever category is behind rather than strictly alternating.
-         Calm has no jewelry in the catalogue, so a strict alternation stalls
-         there and the rail comes out five crystals to three. */
-      var want = (nJ < nC) ? 'Jewelry' : 'Crystal';
-      var c = pick(order[i],want) || pick(order[i], want==='Crystal'?'Jewelry':'Crystal');
-      if(c){ used[c.id]=1; PICKS.push(c); if(c.cat==='Crystal') nC++; else nJ++; }
-    }
+  function paint(k){
+    var re=k?new RegExp('^('+k+')$'):null;
+    var list=(re?ALL.filter(function(p){return re.test(p.cat);}):ALL.slice())
+              .sort(function(a,b){return a.price-b.price;});
+    host.innerHTML=list.map(card).join('');
+    count.textContent=list.length+' piece'+(list.length===1?'':'s')
+      +(k?' in '+label(k).toLowerCase():' across the shop');
+    [].forEach.call(bar.children,function(b){
+      var on=(b.getAttribute('data-c')||'')===k;
+      b.classList.toggle('on',on); b.setAttribute('aria-pressed',on?'true':'false');
+    });
   }
-
-  var byId={};
-  PICKS.forEach(function(c){
-    byId[c.id]=c;
-    var el=document.createElement('div');
-    el.className='pcard';
-    el.innerHTML='<a class="plink" href="/product/?id='+encodeURIComponent(c.id)+'">'
-      +'<span class="shot"><img src="'+c.img+'" alt="'+String(c.name).replace(/"/g,'')+'" loading="lazy"></span>'
-      +'<span class="kind">'+c.cat+'</span>'
-      +'<span class="nm">'+c.name+'</span></a>'
-      +'<span class="pr">$'+c.price.toFixed(2)+'</span>'
-      +'<button class="padd" type="button" data-id="'+c.id+'">Add to Bag</button>';
-    host.appendChild(el);
+  /* the category lives in the URL, so the nav can point straight at one */
+  function read(){return decodeURIComponent((location.search.match(/[?&]cat=([^&]*)/)||[,''])[1]);}
+  function write(k){history.replaceState(null,'',location.pathname+(k?'?cat='+encodeURIComponent(k):'')+location.hash);}
+  bar.addEventListener('click',function(e){
+    var b=e.target.closest('.sfb'); if(!b)return;
+    var k=b.getAttribute('data-c')||''; write(k); paint(k);
   });
+  window.addEventListener('popstate',function(){paint(read());});
+  var init=read();
 
+  /* one listener for the grid rather than one per card */
   host.addEventListener('click',function(e){
-    var b=e.target.closest('.padd'); if(!b||!window.EMBag)return;
-    var c=byId[b.getAttribute('data-id')]; if(!c)return;
-    EMBag.add({id:c.id,name:c.name,price:c.price,img:c.img,link:c.home||'/shop/'});
+    var b=e.target.closest('.qadd'); if(!b||!window.EMBag)return;
+    var p=window.EM_CATALOG.get(decodeURIComponent(b.getAttribute('data-add')));
+    if(!p)return;
+    EMBag.add({id:p.id,name:p.name,price:p.price,img:p.img,link:p.home||'/shop/'});
+    b.textContent='Added'; b.classList.add('done');
+    clearTimeout(b._t); b._t=setTimeout(function(){
+      b.textContent='Add to Bag'; b.classList.remove('done');},1400);
   });
+
+  paint(CATS.some(function(c){return c[0]===init;})?init:'');
 })();
 
 (function(){

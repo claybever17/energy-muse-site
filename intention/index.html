@@ -50,10 +50,8 @@
 .icount{font-family:var(--sans);font-size:12.5px;color:var(--stone);margin-top:16px}
 .icount a{color:var(--copper);text-decoration:none;border-bottom:1px solid currentColor}
 .igrid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:18px}
-.icard{display:flex;flex-direction:column;text-align:center;text-decoration:none;color:inherit;
-  background:var(--surface);border:1px solid var(--hair);border-radius:6px;
-  padding:14px 13px 16px;transition:border-color .3s}
-.icard:hover{border-color:var(--copper)}
+.icard{display:flex;flex-direction:column;text-align:center;text-decoration:none;color:inherit}
+
 .icard .sim{aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;
   padding:9%;overflow:hidden;background:var(--tint)}
 .icard .sim img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
@@ -75,6 +73,30 @@
 .ireads a{font-family:var(--sans);font-size:13px;color:var(--ink-soft);text-decoration:none;
   min-height:44px;display:inline-flex;align-items:center}
 .ireads a:hover{color:var(--copper)}
+
+/* Add straight from the grid — their own shop does this, and it is the
+   difference between one tap and three (card, product page, add).
+
+   The card is a wrapper now rather than one big <a>: a <button> nested inside
+   an <a> is invalid and the anchor swallows its clicks, so the link covers the
+   photo and the name, and the button sits beside it as a sibling. A sold-out
+   card keeps the "Unavailable" label where the button would be, so the row
+   does not jump. */
+.qwrap{display:flex;flex-direction:column;background:var(--surface);
+  border:1px solid var(--hair);border-radius:6px;padding:14px 13px 14px;
+  transition:border-color .3s}
+.qwrap:hover{border-color:var(--copper)}
+.qwrap.out{opacity:.68}
+.qadd{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.04em;
+  border:1px solid var(--hair);background:var(--surface);color:var(--ink);
+  border-radius:4px;min-height:40px;margin-top:10px;cursor:pointer;width:100%;
+  transition:background .2s,color .2s,border-color .2s}
+.qadd:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.qadd.done{background:var(--copper);border-color:var(--copper);color:#fff}
+.qsold{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--stone);border:1px solid var(--hair);
+  border-radius:4px;min-height:40px;margin-top:10px;display:flex;align-items:center;
+  justify-content:center}
 </style>
 </head><body>
 <main>
@@ -149,13 +171,14 @@
 
   function card(p){
     var out=(p.stock==='out');
-    return '<a class="icard'+(out?' out':'')+'" href="/product/?id='+encodeURIComponent(p.id)+'">'
+    return '<div class="qwrap'+(out?' out':'')+'">'
+      +'<a class="icard'+(out?' out':'')+'" href="/product/?id='+encodeURIComponent(p.id)+'">'
       +'<span class="sim"><img src="'+p.img+'" alt="'+String(p.name).replace(/"/g,'')+'" loading="lazy"></span>'
-      +'<b>'+p.name+'</b>'
-      +'<span class="sg">'+p.cat+'</span>'
-      +'<span class="sp">$'+p.price.toFixed(2)+'</span>'
-      +(out?'<span class="ss">Unavailable</span>':'')
-      +'</a>';
+      +'<b>'+p.name+'</b><span class="sg">'+p.cat+'</span>'
+      +'<span class="sp">$'+p.price.toFixed(2)+'</span></a>'
+      +(out?'<span class="qsold">Unavailable</span>'
+           :'<button class="qadd" type="button" data-add="'+encodeURIComponent(p.id)+'">Add to Bag</button>')
+      +'</div>';
   }
 
   function label(k){ for(var i=0;i<FEELS.length;i++) if(FEELS[i][0]===k) return FEELS[i][1]; return 'All'; }
@@ -188,6 +211,18 @@
     write(k); paint(k);
   });
   window.addEventListener('popstate',function(){ paint(read()); });
+
+
+  /* one listener for the grid rather than one per card */
+  grid.addEventListener('click',function(e){
+    var b=e.target.closest('.qadd'); if(!b||!window.EMBag)return;
+    var p=window.EM_CATALOG.get(decodeURIComponent(b.getAttribute('data-add')));
+    if(!p)return;
+    EMBag.add({id:p.id,name:p.name,price:p.price,img:p.img,link:p.home||'/shop/'});
+    b.textContent='Added'; b.classList.add('done');
+    clearTimeout(b._t); b._t=setTimeout(function(){
+      b.textContent='Add to Bag'; b.classList.remove('done');},1400);
+  });
 
   paint(KEYS[read()]?read():'');
 })();
