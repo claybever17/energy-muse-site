@@ -25,34 +25,87 @@
 <script src="/assets/em-depth.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=6" defer></script>
 <script src="/assets/em-versions.js?v=19" defer></script>
+<style>
+/* -------------------------------------------------------------------------
+   This page used to be a menu. Two identical "Take the Energy Quiz" buttons,
+   five underlined text links, 319 words and not one product — you clicked
+   "By Intention" and were asked to click again, then again, and the third
+   page finally had three things on it. Meanwhile the homepage already
+   carried the good photographic version of exactly this grid, so the plain
+   copy was the destination and the rich one was what you were leaving.
+
+   It is a shop now. The five intentions are filters over one grid, not links
+   to five more pages, so choosing an intention costs nothing and changes the
+   products in place. The intention pages still exist and are still linked —
+   they are the long read, not the toll gate.
+   ------------------------------------------------------------------------- */
+.ifilter{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.if{font-family:var(--sans);font-weight:600;font-size:11.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-soft);background:var(--surface);
+  border:1px solid var(--hair);border-radius:99px;padding:0 16px;min-height:44px;
+  display:inline-flex;align-items:center;cursor:pointer;
+  transition:border-color .25s,color .25s,background .25s}
+.if:hover{border-color:var(--copper);color:var(--copper)}
+.if.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.icount{font-family:var(--sans);font-size:12.5px;color:var(--stone);margin-top:16px}
+.icount a{color:var(--copper);text-decoration:none;border-bottom:1px solid currentColor}
+.igrid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:18px}
+.icard{display:flex;flex-direction:column;text-align:center;text-decoration:none;color:inherit;
+  background:var(--surface);border:1px solid var(--hair);border-radius:6px;
+  padding:14px 13px 16px;transition:border-color .3s}
+.icard:hover{border-color:var(--copper)}
+.icard .sim{aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;
+  padding:9%;overflow:hidden;background:var(--tint)}
+.icard .sim img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+.icard b{font-family:var(--sans);font-weight:600;font-size:12.5px;line-height:1.3;margin-top:12px;
+  min-height:2.6em;display:flex;align-items:center;justify-content:center}
+.icard .sg{font-family:var(--sans);font-weight:600;font-size:9px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--stone);opacity:.75;margin-top:4px}
+.icard .sp{font-family:var(--serif);font-size:15px;color:var(--copper);margin-top:auto;padding-top:7px}
+.icard .ss{font-family:var(--sans);font-weight:600;font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--stone);margin-top:4px}
+.icard.out{opacity:.68}
+.icard.out .sim img{filter:saturate(.35)}
+@media (max-width:1080px){.igrid{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:860px){.igrid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.igrid{grid-template-columns:repeat(2,1fr);gap:10px}}
+/* the long read, demoted to a quiet row — reachable, not compulsory */
+.ireads{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:30px;padding-top:22px;
+  border-top:1px solid var(--hair)}
+.ireads a{font-family:var(--sans);font-size:13px;color:var(--ink-soft);text-decoration:none;
+  min-height:44px;display:inline-flex;align-items:center}
+.ireads a:hover{color:var(--copper)}
+</style>
 </head><body>
 <main>
 <section class="sect">
   <div class="wrap">
     <span class="eyebrow">Shop by intention</span>
-    <h1><span class="s">Begin with the feeling.</span><span class="s">Build your practice from there.</span></h1>
-    <p class="lead">Start with the energy that feels most relevant to you right now &mdash; more protection, abundance, love, calm, or clarity. From there, explore jewelry, crystals, and frequency tools that work together to support a simple daily practice.</p>
-    <div class="cta-row"><a class="btn btn-copper" href="/quiz/">Take the Energy Quiz</a></div>
-  </div>
-</section>
+    <h1>Shop by how you want to feel.</h1>
+    <p class="lead">Protection, abundance, love, calm or clarity &mdash; pick one and the shop changes.</p>
 
-<section class="sect tint">
-  <div class="wrap">
-    <h2>Choose your intention.</h2>
-    <div class="cols">
-      <div><h3><a href="/intention/protection/">Protection</a></h3><p>Protect your energy. Hold your ground.</p></div>
-      <div><h3><a href="/intention/abundance/">Abundance</a></h3><p>Open yourself up to receive.</p></div>
-      <div><h3><a href="/intention/connection/">Love</a></h3><p>Choose connection every day.</p></div>
-      <div><h3><a href="/intention/calm/">Calm</a></h3><p>Come back to center.</p></div>
-      <div><h3><a href="/intention/clarity/">Clarity</a></h3><p>Clear your mind.</p></div>
+    <div class="ifilter" id="ifilter" role="group" aria-label="Shop by intention"></div>
+    <p class="icount" id="icount"></p>
+    <div class="igrid" id="igrid"></div>
+
+    <div class="ireads">
+      <a href="/intention/protection/">Read about Protection &rarr;</a>
+      <a href="/intention/abundance/">Abundance &rarr;</a>
+      <a href="/intention/connection/">Love &rarr;</a>
+      <a href="/intention/calm/">Calm &rarr;</a>
+      <a href="/intention/clarity/">Clarity &rarr;</a>
     </div>
   </div>
 </section>
 
-<section class="sect">
+<!-- One quiz CTA, at the end. There were two identical ones, and the first sat
+     above the fold on a page whose job is to sell — so the answer to "what do
+     I want?" was "go and answer six questions somewhere else". -->
+<section class="sect tint">
   <div class="wrap narrow">
     <h2>Not sure where to begin?</h2>
-    <p>Tell us what you want more of, what feels out of balance, or what you&rsquo;re hoping to support, and we&rsquo;ll guide you toward options that feel right for you.</p>
+    <p>Tell us what you want more of, what feels out of balance, or what you&rsquo;re hoping to
+      support, and we&rsquo;ll guide you toward options that feel right for you.</p>
     <div class="cta-row"><a class="btn btn-copper" href="/quiz/">Take the Energy Quiz</a></div>
   </div>
 </section>
@@ -61,4 +114,82 @@
   <div class="wrap"><a class="backlink" href="/">&larr; Back to Energy Muse</a></div>
 </section>
 </main>
+
+<script src="/assets/em-frequencies.js?v=2"></script>
+<script src="/assets/em-catalog.js?v=8"></script>
+<script src="/assets/em-bag.js?v=4"></script>
+<script>
+(function(){
+  'use strict';
+  if(!window.EM_CATALOG)return;
+
+  /* Love is the rewrite's name for it; the catalogue still groups it as
+     Connection, and the seven generators store their intention in lower case
+     while everything else is capitalised — so a naive match on "Protection"
+     silently dropped every generator out of the results. Compare folded. */
+  var FEELS=[['','All'],['protection','Protection'],['abundance','Abundance'],
+             ['connection','Love'],['calm','Calm'],['clarity','Clarity']];
+  var fold=function(x){return String(x||'').trim().toLowerCase();};
+  var KEYS={}; FEELS.forEach(function(f){ if(f[0]) KEYS[f[0]]=1; });
+
+  var ALL=window.EM_CATALOG.all().filter(function(p){
+    return KEYS[fold(p.group)] && ['Crystal','Jewelry','Frequency'].indexOf(p.cat)>=0;
+  });
+
+  var bar=document.getElementById('ifilter'),
+      grid=document.getElementById('igrid'),
+      count=document.getElementById('icount');
+
+  FEELS.forEach(function(f){
+    var b=document.createElement('button');
+    b.type='button'; b.className='if'; b.textContent=f[1];
+    b.setAttribute('data-f',f[0]);
+    bar.appendChild(b);
+  });
+
+  function card(p){
+    var out=(p.stock==='out');
+    return '<a class="icard'+(out?' out':'')+'" href="/product/?id='+encodeURIComponent(p.id)+'">'
+      +'<span class="sim"><img src="'+p.img+'" alt="'+String(p.name).replace(/"/g,'')+'" loading="lazy"></span>'
+      +'<b>'+p.name+'</b>'
+      +'<span class="sg">'+p.cat+'</span>'
+      +'<span class="sp">$'+p.price.toFixed(2)+'</span>'
+      +(out?'<span class="ss">Unavailable</span>':'')
+      +'</a>';
+  }
+
+  function label(k){ for(var i=0;i<FEELS.length;i++) if(FEELS[i][0]===k) return FEELS[i][1]; return 'All'; }
+
+  function paint(k){
+    var list=(k?ALL.filter(function(p){return fold(p.group)===k;}):ALL.slice())
+              .sort(function(a,b){return a.price-b.price;});
+    grid.innerHTML=list.map(card).join('');
+    count.innerHTML=list.length+' piece'+(list.length===1?'':'s')
+      +(k?' for '+label(k).toLowerCase():' across every intention')
+      +' &middot; <a href="/gems/#all">all crystals</a> &middot; <a href="/jewelry/#all">all jewelry</a>';
+    [].forEach.call(bar.children,function(b){
+      var on=(b.getAttribute('data-f')||'')===k;
+      b.classList.toggle('on',on);
+      b.setAttribute('aria-pressed',on?'true':'false');
+    });
+  }
+
+  /* the chosen intention lives in the URL, so a filtered shop is a link you
+     can send — and the five intention pages can point straight back into it */
+  function read(){ return fold((location.search.match(/[?&]feel=([^&]*)/)||[,''])[1]); }
+  function write(k){
+    var q=k?('?feel='+k):'';
+    history.replaceState(null,'',location.pathname+q+location.hash);
+  }
+
+  bar.addEventListener('click',function(e){
+    var b=e.target.closest('.if'); if(!b)return;
+    var k=b.getAttribute('data-f')||'';
+    write(k); paint(k);
+  });
+  window.addEventListener('popstate',function(){ paint(read()); });
+
+  paint(KEYS[read()]?read():'');
+})();
+</script>
 </body></html>

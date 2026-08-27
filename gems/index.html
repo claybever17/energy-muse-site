@@ -283,49 +283,11 @@ p{text-wrap:pretty;}
   <p>Natural crystals from the Energy Muse collection.<span class="lessmob"> Pick one up, turn it toward the light, then bring the intention into your space.</span></p>
   <div class="hcta"><a class="gbtn gbtn-c" href="#grid">Shop by Crystal</a><a class="gbtn gbtn-g" href="/quiz/">Take the Energy Quiz</a></div>
 </section>
-<div class="grid" id="grid"></div>
-<section class="gsec">
-  <div class="gwrap">
-    <div class="eye">Browse by shape</div>
-    <h2>Choose the shape that fits your practice.</h2>
-    <div class="shapes">
-      <div class="shape"><b>Touchstones</b><span>Easy to carry, hold, or keep nearby.</span></div>
-      <div class="shape"><b>Points &amp; pyramids</b><span>Send your intention up and out into the universe so it can manifest faster.</span></div>
-      <div class="shape"><b>Clusters &amp; raw crystals</b><span>Pure earth energy, straight from the ground.</span></div>
-      <div class="shape"><b>Spheres &amp; carvings</b><span>Beautiful displays that also carry a powerful presence in a room.</span></div>
-      <div class="shape"><b>One-of-a-kinds</b><span>Crystals with special features and uncommon markings, handpicked by us like pieces of treasure.</span></div>
-    </div>
-    <div class="hcta"><a class="gbtn gbtn-g" href="#grid">Shop All Crystals</a></div>
-  </div>
-</section>
 
-<section class="gsec tinted">
-  <div class="gwrap narrow">
-    <div class="eye">New to crystals?</div>
-    <h2>Begin with one.</h2>
-    <p class="glead">Choose one energy, one crystal, and one place you&rsquo;ll see it often. Learn the crystal
-      basics, and we&rsquo;ll walk you through it.</p>
-    <div class="hcta"><a class="gbtn gbtn-c" href="/learn/">Read the Beginner&rsquo;s Guide</a></div>
-  </div>
-</section>
-
-<section class="gsec">
-  <div class="gwrap narrow">
-    <div class="eye">Authenticity</div>
-    <h2>Energy Muse crystals are intentionally sourced.</h2>
-    <p class="glead">We work directly with trusted miners and suppliers, so we know exactly where each crystal
-      comes from and how it was sourced. That relationship is part of what makes a crystal feel different
-      before it ever reaches you.</p>
-    <p class="glead">From there, our team cleanses and charges each crystal, so when it arrives, it&rsquo;s ready
-      to become part of your practice.</p>
-    <div class="hcta"><a class="gbtn gbtn-g" href="/craft/">Our Sourcing &amp; Process</a></div>
-  </div>
-</section>
-
-<!-- The gallery above is the curated set, and three of them are real 3D scans
-     you can turn. This is the rest of the shelf: every crystal in the
-     catalogue, filtered by the intention Energy Muse tag it with. The gallery
-     is the exhibit; this is the shop. -->
+<!-- The crystals, first. This shelf used to be the fourth thing on the page,
+     after a WebGL tile grid and three sections of prose, so on a phone the
+     67 stones began six screens down on a page whose job is to sell them.
+     The essays still follow; they just no longer stand in front. -->
 <section class="gsec tinted" id="allstones">
   <div class="gwrap">
     <div class="eye">The whole shelf</div>
@@ -352,281 +314,31 @@ p{text-wrap:pretty;}
   </div>
 </section>
 
+<!-- Three sections of prose used to sit here: the shapes as a list of
+     descriptions that filtered nothing, a beginner's CTA, and the sourcing
+     story — closing with a "Shop All Crystals" button at the bottom of the
+     crystals page. Reduced to the two links that were actually doing work.
+     The sourcing copy lives on /about/, where someone looking for it goes. -->
+<section class="gsec">
+  <div class="gwrap narrow">
+    <p class="glede">Every crystal is cleansed and charged before it ships, and sourced
+      directly from miners and suppliers we work with.</p>
+    <div class="gctas">
+      <a class="gbtn ghost" href="/learn/crystals/">The Beginner&rsquo;s Guide</a>
+      <a class="gbtn ghost" href="/about/">Our sourcing</a>
+    </div>
+  </div>
+</section>
+
+<!-- The gallery above is the curated set, and three of them are real 3D scans
+     you can turn. This is the rest of the shelf: every crystal in the
+     catalogue, filtered by the intention Energy Muse tag it with. The gallery
+     is the exhibit; this is the shop. -->
+
 <div class="foot">Energy Muse products and content are intended for personal practice and general wellbeing.
   They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease.
   Individual experiences vary.</div>
 
-<!-- viewer -->
-<div class="viewer" id="viewer" role="dialog" aria-modal="true">
-  <button class="v-close" id="vclose" aria-label="Close viewer">&times;</button>
-  <div class="v-in">
-    <div class="v-stage">
-      <canvas id="vc"></canvas>
-      <div class="tiltpad off" id="tiltpad">
-        <div class="tiltcard" id="tiltcard"><img id="tiltimg" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><div class="glare"></div></div>
-      </div>
-      <div class="v-load" id="vload">Loading crystal</div>
-      <div class="v-hint" id="vhint">Drag to rotate</div>
-    </div>
-    <div class="v-side">
-      <div class="eye" id="vcat"></div>
-      <h2 id="vname"></h2>
-      <p id="vdesc"></p>
-      <div class="v-price" id="vprice"></div>
-      <div class="v-thumbs" id="vthumbs"></div>
-      <button class="v-btn" id="vadd">Add to Bag</button>
-      <span class="v-note" id="vsrc"></span>
-    </div>
-  </div>
-</div>
-
-<script type="importmap">{"imports":{"three":"../assets/three.module.min.js"}}</script>
-<script type="module">
-import * as THREE from 'three';
-import {GLTFLoader} from '../assets/jsm/loaders/GLTFLoader.js';
-
-/* ---- catalog: real Energy Muse products.
-   photo: front-facing product PNG (tilt-card viewer)
-   scan:  assets/gems/<slug>.glb (WebGL viewer + thumb jpg) ---- */
-const GEMS=[
- /* The Agate Geode Slice is gone from here. It was the one item with no match
-    anywhere in Energy Muse's live catalogue — the catalogue excludes it on
-    purpose and says so — but this viewer went on showing it at $48.88 with an
-    Add to Bag button under it. A scan worth turning is one thing; a price and
-    a buy button on a product they do not sell is another, and that is what
-    this was. The .glb and its thumbnails are still in the repo if the scan is
-    ever wanted as a demo that does not pretend to be for sale. */
- {slug:'protection',  name:'Black Tourmaline',  cat:'Protection',color:0x5A6472, price:'$8.88', scan:true,
-  desc:'The classic boundary crystal, scanned in 3D — striated black crystal for entries, desks and thresholds.'},
- {slug:'wellness',    name:'Quantum Quattro Crystal', cat:'Wellness', color:0x3EAFA5, price:'$229.88', scan:true, yaw:4.2, pitch:0.15,
-  desc:'A real Energy Muse specimen, scanned in 3D — shattuckite, dioptase, malachite and smoky quartz in quartz.'},
- {slug:'spirituality',name:'Amethyst Cluster',  cat:'Spirituality', color:0x8656B8, price:'$34.88', photo:true, flat:true,
-  desc:'Natural amethyst points on a copper stand — the classic meditative crystal for clarity and quiet attention.'},
- {slug:'wealth',      name:'Pyrite Cube',       cat:'Wealth',    color:0xC9A54E, price:'$24.88', photo:true,
-  desc:'A naturally cubic pyrite crystal — bright, metallic and grounded. Kept where plans are made.'},
- {slug:'love',        name:'Rhodochrosite Point', cat:'Love',    color:0xE08098, price:'$48.88', photo:true,
-  desc:'A tender rose-banded point for compassion, self-worth and the relationships you nurture.'},
- {slug:'fresh-start', name:'Clear Quartz Pyramid', cat:'Fresh Start', color:0xE8EDF2, price:'$18.88', photo:true,
-  desc:'A polished quartz pyramid — a bright, clean point of focus for beginning again.'},
- {slug:'power',       name:"Tiger's Eye Diamond", cat:'Power',   color:0x9A6633, price:'$39.88', photo:true,
-  desc:'Banded gold and brown, cut to a faceted diamond — confidence and grounded strength.'},
- {slug:'trapiche',    name:'Trapiche Amethyst Slice', cat:'Spirituality', color:0x9A7BB8, price:'$39.88', photo:true, flat:true,
-  desc:'A rare star-patterned amethyst slice \u2014 six rays formed over millions of years.'},
- {slug:'blue-agate',  name:'Blue Sky Agate Point', cat:'Calm',   color:0x9FC6E8, price:'$48.88', photo:true,
-  desc:'Soft blue banding in a standing point \u2014 a quiet horizon for desk or bedside.'},
- {slug:'rose-heart',  name:'Rose Quartz Heart',  cat:'Love',     color:0xF0B7C8, price:'$12.88', photo:true,
-  desc:'The classic crystal of gentle affection, carved into a hand-sized heart.'},
- {slug:'malachite',   name:'Malachite Crystal Point', cat:'Protection', color:0x2E8B57, price:'$34.88', photo:true,
-  desc:'Deep green banding in a polished point \u2014 a strong, grounding guardian crystal.'},
- {slug:'merkaba',     name:'Clear Quartz Merkaba', cat:'Spirituality', color:0xDCE6F0, price:'$14.88', photo:true,
-  desc:'Sacred geometry cut in clear quartz \u2014 a small, precise object of focus.'},
- {slug:'labradorite', name:'Labradorite Wand',   cat:'Power',    color:0x5B7B9A, price:'$27.92', photo:true, flat:true,
-  desc:'Flashes of blue and gold in a polished wand, presented on its own stand.'},
- {slug:'blue-opal',   name:'Owyhee Blue Opal',   cat:'Wellness', color:0x8FB8D8, price:'$24.88', photo:true, flat:true,
-  desc:'A soft blue touchstone \u2014 smooth in the palm, easy to carry through the day.'},
- {slug:'himalayan',   name:'Himalayan Quartz Cluster', cat:'Fresh Start', color:0xEDEFF2, price:'$399.88', photo:true, flat:true,
-  desc:'A statement cluster from high-altitude veins \u2014 many points, one clear intention.'},
-];
-
-
-/* ---- trust galleries: audited real product photos (Shopify CDN).
-   calm has its 3D scan only. imgSize() picks a CDN rendition. ---- */
-const GALLERY={
- 'protection':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/black_tourmaline_crystal.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/black_tourmaline_crystal_cropped.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/products/blacktourmaline-energymuse.png'],
- 'wellness':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/QuantumQuattroCrystal.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/QuantumQuattroCrystal_2.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/QuantumQuattroSphere_3.png'],
- 'spirituality':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/AmethystClusteronCopperStand.png'],
- 'wealth':['https://cdn.shopify.com/s/files/1/0159/0942/1110/products/pyritecube-energymuse_f318e0ca-d4a5-4cd5-a7d4-8c9e8fe5e8f5.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/products/pyritecubes-energymuse_0701051f-f416-4f18-9a51-02c23337da59.jpg'],
- 'love':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/rhodochrosite_point_edited.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/rhodochrosite_point-1_edited.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/rhodochrosite_point-3_edited.png'],
- 'fresh-start':['https://cdn.shopify.com/s/files/1/0159/0942/1110/products/clearquartzpyramid-energymuse-2.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/clearquartzpyramidinhand_energymuse_1.jpg'],
- 'power':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/Tiger_sEyeDiamond.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/Tiger_sEyeDiamond.jpg'],
- 'trapiche':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/TrapicheAmethystSlice_2.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/TrapicheAmethystSlice.png'],
- 'blue-agate':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/BlueSkyAgatePoint.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/BlueSkyAgatePoint_2.png'],
- 'rose-heart':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/rosequartzheart-energymuse.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/rqheart_energymuse.jpg'],
- 'malachite':['https://cdn.shopify.com/s/files/1/0159/0942/1110/products/malachitepoint-energymuse.png'],
- 'merkaba':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/clear_quartz_merkaba.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/clear_quartz_merkaba_inhand_cropped.jpg'],
- 'labradorite':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/LabradoriteWandonStand.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/CrystalWands_2.jpg'],
- 'blue-opal':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/OwyheeBlueOpalTouchstone.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/OwyheeBlueOpalTouchstone_2.jpg','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/OwyheeBlueOpalTouchstone_1.jpg'],
- 'himalayan':['https://cdn.shopify.com/s/files/1/0159/0942/1110/files/HimalayanQuartzClusters.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/HimalayanQuartzClusters_2.png','https://cdn.shopify.com/s/files/1/0159/0942/1110/files/HimalayanQuartzClusters_3.png'],
-};
-const imgSize=(u,s)=>u.startsWith('http')?u.replace(/(\.(?:jpg|jpeg|png))$/i,'_'+s+'x$1'):u;
-
-/* ---- even grid ---- */
-const grid=document.getElementById('grid');
-GEMS.forEach(g=>{
-  const el=document.createElement('div');el.className='card';
-  el.style.setProperty('--glow','#'+g.color.toString(16).padStart(6,'0'));
-  /* The scan thumbnails were rendered against the old dark viewer and carried
-     that navy plate baked in — a dark rectangle sitting among cut-outs on cream.
-     They are keyed out to transparent PNGs now (*-cut.png). Original JPGs kept.
-     The old note follows: rendered against the old dark viewer, so using
-     them full-bleed put black tiles through the grid. Where a clean cut-out
-     of the same specimen exists it wins; the one that has none is inset on a
-     light card instead of covering the tile. */
-  const HAS_CUTOUT={protection:1,wellness:1};
-  el.innerHTML=`<span class="chip${g.scan?' live':''}">3D scan</span>
-    <div class="tile">${g.scan&&!HAS_CUTOUT[g.slug]
-      ?`<img class="fimg" src="../assets/img/thumbs/${g.slug}-cut.png" alt="" loading="lazy">`
-      :g.scan
-      ?`<img class="pimg" src="../assets/img/products/${g.slug}.png" alt="" loading="lazy">`
-      :`<img class="pimg" src="../assets/img/products/${g.slug}.png?v=2" alt="" loading="lazy">`}</div>
-    <div class="meta"><div class="cat">${g.cat}</div><h3>${g.name}</h3><div class="price">${g.price}</div></div>`;
-  el.addEventListener('click',()=>openViewer(g));
-  grid.appendChild(el);
-});
-
-/* ---- WebGL viewer (scanned stones) ---- */
-const canvas=document.getElementById('vc');
-const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
-renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-renderer.outputColorSpace=THREE.SRGBColorSpace;
-renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;
-const scene=new THREE.Scene();
-const camera=new THREE.PerspectiveCamera(34,1,0.05,50);
-camera.position.set(0,0.4,3.1);camera.lookAt(0,0,0);
-(function env(){
-  const cv=document.createElement('canvas');cv.width=64;cv.height=256;const x=cv.getContext('2d');
-  const base=x.createLinearGradient(0,0,0,256);
-  base.addColorStop(0,'#4a5262');base.addColorStop(.5,'#262c37');base.addColorStop(1,'#0e1219');
-  x.fillStyle=base;x.fillRect(0,0,64,256);
-  function strip(cy,h,a){const s=x.createLinearGradient(0,cy-h,0,cy+h);s.addColorStop(0,'rgba(255,251,243,0)');s.addColorStop(.5,'rgba(255,251,243,'+a+')');s.addColorStop(1,'rgba(255,251,243,0)');x.fillStyle=s;x.fillRect(0,cy-h,64,h*2);}
-  strip(48,28,0.95);strip(150,22,0.5);
-  const t=new THREE.CanvasTexture(cv);t.mapping=THREE.EquirectangularReflectionMapping;t.colorSpace=THREE.SRGBColorSpace;
-  const p=new THREE.PMREMGenerator(renderer);scene.environment=p.fromEquirectangular(t).texture;t.dispose();p.dispose();
-})();
-scene.add(new THREE.HemisphereLight(0xdfe6f0,0x22262e,0.65));
-const key=new THREE.DirectionalLight(0xfff2e0,1.6);key.position.set(2.2,3.2,2.4);scene.add(key);
-const rim=new THREE.DirectionalLight(0xcfe0ff,0.7);rim.position.set(-2.2,1.4,-2.2);scene.add(rim);
-let holder=new THREE.Group();scene.add(holder);
-const loader=new GLTFLoader();
-function fallbackStone(color){
-  const geo=new THREE.IcosahedronGeometry(0.8,1);
-  const p=geo.attributes.position;const v=new THREE.Vector3();
-  for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i);
-    const s=1+0.16*Math.sin(v.x*7.1)*Math.cos(v.y*5.3+v.z*3.7);
-    p.setXYZ(i,v.x*s,v.y*s*1.25,v.z*s);}
-  geo.computeVertexNormals();
-  return new THREE.Mesh(geo,new THREE.MeshPhysicalMaterial({color,metalness:0.05,roughness:0.18,
-    clearcoat:0.8,envMapIntensity:1.3,flatShading:true}));}
-function fit(obj){
-  const box=new THREE.Box3().setFromObject(obj);
-  const size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());
-  const s=1.7/Math.max(size.x,size.y,size.z);
-  obj.position.sub(center).multiplyScalar(s);obj.scale.setScalar(s);
-  const wrap=new THREE.Group();wrap.add(obj);return wrap;}
-const vload=document.getElementById('vload');
-
-/* ---- photo tilt card (front-facing pseudo-3D) ---- */
-const tiltpad=document.getElementById('tiltpad');
-const tiltcard=document.getElementById('tiltcard');
-const tiltimg=document.getElementById('tiltimg');
-let tRX=0,tRY=0,cRX=0,cRY=0,tiltActive=false,pointerOn=false;
-tiltpad.addEventListener('pointermove',e=>{
-  const r=tiltpad.getBoundingClientRect();
-  const nx=(e.clientX-r.left)/r.width-0.5, ny=(e.clientY-r.top)/r.height-0.5;
-  tRY=nx*22; tRX=-ny*16; pointerOn=true;
-});
-tiltpad.addEventListener('pointerleave',()=>{pointerOn=false;});
-tiltpad.addEventListener('pointerdown',e=>{tiltpad.setPointerCapture(e.pointerId);});
-const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-
-/* ---- open/close ---- */
-let mode=null,dragging=false,px=0,py=0,vx=0,vy=0,rx=-0.15,ry=0.6,open=false;
-canvas.addEventListener('pointerdown',e=>{dragging=true;px=e.clientX;py=e.clientY;canvas.setPointerCapture(e.pointerId);});
-canvas.addEventListener('pointermove',e=>{if(!dragging)return;
-  vx=(e.clientX-px)*0.005;vy=(e.clientY-py)*0.005;ry+=vx;rx+=vy;px=e.clientX;py=e.clientY;});
-canvas.addEventListener('pointerup',()=>dragging=false);
-canvas.addEventListener('pointercancel',()=>dragging=false);
-const viewer=document.getElementById('viewer');
-function showScan(g){
-  mode='gl';canvas.classList.remove('off');tiltpad.classList.add('off');
-  document.getElementById('vhint').textContent='Drag to rotate';
-  document.getElementById('vsrc').textContent='3D scan of the actual crystal.';
-  rx=(g.pitch!==undefined?g.pitch:-0.15);ry=(g.yaw!==undefined?g.yaw:0.6);vx=vy=0;
-  scene.remove(holder);holder=new THREE.Group();scene.add(holder);
-  vload.classList.add('on');
-  loader.load(`../assets/gems/${g.slug}.glb`,gltf=>{
-    holder.clear();holder.add(fit(gltf.scene));vload.classList.remove('on');
-  },undefined,()=>{holder.clear();holder.add(fit(fallbackStone(g.color)));vload.classList.remove('on');});
-}
-function showPhoto(src,label){
-  mode='photo';canvas.classList.add('off');tiltpad.classList.remove('off');
-  document.getElementById('vhint').textContent='Move to turn it in the light';
-  document.getElementById('vsrc').textContent=label||'Photograph of the actual crystal.';
-  tiltimg.src=src;
-  tRX=tRY=cRX=cRY=0;
-}
-let currentGem=null;
-function openViewer(g){
-  currentGem=g;
-  document.getElementById('vcat').textContent=g.cat;
-  document.getElementById('vname').textContent=g.name;
-  document.getElementById('vdesc').textContent=g.desc;
-  document.getElementById('vprice').textContent=g.price;
-  // views: the scan (or cutout) first, then the audited real photos
-  const views=[];
-  if(g.scan)views.push({kind:'scan',thumb:`../assets/img/thumbs/${g.slug}-cut.png`});
-  else views.push({kind:'photo',src:`../assets/img/products/${g.slug}.png`,thumb:`../assets/img/products/${g.slug}.png`});
-  (GALLERY[g.slug]||[]).forEach(u=>views.push({kind:'photo',src:imgSize(u,1000),thumb:imgSize(u,160),
-    label:'Photograph of the actual product line.'}));
-  const twrap=document.getElementById('vthumbs');
-  twrap.innerHTML='';
-  twrap.style.display=views.length>1?'flex':'none';
-  views.forEach((v,i)=>{
-    const b=document.createElement('button');
-    b.className='vt'+(i===0?' on':'');
-    b.innerHTML=`<img src="${v.thumb}" alt="" loading="lazy">${v.kind==='scan'?'<span>3D</span>':''}`;
-    b.addEventListener('click',()=>{
-      twrap.querySelectorAll('.vt').forEach(x=>x.classList.remove('on'));
-      b.classList.add('on');
-      v.kind==='scan'?showScan(g):showPhoto(v.src,v.label);
-    });
-    twrap.appendChild(b);
-  });
-  views[0].kind==='scan'?showScan(g):showPhoto(views[0].src);
-  viewer.classList.add('open');open=true;resize();
-}
-function closeViewer(){viewer.classList.remove('open');open=false;}
-document.getElementById('vclose').addEventListener('click',closeViewer);
-viewer.addEventListener('click',e=>{if(e.target===viewer)closeViewer();});
-addEventListener('keydown',e=>{if(e.key==='Escape')closeViewer();});
-document.getElementById('vadd').addEventListener('click',()=>{
-  if(!currentGem||!window.EMBag)return;
-  EMBag.add({id:currentGem.slug,name:currentGem.name,
-    price:parseFloat(currentGem.price.replace('$','')),
-    img:currentGem.scan?('/assets/img/thumbs/'+currentGem.slug+'-cut.png'):('/assets/img/products/'+currentGem.slug+'.png'),
-    link:'/gems/'});
-});
-
-function resize(){
-  const r=canvas.parentElement.getBoundingClientRect();if(!r.width)return;
-  renderer.setSize(r.width,r.height,false);
-  camera.aspect=r.width/r.height;camera.updateProjectionMatrix();
-}
-addEventListener('resize',resize);
-
-let t0=performance.now();
-(function loop(now){
-  requestAnimationFrame(loop);
-  if(!open)return;
-  if(mode==='gl'){
-    if(!dragging){ry+=vx;rx+=vy;vx*=0.95;vy*=0.95;if(!reduce)ry+=0.004;}
-    rx=Math.max(-1.3,Math.min(1.3,rx));
-    holder.rotation.set(rx,ry,0);
-    renderer.render(scene,camera);
-  } else if(mode==='photo'){
-    const t=(now-t0)/1000;
-    let gx=tRX,gy=tRY;
-    if(!pointerOn&&!reduce){gy=Math.sin(t*0.7)*7;gx=Math.cos(t*0.5)*4;}
-    cRX+=(gx-cRX)*0.08;cRY+=(gy-cRY)*0.08;
-    tiltcard.style.transform=`rotateX(${cRX}deg) rotateY(${cRY}deg)`;
-    tiltcard.style.setProperty('--sx',(-cRY*1.6)+'px');
-    tiltcard.style.setProperty('--sy',(26+cRX*1.2)+'px');
-    tiltcard.style.setProperty('--gx',(50+cRY*2.4)+'%');
-    tiltcard.style.setProperty('--gy',(28-cRX*2.2)+'%');
-  }
-})(t0);
-window.__ready=true;
-</script>
 <script src="/assets/em-depth.js?v=3" defer></script>
 
 <script>

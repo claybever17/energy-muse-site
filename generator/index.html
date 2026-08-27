@@ -456,24 +456,12 @@ let dust,dustMat,dustSeed;
     blending:THREE.AdditiveBlending,depthWrite:false});
   dust=new THREE.Points(g,dustMat);device.add(dust);
 })();
-function loadCrystal(){
-  if(crystalLoadStarted)return;crystalLoadStarted=true;
-  import('../assets/jsm/loaders/GLTFLoader.js').then(m=>{
-    new m.GLTFLoader().load('../assets/gems/wellness.glb',gltf=>{
-      const obj=gltf.scene;
-      const box=new THREE.Box3().setFromObject(obj);
-      const size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());
-      const s=0.62/Math.max(size.x,size.y,size.z);
-      obj.position.sub(center).multiplyScalar(s);obj.scale.setScalar(s);
-      obj.traverse(o=>{if(o.isMesh)o.castShadow=true;});
-      crystalH=size.y*s;
-      obj.rotation.set(-0.6,3.6,0); // rests wide and flat, ring-patterned face to camera (tune via __crys)
-      window.__crys=obj;
-      crystal=new THREE.Group();crystal.add(obj);crystal.visible=false;
-      device.add(crystal);crystalReady=true;
-    });
-  }).catch(()=>{});
-}
+/* The scanned crystal finale is gone with the rest of the 3D scans. The
+   device itself is procedural geometry and still renders; this only removed
+   the .glb stone that descended onto the coil at the end of the scroll.
+   crystalReady stays false, so the choreography below simply skips that
+   beat rather than needing to be unpicked. */
+function loadCrystal(){ /* scans retired */ }
 
 // ---------- choreography ----------
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
