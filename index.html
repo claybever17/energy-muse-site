@@ -25,6 +25,7 @@
 <!-- the generators, once. Not deferred: the marquee and the frequency band are
      built by inline script, which runs before any deferred file exists. -->
 <script src="assets/em-frequencies.js?v=2"></script>
+<script src="assets/em-catalog.js?v=8"></script>
 <style>
 /* ===== Fonts: Fraunces (display serif) + Instrument Sans (grotesk body) ===== */
 @font-face{font-family:'Fraunces';src:url(assets/fonts/fraunces_300.woff2?v=3) format('woff2');font-weight:300;font-style:normal;font-display:swap;}
@@ -510,8 +511,20 @@ body.menu-open{overflow:hidden;}
   .story-cta .btn::after{transition:none;transform:scaleX(1);}
 }
 @media (max-width:840px){
-  .story{height:190svh;}
+  /* 190svh of scroll for thirty words. The sticky stage still needs travel to
+     play its animation, but not two full screens of it — on a phone that is
+     nearly two screens of nothing between one section and the next, which is
+     the "empty space when you scroll" Energy Muse flagged. 120svh keeps the
+     drawing legible and gives back most of a screen. */
+  .story{height:120svh;}
   .story-stage{min-height:440px;}
+}
+@media (max-width:640px){
+  /* Seventeen sections, each with --step top and bottom, is ~3,000px of pure
+     padding on a phone before a single word is counted. The rhythm can be
+     tighter at this width without the sections running together. */
+  :root{--step:clamp(56px,9vw,110px);}
+  .story{height:110svh;}
 }
 .hero-copy{max-width:min(680px,46ch);padding-block:0;}
 .hero .eyebrow{color:var(--hero-accent);display:block;overflow:hidden;}
@@ -1545,6 +1558,24 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   </div>
 </section>
 
+<!-- The shop moved up here. It was the fourteenth section, 12.5 screens down
+     on a phone — the only place on the homepage you could buy anything, two
+     thirds of the way through a page that takes seventeen screens to read.
+     It now sits directly under the question that sets it up: choose how you
+     want to feel, then here are six things. -->
+<!-- ===== STORE ===== the shop, made unmissable on the way down -->
+<section class="section store" id="store">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">The shop</span>
+      <h2>Start with one stone.</h2>
+      <p>Every crystal is chosen by hand and photographed as it arrives. Pick by what you want to feel &mdash; or <a href="quiz/">take the quiz</a> and we&#8217;ll point you.</p>
+    </div>
+    <div class="store-grid" id="store-grid"></div>
+    <div class="store-more"><a class="btn btn-ghost" href="gems/">Shop all crystals</a></div>
+  </div>
+</section>
+
 <section class="story" id="story" aria-label="Energy is invisible">
   <div class="story-stage">
     <canvas class="story-canvas" id="storyc" aria-hidden="true"></canvas>
@@ -1749,55 +1780,6 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   </div>
 </section>
 
-<!-- ===== STORE ===== the shop, made unmissable on the way down -->
-<section class="section store" id="store">
-  <div class="wrap">
-    <div class="head">
-      <span class="eyebrow">The shop</span>
-      <h2>Start with one stone.</h2>
-      <p>Every crystal is chosen by hand and photographed as it arrives. Pick by what you want to feel &mdash; or <a href="quiz/">take the quiz</a> and we&#8217;ll point you.</p>
-    </div>
-    <div class="store-grid">
-        <article class="pcard">
-          <a class="shot" href="gems/" aria-label="Tiger's Eye Diamond"><img src="assets/img/products/power.png" alt="Tiger's Eye Diamond" loading="lazy"></a>
-          <div class="pn">Tiger&#8217;s Eye Diamond</div><div class="pc">Protection</div>
-          <div class="pf"><span class="pp">$39.88</span>
-            <button class="padd" type="button" data-id="power" data-n="Tiger's Eye Diamond" data-p="39.88" data-img="/assets/img/products/power.png">Add</button></div>
-        </article>
-        <article class="pcard">
-          <a class="shot" href="gems/" aria-label="Pyrite Cube"><img src="assets/img/products/wealth.png" alt="Pyrite Cube" loading="lazy"></a>
-          <div class="pn">Pyrite Cube</div><div class="pc">Abundance</div>
-          <div class="pf"><span class="pp">$24.88</span>
-            <button class="padd" type="button" data-id="wealth" data-n="Pyrite Cube" data-p="24.88" data-img="/assets/img/products/wealth.png">Add</button></div>
-        </article>
-        <article class="pcard">
-          <a class="shot" href="gems/" aria-label="Rose Quartz Heart"><img src="assets/img/products/rose-heart.png" alt="Rose Quartz Heart" loading="lazy"></a>
-          <div class="pn">Rose Quartz Heart</div><div class="pc">Love</div>
-          <div class="pf"><span class="pp">$12.88</span>
-            <button class="padd" type="button" data-id="rose-heart" data-n="Rose Quartz Heart" data-p="12.88" data-img="/assets/img/products/rose-heart.png">Add</button></div>
-        </article>
-        <article class="pcard">
-          <a class="shot" href="gems/" aria-label="Malachite Crystal Point"><img src="assets/img/products/malachite.png" alt="Malachite Crystal Point" loading="lazy"></a>
-          <div class="pn">Malachite Crystal Point</div><div class="pc">Abundance</div>
-          <div class="pf"><span class="pp">$34.88</span>
-            <button class="padd" type="button" data-id="malachite" data-n="Malachite Crystal Point" data-p="34.88" data-img="/assets/img/products/malachite.png">Add</button></div>
-        </article>
-        <article class="pcard">
-          <a class="shot" href="gems/" aria-label="Blue Sky Agate Point"><img src="assets/img/products/blue-agate.png" alt="Blue Sky Agate Point" loading="lazy"></a>
-          <div class="pn">Blue Sky Agate Point</div><div class="pc">Calm</div>
-          <div class="pf"><span class="pp">$48.88</span>
-            <button class="padd" type="button" data-id="blue-agate" data-n="Blue Sky Agate Point" data-p="48.88" data-img="/assets/img/products/blue-agate.png">Add</button></div>
-        </article>
-        <article class="pcard">
-          <a class="shot" href="gems/" aria-label="Clear Quartz Pyramid"><img src="assets/img/products/fresh-start.png" alt="Clear Quartz Pyramid" loading="lazy"></a>
-          <div class="pn">Clear Quartz Pyramid</div><div class="pc">Clarity</div>
-          <div class="pf"><span class="pp">$18.88</span>
-            <button class="padd" type="button" data-id="fresh-start" data-n="Clear Quartz Pyramid" data-p="18.88" data-img="/assets/img/products/fresh-start.png">Add</button></div>
-        </article>
-    </div>
-    <div class="store-more"><a class="btn btn-ghost" href="gems/">Shop all crystals</a></div>
-  </div>
-</section>
 
 <!-- ===== SOCIAL PROOF =====
      Approved copy, Part 4. Plain first pass: three quotes on one rule, no
@@ -2313,16 +2295,53 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     });
     el.addEventListener('pointerleave',function(){tx=ty=0;tgx=50;tgy=20;kick();});
   });
-  /* ---- the store adds straight to the bag, on the canonical slug id ---- */
-  [].forEach.call(document.querySelectorAll('.padd'),function(b){
-    b.addEventListener('click',function(){
-      if(!window.EMBag)return;
-      EMBag.add({id:b.dataset.id,name:b.dataset.n,price:parseFloat(b.dataset.p),
-        img:b.dataset.img,link:'/gems/'});
-      var was=b.textContent;b.textContent='Added';b.disabled=true;
-      setTimeout(function(){b.textContent=was;b.disabled=false;},1400);
+  /* ---- the store, built from the catalogue ----
+
+     Six products used to be typed into the markup here with their own names,
+     prices and image paths - a fifth copy of data that already had a home,
+     and it had gone wrong in both the ways that always go wrong: every card
+     linked to gems/ rather than to its own product, so tapping a particular
+     stone landed you on a grid of sixty-seven; and one of the six was the
+     Rose Quartz Heart, which Energy Muse are out of. The homepage was
+     selling a sold-out stone at a hardcoded price.
+
+     One per intention, and the MEDIAN-priced one rather than the cheapest.
+     Cheapest-first was tried here and on the shop rail before it, and both
+     times produced a row running $3.88 to $5.88 — the whole homepage shop
+     moment reading as a bargain bin. The median is the typical piece. */
+  (function(){
+    var host=document.getElementById('store-grid');
+    if(!host||!window.EM_CATALOG)return;
+    var FEEL=['Protection','Abundance','Connection','Calm','Clarity'];
+    var pool=window.EM_CATALOG.all().filter(function(p){
+      return (p.cat==='Crystal'||p.cat==='Jewelry') && p.stock!=='out';
     });
-  });
+    var used={}, picks=[];
+    for(var pass=0; pass<2 && picks.length<6; pass++){
+      for(var i=0;i<FEEL.length && picks.length<6;i++){
+        var m=pool.filter(function(p){return p.group===FEEL[i] && !used[p.id];})
+                  .sort(function(a,b){return a.price-b.price;});
+        if(m.length){ var pick=m[Math.floor(m.length/2)]; used[pick.id]=1; picks.push(pick); }
+      }
+    }
+    host.innerHTML=picks.map(function(p){
+      return '<article class="pcard">'
+        +'<a class="shot" href="product/?id='+encodeURIComponent(p.id)+'" aria-label="'+String(p.name).replace(/"/g,'')+'">'
+        +'<img src="'+p.img+'" alt="'+String(p.name).replace(/"/g,'')+'" loading="lazy"></a>'
+        +'<div class="pn">'+p.name+'</div><div class="pc">'+(p.group||p.cat)+'</div>'
+        +'<div class="pf"><span class="pp">$'+p.price.toFixed(2)+'</span>'
+        +'<button class="padd" type="button" data-id="'+encodeURIComponent(p.id)+'">Add</button></div>'
+        +'</article>';
+    }).join('');
+    host.addEventListener('click',function(e){
+      var b=e.target.closest('.padd'); if(!b||!window.EMBag)return;
+      var it=window.EM_CATALOG.get(decodeURIComponent(b.getAttribute('data-id')));
+      if(!it)return;
+      EMBag.add({id:it.id,name:it.name,price:it.price,img:it.img,link:it.home||'/shop/'});
+      b.textContent='Added'; b.disabled=true;
+      setTimeout(function(){b.textContent='Add'; b.disabled=false;},1400);
+    });
+  })();
 
   /* ---- every signup form on the page behaves the same ---- */
   [].forEach.call(document.querySelectorAll('form[data-sub]'),function(fm){
