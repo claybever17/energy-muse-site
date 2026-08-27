@@ -1084,14 +1084,22 @@ body.menu-open{overflow:hidden;}
    the blockquote it rendered after the placeholder label — the label read as
    part of what the customer said. */
 .proof blockquote .qt::after{content:"\201D";color:var(--copper);opacity:.5;}
-/* The on-page "Placeholder" label is gone — Energy Muse have reviewed this
-   section already, so flagging it now would be re-opening something they
-   have presumably formed a view on. The quotes themselves are unchanged.
-
-   Worth knowing when this is picked up again: the approved rewrite supplies
-   three REAL testimonials for this section, attributed to Kaylee, Sher
-   McAfee and Shannon Gallagher, and none of them are on the site. These
-   three are written stand-ins. See home/COPY.md §12. */
+/* Real customers now, so the section needs a name under each quote and a
+   size that survives one. The written stand-ins ran 65–90 characters; these
+   run 185–225, and at the old 27px three of them in three columns made a
+   wall. Smaller, with the attribution doing the work the size used to. */
+.proof blockquote{font-size:clamp(16px,1.45vw,20px);line-height:1.5;
+  display:flex;flex-direction:column;}
+/* The three quotes are different lengths, so each name sat wherever its own
+   text happened to end — three attributions on two different lines across a
+   row whose boxes are all the same height. margin-top:auto puts them on one
+   baseline without reserving a height that the next quote will outgrow. */
+.proof blockquote .who{margin-top:auto;}
+.proof .who{display:block;padding-top:16px;font-family:var(--sans);font-style:normal;
+  font-weight:600;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--stone);}
+.proof .who::before{content:"";display:inline-block;width:14px;
+  border-top:1px solid var(--copper);vertical-align:middle;margin-right:9px;opacity:.7;}
 #stories .cta-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
   margin-top:clamp(30px,4.4vh,52px);}
 @media (max-width:840px){
@@ -1793,9 +1801,19 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     <span class="eyebrow">Social proof</span>
     <h2 class="proof-h"><span class="s">Real energy.</span><span class="s">Real people.</span><span class="s">Real transformations.</span></h2>
     <div class="proof">
-      <blockquote><span class="qt">The first time I felt like I did not have to understand everything before I could begin.</span></blockquote>
-      <blockquote><span class="qt">Beautiful enough to wear every day, meaningful enough to notice.</span></blockquote>
-      <blockquote><span class="qt">The instructions made the product feel approachable instead of mysterious.</span></blockquote>
+      <!-- Energy Muse's own customers, transcribed from the approved rewrite
+           (COPY.md §12) — not written here. Shirley's quote is deliberately
+           absent: it is a medical/menopause claim and the rewrite omits it
+           under the non-medical-device mandate. Do not add it back. -->
+      <blockquote><span class="qt">I feel noticeably calmer when it&rsquo;s near me. I keep it in my backpack for classes and
+        clinicals &mdash; it&rsquo;s been a game changer for managing my stress. It helps me feel grounded and present
+        even in high-stress environments.</span><cite class="who">Kaylee</cite></blockquote>
+      <blockquote><span class="qt">I always have my Protection Necklace in my pocket at work. If I start to feel
+        overwhelmed, I reach in and hold it. There is true power in believing that something is protecting
+        you.</span><cite class="who">Sher McAfee</cite></blockquote>
+      <blockquote><span class="qt">My Grounding Bracelet has been immensely helpful in helping me attain peace while I
+        took on the great challenge of building a brand-new curriculum this year. Thank you for the
+        inspiration!</span><cite class="who">Shannon Gallagher</cite></blockquote>
     </div>
   </div>
 </section>
