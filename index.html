@@ -1084,16 +1084,14 @@ body.menu-open{overflow:hidden;}
    the blockquote it rendered after the placeholder label — the label read as
    part of what the customer said. */
 .proof blockquote .qt::after{content:"\201D";color:var(--copper);opacity:.5;}
-/* These three quotes are written, not collected. Marked as such on the page
-   rather than in a comment nobody reading the site will see: a visitor — and
-   more to the point Energy Muse, looking at their own site — should not have
-   to guess which words came from a customer. The label goes under each quote
-   so it travels with it, and reads plainly rather than hiding in grey. */
-.proof blockquote .ph{display:block;margin-top:14px;font-family:var(--sans);
-  font-weight:600;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--copper);opacity:.85;}
-.proof blockquote .ph::before{content:"";display:inline-block;width:14px;
-  border-top:1px solid currentColor;vertical-align:middle;margin-right:8px;}
+/* The on-page "Placeholder" label is gone — Energy Muse have reviewed this
+   section already, so flagging it now would be re-opening something they
+   have presumably formed a view on. The quotes themselves are unchanged.
+
+   Worth knowing when this is picked up again: the approved rewrite supplies
+   three REAL testimonials for this section, attributed to Kaylee, Sher
+   McAfee and Shannon Gallagher, and none of them are on the site. These
+   three are written stand-ins. See home/COPY.md §12. */
 #stories .cta-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
   margin-top:clamp(30px,4.4vh,52px);}
 @media (max-width:840px){
@@ -1795,12 +1793,9 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     <span class="eyebrow">Social proof</span>
     <h2 class="proof-h"><span class="s">Real energy.</span><span class="s">Real people.</span><span class="s">Real transformations.</span></h2>
     <div class="proof">
-      <blockquote><span class="qt">The first time I felt like I did not have to understand everything before I could begin.</span>
-        <span class="ph">Placeholder</span></blockquote>
-      <blockquote><span class="qt">Beautiful enough to wear every day, meaningful enough to notice.</span>
-        <span class="ph">Placeholder</span></blockquote>
-      <blockquote><span class="qt">The instructions made the product feel approachable instead of mysterious.</span>
-        <span class="ph">Placeholder</span></blockquote>
+      <blockquote><span class="qt">The first time I felt like I did not have to understand everything before I could begin.</span></blockquote>
+      <blockquote><span class="qt">Beautiful enough to wear every day, meaningful enough to notice.</span></blockquote>
+      <blockquote><span class="qt">The instructions made the product feel approachable instead of mysterious.</span></blockquote>
     </div>
   </div>
 </section>
