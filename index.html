@@ -176,6 +176,12 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper);font-weight
 .btn:active{transform:translateY(1px);}
 .link{display:inline-flex;align-items:center;gap:.45em;font-weight:600;font-size:13.5px;letter-spacing:.04em;
   text-transform:uppercase;color:var(--accent);}
+/* "fixed-frequency" was breaking after its hyphen on a phone, so the strip
+   read "...OF FIXED-" / "FREQUENCY GENERATORS" — a split word, which is what
+   made the block look mis-set rather than the left alignment (left is correct
+   here: these lines wrap, and centred wrapped text makes the eye hunt for the
+   start of every line). */
+.nb{white-space:nowrap;}
 .link .a{transition:transform .25s;}.link:hover .a{transform:translateX(5px);}
 
 /* The line was locked to nowrap so the mask reveal ran as a single sweep.
@@ -1583,7 +1589,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 <section class="trust">
   <div class="wrap">
     <p class="trust-lead">Founder-led for two decades by <em class="who">Heather Askinosie</em>, best-selling author of <em>Crystal&nbsp;365</em> and <em>Crystal&nbsp;Muse</em>.</p>
-    <p class="trust-facts"><span>World&rsquo;s largest collection of fixed-frequency generators</span><span>Guidance before and after you buy</span></p>
+    <p class="trust-facts"><span>World&rsquo;s largest collection of <span class="nb">fixed-frequency</span> generators</span><span>Guidance before and after you buy</span></p>
   </div>
 </section>
 
