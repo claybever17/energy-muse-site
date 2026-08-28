@@ -1,0 +1,1100 @@
+[
+ {
+  "id": "sodalite-stone",
+  "name": "Sodalite Stone",
+  "cat": "Crystal",
+  "intention": "Calm",
+  "price": 3.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/sodalite-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "prehnite-stone",
+  "name": "Prehnite Stone",
+  "cat": "Crystal",
+  "intention": "Connection",
+  "price": 5.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/prehnite-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "labradorite-stone",
+  "name": "Labradorite Stone",
+  "cat": "Crystal",
+  "intention": "Abundance",
+  "price": 5.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/labradorite-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "apatite-stone",
+  "name": "Apatite Stone",
+  "cat": "Crystal",
+  "intention": "Calm",
+  "price": 5.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/apatite-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "k2-stone",
+  "name": "K2 Stone",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 7.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/k2-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "angelite-stone",
+  "name": "Angelite Stone",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 8.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/angelite-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "black-kyanite-crystal",
+  "name": "Black Kyanite Crystal",
+  "cat": "Crystal",
+  "intention": "Protection",
+  "price": 8.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/black-kyanite-crystal.png",
+  "stock": "in"
+ },
+ {
+  "id": "scheelite-stone",
+  "name": "Scheelite Stone",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 9.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/scheelite-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "pink-calcite-stone",
+  "name": "Pink Calcite Stone",
+  "cat": "Crystal",
+  "intention": "Connection",
+  "price": 9.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/pink-calcite-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "white-scolecite-tumbled-stone",
+  "name": "White Scolecite Tumbled Stone",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 12.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/white-scolecite-tumbled-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "selenite-pyramid",
+  "name": "Selenite Pyramid",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 12.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/selenite-pyramid.png",
+  "stock": "in"
+ },
+ {
+  "id": "rainbow-moonstone-stone",
+  "name": "Rainbow Moonstone Stone",
+  "cat": "Crystal",
+  "intention": "Connection",
+  "price": 12.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/rainbow-moonstone-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "chrysocolla-stone",
+  "name": "Chrysocolla Stone",
+  "cat": "Crystal",
+  "intention": "Calm",
+  "price": 12.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/chrysocolla-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "selenite-cleansing-crystal",
+  "name": "Selenite Cleansing Crystal",
+  "cat": "Crystal",
+  "intention": "Protection",
+  "price": 14.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/selenite-cleansing-crystal.png",
+  "stock": "in"
+ },
+ {
+  "id": "diamantina-etched-quartz-point",
+  "name": "Diamantina Etched Quartz Point",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 18.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/diamantina-etched-quartz-point.png",
+  "stock": "in"
+ },
+ {
+  "id": "pink-cobaltian-calcite-stone",
+  "name": "Pink Cobaltian Calcite Stone",
+  "cat": "Crystal",
+  "intention": "Connection",
+  "price": 18.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/pink-cobaltian-calcite-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "watermelon-calcite-pillow-stone",
+  "name": "Watermelon Calcite Pillow Stone",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 18.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/watermelon-calcite-pillow-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "larimar-stone",
+  "name": "Larimar Stone",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 18.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/larimar-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "bumble-bee-jasper-stone",
+  "name": "Bumble Bee Jasper Stone",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 18.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/bumble-bee-jasper-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "malachite-stone",
+  "name": "Malachite Stone",
+  "cat": "Crystal",
+  "intention": "Connection",
+  "price": 18.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/malachite-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "dioptase-in-matrix-stone",
+  "name": "Dioptase in Matrix Stone",
+  "cat": "Crystal",
+  "intention": "Abundance",
+  "price": 19.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/dioptase-in-matrix-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "wernerite-scapolite-stone",
+  "name": "Wernerite (Scapolite) Stone",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 19.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/wernerite-scapolite-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "specularite-crystal",
+  "name": "Specularite Crystal",
+  "cat": "Crystal",
+  "intention": "Protection",
+  "price": 19.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/specularite-crystal.png",
+  "stock": "in"
+ },
+ {
+  "id": "malachite-crystal",
+  "name": "Malachite Crystal",
+  "cat": "Crystal",
+  "intention": "Connection",
+  "price": 19.94,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/malachite-crystal.png",
+  "stock": "in"
+ },
+ {
+  "id": "tall-shungite-pyramid",
+  "name": "Tall Shungite Pyramid",
+  "cat": "Crystal",
+  "intention": "Protection",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/tall-shungite-pyramid.png",
+  "stock": "in"
+ },
+ {
+  "id": "mexican-turquoise-stone",
+  "name": "Mexican Turquoise Stone",
+  "cat": "Crystal",
+  "intention": "Calm",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/mexican-turquoise-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "protection",
+  "name": "Black Tourmaline",
+  "cat": "Crystal",
+  "intention": "Protection",
+  "price": 8.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/products/protection.webp",
+  "stock": "in"
+ },
+ {
+  "id": "wellness",
+  "name": "Quantum Quattro Crystal",
+  "cat": "Crystal",
+  "intention": "Protection",
+  "price": 229.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/products/wellness.webp",
+  "stock": "in"
+ },
+ {
+  "id": "spirituality",
+  "name": "Amethyst Cluster",
+  "cat": "Crystal",
+  "intention": "Calm",
+  "price": 34.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/products/spirituality.png",
+  "stock": "out"
+ },
+ {
+  "id": "wealth",
+  "name": "Pyrite Cube",
+  "cat": "Crystal",
+  "intention": "Abundance",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/products/wealth.webp",
+  "stock": "in"
+ },
+ {
+  "id": "love",
+  "name": "Rhodochrosite Point",
+  "cat": "Crystal",
+  "intention": "Connection",
+  "price": 48.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/products/love.webp",
+  "stock": "in"
+ },
+ {
+  "id": "fresh-start",
+  "name": "Clear Quartz Pyramid",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 18.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/products/fresh-start.webp",
+  "stock": "in"
+ },
+ {
+  "id": "trapiche",
+  "name": "Trapiche Amethyst Slice",
+  "cat": "Crystal",
+  "intention": "Calm",
+  "price": 39.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/products/trapiche.webp",
+  "stock": "in"
+ },
+ {
+  "id": "blue-agate",
+  "name": "Blue Sky Agate Point",
+  "cat": "Crystal",
+  "intention": "Calm",
+  "price": 48.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/products/blue-agate.webp",
+  "stock": "in"
+ },
+ {
+  "id": "rose-heart",
+  "name": "Rose Quartz Heart",
+  "cat": "Crystal",
+  "intention": "Connection",
+  "price": 12.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/products/rose-heart.webp",
+  "stock": "out"
+ },
+ {
+  "id": "malachite",
+  "name": "Malachite Crystal Point",
+  "cat": "Crystal",
+  "intention": "Protection",
+  "price": 34.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/products/malachite.webp",
+  "stock": "in"
+ },
+ {
+  "id": "merkaba",
+  "name": "Clear Quartz Merkaba",
+  "cat": "Crystal",
+  "intention": "Protection",
+  "price": 14.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/products/merkaba.webp",
+  "stock": "in"
+ },
+ {
+  "id": "labradorite",
+  "name": "Labradorite Wand",
+  "cat": "Crystal",
+  "intention": "Protection",
+  "price": 27.92,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/products/labradorite.webp",
+  "stock": "in"
+ },
+ {
+  "id": "blue-opal",
+  "name": "Owyhee Blue Opal",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/products/blue-opal.webp",
+  "stock": "out"
+ },
+ {
+  "id": "himalayan",
+  "name": "Himalayan Quartz Cluster",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 399.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/products/himalayan.webp",
+  "stock": "in"
+ },
+ {
+  "id": "infinite-prosperity-bracelet",
+  "name": "Infinite Prosperity Bracelet",
+  "cat": "Jewelry",
+  "intention": "Abundance",
+  "price": 64.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/jewelry-shop/infinite-prosperity-bracelet.webp",
+  "stock": "in"
+ },
+ {
+  "id": "rose-quartz-bracelet-3",
+  "name": "Rose Quartz Bracelet",
+  "cat": "Jewelry",
+  "intention": "Connection",
+  "price": 26.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/jewelry-shop/rose-quartz-bracelet-3.png",
+  "stock": "out"
+ },
+ {
+  "id": "breakthrough-bracelet-1",
+  "name": "Breakthrough Bracelet",
+  "cat": "Jewelry",
+  "intention": "Protection",
+  "price": 26.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/jewelry-shop/breakthrough-bracelet-1.webp",
+  "stock": "out"
+ },
+ {
+  "id": "ground-anklet",
+  "name": "Grounding Anklet",
+  "cat": "Jewelry",
+  "intention": "Protection",
+  "price": 28.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/jewelry-shop/ground-anklet.webp",
+  "stock": "in"
+ },
+ {
+  "id": "protection-bracelet",
+  "name": "Protection Crystal Bracelet",
+  "cat": "Jewelry",
+  "intention": "Protection",
+  "price": 26.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/jewelry-shop/protection-bracelet.webp",
+  "stock": "in"
+ },
+ {
+  "id": "the-millionaire-mindset-bracelet",
+  "name": "The Millionaire Mindset Bracelet",
+  "cat": "Jewelry",
+  "intention": "Abundance",
+  "price": 54.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/jewelry-shop/the-millionaire-mindset-bracelet.webp",
+  "stock": "in"
+ },
+ {
+  "id": "seven-stone-necklace",
+  "name": "Seven & Stone Necklace",
+  "cat": "Jewelry",
+  "intention": "Protection",
+  "price": 124.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/jewelry-shop/seven-stone-necklace.webp",
+  "stock": "in"
+ },
+ {
+  "id": "infinite-prosperity-necklace",
+  "name": "Infinite Prosperity Necklace",
+  "cat": "Jewelry",
+  "intention": "Abundance",
+  "price": 149.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/jewelry-shop/infinite-prosperity-necklace.webp",
+  "stock": "in"
+ },
+ {
+  "id": "glow-back-kit",
+  "name": "Get Your Glow Back Ritual Kit",
+  "cat": "Kit",
+  "intention": "Ritual kit",
+  "price": 29.91,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/sets/glow-back-kit.webp",
+  "stock": "in"
+ },
+ {
+  "id": "healing-ritual-set",
+  "name": "Healing Ritual Set",
+  "cat": "Kit",
+  "intention": "Ritual set",
+  "price": 37.41,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/sets/healing-ritual-set.webp",
+  "stock": "in"
+ },
+ {
+  "id": "supercharge-bundle",
+  "name": "Super-Charging Station Bundle",
+  "cat": "Kit",
+  "intention": "Bundle",
+  "price": 54.95,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/sets/supercharge-bundle.webp",
+  "stock": "in"
+ },
+ {
+  "id": "diy-bracelet-kit",
+  "name": "DIY Crystal Bracelet Kit",
+  "cat": "Kit",
+  "intention": "Make it yourself",
+  "price": 28.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/sets/diy-bracelet-kit.webp",
+  "stock": "in"
+ },
+ {
+  "id": "angel-111",
+  "name": "111 Angel Number Jewelry Set",
+  "cat": "Kit",
+  "intention": "Jewelry set",
+  "price": 17.33,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/sets/angel-111.webp",
+  "stock": "in"
+ },
+ {
+  "id": "angel-444",
+  "name": "444 Angel Number Jewelry Set",
+  "cat": "Kit",
+  "intention": "Jewelry set",
+  "price": 17.33,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/sets/angel-444.webp",
+  "stock": "in"
+ },
+ {
+  "id": "copper-spheres",
+  "name": "Copper Activation Mini-Spheres",
+  "cat": "System",
+  "intention": "Copper",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/sets/copper-spheres.webp",
+  "stock": "in"
+ },
+ {
+  "id": "frequency-bag",
+  "name": "Frequency Generator Bag",
+  "cat": "System",
+  "intention": "Accessory",
+  "price": 18.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/sets/frequency-bag.webp",
+  "stock": "in"
+ },
+ {
+  "id": "formula-home",
+  "name": "Harmonious Home Frequency Formula",
+  "cat": "System",
+  "intention": "For the living room",
+  "price": 299.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/sets/formula-home.webp",
+  "stock": "in"
+ },
+ {
+  "id": "formula-sleep",
+  "name": "Restorative Sleep Frequency Formula",
+  "cat": "System",
+  "intention": "For the bedroom",
+  "price": 299.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/sets/formula-sleep.webp",
+  "stock": "in"
+ },
+ {
+  "id": "ultimate-bundle",
+  "name": "The Ultimate Crystal Lover’s Bundle",
+  "cat": "Kit",
+  "intention": "Bundle",
+  "price": 46.95,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/sets/ultimate-bundle.webp",
+  "stock": "in"
+ },
+ {
+  "id": "home-frequency",
+  "name": "Home Frequency Bundle",
+  "cat": "System",
+  "intention": "Bundle",
+  "price": 158.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/sets/home-frequency.webp",
+  "stock": "in"
+ },
+ {
+  "id": "copper-conductor",
+  "name": "Copper Conductor Bundle",
+  "cat": "System",
+  "intention": "Bundle",
+  "price": 84.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/sets/copper-conductor.webp",
+  "stock": "in"
+ },
+ {
+  "id": "copper-plate",
+  "name": "Solid Copper Plate",
+  "cat": "System",
+  "intention": "Copper",
+  "price": 44.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/sets/copper-plate.webp",
+  "stock": "in"
+ },
+ {
+  "id": "copper-pyramid",
+  "name": "Solid Copper Pyramid",
+  "cat": "System",
+  "intention": "Copper",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/sets/copper-pyramid.webp",
+  "stock": "out"
+ },
+ {
+  "id": "red-jasper-stone",
+  "name": "Red Jasper Stone",
+  "cat": "Crystal",
+  "intention": "Protection",
+  "price": 4.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/red-jasper-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "tiger-s-eye-stone",
+  "name": "Tiger's Eye Stone",
+  "cat": "Crystal",
+  "intention": "Abundance",
+  "price": 5.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/tiger-s-eye-stone.webp",
+  "stock": "in"
+ },
+ {
+  "id": "pink-botswana-agate-stone",
+  "name": "Pink Botswana Agate Stone",
+  "cat": "Crystal",
+  "intention": "Connection",
+  "price": 5.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/pink-botswana-agate-stone.webp",
+  "stock": "in"
+ },
+ {
+  "id": "pink-scolecite-tumbled-stone",
+  "name": "Pink Scolecite Tumbled Stone",
+  "cat": "Crystal",
+  "intention": "Calm",
+  "price": 9.02,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/pink-scolecite-tumbled-stone.webp",
+  "stock": "in"
+ },
+ {
+  "id": "fancy-jasper-stone",
+  "name": "Fancy Jasper Stone",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 5.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/fancy-jasper-stone.webp",
+  "stock": "in"
+ },
+ {
+  "id": "black-obsidian-stone",
+  "name": "Black Obsidian Stone",
+  "cat": "Crystal",
+  "intention": "Protection",
+  "price": 5.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/black-obsidian-stone.webp",
+  "stock": "in"
+ },
+ {
+  "id": "lodestones",
+  "name": "Lodestones",
+  "cat": "Crystal",
+  "intention": "Abundance",
+  "price": 8.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/lodestones.webp",
+  "stock": "in"
+ },
+ {
+  "id": "unakite-stone",
+  "name": "Unakite Stone",
+  "cat": "Crystal",
+  "intention": "Connection",
+  "price": 5.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/unakite-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "variscite-stone",
+  "name": "Variscite Stone",
+  "cat": "Crystal",
+  "intention": "Calm",
+  "price": 12.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/variscite-stone.webp",
+  "stock": "in"
+ },
+ {
+  "id": "clear-quartz-stone",
+  "name": "Clear Quartz Stone",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 5.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/clear-quartz-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "svetyalite-stone",
+  "name": "Svetyalite Stone",
+  "cat": "Crystal",
+  "intention": "Protection",
+  "price": 6.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/svetyalite-stone.webp",
+  "stock": "in"
+ },
+ {
+  "id": "vesuvianite-stone",
+  "name": "Vesuvianite Stone",
+  "cat": "Crystal",
+  "intention": "Abundance",
+  "price": 14.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/vesuvianite-stone.webp",
+  "stock": "in"
+ },
+ {
+  "id": "golden-healer-quartz-stone",
+  "name": "Golden Healer Quartz Stone",
+  "cat": "Crystal",
+  "intention": "Connection",
+  "price": 8.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/golden-healer-quartz-stone.webp",
+  "stock": "in"
+ },
+ {
+  "id": "blue-lace-agate-stone",
+  "name": "Blue Lace Agate Stone",
+  "cat": "Crystal",
+  "intention": "Calm",
+  "price": 12.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/blue-lace-agate-stone.webp",
+  "stock": "in"
+ },
+ {
+  "id": "saturn-chalcedony-stone",
+  "name": "Saturn Chalcedony Stone",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 8.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/saturn-chalcedony-stone.webp",
+  "stock": "in"
+ },
+ {
+  "id": "selenite-stone",
+  "name": "Selenite Stone",
+  "cat": "Crystal",
+  "intention": "Protection",
+  "price": 6.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/selenite-stone.webp",
+  "stock": "in"
+ },
+ {
+  "id": "cinnabar-stone",
+  "name": "Cinnabar Stone",
+  "cat": "Crystal",
+  "intention": "Abundance",
+  "price": 14.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/cinnabar-stone.webp",
+  "stock": "in"
+ },
+ {
+  "id": "fluorite-stone",
+  "name": "Fluorite Stone",
+  "cat": "Crystal",
+  "intention": "Connection",
+  "price": 8.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/fluorite-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "aa-grade-botswana-agate",
+  "name": "AA-Grade Botswana Agate",
+  "cat": "Crystal",
+  "intention": "Calm",
+  "price": 28.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/aa-grade-botswana-agate.webp",
+  "stock": "in"
+ },
+ {
+  "id": "trolleite-stone",
+  "name": "Trolleite Stone",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 12.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/trolleite-stone.webp",
+  "stock": "in"
+ },
+ {
+  "id": "serpentine-stone",
+  "name": "Serpentine Stone",
+  "cat": "Crystal",
+  "intention": "Protection",
+  "price": 8.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/serpentine-stone.webp",
+  "stock": "in"
+ },
+ {
+  "id": "fire-ammonite",
+  "name": "Fire Ammonite",
+  "cat": "Crystal",
+  "intention": "Abundance",
+  "price": 18.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/fire-ammonite.webp",
+  "stock": "in"
+ },
+ {
+  "id": "amazonite-stone",
+  "name": "Amazonite Stone",
+  "cat": "Crystal",
+  "intention": "Connection",
+  "price": 8.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/amazonite-stone.webp",
+  "stock": "in"
+ },
+ {
+  "id": "sapphire-crystal",
+  "name": "Sapphire Crystal",
+  "cat": "Crystal",
+  "intention": "Calm",
+  "price": 39.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/sapphire-crystal.webp",
+  "stock": "in"
+ },
+ {
+  "id": "blue-lace-agate-touchstone",
+  "name": "Blue Lace Agate Touchstone",
+  "cat": "Crystal",
+  "intention": "Clarity",
+  "price": 14.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/blue-lace-agate-touchstone.webp",
+  "stock": "in"
+ },
+ {
+  "id": "tourmalinated-quartz-stone",
+  "name": "Tourmalinated Quartz Stone",
+  "cat": "Crystal",
+  "intention": "Protection",
+  "price": 8.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/tourmalinated-quartz-stone.png",
+  "stock": "in"
+ },
+ {
+  "id": "malachite-bracelet",
+  "name": "Malachite Bracelet",
+  "cat": "Jewelry",
+  "intention": "Protection",
+  "price": 23.46,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/malachite-bracelet.webp",
+  "stock": "in"
+ },
+ {
+  "id": "iolite-pendant-necklace",
+  "name": "Iolite Pendant Necklace",
+  "cat": "Jewelry",
+  "intention": "Abundance",
+  "price": 17.42,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/iolite-pendant-necklace.webp",
+  "stock": "out"
+ },
+ {
+  "id": "rhodonite-crystal-point-necklace",
+  "name": "Rhodonite Crystal Point Necklace",
+  "cat": "Jewelry",
+  "intention": "Connection",
+  "price": 17.42,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/rhodonite-crystal-point-necklace.webp",
+  "stock": "in"
+ },
+ {
+  "id": "blue-lace-agate-bracelet",
+  "name": "Blue Lace Agate Bracelet",
+  "cat": "Jewelry",
+  "intention": "Clarity",
+  "price": 23.36,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/blue-lace-agate-bracelet.webp",
+  "stock": "in"
+ },
+ {
+  "id": "solid-copper-ring",
+  "name": "Solid Copper Ring",
+  "cat": "Jewelry",
+  "intention": "Protection",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/solid-copper-ring.webp",
+  "stock": "in"
+ },
+ {
+  "id": "jade-bracelet",
+  "name": "Jade Bracelet",
+  "cat": "Jewelry",
+  "intention": "Abundance",
+  "price": 17.7,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/jade-bracelet.webp",
+  "stock": "in"
+ },
+ {
+  "id": "fluorite-bracelet",
+  "name": "Fluorite Bracelet",
+  "cat": "Jewelry",
+  "intention": "Connection",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/fluorite-bracelet.webp",
+  "stock": "in"
+ },
+ {
+  "id": "solid-copper-braided-ring",
+  "name": "Solid Copper Braided Ring",
+  "cat": "Jewelry",
+  "intention": "Clarity",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/solid-copper-braided-ring.webp",
+  "stock": "in"
+ },
+ {
+  "id": "639hz-frequency-ring",
+  "name": "639Hz Frequency Ring",
+  "cat": "Jewelry",
+  "intention": "Protection",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/639hz-frequency-ring.webp",
+  "stock": "in"
+ },
+ {
+  "id": "abundance-attractor-necklace",
+  "name": "Abundance Attractor Necklace",
+  "cat": "Jewelry",
+  "intention": "Abundance",
+  "price": 20.22,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/abundance-attractor-necklace.png",
+  "stock": "in"
+ },
+ {
+  "id": "lavender-quartz-crystal-point-necklace",
+  "name": "Lavender Quartz Crystal Point Necklace",
+  "cat": "Jewelry",
+  "intention": "Connection",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/lavender-quartz-crystal-point-necklace.webp",
+  "stock": "in"
+ },
+ {
+  "id": "963hz-frequency-ring-for-mental-focus",
+  "name": "963Hz Frequency Ring for Mental Focus",
+  "cat": "Jewelry",
+  "intention": "Clarity",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/963hz-frequency-ring-for-mental-focus.webp",
+  "stock": "in"
+ },
+ {
+  "id": "417hz-frequency-ring-for-energy-clearing",
+  "name": "417Hz Frequency Ring for Energy Clearing",
+  "cat": "Jewelry",
+  "intention": "Protection",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/417hz-frequency-ring-for-energy-clearing.webp",
+  "stock": "in"
+ },
+ {
+  "id": "the-breakthrough-bolt-necklace",
+  "name": "The Breakthrough Bolt Necklace",
+  "cat": "Jewelry",
+  "intention": "Abundance",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/the-breakthrough-bolt-necklace.webp",
+  "stock": "in"
+ },
+ {
+  "id": "rhodonite-bracelet",
+  "name": "Rhodonite Bracelet",
+  "cat": "Jewelry",
+  "intention": "Connection",
+  "price": 26.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/rhodonite-bracelet.webp",
+  "stock": "out"
+ },
+ {
+  "id": "174hz-frequency-ring-for-tension-stress-reli",
+  "name": "174Hz Frequency Ring for Tension & Stress Relief",
+  "cat": "Jewelry",
+  "intention": "Protection",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/174hz-frequency-ring-for-tension-stress-reli.webp",
+  "stock": "in"
+ },
+ {
+  "id": "the-prosperity-seed-necklace",
+  "name": "The Prosperity Seed Necklace",
+  "cat": "Jewelry",
+  "intention": "Abundance",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/the-prosperity-seed-necklace.webp",
+  "stock": "in"
+ },
+ {
+  "id": "pink-opal-bracelet",
+  "name": "Pink Opal Bracelet",
+  "cat": "Jewelry",
+  "intention": "Connection",
+  "price": 34.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/pink-opal-bracelet.webp",
+  "stock": "out"
+ },
+ {
+  "id": "clear-vision-bracelet",
+  "name": "Clear Vision Bracelet",
+  "cat": "Jewelry",
+  "intention": "Clarity",
+  "price": 42.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/clear-vision-bracelet.webp",
+  "stock": "in"
+ },
+ {
+  "id": "7-83hz-frequency-ring-for-nervous-system-res",
+  "name": "7.83Hz Frequency Ring for Nervous System Reset",
+  "cat": "Jewelry",
+  "intention": "Protection",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/7-83hz-frequency-ring-for-nervous-system-res.webp",
+  "stock": "in"
+ },
+ {
+  "id": "tigers-eye-bracelet",
+  "name": "Tiger’s Eye Bracelet",
+  "cat": "Jewelry",
+  "intention": "Abundance",
+  "price": 26.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/tigers-eye-bracelet.webp",
+  "stock": "in"
+ },
+ {
+  "id": "bold-heart-bracelet",
+  "name": "Bold Heart Bracelet",
+  "cat": "Jewelry",
+  "intention": "Connection",
+  "price": 42.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/bold-heart-bracelet.webp",
+  "stock": "in"
+ },
+ {
+  "id": "the-lemurian-tide-bracelet",
+  "name": "The Lemurian Tide Bracelet",
+  "cat": "Jewelry",
+  "intention": "Clarity",
+  "price": 48.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/the-lemurian-tide-bracelet.png",
+  "stock": "in"
+ },
+ {
+  "id": "energy-clearing-necklace",
+  "name": "Energy Clearing Necklace",
+  "cat": "Jewelry",
+  "intention": "Protection",
+  "price": 24.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/energy-clearing-necklace.png",
+  "stock": "in"
+ },
+ {
+  "id": "remover-of-obstacles-bracelet",
+  "name": "Remover of Obstacles Bracelet",
+  "cat": "Jewelry",
+  "intention": "Abundance",
+  "price": 26.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/shop/remover-of-obstacles-bracelet.webp",
+  "stock": "in"
+ },
+ {
+  "id": "power",
+  "name": "Tiger's Eye Diamond",
+  "cat": "Crystal",
+  "intention": "Abundance",
+  "price": 39.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/products/power.webp",
+  "stock": "in"
+ },
+ {
+  "id": "gen-7.83",
+  "name": "7.83Hz Frequency Generator",
+  "cat": "Frequency",
+  "intention": "calm",
+  "price": 99.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/generators/7-83.webp",
+  "stock": "in"
+ },
+ {
+  "id": "gen-174",
+  "name": "174Hz Frequency Generator",
+  "cat": "Frequency",
+  "intention": null,
+  "price": 99.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/generators/174.webp",
+  "stock": "in"
+ },
+ {
+  "id": "gen-417",
+  "name": "417Hz Frequency Generator",
+  "cat": "Frequency",
+  "intention": "protection",
+  "price": 99.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/generators/417.webp",
+  "stock": "in"
+ },
+ {
+  "id": "gen-528",
+  "name": "528Hz Frequency Generator",
+  "cat": "Frequency",
+  "intention": "abundance",
+  "price": 99.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/generators/528.png",
+  "stock": "in"
+ },
+ {
+  "id": "gen-639",
+  "name": "639Hz Frequency Generator",
+  "cat": "Frequency",
+  "intention": "connection",
+  "price": 99.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/generators/639.webp",
+  "stock": "in"
+ },
+ {
+  "id": "gen-963",
+  "name": "963Hz Frequency Generator",
+  "cat": "Frequency",
+  "intention": "clarity",
+  "price": 99.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/generators/963.webp",
+  "stock": "in"
+ },
+ {
+  "id": "gen-1111",
+  "name": "1111Hz Frequency Generator",
+  "cat": "Frequency",
+  "intention": null,
+  "price": 99.88,
+  "image": "https://energy-muse-workingfolder.vercel.app/assets/img/generators/1111.webp",
+  "stock": "out"
+ }
+]
