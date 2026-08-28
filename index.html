@@ -55,7 +55,13 @@
   --hero-bg:#FBF8F2; --hero-ink:#1D2739; --hero-soft:#5A6578; --hero-sub:#8F5330;
   --hero-accent:#985E38; --hero-shadow:none;
   --hero-glowA:rgba(169,104,62,.24); --hero-glowB:rgba(37,126,111,.12);
-  --radius:1px; --step:clamp(100px,8vw,124px); --imgf:none;
+  /* 1px is a square corner with a rounding error, and it made the biggest,
+     most prominent things on the page the sharpest: every other control on
+     the site is softer than the buttons were. The shop's Add button and the
+     sort control are 4px, the cards 4-6px, the filter chips full pills, and
+     em-page.css gives the other nineteen pages' buttons 3px. 4px puts the
+     homepage in the same family instead of standing alone at square. */
+  --radius:4px; --step:clamp(100px,8vw,124px); --imgf:none;
   --shadow-sm:0 1px 2px rgba(61,41,23,.05), 0 4px 10px rgba(61,41,23,.05);
   --shadow:0 2px 5px rgba(61,41,23,.05), 0 14px 34px rgba(61,41,23,.10);
   --shadow-lg:0 6px 16px rgba(61,41,23,.09), 0 30px 66px rgba(61,41,23,.16);
@@ -1577,6 +1583,15 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   #about .copy > p:not(.lede-m){display:none}
   #jewelry .copy > p,#about .copy > p.lede-m{font-size:15px;line-height:1.55;color:var(--ink-soft)}
 }
+
+/* A solid button and a text link on one row need their baselines reconciled -
+   the button carries 15px of padding the link does not, so left alone the link
+   floats against the top of the button. */
+.cta-row-lead{align-items:center;gap:12px 22px;}
+@media (max-width:560px){
+  .cta-row-lead{flex-direction:column;align-items:flex-start;gap:16px;}
+  .cta-row-lead .btn{width:100%;}
+}
 </style>
 
 
@@ -1883,9 +1898,15 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
            energy", about jewelry, had no link to the jewelry shop at all -
            only the bracelet designer. The shop is the primary now and the
            designer keeps its place beside it. -->
-      <div class="cta-row">
+      <!-- Two buttons of the same size and shape side by side read as two slabs
+           and say nothing about which one matters. Softening the corner helped a
+           little; giving them a hierarchy helps more. The shop keeps the solid
+           button, the designer becomes the arrow link the page already uses to
+           close the crystal grid and the intention grid - so this section ends
+           with one weight and one lighter offer instead of two of the same. -->
+      <div class="cta-row cta-row-lead">
         <a href="jewelry/" class="btn btn-primary">Shop the jewelry</a>
-        <a href="designer/" class="btn btn-ghost">Design your own</a>
+        <a href="designer/" class="link">Design your own <span class="a">&rarr;</span></a>
       </div>
     </div>
   </div>
