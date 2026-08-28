@@ -466,6 +466,12 @@ body.menu-open{overflow:hidden;}
 .story-stage{position:sticky;top:0;height:100svh;min-height:520px;overflow:hidden;
   display:grid;place-items:center;}
 .story-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+/* 100svh of sticky stage for a mark and three short lines is a screen of
+   white on any display. The travel that plays the drawing lives on .story;
+   the stage only needs to be tall enough to hold what it shows. */
+.story{height:150svh;}
+.story-stage{height:78svh;min-height:460px;}
+
 /* the drawing takes the upper part of the stage and the words sit under it —
    centred on the same axis, but never on top of the mark itself */
 .story-copy{position:relative;z-index:2;text-align:center;align-self:end;
@@ -511,20 +517,22 @@ body.menu-open{overflow:hidden;}
   .story-cta .btn::after{transition:none;transform:scaleX(1);}
 }
 @media (max-width:840px){
-  /* 190svh of scroll for thirty words. The sticky stage still needs travel to
-     play its animation, but not two full screens of it — on a phone that is
-     nearly two screens of nothing between one section and the next, which is
-     the "empty space when you scroll" Energy Muse flagged. 120svh keeps the
-     drawing legible and gives back most of a screen. */
-  .story{height:120svh;}
-  .story-stage{min-height:440px;}
+  /* No sticky drawing on a phone at all. It reserved 190svh — nearly two
+     screens of scroll for thirty words — and what you actually saw for most
+     of that travel was a small mark alone in the middle of an empty screen.
+     The three lines are the point; they read as an ordinary short section
+     now, and the canvas is not drawn. */
+  .story{height:auto;}
+  .story-stage{position:static;height:auto;min-height:0;padding-block:var(--step);}
+  .story-canvas{display:none;}
+  .story-copy{align-self:auto;margin-bottom:0;}
+  .sl{opacity:1;transform:none;}
 }
 @media (max-width:640px){
   /* Seventeen sections, each with --step top and bottom, is ~3,000px of pure
      padding on a phone before a single word is counted. The rhythm can be
      tighter at this width without the sections running together. */
   :root{--step:clamp(56px,9vw,110px);}
-  .story{height:110svh;}
 }
 .hero-copy{max-width:min(680px,46ch);padding-block:0;}
 .hero .eyebrow{color:var(--hero-accent);display:block;overflow:hidden;}
@@ -647,8 +655,14 @@ body.menu-open{overflow:hidden;}
 
 /* ===== STORE — the shop, made unmissable two thirds down ===== */
 .store{background:linear-gradient(180deg,color-mix(in srgb,var(--copper) 5%,transparent),transparent 42%);}
+/* Three columns across a full-width page made each card ~600px wide with a
+   square shot inside it, so a single stone stood a foot tall on screen and
+   two of them filled the viewport. The step to six only came at 1360px,
+   which most laptops never reach. Six from 1100 up, and the shot is capped
+   so the stone never outgrows the card's own type. */
 .store-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.8vw,26px);}
-@media (min-width:1360px){.store-grid{grid-template-columns:repeat(6,1fr);}}
+@media (min-width:900px){.store-grid{grid-template-columns:repeat(4,1fr);}}
+@media (min-width:1100px){.store-grid{grid-template-columns:repeat(6,1fr);}}
 .pcard{position:relative;display:flex;flex-direction:column;background:var(--surface);
   border:1px solid var(--hair);border-radius:10px;padding:18px 18px 16px;
   transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .35s;}
@@ -659,7 +673,7 @@ body.menu-open{overflow:hidden;}
    taller than its neighbours. It holds its shape now and grows to fill
    whatever room the row has, so the stone sits centred in the white space
    and the type lands at the same height on every card. */
-.pcard .shot{aspect-ratio:1;flex:1 1 auto;min-height:0;overflow:hidden;
+.pcard .shot{aspect-ratio:1;flex:1 1 auto;min-height:0;max-height:230px;overflow:hidden;
   display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
 .pcard .shot img{max-width:78%;max-height:88%;width:auto;height:auto;
   object-fit:contain;display:block;}
@@ -672,7 +686,7 @@ body.menu-open{overflow:hidden;}
   border-radius:100px;padding:9px 15px;cursor:pointer;transition:background .2s,color .2s,border-color .2s;}
 .pcard .padd:hover{background:var(--copper);border-color:var(--copper);color:#fff;}
 .store-more{display:flex;justify-content:center;margin-top:clamp(26px,3vw,40px);}
-@media (max-width:900px){.store-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:899px){.store-grid{grid-template-columns:repeat(2,1fr);}}
 @media (max-width:560px){.store-grid{grid-template-columns:1fr 1fr;gap:12px;}
   .pcard{padding:12px 12px 14px;}.pcard .pn{font-size:15.5px;}
   .pcard .pf{flex-direction:column;align-items:stretch;gap:8px;}
@@ -1512,15 +1526,14 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
            hero, where there was room for it; over a photograph it is the thing
            that makes a poster read as a text block. The positioning it carried
            is said again by the trust band immediately below. -->
-      <!-- Two CTAs to the same place read as one CTA said twice, which is
-           what this was: the hero and the quiz band both said "Find My Energy
-           Match" and both went to /quiz/. The rewrite (§1) always specified a
-           second hero CTA into the shop; it had never been built, so the
-           homepage asked you to take a quiz and offered no way to browse
-           until 3.3 screens down. -->
+      <!-- One CTA. A second, ghost-styled button was added here to give the
+           hero a route into the shop, and it was wrong twice over: the ghost
+           style is ink-on-transparent, which over a dark photograph is dark
+           on dark, and the shop is no longer far away — the products sit 2.8
+           screens down now rather than 12.5, so the hero does not need to
+           carry a link to them. -->
       <div class="cta-row anim">
         <a href="quiz/" class="btn btn-copper">Find My Energy Match</a>
-        <a href="intention/" class="btn btn-ghost">Shop by Intention</a>
       </div>
     </div>
   </div>
@@ -2027,7 +2040,11 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     var lines=[].slice.call(host.querySelectorAll('path'));
 
     function sample(){
-      var vb=[231.33,238.67], scale=Math.min(W,H)*0.34/vb[1];
+      /* 0.34 of the short edge left the mark small in the middle of a screen
+       of nothing — which is the white space Energy Muse flagged. On a wide
+       display the short edge is the height, so this scales with the height
+       and reads as a deliberate mark rather than a speck. */
+    var vb=[231.33,238.67], scale=Math.min(W,H)*0.52/vb[1];
       var cx=W*0.5, cy=H*0.5;
       var NS='http://www.w3.org/2000/svg';
       var pen=document.createElementNS(NS,'svg');
