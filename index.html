@@ -596,6 +596,28 @@ body.menu-open{overflow:hidden;}
     align-items:baseline;justify-content:center;}
   .trust-facts span+span::before{content:'\00B7';margin:0 .85em;opacity:.5;}
 }
+/* The same colophon on a phone was six lines in a band that should read as one
+   quiet credential: a three-line sentence, then two claims set in 10.5px
+   uppercase at .15em, each of which wraps. Tracked capitals are a one-line
+   device - they are what makes a short label look engraved - and the moment
+   they wrap they stop being a label and become hard-to-read paragraphs.
+
+   So below 841 they keep the claims and drop the engraving: sentence case,
+   ordinary tracking, run together on one line with the same middot the desktop
+   uses. Two calm lines instead of three shouty ones, and the founder sentence
+   stays the loudest thing in the band, which is the point of it. */
+@media (max-width:840px){
+  /* Not flex here. As flex items the two claims wrap as whole units, so the
+     second one began line two and took its leading middot with it - a stray
+     bullet hanging off the left margin. Set as ordinary inline text they flow
+     as one sentence, and the separator is glued to the word before it with a
+     non-breaking space so it can never start a line. */
+  .trust-facts{display:block;margin-top:9px;
+    text-transform:none;letter-spacing:.005em;font-size:12.5px;line-height:1.5;}
+  .trust-facts span{display:inline;}
+  .trust-facts span+span::before{content:'\00A0\00B7\00A0';opacity:.55;}
+  .trust-facts .nb{white-space:normal;}
+}
 /* embossed copper-coin icons */
 
 /* ===== PROMO — a slot the client can point at whatever is new =====
