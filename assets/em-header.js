@@ -49,6 +49,19 @@ var css=[
 /* P.stone against the announcement ground measured 3.12:1, under the 4.5 a
    small control needs. P.ink is the same family, and legible. */
 '.emh-annx{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:0;color:'+P.ink+';opacity:.72;cursor:pointer;font-size:16px;line-height:1;padding:6px;}',
+/* The header wrapper has to outrank page content, and it did not.
+
+   em-depth.js sets "body>*{position:relative;z-index:1}" so every direct
+   child of body clears the ambient light it paints at z-index 0. #emh is one
+   of those children, so the whole header became a stacking context worth 1 —
+   and the nav's z-index:90 and the Shop panel's 120 are only meaningful
+   INSIDE it. Against a hero that is also position:relative at z-index 1 and
+   comes later in the document, the panel lost on document order and the
+   dropdown rendered behind the page.
+
+   An id beats "body>*" on specificity regardless of which file loads last,
+   which is what makes this safe to fix from here rather than in em-depth. */
+'#emh{position:relative;z-index:200;}',
 '.emh-nav{position:sticky;top:0;z-index:90;background:'+P.navbg+';backdrop-filter:blur(12px);border-bottom:1px solid '+P.line+';}',
 '.emh-in{max-width:1240px;margin:0 auto;padding:0 clamp(20px,4vw,44px);height:70px;display:flex;align-items:center;gap:clamp(22px,3vw,40px);}',
 '.emh-brand{display:flex;align-items:center;flex-shrink:0;}',
