@@ -35,7 +35,7 @@
       purpose: ['Grounding', 'Nervous System Reset', 'Deep Calm'],
       cats: ['Calm', 'Wellness'],
       intention: 'calm',
-      img: 'assets/img/generators/7-83.png',
+      img: 'assets/img/generators/7-83.webp',
       price: 99.88,
       tone: '#5E8C7A', soft: '#DDE9E3', room: '#F7F8F4',
       say: 'The Schumann resonance — the rate the planet itself keeps. The steadying one: put it where you want the room to slow down.'
@@ -46,7 +46,7 @@
       purpose: ['Pain Relief', 'Comfort', 'Restoration'],
       cats: ['Wellness'],
       intention: null,
-      img: 'assets/img/generators/174.png',
+      img: 'assets/img/generators/174.webp',
       price: 99.88,
       tone: '#4E6070', soft: '#DCE3E9', room: '#F6F7F8',
       say: 'The lowest of the tuned tones. Kept where the body is asked to hold still for a long time — a desk, a bedside, a treatment room.'
@@ -57,7 +57,7 @@
       purpose: ['Removes Negativity', 'Emotional Reset', 'Renewal'],
       cats: ['Fresh Start', 'Protection'],
       intention: 'protection',
-      img: 'assets/img/generators/417.png',
+      img: 'assets/img/generators/417.webp',
       price: 99.88,
       tone: '#B0803A', soft: '#F0E3CC', room: '#FBF7EE',
       say: 'For a room that needs to start again — after an argument, a long week, a house guest. Entryways and thresholds.'
@@ -79,7 +79,7 @@
       purpose: ['Connection', 'Relationship Healing', 'Harmony'],
       cats: ['Love'],
       intention: 'connection',
-      img: 'assets/img/generators/639.png',
+      img: 'assets/img/generators/639.webp',
       price: 99.88,
       tone: '#B76A7C', soft: '#F2DDE2', room: '#FCF6F6',
       say: 'For the rooms people share. Kitchens, dining tables, anywhere a household actually sits together.'
@@ -90,7 +90,7 @@
       purpose: ['Connection', 'Awareness', 'Clarity'],
       cats: ['Spirituality', 'Clarity'],
       intention: 'clarity',
-      img: 'assets/img/generators/963.png',
+      img: 'assets/img/generators/963.webp',
       price: 99.88,
       tone: '#7B62A8', soft: '#E4DCEF', room: '#F9F7FC',
       say: 'The one for work that needs a quiet head. Studios, studies, and the desk you actually think at.'
@@ -105,7 +105,7 @@
       purpose: ['Alignment', 'Momentum', 'Manifestation'],
       cats: ['Power', 'Wealth'],
       intention: null,
-      img: 'assets/img/generators/1111.png',
+      img: 'assets/img/generators/1111.webp',
       price: 99.88,
       tone: '#8A6A3C', soft: '#EAE0CC', room: '#FAF8F1',
       say: 'The highest we wind, and the one people reach for at a turning point. Keep it where decisions get made.'
