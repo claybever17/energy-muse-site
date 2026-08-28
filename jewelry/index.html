@@ -34,7 +34,7 @@
 .jgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px);
   margin-top:clamp(26px,3.6vw,42px)}
 @media (max-width:900px){.jgrid{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:460px){.jgrid{grid-template-columns:1fr}}
+@media (max-width:460px){.jgrid{grid-template-columns:repeat(2,1fr)}}
 .jcard{display:flex;flex-direction:column;border:1px solid var(--hair);border-radius:4px;
   background:var(--surface);padding:14px 14px 16px;transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}
 .jcard:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--copper) 42%,transparent);
@@ -95,7 +95,7 @@
     <span class="eyebrow">Jewelry</span>
     <h1>Wear your energy.</h1>
     <p class="lead">Energy Muse jewelry pairs crystals in purposeful combinations to provide you with energy on-the-go. Choose the piece that best fits your energetic needs.</p>
-    <div class="cta-row"><a class="btn btn-copper" href="/intention/">Shop by Intention</a><a class="btn btn-ghost" href="/designer/">Build Your Own</a>  <a class="btn btn-ghost" href="/learn/jewelry/">Jewelry Care Guide</a>
+    <div class="cta-row"><a class="btn btn-copper" href="/intention/">Shop by Intention</a><a class="btn btn-ghost" href="/designer/">Build Your Own</a>
     </div>
   </div>
 </section>
@@ -125,8 +125,7 @@
     </div>
     <div class="jgrid" id="jgrid"></div>
     <div class="cta-row">
-      <a class="btn btn-copper" href="/intention/">Shop by Intention</a>
-      <a class="btn btn-ghost" href="/designer/">Build Your Own</a>
+      <a class="btn btn-ghost" href="/learn/jewelry/">Jewelry Care Guide</a>
     </div>
   </div>
 </section>
