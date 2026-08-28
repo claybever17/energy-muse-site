@@ -133,6 +133,26 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper)}
 /* typographic hygiene: no orphan words on wrapped lines */
 p{text-wrap:pretty;}
 .lead,.head p{text-wrap:balance;}
+
+/* On a phone these leads ran 199 to 271 characters, centred, five to seven
+   lines deep before you reached anything to look at. That is the redundant
+   feeling: every intention page opening with a paragraph saying the same
+   kind of thing at the same length.
+
+   Each page now carries its own first sentence, trimmed, for phones. Not new
+   copy - the long version is still there and still what desktop shows. And
+   left-aligned rather than centred, because centred text that wraps makes
+   the eye hunt for the start of every line. */
+/* base first, override second — put this way round because the opposite
+   was written first and the base rule, being later, won at every width and
+   the short lead never appeared at all. */
+.lead-s{display:none;}
+@media (max-width:700px){
+  .lead{display:none;}
+  .lead-s{display:block;text-align:left;font-size:16px;line-height:1.5;
+    color:var(--ink-soft);max-width:34ch;margin-top:16px;}
+  .hero .lead-s{margin-inline:0;}
+}
 </style></head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
@@ -165,6 +185,7 @@ p{text-wrap:pretty;}
     <span class="eyebrow">Shop by intention</span>
     <h1>Come back to <em class="hl gemword">center.</em></h1>
     <p class="lead">When the day feels loud or you feel scattered, the right energy can help you exhale. Choose a supportive tool, find a quiet moment, and give yourself space to breathe, reset, and come back to center.</p>
+    <p class="lead-s">When the day feels loud, the right energy helps you exhale.</p>
     <div class="ctas">
       <a class="btn" href="../../intention/?feel=calm">Shop Calm</a>
       <a class="btn btn-ghost" href="../../quiz/">Find My Match</a>
