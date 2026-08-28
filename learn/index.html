@@ -26,32 +26,88 @@
 <script src="/assets/em-search.js?v=7" defer></script>
 <script src="/assets/em-versions.js?v=19" defer></script>
 <style>
-/* The five paths used to be five plain <div>s. They read as navigation, they
-   were styled like navigation, and not one of them was a link — the whole
-   point of a learning centre, sitting inert. They are anchors now, and each
-   goes somewhere that exists. */
-.paths{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,1.8vw,22px);
-  margin-top:clamp(28px,4vw,46px)}
-.path{display:flex;flex-direction:column;text-decoration:none;color:inherit;
-  border:1px solid var(--hair);border-radius:5px;background:var(--surface);
-  padding:24px 26px 26px;position:relative;overflow:hidden;
-  transition:transform .42s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}
-.path:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--copper) 46%,transparent);
-  box-shadow:0 16px 34px rgba(61,41,23,.09)}
+/* This was five identical white cards in a grid, each one an eyebrow, a serif
+   title, two lines of description and the words "Read the guide" - which
+   appeared five times on the screen at once and told the reader nothing the
+   title had not already said. It read as a template because it was one: the
+   same component repeated until the content ran out.
+
+   It is an index now, which is what the content actually is. The page's own
+   line says "take them in order or go straight to the one you came for" - that
+   is a table of contents, and it is native to this subject in a way a card grid
+   is not: Energy Muse's founder is a published author, and the site's whole
+   voice is editorial. Rules and a running order, not boxes.
+
+   The guides sit on the index. "Learn with Heather" does not - it is a paid
+   session, not a guide, and giving it the same row would file it under the same
+   heading as free reading. It keeps its own block underneath.
+
+   The link label is gone from every row. The row is the link; the arrow says
+   so, and it moves on hover. */
+.paths{margin-top:clamp(30px,4vw,48px);border-top:1px solid var(--hair)}
+/* A fixed label column, not a fractional one. Each row is its own grid, so
+   1fr sized to each row's own label and the titles came out on four
+   different left edges - which is the one thing an index cannot do. */
+.path{display:grid;grid-template-columns:clamp(94px,13vw,168px) minmax(0,1fr) auto;
+  align-items:baseline;gap:8px clamp(18px,3vw,42px);
+  padding:clamp(20px,2.4vw,30px) 4px;
+  border-bottom:1px solid var(--hair);
+  text-decoration:none;color:inherit;position:relative;
+  transition:border-color .35s,padding-left .35s cubic-bezier(.16,1,.3,1)}
+/* the copper rule is drawn on top of the hairline rather than replacing it, so
+   the row does not shift by a pixel when it lights up */
+.path::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
+  background:var(--copper);transform:scaleX(0);transform-origin:0 50%;
+  transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.path:hover::after,.path:focus-visible::after{transform:scaleX(1)}
+.path:hover{padding-left:10px}
 .path:focus-visible{outline:2px solid var(--copper);outline-offset:3px}
-.path .n{font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.22em;
+/* Every cell placed explicitly. The arrow declared a row span but no column,
+   which left it in the auto-flow and pushed the titles onto four different left
+   edges - the third column even sized itself to 282px to accommodate the
+   shuffling. Nothing here is auto-placed now. */
+.path .n{grid-column:1;grid-row:1;
+  font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--stone);transition:color .3s;
+  white-space:nowrap}
+.path:hover .n{color:var(--copper)}
+.path h3{grid-column:2;grid-row:1;
+  font-size:clamp(21px,2.4vw,31px);font-weight:400;line-height:1.12;
+  letter-spacing:-.02em;transition:color .3s}
+.path:hover h3{color:var(--copper-lo)}
+.path p{grid-column:2;grid-row:2;color:var(--ink-soft);font-size:15px;line-height:1.55;
+  margin-top:7px;max-width:52ch}
+.path .go{grid-column:3;grid-row:1/span 2;align-self:center;
+  font-family:var(--sans);font-size:19px;color:var(--copper);
+  transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.path:hover .go{transform:translateX(7px)}
+
+/* Heather is the one thing here you pay for, so it is set apart rather than
+   filed with the reading. Copper rule above it, no box. */
+.deeper{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;
+  gap:20px clamp(24px,4vw,56px);margin-top:clamp(34px,4.6vw,58px);
+  padding-top:clamp(26px,3vw,36px);border-top:2px solid var(--copper)}
+.deeper .n{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--copper)}
-.path h3{margin-top:9px;font-size:clamp(19px,1.7vw,24px)}
-.path p{color:var(--ink-soft);font-size:15px;margin-top:8px;flex:1;max-width:38ch}
-.path .go{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--copper);margin-top:16px;
-  transition:transform .35s cubic-bezier(.16,1,.3,1)}
-.path:hover .go{transform:translateX(5px)}
-.path.wide{grid-column:1 / -1;flex-direction:row;align-items:center;gap:26px;flex-wrap:wrap}
-.path.wide p{margin-top:0}
-.path.wide .col{flex:1;min-width:240px}
-@media (prefers-reduced-motion:reduce){.path,.path .go{transition:none}.path:hover{transform:none}}
-@media (max-width:760px){.paths{grid-template-columns:1fr}.path.wide{flex-direction:column;align-items:flex-start;gap:10px}}
+.deeper h3{font-size:clamp(23px,2.6vw,34px);font-weight:400;line-height:1.12;
+  letter-spacing:-.02em;margin-top:8px}
+.deeper p{color:var(--ink-soft);font-size:15.5px;line-height:1.6;margin-top:10px;max-width:62ch}
+.deeper .btn{white-space:nowrap}
+
+@media (prefers-reduced-motion:reduce){
+  .path,.path .go,.path::after{transition:none}
+  .path:hover{padding-left:4px}
+}
+@media (max-width:760px){
+  /* the label stops holding a column of its own and sits over the title */
+  .path{grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:20px 2px}
+  .path .n{grid-column:1}
+  .path h3{grid-column:1;font-size:22px}
+  .path p{grid-column:1;font-size:14.5px;margin-top:6px}
+  .path .go{grid-row:1/span 3;align-self:center}
+  .deeper{grid-template-columns:1fr;align-items:start}
+  .deeper .btn{width:100%;justify-content:center}
+}
 
 /* Learn and the Quiz are the same kind of page - no product grid, just copy
    and a couple of ways in - and the Quiz is centred. Left-aligned, Learn's
@@ -95,40 +151,42 @@
         <span class="n">Start here</span>
         <h3>New to Energy Muse</h3>
         <p>First steps, the three kinds of tool, and how to choose one without guessing.</p>
-        <span class="go">Read the guide &rarr;</span>
+        <span class="go" aria-hidden="true">&rarr;</span>
       </a>
 
       <a class="path" href="/learn/crystals/">
         <span class="n">Crystals</span>
         <h3>Crystal Guide</h3>
         <p>What each stone is for, what the shapes mean, and how to look after them.</p>
-        <span class="go">Read the guide &rarr;</span>
+        <span class="go" aria-hidden="true">&rarr;</span>
       </a>
 
       <a class="path" href="/learn/frequency/">
         <span class="n">Frequency</span>
         <h3>Frequency Guide</h3>
         <p>What the seven frequencies do, where to put a generator, and why fixed beats variable.</p>
-        <span class="go">Read the guide &rarr;</span>
+        <span class="go" aria-hidden="true">&rarr;</span>
       </a>
 
       <a class="path" href="/learn/jewelry/">
         <span class="n">Jewelry</span>
         <h3>Wear Your Intention</h3>
         <p>Sizing, stacking, everyday care, and keeping a piece looking like the day it arrived.</p>
-        <span class="go">Read the guide &rarr;</span>
+        <span class="go" aria-hidden="true">&rarr;</span>
       </a>
 
-      <a class="path wide" href="/heather/">
-        <div class="col">
-          <span class="n">Go deeper</span>
-          <h3>Learn with Heather</h3>
         </div>
+
+    <!-- Not a guide, and not free: it is set apart rather than filed with the
+         reading it sits under. -->
+    <div class="deeper">
+      <div>
+        <span class="n">Go deeper</span>
+        <h3>Learn with Heather</h3>
         <p>Twenty-six years of practice, one conversation. For choosing between tools, entering a
           transition, or connecting what you already own into something coherent.</p>
-        <span class="go">Book a session &rarr;</span>
-      </a>
-
+      </div>
+      <a class="btn btn-copper" href="/heather/">Book a session</a>
     </div>
   </div>
 </section>
