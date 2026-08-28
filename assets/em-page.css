@@ -66,13 +66,21 @@ img{max-width:100%;display:block}
    markup. */
 .sect:first-of-type{position:relative;overflow:hidden}
 .sect:first-of-type>.wrap{position:relative;z-index:1}
+/* At .30 this read as a shape competing with the headline rather than as
+   paper texture behind it - heavier than the Quiz page's own mark, which sits
+   at .16. Down to .13, and the phone variant from .22 to .11 to match. Size,
+   position and the slow spin are unchanged. This styles the first section of
+   nineteen pages, not only the four landings; lighter is the safe direction
+   for all of them. Note the two marks are not the same mechanism - this one is
+   a background-image, so its colour comes from mark.svg, while the Quiz tints
+   an inline SVG copper. Matching the weight is the point, not the hue. */
 .sect:first-of-type::before{content:"";position:absolute;right:-110px;top:-96px;
-  width:420px;height:420px;pointer-events:none;z-index:0;opacity:.30;
+  width:420px;height:420px;pointer-events:none;z-index:0;opacity:.13;
   background:url("/assets/img/mark.svg") center/contain no-repeat;
   animation:emSpin 90s linear infinite;transform-origin:50% 50%}
 @keyframes emSpin{to{transform:rotate(360deg)}}
 @media (max-width:820px){
-  .sect:first-of-type::before{right:-140px;top:-120px;width:320px;height:320px;opacity:.22}
+  .sect:first-of-type::before{right:-140px;top:-120px;width:320px;height:320px;opacity:.11}
 }
 @media (prefers-reduced-motion:reduce){
   .sect:first-of-type::before{animation:none}

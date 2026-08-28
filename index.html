@@ -145,30 +145,28 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper);font-weight
   letter-spacing:.02em;padding:15px 30px;border-radius:var(--radius);cursor:pointer;border:1px solid transparent;
   transition:transform .2s,background .25s,color .25s,border-color .25s;}
 /* solid buttons: faceted gradient, bevel light, sheen sweep. Corner radius follows the skin (var(--radius)). */
-.btn-primary,.btn-copper{position:relative;overflow:hidden;isolation:isolate;}
-.btn-primary::before,.btn-copper::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(115deg,rgba(255,255,255,.13) 0 24%,transparent 25% 55%,rgba(255,255,255,.07) 56% 74%,transparent 75%);}
-.btn-primary::after,.btn-copper::after{content:"";position:absolute;top:0;bottom:0;left:-80%;width:55%;
-  background:linear-gradient(105deg,transparent,rgba(255,255,255,.28),transparent);
-  transform:skewX(-18deg);transition:transform .7s cubic-bezier(.16,1,.3,1);pointer-events:none;}
-.btn-primary:hover::after,.btn-copper:hover::after{transform:skewX(-18deg) translateX(330%);}
-.btn-primary{color:var(--paper);
-  background:linear-gradient(160deg,color-mix(in srgb,var(--ink) 78%,#fff) 0%,var(--ink) 42%,color-mix(in srgb,var(--ink) 82%,#000));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.22);
-  filter:drop-shadow(0 2px 5px rgba(15,22,35,.20)) drop-shadow(0 9px 20px rgba(15,22,35,.20));}
-.btn-primary:hover{color:#fff;
-  background:linear-gradient(160deg,var(--copper-hi),var(--copper) 46%,var(--copper-lo));
-  transform:translateY(-2px);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(0,0,0,.22);
-  filter:drop-shadow(0 3px 7px rgba(15,22,35,.16)) drop-shadow(0 14px 30px color-mix(in srgb,var(--copper) 34%,transparent));}
-.btn-copper{color:#fff;
-  background:linear-gradient(160deg,var(--copper-hi),var(--copper) 46%,var(--copper-lo));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(0,0,0,.22);
-  filter:drop-shadow(0 2px 5px rgba(105,60,30,.20)) drop-shadow(0 9px 20px color-mix(in srgb,var(--copper) 26%,transparent));}
-.btn-copper:hover{transform:translateY(-2px);
-  background:linear-gradient(160deg,var(--copper-hi),var(--copper) 38%,var(--copper-lo) 90%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -1px 0 rgba(0,0,0,.24);
-  filter:drop-shadow(0 3px 7px rgba(105,60,30,.16)) drop-shadow(0 14px 30px color-mix(in srgb,var(--copper) 36%,transparent));}
+/* The solid buttons were carrying four separate pieces of gloss: a fixed
+   diagonal light-streak, a shine that swept across on hover, a three-stop
+   gradient for the body, and an inset white line along the top edge with a
+   dark one beneath it. Together they read as a 2010 web button sitting in the
+   middle of a quiet page. All four are gone; the buttons are matte solids.
+
+   The inset highlights are the part worth calling out - the brief named the
+   streak, the sweep and the gradients, but a 1px white line across the top is
+   exactly the same bevel trick and would have survived all three, leaving the
+   thing still faintly shiny for no reason anyone could point at.
+
+   The hover behaviour is kept: primary still turns copper, both still lift,
+   and a single soft shadow replaces the stacked pair. */
+.btn-primary,.btn-copper{position:relative;isolation:isolate;}
+.btn-primary{color:var(--paper);background:var(--ink);
+  box-shadow:0 1px 2px rgba(15,22,35,.10),0 6px 16px rgba(15,22,35,.12);}
+.btn-primary:hover{color:#fff;background:var(--copper);transform:translateY(-2px);
+  box-shadow:0 2px 4px rgba(15,22,35,.10),0 10px 22px color-mix(in srgb,var(--copper) 26%,transparent);}
+.btn-copper{color:#fff;background:var(--copper);
+  box-shadow:0 1px 2px rgba(105,60,30,.10),0 6px 16px color-mix(in srgb,var(--copper) 20%,transparent);}
+.btn-copper:hover{transform:translateY(-2px);background:var(--copper-lo);
+  box-shadow:0 2px 4px rgba(105,60,30,.10),0 10px 22px color-mix(in srgb,var(--copper) 28%,transparent);}
 .btn-ghost{background:transparent;color:var(--fg);border-color:color-mix(in srgb,var(--fg) 40%,transparent);}
 .btn-ghost:hover{border-color:var(--fg);}
 .btn-light{background:transparent;color:var(--hero-ink);border:1px solid color-mix(in srgb,var(--hero-ink) 40%,transparent);}
@@ -1581,6 +1579,36 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   #jewelry .cta-row .btn,#about .cta-row .btn{flex:1 1 0;min-width:0;padding-inline:8px;
     text-align:center;font-size:13px;}
 }
+
+/* The quotes become a swipe rail on phones, and it had no affordance: nothing
+   said it scrolled, and the next card peeked in as sharply-clipped words that
+   read as a rendering fault rather than as an invitation.
+
+   Two things fix it. A soft mask on the right edge turns those clipped words
+   into a fade, and a row of dots underneath says how many there are and which
+   one you are on. The mask is applied by a class rather than always: at the end
+   of the rail there is nothing left to hint at, and a fade there would eat the
+   last quote's own final line for no reason. */
+.proof-dots{display:none}
+@media (max-width:640px){
+  .proof{-webkit-mask-image:none;mask-image:none;
+    transition:-webkit-mask-image .2s linear,mask-image .2s linear}
+  .proof.more-right{
+    -webkit-mask-image:linear-gradient(to right,#000 88%,transparent 100%);
+    mask-image:linear-gradient(to right,#000 88%,transparent 100%)}
+  .proof-dots{display:flex;justify-content:center;align-items:center;gap:2px;margin-top:6px}
+  .proof-dots button{appearance:none;-webkit-appearance:none;background:none;border:0;
+    width:44px;height:44px;padding:0;cursor:pointer;display:grid;place-items:center}
+  .proof-dots button::before{content:"";width:7px;height:7px;border-radius:50%;
+    background:var(--ink,#1D2739);opacity:.22;transition:opacity .25s,background-color .25s,transform .25s}
+  .proof-dots button[aria-selected="true"]::before{background:var(--copper,#A9683E);
+    opacity:1;transform:scale(1.18)}
+  .proof-dots button:focus-visible{outline:2px solid var(--copper);outline-offset:-8px;border-radius:6px}
+}
+@media (prefers-reduced-motion:reduce){
+  .proof{transition:none}
+  .proof-dots button::before{transition:none}
+}
 </style>
 
 
@@ -1897,7 +1925,6 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
       <span class="big-num" aria-hidden="true">20<i>+</i></span>
       <span class="eyebrow">Twenty years of knowing</span>
       <h2>For more than two decades, helping people live better.</h2>
-      <svg class="mini-wave" viewBox="0 0 220 24" aria-hidden="true"><path d="M0,12 C18,2 38,22 55,12 C72,2 92,22 110,12 C128,2 148,22 165,12 C182,2 202,22 220,12"/></svg>
       <p>Energy is invisible &mdash; which is exactly why it's so easy to overlook. But small shifts in your energy can lead to the biggest transformations in your life. Energy Muse began with one necklace and a simple belief: your energy deserves to be a priority. Your energy is the muse. For more than two decades, founders Heather Askinosie and Timmi Jandro have turned that belief into intentional products and education &mdash; helping you live in the energy you want, and feel your best every day.</p>
       <div class="cta-row"><a href="about/" class="btn btn-primary">Our Story</a><a href="heather/" class="btn btn-ghost">Meet Heather &amp; Timmi</a></div>
     </div>
@@ -1989,6 +2016,10 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
         took on the great challenge of building a brand-new curriculum this year. Thank you for the
         inspiration!</span><cite class="who">Shannon Gallagher</cite></blockquote>
     </div>
+    <!-- Built by script from the quotes themselves, so the row cannot fall out
+         of step with them if a quote is ever added or taken away. Desktop shows
+         all three at once and has no use for it. -->
+    <div class="proof-dots" id="proofdots" role="tablist" aria-label="Quotes"></div>
   </div>
 </section>
 
@@ -2684,4 +2715,54 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 </script>
 
 <script src="/assets/em-depth.js?v=3" defer></script>
+<script>
+/* The quotes rail: which card you are on, and whether there is another one to
+   the right. Both are read off scrollLeft rather than tracked, so a flick, a
+   dot tap and a keyboard scroll all end up telling the same truth. */
+(function(){
+  var rail=document.querySelector('.proof'), dots=document.getElementById('proofdots');
+  if(!rail||!dots)return;
+  var cards=[].slice.call(rail.children);
+  if(cards.length<2)return;
+
+  cards.forEach(function(c,i){
+    var b=document.createElement('button');
+    b.type='button'; b.setAttribute('role','tab');
+    b.setAttribute('aria-label','Quote '+(i+1)+' of '+cards.length);
+    b.addEventListener('click',function(){
+      rail.scrollTo({left:c.offsetLeft-rail.offsetLeft,behavior:'smooth'});
+    });
+    dots.appendChild(b);
+  });
+  var btns=[].slice.call(dots.children);
+
+  /* Card offsets are measured once and re-measured on resize, so the scroll
+     handler is pure arithmetic - no layout reads while the finger is moving,
+     and no rAF wrapper to throttle what costs nothing. It also means a
+     dispatched scroll event exercises the real path, which matters because the
+     only browser available here runs the page hidden, where rAF never ticks
+     and real scroll events are never emitted. */
+  var offs=[];
+  function measure(){
+    offs=cards.map(function(c){return c.offsetLeft-rail.offsetLeft;});
+  }
+  function sync(){
+    var x=rail.scrollLeft, best=0, dist=Infinity;
+    for(var i=0;i<offs.length;i++){
+      var d=Math.abs(offs[i]-x);
+      if(d<dist){dist=d;best=i;}
+    }
+    for(var j=0;j<btns.length;j++){
+      btns[j].setAttribute('aria-selected', j===best?'true':'false');
+    }
+    /* a couple of pixels of slack, so a fractional scrollWidth cannot leave the
+       fade switched on at the very end where there is nothing left to hint at */
+    rail.classList.toggle('more-right', x + rail.clientWidth < rail.scrollWidth - 2);
+  }
+  rail.addEventListener('scroll',sync,{passive:true});
+  addEventListener('resize',function(){measure();sync();});
+  measure();
+  sync();
+})();
+</script>
 </html>

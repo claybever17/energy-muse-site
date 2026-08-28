@@ -18,7 +18,7 @@
 <meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
-<link rel="stylesheet" href="/assets/em-page.css?v=5">
+<link rel="stylesheet" href="/assets/em-page.css?v=6">
 <script src="/assets/em-header.js?v=18" defer></script>
 <script src="/assets/em-bag.js?v=4" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
@@ -52,6 +52,21 @@
 .path.wide .col{flex:1;min-width:240px}
 @media (prefers-reduced-motion:reduce){.path,.path .go{transition:none}.path:hover{transform:none}}
 @media (max-width:760px){.paths{grid-template-columns:1fr}.path.wide{flex-direction:column;align-items:flex-start;gap:10px}}
+
+/* Learn and the Quiz are the same kind of page - no product grid, just copy
+   and a couple of ways in - and the Quiz is centred. Left-aligned, Learn's
+   hero left the right half of a desktop empty and the two gateways looked
+   unrelated. Centred to match, scoped to the first .sect so #paths and
+   everything under it keeps its alignment.
+
+   text-align on its own would not have done it. h1 and .lead carry their own
+   caps from em-page.css - min(34ch,100%) once a headline is split into
+   sentences, 62ch for the lead - so the words would have centred inside blocks
+   still pinned to the left edge. The auto margins are what actually move them. */
+.sect:first-of-type > .wrap{max-width:min(760px,100%);text-align:center}
+.sect:first-of-type > .wrap h1,
+.sect:first-of-type > .wrap .lead{margin-inline:auto}
+.sect:first-of-type > .wrap .cta-row{justify-content:center}
 </style>
 </head><body>
 <main>
