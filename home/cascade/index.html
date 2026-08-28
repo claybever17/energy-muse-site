@@ -438,8 +438,23 @@ img{display:block;max-width:100%}
 .trioc:focus-visible{outline:2px solid var(--tone);outline-offset:4px;border-radius:4px}
 @media (prefers-reduced-motion:reduce){.tshot img{transition:none}.trioc:hover .tshot img{transform:none}}
 @media (max-width:700px){
-  .trios{grid-template-columns:1fr;gap:20px}
-  .trioc{grid-template-columns:88px minmax(0,1fr)}
+  /* On a phone the head's link wraps under the heading, which left three items
+     stacked on an uneven rhythm - heading, link ten pixels away, then the lede
+     right behind it. The link gets room to be its own line, and the lede gets
+     air before the products start.
+
+     The two Formulas were also separated by nothing but 20px of gap, so they
+     ran together as one block of text. A hairline between them does the same
+     job it does everywhere else on the site now, and the pair reads as two
+     things rather than one. */
+  .thead{gap:14px}
+  .thead h2{flex:1 0 100%}
+  .tlede{margin-top:18px}
+  .trios{grid-template-columns:1fr;gap:0}
+  .trioc{grid-template-columns:88px minmax(0,1fr);align-items:start;padding:20px 0}
+  .trioc + .trioc{border-top:1px solid var(--hair)}
+  .trioc strong{font-size:18px;margin-top:4px}
+  .tp{margin-top:5px}
 }
 </style>
 <script>
