@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="/assets/em-page.css?v=5">
 <script src="/assets/em-header.js?v=17" defer></script>
 <script src="/assets/em-bag.js?v=4" defer></script>
-<script src="/assets/em-prices.js?v=2" defer></script>
+<script src="/assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=6" defer></script>
 <script src="/assets/em-versions.js?v=19" defer></script>
@@ -96,6 +96,30 @@
   display:block;min-width:0;min-height:0}
 /* and a little air between the photograph and the type under it */
 .pcard .kind,.fcard .hz{margin-top:18px}
+
+/* Two kits across a phone leaves each blurb 127px wide - fourteen characters
+   to a line, four words, and for a kit the blurb is the one thing that says
+   what is in the box. On a phone the card lies on its side: picture at the
+   left, kind and name beside it, the sentence full width underneath, and the
+   price and the button sharing the last row. One column, and shorter than the
+   two-up grid it replaces because nothing is padded out to match a neighbour.
+   Placed last on purpose - it overrides .nm's min-height and .pr's auto
+   margin, both of which are set above. */
+@media (max-width:560px){
+  .pgrid{grid-template-columns:1fr;gap:12px}
+  .pcard{display:grid;align-items:center;column-gap:12px;padding:14px;
+    grid-template-columns:minmax(0,1fr) auto;
+    grid-template-areas:"link link" "say say" "add pr"}
+  .pcard .plink{grid-area:link;display:grid;column-gap:14px;align-items:start;
+    grid-template-columns:92px minmax(0,1fr);
+    grid-template-areas:"shot kind" "shot nm" "shot ."}
+  .pcard .shot{grid-area:shot;margin:0}
+  .pcard .kind{grid-area:kind;margin-top:2px}
+  .pcard .nm{grid-area:nm;min-height:0;margin-top:4px;font-size:15px}
+  .pcard .say{grid-area:say;margin-top:10px}
+  .pcard .padd,.pcard .psold{grid-area:add;margin-top:12px}
+  .pcard .pr{grid-area:pr;margin-top:12px;text-align:right}
+}
 </style>
 </head><body>
 <main>

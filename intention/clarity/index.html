@@ -20,7 +20,7 @@
 <script src="../../assets/em-header.js?v=17" defer></script>
 <script src="/assets/em-search.js?v=6" defer></script>
 <script src="../../assets/em-bag.js?v=4" defer></script>
-<script src="../../assets/em-prices.js?v=2" defer></script>
+<script src="../../assets/em-prices.js?v=3" defer></script>
 <style>
 @font-face{font-family:'Fraunces';src:url(../../assets/fonts/fraunces_300.woff2?v=3) format('woff2');font-weight:300}
 @font-face{font-family:'Fraunces';src:url(../../assets/fonts/fraunces_400.woff2?v=3) format('woff2');font-weight:400}
@@ -128,6 +128,25 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper)}
   .step p{max-width:none}
   .cards{grid-template-columns:repeat(2,1fr)}
 }
+@media (max-width:560px){
+  /* Two columns is right on a tablet and wrong on a phone: at 160px wide a
+     line of the blurb holds nineteen characters, about three words, and the
+     third card is left standing alone on its own row. On a phone the card
+     lies on its side instead - picture at the left, name and price and the
+     button beside it, the sentence running the full width underneath where
+     it gets fifty characters to a line. One column, so nothing is orphaned. */
+  .cards{grid-template-columns:1fr;gap:12px}
+  .rcard{display:grid;align-items:start;text-align:left;
+    grid-template-columns:84px minmax(0,1fr);
+    grid-template-areas:"img tag" "img name" "img price" "img add" "why why";
+    column-gap:14px;row-gap:1px;padding:16px 16px 18px}
+  .rcard .tag{grid-area:tag}
+  .rcard img{grid-area:img;width:100%;align-self:start;margin:2px 0 0}
+  .rcard strong{grid-area:name;font-size:17px}
+  .rcard .price{grid-area:price;margin-top:5px}
+  .radd{grid-area:add;margin-top:8px}
+  .rcard .why{grid-area:why;margin-top:11px}
+}
 @media (prefers-reduced-motion:reduce){.gemword,.hero .media svg{animation:none}}
 
 /* typographic hygiene: no orphan words on wrapped lines */
@@ -218,7 +237,7 @@ p{text-wrap:pretty;}
       <div class="rcard"><span class="tag">Amplify it</span>
         <img src="../../assets/img/generators/963.png" class="plate" alt="963 Hz Frequency Generator" loading="lazy">
         <strong>963Hz &mdash; Mental Focus</strong><span class="why">Run this frequency to create an environment that supports mental clarity and sharp focus.</span><span class="price">$99.88</span>
-        <button class="radd" type="button" data-id="gen-963" data-n="963Hz Frequency Generator" data-p="99.88" data-img="/assets/img/generators/963.png" data-link="/generator/#gens">Add to Bag</button></div>
+        <button class="radd" type="button" data-id="gen-963" data-n="963Hz Frequency Generator" data-p="99.88" data-img="/assets/img/generators/963.png" data-link="/frequency/#all">Add to Bag</button></div>
     </div>
   </div>
 </section>

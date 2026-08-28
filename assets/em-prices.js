@@ -12,7 +12,8 @@
 
    Nothing is edited, only painted over: the underlying numbers stay in the
    markup and in em-frequencies.js, so the bag's arithmetic stays correct and
-   flipping to 'live' needs no other change anywhere.
+   flipping to 'live' needs no other change anywhere. The bag's subtotal is
+   the one place where correct arithmetic is not enough to show - see step 4.
 
    A generator price is found by association, not by guessing at class names:
    any Add-to-Bag control whose id starts gen- marks its own card, and that
@@ -47,7 +48,7 @@
   function sweep() {
     /* 1. anything that adds a generator to the bag identifies its own card */
     document.querySelectorAll('[data-id^="gen-"]').forEach(function (btn) {
-      var card = btn.closest('.rcard, .gen, .card, li, article, .pcard, .peek-i') || btn.parentElement;
+      var card = btn.closest('.embag-it, .rcard, .gen, .card, li, article, .pcard, .peek-i') || btn.parentElement;
       if (!card) return;
       card.querySelectorAll(PRICE_IN_CARD).forEach(hold);
     });
@@ -61,6 +62,22 @@
       if (!/generator/i.test(sec.textContent || '')) return;
       sec.querySelectorAll('.price, .pp, [class*="price"]').forEach(hold);
     });
+    /* 4. the bag's subtotal. Step 1 holds a generator's own line, which left
+       the drawer showing a priceless item and a confident total underneath it.
+       A subtotal carrying a number we have not confirmed is worse than no
+       subtotal, so it is held too for as long as a generator is in the bag.
+       This one cannot latch the way hold() does: em-bag rewrites the subtotal
+       on every quantity change, so it is re-applied instead, and re-applying
+       is safe because writing the same text back is not a mutation. */
+    var sub = document.getElementById('embag-sub');
+    if (sub) {
+      if (document.querySelector('.embag-it[data-id^="gen-"]')) {
+        if (sub.textContent !== MARK) sub.textContent = MARK;
+        sub.title = 'Total pending confirmation of generator pricing';
+      } else if (sub.title) {
+        sub.removeAttribute('title');
+      }
+    }
   }
 
   function boot() {
