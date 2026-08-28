@@ -517,6 +517,12 @@ body.menu-open{overflow:hidden;}
   .story-cta .btn::after{transition:none;transform:scaleX(1);}
 }
 @media (max-width:840px){
+  /* The quiz band goes too. It is 0.9 screens for twelve words and a large
+     portrait, and by the time you reach it the quiz has already been offered
+     in the announcement bar at the top of every page and in the hero. On a
+     phone that is a third ask for the same thing, taking a full screen. */
+  #quiz{display:none;}
+
   /* The whole block goes on a phone.
 
      It reserved 190svh — nearly two screens of scroll for thirty words — and
@@ -1167,7 +1173,19 @@ body.menu-open{overflow:hidden;}
 .final-cta .lead{margin:18px auto 0;max-width:52ch;color:var(--ink-soft);}
 .final-cta .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:32px;}
 @media (max-width:840px){
-  .proof{grid-template-columns:1fr;gap:22px;}
+  /* Stacked, three real testimonials are a wall of serif — Kaylee's alone
+     runs six lines on a phone, and all three together took three screens.
+     They are a swipe rail now: one at a time, snapped, with a sliver of the
+     next card showing so it is obvious there are more. Nothing is truncated
+     and nothing is hidden — these are customers' own words and editing them
+     to fit a layout is not a thing worth doing. */
+  .proof{display:grid;grid-auto-flow:column;grid-template-columns:none;
+    grid-auto-columns:84%;gap:14px;overflow-x:auto;overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    padding-bottom:10px;scrollbar-width:none;}
+  .proof::-webkit-scrollbar{display:none;}
+  .proof blockquote{scroll-snap-align:start;padding-top:22px;}
+  .proof blockquote .qt{font-size:16px;line-height:1.5;}
   .final-cta{text-align:left;}
   .final-cta h2,.final-cta .lead{margin-inline:0;}
   .final-cta .cta-row{justify-content:flex-start;}
@@ -1294,9 +1312,14 @@ footer.site{background:
      as pictures rather than as nav text. The type steps down to fit a
      ~175px column. */
   .ways{grid-template-columns:repeat(2,1fr);gap:20px 14px;}
-  .way{gap:11px;}
+  .way{gap:9px;}
   .way h3{font-size:19px;}
-  .way p{font-size:13px;line-height:1.45;}
+  /* Two-up at ~168px, each card was carrying a picture, a heading, a
+     description and a link — four things in a column narrow enough that
+     "Explore Frequency" wrapped onto two lines. The description goes; the
+     heading already says what the card is, and the link says where it goes. */
+  .way p{display:none;}
+  .way .link{font-size:11.5px;letter-spacing:.02em;}
   .way .thumb{aspect-ratio:4/3;}
   .way .thumb.quiz svg{width:84px;}
   .foot-grid{grid-template-columns:1fr 1fr;gap:26px 18px;padding-block:44px 30px;}
