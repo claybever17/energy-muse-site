@@ -161,6 +161,7 @@
 
 <script src="/assets/em-frequencies.js?v=4"></script>
 <script src="/assets/em-catalog.js?v=12"></script>
+<script src="/assets/em-sort.js?v=1"></script>
 <script src="/assets/em-bag.js?v=4"></script>
 <script>
 (function(){
@@ -206,8 +207,8 @@
   function label(k){ for(var i=0;i<FEELS.length;i++) if(FEELS[i][0]===k) return FEELS[i][1]; return 'All'; }
 
   function paint(k){
-    var list=(k?ALL.filter(function(p){return fold(p.group)===k;}):ALL.slice())
-              .sort(function(a,b){return a.price-b.price;});
+    var list=k?ALL.filter(function(p){return fold(p.group)===k;}):ALL.slice();
+    list=window.EM_SORT?EM_SORT.apply(list):list.sort(function(a,b){return a.price-b.price;});
     grid.innerHTML=list.map(card).join('');
     count.innerHTML=list.length+' piece'+(list.length===1?'':'s')
       +(k?' for '+label(k).toLowerCase():' across every intention')
@@ -233,6 +234,7 @@
     write(k); paint(k);
   });
   window.addEventListener('popstate',function(){ paint(read()); });
+  if(window.EM_SORT)EM_SORT.mount({count:count,onChange:function(){paint(read());}});
 
 
   /* one listener for the grid rather than one per card */
