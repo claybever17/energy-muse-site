@@ -1287,7 +1287,18 @@ footer.site{background:
      edge — it spans the row and centres on its own width instead */
   .int-grid>:last-child:nth-child(odd){grid-column:1 / -1;justify-self:center;
     width:calc(50% - clamp(5px,.55vw,8px));}
-  .ways{grid-template-columns:1fr;}
+  /* Two columns, not one. Stacked, these four cards cost 2.4 screens on a
+     phone against 1.0 on a desktop — the same content, laid out one-up with
+     a 350x280 photograph each. Two-up halves that without losing the row,
+     which is the only place on the homepage that shows the four categories
+     as pictures rather than as nav text. The type steps down to fit a
+     ~175px column. */
+  .ways{grid-template-columns:repeat(2,1fr);gap:20px 14px;}
+  .way{gap:11px;}
+  .way h3{font-size:19px;}
+  .way p{font-size:13px;line-height:1.45;}
+  .way .thumb{aspect-ratio:4/3;}
+  .way .thumb.quiz svg{width:84px;}
   .foot-grid{grid-template-columns:1fr 1fr;gap:26px 18px;padding-block:44px 30px;}
   .foot-brand{grid-column:1 / -1;}
   .foot-more{display:none;}
@@ -1581,9 +1592,19 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 <section class="section store" id="store">
   <div class="wrap">
     <div class="head">
+      <!-- "Start with one stone." sat directly under "Start with how you want to
+         feel." once the shop moved up here, and its lede said "Pick by what
+         you want to feel" — the same instruction three times in three
+         consecutive blocks.
+
+         These six are the median-priced in-stock piece for each of the five
+         intentions listed immediately above, so the heading can follow from
+         that section rather than restate it. The lede keeps the one fact it
+         was carrying and drops the repetition; the quiz is offered in the
+         announcement bar, in the hero and in its own section already. -->
       <span class="eyebrow">The shop</span>
-      <h2>Start with one stone.</h2>
-      <p>Every crystal is chosen by hand and photographed as it arrives. Pick by what you want to feel &mdash; or <a href="quiz/">take the quiz</a> and we&#8217;ll point you.</p>
+      <h2>One for each intention.</h2>
+      <p>Chosen by hand and photographed as it arrives.</p>
     </div>
     <div class="store-grid" id="store-grid"></div>
     <div class="store-more"><a class="btn btn-ghost" href="gems/">Shop all crystals</a></div>
