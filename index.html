@@ -55,7 +55,7 @@
   --hero-bg:#FBF8F2; --hero-ink:#1D2739; --hero-soft:#5A6578; --hero-sub:#8F5330;
   --hero-accent:#A9683E; --hero-shadow:none;
   --hero-glowA:rgba(169,104,62,.24); --hero-glowB:rgba(37,126,111,.12);
-  --radius:1px; --step:clamp(100px,12vw,180px); --imgf:none;
+  --radius:1px; --step:clamp(100px,8vw,124px); --imgf:none;
   --shadow-sm:0 1px 2px rgba(61,41,23,.05), 0 4px 10px rgba(61,41,23,.05);
   --shadow:0 2px 5px rgba(61,41,23,.05), 0 14px 34px rgba(61,41,23,.10);
   --shadow-lg:0 6px 16px rgba(61,41,23,.09), 0 30px 66px rgba(61,41,23,.16);
@@ -562,9 +562,6 @@ body.menu-open{overflow:hidden;}
 
      Ordered to the end of the copy block, so it and its waveform sit
      directly above the photograph they belong to. */
-  .freq .copy{display:flex;flex-direction:column;}
-  .freq .copy .freq-hz{order:9;margin-top:26px;margin-bottom:2px;}
-  .freq .copy .mini-wave{order:10;}
 
   /* The two CTAs in a split section are a wrapping flex row, so on a phone
      they drop onto separate lines at their own natural widths — "Our Story"
@@ -914,7 +911,7 @@ body.menu-open{overflow:hidden;}
   padding:clamp(8px,1.1vw,14px);box-shadow:var(--shadow-lg);will-change:transform;
   transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) rotate(var(--rz,0deg));}
 .media.rect .t3d{--rz:-1.2deg;} /* the founders print sits slightly askew, like it was laid down by hand */
-.t3d img{border-radius:5px;transform:translateY(var(--py,0px)) scale(1.12);}
+.t3d img{border-radius:5px;transform:scale(1.12);}
 /* frame shapes: squared, each with an offset copper echo */
 /* squared frames — the arched "open door" treatment is retired */
 .media.portrait .t3d{border-radius:8px;}
@@ -1258,9 +1255,13 @@ footer.site{background:
    are still defined on :root if it is ever wanted back. */
 
 /* ===== Reveal ===== */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
-.reveal.in{opacity:1;transform:none;}
-.reveal.d1{transition-delay:.08s;}.reveal.d2{transition-delay:.16s;}.reveal.d3{transition-delay:.24s;}
+/* The scroll reveal is gone, on every width. It held sixteen blocks at
+   opacity:0 until an observer let each one in, which meant that anyone
+   scrolling at a normal pace met a run of empty sections and read them as dead
+   space rather than as content on its way. The class is left on the markup and
+   simply does nothing, so nothing has to be unpicked from sixteen elements. */
+.reveal,.reveal.in{opacity:1;transform:none;transition:none;}
+.reveal.d1,.reveal.d2,.reveal.d3{transition-delay:0s;}
 
 /* ===== Responsive ===== */
 @media (max-width:1100px){
@@ -1501,6 +1502,84 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   .pcard .pp{font-size:14px;}
   .pcard .padd{min-height:38px;font-size:10px;}
   .store-grid{gap:10px;}
+}
+
+/* The story was 150svh of scroll for three sentences: a sticky stage, a canvas
+   drawing itself, and each line fading in as you travelled past it. Clay asked
+   for the scroll animation off the desktop the way it already came off the
+   phone, and with it off there is nothing for the extra travel to do - it was
+   1350px tall with 648px of nothing under the words. It is an ordinary block
+   now. The three lines keep their sizes, so the beat still reads as a beat;
+   they just arrive together instead of being paid for one screen at a time.
+   Last in the sheet on purpose: every rule it reverses is written above. */
+/* The three big editorial photographs ran 558px tall on a 900px screen, so
+   each one owned most of a viewport on its own and the sections around them
+   came out near 800px. The aspect ratios are inline on the elements, and the
+   images are object-fit:cover, so a ceiling on the height crops rather than
+   distorts. Roughly a fifth off each of the four tall blocks. */
+@media (min-width:841px){
+  .split .media.portrait,.split .media.rect{max-height:clamp(360px,42vh,440px);}
+  .freq .media.live3d{max-height:clamp(330px,40vh,420px);}
+}
+.story{height:auto;padding-block:var(--step);}
+.story-stage{position:static;height:auto;min-height:0;overflow:visible;display:block;}
+.story-canvas{display:none;}
+.story-copy{display:block;align-self:auto;margin-bottom:0;}
+.story-copy .sl{opacity:1;transform:none;transition:none;}
+.story-copy .sl+.sl{margin-top:clamp(14px,1.6vw,22px);}
+.story-cta,.story-cta.on{opacity:1;transform:none;transition:none;}
+.story-cta .btn::after{transform:scaleX(1);}
+/* The frequency section, reordered for a phone. It read headline -> button ->
+   disclaimer -> Hz -> waveform -> device, so it asked for the click before it
+   had shown the instrument, and the number and the wave - the whole hook - sat
+   stranded under the small print. It reads in one line now: eyebrow, headline,
+   the number, the wave, what it is, the device, and only then the button.
+
+   The device is not a sibling of the copy's children - it sits beside .copy
+   inside .split - and order: only sorts siblings, so no ordering inside .copy
+   could ever place it mid-flow. display:contents dissolves the wrapper at this
+   width so its children join .split and the photograph can take its place
+   among them.
+
+   This lives at the END of the sheet, not up in the 640 block where it
+   started. The device image is positioned by ".freq .media.live3d img" around
+   line 980 - same specificity, further down - so an override written above it
+   loses silently, and the picture collapsed to nothing at all. */
+@media (max-width:640px){
+  .freq .split{display:flex;flex-direction:column;gap:0;}
+  .freq .copy{display:contents;}
+  .freq .copy > .eyebrow{order:1}
+  .freq .copy > h2{order:2}
+  .freq .copy > .freq-hz{order:3;margin-top:18px;margin-bottom:2px;}
+  .freq .copy > .mini-wave{order:4;margin-top:10px;}
+  .freq .copy > p:not(.freq-note){order:5;margin-top:16px;}
+  .freq .media.live3d{order:6;aspect-ratio:auto;margin:14px 0 2px;height:auto;
+    min-height:210px;width:100%;align-self:stretch;}
+  .freq .media.live3d img{position:absolute;inset:0;height:100%;transform:none;object-fit:contain;}
+  .freq .copy > .cta-row{order:7;margin-top:16px;}
+  .freq .copy > .freq-note{order:8;margin-top:16px;}
+}
+
+/* Clay, on the jewelry and founders blocks at phone width: "are these too tall
+   and boring now too?" They were - a 370px photograph, a headline, and two
+   full-width buttons stacked like a form, with the paragraph between them
+   already stripped on mobile in an earlier pass. Nothing left to read and a
+   screen and a half to scroll past it.
+
+   The photograph gives back a third of its height, and the two calls sit on
+   one row instead of two, which reads as a choice rather than a queue. */
+@media (max-width:640px){
+  /* The portrait ratio is written inline on the element, so capping height
+     alone made the box shrink sideways to keep 4/4.4 - a 225px picture adrift
+     in a 335px column. Inline styles only yield to !important, so the ratio is
+     dropped outright at this width and the height set directly; the image is
+     object-fit:cover, so it crops instead of squashing. */
+  .split .media.portrait{aspect-ratio:auto!important;height:248px;}
+  .split .media.rect{max-height:248px;}
+  .split .media.portrait .t3d img,.split .media.rect .t3d img{object-position:50% 42%;}
+  #jewelry .cta-row,#about .cta-row{display:flex;flex-direction:row;gap:10px;}
+  #jewelry .cta-row .btn,#about .cta-row .btn{flex:1 1 0;min-width:0;padding-inline:8px;
+    text-align:center;font-size:13px;}
 }
 </style>
 
@@ -1960,11 +2039,8 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   if(btn)btn.addEventListener('click',function(){
     var r=document.documentElement,c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
     r.setAttribute('data-theme',c==='dark'?'light':'dark');});
-  var els=[].slice.call(document.querySelectorAll('.reveal'));
-  if('IntersectionObserver' in window && !reduce){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14});
-    els.forEach(function(e){io.observe(e);});
-  } else els.forEach(function(e){e.classList.add('in');});
+  /* everything is visible from the start now - see .reveal in the stylesheet */
+  [].forEach.call(document.querySelectorAll('.reveal'),function(e){e.classList.add('in');});
   // nav: solid after hero; toggle at-hero context
   var hero=document.getElementById('top'),nav=document.querySelector('header.nav');
   document.body.classList.add('at-hero');
@@ -2488,12 +2564,9 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     var reelRow=document.querySelector('.reels');
     function upd(){
       ticking=false;var vh=innerHeight;
-      cards.forEach(function(el){
-        var r=el.getBoundingClientRect();
-        var c=(r.top+r.height/2-vh/2)/vh;
-        var y=Math.max(-1,Math.min(1,c))*-24;
-        el.style.setProperty('--py',y.toFixed(1)+'px');
-      });
+      /* The 24px parallax on every photograph is off: Clay saw the images
+         drifting against the page as it scrolled and asked for it gone. --py
+         stays defined at 0 in the stylesheet, so the transform still resolves. */
       if(reelRow){
         var rr=reelRow.getBoundingClientRect();
         var rc=(rr.top+rr.height/2-vh/2)/vh;
