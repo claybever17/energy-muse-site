@@ -1270,10 +1270,15 @@ footer.site{background:
 }
 @media (max-width:560px){
   .int-grid{grid-template-columns:repeat(2,1fr);}
-  /* five tiles in two columns leaves the last one alone against the left
-     edge — it spans the row and centres on its own width instead */
-  .int-grid>:last-child:nth-child(odd){grid-column:1 / -1;justify-self:center;
-    width:calc(50% - clamp(5px,.55vw,8px));}
+  /* Five tiles in two columns leaves the fifth on its own. It used to span the
+     row and then shrink back to half width and centre, which is the worst of
+     both: a full row given over to one tile that still looks stranded in it.
+     It takes the whole row properly now, and swaps the portrait ratio for a
+     landscape one so a wide tile does not become a 460px tower - it reads as
+     the band that closes the set rather than a leftover. */
+  .int-grid>:last-child:nth-child(odd){grid-column:1 / -1;justify-self:stretch;
+    width:auto;aspect-ratio:16/9;}
+  .int-grid>:last-child:nth-child(odd) img{object-position:50% 42%;}
   /* Two columns, not one. Stacked, these four cards cost 2.4 screens on a
      phone against 1.0 on a desktop — the same content, laid out one-up with
      a 350x280 photograph each. Two-up halves that without losing the row,
@@ -1993,7 +1998,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
       <div class="foot-brand"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse" style="height:34px"><use href="#em-logo"/></svg>
         <p>Guided energy for real life.<span class="foot-more"> Crystal jewelry, natural crystals, frequency and personal guidance &mdash; created to help you choose with confidence and build a practice that fits.</span></p></div>
       <div class="foot-col"><h3>Start Here</h3><a href="quiz/">Energy Quiz</a><a href="learn/start/">Beginner&rsquo;s Guide</a><a href="faq/">How It Works</a><a href="intention/">By Intention</a></div>
-      <div class="foot-col"><h3>Shop</h3><a href="shop/">All Shop</a><a href="jewelry/">Jewelry</a><a href="gems/">Crystals</a><a href="frequency/">Frequency</a><a href="sets/">Kits &amp; Sets</a><a href="systems/">Frequency Systems</a><a href="box/">Build a Box</a></div>
+      <div class="foot-col"><h3>Shop</h3><a href="shop/">Everything</a><a href="jewelry/">Jewelry</a><a href="gems/">Crystals</a><a href="frequency/">Frequency Generators</a><a href="sets/">Kits &amp; Sets</a><a href="systems/">Frequency Systems</a><a href="box/">Build a Box</a></div>
       <div class="foot-col"><h3>Learn</h3><a href="learn/">Learning Center</a><a href="learn/crystals/">Crystal Guide</a><a href="learn/frequency/">Frequency Guide</a><a href="learn/jewelry/">Jewelry Care</a><a href="craft/">Materials &amp; Craft</a><a href="heather/">With Heather</a><a href="veza/">Veza</a></div>
       <div class="foot-col"><h3>Help</h3><a href="support/">Contact</a><a href="support/#orders">Shipping &amp; Returns</a><a href="faq/">FAQ</a><a href="support/#accessibility">Accessibility</a><a href="about/">Our Story</a><a href="affiliates/">Affiliates</a></div>
     </div>
