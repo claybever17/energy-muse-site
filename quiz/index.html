@@ -18,7 +18,7 @@
 <link rel="icon" type="image/svg+xml" href="../assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="../assets/img/favicon.png">
 <link rel="apple-touch-icon" href="../assets/img/touch-icon.png">
-<script src="../assets/em-header.js?v=14" defer></script>
+<script src="../assets/em-header.js?v=16" defer></script>
 <script src="/assets/em-search.js?v=6" defer></script>
 <script src="../assets/em-bag.js?v=4" defer></script>
 <script src="../assets/em-prices.js?v=2" defer></script>
@@ -65,7 +65,13 @@ a{color:inherit;text-decoration:none}
   background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--copper) 70%,transparent))}
 .eyebrow::after{transform:scaleX(-1)}
 h1,h2{font-family:var(--serif);font-weight:300;letter-spacing:-.018em;line-height:1.08;text-wrap:balance}
-h1{font-size:clamp(34px,5.4vw,58px);margin-top:20px}
+/* 58px at a 1.08 line-height, four lines deep in a 720px column, is a wall.
+   The size was set when this headline was one sentence; it is two now, each
+   on its own line, so the same measure holds twice the type. Smaller, with
+   leading that lets the lines separate, and a little air between the two
+   sentences so they read as two thoughts rather than one block. */
+h1{font-size:clamp(30px,4vw,46px);line-height:1.16;margin-top:20px}
+h1 > .s + .s{margin-top:.24em}
 h2{font-size:clamp(28px,4.4vw,44px);margin-top:18px}
 .lead{color:var(--ink-soft);margin:18px auto 0;max-width:52ch}
 em.hl{font-style:italic;font-family:var(--serif);color:var(--copper)}

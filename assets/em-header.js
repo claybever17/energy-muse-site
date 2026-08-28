@@ -54,6 +54,31 @@ var css=[
 '.emh-brand{display:flex;align-items:center;flex-shrink:0;}',
 '.emh-logo{height:38px;width:auto;aspect-ratio:1167/247.5;display:block;color:'+P.ink+';}',
 '.emh-links{display:flex;gap:26px;font:500 13px "Instrument Sans",sans-serif;letter-spacing:.03em;transform:translateY(3px);}',
+/* Crystals, Jewelry, Frequency and Kits lived only in the footer, seventeen
+   screens down, so reaching a category cost Shop -> scroll -> a card -> the
+   grid. Putting all four in the bar would make it eight items; this is one
+   item that opens.
+
+   It opens on CLICK, not hover. A hover menu on a nav that also has to work
+   on a touch screen is the thing that gets called glitchy, and it has been
+   called that on this project already. */
+'.emh-shop{position:relative;}',
+'.emh-shop > button{background:none;border:0;padding:0;cursor:pointer;color:inherit;',
+'  font:inherit;letter-spacing:inherit;display:inline-flex;align-items:center;gap:5px;}',
+'.emh-shop > button::after{content:"";width:5px;height:5px;border-right:1.4px solid currentColor;',
+'  border-bottom:1.4px solid currentColor;transform:rotate(45deg) translate(-1px,-1px);',
+'  transition:transform .2s;}',
+'.emh-shop.open > button::after{transform:rotate(225deg) translate(-2px,-2px);}',
+'.emh-shop > button:hover{color:'+P.copper+';}',
+'.emh-panel{position:absolute;top:calc(100% + 14px);left:-16px;min-width:190px;z-index:120;',
+'  background:'+P.menubg+';border:1px solid '+P.line+';border-radius:8px;padding:6px;',
+'  box-shadow:0 18px 44px rgba(11,19,32,.13);opacity:0;visibility:hidden;transform:translateY(-6px);',
+'  transition:opacity .2s,transform .2s,visibility .2s;}',
+'.emh-shop.open .emh-panel{opacity:1;visibility:visible;transform:none;}',
+'.emh-panel a{display:block;padding:10px 12px;border-radius:5px;color:'+P.ink+';',
+'  text-decoration:none;font:500 13px "Instrument Sans",sans-serif;letter-spacing:.02em;}',
+'.emh-panel a:hover{background:'+P.annbg+';color:'+P.copper+';}',
+'.emh-panel .sep{height:1px;background:'+P.line+';margin:5px 8px;}',
 '.emh-links a{color:'+P.soft+';text-decoration:none;transition:color .2s;}',
 '.emh-links a:hover{color:'+P.copper+';}',
 '.emh-utils{margin-left:auto;display:flex;gap:16px;align-items:center;font:500 12.5px "Instrument Sans",sans-serif;letter-spacing:.04em;transform:translateY(3px);}',
@@ -85,6 +110,10 @@ var css=[
 '.emh-menu-sec{display:flex;flex-wrap:wrap;gap:4px 22px;padding-top:14px;}',
 '.emh-menu-sec a{font:500 13.5px "Instrument Sans",sans-serif;letter-spacing:.04em;color:'+P.soft+';text-decoration:none;min-height:44px;display:inline-flex;align-items:center;}',
 '.emh-menu-sec a:hover{color:'+P.copper+';}',
+'.emh-menu-cats{display:flex;flex-wrap:wrap;gap:4px 20px;padding-top:12px;}',
+'.emh-menu-cats a{font:500 14px "Instrument Sans",sans-serif;letter-spacing:.02em;',
+'  color:'+P.ink+';text-decoration:none;min-height:44px;display:inline-flex;align-items:center;}',
+'.emh-menu-cats a:hover{color:'+P.copper+';}',
 /* one size for the row, so the injected Search button and the Bag link do not
    centre their labels a pixel apart — the same fix the homepage row needed */
 '.emh-menu-foot{display:flex;align-items:center;gap:22px;padding-top:20px;}',
@@ -136,7 +165,16 @@ function boot(){
     (!dismissed?'<div class="emh-ann"><div class="emh-ann-in"><span>'+ann.say+'<span class="emh-ann-more">'+ann.more+'</span></span><a href="'+ann.href+'">'+ann.cta+'</a><button class="emh-annx" aria-label="Dismiss">\u00d7</button></div></div>':'')
     +'<header class="emh-nav"><div class="emh-in">'
     +'<a class="emh-brand" href="/"><svg class="emh-logo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo-hdr"/></svg></a>'
-    +'<nav class="emh-links"><a href="/quiz/">Start Here</a><a href="/shop/">Shop</a><a href="/intention/">By Intention</a><a href="/learn/">Learn</a></nav>'
+    +'<nav class="emh-links"><a href="/quiz/">Start Here</a>'
+    +'<span class="emh-shop"><button type="button" aria-expanded="false" aria-haspopup="true">Shop</button>'
+    +'<span class="emh-panel">'
+    +'<a href="/shop/">Everything</a><span class="sep"></span>'
+    +'<a href="/shop/?cat=Crystal">Crystals</a>'
+    +'<a href="/shop/?cat=Jewelry">Jewelry</a>'
+    +'<a href="/shop/?cat=Frequency">Frequency</a>'
+    +'<a href="/shop/?cat=Kit%7CSystem">Kits &amp; Sets</a>'
+    +'</span></span>'
+    +'<a href="/intention/">By Intention</a><a href="/learn/">Learn</a></nav>'
     /* Search was <a href="#">, wired to nothing, on every page of the site — a
        control in the primary nav that silently did nothing when clicked. Gone
        until there is something to search: product pages will give every item
@@ -152,7 +190,15 @@ function boot(){
        second tier alongside the two destinations this menu never carried at
        all — so the mobile menu stops being a different set of links from the
        one the header shows, and stops differing from the homepage's own. */
-    +'<nav><a href="/quiz/">Start Here</a><a href="/shop/">Shop</a><a href="/intention/">By Intention</a><a href="/learn/">Learn</a></nav>'
+    +'<nav><a href="/quiz/">Start Here</a><a href="/shop/">Shop</a>'
+    +'<a href="/intention/">By Intention</a><a href="/learn/">Learn</a></nav>'
+    /* the four categories, flat - a panel that has to be opened is worth it
+       on a bar with no room, and pointless inside a menu that is already a
+       list */
+    +'<div class="emh-menu-cats"><a href="/shop/?cat=Crystal">Crystals</a>'
+    +'<a href="/shop/?cat=Jewelry">Jewelry</a>'
+    +'<a href="/shop/?cat=Frequency">Frequency</a>'
+    +'<a href="/shop/?cat=Kit%7CSystem">Kits &amp; Sets</a></div>'
     +'<div class="emh-menu-sec"><a href="/heather/">With Heather</a><a href="/veza/">Veza</a><a href="/about/">About</a></div>'
     /* Search and Bag live in the menu now, not in the header bar. The
        homepage's own menu already had this row; this is the shared one
@@ -194,6 +240,26 @@ function boot(){
     try{sessionStorage.setItem('em-ann','off');}catch(e){}
   });
   var burger=frag.querySelector('.emh-burger'),close=menu.querySelector('.emh-close');
+  /* the Shop panel: click to open, click away or Escape to close */
+  var shop=document.querySelector('.emh-shop');
+  if(shop){
+    var sb=shop.querySelector('button');
+    var setShop=function(o){
+      shop.classList.toggle('open',o);
+      sb.setAttribute('aria-expanded',o?'true':'false');
+    };
+    sb.addEventListener('click',function(e){
+      e.stopPropagation();
+      setShop(!shop.classList.contains('open'));
+    });
+    document.addEventListener('click',function(e){
+      if(!shop.contains(e.target))setShop(false);
+    });
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape')setShop(false);
+    });
+  }
+
   function set(o){menu.classList.toggle('open',o);document.body.classList.toggle('emh-open',o);burger.setAttribute('aria-expanded',o?'true':'false');}
   burger.addEventListener('click',function(){set(true);});
   close.addEventListener('click',function(){set(false);});
