@@ -517,16 +517,17 @@ body.menu-open{overflow:hidden;}
   .story-cta .btn::after{transition:none;transform:scaleX(1);}
 }
 @media (max-width:840px){
-  /* No sticky drawing on a phone at all. It reserved 190svh — nearly two
-     screens of scroll for thirty words — and what you actually saw for most
-     of that travel was a small mark alone in the middle of an empty screen.
-     The three lines are the point; they read as an ordinary short section
-     now, and the canvas is not drawn. */
-  .story{height:auto;}
-  .story-stage{position:static;height:auto;min-height:0;padding-block:var(--step);}
-  .story-canvas{display:none;}
-  .story-copy{align-self:auto;margin-bottom:0;}
-  .sl{opacity:1;transform:none;}
+  /* The whole block goes on a phone.
+
+     It reserved 190svh — nearly two screens of scroll for thirty words — and
+     for most of that travel you saw a small mark alone in an empty screen.
+     The first attempt kept the three lines and dropped only the drawing, and
+     that broke them: ".story-copy .sl{grid-area:1/1}" puts all three in the
+     SAME grid cell on purpose, because the animation cross-fades between
+     them, so making them all visible printed three paragraphs on top of each
+     other. They are one sentence's worth of brand copy that the desktop
+     version still carries; on a phone they are not worth a screen. */
+  .story{display:none;}
 }
 @media (max-width:640px){
   /* Seventeen sections, each with --step top and bottom, is ~3,000px of pure
