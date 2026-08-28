@@ -49,11 +49,11 @@
   --serif:'Fraunces',Georgia,serif; --sans:'Instrument Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 }
 :root, :root[data-skin="ivory"]{
-  --bg:#FBF8F2; --surface:#FFFFFF; --ink:#1D2739; --ink-soft:#4E5A70; --stone:#8D8778;
+  --bg:#FBF8F2; --surface:#FFFFFF; --ink:#1D2739; --ink-soft:#4E5A70; --stone:#6D695D;
   --line:#EAE3D6; --tint:#F4EFE5; --card:var(--surface); --hair:var(--line);
-  --copper:#A9683E; --copper-lo:#8F5330; --copper-hi:#B87A4B; --accent:var(--copper);
+  --copper:#985E38; --copper-lo:#8F5330; --copper-hi:#B87A4B; --accent:var(--copper);
   --hero-bg:#FBF8F2; --hero-ink:#1D2739; --hero-soft:#5A6578; --hero-sub:#8F5330;
-  --hero-accent:#A9683E; --hero-shadow:none;
+  --hero-accent:#985E38; --hero-shadow:none;
   --hero-glowA:rgba(169,104,62,.24); --hero-glowB:rgba(37,126,111,.12);
   --radius:1px; --step:clamp(100px,8vw,124px); --imgf:none;
   --shadow-sm:0 1px 2px rgba(61,41,23,.05), 0 4px 10px rgba(61,41,23,.05);
@@ -65,7 +65,7 @@
 :root[data-skin="midnight"]{
   --bg:#0E1826; --surface:#152234; --ink:#EFE7D9; --ink-soft:#C3CAD6; --stone:#93A0B2;
   --line:#243247; --tint:#101B2B; --card:var(--surface); --hair:var(--line);
-  --copper:#C4855A; --copper-lo:#A9683E; --copper-hi:#D89E70; --accent:var(--copper);
+  --copper:#C4855A; --copper-lo:#985E38; --copper-hi:#D89E70; --accent:var(--copper);
   --hero-bg:#0B1320; --hero-ink:#EFE7D9; --hero-soft:#B4C0D0; --hero-sub:#D9C6B4;
   --hero-accent:#C4855A; --hero-shadow:0 2px 30px rgba(7,12,18,.6);
   --hero-glowA:rgba(169,104,62,.26); --hero-glowB:rgba(20,40,70,.5);
@@ -462,63 +462,7 @@ body.menu-open{overflow:hidden;}
   44%{opacity:.9;transform:scale(1.12)}70%{opacity:.42;transform:scale(.95)}100%{opacity:.34;transform:scale(.86)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(8px,-10px)}}
-/* ---- the energy story ------------------------------------------------
-   Two screens of scroll, not six. The stage pins and the mark comes apart
-   across it, so the whole beat is over before the reader has decided whether
-   to keep going — which is the difference between a feature and a film. */
-.story{position:relative;height:200svh;background:var(--paper);}
-.story-stage{position:sticky;top:0;height:100svh;min-height:520px;overflow:hidden;
-  display:grid;place-items:center;}
-.story-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
-/* 100svh of sticky stage for a mark and three short lines is a screen of
-   white on any display. The travel that plays the drawing lives on .story;
-   the stage only needs to be tall enough to hold what it shows. */
-.story{height:150svh;}
-.story-stage{height:78svh;min-height:460px;}
-
-/* the drawing takes the upper part of the stage and the words sit under it —
-   centred on the same axis, but never on top of the mark itself */
-.story-copy{position:relative;z-index:2;text-align:center;align-self:end;
-  margin-bottom:clamp(28px,9vh,104px);}
-.sl{font-family:var(--serif);font-weight:300;letter-spacing:-.022em;line-height:1.12;
-  margin:0 auto;max-width:22ch;opacity:0;transform:translateY(14px);
-  transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);}
-.sl1{font-size:clamp(30px,4.4vw,64px);}
-.sl2{font-size:clamp(21px,2.5vw,34px);color:var(--copper);font-style:italic;
-  /* 26ch broke it after "so easy" and left "to overlook." alone on the
-     second line. The sentence is short enough to hold one line on any
-     desktop, and one line is the beat. */
-  max-width:none;}
-.sl3{font-family:var(--sans);font-size:clamp(16px,1.7vw,22px);font-style:normal;
-  color:var(--ink-soft,var(--stone));max-width:40ch;line-height:1.55;letter-spacing:0;}
-/* The close was a small grey sentence sitting over an outlined rectangle —
-   the same shape every page gives every button, at the one moment the section
-   has been building toward. The whole beat is a line resolving, so the call
-   resolves with it: a label, and a rule that draws itself when the beat lands.
-   Scoped to .story-cta; the boxed ghost button is right everywhere else. */
-.story-cta .btn{border:0;background:none;padding:0;border-radius:0;
-  font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--copper-lo);position:relative;}
-.story-cta .btn::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:1px;
-  background:var(--copper);transform:scaleX(0);transform-origin:0 50%;
-  transition:transform .9s cubic-bezier(.16,1,.3,1) .25s;}
-.story-cta.on .btn::after{transform:scaleX(1);}
-.story-cta .btn:hover{color:var(--copper);}
-.sl.on{opacity:1;transform:none;}
-.story-cta{margin-top:clamp(18px,3.4vh,34px);opacity:0;transform:translateY(14px);
-  transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);}
-.story-cta.on{opacity:1;transform:none;}
-/* The three lines share one cell so they hand over in place — but `> *` put
-   the button in that cell too, and the button and the last line are on screen
-   together at the end, so it printed straight through the copy. The lines
-   stack; the button gets its own row underneath. */
-.story-copy{display:grid;grid-template-rows:auto auto;justify-items:center;}
-.story-copy .sl{grid-area:1/1;align-self:center;}
-.story-cta{grid-row:2;grid-column:1;}
-.story-fallback{max-width:52ch;text-align:center;}
 @media (prefers-reduced-motion:reduce){
-  .sl,.story-cta{transition:none;}
-  .story-cta .btn::after{transition:none;transform:scaleX(1);}
 }
 @media (max-width:840px){
   /* The quiz band goes too. It is 0.9 screens for twelve words and a large
@@ -527,17 +471,6 @@ body.menu-open{overflow:hidden;}
      phone that is a third ask for the same thing, taking a full screen. */
   #quiz{display:none;}
 
-  /* The whole block goes on a phone.
-
-     It reserved 190svh — nearly two screens of scroll for thirty words — and
-     for most of that travel you saw a small mark alone in an empty screen.
-     The first attempt kept the three lines and dropped only the drawing, and
-     that broke them: ".story-copy .sl{grid-area:1/1}" puts all three in the
-     SAME grid cell on purpose, because the animation cross-fades between
-     them, so making them all visible printed three paragraphs on top of each
-     other. They are one sentence's worth of brand copy that the desktop
-     version still carries; on a phone they are not worth a screen. */
-  .story{display:none;}
 }
 @media (max-width:640px){
   /* Seventeen sections, each with --step top and bottom, is ~3,000px of pure
@@ -736,7 +669,7 @@ body.menu-open{overflow:hidden;}
 .sub-inline input{flex:1;min-width:200px;padding:14px 16px;border-radius:8px;
   border:1px solid var(--hair);background:var(--surface);color:var(--fg);
   font-family:var(--sans);font-size:15px;}
-.sub-inline input:focus{outline:none;border-color:var(--copper);}
+.sub-inline input:focus-visible{outline:2px solid var(--copper);outline-offset:2px;border-color:var(--copper);}
 /* white on --copper-hi measured 3.55:1 against a 4.5 requirement at 12px.
    The gradient runs light-to-dark; reversed, the text sits on the dark end. */
 .sub-inline button{font:700 13px var(--sans);letter-spacing:.1em;text-transform:uppercase;
@@ -1056,7 +989,7 @@ body.menu-open{overflow:hidden;}
   border-radius:var(--radius);font-family:var(--sans);font-size:15px;min-width:220px;flex:1;}
 .veza-form input::placeholder{color:#6E7C90;}
 .veza-form input{transition:border-color .3s,box-shadow .3s;}
-.veza-form input:focus{outline:none;border-color:var(--copper);
+.veza-form input:focus-visible{outline:2px solid var(--copper-hi);outline-offset:2px;border-color:var(--copper);
   box-shadow:0 0 0 1px var(--copper),0 10px 34px rgba(196,133,90,.30);}
 .veza-note{font-size:12px;color:var(--navy-soft);letter-spacing:.04em;}
 /* ===== Reels (9:16 stories) ===== */
@@ -1240,7 +1173,7 @@ footer.site{background:
 .foot-grid{display:grid;grid-template-columns:1.7fr repeat(4,1fr);gap:32px;padding-block:64px 44px;}
 .foot-brand .b{font-family:var(--serif);font-weight:400;font-size:22px;letter-spacing:.28em;}
 .foot-brand p{margin-top:18px;color:var(--ink-soft);font-size:14px;max-width:34ch;}
-.foot-col h4{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin:0 0 16px;}
+.foot-col h3{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin:0 0 16px;}
 .foot-col a{display:block;font-size:14px;color:var(--ink-soft);padding:5px 0;transition:.2s;}
 .foot-col a:hover{color:var(--copper);}
 .foot-bottom{border-top:1px solid var(--hair);padding-block:24px;font-size:11.5px;color:var(--stone);display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap;line-height:1.5;}
@@ -1458,7 +1391,7 @@ p{text-wrap:pretty;}
    stops the name being split across two lines. */
 .cpromo h2{line-height:1.06;}
 .cpromo h2 .in-cu{display:block;font-size:.44em;font-style:italic;
-  letter-spacing:.005em;color:#A9683E;margin-top:.36em;}
+  letter-spacing:.005em;color:#985E38;margin-top:.36em;}
 
 
 /* A headline of two sentences should break BETWEEN them, not wherever the
@@ -1502,14 +1435,6 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   .store-grid{gap:10px;}
 }
 
-/* The story was 150svh of scroll for three sentences: a sticky stage, a canvas
-   drawing itself, and each line fading in as you travelled past it. Clay asked
-   for the scroll animation off the desktop the way it already came off the
-   phone, and with it off there is nothing for the extra travel to do - it was
-   1350px tall with 648px of nothing under the words. It is an ordinary block
-   now. The three lines keep their sizes, so the beat still reads as a beat;
-   they just arrive together instead of being paid for one screen at a time.
-   Last in the sheet on purpose: every rule it reverses is written above. */
 /* The three big editorial photographs ran 558px tall on a 900px screen, so
    each one owned most of a viewport on its own and the sections around them
    came out near 800px. The aspect ratios are inline on the elements, and the
@@ -1521,10 +1446,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 }
 .story{height:auto;padding-block:var(--step);}
 .story-stage{position:static;height:auto;min-height:0;overflow:visible;display:block;}
-.story-canvas{display:none;}
 .story-copy{display:block;align-self:auto;margin-bottom:0;}
-.story-copy .sl{opacity:1;transform:none;transition:none;}
-.story-copy .sl+.sl{margin-top:clamp(14px,1.6vw,22px);}
 .story-cta,.story-cta.on{opacity:1;transform:none;transition:none;}
 .story-cta .btn::after{transform:scaleX(1);}
 /* The frequency section, reordered for a phone. It read headline -> button ->
@@ -1601,7 +1523,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     width:44px;height:44px;padding:0;cursor:pointer;display:grid;place-items:center}
   .proof-dots button::before{content:"";width:7px;height:7px;border-radius:50%;
     background:var(--ink,#1D2739);opacity:.22;transition:opacity .25s,background-color .25s,transform .25s}
-  .proof-dots button[aria-selected="true"]::before{background:var(--copper,#A9683E);
+  .proof-dots button[aria-selected="true"]::before{background:var(--copper,#985E38);
     opacity:1;transform:scale(1.18)}
   .proof-dots button:focus-visible{outline:2px solid var(--copper);outline-offset:-8px;border-radius:6px}
 }
@@ -1799,20 +1721,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   </div>
 </section>
 
-<section class="story" id="story" aria-label="Energy is invisible">
-  <div class="story-stage">
-    <canvas class="story-canvas" id="storyc" aria-hidden="true"></canvas>
-    <div class="wrap story-copy">
-      <p class="sl sl1">Energy is invisible.</p>
-      <p class="sl sl2">Which is exactly why it&rsquo;s so easy to overlook.</p>
-      <p class="sl sl3">But small shifts in your energy can lead to the biggest
-        transformations in your life.</p>
-      <div class="story-cta"><a class="btn btn-ghost" href="frequency/">How frequency works</a></div>
-    </div>
-    <noscript><p class="story-fallback">Energy is invisible &mdash; which is exactly why it&rsquo;s so easy
-      to overlook. But small shifts in your energy can lead to the biggest transformations in your life.</p></noscript>
-  </div>
-</section>
+
 
 <!-- ===== FREQUENCY (dark) =====
      Copy is the approved "Frequency Tools Feature" module, verbatim. The
@@ -1859,7 +1768,15 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 <!-- ===== WAYS ===== -->
 <section class="section band">
   <div class="wrap">
-    <div class="head reveal"><span class="eyebrow">Four ways in</span><h2>Your first step can be simple.</h2></div>
+    <!-- The approved rewrite gives this section the H2 "Your first step can be
+     simple." and the frequency module, two sections down, "Frequency, made
+     simple." - both are Energy Muse's own words, and the echo is in their
+     document rather than anything we wrote. Clay asked for one of them to
+     change; the frequency line is the load-bearing product headline, so this
+     is the one that moves. It is still their wording: COPY.md calls this
+     section "Ways to begin", and that is the title promoted into the H2
+     rather than a sentence invented here. -->
+    <div class="head reveal"><span class="eyebrow">Four ways in</span><h2>Ways to begin.</h2></div>
     <div class="ways">
       <div class="way reveal"><div class="thumb"><img src="assets/img/bracelets.jpg" alt="Stacked crystal bracelets on a wrist"></div>
         <h3><em>Wear</em> it.</h3><p>Jewelry that keeps the intention close, all day.</p>
@@ -1932,21 +1849,6 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 </section>
 
 <!-- ===== EMAIL, mid-page ===== capture is repeated, not saved for the footer -->
-<section class="subband" aria-label="Email signup">
-  <div class="wrap">
-    <div>
-      <h3>One practice, once a week.</h3>
-      <p>A short note on what to work with and why &mdash; plus first access to new releases.</p>
-    </div>
-    <form class="sub-inline" data-sub novalidate>
-      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" required>
-      <button type="submit">Join</button>
-    </form>
-  </div>
-</section>
-
-
-
 <!-- "Small practices that make real progress" — the 1-2-3 sequence — is gone.
      It was the third time this page explained how to begin, after the hero
      and after "Your first step can be simple", which offers the same four
@@ -2032,11 +1934,22 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
      "Not sure where to begin?" section — and "Shop by Intention" is now a
      nav item. A fourth ask, made after everything else has been said. -->
 
-<!-- ===== EMAIL ===== -->
-<section class="section email" id="veza">
-  <div class="wrap email-in">
-    <div><h3>Let's stay connected.</h3><p>New practices, founder guidance, product education, and early access &mdash; sent with intention, never noise.</p></div>
-    <form onsubmit="return false"><input type="email" placeholder="Email address" aria-label="Email address"><button class="btn btn-copper" type="submit">Join the Energy Muse List</button></form>
+
+
+<!-- The one general email ask, and it comes last on purpose. It used to sit
+     between the founders block and the Learn/Veza pair, which split those two
+     apart and dropped a conversion ask into the middle of the reading. After
+     the customer quotes it has something to stand on. -->
+<section class="subband" aria-label="Email signup">
+  <div class="wrap">
+    <div>
+      <h3>One practice, once a week.</h3>
+      <p>A short note on what to work with and why &mdash; plus first access to new releases.</p>
+    </div>
+    <form class="sub-inline" data-sub novalidate>
+      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" required>
+      <button type="submit">Join</button>
+    </form>
   </div>
 </section>
 
@@ -2050,10 +1963,10 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     <div class="foot-grid">
       <div class="foot-brand"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse" style="height:34px"><use href="#em-logo"/></svg>
         <p>Guided energy for real life.<span class="foot-more"> Crystal jewelry, natural crystals, frequency and personal guidance &mdash; created to help you choose with confidence and build a practice that fits.</span></p></div>
-      <div class="foot-col"><h4>Start Here</h4><a href="quiz/">Energy Quiz</a><a href="learn/start/">Beginner&rsquo;s Guide</a><a href="faq/">How It Works</a><a href="intention/">By Intention</a></div>
-      <div class="foot-col"><h4>Shop</h4><a href="shop/">All Shop</a><a href="jewelry/">Jewelry</a><a href="gems/">Crystals</a><a href="frequency/">Frequency</a><a href="sets/">Kits &amp; Sets</a><a href="systems/">Frequency Systems</a><a href="box/">Build a Box</a></div>
-      <div class="foot-col"><h4>Learn</h4><a href="learn/">Learning Center</a><a href="learn/crystals/">Crystal Guide</a><a href="learn/frequency/">Frequency Guide</a><a href="learn/jewelry/">Jewelry Care</a><a href="craft/">Materials &amp; Craft</a><a href="heather/">With Heather</a><a href="veza/">Veza</a></div>
-      <div class="foot-col"><h4>Help</h4><a href="support/">Contact</a><a href="support/#orders">Shipping &amp; Returns</a><a href="faq/">FAQ</a><a href="support/#accessibility">Accessibility</a><a href="about/">Our Story</a><a href="affiliates/">Affiliates</a></div>
+      <div class="foot-col"><h3>Start Here</h3><a href="quiz/">Energy Quiz</a><a href="learn/start/">Beginner&rsquo;s Guide</a><a href="faq/">How It Works</a><a href="intention/">By Intention</a></div>
+      <div class="foot-col"><h3>Shop</h3><a href="shop/">All Shop</a><a href="jewelry/">Jewelry</a><a href="gems/">Crystals</a><a href="frequency/">Frequency</a><a href="sets/">Kits &amp; Sets</a><a href="systems/">Frequency Systems</a><a href="box/">Build a Box</a></div>
+      <div class="foot-col"><h3>Learn</h3><a href="learn/">Learning Center</a><a href="learn/crystals/">Crystal Guide</a><a href="learn/frequency/">Frequency Guide</a><a href="learn/jewelry/">Jewelry Care</a><a href="craft/">Materials &amp; Craft</a><a href="heather/">With Heather</a><a href="veza/">Veza</a></div>
+      <div class="foot-col"><h3>Help</h3><a href="support/">Contact</a><a href="support/#orders">Shipping &amp; Returns</a><a href="faq/">FAQ</a><a href="support/#accessibility">Accessibility</a><a href="about/">Our Story</a><a href="affiliates/">Affiliates</a></div>
     </div>
     <div class="foot-bottom"><span>&copy; 2026 Energy Muse. All rights reserved.</span>
       <span>Energy Muse products and content are intended for personal practice and general wellbeing. They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease. Individual experiences vary.</span></div>
@@ -2207,260 +2120,6 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     else requestAnimationFrame(frame);
   })();
 
-  /* ---- the energy story: the mark unwinds into the line -----------------
-     Ported down from the Current film. The one piece that cannot be skipped
-     is the straightening: the mark is a closed swirl and the line reads left
-     to right, so feeding the swirl's own point order into that mapping makes
-     every point cross its neighbours mid-morph and the whole thing reads as a
-     scribble. Each subpath is rotated to begin at its leftmost point, run
-     rightward, and the subpaths are laid out left to right — then the same
-     animation reads as a thread coming unwound. */
-  (function(){
-    var cv=document.getElementById('storyc'), sec=document.getElementById('story');
-    if(!cv||!sec)return;
-    var ctx=cv.getContext('2d'), N=150, W=0,H=0,dpr=1, MK=null, t0=performance.now();
-    var host=document.getElementById('em-markline');
-    if(!host)return;
-    var lines=[].slice.call(host.querySelectorAll('path'));
-
-    function sample(){
-      /* 0.34 of the short edge left the mark small in the middle of a screen
-       of nothing — which is the white space Energy Muse flagged. On a wide
-       display the short edge is the height, so this scales with the height
-       and reads as a deliberate mark rather than a speck. */
-    var vb=[231.33,238.67], scale=Math.min(W,H)*0.52/vb[1];
-      var cx=W*0.5, cy=H*0.5;
-      var NS='http://www.w3.org/2000/svg';
-      var pen=document.createElementNS(NS,'svg');
-      pen.setAttribute('style','position:absolute;width:0;height:0;visibility:hidden');
-      document.body.appendChild(pen);
-      MK=lines.map(function(el){
-        var subs=el.getAttribute('d').split(/(?=M)/);
-        var els=subs.map(function(d){var p=document.createElementNS(NS,'path');
-          p.setAttribute('d',d);pen.appendChild(p);return p;});
-        var lens=els.map(function(p){return p.getTotalLength();});
-        var total=lens.reduce(function(a,b){return a+b;},0);
-        var counts=lens.map(function(L){return Math.max(8,Math.round(N*L/total));});
-        counts[0]+=(N+1)-counts.reduce(function(a,b){return a+b;},0);
-        var strokes=[];
-        els.forEach(function(p,si){
-          var sp=[];
-          for(var j=0;j<counts[si];j++){
-            var pt=p.getPointAtLength(lens[si]*j/Math.max(1,counts[si]-1));
-            sp.push([cx+(pt.x-vb[0]/2)*scale, cy+(pt.y-vb[1]/2)*scale]);
-          }
-          var st=0,mx=Infinity;
-          for(var q=0;q<sp.length;q++){if(sp[q][0]<mx){mx=sp[q][0];st=q;}}
-          /* a closed stroke samples its start twice; rotating the run would
-             leave the loop open at a visible nick, so drop the duplicate,
-             rotate the core, then close it again on the new start */
-          var shut=sp.length>2&&Math.abs(sp[0][0]-sp[sp.length-1][0])<0.5
-                              &&Math.abs(sp[0][1]-sp[sp.length-1][1])<0.5;
-          if(shut){var core=sp.slice(0,sp.length-1);st=st%core.length;
-            core=core.slice(st).concat(core.slice(0,st));sp=core.concat([core[0].slice()]);}
-          else sp=sp.slice(st).concat(sp.slice(0,st));
-          if(sp.length>2&&sp[1][0]<sp[0][0])sp.reverse();
-          strokes.push(sp);
-        });
-        strokes.sort(function(a,b){
-          return Math.min.apply(null,a.map(function(q){return q[0];}))
-               - Math.min.apply(null,b.map(function(q){return q[0];}));});
-        var pts=[],brk={};
-        strokes.forEach(function(sp,si){
-          if(si>0)brk[pts.length]=1;
-          for(var j=0;j<sp.length;j++)pts.push(sp[j]);
-        });
-        return {pts:pts,brk:brk};
-      });
-      document.body.removeChild(pen);
-    }
-
-    /* The strands run 17% past each side of the frame so the wave reads as
-       passing through rather than as a cropped picture. But past the frame is
-       still cut AT the frame: twenty ribs all ending on the same vertical line
-       is the hard edge down both sides. This mask fades the outer eighth to
-       nothing, on a smootherstep curve so the fade has no edge of its own.
-       Built once per resize, not per frame. */
-    var edgeMask=null;
-    function buildMask(){
-      var FADE=0.12,S=8;
-      edgeMask=ctx.createLinearGradient(0,0,W,0);
-      for(var q=0;q<=S;q++){var f=q/S,e=f*f*f*(f*(f*6-15)+10);
-        edgeMask.addColorStop(FADE*f,'rgba(0,0,0,'+e.toFixed(4)+')');}
-      for(var q2=0;q2<=S;q2++){var f2=q2/S,e2=1-(f2*f2*f2*(f2*(f2*6-15)+10));
-        edgeMask.addColorStop(1-FADE+FADE*f2,'rgba(0,0,0,'+e2.toFixed(4)+')');}
-    }
-
-    function size(){
-      var r=cv.getBoundingClientRect();
-      dpr=Math.min(devicePixelRatio||1,1.6);
-      var nw=Math.round(r.width*dpr),nh=Math.round(r.height*dpr);
-      /* same URL-bar guard as the hero wave, and worth more here: sample()
-         re-walks the whole mark path, so an unguarded resize storm re-sampled
-         it on every frame of the browser chrome sliding away. */
-      if(W&&nw===cv.width&&nh===cv.height)return;
-      W=r.width;H=r.height;
-      cv.width=nw;cv.height=nh;
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-      buildMask();
-      sample();
-    }
-
-    function ease(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2}
-    function clamp(v,a,b){return v<a?a:v>b?b:v}
-    function lerp(a,b,u){return a+(b-a)*u}
-
-    var OFF=[-0.085,0,0.085];                 /* the three strands, apart */
-    function draw(p,t){
-      if(!MK)return;
-      ctx.clearRect(0,0,W,H);
-      /* the mark holds, then lets go; by .62 it is a line and the rest of the
-         scroll is the line breathing, so the beat lands well before the
-         section ends and nobody is left waiting on a finished animation */
-      var morph=ease(clamp((p-.14)/.44,0,1));
-      var spread=ease(clamp((p-.40)/.34,0,1));
-      var cy=H*0.40, amp=lerp(6,H*.085,morph);
-      /* Runs past both margins rather than stopping at them. A wave cut
-         square by the frame reads as a cropped picture; one that leaves the
-         frame reads as passing through. The amplitude envelope pinches at the
-         domain ends, which are now off-screen, so nothing visibly tapers. */
-      var span=lerp(.14,1.34,morph);
-      var x0=W*(0.5-span/2), x1=W*(0.5+span/2);
-      ctx.lineCap='round';ctx.lineJoin='round';
-      /* Three bare strokes is a diagram of the idea, not the idea. The films
-         earn their wave by repeating each signal back into depth until the eye
-         stops counting lines and starts seeing a surface — that density IS the
-         picture, and dropping it to make the section short made it look like a
-         cheaper version of the same thought rather than a briefer one.
-
-         The depth arrives with the morph. While it is still a mark it is one
-         clean line, because a volume packed around a recognisable logo turns
-         it to mush; as it unwinds it gains body. */
-      var RIBS=(W<=700)?12:28;  /* the story scope has its own W; there is no mob here */
-      var depth=ease(clamp((morph-.18)/.62,0,1));
-      /* which way "away" points, per strand, and how far the cycle slips
-         front to back — the slip is what twists it into a surface instead of
-         stacking parallel copies */
-      var DX=[.030,-.020,.042], DY=[-.052,-.076,-.040], SLIP=[3.1,4.4,2.6];
-      /* Rolls were 1.10 / 1.45 / 1.80 turns. Anything over about 1.35 reads as
-         an EKG rather than a wave, so two of the three were out of range and
-         the third sat on the ceiling. And each strand was a single sine, which
-         is a pure tone — regular by definition, and the reason this looked
-         mechanical next to the hero field, which sums seven bands. Each strand
-         now carries a fundamental plus two partials at ratios that do not
-         divide into it, so the line never repeats, and its own drift rate so
-         the three never pulse together. */
-      /* The ceiling applies to every component, not just the fundamental. A
-         first pass put the partials at 1.87-2.13x the roll, which landed two
-         of them above two turns — chop, at 30% amplitude, which is exactly the
-         thing being avoided. Ratios chosen so no component exceeds ~1.36
-         turns, and none divides evenly into the fundamental. */
-      var ROLL=[0.62,0.88,1.15];            /* 0.62 / 0.88 / 1.15 turns */
-      var P2=[2.10,1.55,1.18], A2=0.30;     /* 1.30 / 1.36 / 1.36 turns */
-      var P3=[0.41,0.53,0.37], A3=0.18;     /* 0.25 / 0.47 / 0.43 — the slow drift */
-      var DRIFT=[0.32,0.24,0.39], NORM=1/(1+A2+A3);
-      /* and depth is not linear. Evenly spaced ribs read as parallel copies
-         stacked; real distance compresses, so the near ones spread and the far
-         ones bunch. K sets how hard the perspective bites. */
-      var K=2.2, KN=1-1/(1+K);
-      for(var k=0;k<MK.length;k++){
-        var mk=MK[k];
-        for(var j=RIBS;j>=0;j--){
-          /* j===0 is the lit stroke itself; the rest recede behind it */
-          var zn=j/RIBS;
-          var dz=depth*(1-1/(1+K*zn))/KN;
-          var a=(j===0)?1:Math.pow(1-dz,1.5)*.42;
-          if(a<.006)continue;
-          ctx.beginPath();
-          for(var i=0;i<=N;i++){
-            var u=i/N, P=mk.pts[Math.min(i,mk.pts.length-1)];
-            var wx=lerp(x0,x1,.5+(u-.5)*(1-dz*.06))+dz*W*DX[k];
-            var ph=u*Math.PI*2, tt=t*DRIFT[k], sl=dz*SLIP[k];
-            var sig=(Math.sin(ph*ROLL[k]+tt-k*0.7-sl)
-                    +A2*Math.sin(ph*P2[k]*ROLL[k]+tt*1.31-sl*0.6+1.7)
-                    +A3*Math.sin(ph*P3[k]*ROLL[k]-tt*0.83-sl*1.4+0.4))*NORM;
-            var wy=cy+OFF[k]*spread*H+dz*H*DY[k]
-                   +sig*amp*(1-dz*.28)*Math.sin(Math.PI*Math.pow(u,.9));
-            /* the far end lets go last, so it unwinds rather than dissolving */
-            var mi=ease(clamp(morph*1.6-u*.6,0,1));
-            var X=lerp(P[0],wx,mi), Y=lerp(P[1],wy,mi);
-            if(i===0||(mi<1&&mk.brk[i]))ctx.moveTo(X,Y);else ctx.lineTo(X,Y);
-          }
-          ctx.globalAlpha=a*(k===1?1:lerp(1,.55,morph));
-          ctx.lineWidth=(j===0)?lerp(1.9,1.5,morph):Math.max(.55,1.1-dz*.5);
-          /* distance desaturates — the far filaments cool toward stone, which
-             is what the eye actually sorts near from far on */
-          ctx.strokeStyle=(j===0)?(k===2?'#35907B':'#A9683E')
-            :(k===2?'rgba(90,150,140,'+(1-dz*.5).toFixed(2)+')'
-                   :'rgba(169,104,62,'+(1-dz*.5).toFixed(2)+')');
-          ctx.stroke();
-        }
-      }
-      /* and now dissolve both margins, so nothing terminates on a straight
-         vertical line. Cheaper than it looks: one fill, against the five
-         hundred-odd strokes above it. */
-      ctx.globalAlpha=1;
-      if(edgeMask){
-        ctx.globalCompositeOperation='destination-in';
-        ctx.fillStyle=edgeMask;
-        ctx.fillRect(0,0,W,H);
-        ctx.globalCompositeOperation='source-over';
-      }
-    }
-
-    var lines3=[].slice.call(sec.querySelectorAll('.sl'));
-    var cta=sec.querySelector('.story-cta');
-    function beats(p){
-      /* One line readable at a time, with a clear beat between them. The
-         three sit in the same grid cell, so any overlap is literally two
-         sentences printed over each other — the same fault Cascade hit when
-         its intention captions cross-faded. Out finishes before in starts. */
-      var on=[p>=.04&&p<.29, p>=.34&&p<.55, p>=.60];
-      lines3.forEach(function(el,i){el.classList.toggle('on',!!on[i]);});
-      if(cta)cta.classList.toggle('on',p>=.70);
-    }
-
-    var vis=false, raf=0, last=0;
-    function prog(){
-      var r=sec.getBoundingClientRect();
-      var total=r.height-window.innerHeight;
-      return total>0?clamp(-r.top/total,0,1):0;
-    }
-    function tick(){
-      raf=0; last=performance.now();
-      if(!W)size();
-      var p=prog();
-      draw(p,(performance.now()-t0)/1000);
-      beats(p);
-      if(vis)raf=requestAnimationFrame(tick);
-    }
-    function kick(){if(!raf&&vis)raf=requestAnimationFrame(tick);}
-
-    addEventListener('resize',function(){W=0;kick();});
-    if('IntersectionObserver' in window){
-      new IntersectionObserver(function(e){
-        vis=e[0].isIntersecting;
-        if(vis)kick();
-      },{rootMargin:'120px 0px'}).observe(sec);
-    } else {vis=true;kick();}
-    /* rAF is the driver; the scroll handler only steps in when it has actually
-       stalled. Drawing from both is what made the films feel heavy — a
-       trackpad fires scroll far faster than the display refreshes. */
-    addEventListener('scroll',function(){
-      if(performance.now()-last>24)tick();
-    },{passive:true});
-    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){W=0;kick();});
-    /* the same hook the films expose, so this beat can be scrubbed and checked
-       rather than eyeballed */
-    /* behavior:'instant' matters — the page sets scroll-behavior:smooth for its
-       anchor links, so a plain scrollTo here starts an animation and the very
-       next read of the position is still the old one */
-    window.__story={go:function(p){var total=sec.offsetHeight-window.innerHeight;
-        try{scrollTo({top:sec.offsetTop+p*total,behavior:'instant'});}
-        catch(e){scrollTo(0,sec.offsetTop+p*total);}
-        tick();},step:tick,prog:prog};
-    vis=true; tick();
-  })();
 
   var annx=document.getElementById('annx');
   if(annx)annx.addEventListener('click',function(){document.body.classList.add('ann-off');try{sessionStorage.setItem('em-ann','off');}catch(e){}foldCut();});
@@ -2698,9 +2357,9 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 });
 </script>
 
-<script src="assets/em-bag.js?v=4" defer></script>
+<script src="assets/em-bag.js?v=5" defer></script>
 <script src="assets/em-prices.js?v=3" defer></script>
-<script src="/assets/em-search.js?v=6" defer></script>
+<script src="/assets/em-search.js?v=7" defer></script>
 <script src="assets/em-versions.js?v=19" defer></script>
 <script>
 (function(){

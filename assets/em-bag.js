@@ -43,6 +43,7 @@ var css=[
 '  cursor:pointer;padding:6px 0 0;font-weight:600}',
 '.embag-rm:hover{color:#A9683E}',
 '.embag-foot{padding:18px 22px 22px;border-top:1px solid #EAE3D6;background:#F4EFE5}',
+'.embag a:focus-visible,.embag button:focus-visible,.embag-veil:focus-visible{outline:2px solid #8F5330;outline-offset:2px;border-radius:3px}',
 '.embag-sub{display:flex;justify-content:space-between;font-size:14px;margin-bottom:14px}',
 '.embag-sub b{font-family:Fraunces,Georgia,serif;font-weight:400;font-size:18px}',
 '.embag-go{width:100%;display:inline-flex;justify-content:center;padding:15px 20px;border:none;cursor:pointer;',

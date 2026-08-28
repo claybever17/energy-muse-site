@@ -146,7 +146,7 @@ var css=[
 '.emh-foot-links{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:center;font-size:13px;font-weight:600;}',
 /* email capture belongs on every page, not just the homepage */
 '.emh-sub{width:100%;max-width:440px;text-align:center;}',
-'.emh-sub h4{font-family:Fraunces,Georgia,serif;font-weight:300;font-size:20px;margin:0 0 4px;color:'+P.fg+';}',
+'.emh-sub h3{font-family:Fraunces,Georgia,serif;font-weight:300;font-size:20px;margin:0 0 4px;color:'+P.fg+';}',
 '.emh-sub p{font-size:12.5px;color:'+P.soft+';margin:0 0 12px;}',
 '.emh-sub form{display:flex;gap:8px;}',
 '.emh-sub input{flex:1;min-width:0;padding:12px 14px;border-radius:8px;font-size:14px;font-family:inherit;',
@@ -159,6 +159,10 @@ var css=[
 '.emh-foot-links a{color:'+P.soft+';text-decoration:none;}',
 '.emh-foot-links a:hover{color:'+P.copper+';}',
 '.emh-foot-legal{font-size:11.5px;color:'+P.stone+';line-height:1.6;max-width:72ch;text-wrap:balance;}',
+/* Keyboard focus, which the bar had none of: the links, the Shop button,
+   the burger and the bag were all reachable by tab and showed nothing when
+   they got there. */
+'#emh a:focus-visible,#emh button:focus-visible,.emh-menu a:focus-visible,.emh-menu button:focus-visible,.emh-foot a:focus-visible,.emh-foot button:focus-visible,.emh-foot input:focus-visible{outline:2px solid '+P.copper+';outline-offset:2px;border-radius:2px;}',
 '@media(max-width:840px){.emh-links{display:none;}.emh-burger{display:flex;}.emh-utils a[href="#"]:not(.bag){display:none;}.emh-in{height:60px;}.emh-logo{height:30px;}}'
 ].join('\n');
 
@@ -228,7 +232,7 @@ function boot(){
   var foot=document.createElement('footer');foot.className='emh-foot';
   foot.innerHTML='<div class="emh-foot-in">'
     +'<svg class="emh-logo" viewBox="0 0 1167 247.5" aria-label="Energy Muse"><use href="#em-logo-hdr"/></svg>'
-    +'<div class="emh-sub"><h4>One practice, once a week.</h4>'
+    +'<div class="emh-sub"><h3>One practice, once a week.</h3>'
       +'<p>A short note on what to work with — and first access to new releases.</p>'
       +'<form novalidate><input type="email" placeholder="you@email.com" aria-label="Email address" required>'
       +'<button type="submit">Join</button></form></div>'

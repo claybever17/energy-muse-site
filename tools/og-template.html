@@ -16,7 +16,7 @@ const logoImg=new Image();logoImg.src='../assets/img/logo.svg';
 // outline version of the mark (the site's motif), built from the vector on the fly
 const marklineImg=new Image();
 fetch('../assets/img/mark.svg').then(r=>r.text()).then(t=>{
-  const outlined=t.replace(/fill="[^"]*"/g,'fill="none" stroke="#A9683E" stroke-width="1.6"');
+  const outlined=t.replace(/fill="[^"]*"/g,'fill="none" stroke="#985E38" stroke-width="1.6"');
   marklineImg.src='data:image/svg+xml;base64,'+btoa(outlined);
 });
 // ---- offscreen 3D render of the device (2x for crispness) ----
@@ -136,13 +136,13 @@ function drawBrand(){
   ctx.font='italic 300 118px Fraunces';const w2=ctx.measureText(t2).width;
   let hx=W/2-(w1+w2)/2;const hy=H*0.60;
   ctx.fillStyle='#1D2739';ctx.font='300 118px Fraunces';ctx.fillText(t1,hx,hy);
-  ctx.fillStyle='#A9683E';ctx.font='italic 300 118px Fraunces';ctx.fillText(t2,hx+w1,hy);
-  ctx.fillStyle='#A9683E';ctx.font='600 30px "Instrument Sans"';
+  ctx.fillStyle='#985E38';ctx.font='italic 300 118px Fraunces';ctx.fillText(t2,hx+w1,hy);
+  ctx.fillStyle='#985E38';ctx.font='600 30px "Instrument Sans"';
   const eb='GUIDED ENERGY FOR REAL LIFE';
   let ew=0;for(const ch of eb)ew+=ctx.measureText(ch).width+8;
   let ex=W/2-ew/2;const ey=H*0.70;
   for(const ch of eb){ctx.fillText(ch,ex,ey);ex+=ctx.measureText(ch).width+8;}
-  ctx.fillStyle='#8D8778';ctx.font='600 30px "Instrument Sans"';
+  ctx.fillStyle='#6D695D';ctx.font='600 30px "Instrument Sans"';
   const url='energymuse.com';const uw=ctx.measureText(url).width;
   ctx.fillText(url,W/2-uw/2,H*0.92);
   window.__og=out.toDataURL('image/jpeg',0.90);

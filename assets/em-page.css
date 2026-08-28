@@ -16,9 +16,9 @@
 @font-face{font-family:'Instrument Sans';src:url(/assets/fonts/instrument_600.woff2) format('woff2');font-weight:600;font-display:swap}
 
 :root{
-  --bg:#FBF8F2; --surface:#fff; --ink:#1D2739; --ink-soft:#4E5A70; --stone:#8D8778;
+  --bg:#FBF8F2; --surface:#fff; --ink:#1D2739; --ink-soft:#4E5A70; --stone:#6D695D;
   --hair:#EAE3D6; --tint:#F4EFE5;
-  --copper:#A9683E; --copper-lo:#8F5330; --copper-hi:#B87A4B;
+  --copper:#985E38; --copper-lo:#8F5330; --copper-hi:#B87A4B;
   --navy:#0B1320; --navy-text:#EFE7D9; --navy-soft:#B4C0D0; --navy-line:#26344A;
   --serif:'Fraunces',Georgia,serif; --sans:'Instrument Sans',-apple-system,sans-serif;
   --edge:clamp(20px,4vw,56px);
@@ -149,3 +149,13 @@ h1 > .s, h2 > .s{display:block;text-wrap:balance}
    with. Capped at 100% so it can never outrun its column. */
 h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 
+/* Keyboard focus. There was none of this: the written pages relied on whatever
+   the browser drew by default, which on a link over a cream ground is a thin
+   ring that is easy to lose, and on a styled button is often nothing at all.
+   :focus-visible rather than :focus, so a mouse click does not leave a ring
+   behind - only keyboard and other non-pointer focus shows it. */
+:where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{
+  outline:2px solid var(--copper);
+  outline-offset:2px;
+  border-radius:2px;
+}

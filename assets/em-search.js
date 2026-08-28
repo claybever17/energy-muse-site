@@ -193,7 +193,11 @@
     '.ems-top{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid #EAE3D6;}',
     '.ems-top svg{flex:none;width:17px;height:17px;stroke:#8D8778;fill:none;stroke-width:1.7;}',
     '.ems-in{flex:1;border:0;background:transparent;font:400 17px "Instrument Sans",sans-serif;color:#1D2739;}',
-    '.ems-in:focus{outline:none;}',
+    /* the bare input keeps no ring of its own - the whole row takes it instead,
+   which is what a reader actually sees as the focused thing */
+'.ems-in:focus{outline:none;}',
+'.ems-top:focus-within{box-shadow:inset 0 0 0 2px #8F5330;}',
+'.ems-esc:focus-visible,.ems-hit:focus-visible{outline:2px solid #8F5330;outline-offset:-2px;}',
     '.ems-in::placeholder{color:#8D8778;}',
     '.ems-esc{font:600 10px "Instrument Sans",sans-serif;letter-spacing:.14em;text-transform:uppercase;',
     '  color:#8D8778;border:1px solid #EAE3D6;border-radius:4px;padding:5px 8px;background:#fff;cursor:pointer;}',
