@@ -1531,6 +1531,25 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   .proof{transition:none}
   .proof-dots button::before{transition:none}
 }
+
+/* The mobile text diet was written as "headline + one line + CTA per section",
+   but the rule that carried it out - ".split .copy>p{display:none}" - took the
+   one line with everything else. What was left, twice in a row, was an eyebrow,
+   a serif headline and two buttons, with nothing to read between them: blocky,
+   and identical from one section to the next.
+
+   Each of these two gets its line back. The jewelry copy is short enough to run
+   whole; the founders paragraph is 483 characters, so its opening sentence is
+   its own <p class="lede-m"> and only that shows here. No sentence is cut off
+   mid-way to make it fit - the break is written into the markup at a full stop.
+
+   Placed after the diet block it reverses, not before it. */
+@media (max-width:700px){
+  #jewelry .copy > p,
+  #about .copy > p.lede-m{display:block;margin-top:12px}
+  #about .copy > p:not(.lede-m){display:none}
+  #jewelry .copy > p,#about .copy > p.lede-m{font-size:15px;line-height:1.55;color:var(--ink-soft)}
+}
 </style>
 
 
@@ -1821,9 +1840,15 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
            in is "Wear it" -> this section -> a dead end. The Atelier is the
            jewelry experience that actually exists and works, so it is the
            honest destination until there is a jewelry catalogue to shop. -->
+      <!-- "Shop by intention" pointed at #intention, a section the reader
+           passed several screens ago, so the one call this block made sent
+           them backwards up the page. And a section headed "Wear your
+           energy", about jewelry, had no link to the jewelry shop at all -
+           only the bracelet designer. The shop is the primary now and the
+           designer keeps its place beside it. -->
       <div class="cta-row">
-        <a href="designer/" class="btn btn-primary">Design your own bracelet</a>
-        <a href="#intention" class="btn btn-ghost">Shop by intention</a>
+        <a href="jewelry/" class="btn btn-primary">Shop the jewelry</a>
+        <a href="designer/" class="btn btn-ghost">Design your own</a>
       </div>
     </div>
   </div>
@@ -1842,8 +1867,12 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
       <span class="big-num" aria-hidden="true">20<i>+</i></span>
       <span class="eyebrow">Twenty years of knowing</span>
       <h2>For more than two decades, helping people live better.</h2>
-      <p>Energy is invisible &mdash; which is exactly why it's so easy to overlook. But small shifts in your energy can lead to the biggest transformations in your life. Energy Muse began with one necklace and a simple belief: your energy deserves to be a priority. Your energy is the muse. For more than two decades, founders Heather Askinosie and Timmi Jandro have turned that belief into intentional products and education &mdash; helping you live in the energy you want, and feel your best every day.</p>
-      <div class="cta-row"><a href="about/" class="btn btn-primary">Our Story</a><a href="heather/" class="btn btn-ghost">Meet Heather &amp; Timmi</a></div>
+      <p class="lede-m">Energy is invisible &mdash; which is exactly why it&rsquo;s so easy to overlook.</p>
+      <p>But small shifts in your energy can lead to the biggest transformations in your life. Energy Muse began with one necklace and a simple belief: your energy deserves to be a priority. Your energy is the muse. For more than two decades, founders Heather Askinosie and Timmi Jandro have turned that belief into intentional products and education &mdash; helping you live in the energy you want, and feel your best every day.</p>
+      <!-- Two buttons that read as the same errand, and /about/ carries a link
+           to Heather twice over, so the second one was asking for a click to
+           reach something the first click already offers. -->
+      <div class="cta-row"><a href="about/" class="btn btn-primary">Our Story</a></div>
     </div>
   </div>
 </section>
