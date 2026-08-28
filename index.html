@@ -553,6 +553,19 @@ body.menu-open{overflow:hidden;}
 
      56px top and bottom gives ~112px between sections, where the page was
      running up to 208px. */
+  /* The Hz readout is a ticker: it counts through the seven frequencies while
+     the device photograph cross-fades to match. Side by side on a desktop
+     that reads as one instrument. Stacked on a phone, the number sat four
+     elements above the device — under the heading, with the body copy, the
+     button and the disclaimer between them — so it looked like an orphaned
+     figure rather than the device's own readout.
+
+     Ordered to the end of the copy block, so it and its waveform sit
+     directly above the photograph they belong to. */
+  .freq .copy{display:flex;flex-direction:column;}
+  .freq .copy .freq-hz{order:9;margin-top:26px;margin-bottom:2px;}
+  .freq .copy .mini-wave{order:10;}
+
   /* The two CTAs in a split section are a wrapping flex row, so on a phone
      they drop onto separate lines at their own natural widths — "Our Story"
      short, "Meet Heather & Timmi" long — and the column reads as ragged
