@@ -1741,7 +1741,11 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
       <p>Chosen by hand and photographed as it arrives.</p>
     </div>
     <div class="store-grid" id="store-grid"></div>
-    <div class="store-more"><a class="btn btn-ghost" href="gems/">Shop all crystals</a></div>
+    <!-- An outlined rectangle on its own in a field of cream, which is the most
+         boring shape a page can end a section with. The same page already has a
+         quieter pattern for exactly this job - the arrow link that closes the
+         intention grid - so this uses it rather than inventing a third style. -->
+    <div class="store-more"><a class="link" href="gems/">Shop all crystals <span class="a">&rarr;</span></a></div>
   </div>
 </section>
 
@@ -1800,7 +1804,13 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
      is the one that moves. It is still their wording: COPY.md calls this
      section "Ways to begin", and that is the title promoted into the H2
      rather than a sentence invented here. -->
-    <div class="head reveal"><span class="eyebrow">Four ways in</span><h2>Ways to begin.</h2></div>
+    <!-- The eyebrow said "Four ways in" over a headline reading "Ways to begin",
+         which is the same sentence twice in two type sizes - an echo I introduced
+         when the headline changed. The four cards below already announce
+         themselves, so the count was doing no work. Dropping the eyebrow fixes
+         the repetition and gives this section a different silhouette from its
+         neighbours, which all open eyebrow-then-headline. -->
+    <div class="head reveal no-eyebrow"><h2>Ways to begin.</h2></div>
     <div class="ways">
       <div class="way reveal"><div class="thumb"><img src="assets/img/bracelets.jpg" alt="Stacked crystal bracelets on a wrist"></div>
         <h3><em>Wear</em> it.</h3><p>Jewelry that keeps the intention close, all day.</p>
