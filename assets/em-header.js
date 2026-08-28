@@ -134,6 +134,12 @@ var css=[
 '.emh-menu-foot a.bag{color:'+P.soft+';}',
 '.emh-menu-foot > *:hover{color:'+P.copper+';}',
 'body.emh-open{overflow:hidden;}',
+/* overflow:hidden on <body> locks nothing here: the scrolling element is
+   <html>, so with the menu open the page went right on scrolling behind
+   it. The root has to be held too. :has() covers browsers that have it
+   and set() below sets the same property directly for those that do not,
+   which also keeps the scroll position from being lost on iOS. */
+'html:has(body.emh-open){overflow:hidden;}',
 '.emh-foot{background:'+P.footbg+';border-top:1px solid '+P.line+';font-family:"Instrument Sans",sans-serif;}',
 '.emh-foot-in{max-width:1240px;margin:0 auto;padding:44px clamp(20px,4vw,44px) 30px;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;}',
 '.emh-foot .emh-logo{height:30px;}',
@@ -273,7 +279,9 @@ function boot(){
     });
   }
 
-  function set(o){menu.classList.toggle('open',o);document.body.classList.toggle('emh-open',o);burger.setAttribute('aria-expanded',o?'true':'false');}
+  function set(o){menu.classList.toggle('open',o);document.body.classList.toggle('emh-open',o);
+    document.documentElement.style.overflow=o?'hidden':'';
+    burger.setAttribute('aria-expanded',o?'true':'false');}
   burger.addEventListener('click',function(){set(true);});
   close.addEventListener('click',function(){set(false);});
   menu.querySelectorAll('nav a').forEach(function(a){a.addEventListener('click',function(){set(false);});});
