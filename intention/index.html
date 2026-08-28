@@ -97,6 +97,28 @@
   text-transform:uppercase;color:var(--stone);border:1px solid var(--hair);
   border-radius:4px;min-height:40px;margin-top:10px;display:flex;align-items:center;
   justify-content:center}
+
+/* Compact cards on a phone.
+
+   A card was 169x332 in a 169px column: a square photo frame, a name over two
+   lines, a category, a price and a full-width button. Six of them filled
+   three screens on the homepage, and 122 of them filled twenty-three on the
+   shop. The photograph does not need to be a product page — it needs to be
+   recognisable at a glance and let the next row up onto the screen.
+
+   4/3 frame instead of 1/1, tighter padding, smaller type, a shorter button.
+   Everything still clears the 44px tap target except the Add control, which
+   drops to 38 — still above the 24px minimum and inside a card whose whole
+   face is a link to the product anyway. */
+@media (max-width:560px){
+  .qwrap{padding:9px 9px 10px;border-radius:8px;}
+  .icard .sim{aspect-ratio:4/3;padding:5%;}
+  .icard b{font-size:11.5px;line-height:1.28;margin-top:9px;min-height:2.4em;}
+  .icard .sg{font-size:8.5px;}
+  .icard .sp{font-size:14px;padding-top:5px;}
+  .qadd{min-height:38px;font-size:10px;margin-top:7px;}
+  .qsold{min-height:38px;font-size:9px;margin-top:7px;}
+}
 </style>
 </head><body>
 <main>

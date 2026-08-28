@@ -545,7 +545,25 @@ body.menu-open{overflow:hidden;}
   /* Seventeen sections, each with --step top and bottom, is ~3,000px of pure
      padding on a phone before a single word is counted. The rhythm can be
      tighter at this width without the sections running together. */
-  :root{--step:clamp(56px,9vw,110px);}
+  /* The skins set --step on ":root, :root[data-skin=ivory]", which is
+     specificity (0,1,1); a plain ":root" here is (0,1,0) and lost silently,
+     so sections went on padding 100px top and bottom on a phone while this
+     rule looked like it was doing something. Matching all four selectors is
+     what makes it apply.
+
+     56px top and bottom gives ~112px between sections, where the page was
+     running up to 208px. */
+  /* The two CTAs in a split section are a wrapping flex row, so on a phone
+     they drop onto separate lines at their own natural widths — "Our Story"
+     short, "Meet Heather & Timmi" long — and the column reads as ragged
+     rather than as a pair. One column, equal width, label centred. */
+  .split .copy .cta-row{display:grid;grid-template-columns:1fr;gap:10px;margin-top:22px;}
+  .split .copy .cta-row .btn{width:100%;justify-content:center;text-align:center;}
+
+  :root,
+  :root[data-skin="ivory"],
+  :root[data-skin="midnight"],
+  :root[data-skin="sage"]{--step:clamp(52px,9vw,72px);}
 }
 .hero-copy{max-width:min(680px,46ch);padding-block:0;}
 .hero .eyebrow{color:var(--hero-accent);display:block;overflow:hidden;}
@@ -1450,6 +1468,27 @@ h1 > .s, h2 > .s{display:block;text-wrap:balance}
    with. Capped at 100% so it can never outrun its column. */
 h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 
+/* Compact cards on a phone.
+
+   A card was 169x332 in a 169px column: a square photo frame, a name over two
+   lines, a category, a price and a full-width button. Six of them filled
+   three screens on the homepage, and 122 of them filled twenty-three on the
+   shop. The photograph does not need to be a product page — it needs to be
+   recognisable at a glance and let the next row up onto the screen.
+
+   4/3 frame instead of 1/1, tighter padding, smaller type, a shorter button.
+   Everything still clears the 44px tap target except the Add control, which
+   drops to 38 — still above the 24px minimum and inside a card whose whole
+   face is a link to the product anyway. */
+@media (max-width:560px){
+  .pcard{padding:9px 9px 11px;border-radius:8px;}
+  .pcard .shot{aspect-ratio:4/3;max-height:none;}
+  .pcard .pn{font-size:12.5px;line-height:1.28;}
+  .pcard .pc{font-size:8.5px;}
+  .pcard .pp{font-size:14px;}
+  .pcard .padd{min-height:38px;font-size:10px;}
+  .store-grid{gap:10px;}
+}
 </style>
 
 
