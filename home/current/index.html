@@ -34,7 +34,7 @@
 @font-face{font-family:'Instrument Sans';src:url(../../assets/fonts/instrument_500.woff2) format('woff2');font-weight:500;font-display:swap}
 @font-face{font-family:'Instrument Sans';src:url(../../assets/fonts/instrument_600.woff2) format('woff2');font-weight:600;font-display:swap}
 :root{
-  --bgc:#FBF8F2; --tc:#1D2739; --tc-soft:#4E5A70; --line:#A9683E; --glowo:0;
+  --bgc:#FBF8F2; --tc:#1D2739; --tc-soft:#4E5A70; --line:#985E38; --glowo:0;
   --logo-body:#152445;
   --serif:'Fraunces',Georgia,serif; --sans:'Instrument Sans',-apple-system,sans-serif;
 }
@@ -141,17 +141,17 @@ p{text-wrap:pretty}
    five times in a row across a row of five different feelings. Each card
    names its own verb instead — the thing that card is actually offering. */
 .c3 a::after{content:"Ground \2192";position:absolute;left:0;right:0;bottom:11px;
-  font:700 9.5px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:#A9683E;
+  font:700 9.5px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:#985E38;
   opacity:.75;transition:opacity .25s,transform .25s}
 .c3 a:nth-child(2)::after{content:"Open \2192"}
 .c3 a:nth-child(3)::after{content:"Soften \2192"}
 .c3 a:nth-child(4)::after{content:"Settle \2192"}
 .c3 a:nth-child(5)::after{content:"Clear \2192"}
-.c3 a:hover{--hovy:-4px;border-color:#A9683E;background:#fff;
+.c3 a:hover{--hovy:-4px;border-color:#985E38;background:#fff;
   box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 4px 10px rgba(61,41,23,.12),0 22px 44px rgba(169,104,62,.24)}
 .c3 a:hover::after{opacity:1;transform:translateX(3px)}
 .c3 a:active{--hovy:-1px}
-.c3 a i{font-style:normal;display:block;font:700 9px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:#8D8778}
+.c3 a i{font-style:normal;display:block;font:700 9px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:#6D695D}
 .c4{left:clamp(20px,7vw,110px);bottom:9svh}
 .c4 h2{font-size:clamp(26px,3.4vw,44px)}
 .c4 .hz{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4.6vw,58px);color:var(--line);margin-top:6px;font-variant-numeric:tabular-nums}
@@ -200,13 +200,13 @@ p{text-wrap:pretty}
   border:1px solid rgba(169,104,62,.28);border-bottom:none;
   border-radius:16px 16px 0 0;box-shadow:0 -10px 40px rgba(61,41,23,.16);}
 .peek-hd{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:11px;}
-.peek-hd b{font:700 10px var(--sans);letter-spacing:.24em;text-transform:uppercase;color:#A9683E;}
+.peek-hd b{font:700 10px var(--sans);letter-spacing:.24em;text-transform:uppercase;color:#985E38;}
 .peek-hd a{font:700 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#1D2739;
-  border-bottom:1px solid #A9683E;padding-bottom:2px;}
+  border-bottom:1px solid #985E38;padding-bottom:2px;}
 .peek-row{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(8px,1.4vw,16px);}
 .peek-i{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:10px;min-width:0;
   background:#fff;border:1px solid #EAE3D6;transition:border-color .2s,transform .2s;}
-.peek-i:hover{border-color:#A9683E;transform:translateY(-2px);}
+.peek-i:hover{border-color:#985E38;transform:translateY(-2px);}
 .peek-i img{width:42px;height:42px;object-fit:contain;flex:none;}
 /* name over price — as inline spans they ran together ("Tiger's Eye$39.88") */
 .peek-i .t{display:flex;flex-direction:column;min-width:0;gap:2px;}
@@ -236,12 +236,12 @@ p{text-wrap:pretty}
   background:linear-gradient(120deg,rgba(169,104,62,.09),transparent 62%);}
 .cpromo .in{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(22px,4vw,60px);align-items:center;}
 .cpromo .tag{display:inline-flex;font:700 10px var(--sans);letter-spacing:.24em;text-transform:uppercase;
-  color:#fff;background:#A9683E;border-radius:100px;padding:6px 13px;}
+  color:#fff;background:#985E38;border-radius:100px;padding:6px 13px;}
 .cpromo h2{font-size:clamp(26px,3.3vw,44px);margin-top:14px;}
 .cpromo p{margin-top:10px;color:#4E5A70;max-width:44ch;font-size:15px;}
 .cpromo .row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:20px;}
 .cpromo .price{font-family:var(--serif);font-weight:300;font-size:25px;color:#8F5330;}
-.cpromo .price s{font-size:.62em;color:#8D8778;margin-right:8px;}
+.cpromo .price s{font-size:.62em;color:#6D695D;margin-right:8px;}
 .cpromo .art{position:relative;display:flex;align-items:center;justify-content:center;}
 .cpromo .art img{width:min(72%,290px);border-radius:10px;
   filter:drop-shadow(0 14px 28px rgba(61,41,23,.22));}
@@ -249,33 +249,33 @@ p{text-wrap:pretty}
 /* store */
 .cstore{border-top:1px solid #E4DCCB;padding:clamp(40px,5.2vw,70px) 0;}
 .cstore .hd{text-align:center;margin-bottom:clamp(24px,3vw,38px);}
-.cstore .eyebrow{display:block;font:700 10px var(--sans);letter-spacing:.26em;text-transform:uppercase;color:#A9683E;}
+.cstore .eyebrow{display:block;font:700 10px var(--sans);letter-spacing:.26em;text-transform:uppercase;color:#985E38;}
 .cstore h2{font-size:clamp(26px,3.3vw,42px);margin-top:10px;}
 .cstore .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.6vw,22px);}
 .cpc{display:flex;flex-direction:column;background:#fff;border:1px solid #E4DCCB;border-radius:12px;
   padding:16px 16px 14px;transition:transform .3s cubic-bezier(.16,1,.3,1),border-color .3s;}
-.cpc:hover{transform:translateY(-4px);border-color:#A9683E;box-shadow:0 14px 34px rgba(61,41,23,.12);}
+.cpc:hover{transform:translateY(-4px);border-color:#985E38;box-shadow:0 14px 34px rgba(61,41,23,.12);}
 .cpc .shot{aspect-ratio:1;display:flex;align-items:center;justify-content:center;margin-bottom:12px;
   /* a flex item defaults to min-height:auto, so a tall stone overrode the
      square and every card came out a different height */
   flex:none;min-height:0;overflow:hidden;}
 .cpc .shot img{max-width:76%;max-height:76%;width:auto;height:auto;object-fit:contain;}
 .cpc .pn{font-family:var(--serif);font-weight:400;font-size:17px;color:#1D2739;line-height:1.2;}
-.cpc .pc{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#8D8778;margin-top:4px;}
+.cpc .pc{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#6D695D;margin-top:4px;}
 .cpc .pf{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:12px;}
 .cpc .pp{font-family:var(--serif);font-size:18px;color:#1D2739;}
 .cpc .padd{font:700 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
   border:1px solid rgba(29,39,57,.28);background:transparent;color:#1D2739;border-radius:100px;padding:9px 14px;
   transition:background .2s,border-color .2s,color .2s;}
-.cpc .padd:hover{background:#A9683E;border-color:#A9683E;color:#fff;}
+.cpc .padd:hover{background:#985E38;border-color:#985E38;color:#fff;}
 .cstore .more{display:flex;justify-content:center;margin-top:clamp(22px,2.6vw,34px);}
 .cstore .more a{font:700 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#1D2739;
   border:1px solid rgba(29,39,57,.28);border-radius:100px;padding:13px 26px;}
-.cstore .more a:hover{border-color:#A9683E;color:#A9683E;}
+.cstore .more a:hover{border-color:#985E38;color:#985E38;}
 
 /* email */
 .csub{border-top:1px solid #E4DCCB;padding:clamp(34px,4.4vw,58px) 0;
-  background:color-mix(in srgb,#A9683E 4%,transparent);}
+  background:color-mix(in srgb,#985E38 4%,transparent);}
 .csub .in{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(18px,3vw,44px);align-items:center;}
 .csub h2{font-size:clamp(21px,2.5vw,30px);}
 /* centred text breaks worst of all when it is unbalanced — a short second
@@ -348,7 +348,7 @@ html.static .fallback{display:block}
    stops the name being split across two lines. */
 .cpromo h2,.promo h2{line-height:1.06;}
 .cpromo h2 .in-cu,.promo h2 .in-cu{display:block;font-size:.44em;font-style:italic;
-  letter-spacing:.005em;color:#A9683E;margin-top:.36em;}
+  letter-spacing:.005em;color:#985E38;margin-top:.36em;}
 
 
 /* The bar gets out of the way going down and comes back the moment you turn
@@ -401,7 +401,7 @@ html.static .fallback{display:block}
    its own size, angle and height, so it never repeats a shape you have
    already seen. */
 .wavehint{position:absolute;left:50%;pointer-events:none;z-index:0;
-  width:min(1600px,168%);color:var(--copper,#A9683E);opacity:.085;}
+  width:min(1600px,168%);color:var(--copper,#985E38);opacity:.085;}
 .wavehint svg{width:100%;height:auto;display:block;overflow:visible;}
 .wavehint path{fill:none;stroke:currentColor;stroke-width:1;vector-effect:non-scaling-stroke;}
 .wavehint path:nth-child(2){opacity:.6}
@@ -799,7 +799,7 @@ function frame(p,t){
                 [.66,'#0B1320'],[.74,'#4A4A52'],[.83,'#D9CDBB'],[.90,'#FBF8F2']],p);
   var tc=grade([[0,'#1D2739'],[.46,'#1D2739'],[.56,'#F1EADF'],[.76,'#F1EADF'],[.86,'#1D2739']],p);
   var ts=grade([[0,'#4E5A70'],[.46,'#5A5648'],[.56,'#AEB9C8'],[.76,'#AEB9C8'],[.86,'#4E5A70']],p);
-  var lc=grade([[0,'#A9683E'],[.46,'#B87A4B'],[.58,'#E0A878'],[.78,'#E0A878'],[.88,'#A9683E']],p);
+  var lc=grade([[0,'#985E38'],[.46,'#B87A4B'],[.58,'#E0A878'],[.78,'#E0A878'],[.88,'#985E38']],p);
   var lb=grade([[0,'#152445'],[.50,'#152445'],[.60,'#C6BFB2'],[.78,'#C6BFB2'],[.88,'#152445']],p);
   var glow=win(p,.34,.52)*.9*(1-win(p,.70,.84));
   var st=document.documentElement.style;
@@ -1058,8 +1058,8 @@ function frame(p,t){
     if(op>.02)GLOW.push([new Path2D(d),op]);
     var baseW=(k===2? lerp(1.6,2.2,Math.max(lineBack*.55,ringT)) : 1.4);
     path.style.strokeWidth = mk? lerp(2.1,baseW,morph).toFixed(2) : baseW;
-    var REST={1:'#A9683E',2:'#C08356',3:'#35907B'};
-    path.style.stroke = (mk&&morph<1)? mix(REST[k],'#A9683E',morph) : '';
+    var REST={1:'#985E38',2:'#C08356',3:'#35907B'};
+    path.style.stroke = (mk&&morph<1)? mix(REST[k],'#985E38',morph) : '';
   }
   /* Behind the generator: not the closed rings that were here before, which
      read as a radar dish. These are open arcs on the plane in front of it —

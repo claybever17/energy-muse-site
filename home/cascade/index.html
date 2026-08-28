@@ -28,10 +28,10 @@
 @font-face{font-family:'Instrument Sans';src:url(../../assets/fonts/instrument_600.woff2) format('woff2');font-weight:600;font-display:swap}
 :root{
   --paper:#FBF8F2; --surface:#FFFFFF; --ink:#1D2739; --ink-soft:#4E5A70;
-  --stone:#8D8778; --copper:#A9683E; --hair:#E4DCCB;
+  --stone:#6D695D; --copper:#985E38; --hair:#E4DCCB;
   --serif:'Fraunces',Georgia,serif; --sans:'Instrument Sans',system-ui,sans-serif;
   /* the tuning: every one of these is driven by the dial */
-  --tone:#A9683E; --tone-soft:#EBD9C9; --room:#FBF8F2;
+  --tone:#985E38; --tone-soft:#EBD9C9; --room:#FBF8F2;
 }
 *{box-sizing:border-box;margin:0}
 body{background:var(--room);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;
@@ -136,6 +136,14 @@ img{display:block;max-width:100%}
   transition:width .5s cubic-bezier(.16,1,.3,1),background-color .6s}
 .stops{display:flex;justify-content:space-between;margin-top:-9px}
 .stop{position:relative;width:34px;height:34px;display:grid;place-items:center;border-radius:50%}
+/* The dial reads as not working on a phone because the target is 26px wide with
+   a 9px dot inside it - nothing is blocking the tap and the handler is fine, the
+   thumb is simply missing. This gives each stop a 44px hit area without moving
+   anything you can see: the dot and its label stay exactly where they were. The
+   stops sit on a 53px pitch at 375, so 44px squares centred on them do not
+   overlap and the wrong frequency cannot be selected by accident. */
+.stop::after{content:"";position:absolute;top:50%;left:50%;
+  width:44px;height:44px;transform:translate(-50%,-50%)}
 .stop i{width:9px;height:9px;border-radius:50%;background:var(--hair);display:block;
   transition:transform .35s cubic-bezier(.16,1,.3,1),background-color .35s}
 .stop:hover i{transform:scale(1.35);background:color-mix(in srgb,var(--tone) 60%,var(--hair))}
@@ -397,6 +405,42 @@ img{display:block;max-width:100%}
 .room.isfirst{padding-top:clamp(8px,2.2vh,26px)}
 .state{border-top:1px solid #E4DCCB}
 @media (max-width:860px){.room.isfirst{padding-top:10px}}
+
+/* The dial sells one generator, and the obvious next question - what if I want
+   the set - had no answer on this page. The Formulas are that answer and they
+   are real products: three generators tuned to work in sequence, in the display
+   case that houses them as one piece. Two of them, so this is a pair and not a
+   grid; the photograph carries it and there is no card around either one. */
+.trio{position:relative;max-width:1400px;margin:0 auto;
+  padding:clamp(30px,4.4vw,56px) clamp(16px,3.4vw,40px);border-top:1px solid var(--hair)}
+.thead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.thead h2{font-family:var(--serif);font-weight:300;font-size:clamp(21px,2.7vw,31px)}
+.thead a{font:600 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;border-bottom:1px solid var(--hair);padding-bottom:3px;
+  transition:color .25s,border-color .25s}
+.thead a:hover{color:var(--tone);border-color:var(--tone)}
+.tlede{margin-top:10px;max-width:62ch;color:var(--ink-soft);font:400 15px/1.6 var(--sans)}
+.trios{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,3vw,44px);
+  margin-top:clamp(22px,3vw,34px)}
+.trioc{display:grid;grid-template-columns:clamp(96px,13vw,148px) minmax(0,1fr);
+  column-gap:clamp(14px,1.8vw,22px);align-items:center;
+  text-decoration:none;color:inherit}
+.tshot{grid-row:1/span 3;background:var(--surface);border-radius:4px;overflow:hidden;
+  aspect-ratio:1;display:grid;place-items:center}
+.tshot img{width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.trioc:hover .tshot img{transform:scale(1.04)}
+.tn{font:600 10px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--stone)}
+.trioc strong{font-family:var(--serif);font-weight:400;font-size:clamp(17px,1.7vw,21px);
+  line-height:1.15;margin-top:5px;transition:color .25s}
+.trioc:hover strong{color:var(--tone)}
+.tp{font-family:var(--serif);font-size:16px;color:var(--tone);margin-top:6px}
+.trioc:focus-visible{outline:2px solid var(--tone);outline-offset:4px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){.tshot img{transition:none}.trioc:hover .tshot img{transform:none}}
+@media (max-width:700px){
+  .trios{grid-template-columns:1fr;gap:20px}
+  .trioc{grid-template-columns:88px minmax(0,1fr)}
+}
 </style>
 <script>
 (function(){
@@ -470,6 +514,35 @@ img{display:block;max-width:100%}
     <div class="device" id="device">
       <img id="genimg" src="../../assets/img/generators/528.png" alt="528Hz Frequency Generator">
       <img id="genimg2" src="../../assets/img/generators/528.png" alt="" aria-hidden="true">
+    </div>
+  </section>
+
+  <!-- Placed here on Clay's call: directly under the dial, where "add the
+       generator" has just been offered and "what if I want all three" is the
+       next thing a reader thinks. Both products, both prices and the contents
+       line are Energy Muse's own, from the catalogue. -->
+  <section class="trio">
+    <div class="thead">
+      <h2>Or take all three at once.</h2>
+      <a href="../../systems/">See the Frequency Systems &rarr;</a>
+    </div>
+    <p class="tlede">A Formula is three generators tuned to work in sequence, a display case that
+      houses them as one piece, and a canvas bag to carry them.</p>
+    <div class="trios">
+      <a class="trioc" href="../../product/?id=formula-home">
+        <span class="tshot"><img src="../../assets/img/sets/formula-home.webp"
+          alt="Harmonious Home Frequency Formula" loading="lazy"></span>
+        <span class="tn">For the living room</span>
+        <strong>Harmonious Home Frequency Formula</strong>
+        <span class="tp">$299.88</span>
+      </a>
+      <a class="trioc" href="../../product/?id=formula-sleep">
+        <span class="tshot"><img src="../../assets/img/sets/formula-sleep.webp"
+          alt="Restorative Sleep Frequency Formula" loading="lazy"></span>
+        <span class="tn">For the bedroom</span>
+        <strong>Restorative Sleep Frequency Formula</strong>
+        <span class="tp">$299.88</span>
+      </a>
     </div>
   </section>
 
@@ -596,7 +669,7 @@ function drawWave(t){
   if(!W)return;
   shown+=(cur-shown)*0.08;
   wx.clearRect(0,0,W,H);
-  var tone=getComputedStyle(root).getPropertyValue('--tone').trim()||'#A9683E';
+  var tone=getComputedStyle(root).getPropertyValue('--tone').trim()||'#985E38';
   /* cycles across the panel rise with the tuning — the picture of pitch */
   var cycles=0.9+shown*0.62;
   for(var k=0;k<3;k++){
@@ -787,7 +860,7 @@ addEventListener('storage',syncBag); setInterval(syncBag,700); syncBag();
     var t=(performance.now()-t0)/1000;
     if(!W)size();
     x.clearRect(0,0,W,H);
-    x.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--copper').trim()||'#A9683E';
+    x.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--copper').trim()||'#985E38';
     x.lineCap='round';
     for(var i=0;i<RS.length;i++){
       var f=i/(RS.length-1);
@@ -800,7 +873,7 @@ addEventListener('storage',syncBag); setInterval(syncBag,700); syncBag();
   }
   addEventListener('resize',size);
   if(matchMedia('(prefers-reduced-motion:reduce)').matches){size();
-    var t=0;x.strokeStyle='#A9683E';for(var i=0;i<RS.length;i++){var f=i/(RS.length-1);
+    var t=0;x.strokeStyle='#985E38';for(var i=0;i<RS.length;i++){var f=i/(RS.length-1);
       ring(W/2,H/2,Math.min(W,H)*.46*(1-f*.30),RS[i][0],RS[i][1],1.5+f*1.4,0,.30-f*.19,1.05-f*.34);}}
   else requestAnimationFrame(frame);
   }
