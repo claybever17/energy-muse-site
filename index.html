@@ -1378,13 +1378,25 @@ p{text-wrap:pretty;}
    rendering fault rather than as a drawing. They fade out toward their own
    edges now, over a wide enough band that they have gone before the clip
    reaches them, and what is left is a curve dissolving into the paper. */
-.sinemark{-webkit-mask-image:radial-gradient(115% 115% at 50% 50%,#000 38%,rgba(0,0,0,.55) 66%,transparent 92%);
-  mask-image:radial-gradient(115% 115% at 50% 50%,#000 38%,rgba(0,0,0,.55) 66%,transparent 92%);}
+/* The fade has to finish INSIDE the drawing, not at its edge. The old mask ran
+   its gradient over 115% of the element and only reached full transparency at
+   92% of that - so at the element's own edge the curve was still better than
+   half opaque, and the section's overflow:clip cut it there as a hard straight
+   line. These run up to 165px past a section boundary, which on the tallest of
+   them is 30% of its height, so the gradient is transparent by 70% now and the
+   curve has dissolved before any edge reaches it. */
+.sinemark{-webkit-mask-image:radial-gradient(100% 100% at 50% 50%,#000 16%,rgba(0,0,0,.42) 40%,transparent 62%);
+  mask-image:radial-gradient(100% 100% at 50% 50%,#000 16%,rgba(0,0,0,.42) 40%,transparent 62%);}
 .sinemark path{fill:none;stroke:currentColor;stroke-width:1.1;vector-effect:non-scaling-stroke;}
 .sinemark path:nth-child(2){opacity:.62;}
 .sinemark path:nth-child(3){opacity:.4;}
 .sinemark.a{top:12%;transform:translateX(-52%) rotate(-2.4deg);}
-.sinemark.b{top:58%;transform:translateX(-44%) rotate(1.8deg) scaleY(1.5);opacity:.10;}
+/* b was the one the mask could not save. At top:58% and translateX(-44%) it
+   hung 165px below its section and 130px past the right edge, so the clip
+   was cutting it at 39% of its own extent - long before any fade could
+   finish. Centred horizontally and lifted, it now sits inside the section
+   and the mask does the rest. */
+.sinemark.b{top:18%;transform:translateX(-50%) rotate(1.8deg) scaleY(1.5);opacity:.10;}
 .sinemark.c{top:26%;transform:translateX(-58%) rotate(-1.1deg) scaleY(.7);opacity:.15;}
 .sinemark.d{top:44%;transform:translateX(-40%) rotate(3.1deg) scaleY(1.2) scaleX(-1);opacity:.11;}
 /* the content has to sit above it */
@@ -1398,7 +1410,14 @@ p{text-wrap:pretty;}
    still works. */
 .section:has(.sinemark){overflow:clip;}
 .section > .wrap{position:relative;z-index:1;}
-@media (max-width:840px){.sinemark{opacity:.09;width:210%;}}
+/* How far these hang past their section depends on the viewport, because the
+   width is a fixed 1500px ceiling: on a 1440 desktop that is a modest bleed, on
+   a 1024 laptop it is a third of the drawing outside the box, and at 210% on a
+   phone the section was cutting it at a third of its own extent - far too early
+   for any fade to have finished. Narrowing the mark on smaller screens keeps
+   the overhang proportional, so one mask setting works everywhere. */
+@media (min-width:841px) and (max-width:1199px){.sinemark{width:min(1200px,125%);}}
+@media (max-width:840px){.sinemark{opacity:.09;width:130%;}}
 @media (prefers-reduced-motion:no-preference){
   .sinemark{animation:sineDrift 34s ease-in-out infinite alternate;}
   .sinemark.b{animation-duration:44s;animation-delay:-8s;}
