@@ -1640,8 +1640,12 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
    floats against the top of the button. */
 .cta-row-lead{align-items:center;gap:12px 22px;}
 @media (max-width:560px){
-  .cta-row-lead{flex-direction:column;align-items:flex-start;gap:16px;}
-  .cta-row-lead .btn{width:100%;}
+  /* This asked for a column and ranged the items left. But "#jewelry .cta-row"
+     is an id and forces the direction back to row, so only the alignment
+     survived - which left the link sitting 15px above the button's centre while
+     the desktop had it centred correctly. Centred at every width now; the row
+     never actually becomes a column here. */
+  .cta-row-lead{align-items:center;gap:12px 18px;}
 }
 
 /* The two columns of a split were top-aligned, which is right only while they
