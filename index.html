@@ -1369,6 +1369,14 @@ p{text-wrap:pretty;}
 .sinemark{position:absolute;pointer-events:none;z-index:0;color:var(--copper);
   width:min(1500px,150%);left:50%;opacity:.13;}
 .sinemark svg{width:100%;height:auto;display:block;overflow:visible;}
+/* The curves are drawn wider and taller than the sections that hold them -
+   between 66 and 269px past an edge - and ".section:has(.sinemark)" clips to
+   the section, so each one ended at a hard straight line that read as a
+   rendering fault rather than as a drawing. They fade out toward their own
+   edges now, over a wide enough band that they have gone before the clip
+   reaches them, and what is left is a curve dissolving into the paper. */
+.sinemark{-webkit-mask-image:radial-gradient(115% 115% at 50% 50%,#000 38%,rgba(0,0,0,.55) 66%,transparent 92%);
+  mask-image:radial-gradient(115% 115% at 50% 50%,#000 38%,rgba(0,0,0,.55) 66%,transparent 92%);}
 .sinemark path{fill:none;stroke:currentColor;stroke-width:1.1;vector-effect:non-scaling-stroke;}
 .sinemark path:nth-child(2){opacity:.62;}
 .sinemark path:nth-child(3){opacity:.4;}
@@ -1592,6 +1600,19 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   .cta-row-lead{flex-direction:column;align-items:flex-start;gap:16px;}
   .cta-row-lead .btn{width:100%;}
 }
+
+/* The two columns of a split were top-aligned, which is right only while they
+   are about the same height. They are not: on a 1440 the frequency copy runs
+   519px against a 360px device, and the founders copy 442 against 378. Aligned
+   to the top, the whole of that difference collects underneath the photograph
+   as a single pool of dead space - which is what Clay saw in both sections.
+
+   Centred, the difference is split above and below, so the photograph sits
+   against its copy instead of hanging from the top of it. Desktop only: on a
+   phone the two are stacked and there is nothing to align. */
+@media (min-width:841px){
+  .split{align-items:center;}
+}
 </style>
 
 
@@ -1803,10 +1824,12 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
       <svg class="mini-wave" viewBox="0 0 190 22" aria-hidden="true" focusable="false">
         <path d="M0,11 C24,1 47,21 71,11 S118,1 142,11 S166,21 190,11"/>
       </svg>
+      <!-- Where to put one - the desk, the bedside - is what /frequency/ is for:
+           every generator there carries its own placement line. Two sentences is
+           what this column can hold beside the device without running past it. -->
       <p>Energy Muse frequency generators are where wellness meets tech. These devices are
-        precision-crafted to emit specific frequencies, so you&rsquo;re always in control of how your
-        space feels. Whether it&rsquo;s at your desk where you work or by your bed where you sleep,
-        we help you find the right frequency device to accomplish your personal wellness goals.</p>
+        precision-crafted to emit specific frequencies, so you&rsquo;re always in control of how
+        your space feels.</p>
       <!-- One call. Both buttons pointed at the same page after the shop link
            was given a real destination, and two identical destinations is one
            button too many. /frequency/ carries the shop, the routine, what
@@ -1926,7 +1949,11 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
       <span class="eyebrow">Twenty years of knowing</span>
       <h2>For more than two decades, helping people live better.</h2>
       <p class="lede-m">Energy is invisible &mdash; which is exactly why it&rsquo;s so easy to overlook.</p>
-      <p>But small shifts in your energy can lead to the biggest transformations in your life. Energy Muse began with one necklace and a simple belief: your energy deserves to be a priority. Your energy is the muse. For more than two decades, founders Heather Askinosie and Timmi Jandro have turned that belief into intentional products and education &mdash; helping you live in the energy you want, and feel your best every day.</p>
+      <!-- The remaining four sentences - the necklace, the belief, the founders by
+           name - are told at greater length on /about/, which is where the button
+           under this goes. Carrying them here as well made a column so much taller
+           than the photograph beside it that the section ended in dead space. -->
+      <p>But small shifts in your energy can lead to the biggest transformations in your life.</p>
       <!-- Two buttons that read as the same errand, and /about/ carries a link
            to Heather twice over, so the second one was asking for a click to
            reach something the first click already offers. -->
