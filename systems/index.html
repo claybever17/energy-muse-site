@@ -18,7 +18,7 @@
 <meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
-<link rel="stylesheet" href="/assets/em-page.css?v=7">
+<link rel="stylesheet" href="/assets/em-page.css?v=8">
 <script src="/assets/em-frequencies.js?v=4"></script>
 <script src="/assets/em-header.js?v=19" defer></script>
 <script src="/assets/em-bag.js?v=5" defer></script>
@@ -47,7 +47,13 @@
 .fcell .room{display:block;font-family:var(--sans);font-weight:600;font-size:10.5px;
   letter-spacing:.22em;text-transform:uppercase;color:var(--copper);margin-bottom:9px}
 .fcell .arch{list-style:none;margin-top:18px;display:grid;gap:0;border-top:1px solid var(--hair)}
-.fcell .arch li{display:grid;grid-template-columns:auto 1fr;column-gap:14px;row-gap:3px;
+/* A fixed first column, not auto. Each row is its own grid, so "auto" sized
+   column one to that row's own word - CLEAR, STABILIZE and DIRECT are three
+   different widths, so the three frequencies underneath each other started at
+   three different places. The whole point of setting them as a stepped list is
+   that you can read down the numbers. */
+.fcell .arch li{display:grid;grid-template-columns:clamp(62px,6.4vw,84px) minmax(0,1fr);
+  column-gap:14px;row-gap:3px;
   padding:13px 0;border-bottom:1px solid var(--hair);align-items:baseline}
 .fcell .step{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.2em;
   text-transform:uppercase;color:var(--stone);grid-column:1;align-self:center}
@@ -142,7 +148,7 @@
       each other to support your wellness journey. Here are some of our founder favorites.</p>
     <div class="cta-row">
       <a class="btn btn-copper" href="#formulas">Shop the Formulas</a>
-      <a class="btn btn-ghost" href="/frequency/">Shop Generators</a>
+      <a class="em-link" href="/frequency/">Shop Generators <span class="a" aria-hidden="true">&rarr;</span></a>
     </div>
   </div>
 </section>
@@ -177,7 +183,7 @@
     </ol>
     <div class="cta-row">
       <a class="btn btn-copper" href="/quiz/">Find My Frequency Generator</a>
-      <a class="btn btn-ghost" href="/sets/">Crystal Kits &amp; Sets</a>
+      <a class="em-link" href="/sets/">Crystal Kits &amp; Sets <span class="a" aria-hidden="true">&rarr;</span></a>
     </div>
   </div>
 </section>
