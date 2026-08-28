@@ -492,8 +492,13 @@ document.getElementById('r-again').addEventListener('click',()=>{state.step=0;st
 document.getElementById('r-form').addEventListener('submit',e=>{
   e.preventDefault();
   const b=document.getElementById('r-send');
-  b.textContent='Saved ✓';b.disabled=true;b.style.opacity=.7; // prototype: no backend yet
+  const em=document.querySelector('#r-form input[type=email]');
+  if(em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((em.value||'').trim())){em.focus();return;}
+  /* routed through the site's single wire-up point rather than dropped */
+  if(window.EM_FORM)EM_FORM.send('quiz-result',{email:em?em.value.trim():''});
+  b.textContent='Saved ✓';b.disabled=true;b.style.opacity=.7;
 });
 </script>
+<script src="/assets/em-form.js?v=1" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
 </body></html>

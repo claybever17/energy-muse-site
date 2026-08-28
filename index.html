@@ -2046,7 +2046,11 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
       <h2>Personal guidance, made even more personal.</h2>
       <p>A personal healer in your pocket. Veza is the coming Energy Muse companion &mdash; here to help you
         find your energy match and learn how to use it well.</p>
-      <form class="veza-form" onsubmit="return false">
+      <!-- This was onsubmit="return false" with no handler behind it: a form that
+           looked real, accepted an address and silently discarded it. -->
+      <form class="veza-form emf-plain" data-emform="veza-waitlist-home"
+            data-done-title="You are on the list."
+            data-done="We will write when Veza is ready for its first testers." novalidate>
         <input type="email" placeholder="Email address" aria-label="Email address">
         <button class="btn btn-copper" type="submit">Join the Waitlist</button>
       </form>
@@ -2368,7 +2372,10 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   [].forEach.call(document.querySelectorAll('form[data-sub]'),function(fm){
     fm.addEventListener('submit',function(e){
       e.preventDefault();
-      var i=fm.querySelector('input'); if(!i||!i.value||i.value.indexOf('@')<0){i&&i.focus();return;}
+      var i=fm.querySelector('input');
+      if(!i||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((i.value||'').trim())){i&&i.focus();return;}
+      /* one wire-up point for every form on the site - see assets/em-form.js */
+      if(window.EM_FORM)EM_FORM.send('newsletter',{email:i.value.trim()});
       fm.innerHTML='<p class="sub-note" style="font-size:14px;color:var(--copper-lo);font-weight:600">'+
         'Thank you \u2014 check your inbox to confirm.</p>';
     });
@@ -2518,6 +2525,7 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 });
 </script>
 
+<script src="/assets/em-form.js?v=1" defer></script>
 <script src="assets/em-bag.js?v=5" defer></script>
 <script src="assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=7" defer></script>

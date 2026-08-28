@@ -18,7 +18,8 @@
 <meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
-<link rel="stylesheet" href="/assets/em-page.css?v=8">
+<link rel="stylesheet" href="/assets/em-page.css?v=9">
+<script src="/assets/em-form.js?v=1" defer></script>
 <script src="/assets/em-header.js?v=19" defer></script>
 <script src="/assets/em-bag.js?v=5" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
@@ -32,7 +33,7 @@
     <span class="eyebrow">Coming soon</span>
     <h1>Your Energy Muse guidance, made personal.</h1>
     <p class="lead">Veza is the coming companion designed to help you discover the tools that fit you, learn how to use them, and build a practice that evolves with your life.</p>
-    <div class="cta-row"><a class="btn btn-copper" href="/veza/">Join the Veza Waitlist</a></div>
+    <div class="cta-row"><a class="btn btn-copper" href="#waitlist">Join the Veza Waitlist</a></div>
   </div>
 </section>
 
@@ -67,7 +68,19 @@
   <div class="wrap narrow">
     <h2>Be first to experience Veza.</h2>
     <p>Join the waitlist for product updates, early previews, and launch access. No constant countdowns &mdash; just useful updates when there&rsquo;s something meaningful to share.</p>
-    <div class="cta-row"><a class="btn btn-copper" href="/veza/">Join the Waitlist</a></div>
+    <!-- Both waitlist buttons on this page linked to /veza/ - the page the
+         reader was already standing on. The form they were promising is here. -->
+    <form class="emf" id="waitlist" data-emform="veza-waitlist"
+          data-done-title="You are on the list."
+          data-done="We will write when Veza is ready for its first testers. Nothing else." novalidate>
+      <div class="emf-row">
+        <label for="vz-email">Email address</label>
+        <input id="vz-email" name="email" type="email" required autocomplete="email" placeholder="you@email.com">
+      </div>
+      <p class="emf-err" role="alert"></p>
+      <button class="btn btn-copper" type="submit" data-label="Join the Waitlist">Join the Waitlist</button>
+      <p class="emf-note">Early previews and launch access. No other mail, and you can leave at any time.</p>
+    </form>
   </div>
 </section>
 

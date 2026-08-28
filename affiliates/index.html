@@ -18,7 +18,8 @@
 <meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
-<link rel="stylesheet" href="/assets/em-page.css?v=8">
+<link rel="stylesheet" href="/assets/em-page.css?v=9">
+<script src="/assets/em-form.js?v=1" defer></script>
 <script src="/assets/em-header.js?v=19" defer></script>
 <script src="/assets/em-bag.js?v=5" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
@@ -155,6 +156,11 @@
     var badEm=!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim());
     mark(em,badEm); if(badEm)ok=false;
     if(!ok){ f.querySelector('.field.bad input').focus(); return; }
+    /* the same single wire-up point the rest of the site's forms use */
+    if(window.EM_FORM)EM_FORM.send('affiliate',{
+      name:document.getElementById('af-name').value.trim(),
+      email:document.getElementById('af-email').value.trim(),
+      where:document.getElementById('af-where').value.trim()});
     f.classList.add('done');
     f.querySelector('.sent').scrollIntoView({block:'center',behavior:
       matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});

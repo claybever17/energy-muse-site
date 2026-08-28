@@ -18,7 +18,8 @@
 <meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
-<link rel="stylesheet" href="/assets/em-page.css?v=8">
+<link rel="stylesheet" href="/assets/em-page.css?v=9">
+<script src="/assets/em-form.js?v=1" defer></script>
 <script src="/assets/em-header.js?v=19" defer></script>
 <script src="/assets/em-bag.js?v=5" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
@@ -56,7 +57,38 @@
     </div>
     <p class="note">More questions are answered in <a href="/faq/">How Energy Muse Works</a>.</p>
   </div>
-</section>
+
+    <!-- The section was headed "before you write in" and offered no way to write
+         in. It does now. -->
+    <form class="emf" data-emform="support"
+          data-done-title="Message received."
+          data-done="We answer within two working days. If it is about an order, quote the order number in your reply." novalidate>
+      <div class="emf-row">
+        <label for="sp-name">Your name</label>
+        <input id="sp-name" name="name" type="text" required autocomplete="name">
+      </div>
+      <div class="emf-row">
+        <label for="sp-email">Email address</label>
+        <input id="sp-email" name="email" type="email" required autocomplete="email" placeholder="you@email.com">
+      </div>
+      <div class="emf-row">
+        <label for="sp-topic">What is it about</label>
+        <select id="sp-topic" name="topic">
+          <option>Choosing a product</option>
+          <option>An order I have placed</option>
+          <option>Using something I own</option>
+          <option>Accessibility</option>
+          <option>Something else</option>
+        </select>
+      </div>
+      <div class="emf-row">
+        <label for="sp-msg">Your message</label>
+        <textarea id="sp-msg" name="message" required></textarea>
+      </div>
+      <p class="emf-err" role="alert"></p>
+      <button class="btn btn-copper" type="submit" data-label="Send message">Send message</button>
+    </form>
+  </section>
 
 <section class="sect">
   <div class="wrap"><a class="backlink" href="/">&larr; Back to Energy Muse</a></div>
