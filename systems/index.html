@@ -20,12 +20,12 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=9">
 <script src="/assets/em-frequencies.js?v=4"></script>
-<script src="/assets/em-header.js?v=19" defer></script>
-<script src="/assets/em-bag.js?v=5" defer></script>
+<script src="/assets/em-header.js?v=20" defer></script>
+<script src="/assets/em-bag.js?v=8" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=7" defer></script>
-<script src="/assets/em-versions.js?v=19" defer></script>
+<script src="/assets/em-versions.js?v=20" defer></script>
 <style>
 /* Two shapes only: a wide feature for the two Formulas, which are the whole
    argument of this page, and the ordinary product grid for everything you add
@@ -136,6 +136,8 @@
 /* the sold-out control and the add button are different elements; give them
    the same footprint so a row containing one does not step out of line */
 .pcard .padd,.pcard .psold{min-height:44px;display:flex;align-items:center;justify-content:center;box-sizing:border-box}
+
+@media (max-width:840px){ .padd{min-height:44px;} }
 </style>
 </head><body>
 <main>

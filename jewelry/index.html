@@ -21,12 +21,12 @@
 <link rel="stylesheet" href="/assets/em-page.css?v=9">
 <script src="/assets/em-frequencies.js?v=4"></script>
 <script src="/assets/em-catalog.js?v=13"></script>
-<script src="/assets/em-header.js?v=19" defer></script>
-<script src="/assets/em-bag.js?v=5" defer></script>
+<script src="/assets/em-header.js?v=20" defer></script>
+<script src="/assets/em-bag.js?v=8" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=7" defer></script>
-<script src="/assets/em-versions.js?v=19" defer></script>
+<script src="/assets/em-versions.js?v=20" defer></script>
 <style>
 /* The product grid. Lives here rather than in em-page.css: this is the only
    written page that lists products, and the shared sheet should hold what
@@ -85,8 +85,17 @@
 .jsort{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;color:var(--ink-soft)}
 .jsort span{font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:10px;color:var(--stone)}
 .jsort select{font-family:inherit;font-size:12.5px;color:var(--ink);background:var(--surface);
-  border:1px solid var(--hair);border-radius:99px;padding:9px 12px;min-height:38px;cursor:pointer}
+  border:1px solid var(--hair);border-radius:99px;padding:9px 12px;min-height:44px;cursor:pointer}
 .jsort select:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+
+/* The shop's filter chips and sort control are both 44px; these were built
+   before that and stayed at 34 and 38. Same standard now - the chip keeps its
+   type size and gains the height, so nothing about it looks different except
+   that it can be hit. */
+@media (max-width:840px){
+  .jf{min-height:44px;display:inline-flex;align-items:center;}
+  select{min-height:44px;}
+}
 </style>
 </head><body>
 <main>

@@ -20,12 +20,12 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=9">
 <script src="/assets/em-frequencies.js?v=4"></script>
-<script src="/assets/em-header.js?v=19" defer></script>
-<script src="/assets/em-bag.js?v=5" defer></script>
+<script src="/assets/em-header.js?v=20" defer></script>
+<script src="/assets/em-bag.js?v=8" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=7" defer></script>
-<script src="/assets/em-versions.js?v=19" defer></script>
+<script src="/assets/em-versions.js?v=20" defer></script>
 <style>
 /* The product grid. This is the shop page for the generators — the thing
    "Shop Frequency Generators" should always have pointed at. /generator/ is
@@ -37,6 +37,13 @@
 @media (max-width:1000px){.fgrid{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:760px){.fgrid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:430px){.fgrid{grid-template-columns:repeat(2,1fr)}}
+/* Seven generators in two columns leaves the seventh alone in its row at
+   half width. It takes the whole row instead, the same way the fifth
+   intention tile does on the homepage, so the grid closes on a band rather
+   than on a leftover. */
+@media (max-width:760px){
+  .fgrid > :last-child:nth-child(odd){grid-column:1 / -1;}
+}
 .fcard{display:flex;flex-direction:column;border:1px solid var(--hair);border-radius:4px;
   background:var(--surface);padding:16px 16px 18px;
   transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}

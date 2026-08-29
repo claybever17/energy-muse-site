@@ -149,6 +149,9 @@ var css=[
 '.emh-sub h3{font-family:Fraunces,Georgia,serif;font-weight:300;font-size:20px;margin:0 0 4px;color:'+P.fg+';}',
 '.emh-sub p{font-size:12.5px;color:'+P.soft+';margin:0 0 12px;}',
 '.emh-sub form{display:flex;gap:8px;}',
+/* Both came out at 43px from padding and line-height, one short of the 44 the
+   brief asks for. Stated rather than inferred. */
+'.emh-sub form input,.emh-sub form button{min-height:44px;}',
 '.emh-sub input{flex:1;min-width:0;padding:12px 14px;border-radius:8px;font-size:14px;font-family:inherit;',
 '  border:1px solid '+P.line+';background:'+(dark?'rgba(255,255,255,.05)':'#fff')+';color:'+P.fg+';}',
 '.emh-sub input:focus{outline:none;border-color:'+P.accent+';}',

@@ -48,6 +48,7 @@ var css=[
 /* a plain pill. The translucent fill plus a backdrop blur plus a 40px
    diffuse shadow together rendered a second, larger shape behind it. */
 '.emv-btn{display:inline-flex;align-items:center;gap:9px;padding:10px 16px;border-radius:100px;cursor:pointer;',
+'  min-height:44px;',
 '  border:1px solid '+P.line+';background:'+P.solid+';',
 '  box-shadow:0 2px 8px rgba(10,16,23,.10);color:'+P.soft+';font-weight:600;font-size:11.5px;',
 '  letter-spacing:.14em;text-transform:uppercase;transition:border-color .25s,color .25s;font-family:inherit;}',

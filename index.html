@@ -694,6 +694,9 @@ body.menu-open{overflow:hidden;}
 
 /* ===== Inline email capture, repeatable anywhere ===== */
 .sub-inline{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;max-width:520px;}
+/* Both landed at 43px - one short of the 44 the brief asks for, from padding
+   plus line-height rather than any stated height. Stated now. */
+.sub-inline input,.sub-inline button{min-height:44px;}
 .sub-inline input{flex:1;min-width:200px;padding:14px 16px;border-radius:8px;
   border:1px solid var(--hair);background:var(--surface);color:var(--fg);
   font-family:var(--sans);font-size:15px;}
@@ -1494,7 +1497,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   .pcard .pn{font-size:12.5px;line-height:1.28;}
   .pcard .pc{font-size:8.5px;}
   .pcard .pp{font-size:14px;}
-  .pcard .padd{min-height:38px;font-size:10px;}
+  .pcard .padd{min-height:44px;font-size:10px;}
   .store-grid{gap:10px;}
 }
 
@@ -1659,6 +1662,35 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
    phone the two are stacked and there is nothing to align. */
 @media (min-width:841px){
   .split{align-items:center;}
+}
+
+/* ---- mobile sweep: three findings from the 375px audit ---------------- */
+
+/* 1. The intention tile labels are the trust band's fault repeated: 10.5px
+   capitals at .2em tracking, in a 163px column, running to three lines.
+   "Steadiness · nervous-system ease" is thirty-two characters of letterspaced
+   type in half a phone. Tracked capitals only read as a label while they hold
+   one line. Sentence case and ordinary spacing here, same as the founder band;
+   the tile keeps its shape and the words become legible. */
+@media (max-width:560px){
+  .int-label .n{text-transform:none;letter-spacing:.01em;font-size:11.5px;line-height:1.35;}
+}
+
+/* 2. The footer put five children into two columns - the brand block and four
+   link groups - so the last group sat alone at half width. The brand spans the
+   row, which leaves the four groups as a clean two-by-two. */
+@media (max-width:840px){
+  .foot-grid > .foot-brand{grid-column:1 / -1;}
+}
+
+/* 3. Tap targets. The brief asks for 44px and the shop already meets it - its
+   filter chips and sort control are both 44. These are the controls that were
+   built before that and never caught up. Where a control should stay visually
+   small (the announcement's close, the bag's close) the box grows without the
+   glyph changing size. */
+@media (max-width:840px){
+  .annx{width:44px;height:44px;}
+  .padd,.radd{min-height:44px;}
 }
 </style>
 
@@ -2526,10 +2558,10 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 </script>
 
 <script src="/assets/em-form.js?v=1" defer></script>
-<script src="assets/em-bag.js?v=5" defer></script>
+<script src="assets/em-bag.js?v=8" defer></script>
 <script src="assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=7" defer></script>
-<script src="assets/em-versions.js?v=19" defer></script>
+<script src="assets/em-versions.js?v=20" defer></script>
 <script>
 (function(){
   var btns=[].slice.call(document.querySelectorAll('.skin'));

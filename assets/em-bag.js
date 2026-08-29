@@ -23,8 +23,19 @@ var css=[
 '.embag-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid #EAE3D6}',
 '.embag-head strong{font-family:Fraunces,Georgia,serif;font-weight:400;font-size:22px;letter-spacing:-.01em}',
 '.embag-head .n{color:#A9683E;font-size:13px;font-weight:600;margin-left:8px}',
+/* 36px against the 44 the brief asks for, and it is the control that gets you
+   back out of the drawer. The bordered square stays 36 so nothing looks
+   different; an ::after overlay carries the hit area out to 46. Note this
+   rule is spread over three array entries - the declarations continue on
+   the next lines - so anything added here belongs INSIDE it, not between
+   the entries, which silently breaks the whole block. */
 '.embag-x{background:none;border:1px solid #C8BCA6;border-radius:3px;width:36px;height:36px;font-size:19px;color:#3D4658;',
+'  position:relative;',
 '  cursor:pointer;color:#1D2739;line-height:1}',
+/* Padding would have grown the bordered square along with the hit area,
+   because the border is drawn outside the padding - the button ended up
+   visibly 46px. An overlay extends only what the finger has to land on. */
+'.embag-x::after{content:"";position:absolute;inset:-5px;}',
 '.embag-x:hover{border-color:#A9683E;color:#A9683E}',
 '.embag-items{flex:1;overflow-y:auto;padding:10px 22px}',
 '.embag-empty{padding:46px 10px;text-align:center;color:#8D8778}',
