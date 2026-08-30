@@ -166,7 +166,11 @@ var css=[
    the burger and the bag were all reachable by tab and showed nothing when
    they got there. */
 '#emh a:focus-visible,#emh button:focus-visible,.emh-menu a:focus-visible,.emh-menu button:focus-visible,.emh-foot a:focus-visible,.emh-foot button:focus-visible,.emh-foot input:focus-visible{outline:2px solid '+P.copper+';outline-offset:2px;border-radius:2px;}',
-'@media(max-width:840px){.emh-links{display:none;}.emh-burger{display:flex;}.emh-utils a[href="#"]:not(.bag){display:none;}.emh-in{height:60px;}.emh-logo{height:30px;}}'
+/* The 3px nudge on .emh-utils exists to sit Bag on the same line as the nav
+   links, which are themselves 3px below the logo. That trade is right on a
+   desktop. Below 840 the links are hidden, so the nudge buys nothing and
+   costs the only alignment left - Bag against the wordmark. Clay spotted it. */
+'@media(max-width:840px){.emh-links{display:none;}.emh-burger{display:flex;}.emh-utils a[href="#"]:not(.bag){display:none;}.emh-in{height:60px;}.emh-logo{height:30px;}.emh-utils{transform:none;}}'
 ].join('\n');
 
 function boot(){
@@ -232,6 +236,12 @@ function boot(){
     +'<div class="emh-menu-foot"><a href="#" class="bag">Bag (0)</a></div>';
   document.body.appendChild(menu);
 
+  /* A page that already has a footer of its own keeps it. Until now nothing
+     needed this, because every page loading em-header had no footer - but the
+     homepage does, and its footer is the fuller one: four link columns and the
+     brand mark against this module's single flat row. Injecting ours as well
+     would have given that page two. */
+  if(!document.querySelector('footer')){
   var foot=document.createElement('footer');foot.className='emh-foot';
   foot.innerHTML='<div class="emh-foot-in">'
     +'<svg class="emh-logo" viewBox="0 0 1167 247.5" aria-label="Energy Muse"><use href="#em-logo-hdr"/></svg>'
@@ -252,6 +262,7 @@ function boot(){
     +'</div>';
   document.body.appendChild(foot);
 
+  /* inside the guard: foot only exists when we built it */
   var sf=foot.querySelector('.emh-sub form');
   if(sf)sf.addEventListener('submit',function(e){
     e.preventDefault();
@@ -259,6 +270,7 @@ function boot(){
     if(!i||!i.value||i.value.indexOf('@')<0){i&&i.focus();return;}
     sf.parentNode.innerHTML='<p class="ok">Thank you — check your inbox to confirm.</p>';
   });
+  }
 
   var annx=frag.querySelector('.emh-annx');
   if(annx)annx.addEventListener('click',function(){
