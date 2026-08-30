@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="/assets/em-page.css?v=9">
 <script src="/assets/em-frequencies.js?v=4"></script>
 <script src="/assets/em-catalog.js?v=13"></script>
+<script src="/assets/em-more.js?v=1"></script>
 <script src="/assets/em-sort.js?v=1"></script>
 <script src="/assets/em-header.js?v=21" defer></script>
 <script src="/assets/em-bag.js?v=10" defer></script>
@@ -418,7 +419,9 @@
     var re=k?new RegExp('^('+k+')$'):null;
     var list=re?ALL.filter(function(p){return re.test(p.cat);}):ALL.slice();
     list=window.EM_SORT?EM_SORT.apply(list):list.sort(function(a,b){return a.price-b.price;});
-    host.innerHTML=list.map(card).join('');
+    /* twenty-four, then the rest on request - see em-more.js */
+    if(window.EM_MORE)EM_MORE.paint(host,list,card);
+    else host.innerHTML=list.map(card).join('');
     count.textContent=list.length+' piece'+(list.length===1?'':'s')
       +(k?' in '+label(k).toLowerCase():' across the shop');
     [].forEach.call(bar.children,function(b){

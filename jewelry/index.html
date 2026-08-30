@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="/assets/em-page.css?v=9">
 <script src="/assets/em-frequencies.js?v=4"></script>
 <script src="/assets/em-catalog.js?v=13"></script>
+<script src="/assets/em-more.js?v=1"></script>
 <script src="/assets/em-header.js?v=21" defer></script>
 <script src="/assets/em-bag.js?v=10" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
@@ -219,7 +220,8 @@ document.querySelectorAll('.jadd').forEach(function(b){
   function paint(g,srt){
     var list=(g?ALL.filter(function(c){return (c.group||'').toLowerCase()===g.toLowerCase();}):ALL.slice())
               .sort(SORTS[srt]||SORTS['price-asc']);
-    host.innerHTML=list.map(card).join('');
+    if(window.EM_MORE)EM_MORE.paint(host,list,card);
+    else host.innerHTML=list.map(card).join('');
     count.textContent=list.length+(list.length===1?' piece':' pieces')+(g?' for '+g.toLowerCase():'');
     if(bar)[].forEach.call(bar.children,function(x){
       x.classList.toggle('on',(x.getAttribute('data-g')||'').toLowerCase()===(g||'').toLowerCase());});

@@ -163,6 +163,7 @@
 
 <script src="/assets/em-frequencies.js?v=4"></script>
 <script src="/assets/em-catalog.js?v=13"></script>
+<script src="/assets/em-more.js?v=1"></script>
 <script src="/assets/em-sort.js?v=1"></script>
 <script src="/assets/em-bag.js?v=10"></script>
 <script>
@@ -211,7 +212,8 @@
   function paint(k){
     var list=k?ALL.filter(function(p){return fold(p.group)===k;}):ALL.slice();
     list=window.EM_SORT?EM_SORT.apply(list):list.sort(function(a,b){return a.price-b.price;});
-    grid.innerHTML=list.map(card).join('');
+    if(window.EM_MORE)EM_MORE.paint(grid,list,card);
+    else grid.innerHTML=list.map(card).join('');
     count.innerHTML=list.length+' piece'+(list.length===1?'':'s')
       +(k?' for '+label(k).toLowerCase():' across every intention')
       +' &middot; <a href="/gems/#all">all crystals</a> &middot; <a href="/jewelry/#all">all jewelry</a>';

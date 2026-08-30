@@ -278,6 +278,7 @@ p{text-wrap:pretty;}
 <script src="../assets/em-bag.js?v=10" defer></script>
 <script src="../assets/em-prices.js?v=3" defer></script><script src="/assets/em-frequencies.js?v=4"></script>
 <script src="/assets/em-catalog.js?v=13"></script>
+<script src="/assets/em-more.js?v=1"></script>
 </head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
@@ -401,13 +402,17 @@ p{text-wrap:pretty;}
   function paint(g,srt){
     var list=(g?ALL.filter(function(c){return (c.group||'').toLowerCase()===g.toLowerCase();}):ALL.slice())
               .sort(SORTS[srt]||SORTS['price-asc']);
-    host.innerHTML=list.map(function(c){
+    /* the card builder was written inline; it is a named function now so
+       em-more can call it again for each page the reader asks for */
+    var gcard=function(c){
       var out=(c.stock==='out');
       return '<a class="scard'+(out?' out':'')+'" href="/product/?id='+encodeURIComponent(c.id)+'">'
         +'<span class="sim"><img src="'+c.img+'" alt="'+String(c.name).replace(/"/g,'')+'" loading="lazy"></span>'
         +'<b>'+c.name+'</b>'+(c.group?'<span class="sg">'+c.group+'</span>':'')
         +'<span class="sp">$'+c.price.toFixed(2)+'</span>'
-        +(out?'<span class="ss">Unavailable</span>':'')+'</a>';}).join('');
+        +(out?'<span class="ss">Unavailable</span>':'')+'</a>';};
+    if(window.EM_MORE)EM_MORE.paint(host,list,gcard);
+    else host.innerHTML=list.map(gcard).join('');
     count.textContent=list.length+(list.length===1?' crystal':' crystals')+(g?' for '+g.toLowerCase():'');
     [].forEach.call(bar.children,function(x){
       x.classList.toggle('on',(x.getAttribute('data-g')||'').toLowerCase()===(g||'').toLowerCase());});
