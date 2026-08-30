@@ -15,11 +15,30 @@ var css=[
 '.embag-veil{position:fixed;inset:0;z-index:220;background:rgba(11,19,32,.45);backdrop-filter:blur(3px);',
 '  opacity:0;pointer-events:none;transition:opacity .35s}',
 '.embag-veil.on{opacity:1;pointer-events:auto}',
+/* The drawer is parked off-canvas to the RIGHT when closed, and on iOS Safari a
+   position:fixed element translated outside the viewport still counts toward the
+   scrollable area - so the page came out wider than the screen, Safari zoomed out
+   to fit it, and every page showed content at about 78% width with a white band
+   down the right. From landing, on all 29 pages that load this.
+
+   Every other panel on the site already avoided this without anyone noticing why:
+   .emh-menu, .mobmenu and .embag-veil all sit at inset:0 and hide with
+   visibility:hidden. This one was the only one placed outside the viewport, and
+   the only one relying on the transform alone. It hides properly now - a hidden
+   element contributes nothing to scroll width - and visibility is in the
+   transition so it still slides rather than blinking.
+
+   Do not add html{overflow-x:clip} as a belt-and-braces here - it was tried and
+   reverted. overflow-x and overflow-y cannot independently be clip and visible:
+   the visible axis computes to auto, which makes the root a scroll container and
+   stops the sticky headers sticking. Measured rather than assumed - the homepage
+   header sat at -1561 with that rule and -61 without it. */
 '.embag{position:fixed;top:0;right:0;bottom:0;z-index:230;width:min(400px,92vw);display:flex;flex-direction:column;',
 '  background:#FBF8F2;color:#1D2739;box-shadow:-18px 0 60px rgba(11,19,32,.3);',
-'  transform:translateX(105%);transition:transform .45s cubic-bezier(.16,1,.3,1);',
+'  transform:translateX(105%);visibility:hidden;',
+'  transition:transform .45s cubic-bezier(.16,1,.3,1),visibility .45s;',
 '  font-family:\"Instrument Sans\",-apple-system,sans-serif;font-size:15px}',
-'.embag.on{transform:none}',
+'.embag.on{transform:none;visibility:visible}',
 '.embag-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid #EAE3D6}',
 '.embag-head strong{font-family:Fraunces,Georgia,serif;font-weight:400;font-size:22px;letter-spacing:-.01em}',
 '.embag-head .n{color:#A9683E;font-size:13px;font-weight:600;margin-left:8px}',
