@@ -29,7 +29,7 @@
 /* The shop's own product grid, so a kit reads like everything else in the
    store. The only addition is the pair of build-your-own panels, which are a
    different kind of thing and should not pretend to be a product card. */
-.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px);
+.pgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,1.6vw,22px);
   margin-top:clamp(28px,4vw,48px)}
 .pcard{display:flex;flex-direction:column;border:1px solid var(--hair);border-radius:4px;
   background:var(--surface);padding:14px 16px 18px;
@@ -60,8 +60,8 @@
 .mkc p{color:var(--ink-soft);font-size:15.5px;line-height:1.6;max-width:44ch}
 .mkc .cta-row{margin-top:14px}
 
-@media (max-width:1000px){.pgrid{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:760px){.pgrid{grid-template-columns:repeat(2,1fr)}.mk{grid-template-columns:1fr}}
+@media (max-width:1000px){.pgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:760px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.mk{grid-template-columns:1fr}}
 
 /* Cards link to the product page now. The anchor replaces what used to be a
    plain span, so it has to lay out like one — an inline <a> would collapse

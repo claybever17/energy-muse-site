@@ -65,7 +65,7 @@
 .fcell .inc{font-size:12.5px;color:var(--stone);margin-top:14px;line-height:1.5}
 .fcell .pr{font-family:var(--serif);font-size:24px;color:var(--copper-lo);margin-top:18px}
 
-.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px);
+.pgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,1.6vw,22px);
   margin-top:clamp(28px,4vw,48px)}
 .pcard{display:flex;flex-direction:column;border:1px solid var(--hair);border-radius:4px;
   background:var(--surface);padding:14px 16px 18px;
@@ -89,9 +89,9 @@
   padding:11px 12px;text-align:center}
 
 /* Narrowing rules sit below the rules they narrow. */
-@media (max-width:1000px){.pgrid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:1000px){.pgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:860px){.feat{grid-template-columns:1fr}}
-@media (max-width:760px){.pgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:760px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* Cards link to the product page now. The anchor replaces what used to be a
    plain span, so it has to lay out like one — an inline <a> would collapse

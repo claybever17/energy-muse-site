@@ -31,10 +31,10 @@
 /* The product grid. Lives here rather than in em-page.css: this is the only
    written page that lists products, and the shared sheet should hold what
    pages share. */
-.jgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px);
+.jgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,1.6vw,22px);
   margin-top:clamp(26px,3.6vw,42px)}
-@media (max-width:900px){.jgrid{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:460px){.jgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:900px){.jgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:460px){.jgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .jcard{display:flex;flex-direction:column;border:1px solid var(--hair);border-radius:4px;
   background:var(--surface);padding:14px 14px 16px;transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}
 .jcard:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--copper) 42%,transparent);

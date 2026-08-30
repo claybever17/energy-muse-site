@@ -18,6 +18,23 @@
 <link rel="icon" type="image/png" sizes="64x64" href="../assets/img/favicon.png">
 <link rel="apple-touch-icon" href="../assets/img/touch-icon.png">
 <style>
+/* Phones inflate text. Chrome calls it font boosting, Safari text
+   autosizing, and both grow the type in a narrow column to make it readable -
+   by roughly a third. That inflated text is what sets an element's min-content
+   width, a 1fr grid track is minmax(auto,1fr) and so cannot go below it, and
+   the product grid came out 30% wider than its container and pushed the whole
+   document sideways. The page then gets scaled down to fit and reads at about
+   78% width with a band of dead space beside it.
+
+   That is the bug Clay photographed on both iOS and Android, and the reason it
+   never once reproduced on a desktop browser at 390px: no desktop browser
+   inflates. Nothing about the CSS was different - the text was.
+
+   Held at 100% so the type is the size it is declared to be. The tracks were
+   given minmax(0,1fr) in the same pass, so neither half of this can come back
+   on its own. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+
 @font-face{font-family:'Fraunces';src:url(../assets/fonts/fraunces_300.woff2?v=3) format('woff2');font-weight:300}
 @font-face{font-family:'Fraunces';src:url(../assets/fonts/fraunces_400.woff2?v=3) format('woff2');font-weight:400}
 @font-face{font-family:'Instrument Sans';src:url(../assets/fonts/instrument_400.woff2) format('woff2');font-weight:400}
@@ -207,7 +224,7 @@ p{text-wrap:pretty;}
 .sf:hover{border-color:var(--copper);color:var(--copper)}
 .sf.on{background:var(--ink);border-color:var(--ink);color:var(--navy)}
 .scount{font-size:12.5px;color:var(--soft);opacity:.75;margin-top:14px}
-.sgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:20px}
+.sgrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:20px}
 /* Every card the same shape, and the type on the same lines across the row.
    The stones are wildly different heights — a tall point beside a flat slice —
    so with the image free to size itself the name, the intention and the price
@@ -236,8 +253,8 @@ p{text-wrap:pretty;}
   letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-top:4px}
 .scard .sp{font-family:var(--serif,'Fraunces',Georgia,serif);font-size:15px;color:var(--copper);
   margin-top:8px}
-@media (max-width:1000px){.sgrid{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:620px){.sgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:1000px){.sgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:620px){.sgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 .stools{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:14px}
 .ssort{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans,'Instrument Sans',sans-serif);

@@ -32,11 +32,11 @@
    the film: a showcase you scroll through. Sending a shop link into the middle
    of a seven-screen film was a patch over the fact that this page did not
    exist. */
-.fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px);
+.fgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,1.6vw,22px);
   margin-top:clamp(28px,4vw,48px)}
-@media (max-width:1000px){.fgrid{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:760px){.fgrid{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:430px){.fgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:1000px){.fgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:760px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:430px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* Seven generators in two columns leaves the seventh alone in its row at
    half width. It takes the whole row instead, the same way the fifth
    intention tile does on the homepage, so the grid closes on a band rather

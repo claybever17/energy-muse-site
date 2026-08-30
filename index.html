@@ -660,9 +660,9 @@ body.menu-open{overflow:hidden;}
    two of them filled the viewport. The step to six only came at 1360px,
    which most laptops never reach. Six from 1100 up, and the shot is capped
    so the stone never outgrows the card's own type. */
-.store-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.8vw,26px);}
-@media (min-width:900px){.store-grid{grid-template-columns:repeat(4,1fr);}}
-@media (min-width:1100px){.store-grid{grid-template-columns:repeat(6,1fr);}}
+.store-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.8vw,26px);}
+@media (min-width:900px){.store-grid{grid-template-columns:repeat(4,minmax(0,1fr));}}
+@media (min-width:1100px){.store-grid{grid-template-columns:repeat(6,minmax(0,1fr));}}
 .pcard{position:relative;display:flex;flex-direction:column;background:var(--surface);
   border:1px solid var(--hair);border-radius:10px;padding:18px 18px 16px;
   transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .35s;}
@@ -686,8 +686,8 @@ body.menu-open{overflow:hidden;}
   border-radius:100px;padding:9px 15px;cursor:pointer;transition:background .2s,color .2s,border-color .2s;}
 .pcard .padd:hover{background:var(--copper);border-color:var(--copper);color:#fff;}
 .store-more{display:flex;justify-content:center;margin-top:clamp(26px,3vw,40px);}
-@media (max-width:899px){.store-grid{grid-template-columns:repeat(2,1fr);}}
-@media (max-width:560px){.store-grid{grid-template-columns:1fr 1fr;gap:12px;}
+@media (max-width:899px){.store-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media (max-width:560px){.store-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
   .pcard{padding:12px 12px 14px;}.pcard .pn{font-size:15.5px;}
   .pcard .pf{flex-direction:column;align-items:stretch;gap:8px;}
   .pcard .padd{width:100%;}}
@@ -734,7 +734,7 @@ body.menu-open{overflow:hidden;}
 /* ===== Intention finder ===== */
 /* five equal cards, evenly set — the staggered two-size rhythm was doing
    more work than the content asked for */
-.int-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(10px,1.1vw,16px);align-items:start;}
+.int-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(10px,1.1vw,16px);align-items:start;}
 @property --ty{syntax:'<length>';initial-value:0px;inherits:false;}
 .int{position:relative;border-radius:5px;overflow:hidden;aspect-ratio:3/4.1;cursor:pointer;background:var(--navy);
   display:flex;align-items:flex-end;isolation:isolate;box-shadow:var(--shadow);will-change:transform;
@@ -1255,7 +1255,7 @@ footer.site{background:
   /* the hero block below sets the one bottom pad; three elements each adding
      forty pixels is where the empty ground under the button came from */
   .hero-copy{padding-block:0;max-width:none;}
-    .int-grid{grid-template-columns:repeat(3,1fr);}
+    .int-grid{grid-template-columns:repeat(3,minmax(0,1fr));}
   .ways{grid-template-columns:repeat(2,1fr);}
   .split,.split.rev{grid-template-columns:1fr;}.split.rev .media{order:0;}
   .steps,.quotes{grid-template-columns:1fr;}
@@ -1303,7 +1303,7 @@ footer.site{background:
   .nav-utils{gap:10px;font-size:11.5px;margin-left:auto;white-space:nowrap;}
 }
 @media (max-width:560px){
-  .int-grid{grid-template-columns:repeat(2,1fr);}
+  .int-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
   /* Five tiles in two columns leaves the fifth on its own. It used to span the
      row and then shrink back to half width and centre, which is the worst of
      both: a full row given over to one tile that still looks stranded in it.
@@ -1718,6 +1718,22 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   .annx{width:44px;height:44px;}
   .padd,.radd{min-height:44px;}
 }
+/* A grid or flex item's min-width defaults to auto, which resolves to
+   MIN-CONTENT - so a single long product name ("Rhodonite Crystal Point
+   Necklace") can force its 1fr track wider than the container, and the grid
+   then pushes the whole document sideways. 1fr is minmax(auto,1fr); the auto
+   is the trap.
+
+   This was invisible in Chromium and not on iOS, because the two break words
+   differently: same markup, same CSS, a wider min-content on the phone. It is
+   why the homepage measured exactly 390 in every test I ran and still showed a
+   white band down the right of Clay's screen.
+
+   min-width:0 lets the track shrink, and overflow-wrap lets a long name break
+   rather than set the floor. */
+:where([class*="grid"]) > *,
+:where(.store-grid,.int-grid,.igrid,.jgrid,.sgrid,.fgrid,.pgrid,.jfilter) > *{min-width:0}
+:where(.pcard,.sc,.jcard,.fcard,.icard) :where(b,strong,.nm,.n){overflow-wrap:anywhere}
 </style>
 
 

@@ -1,3 +1,20 @@
+/* Phones inflate text. Chrome calls it font boosting, Safari text
+   autosizing, and both grow the type in a narrow column to make it readable -
+   by roughly a third. That inflated text is what sets an element's min-content
+   width, a 1fr grid track is minmax(auto,1fr) and so cannot go below it, and
+   the product grid came out 30% wider than its container and pushed the whole
+   document sideways. The page then gets scaled down to fit and reads at about
+   78% width with a band of dead space beside it.
+
+   That is the bug Clay photographed on both iOS and Android, and the reason it
+   never once reproduced on a desktop browser at 390px: no desktop browser
+   inflates. Nothing about the CSS was different - the text was.
+
+   Held at 100% so the type is the size it is declared to be. The tracks were
+   given minmax(0,1fr) in the same pass, so neither half of this can come back
+   on its own. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+
 /* em-page.css — the shell for the written pages.
 
    The intention pages each carry their own ~200-line copy of the tokens, the
@@ -191,3 +208,20 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 /* the row has to reconcile a 50px button with a line of type */
 .cta-row:has(.em-link){align-items:center;gap:12px 22px}
 @media (prefers-reduced-motion:reduce){.em-link,.em-link .a{transition:none}}
+
+/* A grid or flex item's min-width defaults to auto, which resolves to
+   MIN-CONTENT - so a single long product name ("Rhodonite Crystal Point
+   Necklace") can force its 1fr track wider than the container, and the grid
+   then pushes the whole document sideways. 1fr is minmax(auto,1fr); the auto
+   is the trap.
+
+   This was invisible in Chromium and not on iOS, because the two break words
+   differently: same markup, same CSS, a wider min-content on the phone. It is
+   why the homepage measured exactly 390 in every test I ran and still showed a
+   white band down the right of Clay's screen.
+
+   min-width:0 lets the track shrink, and overflow-wrap lets a long name break
+   rather than set the floor. */
+:where([class*="grid"]) > *,
+:where(.store-grid,.int-grid,.igrid,.jgrid,.sgrid,.fgrid,.pgrid,.jfilter) > *{min-width:0}
+:where(.pcard,.sc,.jcard,.fcard,.icard) :where(b,strong,.nm,.n){overflow-wrap:anywhere}
