@@ -192,39 +192,9 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper);font-weight
    At the larger display size it outgrew its column and the mask cut it mid
    word ("pers…"). It wraps now, and the mask only ever clips vertically. */
 @media (min-width:841px){.hero h1 .line span{white-space:normal;}}
-/* ===== Announcement bar (subtle, dismissible) ===== */
-.ann{background:var(--tint);border-bottom:1px solid var(--hair);color:var(--ink-soft);
-  font-size:12px;letter-spacing:.03em;position:relative;z-index:70;}
-.ann-in{display:flex;align-items:center;justify-content:center;gap:16px;padding:9px 0;text-align:center;position:relative;}
-.ann-in a{font-weight:600;color:var(--fg);border-bottom:1px solid var(--copper);padding-bottom:1px;
-  white-space:nowrap;}
-.ann-in a:hover{color:var(--copper);}
-.annx{position:absolute;right:0;top:50%;transform:translateY(-50%);background:none;border:0;
-  color:var(--ink-soft);cursor:pointer;font-size:16px;line-height:1;padding:6px;}
-.annx:hover{color:var(--copper);}
-body.ann-off .ann{display:none;}
-@media (max-width:640px){.ann-in{font-size:11px;gap:8px;padding-inline:38px;flex-wrap:wrap;}
-  .ann-more{display:none;}}
-/* ===== nav ===== */
-header.nav{position:sticky;top:0;z-index:60;transition:background .3s,color .3s;}
-header.nav::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;opacity:0;transition:opacity .4s;
-  background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--copper) 55%,transparent) 28% 72%,transparent);}
-/* A translucent bar pinned over a page that now bleeds photography and
-   oversized type turns every section into a collision. It stays put at the
-   top, hides the moment you scroll down to read, and returns the instant
-   you scroll back up — so it is present when you want it and gone when you
-   don't. Opaque when visible, so nothing shows through it. */
-header.nav{transition:transform .34s cubic-bezier(.16,1,.3,1),background .3s;}
-header.nav.hide{transform:translateY(-102%);}
-/* Opaque whenever it is on screen. It was only painted once .solid was
-   applied, so anywhere that class was missing the wordmark sat directly on
-   top of the headline underneath it. */
-header.nav{background:var(--bg);}
-header.nav.solid{background:var(--bg);backdrop-filter:blur(12px);
-  box-shadow:0 1px 0 color-mix(in srgb,var(--hair) 80%,transparent),0 10px 30px rgba(61,41,23,.07);}
+@media (max-width:640px){}
 /* anchors land below the bar rather than under it */
 html{scroll-padding-top:96px;}
-header.nav.solid::after{opacity:1;}
 /* The header rode inside the 1400px container, so on a wide screen the
    wordmark sat 332px in from the left and the utilities the same from the
    right — a header floating in the middle of the window. It spans the
@@ -237,10 +207,7 @@ header.nav.solid::after{opacity:1;}
 /* header: wordmark top-left, four links beside it, utilities right */
 @media (min-width:841px){
   .nav-in{gap:clamp(24px,3.4vw,44px);position:relative;}
-  .nav-utils{margin-left:auto;}
   .brand .blogo{height:50px;}
-  /* optical baseline: the wordmark's text sits low in the logo's box — nudge links to meet it */
-  .nav-links,.nav-utils{transform:translateY(4px);}
 }
 /* They used to lock to the centre of the viewport, on the reasoning that it is
    the one axis the layout cannot move. It is — but it is not the axis the eye
@@ -265,12 +232,7 @@ header.nav.solid::after{opacity:1;}
   .nav-in{display:grid;grid-template-columns:auto 1fr auto;
     gap:clamp(20px,2vw,32px);}
   .brand{justify-self:start;}
-  .nav-links{position:static;transform:translateY(4px);justify-self:center;}
-  .nav-utils{margin-left:0;justify-self:end;}
 }
-/* and the nav says where you are, so it belongs to the page it sits on */
-.nav-links a.here{color:var(--copper-lo);}
-.nav-links a.here::after{transform:translateX(-50%) scale(1);background:var(--copper);}
 .brand{display:flex;align-items:center;flex-shrink:0;perspective:640px;}
 @property --m-rot{syntax:'<angle>';initial-value:0deg;inherits:true;}
 .blogo{height:46px;width:auto;max-width:none;display:block;transform-origin:50% 60%;
@@ -282,87 +244,11 @@ header.nav.solid::after{opacity:1;}
 @keyframes markIn{0%{--m-rot:-32deg}100%{--m-rot:0deg}}
 .brand:hover .blogo{transform:rotateX(7deg) rotateY(-9deg) scale(1.03);
   filter:drop-shadow(0 2px 2px rgba(29,39,57,.26)) drop-shadow(0 16px 28px rgba(29,39,57,.22));}
-.nav-links{display:flex;gap:clamp(34px,2.8vw,48px);
-  font-family:var(--sans);font-size:13.5px;letter-spacing:.03em;}
-/* It was 15px semibold in sentence case at full contrast — heavier than
-   anything else in the bar, and set in the one idiom this page does not
-   otherwise use. Every considered label here is uppercase and letterspaced:
-   the eyebrows at .28em, HZ CHANGE under the numerals, the credentials line,
-   the story's call. The nav was the only element still wearing the default
-   theme's plain semibold, which is exactly why it read as generic while
-   everything around it read as designed.
-
-   Same family and weight, set as wayfinding: smaller, tracked out, uppercase.
-   It carries less ink at the same authority, and it now belongs to the page
-   it sits on. */
-.nav-links a{position:relative;padding:8px 0 12px;color:var(--fg);font-weight:600;
-  font-size:12px;letter-spacing:.16em;text-transform:uppercase;transition:color .2s;}
-.nav-links a::after{content:"";position:absolute;left:50%;bottom:2px;width:5px;height:5px;border-radius:50%;
-  border:1px solid var(--copper);transform:translateX(-50%) scale(0);transition:transform .28s cubic-bezier(.16,1,.3,1);}
-.nav-links a:hover{color:var(--fg);}
-.nav-links a:hover::after{transform:translateX(-50%) scale(1);}
-.nav-utils{display:flex;gap:16px;font-size:12.5px;letter-spacing:.05em;color:var(--ink-soft);align-items:center;}
-.nav-utils .bag{color:var(--fg);font-weight:600;}
 .themebtn{background:none;border:1px solid var(--hair);color:var(--stone);border-radius:2px;width:32px;height:32px;
   cursor:pointer;display:grid;place-items:center;font-size:13px;}
 .themebtn:hover{border-color:var(--accent);color:var(--accent);}
-/* hamburger (mobile only) */
-.burger{display:none;width:40px;height:40px;border:1px solid color-mix(in srgb,var(--ink-soft) 34%,transparent);
-  background:none;border-radius:3px;cursor:pointer;padding:0;flex-direction:column;
-  align-items:center;justify-content:center;gap:5px;}
-.at-hero .burger{border-color:color-mix(in srgb,var(--hero-ink) 40%,transparent);}
-.burger span{display:block;width:17px;height:1.6px;background:currentColor;color:var(--ink);transition:transform .3s,opacity .3s;}
-.at-hero .burger span{color:var(--hero-ink);}
-/* full-screen mobile menu */
-.mobmenu{position:fixed;inset:0;z-index:200;background:var(--bg);color:var(--ink);
-  display:flex;flex-direction:column;padding:22px var(--gutter) 40px;
-  opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .35s ease,transform .35s ease,visibility .35s;}
-.mobmenu.open{opacity:1;visibility:visible;transform:none;}
-.mobmenu-top{display:flex;align-items:center;justify-content:space-between;height:60px;}
-.mobmenu-top img{height:26px;}
-.mobmenu-close{width:40px;height:40px;border:1px solid var(--hair);background:none;border-radius:3px;
-  font-size:22px;color:var(--ink);cursor:pointer;line-height:1;}
-.mobmenu-close:hover{border-color:var(--copper);color:var(--copper);}
-/* The links start under the logo rather than floating in the middle. Centred
-   was right when there were seven and they filled the screen; with four it
-   left 188px of air above and below and the menu read as half empty. The nav
-   still takes the remaining height, so the quiet tier and the Search/Bag row
-   stay pinned to the bottom where they belong. */
-.mobmenu nav{display:flex;flex-direction:column;margin-top:clamp(22px,5vh,44px);flex:1;justify-content:flex-start;gap:2px;}
-.mobmenu nav a{font-family:var(--serif);font-size:30px;font-weight:400;color:var(--ink);padding:12px 0;
-  border-bottom:1px solid var(--hair);display:flex;align-items:center;justify-content:space-between;
-  opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s,color .2s;}
-.mobmenu nav a::after{content:"→";font-family:var(--sans);font-size:16px;color:var(--copper);}
-.mobmenu nav a:hover{color:var(--copper);}
-.mobmenu.open nav a{opacity:1;transform:none;}
-.mobmenu.open nav a:nth-child(1){transition-delay:.10s}.mobmenu.open nav a:nth-child(2){transition-delay:.15s}
-.mobmenu.open nav a:nth-child(3){transition-delay:.20s}.mobmenu.open nav a:nth-child(4){transition-delay:.25s}
-/* The quiet tier. Same family as the footer links so it reads as utility
-   rather than as more navigation, and each one still clears 44px to tap. */
-.mobmenu-sec{display:flex;flex-wrap:wrap;gap:4px 22px;padding-top:14px;
-  opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s;}
-.mobmenu.open .mobmenu-sec{opacity:1;transform:none;transition-delay:.30s;}
-.mobmenu-sec a{font-family:var(--sans);font-size:13.5px;letter-spacing:.04em;
-  color:var(--ink-soft);text-decoration:none;min-height:44px;display:inline-flex;align-items:center;}
-.mobmenu-sec a:hover{color:var(--copper);}
-/* Search is a <button> that centres its label in 44px; Bag is an <a> that
-   stretches to 44px and leaves its text at the top. Both boxes started at the
-   same y, both were 44px tall, and the two labels still sat 12px apart. */
-.mobmenu-foot{display:flex;align-items:center;gap:22px;font-size:13px;letter-spacing:.04em;color:var(--ink-soft);padding-top:20px;}
-.mobmenu-foot > *{min-height:44px;display:inline-flex;align-items:center;}
-/* and the last pixel: the injected Search button carries its own 12.5px,
-   the Bag link inherits 13px, so two centred labels still landed a pixel
-   apart. One size for the row. */
-.mobmenu-foot > *,.mobmenu-foot .ems-open{font-size:13px;}
-.mobmenu-foot a{color:var(--ink-soft);}.mobmenu-foot a:hover{color:var(--copper);}
-.mobmenu-rings{position:absolute;right:-90px;bottom:-90px;width:340px;height:340px;pointer-events:none;opacity:.5;}
-.mobmenu-rings{color:var(--copper);}
-body.menu-open{overflow:hidden;}
 /* midnight: the vector logo adapts (light wordmark), so the nav finally gets to stay dark */
 :root[data-skin="midnight"]{--logo-body:#1B2C52;}
-/* hero has its own dark context for nav */
-.at-hero header.nav .brand,.at-hero header.nav .nav-links a,.at-hero header.nav .nav-utils{color:var(--hero-ink);}
-.at-hero header.nav .nav-utils .bag{color:var(--hero-ink);}
 
 
 /* ===== HERO (committed dark editorial) ===== */
@@ -421,10 +307,6 @@ body.menu-open{overflow:hidden;}
    button. So: ranged left, the type lifted up over the foot of the picture so
    the two interlock instead of stacking, and the dead ground taken out. */
 @media (max-width:840px){
-  /* The homepage has its own nav, so the shared header's mobile hit areas do
-     not reach it — its Bag link was still 43x19 under a thumb. */
-  .nav-utils{gap:6px}
-  .nav-utils a,.nav-utils button{min-height:44px;display:inline-flex;align-items:center;padding:0 8px}
   .brand{min-height:44px;display:inline-flex;align-items:center}
 
   .hero{display:flex;flex-direction:column;padding-bottom:0;}
@@ -1231,12 +1113,6 @@ footer.site{background:
 /* ===== Responsive ===== */
 @media (max-width:1100px){
   .nav-in{gap:16px;}
-  /* on the anchor, not the container — .nav-links a sets its own size, so
-     this rule had been doing nothing but narrowing the gap since it was
-     written. */
-  .nav-links{gap:15px;}
-  .nav-links a{font-size:11px;letter-spacing:.12em;}
-  .nav-utils{gap:12px;}
 }
 @media (max-width:840px){
   .duo{grid-template-columns:1fr;}
@@ -1263,13 +1139,7 @@ footer.site{background:
   .plab{left:16px;bottom:-12px;font-size:12.5px;padding:7px 12px 8px;}
   .email-in{grid-template-columns:1fr;}.email form{justify-content:flex-start;}
   .foot-grid{grid-template-columns:1fr 1fr;}
-  /* mobile header: wordmark left, bag + burger right */
-  .nav-links{display:none;}
   .nav-in{position:relative;justify-content:space-between;}
-  .nav-utils{display:contents;}
-  .burger{display:flex;order:3;}
-  .nav-utils .bag{order:2;margin-left:auto;}
-  .nav-utils a[href="#"]:not(.bag){display:none;}
 
   .specs{flex-wrap:wrap;}.spec{flex-basis:100%;}
 }
@@ -1293,14 +1163,10 @@ footer.site{background:
   .plab{display:none;}
   .split .media.portrait::after,.split .media.rect::after{display:none;}
   .media.rect .t3d{--rz:0deg;}
-  .mobmenu-top{position:relative;justify-content:flex-end;}
-  .mobmenu-top .blogo{position:absolute;left:50%;transform:translateX(-50%);}
   .guide-list a em{display:none;}
   .reel-soon{display:none;}
   .nav-in{gap:12px;height:60px;}
   .blogo{height:30px;}
-  .nav-links{margin-inline:0;}
-  .nav-utils{gap:10px;font-size:11.5px;margin-left:auto;white-space:nowrap;}
 }
 @media (max-width:560px){
   .int-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
@@ -1361,8 +1227,6 @@ p{text-wrap:pretty;}
 .copy p a:hover,.lead a:hover,.head p a:hover,.email p a:hover,.prose a:hover{
   color:var(--copper);text-decoration-color:var(--copper);}
 .lk,.go,.more{font-weight:700;letter-spacing:.12em;}
-.nav-utils a{font-weight:600;color:var(--fg);}
-.nav-utils a.bag{font-weight:700;}
 
 
 
@@ -1715,7 +1579,6 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
    small (the announcement's close, the bag's close) the box grows without the
    glyph changing size. */
 @media (max-width:840px){
-  .annx{width:44px;height:44px;}
   .padd,.radd{min-height:44px;}
 }
 /* A grid or flex item's min-width defaults to auto, which resolves to
@@ -1765,62 +1628,14 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   </symbol>
 </svg>
 
-<div class="ann" id="ann">
-  <div class="wrap ann-in">
-    <span>New to Energy Muse?<span class="ann-more"> Find your energy match in a few simple questions.</span></span>
-    <a href="quiz/">Take the Energy Quiz &rarr;</a>
-    <button class="annx" id="annx" aria-label="Dismiss">&times;</button>
-  </div>
-</div>
+<!-- The homepage ran its own header, its own announcement bar and its own
+     mobile menu while the other twenty-six pages shared em-header.js. The front
+     door was the only page in the site without the Shop dropdown, and the one
+     place a reviewer lands first. All three are the shared module's now; the
+     announcement it injects carries the same sentence this one did, word for
+     word. The footer below is untouched - em-header leaves a page's own footer
+     alone. -->
 
-<header class="nav">
-  <div class="wrap nav-in">
-    <a class="brand" href="./"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo"/></svg></a>
-    <nav class="nav-links">
-      <a href="quiz/">Start Here</a><a href="shop/">Shop</a><a href="intention/">By Intention</a><a href="learn/">Learn</a>
-    </nav>
-    <div class="nav-utils">
-      <!-- Search is injected by em-search.js, so the control cannot exist
-           without the code behind it. This was <a href="#">, wired to nothing. -->
-      <a href="#" class="bag">Bag (0)</a>
-      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobmenu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
-</header>
-
-<!-- ===== MOBILE MENU ===== -->
-<div class="mobmenu" id="mobmenu" role="dialog" aria-modal="true" aria-label="Menu">
-  <svg class="mobmenu-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
-  <div class="mobmenu-top">
-    <svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse" style="height:26px"><use href="#em-logo"/></svg>
-    <button class="mobmenu-close" id="mobclose" aria-label="Close menu">&times;</button>
-  </div>
-  <!-- Four primary, matching the desktop bar exactly. The other three were
-       set at the same 30px as these, so seven destinations all read as
-       equally important and the menu looked like a different site to the one
-       the header shows. They are still here, in a quieter second tier.
-
-       "With Heather" pointed at #about — the same anchor as "About", so two
-       of the seven went to the same place and the /heather/ page they should
-       have opened was unreachable from the menu. All three point at their
-       real pages now, which is also what the shared header's menu links to. -->
-  <nav>
-    <a href="quiz/">Start Here</a>
-    <a href="shop/">Shop</a>
-    <a href="#intention">By Intention</a>
-    <a href="#learn2">Learn</a>
-  </nav>
-  <div class="mobmenu-sec">
-    <a href="/heather/">With Heather</a>
-    <a href="/veza/">Veza</a>
-    <a href="/about/">About</a>
-  </div>
-  <!-- Search is injected here too. "Account" was also href="#" and there is
-       no account system to send anyone to, so it is gone rather than dead. -->
-  <div class="mobmenu-foot"><a href="#" class="bag">Bag (0)</a></div>
-</div>
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="top">
@@ -2231,27 +2046,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     r.setAttribute('data-theme',c==='dark'?'light':'dark');});
   /* everything is visible from the start now - see .reveal in the stylesheet */
   [].forEach.call(document.querySelectorAll('.reveal'),function(e){e.classList.add('in');});
-  // nav: solid after hero; toggle at-hero context
-  var hero=document.getElementById('top'),nav=document.querySelector('header.nav');
-  document.body.classList.add('at-hero');
-  function onScroll(){
-    var past=window.scrollY>(hero?hero.offsetHeight-90:400);
-    nav.classList.toggle('solid',window.scrollY>40);
-    document.body.classList.toggle('at-hero',!past);
-  }
-  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
-
-  // mobile menu
-  var burger=document.getElementById('burger'),menu=document.getElementById('mobmenu'),
-      mclose=document.getElementById('mobclose');
-  function openMenu(){menu.classList.add('open');document.body.classList.add('menu-open');burger.setAttribute('aria-expanded','true');}
-  function closeMenu(){menu.classList.remove('open');document.body.classList.remove('menu-open');burger.setAttribute('aria-expanded','false');}
-  if(burger){
-    burger.addEventListener('click',openMenu);
-    mclose.addEventListener('click',closeMenu);
-    menu.querySelectorAll('nav a, .mobmenu-foot a').forEach(function(a){a.addEventListener('click',closeMenu);});
-    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});
-  }
+  /* the header's scroll states and its mobile menu belong to em-header.js now */
 
   // announcement bar: dismiss for the session
   try{if(sessionStorage.getItem('em-ann')==='off')document.body.classList.add('ann-off');}catch(e){}
@@ -2367,8 +2162,6 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   })();
 
 
-  var annx=document.getElementById('annx');
-  if(annx)annx.addEventListener('click',function(){document.body.classList.add('ann-off');try{sessionStorage.setItem('em-ann','off');}catch(e){}foldCut();});
 })();
 
 
@@ -2481,22 +2274,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     addEventListener('resize',turn);turn();
   })();
 
-  /* the header retreats while you read and returns when you scroll back */
-  (function(){
-    var nav=document.querySelector('header.nav');
-    if(!nav)return;
-    var last=scrollY,ticking=false;
-    function upd(){
-      ticking=false;
-      var y=scrollY,down=y>last+4,up=y<last-4;
-      if(down&&y>200)nav.classList.add('hide');
-      else if(up||y<=200)nav.classList.remove('hide');
-      if(down||up)last=y;
-    }
-    addEventListener('scroll',function(){
-      if(!ticking){ticking=true;requestAnimationFrame(upd);}
-    },{passive:true});
-  })();
+  /* the header's retreat-on-scroll is em-header.js's job now */
 
   if(!reduce){
     var ticking=false;
@@ -2607,6 +2385,7 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 </script>
 
 <script src="/assets/em-form.js?v=1" defer></script>
+<script src="/assets/em-header.js?v=21" defer></script>
 <script src="assets/em-bag.js?v=10" defer></script>
 <script src="assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=8" defer></script>
