@@ -56,10 +56,13 @@
       <details><summary>How do I care for my product?</summary><p>Each product page includes material-specific care. We avoid one-size-fits-all cleansing advice, since water, sunlight, chemicals, and abrasion affect materials differently.</p></details>
     </div>
     <p class="note">More questions are answered in <a href="/faq/">How Energy Muse Works</a>.</p>
-  </div>
 
     <!-- The section was headed "before you write in" and offered no way to write
-         in. It does now. -->
+         in. It does now. The wrap used to close on the line above this comment,
+         which left the whole form as a direct child of the section element,
+         outside the only thing on the page that supplies a gutter. Every label
+         and every field ran edge to edge on a phone while the heading above
+         them sat correctly inset. -->
     <form class="emf" data-emform="support"
           data-done-title="Message received."
           data-done="We answer within two working days. If it is about an order, quote the order number in your reply." novalidate>
@@ -88,7 +91,8 @@
       <p class="emf-err" role="alert"></p>
       <button class="btn btn-copper" type="submit" data-label="Send message">Send message</button>
     </form>
-  </section>
+  </div>
+</section>
 
 <section class="sect">
   <div class="wrap"><a class="backlink" href="/">&larr; Back to Energy Muse</a></div>

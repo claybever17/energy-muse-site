@@ -120,6 +120,15 @@
    same footprint as the button beside it. */
 .fcard .fadd,.fcard .fsold{min-height:44px;display:flex;align-items:center;justify-content:center;
   box-sizing:border-box}
+
+/* the page's last content sat under the home indicator on a phone */
+body{padding-bottom:env(safe-area-inset-bottom,0px)}
+
+/* The routine list sat 40px right of everything around it: <ol> keeps a
+   browser-default padding-left, and each item already reserves its own 52px
+   for the numbered disc, so the 40 was pure indent. The heading, the steps and
+   the button share one left edge now. */
+.steps{padding-left:0;margin-left:0}
 </style>
 <style>
 /* -------------------------------------------------------------------------
@@ -188,9 +197,12 @@
   <div class="wrap">
     <span class="eyebrow">How they work</span>
     <h2>Why a fixed frequency reaches further.</h2>
-    <p>Every Energy Muse generator starts with a crystal oscillator and a copper tensor coil, matched
-      with a specific sacred geometric shape &mdash; a design and engineering combination exclusive
-      to us. We&rsquo;re home to the world&rsquo;s most extensive fixed-frequency collection.</p>
+    <!-- Seven lines on a phone about oscillators and tensor coils, before the
+         reader has decided they want one. The first sentence is the claim; the
+         rest is specification, and the comparison table below carries it. -->
+      <p>Every Energy Muse generator starts with a crystal oscillator and a copper
+        tensor coil, matched with a specific sacred geometric shape &mdash; a design
+        and engineering combination exclusive to us.</p>
     <div class="vgrid">
       <div class="vcol fixed">
         <div class="vtitle">Energy Muse</div>

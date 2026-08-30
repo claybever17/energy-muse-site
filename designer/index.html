@@ -199,6 +199,45 @@ p{text-wrap:pretty}
   #bname{width:100%}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---- the atelier on a phone ------------------------------------------- */
+/* Placed last, after every rule it adjusts. */
+
+/* The bottom of this layout is a bar carrying the running total and the bead
+   count, and it sat under the home indicator and the browser's own toolbar -
+   nothing on the page accounted for the safe area, on any of the three pages.
+   The tray keeps its own padding and adds whatever the device reserves. */
+.tray{padding-bottom:env(safe-area-inset-bottom,0px)}
+.count{padding-bottom:6px}
+
+/* .compose carried no font and no colour of its own, so the button fell back
+   to the browser's default - 13.3px Arial, and on Safari a system blue that
+   read as an unstyled link sitting in the middle of the tool. The child span
+   and small were styled; the button itself never was. */
+.compose{font-family:var(--sans);color:var(--fg);font-size:13px}
+.compose span{color:var(--fg)}
+
+@media (max-width:900px){
+  /* Every control here was between 22 and 33px against the 44 the brief asks
+     for - the intention tabs, the in/cm toggle, the name field. On a tool whose
+     whole purpose is tapping, those were the smallest targets on the site. */
+  .tab{min-height:44px;display:inline-flex;align-items:center;font-size:10.5px}
+  .unit button{min-height:44px;padding-inline:16px;font-size:11px}
+  .unit{padding:2px}
+  #bname{min-height:44px}
+  .btn{min-height:44px}
+
+  /* Six intention tabs wrapped onto two rows and left CLARITY alone on the
+     second - and at 44px each that would have cost 88px of a screen where the
+     bracelet needs the room. One row that scrolls instead, with the same
+     right-edge fade the quotes rail uses so it is visibly scrollable. */
+  .tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;gap:2px;
+    -webkit-mask-image:linear-gradient(to right,#000 88%,transparent 100%);
+    mask-image:linear-gradient(to right,#000 88%,transparent 100%)}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:none}
+}
 </style>
 </head>
 <body>

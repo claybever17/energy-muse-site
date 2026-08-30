@@ -157,6 +157,23 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(27px,3.4vw,44px);let
 }
 @media (max-width:560px){.gems{grid-template-columns:repeat(3,1fr)}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ---- build-a-box on a phone ------------------------------------------- */
+/* Last in the sheet, after the rules it adjusts. */
+
+/* Nothing on this page reserved the safe area, so the bottom of the tool sat
+   under the home indicator. */
+body{padding-bottom:env(safe-area-inset-bottom,0px)}
+
+@media (max-width:900px){
+  /* The intention chips were 24px, the name field 32, and the two buttons 37
+     and 39 - all under the 44 the brief asks for, on a page built entirely
+     around tapping small things. */
+  .tabs button{min-height:44px;display:inline-flex;align-items:center;padding:5px 14px}
+  .namewrap input{min-height:44px}
+  .btn{min-height:44px}
+  .sizes button{min-height:44px}
+}
 </style>
 <script src="/assets/em-frequencies.js?v=4"></script>
 <script src="/assets/em-catalog.js?v=13"></script>
