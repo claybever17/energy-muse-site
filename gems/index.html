@@ -273,7 +273,7 @@ p{text-wrap:pretty;}
   select{min-height:44px;}
 }
 </style>
-<script src="../assets/em-header.js?v=21" defer></script>
+<script src="../assets/em-header.js?v=22" defer></script>
 <script src="/assets/em-search.js?v=8" defer></script>
 <script src="../assets/em-bag.js?v=10" defer></script>
 <script src="../assets/em-prices.js?v=3" defer></script><script src="/assets/em-frequencies.js?v=4"></script>
@@ -323,7 +323,11 @@ p{text-wrap:pretty;}
       <button class="sf" type="button" data-g="Clarity">Clarity</button>
       <button class="sf" type="button" data-g="Protection">Protection</button>
       <button class="sf" type="button" data-g="Abundance">Abundance</button>
-      <button class="sf" type="button" data-g="Connection">Connection</button>
+      <!-- The rewrite renames this intention Connection -> Love (COPY.md 3).
+           The label is the only thing that changes: data-g stays "Connection"
+           because that is the group the catalogue tags twenty products with,
+           and it is what this button filters on. -->
+      <button class="sf" type="button" data-g="Connection">Love</button>
     </div>
     <div class="stools">
       <p class="scount" id="scount"></p>
@@ -413,7 +417,11 @@ p{text-wrap:pretty;}
         +(out?'<span class="ss">Unavailable</span>':'')+'</a>';};
     if(window.EM_MORE)EM_MORE.paint(host,list,gcard);
     else host.innerHTML=list.map(gcard).join('');
-    count.textContent=list.length+(list.length===1?' crystal':' crystals')+(g?' for '+g.toLowerCase():'');
+    /* The catalogue tags this group "Connection"; the rewrite calls it Love.
+       The filter still matches on the group, so only what is printed changes -
+       otherwise the chip said Love and the line under it said connection. */
+    var say=function(k){return (k||'').toLowerCase()==='connection'?'love':(k||'').toLowerCase();};
+    count.textContent=list.length+(list.length===1?' crystal':' crystals')+(g?' for '+say(g):'');
     [].forEach.call(bar.children,function(x){
       x.classList.toggle('on',(x.getAttribute('data-g')||'').toLowerCase()===(g||'').toLowerCase());});
     if(sortEl) sortEl.value=srt;

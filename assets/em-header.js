@@ -146,8 +146,8 @@ var css=[
 '.emh-foot-links{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:center;font-size:13px;font-weight:600;}',
 /* email capture belongs on every page, not just the homepage */
 '.emh-sub{width:100%;max-width:440px;text-align:center;}',
-'.emh-sub h3{font-family:Fraunces,Georgia,serif;font-weight:300;font-size:20px;margin:0 0 4px;color:'+P.fg+';}',
-'.emh-sub p{font-size:12.5px;color:'+P.soft+';margin:0 0 12px;}',
+'.emh-sub h3{font-family:Fraunces,Georgia,serif;font-weight:300;font-size:20px;margin:0 0 4px;max-width:none;color:'+P.fg+';}',
+'.emh-sub p{font-size:12.5px;max-width:none;color:'+P.soft+';margin:0 0 12px;}',
 '.emh-sub form{display:flex;gap:8px;}',
 /* Both came out at 43px from padding and line-height, one short of the 44 the
    brief asks for. Stated rather than inferred. */
@@ -245,8 +245,8 @@ function boot(){
   var foot=document.createElement('footer');foot.className='emh-foot';
   foot.innerHTML='<div class="emh-foot-in">'
     +'<svg class="emh-logo" viewBox="0 0 1167 247.5" aria-label="Energy Muse"><use href="#em-logo-hdr"/></svg>'
-    +'<div class="emh-sub"><h3>One practice, once a week.</h3>'
-      +'<p>A short note on what to work with — and first access to new releases.</p>'
+    +'<div class="emh-sub"><h3>Let&rsquo;s stay connected</h3>'
+      +'<p>New practices, founder guidance, product education, and early access — sent with intention, never noise.</p>'
       +'<form novalidate><input type="email" placeholder="you@email.com" aria-label="Email address" required>'
       +'<button type="submit">Join</button></form></div>'
     /* Six links that predate most of the site: no route to the shop at all, and

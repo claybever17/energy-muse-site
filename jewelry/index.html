@@ -18,11 +18,11 @@
 <meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
-<link rel="stylesheet" href="/assets/em-page.css?v=9">
+<link rel="stylesheet" href="/assets/em-page.css?v=11">
 <script src="/assets/em-frequencies.js?v=4"></script>
 <script src="/assets/em-catalog.js?v=13"></script>
 <script src="/assets/em-more.js?v=1"></script>
-<script src="/assets/em-header.js?v=21" defer></script>
+<script src="/assets/em-header.js?v=22" defer></script>
 <script src="/assets/em-bag.js?v=10" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
@@ -129,7 +129,11 @@
       <button class="jf on" type="button" data-g="">Everything</button>
       <button class="jf" type="button" data-g="Protection">Protection</button>
       <button class="jf" type="button" data-g="Abundance">Abundance</button>
-      <button class="jf" type="button" data-g="Connection">Connection</button>
+      <!-- The rewrite renames this intention Connection -> Love (COPY.md 3).
+           The label is the only thing that changes: data-g stays "Connection"
+           because that is the group the catalogue tags twenty products with,
+           and it is what this button filters on. -->
+      <button class="jf" type="button" data-g="Connection">Love</button>
       <button class="jf" type="button" data-g="Clarity">Clarity</button>
     </div>
     <div class="jtools">
@@ -222,7 +226,11 @@ document.querySelectorAll('.jadd').forEach(function(b){
               .sort(SORTS[srt]||SORTS['price-asc']);
     if(window.EM_MORE)EM_MORE.paint(host,list,card);
     else host.innerHTML=list.map(card).join('');
-    count.textContent=list.length+(list.length===1?' piece':' pieces')+(g?' for '+g.toLowerCase():'');
+    /* The catalogue tags this group "Connection"; the rewrite calls it Love.
+       The filter still matches on the group, so only what is printed changes -
+       otherwise the chip said Love and the line under it said connection. */
+    var say=function(k){return (k||'').toLowerCase()==='connection'?'love':(k||'').toLowerCase();};
+    count.textContent=list.length+(list.length===1?' piece':' pieces')+(g?' for '+say(g):'');
     if(bar)[].forEach.call(bar.children,function(x){
       x.classList.toggle('on',(x.getAttribute('data-g')||'').toLowerCase()===(g||'').toLowerCase());});
     if(sortEl) sortEl.value=srt;
