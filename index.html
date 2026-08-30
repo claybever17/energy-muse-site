@@ -1411,7 +1411,19 @@ p{text-wrap:pretty;}
    the whole page zoomed out with dead space beside it. Clip at the section:
    'clip' rather than 'hidden' so no scroll container is created and sticky
    still works. */
-.section:has(.sinemark){overflow:clip;}
+/* The curves are 150% of their section and they ANIMATE, which on iOS promotes
+   each one to its own compositing layer - and a composited layer can paint
+   straight through overflow:clip. That is the likeliest reason the page widened
+   on a phone and not here: unclipped, these take the document from 390px to
+   461px, and Safari answers a too-wide page by zooming out, which is exactly
+   the narrow content with dead space at the right that Clay photographed.
+
+   So the containment no longer rests on either of the two things that can fail.
+   :has() is gone in favour of a class on the three sections that actually carry
+   one, overflow is hidden rather than clip, and contain:paint states outright
+   that nothing here paints outside its box - which is the property that binds a
+   composited descendant. */
+.has-sine{overflow:hidden;contain:paint;}
 .section > .wrap{position:relative;z-index:1;}
 /* How far these hang past their section depends on the viewport, because the
    width is a fixed 1500px ceiling: on a 1440 desktop that is a modest bleed, on
@@ -1787,7 +1799,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   <img class="hero-shot"
        src="assets/img/hero-generator.jpg"
        srcset="assets/img/hero-generator-1200.webp 1200w, assets/img/hero-generator-1800.webp 1800w, assets/img/hero-generator-2000.webp 2000w"
-       sizes="(max-width:840px) 260vw, 100vw" fetchpriority="high"
+       sizes="(max-width:840px) 100vw, 100vw" fetchpriority="high"
        alt="The copper frequency generator lit on a wood floor beside a clear quartz point">
   <canvas class="herowave" id="herowave" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
@@ -1949,7 +1961,11 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
          themselves, so the count was doing no work. Dropping the eyebrow fixes
          the repetition and gives this section a different silhouette from its
          neighbours, which all open eyebrow-then-headline. -->
-    <div class="head reveal no-eyebrow"><h2>Ways to begin.</h2></div>
+    <!-- The eyebrow came off because "Four ways in" over "Ways to begin" was the
+         same sentence twice. Without one the section lost the shape every other
+         block on the page has. This one names the four instead of counting
+         them, so it tells the reader something the headline does not. -->
+    <div class="head reveal"><span class="eyebrow">Wear &middot; Place &middot; Tune &middot; Ask</span><h2>Ways to begin.</h2></div>
     <div class="ways">
       <div class="way reveal"><div class="thumb"><img src="assets/img/bracelets.jpg" alt="Stacked crystal bracelets on a wrist"></div>
         <h3><em>Wear</em> it.</h3><p>Jewelry that keeps the intention close, all day.</p>
@@ -1968,7 +1984,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 </section>
 
 <!-- ===== QUIZ ===== -->
-<section class="section" id="quiz">
+<section class="section has-sine" id="quiz">
   <div class="sinemark a" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
   <div class="wrap split">
     <div class="media portrait reveal" style="aspect-ratio:4/4.4"><div class="t3d"><img src="assets/img/clarity-quiz.jpg" alt="A woman resting a clear quartz point to her brow"><span class="glare"></span></div><span class="plab">Clear quartz &middot; a first tool</span></div>
@@ -1988,7 +2004,10 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     <div class="copy reveal d1">
       <span class="eyebrow">Wear the intention</span>
       <h2>Wear your energy.</h2>
-      <p>Jewelry can be more than something beautiful. It can be the reminder you reach for before a big moment, the anchor that grounds you mid-day, or the piece you choose when you're ready for what's next.</p>
+      <!-- Five lines on a phone, and the last three are three ways of saying the
+           same thing. The first two sentences carry it. -->
+      <p>Jewelry can be more than something beautiful. It can be the reminder you
+        reach for before a big moment.</p>
       <!-- This was href="#". The one call to action in the jewelry section led
            nowhere, which is most of why the section reads as absent: the path
            in is "Wear it" -> this section -> a dead end. The Atelier is the
@@ -2019,7 +2038,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 
 
 
-<section class="section" id="about">
+<section class="section has-sine" id="about">
   <div class="sinemark c" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
   <div class="wrap split">
     <div class="media rect reveal" style="aspect-ratio:3/2"><div class="t3d"><img src="assets/img/founders.jpg" alt="Founders Heather Askinosie and Timmi Jandro" style="object-position:50% 25%"><span class="glare"></span></div><span class="plab">Heather &amp; Timmi</span></div>
@@ -2051,7 +2070,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
      directory of guides, not another onboarding lesson. -->
 
 <!-- ===== LEARN + VEZA ===== -->
-<section class="section" id="learn2">
+<section class="section has-sine" id="learn2">
   <div class="sinemark b" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
   <div class="wrap duo">
     <div class="duo-card reveal">
