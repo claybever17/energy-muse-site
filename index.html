@@ -1432,7 +1432,21 @@ p{text-wrap:pretty;}
    for any fade to have finished. Narrowing the mark on smaller screens keeps
    the overhang proportional, so one mask setting works everywhere. */
 @media (min-width:841px) and (max-width:1199px){.sinemark{width:min(1200px,125%);}}
-@media (max-width:840px){.sinemark{opacity:.09;width:130%;}}
+/* On a phone the mark is made to FIT its section rather than to be caught by
+   the section. At 130% and pulled left by half its own width it still ran 28px
+   and 65px past the right edge of a 390px screen, and everything then depended
+   on overflow:hidden and contain:paint holding an animated - therefore
+   composited - layer, which is precisely the thing iOS has been known not to
+   honour. Nothing that cannot overflow needs containing: the curve is 96% of
+   the section, anchored at 2%, and the sweep it loses at this size was never
+   visible anyway at 9% opacity behind a headline. */
+@media (max-width:840px){
+  .sinemark{opacity:.09;width:96%;left:2%;}
+  .sinemark.a{transform:rotate(-2.4deg);}
+  .sinemark.b{transform:rotate(1.8deg) scaleY(1.5);}
+  .sinemark.c{transform:rotate(-1.1deg) scaleY(.7);}
+  .sinemark.d{transform:rotate(3.1deg) scaleY(1.2) scaleX(-1);}
+}
 @media (prefers-reduced-motion:no-preference){
   .sinemark{animation:sineDrift 34s ease-in-out infinite alternate;}
   .sinemark.b{animation-duration:44s;animation-delay:-8s;}
