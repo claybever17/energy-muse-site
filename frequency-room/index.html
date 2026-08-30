@@ -1,6 +1,5 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8">
-<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Energy Muse &#8212; The Frequency Room</title>
 <!-- the range, before the inline block that maps it -->
@@ -9,7 +8,7 @@
 <meta property="og:site_name" content="Energy Muse">
 <meta property="og:title" content="Energy Muse — The Frequency Room">
 <meta property="og:description" content="Seven tunings, one instrument. Choose the frequency your room runs at.">
-<meta property="og:url" content="https://energy-muse-workingfolder.vercel.app/home/cascade/">
+<meta property="og:url" content="https://energy-muse-workingfolder.vercel.app/frequency-room/">
 <meta property="og:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
@@ -20,7 +19,7 @@
 <meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 
 <meta name="description" content="Seven tuned frequencies, one instrument. Turn the dial and the room re-tunes — the coil, the wave, the light and the crystals that answer to it.">
-<link rel="icon" type="image/svg+xml" href="../../assets/img/mark.svg">
+<link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <style>
 @font-face{font-family:'Fraunces';src:url(../../assets/fonts/fraunces_300.woff2?v=3) format('woff2');font-weight:300;font-display:swap}
 @font-face{font-family:'Fraunces';src:url(../../assets/fonts/fraunces_400.woff2?v=3) format('woff2');font-weight:400;font-display:swap}
@@ -456,6 +455,21 @@ img{display:block;max-width:100%}
   .trioc strong{font-size:18px;margin-top:4px}
   .tp{margin-top:5px}
 }
+
+/* ---- the buy row --------------------------------------------------------
+   .roombuy and .alt had no rules at all. The button carried its own styling
+   and the link carried none, and with nothing laying the two out they simply
+   printed over each other on a phone - "Add the generator" across "See all
+   seven" by 211px. The row is a wrapping flex line now, and the link is given
+   the quiet treatment that belongs beside a solid button rather than the
+   browser's default. Also: the solid button still had the inset highlight and
+   the stacked shadow this site took off its buttons a while back. */
+.roombuy{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin-top:22px}
+.roombuy .cta{margin-top:0;min-height:44px;box-shadow:0 2px 6px rgba(169,104,62,.22)}
+.alt{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;
+  font:600 12px var(--sans);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--tone);border-bottom:1px solid color-mix(in srgb,var(--tone) 38%,transparent)}
+.alt:hover{border-bottom-color:var(--tone)}
 </style>
 <script>
 (function(){
@@ -498,8 +512,8 @@ img{display:block;max-width:100%}
       <span class="eyebrow">The frequency room</span>
       <h1>Choose your frequency.</h1>
     </div>
-    <a class="home" href="../../" aria-label="Energy Muse home">
-      <img class="blogo" src="../../assets/img/logo.svg" alt="Energy Muse"></a>
+    <a class="home" href="/" aria-label="Energy Muse home">
+      <img class="blogo" src="/assets/img/logo.svg" alt="Energy Muse"></a>
   </div>
 
   <section class="room roomin isfirst" id="instrument">
@@ -522,13 +536,13 @@ img{display:block;max-width:100%}
 
       <div class="roombuy">
         <button class="cta" id="buy">Add the generator</button>
-        <a class="alt" href="../../frequency/">See all seven &rarr;</a>
+        <a class="alt" href="/frequency/">See all seven &rarr;</a>
       </div>
     </div>
 
     <div class="device" id="device">
-      <img id="genimg" src="../../assets/img/generators/528.png" alt="528Hz Frequency Generator">
-      <img id="genimg2" src="../../assets/img/generators/528.png" alt="" aria-hidden="true">
+      <img id="genimg" src="/assets/img/generators/528.png" alt="528Hz Frequency Generator">
+      <img id="genimg2" src="/assets/img/generators/528.png" alt="" aria-hidden="true">
     </div>
   </section>
 
@@ -539,20 +553,20 @@ img{display:block;max-width:100%}
   <section class="trio">
     <div class="thead">
       <h2>Or tune the whole room.</h2>
-      <a href="../../systems/">See the Frequency Systems &rarr;</a>
+      <a href="/systems/">See the Frequency Systems &rarr;</a>
     </div>
     <p class="tlede">A Formula is three generators tuned to work in sequence, a display case that
       houses them as one piece, and a canvas bag to carry them.</p>
     <div class="trios">
-      <a class="trioc" href="../../product/?id=formula-home">
-        <span class="tshot"><img src="../../assets/img/sets/formula-home.webp"
+      <a class="trioc" href="/product/?id=formula-home">
+        <span class="tshot"><img src="/assets/img/sets/formula-home.webp"
           alt="Harmonious Home Frequency Formula" loading="lazy"></span>
         <span class="tn">For the living room</span>
         <strong>Harmonious Home Frequency Formula</strong>
         <span class="tp">$299.88</span>
       </a>
-      <a class="trioc" href="../../product/?id=formula-sleep">
-        <span class="tshot"><img src="../../assets/img/sets/formula-sleep.webp"
+      <a class="trioc" href="/product/?id=formula-sleep">
+        <span class="tshot"><img src="/assets/img/sets/formula-sleep.webp"
           alt="Restorative Sleep Frequency Formula" loading="lazy"></span>
         <span class="tn">For the bedroom</span>
         <strong>Restorative Sleep Frequency Formula</strong>
@@ -564,7 +578,7 @@ img{display:block;max-width:100%}
   <section class="answers">
     <div class="ahead">
       <h2>Crystals that answer to <em id="ansname">528&#8239;Hz</em></h2>
-      <a href="../../gems/">See the whole collection &rarr;</a>
+      <a href="/gems/">See the whole collection &rarr;</a>
     </div>
     <div class="stones" id="stones"></div>
   </section>
@@ -658,11 +672,14 @@ function paintStones(r){
     var el=document.createElement('article');
     el.className='st'; el.style.setProperty('--sc',s.c); el.style.animationDelay=(i*60)+'ms';
     el.innerHTML=
-      '<div class="plate"><img src="../../assets/img/products/'+s.slug+'.png?v=2" alt="'+s.n.replace(/"/g,'&quot;')+'" loading="lazy"></div>'+
+/* The product plates asked for .png. Every product image became .webp in the
+   rebuild, and this page sat in the drafts folder where nothing was checking
+   it, so three of them had been broken since. */
+      '<div class="plate"><img src="/assets/img/products/'+s.slug+'.webp" alt="'+s.n.replace(/"/g,'&quot;')+'" loading="lazy"></div>'+
       '<div class="c"><div class="n">'+s.n+'</div><div class="k">'+s.cat+'</div>'+
         '<div class="f"><span class="p">'+money(s.p)+'</span>'+
           '<button class="a" data-id="'+s.slug+'" data-n="'+s.n.replace(/"/g,'&quot;')+'" data-p="'+s.p.toFixed(2)+'" '+
-            'data-img="/assets/img/products/'+s.slug+'.png">Add</button></div></div>';
+            'data-img="/assets/img/products/'+s.slug+'.webp">Add</button></div></div>';
     stonesEl.appendChild(el);
   });
 }
@@ -839,9 +856,9 @@ function syncBag(){
 addEventListener('storage',syncBag); setInterval(syncBag,700); syncBag();
 </script>
 
-<script src="../../assets/em-bag.js?v=4" defer></script>
-<script src="../../assets/em-prices.js?v=3" defer></script>
-<script src="../../assets/em-versions.js?v=19" defer></script>
+<script src="/assets/em-bag.js?v=10" defer></script>
+<script src="/assets/em-prices.js?v=3" defer></script>
+<script src="/assets/em-versions.js?v=21" defer></script>
 </body></html>
 <script>
 /* deferred: this sat above the markup, so getElementById returned null and

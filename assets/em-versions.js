@@ -28,7 +28,7 @@ var SIG={
 var VERSIONS=[
   ['/designer/','Atelier','build a bracelet',SIG.atelier],
   ['/box/','Build a Box','fill one with crystals',SIG.crystallize],
-  ['/home/cascade/','Frequency Room','turn the dial',SIG.cascade]
+  ['/frequency-room/','Frequency Room','turn the dial',SIG.cascade]
 ];
 /* No longer a version switcher. There is one homepage now — Classic — so
    offering a choice between directions was offering a decision that has been

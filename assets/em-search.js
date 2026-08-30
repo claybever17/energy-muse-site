@@ -28,7 +28,7 @@
     { t: 'The Energy Quiz', u: '/quiz/', k: 'quiz match recommendation personalised personalized find what do i need', c: 'Tool' },
     { t: 'Design a Bracelet', u: '/designer/', k: 'atelier design custom build your own bracelet beads rondelle make', c: 'Tool' },
     { t: 'Build a Box of Crystals', u: '/box/', k: 'box build your own crystals kit custom curate', c: 'Tool' },
-    { t: 'The Frequency Room', u: '/home/cascade/', k: 'frequency room try dial tune listen demo', c: 'Tool' },
+    { t: 'The Frequency Room', u: '/frequency-room/', k: 'frequency room try dial tune listen demo', c: 'Tool' },
     { t: 'Shop', u: '/shop/', k: 'shop all products browse buy', c: 'Shop' },
     { t: 'Jewelry', u: '/jewelry/', k: 'jewelry bracelets necklaces anklets wear', c: 'Shop' },
     { t: 'Crystals', u: '/gems/', k: 'crystals stones gems specimens collection', c: 'Shop' },
