@@ -19,11 +19,7 @@
      there, and they are most of what people actually search for by word —
      "sizing", "cleansing", "how do I choose". */
   var PAGES = [
-    { t: 'Start Here', u: '/learn/start/', k: 'beginner new first steps guide basics how to choose start', c: 'Guide' },
-    { t: 'Crystal Guide', u: '/learn/crystals/', k: 'crystal stones meanings shapes cleansing clearing care point cluster tumbled pyramid', c: 'Guide' },
-    { t: 'Frequency Guide', u: '/learn/frequency/', k: 'frequency generator hz placement fixed variable oscillator coil room', c: 'Guide' },
-    { t: 'Wear Your Intention', u: '/learn/jewelry/', k: 'jewelry bracelet sizing size stacking care elastic wrist measure necklace anklet', c: 'Guide' },
-    { t: 'Learning Center', u: '/learn/', k: 'learn guides education paths', c: 'Guide' },
+    { t: 'Learning Center', u: '/learn/', k: 'learn guides education beginner new first steps basics how to choose start crystal stones meanings shapes cleansing clearing care point cluster tumbled pyramid frequency generator hz placement fixed variable room seven jewelry bracelet sizing size stacking elastic wrist measure', c: 'Guide' },
     { t: 'FAQs', u: '/faq/', k: 'faq questions answers help water sunlight medical returns care', c: 'Guide' },
     { t: 'The Energy Quiz', u: '/quiz/', k: 'quiz match recommendation personalised personalized find what do i need', c: 'Tool' },
     { t: 'Design a Bracelet', u: '/designer/', k: 'atelier design custom build your own bracelet beads rondelle make', c: 'Tool' },

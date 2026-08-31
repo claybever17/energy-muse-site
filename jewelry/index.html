@@ -20,13 +20,13 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=11">
 <script src="/assets/em-frequencies.js?v=4"></script>
-<script src="/assets/em-catalog.js?v=13"></script>
+<script src="/assets/em-catalog.js?v=14"></script>
 <script src="/assets/em-more.js?v=1"></script>
 <script src="/assets/em-header.js?v=22" defer></script>
 <script src="/assets/em-bag.js?v=10" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
-<script src="/assets/em-search.js?v=8" defer></script>
+<script src="/assets/em-search.js?v=9" defer></script>
 <script src="/assets/em-versions.js?v=21" defer></script>
 <style>
 /* The product grid. Lives here rather than in em-page.css: this is the only
@@ -113,16 +113,14 @@
          instead of choosing one. -->
     <div class="cta-row"><a class="em-link" href="/designer/">Build your own <span class="a" aria-hidden="true">&rarr;</span></a>
     </div>
-  </div>
-</section>
-
-<section class="sect tint">
-  <div class="wrap">
-    <!-- "Wear your energy." and "Founder favorites." both introduced the same
-         thirty-three pieces, one screen apart. The hero keeps the headline; this
-         block keeps the sentence that says what the pieces are, and loses the
-         second title. -->
-    <p>Real pieces from the Energy Muse collection, each formulated for one intention.</p>
+    <!-- /shop/ and /gems/ both open straight into their grid: one section, the
+         headline then the filters then the goods. This page had the collection
+         in a second tinted section instead, so the chips arrived after a
+         background change and 192px of padding and read as a fresh call to
+         action rather than the controls for the grid under them. Merged.
+         The sentence that sat here ("Real pieces from the Energy Muse
+         collection, each formulated for one intention") said what the lead
+         above already says, and #jcount prints "33 pieces" a line below. -->
     <!-- Thirty-three pieces now, from Energy Muse's own catalogue, filtered by
          the intention THEY tag each one with rather than a meaning we assigned. -->
     <div class="jfilter" id="jfilter">
@@ -148,7 +146,7 @@
     </div>
     <div class="jgrid" id="jgrid"></div>
     <div class="cta-row">
-      <a class="btn btn-ghost" href="/learn/jewelry/">Jewelry Care Guide</a>
+      <a class="btn btn-ghost" href="/learn/#jewelry">Jewelry Care Guide</a>
     </div>
   </div>
 </section>
@@ -215,7 +213,7 @@ document.querySelectorAll('.jadd').forEach(function(b){
       +'<a class="plink" href="/product/?id='+encodeURIComponent(c.id)+'">'
       +'<img src="'+c.img+'" alt="'+String(c.name).replace(/"/g,'')+'" loading="lazy">'
       +'<strong>'+c.name+'</strong></a>'
-      +(c.group?'<span class="jg">'+c.group+'</span>':'')
+      +(c.group?'<span class="jg">'+EM_CATALOG.label(c.group)+'</span>':'')
       +'<span class="jp">$'+c.price.toFixed(2)+'</span>'
       +(out ? '<span class="jsold">Unavailable</span>'
             : '<button class="jadd" type="button" data-id="'+c.id+'">Add to Bag</button>')+'</div>';

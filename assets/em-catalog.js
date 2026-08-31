@@ -192,5 +192,12 @@
     return same.concat(rest).slice(0, n || 4);
   }
 
-  window.EM_CATALOG = { all: all, get: get, related: related, items: ITEMS };
+  /* The catalogue tags twenty products with the group "Connection"; the rewrite
+     calls that intention Love (COPY.md 3). The tag is the filter key and stays
+     as it is - this only maps a group to the word a reader should see, so the
+     chips, the card labels and the count line cannot drift apart again. */
+  var SHOWN = { Connection: 'Love' };
+  function label(group) { return SHOWN[group] || group || ''; }
+
+  window.EM_CATALOG = { all: all, get: get, related: related, items: ITEMS, label: label };
 })();

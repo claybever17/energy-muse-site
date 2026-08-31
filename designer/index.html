@@ -191,7 +191,20 @@ p{text-wrap:pretty}
   .count .mtotal i{font-style:normal;font-size:10px;color:var(--stone);letter-spacing:.14em;
     text-transform:uppercase;margin-right:6px}
 }
-@media (min-width:901px){.count .mtotal{display:none}}
+@media (min-width:901px){
+  .count .mtotal{display:none}
+  /* The tray holds thirty beads and had no overflow of its own, so its content
+     height drove the single grid row: 1738px on a 900px viewport. .stagecol
+     stretched to match, .stage flexed to 1564, and because .stage centres its
+     child the bracelet was parked 506px down - a screen of dead cream above it
+     and the strand itself cut off at the fold.
+     height (not min-height) pins the shell to the viewport, and the row needs
+     minmax(0,1fr) because a grid row floors at its content otherwise - the same
+     auto-minimum that bit the product grids on mobile. Then the tray scrolls
+     itself instead of growing the page. */
+  .wrap{height:100svh;grid-template-rows:minmax(0,1fr)}
+  .tray{overflow-y:auto}
+}
 @media (max-width:560px){
   .beads{grid-template-columns:repeat(3,1fr)}
   .head{flex-direction:column;gap:10px;align-items:stretch}

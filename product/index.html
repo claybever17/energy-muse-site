@@ -20,12 +20,12 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=11">
 <script src="/assets/em-frequencies.js?v=4"></script>
-<script src="/assets/em-catalog.js?v=13"></script>
+<script src="/assets/em-catalog.js?v=14"></script>
 <script src="/assets/em-header.js?v=22" defer></script>
 <script src="/assets/em-bag.js?v=10" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
-<script src="/assets/em-search.js?v=8" defer></script>
+<script src="/assets/em-search.js?v=9" defer></script>
 <script src="/assets/em-versions.js?v=21" defer></script>
 <style>
 /* One product, two columns: the thing on the left, the reason to want it on
@@ -120,6 +120,14 @@
 </section>
 </main>
 <script>
+/* The label was p.cat lowercased, so a crystal read "See all crystal".
+   Three of the four categories just take an s; Jewelry is a mass noun and
+   would come out "jewelrys", so the plurals are named rather than derived.
+   Destinations, for the record: Crystal /gems/, Jewelry /jewelry/,
+   System /systems/, Kit /sets/. */
+var SEEALL_PLURAL={Crystal:'crystals',Jewelry:'jewelry',System:'systems',Kit:'kits'};
+function SEEALL(c){return SEEALL_PLURAL[c] || String(c||'').toLowerCase();}
+
 (function(){
   var C = window.EM_CATALOG;
   var host = document.getElementById('pdp');
@@ -148,9 +156,8 @@
   /* the main shot first, then whatever else the catalogue carries for it */
   var shots = [p.img].concat(p.imgs || []);
   var facts = [];
-  if (p.group) facts.push(['Intention', p.group]);
+  if (p.group) facts.push(['Intention', EM_CATALOG.label(p.group)]);
   facts.push(['Category', p.cat]);
-  if (p.scan) facts.push(['See it in 3D', '<a href="/gems/" style="color:var(--copper)">Open the crystal viewer &rarr;</a>']);
   if (p.cat === 'Frequency') facts.push(['Tuned to', p.name.replace(' Frequency Generator', '') + ', and left there']);
 
   host.innerHTML =
@@ -169,14 +176,14 @@
     + '</div>'
     + '<div>'
     + '<p class="crumb"><a href="/shop/">Shop</a> &nbsp;/&nbsp; <a href="' + p.home + '">' + p.cat + '</a></p>'
-    + '<span class="pcat">' + (p.group || p.cat) + '</span>'
+    + '<span class="pcat">' + (EM_CATALOG.label(p.group) || p.cat) + '</span>'
     + '<h1>' + p.name + '</h1>'
     + '<div class="pprice">$' + p.price.toFixed(2) + '</div>'
     + '<p class="pdesc">' + (p.desc || '') + '</p>'
     + '<div class="pbuy">'
     + (out ? '<span class="soldout">Currently unavailable</span>'
            : '<button class="bigadd" id="bigadd" type="button">Add to Bag</button>')
-    + '<a class="btn btn-ghost" href="' + p.home + '">See all ' + p.cat.toLowerCase() + '</a>'
+    + '<a class="btn btn-ghost" href="' + p.home + '">See all ' + SEEALL(p.cat) + '</a>'
     + '</div>'
     + '<ul class="pfacts">' + facts.map(function(f){
         return '<li><b>' + f[0] + '</b><span>' + f[1] + '</span></li>'; }).join('') + '</ul>'

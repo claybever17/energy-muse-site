@@ -176,7 +176,7 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 }
 </style>
 <script src="/assets/em-frequencies.js?v=4"></script>
-<script src="/assets/em-catalog.js?v=13"></script>
+<script src="/assets/em-catalog.js?v=14"></script>
 </head>
 <body>
 <div class="wrap">
@@ -193,7 +193,7 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 
     <div class="stage" id="stage">
       <canvas id="boxc"></canvas>
-      <div class="read r-size"><span class="k">Box</span><b id="bval">The Five</b><span id="bsub">5 crystals</span></div>
+      <div class="read r-size"><span class="k">Box</span><b id="bval">The Four</b><span id="bsub">4 crystals</span></div>
       <div class="read r-total"><span class="k">Total</span><b id="tval">&mdash;</b><span>illustrative</span></div>
       <div class="stagenote" id="note">Tap a crystal to add &middot; tap one in the box to take it out</div>
     </div>
@@ -263,9 +263,9 @@ var CATS=['All','Calm','Clarity','Protection','Abundance','Connection'];
 
 /* three boxes, each holding a set number. The bracelet sizer landed on three
    real sizes for the same reason: a control that offers what we make. */
-var BOXES=[{n:3,label:'The Three'},{n:5,label:'The Five'},{n:7,label:'The Seven'}];
+var BOXES=[{n:4,label:'The Four'}];
 
-var box=[], boxN=5, cat='All', dirty=true, paints=0;
+var box=[], boxN=4, cat='All', dirty=true, paints=0;
 var stage=document.getElementById('stage'), cv=document.getElementById('boxc');
 var ctx=cv.getContext('2d'), W=0,H=0,dpr=1,mob=false;
 var slots=[];                       /* filled during paint, read by hit-testing */
@@ -343,7 +343,7 @@ var LAYOUT={
   7:[[.5,.5]]
 };
 function slotsFor(n){
-  var rows = n===3 ? [3] : n===5 ? [3,2] : [4,3];
+  var rows = n===3 ? [3] : n===4 ? [2,2] : n===5 ? [3,2] : [4,3];
   var out=[], ry=rows.length===1?[0.5]:rows.length===2?[0.36,0.66]:[0.5];
   rows.forEach(function(count,ri){
     for(var i=0;i<count;i++){
@@ -397,7 +397,7 @@ function paint(){
   /* slots */
   var pts=slotsFor(boxN);
   var iw=bw-wall*2, ih=bh-wall*2;
-  var cell=Math.min(iw/(boxN===7?4.2:boxN===5?3.2:3.2), ih/(boxN===3?1.5:2.35));
+  var cell=Math.min(iw/(boxN===7?4.2:boxN===4?2.6:3.2), ih/(boxN===3?1.5:2.35));
   slots=[];
   pts.forEach(function(p,i){
     var cx=bx+wall+p[0]*iw, cy=by+wall+p[1]*ih;
@@ -463,6 +463,10 @@ function add(slug){
 var sizesEl=document.getElementById('sizes'), tabsEl=document.getElementById('tabs'), gemsEl=document.getElementById('gems');
 function buildSizes(){
   sizesEl.innerHTML='';
+  /* One box now, so there is nothing to choose between. Driven off the list
+     rather than deleted, so adding a second size brings the control back. */
+  sizesEl.hidden = BOXES.length < 2;
+  if(sizesEl.hidden) return;
   BOXES.forEach(function(b){
     var el=document.createElement('button');
     el.type='button';el.setAttribute('role','radio');
@@ -481,7 +485,8 @@ function buildTabs(){
   tabsEl.innerHTML='';
   CATS.forEach(function(c){
     var b=document.createElement('button');
-    b.type='button';b.setAttribute('role','tab');b.textContent=c;
+    b.type='button';b.setAttribute('role','tab');
+    b.textContent = c==='Connection' ? 'Love' : c;
     b.addEventListener('click',function(){cat=c;sync();});
     tabsEl.appendChild(b);
   });

@@ -2,11 +2,11 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Energy Muse — Learning Center</title>
-<meta name="description" content="Start with the basics. Guides to crystals, frequency, and wearing your intention — plus the questions everyone asks first.">
+<meta name="description" content="Crystals, frequency and wearing your intention — one guide covering what each tool is for, how to choose, and how to look after it.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Energy Muse">
 <meta property="og:title" content="Energy Muse — Learning Center">
-<meta property="og:description" content="Start with the basics. Guides to crystals, frequency, and wearing your intention — plus the questions everyone asks first.">
+<meta property="og:description" content="Crystals, frequency and wearing your intention — one guide covering what each tool is for, how to choose, and how to look after it.">
 <meta property="og:url" content="https://energy-muse-workingfolder.vercel.app/learn/">
 <meta property="og:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <meta property="og:image:width" content="2400">
@@ -14,7 +14,7 @@
 <meta property="og:image:alt" content="An Energy Muse frequency generator lit on a wood floor beside a clear quartz point">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Energy Muse — Learning Center">
-<meta name="twitter:description" content="Start with the basics. Guides to crystals, frequency, and wearing your intention — plus the questions everyone asks first.">
+<meta name="twitter:description" content="Crystals, frequency and wearing your intention — one guide covering what each tool is for, how to choose, and how to look after it.">
 <meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
@@ -23,64 +23,109 @@
 <script src="/assets/em-bag.js?v=10" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
-<script src="/assets/em-search.js?v=8" defer></script>
+<script src="/assets/em-search.js?v=9" defer></script>
+<script src="/assets/em-frequencies.js?v=4" defer></script>
 <script src="/assets/em-versions.js?v=21" defer></script>
 <style>
-/* This was five identical white cards in a grid, each one an eyebrow, a serif
-   title, two lines of description and the words "Read the guide" - which
-   appeared five times on the screen at once and told the reader nothing the
-   title had not already said. It read as a template because it was one: the
-   same component repeated until the content ran out.
+/* One Learning Center, not a hub plus four stubs.
 
-   It is an index now, which is what the content actually is. The page's own
-   line says "take them in order or go straight to the one you came for" - that
-   is a table of contents, and it is native to this subject in a way a card grid
-   is not: Energy Muse's founder is a published author, and the site's whole
-   voice is editorial. Rules and a running order, not boxes.
+   This page was 224 words whose entire job was linking to /learn/start/,
+   /learn/crystals/, /learn/frequency/ and /learn/jewelry/ — 1,645 more words
+   across four pages that each carried a hero, a CTA row and a closing CTA to
+   hold three or four sections of actual teaching. Nearly every one of those
+   sections restated an answer from /faq/, and /learn/frequency/ went as far as
+   a section called "Common questions" — near word for word what the FAQ page
+   already says. What the guides had that the FAQ does not is order: the seven
+   frequencies as a range, the shapes as a taxonomy, sizing as a method. That is
+   four topics, not four pages.
 
-   The guides sit on the index. "Learn with Heather" does not - it is a paid
-   session, not a guide, and giving it the same row would file it under the same
-   heading as free reading. It keeps its own block underneath.
+   So: the topics keep their sections, the four heroes and eight CTA rows are
+   gone, the FAQ duplicates are gone, and the three cards near the top double as
+   the table of contents. The variety is the point — cards, numbered steps, a
+   shape grid, the frequency table, a size table, a do/don't list. Six shapes
+   instead of one repeated. */
 
-   The link label is gone from every row. The row is the link; the arrow says
-   so, and it moves on hover. */
-.paths{margin-top:clamp(30px,4vw,48px);border-top:1px solid var(--hair)}
-/* A fixed label column, not a fractional one. Each row is its own grid, so
-   1fr sized to each row's own label and the titles came out on four
-   different left edges - which is the one thing an index cannot do. */
-.path{display:grid;grid-template-columns:clamp(94px,13vw,168px) minmax(0,1fr) auto;
-  align-items:baseline;gap:8px clamp(18px,3vw,42px);
-  padding:clamp(20px,2.4vw,30px) 4px;
-  border-bottom:1px solid var(--hair);
-  text-decoration:none;color:inherit;position:relative;
-  transition:border-color .35s,padding-left .35s cubic-bezier(.16,1,.3,1)}
-/* the copper rule is drawn on top of the hairline rather than replacing it, so
-   the row does not shift by a pixel when it lights up */
-.path::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
-  background:var(--copper);transform:scaleX(0);transform-origin:0 50%;
-  transition:transform .5s cubic-bezier(.16,1,.3,1)}
-.path:hover::after,.path:focus-visible::after{transform:scaleX(1)}
-.path:hover{padding-left:10px}
-.path:focus-visible{outline:2px solid var(--copper);outline-offset:3px}
-/* Every cell placed explicitly. The arrow declared a row span but no column,
-   which left it in the auto-flow and pushed the titles onto four different left
-   edges - the third column even sized itself to 282px to accommodate the
-   shuffling. Nothing here is auto-placed now. */
-.path .n{grid-column:1;grid-row:1;
-  font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--stone);transition:color .3s;
-  white-space:nowrap}
-.path:hover .n{color:var(--copper)}
-.path h3{grid-column:2;grid-row:1;
-  font-size:clamp(21px,2.4vw,31px);font-weight:400;line-height:1.12;
-  letter-spacing:-.02em;transition:color .3s}
-.path:hover h3{color:var(--copper-lo)}
-.path p{grid-column:2;grid-row:2;color:var(--ink-soft);font-size:15px;line-height:1.55;
-  margin-top:7px;max-width:52ch}
-.path .go{grid-column:3;grid-row:1/span 2;align-self:center;
-  font-family:var(--sans);font-size:19px;color:var(--copper);
-  transition:transform .4s cubic-bezier(.16,1,.3,1)}
-.path:hover .go{transform:translateX(7px)}
+/* the three kinds of tool, and this page's contents list */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.2vw,30px);margin-top:clamp(28px,4vw,46px)}
+.kind{border:1px solid var(--hair);border-radius:5px;background:var(--surface);padding:24px 26px 26px;
+  display:flex;flex-direction:column;text-decoration:none;color:inherit;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s}
+.kind:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--copper) 45%,transparent)}
+.kind:focus-visible{outline:2px solid var(--copper);outline-offset:3px}
+.kind .n{font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--copper)}
+.kind h3{margin-top:9px}
+.kind p{color:var(--ink-soft);font-size:15px;margin-top:8px;flex:1}
+.kind .a{margin-top:16px;font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--copper)}
+@media (max-width:820px){.three{grid-template-columns:1fr}}
+
+/* crystal shapes */
+.shapes{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(12px,1.6vw,20px);
+  margin-top:clamp(26px,3.6vw,42px)}
+.shape h3{font-size:17px;margin-bottom:6px}
+.shape p{font-size:14px;color:var(--ink-soft)}
+@media (max-width:1000px){.shapes{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:600px){.shapes{grid-template-columns:repeat(2,1fr)}}
+
+/* The seven, as a reference table rather than seven more product cards —
+   somebody here is reading, not shopping yet. Each row carries its own tone
+   colour and its own generator, both straight off em-frequencies.js, so the
+   range reads as a range and the page finally shows the thing it describes. */
+.freqs{margin-top:clamp(28px,4vw,46px);border-top:1px solid var(--hair)}
+.frow{display:grid;grid-template-columns:72px 104px 1fr auto;gap:clamp(14px,2vw,26px);
+  align-items:center;padding:18px 0;border-bottom:1px solid var(--hair);
+  text-decoration:none;color:inherit;transition:background .3s}
+.frow:hover{background:var(--tint)}
+.frow:focus-visible{outline:2px solid var(--copper);outline-offset:-2px}
+.fim{width:72px;height:72px;background:var(--tint);border-radius:4px;display:grid;
+  place-items:center;padding:7%}
+/* explicit box, not percentages: place-items:center stops a percentage height
+   resolving, and the image falls back to its aspect ratio and overflows */
+.fim img{max-width:100%;max-height:62px;width:auto;height:auto;object-fit:contain}
+.fhz{font-family:var(--serif);font-weight:300;font-size:clamp(24px,2.4vw,32px);line-height:1;
+  letter-spacing:-.03em;color:var(--tone)}
+.fhz em{font-style:normal;font-family:var(--sans);font-weight:600;font-size:.36em;
+  letter-spacing:.14em;margin-left:.3em;color:var(--stone);vertical-align:.4em}
+.fmid strong{display:block;font-family:var(--sans);font-weight:600;font-size:15px;color:var(--ink)}
+.fmid span{display:block;font-size:14px;color:var(--ink-soft);margin-top:5px;line-height:1.5;max-width:56ch}
+.fmid .tags{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+.fmid .tags b{font:600 9.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--stone);border:1px solid var(--hair);border-radius:99px;padding:4px 9px}
+.fgo{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--copper);white-space:nowrap}
+.frow.out .fhz,.frow.out .fmid strong,.frow.out .fim{opacity:.55}
+.where{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.6vw,32px);margin-top:clamp(26px,3.6vw,42px)}
+.where h3{margin-bottom:7px}
+.where p{color:var(--ink-soft);font-size:15px}
+@media (max-width:820px){
+  .frow{grid-template-columns:64px 1fr;row-gap:6px}
+  .fim{width:64px;height:64px}
+  .fim img{max-height:54px}
+  .fhz{grid-column:2}
+  .fmid{grid-column:2}
+  .fgo{grid-column:2}
+  .where{grid-template-columns:1fr}
+}
+
+/* The size table is the reason most people open the jewelry section, so it is
+   a table, not prose. Counts are the Atelier's own arithmetic:
+   round((circumference - 3mm rondelle) / 8mm bead). */
+.sizes{margin-top:clamp(26px,3.6vw,42px);border-top:1px solid var(--hair);max-width:620px}
+.srow{display:grid;grid-template-columns:120px 1fr auto;gap:18px;align-items:baseline;
+  padding:16px 0;border-bottom:1px solid var(--hair)}
+.srow b{font-family:var(--serif);font-weight:300;font-size:24px;color:var(--copper);letter-spacing:-.02em}
+.srow span{font-size:14.5px;color:var(--ink-soft)}
+.srow i{font-style:normal;font-family:var(--sans);font-weight:600;font-size:10.5px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--stone);white-space:nowrap}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.6vw,34px);margin-top:clamp(26px,3.6vw,42px)}
+.dos h3{margin-bottom:10px}
+.dos ul{list-style:none;display:grid;gap:9px}
+.dos li{font-size:15px;color:var(--ink-soft);padding-left:22px;position:relative;line-height:1.5}
+.dos li::before{position:absolute;left:0;top:-1px;font-family:var(--sans);font-weight:600;font-size:14px}
+.dos .yes li::before{content:"+";color:var(--copper)}
+.dos .no li::before{content:"\2013";color:var(--stone)}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.srow{grid-template-columns:96px 1fr}.srow i{grid-column:2}}
 
 /* Heather is the one thing here you pay for, so it is set apart rather than
    filed with the reading. Copper rule above it, no box. */
@@ -93,36 +138,21 @@
   letter-spacing:-.02em;margin-top:8px}
 .deeper p{color:var(--ink-soft);font-size:15.5px;line-height:1.6;margin-top:10px;max-width:62ch}
 .deeper .btn{white-space:nowrap}
-
-@media (prefers-reduced-motion:reduce){
-  .path,.path .go,.path::after{transition:none}
-  .path:hover{padding-left:4px}
-}
 @media (max-width:760px){
-  /* the label stops holding a column of its own and sits over the title */
-  .path{grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:20px 2px}
-  .path .n{grid-column:1}
-  .path h3{grid-column:1;font-size:22px}
-  .path p{grid-column:1;font-size:14.5px;margin-top:6px}
-  .path .go{grid-row:1/span 3;align-self:center}
   .deeper{grid-template-columns:1fr;align-items:start}
   .deeper .btn{width:100%;justify-content:center}
 }
 
-/* Learn and the Quiz are the same kind of page - no product grid, just copy
-   and a couple of ways in - and the Quiz is centred. Left-aligned, Learn's
-   hero left the right half of a desktop empty and the two gateways looked
-   unrelated. Centred to match, scoped to the first .sect so #paths and
-   everything under it keeps its alignment.
-
-   text-align on its own would not have done it. h1 and .lead carry their own
-   caps from em-page.css - min(34ch,100%) once a headline is split into
-   sentences, 62ch for the lead - so the words would have centred inside blocks
-   still pinned to the left edge. The auto margins are what actually move them. */
+/* Learn and the Quiz are the same kind of page, and the Quiz is centred.
+   Scoped to the first .sect so everything below keeps its own alignment.
+   text-align alone would not do it: h1 and .lead carry their own caps from
+   em-page.css, so the words would centre inside blocks still pinned left.
+   The auto margins are what actually move them. */
 .sect:first-of-type > .wrap{max-width:min(760px,100%);text-align:center}
 .sect:first-of-type > .wrap h1,
 .sect:first-of-type > .wrap .lead{margin-inline:auto}
 .sect:first-of-type > .wrap .cta-row{justify-content:center}
+@media (prefers-reduced-motion:reduce){.kind,.frow{transition:none}}
 </style>
 </head><body>
 <main>
@@ -131,54 +161,112 @@
   <div class="wrap">
     <span class="eyebrow">Learning center</span>
     <h1><span class="s">Start with the basics.</span><span class="s">Build your practice from there.</span></h1>
-    <p class="lead">Begin with simple guidance that helps you understand your intention, choose the
-      right tools, and create a practice that feels natural in your life. As your needs evolve,
-      Energy Muse is here to help you explore, learn, and go deeper at your own pace.</p>
+    <p class="lead">Three kinds of tool, one question worth answering first, and everything you need
+      to look after what you choose. Read it in order or go straight to the part you came for.</p>
     <div class="cta-row">
-      <a class="btn btn-copper" href="/learn/start/">Start at the Beginning</a>
-      <a class="em-link" href="#paths">Explore All Guides <span class="a" aria-hidden="true">&rarr;</span></a>
+      <a class="btn btn-copper" href="/quiz/">Find My Energy Match</a>
     </div>
   </div>
 </section>
 
-<section class="sect tint" id="paths">
+<section class="sect tint">
   <div class="wrap">
-    <h2>Choose your learning path.</h2>
-    <p>Five ways in. Take them in order or go straight to the one you came for.</p>
-    <div class="paths">
-
-      <a class="path" href="/learn/start/">
-        <span class="n">Start here</span>
-        <h3>New to Energy Muse</h3>
-        <p>First steps, the three kinds of tool, and how to choose one without guessing.</p>
-        <span class="go" aria-hidden="true">&rarr;</span>
+    <h2>Three kinds of tool.</h2>
+    <p>They do different jobs. You do not need all three, and starting with all three is the most
+      common way to end up using none of them.</p>
+    <div class="three">
+      <a class="kind" href="#jewelry">
+        <span class="n">Wear it</span>
+        <h3>Jewelry</h3>
+        <p>A reminder that travels with you. The right choice when the thing you are working on comes
+          up during the day, away from home &mdash; patience, confidence, holding a boundary.</p>
+        <span class="a">Sizing, stacking and care &rarr;</span>
       </a>
-
-      <a class="path" href="/learn/crystals/">
-        <span class="n">Crystals</span>
-        <h3>Crystal Guide</h3>
-        <p>What each stone is for, what the shapes mean, and how to look after them.</p>
-        <span class="go" aria-hidden="true">&rarr;</span>
+      <a class="kind" href="#crystals">
+        <span class="n">Place it</span>
+        <h3>Crystals</h3>
+        <p>An object you keep where you will see it. The right choice when the thing you are working
+          on belongs to a place &mdash; a desk you struggle to focus at, a bedroom that will not settle.</p>
+        <span class="a">Shapes and clearing &rarr;</span>
       </a>
-
-      <a class="path" href="/learn/frequency/">
-        <span class="n">Frequency</span>
-        <h3>Frequency Guide</h3>
-        <p>What the seven frequencies do, where to put a generator, and why fixed beats variable.</p>
-        <span class="go" aria-hidden="true">&rarr;</span>
+      <a class="kind" href="#frequency">
+        <span class="n">Tune the room</span>
+        <h3>Frequency</h3>
+        <p>A device that emits one frequency and keeps emitting it. The right choice when you want a
+          whole space to feel different rather than carrying something with you.</p>
+        <span class="a">The seven, and where to put one &rarr;</span>
       </a>
+    </div>
+  </div>
+</section>
 
-      <a class="path" href="/learn/jewelry/">
-        <span class="n">Jewelry</span>
-        <h3>Wear Your Intention</h3>
-        <p>Sizing, stacking, everyday care, and keeping a piece looking like the day it arrived.</p>
-        <span class="go" aria-hidden="true">&rarr;</span>
-      </a>
 
-        </div>
+<section class="sect tint" id="crystals">
+  <div class="wrap">
+    <span class="eyebrow">Crystals</span>
+    <h2>What the shapes mean.</h2>
+    <p>The same mineral is cut different ways for different jobs. The shape is about how a stone is
+      used, not how powerful it is.</p>
+    <div class="shapes">
+      <div class="shape"><h3>Point</h3><p>Directs. Aim it where you want the intention to go, or
+        toward yourself to draw it in.</p></div>
+      <div class="shape"><h3>Cluster</h3><p>Radiates in every direction at once. The one for a shared
+        room rather than a personal desk.</p></div>
+      <div class="shape"><h3>Tumbled</h3><p>Pocket-sized and smooth. Made to be carried and handled,
+        not displayed.</p></div>
+      <div class="shape"><h3>Pyramid</h3><p>Anchors and amplifies. A stable base with a single point
+        &mdash; grounding and focus together.</p></div>
+      <div class="shape"><h3>Sphere &amp; heart</h3><p>Even in all directions. Softer, steadier, and
+        the usual choice for a gift.</p></div>
+    </div>
+  </div>
+</section>
 
-    <!-- Not a guide, and not free: it is set apart rather than filed with the
-         reading it sits under. -->
+
+<section class="sect tint" id="frequency">
+  <div class="wrap">
+    <span class="eyebrow">Frequency</span>
+    <h2>The seven frequencies.</h2>
+    <p>A frequency generator emits one specific frequency and keeps emitting it. Start with the one
+      whose description sounds like the thing you actually want more of. There is no wrong first
+      choice, and none of them cancels another out.</p>
+    <div class="freqs" id="freqs"></div>
+    <p class="note">Frequency generators are not medical devices and are not a substitute for
+      healthcare. Experiences vary.</p>
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="/frequency/">Shop Frequency Generators</a>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="sect" id="jewelry">
+  <div class="wrap">
+    <span class="eyebrow">Jewelry</span>
+    <h2>Getting the size right.</h2>
+    <p>A bracelet works because you meet it a hundred times a day without meaning to. Measure your
+      wrist with a tape measure, or a strip of paper against a ruler, snug but not tight. Then take
+      the size at or just above that number &mdash; beads take up room on the inside of the curve, so
+      a bracelet always wears slightly smaller than it measures.</p>
+    <div class="sizes">
+      <div class="srow"><b>6&frac34;&Prime;</b><span>Small. Sits close, stays put under a sleeve.</span><i>21 beads + rondelle</i></div>
+      <div class="srow"><b>7&frac12;&Prime;</b><span>The most common size, and the safest guess.</span><i>23 beads + rondelle</i></div>
+      <div class="srow"><b>8&Prime;</b><span>Relaxed. Moves on the wrist, good for stacking.</span><i>25 beads + rondelle</i></div>
+    </div>
+    <p class="note">Between two sizes? Take the larger one. Elastic is far happier slightly loose
+      than slightly stretched, and a bracelet worn at tension is a bracelet that will break.</p>
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="/jewelry/">Shop Jewelry</a>
+      <a class="btn btn-ghost" href="/designer/">Design Your Own</a>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="sect tint">
+  <div class="wrap">
     <div class="deeper">
       <div>
         <span class="n">Go deeper</span>
@@ -191,18 +279,36 @@
   </div>
 </section>
 
-<section class="sect">
-  <div class="wrap narrow">
-    <h2>Turn the guide into a personal starting point.</h2>
-    <p>Take the Energy Quiz to connect what you&rsquo;ve learned to a recommended tool and a simple
-      practice you can actually keep.</p>
-    <div class="cta-row">
-      <a class="btn btn-copper" href="/quiz/">Find My Energy Match</a>
-      <a class="em-link" href="/faq/">Read the FAQs <span class="a" aria-hidden="true">&rarr;</span></a>
-    </div>
-  </div>
-</section>
-
-
 </main>
+<script>
+/* Built from em-frequencies.js, so the range, the names, the descriptions and
+   the stock state are the same ones the shop sells. A guide that disagrees
+   with the shop is worse than no guide. The generator image comes from the same
+   record — this page described seven devices without showing one. */
+(function(){
+  /* em-frequencies.js is deferred, so it has not run yet while this inline
+     script is being parsed - reading EM_FREQ here found nothing and the table
+     rendered empty. Deferred scripts all finish before DOMContentLoaded. */
+  function paint(){
+  var host=document.getElementById('freqs');
+  if(!host||!window.EM_FREQ)return;
+  window.EM_FREQ.forEach(function(f){
+    var out=(f.stock==='out');
+    var a=document.createElement('a');
+    a.className='frow'+(out?' out':'');
+    a.href='/product/?id='+encodeURIComponent(f.id);
+    a.style.setProperty('--tone', f.tone||'var(--copper)');
+    a.innerHTML='<span class="fim"><img src="/'+String(f.img||'').replace(/^\//,'')+'" alt="" loading="lazy"></span>'
+      +'<span class="fhz">'+f.hz+'<em>Hz</em></span>'
+      +'<span class="fmid"><strong>'+f.name+'</strong>'
+      +'<span>'+(f.say||'')+'</span>'
+      +'<span class="tags"><b>'+(f.purpose||[]).join('</b><b>')+'</b></span></span>'
+      +'<span class="fgo">'+(out?'Unavailable':'See it &rarr;')+'</span>';
+    host.appendChild(a);
+  });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',paint);
+  else paint();
+})();
+</script>
 </body></html>
