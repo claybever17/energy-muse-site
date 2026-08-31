@@ -226,3 +226,14 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 :where([class*="grid"]) > *,
 :where(.store-grid,.int-grid,.igrid,.jgrid,.sgrid,.fgrid,.pgrid,.jfilter) > *{min-width:0}
 :where(.pcard,.sc,.jcard,.fcard,.icard) :where(b,strong,.nm,.n){overflow-wrap:anywhere}
+
+/* A standalone .em-link in a cta-row is a control, not a word in a sentence:
+   31px tall, which is under the 44px the rest of the site settled on. The
+   pseudo-element grows the target without moving the text - the same trick the
+   bag close and the Frequency Room dial already use. Inline links inside running
+   text are exempt from the target-size rule and are deliberately not touched. */
+@media (max-width:900px){
+  .cta-row .em-link{position:relative}
+  .cta-row .em-link::after{content:"";position:absolute;left:0;top:50%;
+    transform:translateY(-50%);width:100%;height:44px}
+}

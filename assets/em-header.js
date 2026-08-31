@@ -143,7 +143,13 @@ var css=[
 '.emh-foot{background:'+P.footbg+';border-top:1px solid '+P.line+';font-family:"Instrument Sans",sans-serif;}',
 '.emh-foot-in{max-width:1240px;margin:0 auto;padding:44px clamp(20px,4vw,44px) 30px;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;}',
 '.emh-foot .emh-logo{height:30px;}',
-'.emh-foot-links{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:center;font-size:13px;font-weight:600;}',
+'.emh-foot-links{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:center;font-size:13px;font-weight:600;}'
+  /* The footer nav sat at 21px - a real target on every page of the site. An
+     overlay is wrong here because the links wrap with an 8px row gap and a
+     44px box would reach into the row above and take its taps. Padding grows
+     each link's own box instead, and the row gap comes off so the footer does
+     not get taller for it. The text does not move: the padding is symmetric. */
++'@media(max-width:840px){.emh-foot-links{gap:0 20px}.emh-foot-links a{display:inline-block;padding-block:12px}}',
 /* email capture belongs on every page, not just the homepage */
 '.emh-sub{width:100%;max-width:440px;text-align:center;}',
 '.emh-sub h3{font-family:Fraunces,Georgia,serif;font-weight:300;font-size:20px;margin:0 0 4px;max-width:none;color:'+P.fg+';}',
