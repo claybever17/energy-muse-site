@@ -94,6 +94,10 @@
   color:var(--stone);border:1px solid var(--hair);border-radius:99px;padding:4px 9px}
 .fgo{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--copper);white-space:nowrap}
+.fgo i{font-style:normal;font-size:17px;display:inline-block;
+  transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.frow:hover .fgo i{transform:translateX(7px)}
+@media (prefers-reduced-motion:reduce){.fgo i{transition:none}}
 .frow.out .fhz,.frow.out .fmid strong,.frow.out .fim{opacity:.55}
 .where{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.6vw,32px);margin-top:clamp(26px,3.6vw,42px)}
 .where h3{margin-bottom:7px}
@@ -163,9 +167,14 @@
     <h1><span class="s">Start with the basics.</span><span class="s">Build your practice from there.</span></h1>
     <p class="lead">Three kinds of tool, one question worth answering first, and everything you need
       to look after what you choose. Read it in order or go straight to the part you came for.</p>
-    <div class="cta-row">
-      <a class="btn btn-copper" href="/quiz/">Find My Energy Match</a>
-    </div>
+    <!-- No call to action here on purpose. A hero button that leaves the page
+         asks the reader to abandon the thing they just chose to look at, before
+         they have seen any of it - and what this page is for is directly below.
+         The same fault /jewelry/ and /sets/ had. A hero CTA earns its place only
+         when it leads somewhere the page itself cannot go: /affiliates/,
+         /heather/ and /veza/ keep theirs because they jump to a form 700-1700px
+         down, and /intention/ keeps its five because choosing between them is
+         the whole point of the page. -->
   </div>
 </section>
 
@@ -303,7 +312,7 @@
       +'<span class="fmid"><strong>'+f.name+'</strong>'
       +'<span>'+(f.say||'')+'</span>'
       +'<span class="tags"><b>'+(f.purpose||[]).join('</b><b>')+'</b></span></span>'
-      +'<span class="fgo">'+(out?'Unavailable':'See it &rarr;')+'</span>';
+      +'<span class="fgo">'+(out?'Unavailable':'<i aria-hidden="true">&rarr;</i>')+'</span>';
     host.appendChild(a);
   });
   }

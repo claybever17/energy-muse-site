@@ -238,6 +238,9 @@
 /* Add to Bag was 38px against the 44 the brief asks for, and it is the one
    control on the card a thumb actually has to find. */
 @media (max-width:840px){ .qadd{min-height:44px;} }
+/* 839px of headline against a 20ch cap of 826, inside a 1080px column.
+   Thirteen pixels is not a reason to break a line. */
+.h-wide{max-width:none}
 </style>
 <style>
 /* -------------------------------------------------------------------------
@@ -308,7 +311,7 @@
 <section class="sect">
   <div class="wrap">
     <span class="eyebrow">Shop</span>
-    <h1>Start with the energy you want more of.</h1>
+    <h1 class="h-wide">The energy you want more of.</h1>
     <p class="lead">Jewelry, crystals, frequency generators and sets &mdash; all of it, here.</p>
 
     <div class="sfilter" id="sfilter" role="group" aria-label="Shop by category"></div>

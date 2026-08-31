@@ -25,6 +25,23 @@
 <script src="/assets/em-depth.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=9" defer></script>
 <script src="/assets/em-versions.js?v=21" defer></script>
+<style>
+/* The same component /about/ uses. Energy Muse's approved wording is untouched;
+   this only stops the page being prose in a column five times over. The
+   "Handpicked and handmade" block already has its own three-column layout and
+   is left alone. Photographs the repo already holds. */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,60px);align-items:center}
+.duo.flip .duo-img{order:-1}
+.duo-img{border-radius:4px;overflow:hidden;background:var(--tint)}
+.duo-img img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3}
+.duo h2{margin-bottom:14px}
+.duo p + p{margin-top:14px}
+@media (max-width:820px){
+  .duo{grid-template-columns:1fr;gap:22px}
+  .duo.flip .duo-img{order:0}
+  .duo-img img{aspect-ratio:16/10}
+}
+</style>
 </head><body>
 <main>
 <section class="sect">
@@ -35,23 +52,40 @@
       On a phone that is eleven lines of type before the page has shown
       anything. The first sentence carries the idea on its own. -->
       <p class="lead">For more than 20 years, Energy Muse has searched the world for meaningful materials, developed intentional formulas, and considered how every piece will fit into real life.</p>
-    <div class="cta-row"><a class="btn btn-copper" href="/quiz/">Find Your Energy Match</a></div>
+    <!-- No call to action here on purpose. A hero button that leaves the page
+         asks the reader to abandon the thing they just chose to look at, before
+         they have seen any of it - and what this page is for is directly below.
+         The same fault /jewelry/ and /sets/ had. A hero CTA earns its place only
+         when it leads somewhere the page itself cannot go: /affiliates/,
+         /heather/ and /veza/ keep theirs because they jump to a form 700-1700px
+         down, and /intention/ keeps its five because choosing between them is
+         the whole point of the page. -->
   </div>
 </section>
 
 <section class="sect tint">
-  <div class="wrap narrow">
+  <div class="wrap">
+   <div class="duo">
+    <div>
     <h2>Everything is curated with intention.</h2>
     <p>Every Energy Muse product begins with an intention. We consider the materials, traditional associations, form, placement, and daily use before bringing the pieces together into a formula.</p>
     <p>The result is more than a collection of individual products &mdash; it&rsquo;s an ecosystem designed to help you build a practice that feels personal, approachable, and easy to return to.</p>
+    </div>
+    <div class="duo-img"><img src="/assets/img/frequency.jpg" alt="A copper-coil frequency tool" loading="lazy"></div>
+   </div>
   </div>
 </section>
 
 <section class="sect">
-  <div class="wrap narrow">
+  <div class="wrap">
+   <div class="duo flip">
+    <div class="duo-img"><img src="/assets/img/bracelets.jpg" alt="Stacked crystal bracelets on a wrist" loading="lazy"></div>
+    <div>
     <h2>Each formula is created to support a specific intention.</h2>
     <p>Our wearable formulas combine carefully selected crystals and materials based on how they complement one another. Our frequency formulas take the same approach.</p>
     <p>Whether you wear it, place it in your space, or bring it into your practice, every detail has a reason for being there.</p>
+    </div>
+   </div>
   </div>
 </section>
 
