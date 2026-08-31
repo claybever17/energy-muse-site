@@ -137,6 +137,11 @@
   text-decoration:none;color:var(--navy-text);border:1px solid var(--navy-line);
   border-radius:99px;padding:8px 14px;transition:.25s}
 .hzrow a:hover{border-color:var(--copper-hi);color:var(--copper-hi)}
+/* six lines on a phone. The claim that sells is the second sentence and it is
+   the approved copy's own, so it stays whole at every width; what goes is the
+   parts list in the middle, which is detail rather than argument. */
+.dsk{display:inline}
+@media (max-width:700px){.dsk{display:none}}
 
 /* --- make it yourself --- */
 /* Below the grid used to be three sections and five outbound links: two big
@@ -189,8 +194,8 @@
 @media (max-width:900px){
   .ways{grid-template-columns:repeat(2,1fr)}
   .way:nth-child(2n){margin-top:clamp(18px,3.2vw,44px)}
-  .gband{grid-template-columns:1fr;gap:28px}
-  .gband .lit{max-width:360px;margin:0 auto}
+  .gband{grid-template-columns:1fr;gap:24px}
+  .gband .lit{width:240px;max-width:100%;margin:0 auto}
 }
 @media (max-width:760px){
   .pgrid{grid-template-columns:repeat(2,1fr)}
@@ -410,9 +415,10 @@
       <div>
         <span class="eyebrow">Frequency generators</span>
         <h2>Where wellness meets tech.</h2>
-        <p>Each generator is tuned to one frequency and left there &mdash; a crystal oscillator and a
-          copper tensor coil, matched with a sacred geometric shape. Fixed-frequency devices reach a
-          larger radius and carry a stronger signal than the variable ones others sell.</p>
+        <p>Each generator is tuned to one frequency and left there<span class="dsk"> &mdash; a crystal
+          oscillator and a copper tensor coil, matched with a sacred geometric shape</span>.
+          Fixed-frequency devices reach a larger radius and carry a stronger signal than the
+          variable ones others sell.</p>
         <div class="hzrow" id="hzrow"></div>
         <!-- "See It Up Close" pointed at /generator/, which has been a redirect
              stub to /frequency/ since the two frequency pages merged - so the
@@ -594,9 +600,16 @@
      the band simply goes without them when it is not */
   var row=document.getElementById('hzrow');
   if(row&&window.EM_FREQ){
+    /* Every one of these used to be href='/frequency/#all' - seven different
+       labels and one hardcoded destination, with the button underneath going
+       to the same page again. Eight controls, one place. They point at their
+       own generator now. Not /frequency/#<id>: the .fcard elements on that
+       page carry no ids, so there is nothing there to land on. */
     window.EM_FREQ.forEach(function(f){
       var a=document.createElement('a');
-      a.href='/frequency/#all'; a.textContent=f.hz+' Hz';
+      a.href='/product/?id='+encodeURIComponent(f.id);
+      a.textContent=f.hz+' Hz';
+      a.setAttribute('aria-label',f.hz+' Hz Frequency Generator');
       row.appendChild(a);
     });
   }
