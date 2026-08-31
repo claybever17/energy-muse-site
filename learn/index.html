@@ -161,10 +161,12 @@
    text-align alone would not do it: h1 and .lead carry their own caps from
    em-page.css, so the words would centre inside blocks still pinned left.
    The auto margins are what actually move them. */
-.sect:first-of-type > .wrap{max-width:min(760px,100%);text-align:center}
-.sect:first-of-type > .wrap h1,
-.sect:first-of-type > .wrap .lead{margin-inline:auto}
-.sect:first-of-type > .wrap .cta-row{justify-content:center}
+/* The opening used to be its own centred section: 486px of screen for a
+   headline and one line, with the three cards - which are this page's table of
+   contents - starting at 858. Merged into the section below it, the way /shop/,
+   /gems/, /jewelry/ and /sets/ all open straight into their content. Centring
+   went with it; a 760px centred column was also what pushed the headline onto
+   three lines. */
 @media (prefers-reduced-motion:reduce){.kind,.frow{transition:none}}
 </style>
 </head><body>
@@ -175,20 +177,7 @@
     <span class="eyebrow">Learning center</span>
     <h1><span class="s">Start with the basics.</span><span class="s">Build your practice from there.</span></h1>
     <p class="lead">Three kinds of tool, and how to choose between them.</p>
-    <!-- No call to action here on purpose. A hero button that leaves the page
-         asks the reader to abandon the thing they just chose to look at, before
-         they have seen any of it - and what this page is for is directly below.
-         The same fault /jewelry/ and /sets/ had. A hero CTA earns its place only
-         when it leads somewhere the page itself cannot go: /affiliates/,
-         /heather/ and /veza/ keep theirs because they jump to a form 700-1700px
-         down, and /intention/ keeps its five because choosing between them is
-         the whole point of the page. -->
-  </div>
-</section>
-
-<section class="sect tint">
-  <div class="wrap">
-    <h2>Three kinds of tool.</h2>
+<h2>Three kinds of tool.</h2>
     <p>You do not need all three. Starting with all three is the most common way to end up using
       none of them.</p>
     <div class="three">
