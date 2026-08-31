@@ -62,7 +62,12 @@ img{max-width:100%;display:block}
    imposed on the content instead. One left edge, top to bottom. */
 .wrap.narrow{max-width:1080px}
 .wrap.narrow > *{max-width:760px}
-.sect{padding-block:clamp(48px,7vw,96px)}
+/* 96px top and bottom put 192px between every pair of sections on a desktop,
+   and it kept showing up as "too much space" - on /learn/ the gap from the
+   last shape to the next heading measured 226px. 76px still reads as a
+   deliberate break at 152px between sections, and gives back 40px per
+   boundary across every page at once. */
+.sect{padding-block:clamp(40px,5.6vw,76px)}
 .sect+.sect{border-top:1px solid var(--hair)}
 .sect.tint{background:var(--tint)}
 

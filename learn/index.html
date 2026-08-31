@@ -18,7 +18,7 @@
 <meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
-<link rel="stylesheet" href="/assets/em-page.css?v=12">
+<link rel="stylesheet" href="/assets/em-page.css?v=13">
 <script src="/assets/em-header.js?v=23" defer></script>
 <script src="/assets/em-bag.js?v=10" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
@@ -65,6 +65,16 @@
 .kind .a{margin-top:16px;font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--copper)}
 @media (max-width:820px){.three{grid-template-columns:1fr}}
+/* The caution reads after the options now, so it needs air between it and the
+   last card - it was sitting flush against them. */
+.three + p{margin-top:clamp(20px,2.6vw,28px)}
+/* Five shapes in two columns leaves the fifth alone with 174px of empty cell
+   beside it, so an odd last item takes the whole row. Only at two columns:
+   unscoped this also fired at five and at three, where the last item is still
+   odd but the row is not short. */
+@media (max-width:600px){
+  .shapes > *:last-child:nth-child(odd){grid-column:1 / -1}
+}
 
 /* crystal shapes */
 .shapes{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(12px,1.6vw,20px);
@@ -184,7 +194,6 @@
     <span class="eyebrow">Learning center</span>
     <h1><span class="s">Start with the basics.</span><span class="s">Build your practice from there.</span></h1>
 <h2 class="vh">Three kinds of tool.</h2>
-    <p>You do not need all three &mdash; starting with all three is how most people end up using none.</p>
     <div class="three">
       <a class="kind" href="#jewelry">
         <span class="n">Wear it</span>
@@ -205,6 +214,7 @@
         <span class="a">The seven, and where to put one &rarr;</span>
       </a>
     </div>
+    <p>You do not need all three &mdash; starting with all three is how most people end up using none.</p>
   </div>
 </section>
 
