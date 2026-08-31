@@ -154,20 +154,30 @@
   margin-top:clamp(24px,3.2vw,38px)}
 .mkg h3{font-family:var(--serif);font-weight:400;font-size:clamp(19px,2vw,24px);
   line-height:1.15;margin-bottom:clamp(10px,1.4vw,16px)}
-.mkr{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;
-  gap:2px clamp(12px,1.6vw,20px);padding:15px 2px 15px 0;
-  border-top:1px solid var(--hair);text-decoration:none;color:inherit;
-  transition:border-color .3s}
+.mkr{display:grid;grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"name act" "desc act";align-items:center;
+  gap:3px clamp(14px,2vw,26px);padding:15px 2px 16px 0;
+  border-top:1px solid var(--hair);text-decoration:none;color:inherit}
 .mkg .mkr:last-child{border-bottom:1px solid var(--hair)}
-.mkr b{font-family:var(--sans);font-weight:600;font-size:14px;line-height:1.3;
-  transition:color .25s}
-.mkr span{font-family:var(--sans);font-size:13.5px;line-height:1.5;color:var(--stone);
-  grid-column:1;text-wrap:balance}
-.mkr i{grid-column:2;grid-row:1 / span 2;font-style:normal;color:var(--copper);
-  font-size:16px;line-height:1;transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.mkr b{grid-area:name;font-family:var(--serif);font-weight:400;
+  font-size:clamp(17px,1.5vw,19px);line-height:1.2;transition:color .25s}
+.mkr span{grid-area:desc;font-family:var(--sans);font-size:13.5px;line-height:1.5;
+  color:var(--stone);text-wrap:balance}
+.mkr em{grid-area:act;font-style:normal;font-family:var(--sans);font-weight:600;
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--copper);
+  white-space:nowrap;display:inline-flex;align-items:center;gap:7px}
+.mkr em i{font-style:normal;font-size:14px;line-height:1;
+  transition:transform .35s cubic-bezier(.16,1,.3,1)}
 .mkr:hover b{color:var(--copper)}
-.mkr:hover i{transform:translateX(4px)}
+.mkr:hover em i{transform:translateX(4px)}
 .mkr:focus-visible{outline:2px solid var(--copper);outline-offset:3px}
+
+@media (max-width:600px){
+  /* the action drops under the line rather than squeezing the name column */
+  .mkr{grid-template-columns:1fr;grid-template-areas:"name" "desc" "act";
+    align-items:start;padding:16px 0 18px}
+  .mkr em{margin-top:9px}
+}
 
 /* Every narrowing rule lives below the rules it narrows. Putting a media
    block above its base rule loses silently and has cost this project a
@@ -335,7 +345,7 @@
 .sc{display:flex;flex-direction:column;text-align:center;text-decoration:none;color:inherit}
 
 .sc .sim{aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;
-  padding:9%;overflow:hidden;background:var(--tint)}
+  padding:6%;overflow:hidden;background:var(--tint)}
 .sc .sim img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
 .sc b{font-family:var(--sans);font-weight:600;font-size:12.5px;line-height:1.3;margin-top:12px;
   min-height:2.6em;display:flex;align-items:center;justify-content:center}
@@ -364,7 +374,7 @@
    face is a link to the product anyway. */
 @media (max-width:560px){
   .qwrap{padding:9px 9px 10px;border-radius:8px;}
-  .sc .sim{aspect-ratio:4/3;padding:5%;}
+  .sc .sim{aspect-ratio:5/4;padding:4%;}
   .sc b{font-size:11.5px;line-height:1.28;margin-top:9px;min-height:2.4em;}
   .sc .sg{font-size:8.5px;}
   .sc .sp{font-size:14px;padding-top:5px;}
@@ -426,12 +436,12 @@
         <a class="mkr" href="/designer/">
           <b>The Atelier</b>
           <span>Design a bracelet stone&nbsp;by&nbsp;stone, on your own wrist size.</span>
-          <i aria-hidden="true">&rarr;</i>
+          <em>Design a bracelet <i aria-hidden="true">&rarr;</i></em>
         </a>
         <a class="mkr" href="/box/">
           <b>Build a Box</b>
           <span>Choose the stones; we pack them with a card for each one.</span>
-          <i aria-hidden="true">&rarr;</i>
+          <em>Choose your stones <i aria-hidden="true">&rarr;</i></em>
         </a>
       </div>
       <div class="mkg">
@@ -439,12 +449,12 @@
         <a class="mkr" href="/quiz/">
           <b>The Energy Quiz</b>
           <span>Three questions, then a&nbsp;personalized starting point.</span>
-          <i aria-hidden="true">&rarr;</i>
+          <em>Take the quiz <i aria-hidden="true">&rarr;</i></em>
         </a>
         <a class="mkr" href="/learn/">
           <b>The Guides</b>
           <span>How the tools work, and how&nbsp;to choose between them.</span>
-          <i aria-hidden="true">&rarr;</i>
+          <em>Start reading <i aria-hidden="true">&rarr;</i></em>
         </a>
       </div>
     </div>
@@ -485,7 +495,12 @@
     return '<div class="qwrap'+(out?' out':'')+'">'
       +'<a class="sc'+(out?' out':'')+'" href="/product/?id='+encodeURIComponent(p.id)+'">'
       +'<span class="sim"><img src="'+p.img+'" alt="'+String(p.name).replace(/"/g,'')+'" loading="lazy"></span>'
-      +'<b>'+p.name+'</b><span class="sg">'+p.cat+'</span>'
+      /* the category line went: filtered to Crystals, all 83 cards said
+         CRYSTAL, and unfiltered the product name already says it. /gems/ and
+         /intention/ keep theirs - those show the intention group and the
+         category-while-faceting-by-feeling, which is information the card
+         does not otherwise carry. */
+      +'<b>'+p.name+'</b>'
       +'<span class="sp">$'+p.price.toFixed(2)+'</span></a>'
       +(out?'<span class="qsold">Unavailable</span>'
            :'<button class="qadd" type="button" data-add="'+encodeURIComponent(p.id)+'">Add to Bag</button>')
