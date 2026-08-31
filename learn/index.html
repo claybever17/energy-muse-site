@@ -72,9 +72,6 @@
    beside it, so an odd last item takes the whole row. Only at two columns:
    unscoped this also fired at five and at three, where the last item is still
    odd but the row is not short. */
-@media (max-width:600px){
-  .shapes > *:last-child:nth-child(odd){grid-column:1 / -1}
-}
 
 /* crystal shapes */
 .shapes{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(12px,1.6vw,20px);
@@ -82,7 +79,14 @@
 .shape h3{font-size:17px;margin-bottom:6px}
 .shape p{font-size:14px;color:var(--ink-soft)}
 @media (max-width:1000px){.shapes{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:600px){.shapes{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){
+  .shapes{grid-template-columns:1fr;gap:0;
+    margin-top:clamp(20px,3vw,30px);border-top:1px solid var(--hair)}
+  .shape{padding:13px 0;border-bottom:1px solid var(--hair)}
+  .shape h3{margin-bottom:3px}
+  .shape p{font-size:14.5px}
+}
+
 
 /* The seven, as a reference table rather than seven more product cards —
    somebody here is reading, not shopping yet. Each row carries its own tone
