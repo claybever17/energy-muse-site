@@ -40,7 +40,7 @@
      Three were cut and dropped rather than shipped wrong — a grid-template
      PDF that is not a crystal at all, and Garnet and Charoite, whose photos
      sit on dark grounds the keying could not separate cleanly. */
-  { id: "sodalite-stone", name: "Sodalite Stone", cat: "Crystal", group: "Calm", price: 3.88, img: "/assets/img/shop/sodalite-stone.webp", desc: "Sometimes it feels like we're just not ourselves anymore. At some point along the way, we lost our voice and our unique point of view.", home: "/gems/" },
+  { id: "sodalite-stone", name: "Sodalite Stone", cat: "Crystal", group: "Calm", price: 3.88, img: "/assets/img/shop/sodalite-stone.webp", desc: "Deep blue veined with white calcite, tumbled smooth and sized for a pocket or a desk.", home: "/gems/" },
   { id: "prehnite-stone", name: "Prehnite Stone", cat: "Crystal", group: "Connection", price: 5.88, img: "/assets/img/shop/prehnite-stone.webp", desc: "Prehnite properties help to balance the solar plexus chakra and the heart chakra.", home: "/gems/" },
   { id: "labradorite-stone", name: "Labradorite Stone", cat: "Crystal", group: "Abundance", price: 5.88, img: "/assets/img/shop/labradorite-stone.webp", desc: "Think of Labradorite like your fairy godmother, here to sprinkle your life with pixie dust. With the mystical energy of Labradorite, sparks of neon will illuminate the path to your destiny.", home: "/gems/" },
   { id: "apatite-stone", name: "Apatite Stone", cat: "Crystal", group: "Calm", price: 5.88, img: "/assets/img/shop/apatite-stone.webp", desc: "Your appetite for life, creative endeavors and passionate pursuits will feel nearly insatiable when introduced to the inspirational energy of a Blue Apatite stone.", home: "/gems/" },
