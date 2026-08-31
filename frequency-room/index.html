@@ -312,6 +312,26 @@ img{display:block;max-width:100%}
   .stop::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
     width:44px;height:44px}
 
+  /* The stone cards' Add buttons are 55x28 - the pill stays that size, the
+     tappable box around it grows, the same way the dial stops do above. The
+     cards sit in a horizontal scroller with 12px between them, so a 44px box
+     centred on a 55px pill cannot reach its neighbour. */
+  /* "See the Frequency Systems" and "See the whole collection" sit beside their
+     section headings rather than inside a sentence, so they are standalone
+     controls at 17px and get the same treatment. Inline links in running text
+     are exempt and are left alone. */
+  .thead a,.ahead a{position:relative;display:inline-block}
+  .thead a::after,.ahead a::after{content:"";position:absolute;left:0;top:50%;
+    transform:translateY(-50%);width:100%;height:44px}
+
+  /* the logo is 123x26 - wide enough, short enough to miss */
+  .tophead .home{position:relative}
+  .tophead .home::after{content:"";position:absolute;left:0;top:50%;
+    transform:translateY(-50%);width:100%;height:44px}
+  .st .a{position:relative}
+  .st .a::after{content:"";position:absolute;left:50%;top:50%;
+    transform:translate(-50%,-50%);width:100%;height:44px;min-width:44px}
+
   .peoplein,.joinin{grid-template-columns:1fr}
   .pshot{order:-1}
 }
