@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=13">
 <script src="/assets/em-frequencies.js?v=4"></script>
-<script src="/assets/em-catalog.js?v=15"></script>
+<script src="/assets/em-catalog.js?v=16"></script>
 <script src="/assets/em-header.js?v=23" defer></script>
 <script src="/assets/em-bag.js?v=10" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
@@ -106,6 +106,24 @@
 .pshot img{transition:opacity .28s ease}
 .pshot.swapping img{opacity:0}
 @media (max-width:520px){.pthumb{width:56px;height:56px}}
+/* Size sits between the price and the description, the way Energy Muse's own
+   page orders it. 44px on the control, and the measurement under it rather
+   than inside the option labels, so the line reads at a glance. */
+.psize{margin-top:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.psize label{font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--stone)}
+.psize select{font-family:var(--sans);font-size:14px;color:var(--ink);background:var(--surface);
+  border:1px solid var(--hair);border-radius:4px;padding:11px 34px 11px 13px;min-height:44px;
+  cursor:pointer;appearance:none;
+  background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%236D695D' stroke-width='1.5' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center;background-size:11px}
+.psize select:focus-visible{outline:2px solid var(--copper);outline-offset:2px;border-color:var(--copper)}
+.pdim{font-size:13.5px;color:var(--ink-soft);margin:0}
+@media (max-width:600px){
+  /* the measurement takes its own line rather than squeezing beside the control */
+  .psize{gap:10px 12px}
+  .pdim{flex-basis:100%;margin-top:-2px}
+}
 </style>
 </head><body>
 <main>
@@ -178,7 +196,21 @@ function SEEALL(c){return SEEALL_PLURAL[c] || String(c||'').toLowerCase();}
     + '<p class="crumb"><a href="/shop/">Shop</a> &nbsp;/&nbsp; <a href="' + p.home + '">' + p.cat + '</a></p>'
     + '<span class="pcat">' + (EM_CATALOG.label(p.group) || p.cat) + '</span>'
     + '<h1>' + p.name + '</h1>'
-    + '<div class="pprice">$' + p.price.toFixed(2) + '</div>'
+    + '<div class="pprice" id="pprice">$' + p.price.toFixed(2) + '</div>'
+    /* Energy Muse sells most stones and every bracelet in sizes, and the size
+       carries the dimension: S (0.75"-1"). Their own page puts the selector
+       under the price with the measurement beneath it, so this does the same.
+       Products without variants render nothing here at all. */
+    + (p.sizes && p.sizes.length > 1
+        ? '<div class="psize">'
+          + '<label for="psel">Size</label>'
+          + '<select id="psel">'
+          + p.sizes.map(function(v, n){
+              return '<option value="' + n + '">' + v.t + '</option>'; }).join('')
+          + '</select>'
+          + '<p class="pdim" id="pdim">' + (p.sizes[0].d ? 'Approx. ' + p.sizes[0].d : '') + '</p>'
+          + '</div>'
+        : '')
     + '<p class="pdesc">' + (p.desc || '') + '</p>'
     + '<div class="pbuy">'
     + (out ? '<span class="soldout">Currently unavailable</span>'
@@ -235,10 +267,27 @@ function SEEALL(c){return SEEALL_PLURAL[c] || String(c||'').toLowerCase();}
     });
   }
 
+  /* One selected size, read by the price line, the dimension line and the bag. */
+  var chosen = (p.sizes && p.sizes.length) ? p.sizes[0] : null;
+  var psel = document.getElementById('psel');
+  if (psel) psel.addEventListener('change', function(){
+    chosen = p.sizes[Number(psel.value)] || p.sizes[0];
+    var pr = document.getElementById('pprice');
+    var dm = document.getElementById('pdim');
+    if (pr) pr.textContent = '$' + chosen.p.toFixed(2);
+    if (dm) dm.textContent = chosen.d ? 'Approx. ' + chosen.d : '';
+  });
+
   var add = document.getElementById('bigadd');
   if (add) add.addEventListener('click', function(){
     if (!window.EMBag) return;
-    EMBag.add({ id: p.id, name: p.name, price: p.price, img: p.img,
+    /* The bag keys on id and adds a quantity when it sees the same one twice,
+       so a size has to make its own key or two sizes of one stone would merge
+       into a single line. The link still points at the base product. */
+    var sized = chosen && p.sizes && p.sizes.length > 1;
+    EMBag.add({ id: sized ? p.id + '::' + chosen.t : p.id,
+                name: sized ? p.name + ' — ' + chosen.t : p.name,
+                price: sized ? chosen.p : p.price, img: p.img,
                 link: '/product/?id=' + p.id });
     add.textContent = 'Added to bag'; add.classList.add('done');
     setTimeout(function(){ add.textContent = 'Add to Bag'; add.classList.remove('done'); }, 1600);
