@@ -71,12 +71,14 @@
 
 @media (max-width:820px){
   /* three across is 118px a piece at 390 - too narrow for "Tune the room".
-     One line each instead, verb and name side by side. */
+     One line each instead, verb and name side by side, in a grid rather than a
+     flex row: the verbs differ by 15px and a min-width let the longest one
+     shove its own name out of the column. */
   .three{flex-direction:column;gap:8px}
-  .kind{flex:none;flex-direction:row;align-items:baseline;gap:10px;
-    padding:12px 15px 13px}
+  .kind{flex:none;display:grid;grid-template-columns:112px minmax(0,1fr);
+    align-items:baseline;gap:0 12px;padding:12px 15px 13px}
   .kind b{font-size:17px}
-  .kind .n{font-size:9.5px;min-width:88px}
+  .kind .n{font-size:9.5px}
 }
 /* Five shapes in two columns leaves the fifth alone with 174px of empty cell
    beside it, so an odd last item takes the whole row. Only at two columns:
