@@ -45,6 +45,12 @@
    shape grid, the frequency table, a size table, a do/don't list. Six shapes
    instead of one repeated. */
 
+/* Off the page, still in the outline: the cards below carry h3s, so deleting
+   the heading outright would take h1 straight to h3 - the skip that was cleaned
+   off every page here earlier. */
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap;border:0}
+
 /* the three kinds of tool, and this page's contents list */
 .three{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.2vw,30px);margin-top:clamp(28px,4vw,46px)}
 .kind{border:1px solid var(--hair);border-radius:5px;background:var(--surface);padding:24px 26px 26px;
@@ -151,6 +157,7 @@
   letter-spacing:-.02em;margin-top:8px}
 .deeper p{color:var(--ink-soft);font-size:15.5px;line-height:1.6;margin-top:10px;max-width:62ch}
 .deeper .btn{white-space:nowrap}
+.wrap > .deeper:first-child{margin-top:0}
 @media (max-width:760px){
   .deeper{grid-template-columns:1fr;align-items:start}
   .deeper .btn{width:100%;justify-content:center}
@@ -176,9 +183,8 @@
   <div class="wrap">
     <span class="eyebrow">Learning center</span>
     <h1><span class="s">Start with the basics.</span><span class="s">Build your practice from there.</span></h1>
-<h2>Three kinds of tool.</h2>
-    <p>You do not need all three. Starting with all three is the most common way to end up using
-      none of them.</p>
+<h2 class="vh">Three kinds of tool.</h2>
+    <p>You do not need all three &mdash; starting with all three is how most people end up using none.</p>
     <div class="three">
       <a class="kind" href="#jewelry">
         <span class="n">Wear it</span>
