@@ -52,6 +52,16 @@
 .plink:focus-visible{outline:2px solid var(--copper);outline-offset:3px}
 
 .jfilter{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+
+/* Two rows of pills and 96px on a phone. Unlike /faq/'s jump links these are
+   stateful - the filled pill is what tells you which filter is on - so they keep
+   their shape and just stop wrapping. One row, scrolled sideways, 48px. */
+@media (max-width:640px){
+  .jfilter{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+    -ms-overflow-style:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+  .jfilter::-webkit-scrollbar{display:none}
+  .jfilter > *{flex:none}
+}
 .jf{font-family:var(--sans);font-weight:600;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
   color:var(--ink-soft);background:var(--surface);border:1px solid var(--hair);border-radius:99px;
   padding:9px 16px;cursor:pointer;transition:border-color .25s,color .25s,background .25s}
