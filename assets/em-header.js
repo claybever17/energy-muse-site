@@ -312,5 +312,22 @@ function boot(){
   menu.querySelectorAll('nav a').forEach(function(a){a.addEventListener('click',function(){set(false);});});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false);});
 }
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+/* Filter rows scroll sideways on a phone rather than wrapping to three lines.
+   That left the selected chip off-screen when it sat past the fold: tapping
+   "Kits & Sets" filtered the grid and the only thing confirming it was the
+   count line, because the chip that went dark was 180px to the right. Delegated
+   so it covers every one of these rows without each page repeating it, and it
+   only ever scrolls the row itself - block:'nearest' keeps the page still. */
+function keepChipInView(){
+  var ROWS='.sfilter,.jfilter,.jump,.tabs,.sizes';
+  document.addEventListener('click',function(e){
+    var row=e.target.closest&&e.target.closest(ROWS); if(!row)return;
+    if(row.scrollWidth<=row.clientWidth+1)return;
+    var chip=e.target.closest('button,a'); if(!chip||!row.contains(chip))return;
+    if(chip.scrollIntoView)chip.scrollIntoView({block:'nearest',inline:'nearest',behavior:'smooth'});
+  },true);
+}
+
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){boot();keepChipInView();});
+else {boot();keepChipInView();}
 })();
