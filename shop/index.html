@@ -20,10 +20,10 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=13">
 <script src="/assets/em-frequencies.js?v=4"></script>
-<script src="/assets/em-catalog.js?v=19"></script>
+<script src="/assets/em-catalog.js?v=21"></script>
 <script src="/assets/em-more.js?v=1"></script>
 <script src="/assets/em-sort.js?v=1"></script>
-<script src="/assets/em-header.js?v=24" defer></script>
+<script src="/assets/em-header.js?v=26" defer></script>
 <script src="/assets/em-bag.js?v=10" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
@@ -271,6 +271,42 @@
   transition:border-color .25s,color .25s,background .25s}
 .sfb:hover{border-color:var(--copper);color:var(--copper)}
 .sfb.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+
+/* The second row: shape inside Crystals, type inside Jewelry.
+
+   Crystals is 83 of 140 - one pill covering three fifths of the shop - and a
+   reader who wants a tower should not have to scroll 83 cards hoping to spot
+   one. But two rows of identical filled pills reads as ten equal choices
+   rather than four inside one, so this row is set as text: no fill, no border,
+   a rule under the active one. The category is still the loud control.
+
+   Counts are shown because the whole point of the row is deciding where to
+   look next, and "Clusters & raw 8" answers that before the tap rather than
+   after it. */
+.ssub{display:flex;flex-wrap:wrap;gap:2px 22px;margin-top:12px;align-items:center}
+.ssub[hidden]{display:none}   /* [hidden] alone loses to display:flex */
+.ssb{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--stone);background:none;border:0;padding:0;
+  min-height:38px;display:inline-flex;align-items:center;cursor:pointer;
+  border-bottom:1px solid transparent;transition:color .25s,border-color .25s}
+.ssb:hover{color:var(--copper)}
+.ssb.on{color:var(--ink);border-bottom-color:var(--copper)}
+.ssb .n{font-weight:400;letter-spacing:.04em;opacity:.6;margin-left:5px}
+.ssb .sm{display:none}
+
+@media (max-width:640px){
+  /* same one-line scroller as the row above it, and em-header.js keeps the
+     selected one on screen */
+  .ssub{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+    -ms-overflow-style:none;-webkit-overflow-scrolling:touch;gap:0 18px;margin-top:8px}
+  .ssub::-webkit-scrollbar{display:none}
+  .ssub > *{flex:none}
+  /* "Tumbled & stones" is 144px of a 387px row, so two and a half labels fit
+     and everything else is a swipe away. The short forms put all five on
+     roughly one screen. The count line keeps the long name - it is prose. */
+  .ssb .lg{display:none}
+  .ssb .sm{display:inline}
+}
 .scount{font-family:var(--sans);font-size:12.5px;color:var(--stone);margin-top:16px}
 .sgridall{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:18px}
 .sc{display:flex;flex-direction:column;text-align:center;text-decoration:none;color:inherit}
@@ -325,6 +361,7 @@
     <p class="lead">Jewelry, crystals, frequency generators and sets &mdash; all of it, here.</p>
 
     <div class="sfilter" id="sfilter" role="group" aria-label="Shop by category"></div>
+    <div class="ssub" id="ssub" role="group" aria-label="Narrow by kind" hidden></div>
     <p class="scount" id="scount"></p>
     <div class="sgridall" id="sgridall"></div>
   </div>
@@ -402,6 +439,7 @@
 (function(){
   var host=document.getElementById('sgridall'),
       bar=document.getElementById('sfilter'),
+      sbar=document.getElementById('ssub'),
       count=document.getElementById('scount');
   if(!host||!window.EM_CATALOG)return;
 
@@ -428,28 +466,67 @@
   }
   function label(k){for(var i=0;i<CATS.length;i++)if(CATS[i][0]===k)return CATS[i][1];return 'All';}
 
-  function paint(k){
+  /* The second row exists only for a category that has one, and its buttons are
+     built from what is actually in the list - a bucket that empties is not
+     offered. Sub names come from em-catalog.js so the row, the count line and
+     the sub: field on each product cannot drift apart. */
+  var subName='';
+  function paintSubs(k,list,sel){
+    var defs=(window.EM_CATALOG.subs?EM_CATALOG.subs(k,list):[]);
+    subName='';
+    if(!defs.length){sbar.hidden=true; sbar.innerHTML=''; return '';}
+    if(sel&&!defs.some(function(d){return d.key===sel;}))sel='';
+    sbar.hidden=false;
+    sbar.innerHTML='<button type="button" class="ssb'+(sel?'':' on')+'" data-s="">All'
+      +'<span class="n">'+list.length+'</span></button>'
+      +defs.map(function(d){
+        if(d.key===sel)subName=d.name;
+        return '<button type="button" class="ssb'+(d.key===sel?' on':'')+'" data-s="'+d.key+'">'
+          +'<span class="lg">'+d.name+'</span><span class="sm">'+d.short+'</span>'
+          +'<span class="n">'+d.n+'</span></button>';
+      }).join('');
+    [].forEach.call(sbar.children,function(b){
+      b.setAttribute('aria-pressed',b.classList.contains('on')?'true':'false');});
+    return sel;
+  }
+
+  function paint(k,sub){
     var re=k?new RegExp('^('+k+')$'):null;
     var list=re?ALL.filter(function(p){return re.test(p.cat);}):ALL.slice();
+    /* the sub row is built from the category's whole list, then the list is
+       narrowed - so the counts on the row stay put as you move along it */
+    sub=paintSubs(k,list,sub||'');
+    if(sub)list=list.filter(function(p){return p.sub===sub;});
     list=window.EM_SORT?EM_SORT.apply(list):list.sort(function(a,b){return a.price-b.price;});
     /* twenty-four, then the rest on request - see em-more.js */
     if(window.EM_MORE)EM_MORE.paint(host,list,card);
     else host.innerHTML=list.map(card).join('');
     count.textContent=list.length+' piece'+(list.length===1?'':'s')
-      +(k?' in '+label(k).toLowerCase():' across the shop');
+      +(sub?' in '+subName.toLowerCase():k?' in '+label(k).toLowerCase():' across the shop');
     [].forEach.call(bar.children,function(b){
       var on=(b.getAttribute('data-c')||'')===k;
       b.classList.toggle('on',on); b.setAttribute('aria-pressed',on?'true':'false');
     });
   }
   /* the category lives in the URL, so the nav can point straight at one */
-  function read(){return decodeURIComponent((location.search.match(/[?&]cat=([^&]*)/)||[,''])[1]);}
-  function write(k){history.replaceState(null,'',location.pathname+(k?'?cat='+encodeURIComponent(k):'')+location.hash);}
+  function q(n){return decodeURIComponent((location.search.match(new RegExp('[?&]'+n+'=([^&]*)'))||[,''])[1]);}
+  function read(){return q('cat');}
+  function readSub(){return q('sub');}
+  function write(k,sub){
+    var p=[]; if(k)p.push('cat='+encodeURIComponent(k));
+    if(sub)p.push('sub='+encodeURIComponent(sub));
+    history.replaceState(null,'',location.pathname+(p.length?'?'+p.join('&'):'')+location.hash);
+  }
   bar.addEventListener('click',function(e){
     var b=e.target.closest('.sfb'); if(!b)return;
-    var k=b.getAttribute('data-c')||''; write(k); paint(k);
+    /* changing category drops the sub - "points" means nothing inside Jewelry */
+    var k=b.getAttribute('data-c')||''; write(k,''); paint(k,'');
   });
-  window.addEventListener('popstate',function(){paint(read());});
+  sbar.addEventListener('click',function(e){
+    var b=e.target.closest('.ssb'); if(!b)return;
+    var sub=b.getAttribute('data-s')||''; write(read(),sub); paint(read(),sub);
+  });
+  window.addEventListener('popstate',function(){paint(read(),readSub());});
   var init=read();
 
   /* one listener for the grid rather than one per card */
@@ -465,9 +542,9 @@
 
   /* the control sits beside the count and repaints in place - the category is
      already in the URL, so sorting must not reload and lose it */
-  if(window.EM_SORT)EM_SORT.mount({count:count,onChange:function(){paint(read());}});
+  if(window.EM_SORT)EM_SORT.mount({count:count,onChange:function(){paint(read(),readSub());}});
 
-  paint(CATS.some(function(c){return c[0]===init;})?init:'');
+  paint(CATS.some(function(c){return c[0]===init;})?init:'',readSub());
 })();
 
 (function(){

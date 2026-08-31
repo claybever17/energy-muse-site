@@ -319,13 +319,25 @@ function boot(){
    so it covers every one of these rows without each page repeating it, and it
    only ever scrolls the row itself - block:'nearest' keeps the page still. */
 function keepChipInView(){
-  var ROWS='.sfilter,.jfilter,.jump,.tabs,.sizes';
+  var ROWS='.sfilter,.ssub,.jfilter,.jump,.tabs,.sizes';
   document.addEventListener('click',function(e){
     var row=e.target.closest&&e.target.closest(ROWS); if(!row)return;
     if(row.scrollWidth<=row.clientWidth+1)return;
     var chip=e.target.closest('button,a'); if(!chip||!row.contains(chip))return;
     if(chip.scrollIntoView)chip.scrollIntoView({block:'nearest',inline:'nearest',behavior:'smooth'});
   },true);
+
+  /* Clicking is not the only way a chip becomes the selected one: /shop/ reads
+     ?cat= and ?sub= out of the URL and paints them selected at load, and a link
+     to ?cat=Crystal&sub=Points arrived with the live chip 130px past the right
+     edge of the row. The pages paint from an inline script, which runs before
+     this deferred one, so the selected chip already exists by the time this
+     runs. No smooth scroll here - nothing moved, so there is nothing to follow. */
+  [].forEach.call(document.querySelectorAll(ROWS),function(row){
+    if(row.scrollWidth<=row.clientWidth+1)return;
+    var on=row.querySelector('.on,[aria-pressed="true"],[aria-current]');
+    if(on&&on.scrollIntoView)on.scrollIntoView({block:'nearest',inline:'nearest'});
+  });
 }
 
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){boot();keepChipInView();});
