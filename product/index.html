@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=13">
 <script src="/assets/em-frequencies.js?v=4"></script>
-<script src="/assets/em-catalog.js?v=14"></script>
+<script src="/assets/em-catalog.js?v=15"></script>
 <script src="/assets/em-header.js?v=23" defer></script>
 <script src="/assets/em-bag.js?v=10" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
@@ -203,12 +203,24 @@ function SEEALL(c){return SEEALL_PLURAL[c] || String(c||'').toLowerCase();}
       if (main.getAttribute('src') === src) { b.focus(); return; }
       var frame = main.parentNode;
       frame.classList.add('swapping');
+      /* The swap only happened inside pre.onload, and onload is not guaranteed
+         for an image the browser already has: assign a cached src and Safari can
+         have complete true before the handler is attached, so the event never
+         arrives. The frame then keeps .swapping and the picture never changes,
+         which reads as a tap that did not register. There was no onerror either,
+         so a missing file stuck it the same way, permanently.
+         swap() is idempotent and every path reaches it. */
       var pre = new Image();
-      pre.onload = function () {
+      var done = false;
+      function swap() {
+        if (done) return; done = true;
         main.src = src;
         requestAnimationFrame(function(){ frame.classList.remove('swapping'); });
-      };
+      }
+      pre.onload = swap;
+      pre.onerror = swap;
       pre.src = src;
+      if (pre.complete) swap();
       thumbs.forEach(function (t, n) { t.setAttribute('aria-current', n === i ? 'true' : 'false'); });
     }
     gal.addEventListener('click', function (e) {

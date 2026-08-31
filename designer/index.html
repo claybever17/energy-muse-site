@@ -131,6 +131,7 @@ p{text-wrap:pretty}
   .sizes{min-width:0}
   .sizes button{flex:1 1 0}
   .sizes{flex-basis:100%;gap:6px}
+  .sizer .unit{margin-left:auto}
   .sizes button{min-width:0;padding:8px 4px 7px}
   .sizes button .sz{font-size:15px}
   .sizes button .bd{font-size:8.5px;letter-spacing:.08em;margin-top:2px}
@@ -189,7 +190,7 @@ p{text-wrap:pretty}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
 @media (max-width:900px){
-  .wrap{grid-template-columns:1fr;grid-template-rows:minmax(300px,52svh) auto}
+  .wrap{grid-template-columns:1fr;grid-template-rows:minmax(340px,62svh) auto}
   .tray{border-left:none;border-top:1px solid var(--hair)}
   .beads{grid-template-columns:repeat(4,1fr);max-height:34svh}
   .head{padding-top:18px}
@@ -208,6 +209,7 @@ p{text-wrap:pretty}
 }
 @media (min-width:901px){
   .count .mtotal{display:none}
+  .sizer .unit{order:3}
   /* The tray holds thirty beads and had no overflow of its own, so its content
      height drove the single grid row: 1738px on a 900px viewport. .stagecol
      stretched to match, .stage flexed to 1564, and because .stage centres its
@@ -291,11 +293,11 @@ p{text-wrap:pretty}
 
     <div class="sizer">
       <label>Size</label>
-      <div class="sizes" id="sizes" role="radiogroup" aria-label="Bracelet size"></div>
       <div class="unit" role="radiogroup" aria-label="Units">
         <button id="uin" class="on" role="radio" aria-checked="true">in</button>
         <button id="ucm" role="radio" aria-checked="false">cm</button>
       </div>
+      <div class="sizes" id="sizes" role="radiogroup" aria-label="Bracelet size"></div>
     </div>
   </div>
 

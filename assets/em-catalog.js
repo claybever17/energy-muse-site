@@ -70,11 +70,12 @@
   /* No Agate Geode Slice here on purpose. It is the one item that had no match
      anywhere in Energy Muse's live catalogue, and the only picture of it we
      have is a 3D scan rendered against the old dark viewer — which reads as a
-     grey plate beside forty-one cut-outs. It still exists in the /gems/
-     gallery as a scan you can turn, which is what it is good for. If they
+     grey plate beside forty-one cut-outs. The scans themselves are gone now
+     (no assets/gems/, no .glb on any live page), so that is not a fallback
+     either. If they
      confirm it is a real product and send a photograph, it can come back. */
-  { id: "protection", imgs: ["/assets/img/gallery/protection-2.webp", "/assets/img/gallery/protection-3.webp"], name: "Black Tourmaline", cat: "Crystal", group: "Protection", price: 8.88, img: "/assets/img/products/protection.webp", desc: "The classic boundary crystal, scanned in 3D — striated black crystal for entries, desks and thresholds.", home: "/gems/", scan: true },
-  { id: "wellness", imgs: ["/assets/img/gallery/wellness-2.webp", "/assets/img/gallery/wellness-3.webp"], name: "Quantum Quattro Crystal", cat: "Crystal", group: "Protection", price: 229.88, img: "/assets/img/products/wellness.webp", desc: "A real Energy Muse specimen, scanned in 3D — shattuckite, dioptase, malachite and smoky quartz in quartz.", home: "/gems/", scan: true },
+  { id: "protection", imgs: ["/assets/img/gallery/protection-2.webp", "/assets/img/gallery/protection-3.webp"], name: "Black Tourmaline", cat: "Crystal", group: "Protection", price: 8.88, img: "/assets/img/products/protection.webp", desc: "The classic boundary crystal — striated black crystal for entries, desks and thresholds.", home: "/gems/", scan: true },
+  { id: "wellness", imgs: ["/assets/img/gallery/wellness-2.webp", "/assets/img/gallery/wellness-3.webp"], name: "Quantum Quattro Crystal", cat: "Crystal", group: "Protection", price: 229.88, img: "/assets/img/products/wellness.webp", desc: "A real Energy Muse specimen — shattuckite, dioptase, malachite and smoky quartz in quartz.", home: "/gems/", scan: true },
   { id: "spirituality", stock: "out", imgs: ["/assets/img/gallery/spirituality-2.webp", "/assets/img/gallery/spirituality-3.webp"], name: "Amethyst Cluster", cat: "Crystal", group: "Calm", price: 34.88, img: "/assets/img/products/spirituality.webp", desc: "Natural amethyst points on a copper stand — the classic meditative crystal for clarity and quiet attention.", home: "/gems/" },
   { id: "wealth", imgs: ["/assets/img/gallery/wealth-2.webp"], name: "Pyrite Cube", cat: "Crystal", group: "Abundance", price: 24.88, img: "/assets/img/products/wealth.webp", desc: "A naturally cubic pyrite crystal — bright, metallic and grounded. Kept where plans are made.", home: "/gems/" },
   { id: "love", imgs: ["/assets/img/gallery/love-2.webp", "/assets/img/gallery/love-3.webp"], name: "Rhodochrosite Point", cat: "Crystal", group: "Connection", price: 48.88, img: "/assets/img/products/love.webp", desc: "A tender rose-banded point for compassion, self-worth and the relationships you nurture.", home: "/gems/" },
