@@ -555,11 +555,12 @@ html{scroll-padding-top:96px;}
    taller than its neighbours. It holds its shape now and grows to fill
    whatever room the row has, so the stone sits centred in the white space
    and the type lands at the same height on every card. */
-.pcard .shot{aspect-ratio:1;flex:1 1 auto;min-height:0;max-height:230px;overflow:hidden;
+.pcard .shot{aspect-ratio:1;flex:0 0 auto;min-height:0;max-height:230px;overflow:hidden;
   display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
 .pcard .shot img{max-width:78%;max-height:88%;width:auto;height:auto;
   object-fit:contain;display:block;}
-.pcard .pn{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.2;}
+.pcard .pn{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.2;
+  min-height:2.4em;}
 .pcard .pc{font-size:12px;color:var(--stone);letter-spacing:.06em;text-transform:uppercase;margin-top:4px;font-weight:600;}
 .pcard .pf{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:14px;}
 .pcard .pp{font-family:var(--serif);font-weight:400;font-size:19px;}
