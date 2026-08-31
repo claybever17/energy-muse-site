@@ -85,6 +85,7 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(27px,3.4vw,44px);let
 /* three boxes we make, each holding a fixed number of crystals — the same
    decision the bracelet sizer arrived at, for the same reason */
 .sizer{padding:0 clamp(20px,3.4vw,44px) 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+[hidden]{display:none!important}
 .sizer label{font:600 9.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--stone)}
 .sizes{display:flex;gap:8px;flex:1;flex-wrap:wrap}
 .sizes button{flex:1 1 auto;min-width:104px;cursor:pointer;text-align:center;background:var(--paper);
@@ -148,6 +149,9 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(27px,3.4vw,44px);let
   .tray{border-left:0;border-top:1px solid var(--hair)}
   .stage{min-height:52svh}
   .r-size,.r-total{position:static;flex-direction:row;align-items:baseline;gap:8px}
+  /* the note ran the full width of the screen with nothing holding it off the
+     edges, same as the readouts above it */
+  .stagenote{padding-inline:clamp(20px,3.4vw,44px)}
   .reads{display:flex;justify-content:space-between;padding:0 clamp(20px,3.4vw,44px)}
   .sizes{flex-basis:100%;gap:6px}
   .sizes button{min-width:0;padding:8px 4px 7px}
@@ -193,8 +197,10 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 
     <div class="stage" id="stage">
       <canvas id="boxc"></canvas>
-      <div class="read r-size"><span class="k">Box</span><b id="bval">The Four</b><span id="bsub">4 crystals</span></div>
-      <div class="read r-total"><span class="k">Total</span><b id="tval">&mdash;</b><span>illustrative</span></div>
+      <div class="reads">
+        <div class="read r-size"><span class="k">Box</span><b id="bval">The Four</b><span id="bsub">4 crystals</span></div>
+        <div class="read r-total"><span class="k">Total</span><b id="tval">&mdash;</b><span>illustrative</span></div>
+      </div>
       <div class="stagenote" id="note">Tap a crystal to add &middot; tap one in the box to take it out</div>
     </div>
 
@@ -464,9 +470,12 @@ var sizesEl=document.getElementById('sizes'), tabsEl=document.getElementById('ta
 function buildSizes(){
   sizesEl.innerHTML='';
   /* One box now, so there is nothing to choose between. Driven off the list
-     rather than deleted, so adding a second size brings the control back. */
-  sizesEl.hidden = BOXES.length < 2;
-  if(sizesEl.hidden) return;
+     rather than deleted, so adding a second size brings the control back.
+     The whole .sizer goes, not just the buttons - hiding #sizes alone left its
+     "Box" label sitting on the page with nothing after it. */
+  var sizer = sizesEl.closest('.sizer') || sizesEl;
+  sizer.hidden = BOXES.length < 2;
+  if(sizer.hidden) return;
   BOXES.forEach(function(b){
     var el=document.createElement('button');
     el.type='button';el.setAttribute('role','radio');

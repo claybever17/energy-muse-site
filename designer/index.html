@@ -115,6 +115,21 @@ p{text-wrap:pretty}
    sit three across — nothing later in the sheet touches .sizes, so this is
    the last word on it. */
 @media (max-width:900px){
+  /* The page was zooming out on a phone, which is what a browser does when the
+     document is wider than the viewport. Two rows were doing it: the intention
+     tabs had a min-content of 430px and the size buttons 390, against 375 of
+     screen. A grid item floors at its content unless told otherwise, so the
+     column could not shrink and the whole shell went wide with it.
+
+     min-width:0 lets the columns shrink; overflow-x on the tab row stops its
+     contents counting toward any ancestor's minimum at all; and the size
+     buttons take an equal share of whatever is left. */
+  .wrap,.stagecol,.tray{min-width:0}
+  .tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;min-width:0}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs > *{flex:none}
+  .sizes{min-width:0}
+  .sizes button{flex:1 1 0}
   .sizes{flex-basis:100%;gap:6px}
   .sizes button{min-width:0;padding:8px 4px 7px}
   .sizes button .sz{font-size:15px}

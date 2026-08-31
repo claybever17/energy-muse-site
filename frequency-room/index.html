@@ -21,10 +21,10 @@
 <meta name="description" content="Seven tuned frequencies, one instrument. Turn the dial and the room re-tunes — the coil, the wave, the light and the crystals that answer to it.">
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <style>
-@font-face{font-family:'Fraunces';src:url(../../assets/fonts/fraunces_300.woff2?v=3) format('woff2');font-weight:300;font-display:swap}
-@font-face{font-family:'Fraunces';src:url(../../assets/fonts/fraunces_400.woff2?v=3) format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'Instrument Sans';src:url(../../assets/fonts/instrument_400.woff2) format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'Instrument Sans';src:url(../../assets/fonts/instrument_600.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Fraunces';src:url(/assets/fonts/fraunces_300.woff2?v=3) format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:'Fraunces';src:url(/assets/fonts/fraunces_400.woff2?v=3) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url(/assets/fonts/instrument_400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url(/assets/fonts/instrument_600.woff2) format('woff2');font-weight:600;font-display:swap}
 :root{
   --paper:#FBF8F2; --surface:#FFFFFF; --ink:#1D2739; --ink-soft:#4E5A70;
   --stone:#6D695D; --copper:#985E38; --hair:#E4DCCB;
@@ -337,9 +337,13 @@ img{display:block;max-width:100%}
 }
 
 @media (max-width:900px){
-  .room{grid-template-columns:1fr;gap:22px;padding-top:14px;min-height:0}
-  .device{order:-1;max-width:400px;margin:0 auto;width:100%}
-  .wave{max-width:none;height:78px}
+  .room{grid-template-columns:1fr;gap:14px;padding-top:10px;min-height:0}
+  /* 343px square put the dial one pixel below an 812px fold. The whole point of
+     the page is watching the device change as you turn the dial, so the two have
+     to be on screen together. */
+  .device{order:-1;max-width:240px;margin:0 auto;width:100%}
+  .wave{max-width:none;height:56px;margin-top:14px}
+  .dial{margin-top:16px}
   .dial{max-width:none}
   .buyin{grid-template-columns:1fr;gap:26px}
   .buyart{order:-1}
@@ -772,7 +776,7 @@ window.__wave={get cur(){return cur;},get shown(){return shown;},get cycles(){re
                               : ['7.83','174','417','528','639','963','1111'];
     list.forEach(function(hz){ var im=new Image(); im.src=src(hz); });
   }
-  function src(hz){ return '../../assets/img/generators/'+String(hz).replace('.','-')+'.png'; }
+  function src(hz){ return '/assets/img/generators/'+String(hz).replace('.','-')+'.png'; }
 
   window.setDevice=function(hz){
     var next=src(hz);
