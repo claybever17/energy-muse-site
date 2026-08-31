@@ -137,6 +137,13 @@
   text-decoration:none;color:var(--navy-text);border:1px solid var(--navy-line);
   border-radius:99px;padding:8px 14px;transition:.25s}
 .hzrow a:hover{border-color:var(--copper-hi);color:var(--copper-hi)}
+/* 37px tall, and now the only thing to press in this section. The box grows to
+   44 without the pill changing size - the same ::after the cta-row links use. */
+.hzrow a{position:relative}
+@media (max-width:900px){
+  .hzrow a::after{content:"";position:absolute;left:0;right:0;top:50%;
+    transform:translateY(-50%);height:44px}
+}
 /* six lines on a phone. The claim that sells is the second sentence and it is
    the approved copy's own, so it stays whole at every width; what goes is the
    parts list in the middle, which is detail rather than argument. */
@@ -423,13 +430,7 @@
           Fixed-frequency devices reach a larger radius and carry a stronger signal than the
           variable ones others sell.</p>
         <div class="hzrow" id="hzrow"></div>
-        <!-- "See It Up Close" pointed at /generator/, which has been a redirect
-             stub to /frequency/ since the two frequency pages merged - so the
-             second call sent the reader to the same place as the first, one hop
-             later. One call. -->
-        <div class="cta-row">
-          <a class="btn btn-copper" href="/frequency/">Shop Frequency Generators</a>
-        </div>
+
       </div>
     </div>
   </div>
