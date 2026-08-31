@@ -155,15 +155,13 @@
    because they answer different questions - one is "I want to make something",
    the other is "I don't know what I want" - and they sit side by side on a
    desktop rather than stacking into more scroll. */
-.mk{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);
-  margin-top:clamp(24px,3.2vw,38px)}
-.mkg h3{font-family:var(--serif);font-weight:400;font-size:clamp(19px,2vw,24px);
-  line-height:1.15;margin-bottom:clamp(10px,1.4vw,16px)}
+.mk{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(24px,4vw,64px);
+  margin-top:clamp(20px,2.6vw,30px);border-bottom:1px solid var(--hair)}
 .mkr{display:grid;grid-template-columns:minmax(0,1fr) auto;
   grid-template-areas:"name act" "desc act";align-items:center;
   gap:3px clamp(14px,2vw,26px);padding:15px 2px 16px 0;
   border-top:1px solid var(--hair);text-decoration:none;color:inherit}
-.mkg .mkr:last-child{border-bottom:1px solid var(--hair)}
+
 .mkr b{grid-area:name;font-family:var(--serif);font-weight:400;
   font-size:clamp(17px,1.5vw,19px);line-height:1.2;transition:color .25s}
 .mkr span{grid-area:desc;font-family:var(--sans);font-size:13.5px;line-height:1.5;
@@ -177,6 +175,11 @@
 .mkr:hover em i{transform:translateX(4px)}
 .mkr:focus-visible{outline:2px solid var(--copper);outline-offset:3px}
 
+@media (max-width:820px){
+  /* two abreast needs room for a name, a line and an action; below this they
+     stack and the container's rule closes the list instead of the second cell */
+  .mk{grid-template-columns:1fr}
+}
 @media (max-width:600px){
   /* the action drops under the line rather than squeezing the name column */
   .mkr{grid-template-columns:1fr;grid-template-areas:"name" "desc" "act";
@@ -432,37 +435,25 @@
   </div>
 </section>
 
-<!-- Two sections became one. Same four destinations, same two questions they
-     answer - "Question 1 of 3" in /quiz/ is where "Three questions" comes from. -->
+<!-- Three sections became one, then one group. The quiz and the guides came
+     out because they were a fifth and sixth way off a page whose job is to
+     sell what is on it - both are still in the announcement bar, the nav, the
+     mobile nav and the footer, so nothing here was their only route. What is
+     left is the two things you cannot do anywhere else on the site. -->
 <section class="sect">
   <div class="wrap">
+    <h2>Or make it yourself.</h2>
     <div class="mk">
-      <div class="mkg">
-        <h3>Or make it yourself.</h3>
-        <a class="mkr" href="/designer/">
-          <b>The Atelier</b>
-          <span>Design a bracelet stone&nbsp;by&nbsp;stone, on your own wrist size.</span>
-          <em>Design a bracelet <i aria-hidden="true">&rarr;</i></em>
-        </a>
-        <a class="mkr" href="/box/">
-          <b>Build a Box</b>
-          <span>Choose the stones; we pack them with a card for each one.</span>
-          <em>Choose your stones <i aria-hidden="true">&rarr;</i></em>
-        </a>
-      </div>
-      <div class="mkg">
-        <h3>Not sure where to begin?</h3>
-        <a class="mkr" href="/quiz/">
-          <b>The Energy Quiz</b>
-          <span>Three questions, then a&nbsp;personalized starting point.</span>
-          <em>Take the quiz <i aria-hidden="true">&rarr;</i></em>
-        </a>
-        <a class="mkr" href="/learn/">
-          <b>The Guides</b>
-          <span>How the tools work, and how&nbsp;to choose between them.</span>
-          <em>Start reading <i aria-hidden="true">&rarr;</i></em>
-        </a>
-      </div>
+      <a class="mkr" href="/designer/">
+        <b>The Atelier</b>
+        <span>Design a bracelet stone&nbsp;by&nbsp;stone, on your own wrist size.</span>
+        <em>Design a bracelet <i aria-hidden="true">&rarr;</i></em>
+      </a>
+      <a class="mkr" href="/box/">
+        <b>Build a Box</b>
+        <span>Choose the stones; we pack them with a card for each one.</span>
+        <em>Choose your stones <i aria-hidden="true">&rarr;</i></em>
+      </a>
     </div>
   </div>
 </section>
