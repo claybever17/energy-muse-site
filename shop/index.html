@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=13">
 <script src="/assets/em-frequencies.js?v=4"></script>
-<script src="/assets/em-catalog.js?v=21"></script>
+<script src="/assets/em-catalog.js?v=22"></script>
 <script src="/assets/em-more.js?v=1"></script>
 <script src="/assets/em-sort.js?v=1"></script>
 <script src="/assets/em-header.js?v=26" defer></script>
@@ -131,17 +131,40 @@
 .gband .lit{position:relative;aspect-ratio:1;display:grid;place-items:center}
 .gband .lit::before{content:"";position:absolute;inset:8%;border-radius:50%;
   background:radial-gradient(circle,color-mix(in srgb,var(--copper-hi) 34%,transparent),transparent 68%)}
-.gband .lit img{position:relative;width:80%;height:80%;object-fit:contain}
+/* The product filled 73% of its 458px frame - width:80% of the box, and the
+   PNG carries a little margin of its own on top of that. 92% renders it at
+   about 383px instead of 333 without the frame or the layout changing. */
+.gband .lit img{position:relative;width:92%;height:92%;object-fit:contain;
+  transition:opacity .22s ease}
+.gband .lit.swapping img{opacity:0}
+
+/* A static wave field behind it - 18 paths of plain SVG, no script and no
+   animation, so it costs one parse and never repaints. currentColor, so it
+   picks up the band's copper. */
+.wf{position:absolute;inset:-6% -2% auto;width:104%;height:100%;color:var(--copper-hi);
+  opacity:.5;pointer-events:none;
+  -webkit-mask-image:radial-gradient(70% 60% at 50% 52%,#000 42%,transparent 78%);
+          mask-image:radial-gradient(70% 60% at 50% 52%,#000 42%,transparent 78%)}
+
+/* the frame is the link: pills choose, this goes */
+a.lit{text-decoration:none;color:inherit}
+a.lit:focus-visible{outline:2px solid var(--copper-hi);outline-offset:6px;border-radius:8px}
+@media (prefers-reduced-motion:reduce){
+  .gband .lit img,.gcap i{transition:none}
+}
 .hzrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
-.hzrow a{font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.06em;
-  text-decoration:none;color:var(--navy-text);border:1px solid var(--navy-line);
-  border-radius:99px;padding:8px 14px;transition:.25s}
-.hzrow a:hover{border-color:var(--copper-hi);color:var(--copper-hi)}
+.hzrow button{font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.06em;
+  color:var(--navy-text);background:none;border:1px solid var(--navy-line);
+  border-radius:99px;padding:8px 14px;cursor:pointer;transition:.25s}
+.hzrow button:hover{border-color:var(--copper-hi);color:var(--copper-hi)}
+.hzrow button.on{border-color:var(--copper-hi);color:#fff;
+  background:color-mix(in srgb,var(--copper-hi) 22%,transparent)}
+.hzrow button:focus-visible{outline:2px solid var(--copper-hi);outline-offset:2px}
 /* 37px tall, and now the only thing to press in this section. The box grows to
    44 without the pill changing size - the same ::after the cta-row links use. */
-.hzrow a{position:relative}
+.hzrow button{position:relative}
 @media (max-width:900px){
-  .hzrow a::after{content:"";position:absolute;left:0;right:0;top:50%;
+  .hzrow button::after{content:"";position:absolute;left:0;right:0;top:50%;
     transform:translateY(-50%);height:44px}
 }
 /* six lines on a phone. The claim that sells is the second sentence and it is
@@ -421,7 +444,10 @@
 <section class="sect dark">
   <div class="wrap">
     <div class="gband">
-      <div class="lit"><img src="/assets/img/generators/528.png" alt="The 528Hz frequency generator" loading="lazy"></div>
+      <a class="lit" id="glit" href="/product/?id=gen-528">
+        <svg class="wf" viewBox="0 0 400 400" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="currentColor" stroke-linecap="round"><path d="M132.0 132.0L134.1 131.0L136.2 130.1L138.4 129.2L140.5 128.5L142.6 127.8L144.8 127.4L146.9 127.1L149.0 127.0L151.1 127.1L153.2 127.4L155.4 127.8L157.5 128.5L159.6 129.2L161.8 130.1L163.9 131.0L166.0 132.0L168.1 133.0L170.2 133.9L172.4 134.8L174.5 135.5L176.6 136.2L178.8 136.6L180.9 136.9L183.0 137.0L185.1 136.9L187.2 136.6L189.4 136.2L191.5 135.5L193.6 134.8L195.8 133.9L197.9 133.0L200.0 132.0L202.1 131.0L204.2 130.1L206.4 129.2L208.5 128.5L210.6 127.8L212.8 127.4L214.9 127.1L217.0 127.0L219.1 127.1L221.2 127.4L223.4 127.8L225.5 128.5L227.6 129.2L229.8 130.1L231.9 131.0L234.0 132.0L236.1 133.0L238.2 133.9L240.4 134.8L242.5 135.5L244.6 136.2L246.8 136.6L248.9 136.9L251.0 137.0L253.1 136.9L255.2 136.6L257.4 136.2L259.5 135.5L261.6 134.8L263.8 133.9L265.9 133.0L268.0 132.0" opacity="0.070" stroke-width="0.60"/><path d="M113.8 136.2L116.5 135.1L119.2 134.2L121.9 133.3L124.6 132.5L127.3 131.9L130.0 131.5L132.7 131.3L135.4 131.3L138.1 131.5L140.8 131.9L143.5 132.4L146.1 133.2L148.8 134.1L151.5 135.0L154.2 136.1L156.9 137.1L159.6 138.2L162.3 139.2L165.0 140.1L167.7 140.8L170.4 141.4L173.1 141.8L175.8 142.1L178.5 142.1L181.2 141.9L183.8 141.5L186.5 140.9L189.2 140.2L191.9 139.3L194.6 138.3L197.3 137.3L200.0 136.2L202.7 135.1L205.4 134.2L208.1 133.3L210.8 132.5L213.5 131.9L216.2 131.5L218.8 131.3L221.5 131.3L224.2 131.5L226.9 131.9L229.6 132.4L232.3 133.2L235.0 134.1L237.7 135.0L240.4 136.1L243.1 137.1L245.8 138.2L248.5 139.2L251.2 140.1L253.9 140.8L256.5 141.4L259.2 141.8L261.9 142.1L264.6 142.1L267.3 141.9L270.0 141.5L272.7 140.9L275.4 140.2L278.1 139.3L280.8 138.3L283.5 137.3L286.2 136.2" opacity="0.079" stroke-width="0.64"/><path d="M102.5 142.8L105.5 141.6L108.6 140.6L111.6 139.6L114.7 138.8L117.7 138.2L120.8 137.8L123.8 137.7L126.9 137.8L129.9 138.1L133.0 138.7L136.0 139.4L139.1 140.4L142.1 141.4L145.2 142.6L148.2 143.8L151.2 145.0L154.3 146.2L157.3 147.3L160.4 148.2L163.4 149.0L166.5 149.6L169.5 150.0L172.6 150.1L175.6 150.0L178.7 149.7L181.7 149.1L184.8 148.4L187.8 147.5L190.9 146.4L193.9 145.2L197.0 144.0L200.0 142.8L203.0 141.6L206.1 140.6L209.1 139.6L212.2 138.8L215.2 138.2L218.3 137.8L221.3 137.7L224.4 137.8L227.4 138.1L230.5 138.7L233.5 139.4L236.6 140.4L239.6 141.4L242.7 142.6L245.7 143.8L248.8 145.0L251.8 146.2L254.8 147.3L257.9 148.2L260.9 149.0L264.0 149.6L267.0 150.0L270.1 150.1L273.1 150.0L276.2 149.7L279.2 149.1L282.3 148.4L285.3 147.5L288.4 146.4L291.4 145.2L294.5 144.0L297.5 142.8" opacity="0.091" stroke-width="0.68"/><path d="M92.8 150.7L96.2 149.4L99.5 148.2L102.9 147.1L106.2 146.3L109.6 145.7L112.9 145.4L116.3 145.4L119.6 145.6L123.0 146.1L126.3 146.9L129.7 147.8L133.0 149.0L136.4 150.3L139.7 151.7L143.1 153.1L146.4 154.5L149.8 155.8L153.1 157.0L156.5 158.0L159.8 158.8L163.2 159.4L166.5 159.7L169.9 159.8L173.2 159.6L176.6 159.0L179.9 158.3L183.3 157.3L186.6 156.2L190.0 154.9L193.3 153.5L196.7 152.1L200.0 150.7L203.3 149.4L206.7 148.2L210.0 147.1L213.4 146.3L216.7 145.7L220.1 145.4L223.4 145.4L226.8 145.6L230.1 146.1L233.5 146.9L236.8 147.8L240.2 149.0L243.5 150.3L246.9 151.7L250.2 153.1L253.6 154.5L256.9 155.8L260.3 157.0L263.6 158.0L267.0 158.8L270.3 159.4L273.7 159.7L277.0 159.8L280.4 159.6L283.7 159.0L287.1 158.3L290.4 157.3L293.8 156.2L297.1 154.9L300.5 153.5L303.8 152.1L307.2 150.7" opacity="0.104" stroke-width="0.72"/><path d="M84.1 159.4L87.7 157.9L91.3 156.6L94.9 155.5L98.6 154.7L102.2 154.2L105.8 153.9L109.4 154.0L113.0 154.4L116.7 155.2L120.3 156.2L123.9 157.4L127.5 158.8L131.2 160.4L134.8 162.0L138.4 163.7L142.0 165.3L145.7 166.7L149.3 168.1L152.9 169.2L156.5 170.0L160.1 170.5L163.8 170.8L167.4 170.7L171.0 170.2L174.6 169.5L178.3 168.5L181.9 167.3L185.5 165.9L189.1 164.3L192.8 162.7L196.4 161.0L200.0 159.4L203.6 157.9L207.2 156.6L210.9 155.5L214.5 154.7L218.1 154.2L221.7 153.9L225.4 154.0L229.0 154.4L232.6 155.2L236.2 156.2L239.9 157.4L243.5 158.8L247.1 160.4L250.7 162.0L254.3 163.7L258.0 165.3L261.6 166.7L265.2 168.1L268.8 169.2L272.5 170.0L276.1 170.5L279.7 170.8L283.3 170.7L287.0 170.2L290.6 169.5L294.2 168.5L297.8 167.3L301.4 165.9L305.1 164.3L308.7 162.7L312.3 161.0L315.9 159.4" opacity="0.119" stroke-width="0.76"/><path d="M76.0 168.8L79.8 167.2L83.7 165.8L87.6 164.6L91.5 163.8L95.3 163.3L99.2 163.2L103.1 163.5L107.0 164.2L110.8 165.1L114.7 166.4L118.6 168.0L122.5 169.7L126.3 171.6L130.2 173.5L134.1 175.4L138.0 177.2L141.9 178.8L145.7 180.3L149.6 181.4L153.5 182.2L157.4 182.7L161.2 182.8L165.1 182.5L169.0 181.9L172.9 180.9L176.7 179.6L180.6 178.0L184.5 176.3L188.4 174.5L192.2 172.5L196.1 170.6L200.0 168.8L203.9 167.2L207.8 165.8L211.6 164.6L215.5 163.8L219.4 163.3L223.3 163.2L227.1 163.5L231.0 164.2L234.9 165.1L238.8 166.4L242.6 168.0L246.5 169.7L250.4 171.6L254.3 173.5L258.1 175.4L262.0 177.2L265.9 178.8L269.8 180.3L273.7 181.4L277.5 182.2L281.4 182.7L285.3 182.8L289.2 182.5L293.0 181.9L296.9 180.9L300.8 179.6L304.7 178.0L308.5 176.3L312.4 174.5L316.3 172.5L320.2 170.6L324.0 168.8" opacity="0.135" stroke-width="0.81"/><path d="M68.3 178.8L72.4 177.0L76.6 175.5L80.7 174.3L84.8 173.5L88.9 173.2L93.0 173.3L97.1 173.8L101.2 174.7L105.4 176.0L109.5 177.6L113.6 179.5L117.7 181.6L121.8 183.8L125.9 186.0L130.0 188.1L134.2 190.2L138.3 192.0L142.4 193.5L146.5 194.6L150.6 195.4L154.7 195.7L158.9 195.6L163.0 195.1L167.1 194.2L171.2 192.9L175.3 191.3L179.4 189.4L183.5 187.3L187.7 185.1L191.8 182.9L195.9 180.8L200.0 178.8L204.1 177.0L208.2 175.5L212.3 174.3L216.5 173.5L220.6 173.2L224.7 173.3L228.8 173.8L232.9 174.7L237.0 176.0L241.1 177.6L245.3 179.5L249.4 181.6L253.5 183.8L257.6 186.0L261.7 188.1L265.8 190.2L270.0 192.0L274.1 193.5L278.2 194.6L282.3 195.4L286.4 195.7L290.5 195.6L294.6 195.1L298.8 194.2L302.9 192.9L307.0 191.3L311.1 189.4L315.2 187.3L319.3 185.1L323.4 182.9L327.6 180.8L331.7 178.8" opacity="0.152" stroke-width="0.85"/><path d="M61.1 189.1L65.4 187.2L69.8 185.6L74.1 184.5L78.4 183.8L82.8 183.7L87.1 184.0L91.5 184.8L95.8 186.1L100.1 187.7L104.5 189.7L108.8 192.0L113.2 194.4L117.5 197.0L121.9 199.5L126.2 201.9L130.5 204.1L134.9 206.0L139.2 207.5L143.6 208.7L147.9 209.3L152.2 209.5L156.6 209.2L160.9 208.4L165.3 207.1L169.6 205.5L174.0 203.5L178.3 201.2L182.6 198.8L187.0 196.2L191.3 193.7L195.7 191.3L200.0 189.1L204.3 187.2L208.7 185.6L213.0 184.5L217.4 183.8L221.7 183.7L226.0 184.0L230.4 184.8L234.7 186.1L239.1 187.7L243.4 189.7L247.8 192.0L252.1 194.4L256.4 197.0L260.8 199.5L265.1 201.9L269.5 204.1L273.8 206.0L278.1 207.5L282.5 208.7L286.8 209.3L291.2 209.5L295.5 209.2L299.9 208.4L304.2 207.1L308.5 205.5L312.9 203.5L317.2 201.2L321.6 198.8L325.9 196.2L330.2 193.7L334.6 191.3L338.9 189.1" opacity="0.169" stroke-width="0.89"/><path d="M54.1 199.8L58.7 197.8L63.2 196.3L67.8 195.2L72.4 194.7L76.9 194.8L81.5 195.4L86.0 196.5L90.6 198.2L95.1 200.3L99.7 202.7L104.3 205.4L108.8 208.2L113.4 211.1L117.9 213.9L122.5 216.5L127.1 218.9L131.6 220.9L136.2 222.4L140.7 223.5L145.3 224.0L149.9 223.9L154.4 223.3L159.0 222.2L163.5 220.5L168.1 218.5L172.6 216.0L177.2 213.4L181.8 210.5L186.3 207.6L190.9 204.8L195.4 202.2L200.0 199.8L204.6 197.8L209.1 196.3L213.7 195.2L218.2 194.7L222.8 194.8L227.4 195.4L231.9 196.5L236.5 198.2L241.0 200.3L245.6 202.7L250.1 205.4L254.7 208.2L259.3 211.1L263.8 213.9L268.4 216.5L272.9 218.9L277.5 220.9L282.1 222.4L286.6 223.5L291.2 224.0L295.7 223.9L300.3 223.3L304.9 222.2L309.4 220.5L314.0 218.5L318.5 216.0L323.1 213.4L327.6 210.5L332.2 207.6L336.8 204.8L341.3 202.2L345.9 199.8" opacity="0.187" stroke-width="0.93"/><path d="M47.4 210.9L52.2 208.8L57.0 207.3L61.7 206.4L66.5 206.1L71.3 206.5L76.0 207.4L80.8 209.0L85.6 211.1L90.3 213.6L95.1 216.5L99.9 219.6L104.6 222.8L109.4 226.1L114.2 229.2L118.9 232.0L123.7 234.5L128.5 236.5L133.2 238.0L138.0 239.0L142.8 239.2L147.6 238.9L152.3 237.9L157.1 236.4L161.9 234.3L166.6 231.8L171.4 228.9L176.2 225.8L180.9 222.5L185.7 219.3L190.5 216.2L195.2 213.4L200.0 210.9L204.8 208.8L209.5 207.3L214.3 206.4L219.1 206.1L223.8 206.5L228.6 207.4L233.4 209.0L238.1 211.1L242.9 213.6L247.7 216.5L252.4 219.6L257.2 222.8L262.0 226.1L266.8 229.2L271.5 232.0L276.3 234.5L281.1 236.5L285.8 238.0L290.6 239.0L295.4 239.2L300.1 238.9L304.9 237.9L309.7 236.4L314.4 234.3L319.2 231.8L324.0 228.9L328.7 225.8L333.5 222.5L338.3 219.3L343.0 216.2L347.8 213.4L352.6 210.9" opacity="0.205" stroke-width="0.97"/><path d="M41.0 222.2L45.9 220.2L50.9 218.8L55.9 218.1L60.8 218.1L65.8 218.8L70.8 220.2L75.7 222.2L80.7 224.8L85.7 227.8L90.7 231.1L95.6 234.7L100.6 238.3L105.6 241.9L110.5 245.3L115.5 248.3L120.5 250.9L125.4 252.9L130.4 254.3L135.4 255.0L140.4 255.0L145.3 254.3L150.3 252.9L155.3 250.9L160.2 248.3L165.2 245.3L170.2 241.9L175.1 238.4L180.1 234.8L185.1 231.2L190.1 227.8L195.0 224.8L200.0 222.2L205.0 220.2L209.9 218.8L214.9 218.1L219.9 218.1L224.9 218.8L229.8 220.2L234.8 222.2L239.8 224.8L244.7 227.8L249.7 231.1L254.7 234.7L259.6 238.3L264.6 241.9L269.6 245.3L274.6 248.3L279.5 250.9L284.5 252.9L289.5 254.3L294.4 255.0L299.4 255.0L304.4 254.3L309.3 252.9L314.3 250.9L319.3 248.3L324.3 245.3L329.2 241.9L334.2 238.4L339.2 234.8L344.1 231.2L349.1 227.8L354.1 224.8L359.0 222.2" opacity="0.225" stroke-width="1.01"/><path d="M34.7 233.9L39.8 231.9L45.0 230.7L50.2 230.3L55.3 230.6L60.5 231.8L65.7 233.6L70.8 236.2L76.0 239.3L81.2 242.8L86.3 246.7L91.5 250.7L96.7 254.7L101.8 258.6L107.0 262.2L112.2 265.3L117.3 267.9L122.5 269.9L127.7 271.1L132.8 271.5L138.0 271.2L143.2 270.0L148.3 268.2L153.5 265.6L158.7 262.5L163.8 259.0L169.0 255.1L174.2 251.1L179.3 247.1L184.5 243.2L189.7 239.6L194.8 236.5L200.0 233.9L205.2 231.9L210.3 230.7L215.5 230.3L220.7 230.6L225.8 231.8L231.0 233.6L236.2 236.2L241.3 239.3L246.5 242.8L251.7 246.7L256.8 250.7L262.0 254.7L267.2 258.6L272.3 262.2L277.5 265.3L282.7 267.9L287.8 269.9L293.0 271.1L298.2 271.5L303.3 271.2L308.5 270.0L313.7 268.2L318.8 265.6L324.0 262.5L329.2 259.0L334.3 255.1L339.5 251.1L344.7 247.1L349.8 243.2L355.0 239.6L360.2 236.5L365.3 233.9" opacity="0.244" stroke-width="1.05"/><path d="M28.6 245.9L33.9 244.1L39.3 243.1L44.6 243.0L50.0 243.8L55.3 245.4L60.7 247.8L66.1 250.9L71.4 254.6L76.8 258.6L82.1 263.0L87.5 267.5L92.9 271.9L98.2 276.0L103.6 279.8L108.9 283.0L114.3 285.6L119.6 287.4L125.0 288.4L130.4 288.4L135.7 287.7L141.1 286.0L146.4 283.6L151.8 280.5L157.1 276.9L162.5 272.8L167.9 268.4L173.2 264.0L178.6 259.6L183.9 255.4L189.3 251.6L194.6 248.4L200.0 245.9L205.4 244.1L210.7 243.1L216.1 243.0L221.4 243.8L226.8 245.4L232.1 247.8L237.5 250.9L242.9 254.6L248.2 258.6L253.6 263.0L258.9 267.5L264.3 271.9L269.6 276.0L275.0 279.8L280.4 283.0L285.7 285.6L291.1 287.4L296.4 288.4L301.8 288.4L307.1 287.7L312.5 286.0L317.9 283.6L323.2 280.5L328.6 276.9L333.9 272.8L339.3 268.4L344.7 264.0L350.0 259.6L355.4 255.4L360.7 251.6L366.1 248.4L371.4 245.9" opacity="0.264" stroke-width="1.09"/><path d="M22.6 258.1L28.1 256.6L33.7 255.9L39.2 256.3L44.8 257.5L50.3 259.7L55.9 262.7L61.4 266.4L66.9 270.7L72.5 275.3L78.0 280.2L83.6 285.1L89.1 289.8L94.7 294.3L100.2 298.1L105.8 301.4L111.3 303.8L116.8 305.4L122.4 306.0L127.9 305.7L133.5 304.4L139.0 302.2L144.6 299.2L150.1 295.5L155.6 291.3L161.2 286.6L166.7 281.8L172.3 276.9L177.8 272.1L183.4 267.7L188.9 263.8L194.5 260.6L200.0 258.1L205.5 256.6L211.1 255.9L216.6 256.3L222.2 257.5L227.7 259.7L233.3 262.7L238.8 266.4L244.4 270.7L249.9 275.3L255.4 280.2L261.0 285.1L266.5 289.8L272.1 294.3L277.6 298.1L283.2 301.4L288.7 303.8L294.2 305.4L299.8 306.0L305.3 305.7L310.9 304.4L316.4 302.2L322.0 299.2L327.5 295.5L333.1 291.3L338.6 286.6L344.1 281.8L349.7 276.9L355.2 272.1L360.8 267.7L366.3 263.8L371.9 260.6L377.4 258.1" opacity="0.285" stroke-width="1.14"/><path d="M16.8 270.8L22.5 269.5L28.2 269.3L34.0 270.1L39.7 272.0L45.4 274.8L51.1 278.4L56.9 282.8L62.6 287.6L68.3 292.9L74.0 298.2L79.8 303.5L85.5 308.6L91.2 313.2L96.9 317.1L102.7 320.3L108.4 322.5L114.1 323.8L119.8 324.0L125.6 323.2L131.3 321.3L137.0 318.5L142.7 314.9L148.5 310.6L154.2 305.7L159.9 300.5L165.6 295.1L171.4 289.8L177.1 284.7L182.8 280.1L188.5 276.2L194.3 273.0L200.0 270.8L205.7 269.5L211.5 269.3L217.2 270.1L222.9 272.0L228.6 274.8L234.4 278.4L240.1 282.8L245.8 287.6L251.5 292.9L257.3 298.2L263.0 303.5L268.7 308.6L274.4 313.2L280.2 317.1L285.9 320.3L291.6 322.5L297.3 323.8L303.1 324.0L308.8 323.2L314.5 321.3L320.2 318.5L326.0 314.9L331.7 310.6L337.4 305.7L343.1 300.5L348.9 295.1L354.6 289.8L360.3 284.7L366.0 280.1L371.8 276.2L377.5 273.0L383.2 270.8" opacity="0.305" stroke-width="1.18"/><path d="M11.1 283.8L17.0 282.9L22.9 283.2L28.8 284.6L34.7 287.1L40.6 290.6L46.5 294.9L52.4 299.9L58.3 305.4L64.2 311.2L70.1 317.1L76.0 322.7L81.9 328.0L87.8 332.7L93.7 336.7L99.6 339.7L105.5 341.7L111.4 342.6L117.3 342.3L123.2 340.9L129.2 338.4L135.1 334.9L141.0 330.6L146.9 325.5L152.8 320.0L158.7 314.3L164.6 308.4L170.5 302.7L176.4 297.4L182.3 292.7L188.2 288.8L194.1 285.8L200.0 283.8L205.9 282.9L211.8 283.2L217.7 284.6L223.6 287.1L229.5 290.6L235.4 294.9L241.3 299.9L247.2 305.4L253.1 311.2L259.0 317.1L264.9 322.7L270.8 328.0L276.8 332.7L282.7 336.7L288.6 339.7L294.5 341.7L300.4 342.6L306.3 342.3L312.2 340.9L318.1 338.4L324.0 334.9L329.9 330.6L335.8 325.5L341.7 320.0L347.6 314.3L353.5 308.4L359.4 302.7L365.3 297.4L371.2 292.7L377.1 288.8L383.0 285.8L388.9 283.8" opacity="0.327" stroke-width="1.22"/><path d="M5.5 297.2L11.6 296.8L17.6 297.7L23.7 299.7L29.8 302.9L35.9 307.1L42.0 312.2L48.0 317.9L54.1 324.1L60.2 330.4L66.3 336.7L72.3 342.7L78.4 348.2L84.5 352.9L90.6 356.8L96.7 359.6L102.7 361.2L108.8 361.6L114.9 360.7L121.0 358.6L127.1 355.4L133.1 351.2L139.2 346.2L145.3 340.5L151.4 334.3L157.4 328.0L163.5 321.7L169.6 315.7L175.7 310.2L181.8 305.4L187.8 301.6L193.9 298.8L200.0 297.2L206.1 296.8L212.2 297.7L218.2 299.7L224.3 302.9L230.4 307.1L236.5 312.2L242.6 317.9L248.6 324.1L254.7 330.4L260.8 336.7L266.9 342.7L272.9 348.2L279.0 352.9L285.1 356.8L291.2 359.6L297.3 361.2L303.3 361.6L309.4 360.7L315.5 358.6L321.6 355.4L327.7 351.2L333.7 346.2L339.8 340.5L345.9 334.3L352.0 328.0L358.0 321.7L364.1 315.7L370.2 310.2L376.3 305.4L382.4 301.6L388.4 298.8L394.5 297.2" opacity="0.348" stroke-width="1.26"/><path d="M0.0 311.1L6.2 311.3L12.5 312.8L18.8 315.6L25.0 319.6L31.2 324.5L37.5 330.4L43.8 336.8L50.0 343.5L56.2 350.4L62.5 357.1L68.8 363.3L75.0 368.9L81.2 373.7L87.5 377.3L93.8 379.8L100.0 380.9L106.2 380.7L112.5 379.2L118.8 376.4L125.0 372.4L131.2 367.5L137.5 361.6L143.8 355.2L150.0 348.5L156.2 341.6L162.5 334.9L168.8 328.7L175.0 323.1L181.2 318.3L187.5 314.7L193.8 312.2L200.0 311.1L206.2 311.3L212.5 312.8L218.8 315.6L225.0 319.6L231.2 324.5L237.5 330.4L243.8 336.8L250.0 343.5L256.2 350.4L262.5 357.1L268.8 363.3L275.0 368.9L281.2 373.7L287.5 377.3L293.8 379.8L300.0 380.9L306.2 380.7L312.5 379.2L318.8 376.4L325.0 372.4L331.2 367.5L337.5 361.6L343.8 355.2L350.0 348.5L356.2 341.6L362.5 334.9L368.8 328.7L375.0 323.1L381.2 318.3L387.5 314.7L393.8 312.2L400.0 311.1" opacity="0.370" stroke-width="1.30"/></g></svg>
+        <img id="gimg" src="/assets/img/generators/528.png" alt="The 528Hz frequency generator" loading="lazy">
+      </a>
       <div>
         <span class="eyebrow">Frequency generators</span>
         <h2>Where wellness meets tech.</h2>
@@ -592,18 +618,73 @@
      the band simply goes without them when it is not */
   var row=document.getElementById('hzrow');
   if(row&&window.EM_FREQ){
-    /* Every one of these used to be href='/frequency/#all' - seven different
-       labels and one hardcoded destination, with the button underneath going
-       to the same page again. Eight controls, one place. They point at their
-       own generator now. Not /frequency/#<id>: the .fcard elements on that
-       page carry no ids, so there is nothing there to land on. */
-    window.EM_FREQ.forEach(function(f){
-      var a=document.createElement('a');
-      a.href='/product/?id='+encodeURIComponent(f.id);
-      a.textContent=f.hz+' Hz';
-      a.setAttribute('aria-label',f.hz+' Hz Frequency Generator');
-      row.appendChild(a);
+    /* The pills were seven links to one hardcoded URL, then seven links to
+       seven product pages. Now they CHOOSE: the picture becomes the generator
+       you pressed and the frame is the link to it. Press only - picking a
+       generator on hover was tried on this site before and was glitchy. */
+    var lit=document.getElementById('glit'),
+        gimg=document.getElementById('gimg'),
+        F=window.EM_FREQ, cur=-1;
+
+    F.forEach(function(f,i){
+      var b=document.createElement('button');
+      b.type='button'; b.textContent=f.hz+' Hz';
+      b.setAttribute('aria-label','Show the '+f.hz+' Hz generator');
+      b.addEventListener('click',function(){select(i);});
+      row.appendChild(b);
     });
+
+    function paint(i){
+      [].forEach.call(row.children,function(b,n){
+        b.classList.toggle('on',n===i);
+        b.setAttribute('aria-pressed',n===i?'true':'false');
+      });
+      lit.href='/product/?id='+encodeURIComponent(F[i].id);
+      lit.setAttribute('aria-label','View the '+F[i].hz+'Hz generator \u2014 '+F[i].name);
+    }
+
+    function select(i){
+      if(i===cur)return;
+      var f=F[i]; cur=i; paint(i);
+      /* Preload, then swap, so the frame never flashes empty. NOT decode():
+         it hangs in a hidden or backgrounded tab - the promise settles
+         neither way - and the picture just never changed. onload fires
+         regardless, and the timer covers the case where even that does not. */
+      var done=false;
+      var show=function(){
+        if(done)return; done=true;
+        gimg.src='/'+f.img;
+        gimg.alt='The '+f.hz+'Hz frequency generator';
+        lit.classList.remove('swapping');
+      };
+      var next=new Image();
+      next.onload=show; next.onerror=show;
+      next.src='/'+f.img;
+      lit.classList.add('swapping');
+      if(next.complete)show(); else setTimeout(show,900);
+    }
+
+    /* 528 is what the markup ships with, so start there and skip its swap */
+    cur=0; F.forEach(function(f,i){if(f.hz==='528')cur=i;});
+    paint(cur);
+
+    /* The other six are 57-64KB each. All of them up front would put ~350KB on
+       a page that already loads 24 product photographs, so they wait until the
+       band is near the screen and then go in idle time. */
+    var warmed=false;
+    function warm(){
+      if(warmed)return; warmed=true;
+      (window.requestIdleCallback||function(fn){setTimeout(fn,600);})(function(){
+        F.forEach(function(f,i){if(i!==cur)(new Image()).src='/'+f.img;});
+      });
+    }
+    if(window.IntersectionObserver){
+      var io=new IntersectionObserver(function(es){
+        if(es.some(function(e){return e.isIntersecting;})){warm();io.disconnect();}
+      },{rootMargin:'320px'});
+      io.observe(lit);
+    } else warm();
+    row.addEventListener('pointerdown',warm,{once:true});
   }
 })();
 </script>
