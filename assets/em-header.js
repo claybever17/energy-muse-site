@@ -319,7 +319,7 @@ function boot(){
    so it covers every one of these rows without each page repeating it, and it
    only ever scrolls the row itself - block:'nearest' keeps the page still. */
 function keepChipInView(){
-  var ROWS='.sfilter,.ssub,.jfilter,.jump,.tabs,.sizes';
+  var ROWS='.sfilter,.ssub,.ifilter,.jfilter,.jump,.tabs,.sizes';
   document.addEventListener('click',function(e){
     var row=e.target.closest&&e.target.closest(ROWS); if(!row)return;
     if(row.scrollWidth<=row.clientWidth+1)return;

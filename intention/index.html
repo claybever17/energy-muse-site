@@ -19,7 +19,7 @@
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=13">
-<script src="/assets/em-header.js?v=26" defer></script>
+<script src="/assets/em-header.js?v=27" defer></script>
 <script src="/assets/em-bag.js?v=10" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
@@ -40,6 +40,16 @@
    they are the long read, not the toll gate.
    ------------------------------------------------------------------------- */
 .ifilter{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+
+/* Two rows of pills and 230px on a phone. These are stateful - the filled pill
+   is what tells you which filter is on - so they keep their shape and just
+   stop wrapping. One row, scrolled sideways. */
+@media (max-width:640px){
+  .ifilter{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+    -ms-overflow-style:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+  .ifilter::-webkit-scrollbar{display:none}
+  .ifilter > *{flex:none}
+}
 .if{font-family:var(--sans);font-weight:600;font-size:11.5px;letter-spacing:.1em;
   text-transform:uppercase;color:var(--ink-soft);background:var(--surface);
   border:1px solid var(--hair);border-radius:99px;padding:0 16px;min-height:44px;
