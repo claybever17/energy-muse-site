@@ -137,12 +137,22 @@ img{display:block;max-width:100%}
 .stop{position:relative;width:34px;height:34px;display:grid;place-items:center;border-radius:50%}
 /* The dial reads as not working on a phone because the target is 26px wide with
    a 9px dot inside it - nothing is blocking the tap and the handler is fine, the
-   thumb is simply missing. This gives each stop a 44px hit area without moving
-   anything you can see: the dot and its label stay exactly where they were. The
-   stops sit on a 53px pitch at 375, so 44px squares centred on them do not
-   overlap and the wrong frequency cannot be selected by accident. */
-.stop::after{content:"";position:absolute;top:50%;left:50%;
-  width:44px;height:44px;transform:translate(-50%,-50%)}
+   thumb is simply missing. This gives each stop a thumb-sized hit area without
+   moving anything you can see: the dot and its label stay where they were.
+
+   The first version of this was a 44px square centred on the button, and it did
+   not work, because the button is 34px tall and the label is absolutely
+   positioned at top:32px - it begins where the button ends. A box centred on
+   the button therefore stops at the label's first pixel, and the number you can
+   actually see was 26px outside the tappable area on six of the seven stops.
+   The live target was the 9px dot alone, which is why the dial felt dead: you
+   had to hit an invisible circle above the number you were aiming at.
+
+   Anchored top and bottom instead, so it spans the dot AND the label. Stops sit
+   on a 53px pitch at 375, so 46px wide still leaves 7px between neighbours and
+   the wrong frequency cannot be selected by accident. */
+.stop::after{content:"";position:absolute;left:50%;transform:translateX(-50%);
+  top:-6px;bottom:-16px;width:46px}
 .stop i{width:9px;height:9px;border-radius:50%;background:var(--hair);display:block;
   transition:transform .35s cubic-bezier(.16,1,.3,1),background-color .35s}
 .stop:hover i{transform:scale(1.35);background:color-mix(in srgb,var(--tone) 60%,var(--hair))}
@@ -307,10 +317,11 @@ img{display:block;max-width:100%}
 
 @media (max-width:900px){
   /* the dial is what this page is for, so its stops get a thumb-sized hit box.
-     The dot stays the size it is; the tappable area around it grows. */
+     The dot stays the size it is; the tappable area around it grows. The base
+     rule above already spans the label - this only widens it, and must not
+     re-centre the box or it goes back to stopping at the label's first pixel. */
   .stop{position:relative}
-  .stop::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-    width:44px;height:44px}
+  .stop::after{width:48px}
 
   /* The stone cards' Add buttons are 55x28 - the pill stays that size, the
      tappable box around it grows, the same way the dial stops do above. The
@@ -882,7 +893,7 @@ addEventListener('storage',syncBag); setInterval(syncBag,700); syncBag();
 
 <script src="/assets/em-bag.js?v=10" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
-<script src="/assets/em-versions.js?v=21" defer></script>
+<script src="/assets/em-versions.js?v=22" defer></script>
 </body></html>
 <script>
 /* deferred: this sat above the markup, so getElementById returned null and

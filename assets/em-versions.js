@@ -44,10 +44,12 @@ var P=dark?{solid:'#0E1826',bg:'rgba(14,24,38,.94)',fg:'#F1EADF',soft:'#AEB9C8',
 
 var css=[
 '.emv{position:fixed;bottom:22px;right:22px;z-index:120;display:flex;flex-direction:column;align-items:flex-end;gap:10px;',
+'  pointer-events:none;',
 '  font-family:"Instrument Sans",-apple-system,BlinkMacSystemFont,sans-serif;}',
 /* a plain pill. The translucent fill plus a backdrop blur plus a 40px
    diffuse shadow together rendered a second, larger shape behind it. */
 '.emv-btn{display:inline-flex;align-items:center;gap:9px;padding:10px 16px;border-radius:100px;cursor:pointer;',
+'  pointer-events:auto;',
 '  min-height:44px;',
 '  border:1px solid '+P.line+';background:'+P.solid+';',
 '  box-shadow:0 2px 8px rgba(10,16,23,.10);color:'+P.soft+';font-weight:600;font-size:11.5px;',
