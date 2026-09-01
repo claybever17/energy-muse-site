@@ -495,6 +495,15 @@ html{scroll-padding-top:96px;}
    uses. Two calm lines instead of three shouty ones, and the founder sentence
    stays the loudest thing in the band, which is the point of it. */
 @media (max-width:840px){
+  /* Centred here too, on Clay's eye. The note above said the phone should keep
+     its left edge because centring would fight the hero - but this is the one
+     element on the page that is already centred at 841 and up, and a colophon
+     is a seal rather than body copy. Matching the element to itself across the
+     breakpoint beats matching it to its neighbours. text-wrap:balance on the
+     lead is what makes it survive: it evens the three lines instead of leaving
+     a centred ragged block. */
+  .trust .wrap{text-align:center;}
+  .trust-lead{margin-inline:auto;}
   /* Not flex here. As flex items the two claims wrap as whole units, so the
      second one began line two and took its leading middot with it - a stray
      bullet hanging off the left margin. Set as ordinary inline text they flow
