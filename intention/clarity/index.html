@@ -86,7 +86,7 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper)}
 .hero{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(30px,5vw,70px);align-items:center;
   padding:clamp(40px,7vh,80px) 0 clamp(36px,6vh,64px)}
 .hero .media{position:relative;aspect-ratio:4/4.5}
-.hero .media img{width:100%;height:100%;object-fit:cover;border-radius:10px;
+.hero .media img{width:100%;height:100%;object-fit:cover;object-position:50% 32%;border-radius:10px;
   filter:drop-shadow(0 6px 16px rgba(61,41,23,.1)) drop-shadow(0 30px 60px rgba(61,41,23,.17))}
 .hero .media svg{position:absolute;right:-46px;bottom:-40px;width:170px;height:175px;color:var(--copper);opacity:.75;
   animation:spin 70s linear infinite;transform-origin:50% 50%}
@@ -135,16 +135,29 @@ em.hl{font-style:italic;font-family:var(--serif);color:var(--copper)}
 .more a:hover{border-color:var(--copper);color:var(--copper);transform:translateY(-2px)}
 .foot{padding:26px 0 34px;text-align:center;font-size:11.5px;color:var(--stone);line-height:1.6}
 @media (max-width:840px){
+  /* The hero centred everything except the short lead, which was left, so the
+     block had four different left edges - eyebrow 76, headline 0, lead 0,
+     button 38. Left for all of it was tried first and looked lopsided: the
+     eyebrow carries a rule on each side and reads as a centred device. So the
+     lead centres instead, and the four edges become one axis. */
   .hero{grid-template-columns:1fr;text-align:center}
   /* margin:0 auto switches off a grid item's stretch, so .media was sized by
      its content - an img at width:100% of a parent with no width yet, i.e.
      nothing. It sat 131x147 (the alt text) until the photograph arrived and
      then the page jumped 282px, above the fold. An explicit width gives
-     aspect-ratio:4/4.5 something to work from at parse time. */
-  .hero .media{width:min(420px,100%);margin:0 auto}
+     aspect-ratio a size to work from at parse time.
+
+     4/4.5 made the picture 446px tall, so the headline began at 697px and a
+     phone opened on a photograph with no words on it at all. 4/3.2 is the
+     crop /heather/ already uses for the same job. */
+  .hero .media{width:min(420px,100%);margin:0 auto;aspect-ratio:4/3.2}
   .hero .media svg{display:none}
   .hero .lead{margin-inline:auto}
   .hero .ctas{justify-content:center}
+  /* 128px of nothing between the button and "Founder favorites" */
+  .hero{padding-bottom:clamp(20px,3vh,28px)}
+  .ladder{padding-top:clamp(30px,5vh,40px)}
+  .ladder .head{margin:0 auto clamp(20px,3vw,26px)}
   .hero .ctas .btn{width:min(300px,100%)}
   .steps .wrap{grid-template-columns:1fr;gap:24px}
   .step p{max-width:none}
@@ -190,9 +203,9 @@ p{text-wrap:pretty;}
 .lead-s{display:none;}
 @media (max-width:700px){
   .lead{display:none;}
-  .lead-s{display:block;text-align:left;font-size:16px;line-height:1.5;
+  .lead-s{display:block;text-align:center;font-size:16px;line-height:1.5;
     color:var(--ink-soft);max-width:34ch;margin-top:16px;}
-  .hero .lead-s{margin-inline:0;}
+  .hero .lead-s{margin-inline:auto;}
 }
 </style></head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
@@ -223,22 +236,13 @@ p{text-wrap:pretty;}
     <svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
   </div>
   <div>
-    <span class="eyebrow">Shop by intention</span>
+    <span class="eyebrow">Clarity</span>
     <h1>Clear your <em class="hl gemword">mind.</em></h1>
     <p class="lead">When your mind feels crowded, clarity can begin as a quiet opening, a steadier thought, a renewed sense of focus, or the feeling of moving back into flow. Choose tools that help clear the noise, stay open to new perspective, and reconnect with what guides your next step.</p>
     <p class="lead-s">When your mind feels crowded, clarity begins as a quiet opening.</p>
     <div class="ctas">
       <a class="btn" href="../../intention/?feel=clarity">Shop Clarity</a>
-      <a class="btn btn-ghost" href="../../quiz/">Find My Match</a>
     </div>
-  </div>
-</section>
-
-<section class="steps">
-  <div class="wrap">
-    <div class="step"><div class="k">01</div><h3>Set your intention</h3><p>Write the question you want to sit with, clearly.</p></div>
-    <div class="step"><div class="k">02</div><h3>Keep it in view</h3><p>Clear quartz where you think — the desk, the journal, the window.</p></div>
-    <div class="step"><div class="k">03</div><h3>Ask, then return</h3><p>Return to the question after the pause. Notice what surfaced.</p></div>
   </div>
 </section>
 
@@ -261,6 +265,14 @@ p{text-wrap:pretty;}
         <strong>963Hz &mdash; Mental Focus</strong><span class="why">Run this frequency to create an environment that supports mental clarity and sharp focus.</span><span class="price">$99.88</span>
         <button class="radd" type="button" data-id="gen-963" data-n="963Hz Frequency Generator" data-p="99.88" data-img="/assets/img/generators/963.png" data-link="/frequency/#all">Add to Bag</button></div>
     </div>
+  </div>
+</section>
+
+<section class="steps">
+  <div class="wrap">
+    <div class="step"><div class="k">01</div><h3>Set your intention</h3><p>Write the question you want to sit with, clearly.</p></div>
+    <div class="step"><div class="k">02</div><h3>Keep it in view</h3><p>Clear quartz where you think — the desk, the journal, the window.</p></div>
+    <div class="step"><div class="k">03</div><h3>Ask, then return</h3><p>Return to the question after the pause. Notice what surfaced.</p></div>
   </div>
 </section>
 
