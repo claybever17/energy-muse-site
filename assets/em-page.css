@@ -148,11 +148,16 @@ p+p{margin-top:16px}
   .cols>*>p{font-size:14.5px}
 }
 
-.steps{list-style:none;counter-reset:s;margin-top:clamp(26px,4vw,44px);display:grid;gap:22px}
+.steps{list-style:none;counter-reset:s;margin:clamp(26px,4vw,44px) 0 0;padding-left:0;
+  display:grid;gap:22px}
 .steps li{counter-increment:s;padding-left:52px;position:relative;max-width:62ch}
 .steps li::before{content:counter(s);position:absolute;left:0;top:-2px;width:34px;height:34px;
   display:grid;place-items:center;border:1px solid var(--hair);border-radius:50%;
   font-family:var(--serif);font-size:16px;color:var(--copper)}
+@media (max-width:700px){
+  .steps li{padding-left:38px}
+  .steps li::before{width:28px;height:28px;font-size:14px;top:0}
+}
 
 .qa{margin-top:clamp(26px,4vw,44px);display:grid;gap:0}
 .qa details{border-top:1px solid var(--hair);padding:20px 0}
