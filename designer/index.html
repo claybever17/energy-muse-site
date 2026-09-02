@@ -277,6 +277,19 @@ p{text-wrap:pretty}
 .head .home img{height:22px;width:auto;display:block}
 @media (max-width:900px){ .head .home img{height:19px} }
 
+/* .head is justify-content:space-between. With two children that put the title
+   left and the name field right; adding this group as a third spread all three
+   and pushed the title into the middle of the page. Lifted out of the flow on a
+   desktop and parked in the empty band above the title instead - the head has
+   44px of padding before the eyebrow starts. On a phone the head stacks and it
+   stays in flow, first, which is where it reads correctly. */
+@media (min-width:901px){
+  .stagecol{position:relative}
+  .head{padding-top:clamp(58px,5vw,72px)}
+  .head .topright{position:absolute;top:clamp(20px,2.4vw,28px);
+    left:clamp(20px,3.4vw,44px);right:auto;margin-left:0}
+}
+
 /* EMBag.open() and the drawer are already here; em-header.js renders the
    control that opens them and these pages do not load it. So the bag was
    addable and unopenable - you could build a box, press Add to Bag, and have
