@@ -1664,14 +1664,42 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 .hero h1 em.gemword{color:#F7EEE2;}
 .hero .sub{color:#E9E0D3;font-size:clamp(15.5px,1.25vw,18px);margin:14px 0 0;max-width:26ch;}
 .hero .cta-row{margin-top:22px;}
-.hero .cta-row .btn{min-height:46px;font-size:13.5px;padding:0 20px;}
+.hero .cta-row .btn{min-height:46px;font-size:13.5px;padding:0 22px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:999px;
+  backdrop-filter:blur(12px) saturate(1.2);-webkit-backdrop-filter:blur(12px) saturate(1.2);
+  box-shadow:0 8px 28px rgba(20,14,7,.22);transition:.22s;}
+.hero .cta-row .btn:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.66);transform:none;}
+.hero .cta-row .btn:focus-visible{outline:2px solid #fff;outline-offset:3px;}
 @media (max-width:840px){
   .hero h1{font-size:clamp(30px,8.6vw,36px);line-height:1.04;letter-spacing:-.012em;}
   .hero .sub{margin-top:10px;font-size:15px;max-width:28ch;}
   .hero .cta-row{margin-top:18px;}
-  .hero .cta-row .btn{min-height:44px;font-size:13px;padding:0 18px;}
+  .hero .cta-row .btn{min-height:44px;font-size:13px;padding:0 20px;}
 }
 
+
+/* ===== the intention grid: six tiles, one of them words =====
+   Five intentions and the headline make six, which divides at every width -
+   6 across on a desktop, 3x2 on a tablet, 2x3 on a phone - so the grid never
+   has an orphan cell. The words tile shares the intentions' proportion and
+   corner, on the page's tint rather than a photograph, so the row reads as one
+   set of objects with one of them talking. */
+.int-grid{grid-template-columns:repeat(6,minmax(0,1fr));}
+.int.int-words{background:var(--tint);box-shadow:none;cursor:default;align-items:flex-start;
+  border:1px solid var(--hair);}
+.int.int-words::before{display:none;}
+.int.int-words:hover{--ty:0px;box-shadow:none;}
+.int.int-words .int-label{color:var(--ink);padding:clamp(14px,1.4vw,20px) clamp(14px,1.3vw,18px);}
+.int.int-words h2{font-family:var(--serif);font-weight:400;font-size:clamp(20px,1.85vw,27px);
+  line-height:1.08;letter-spacing:-.014em;margin:0;text-wrap:balance;}
+.int.int-words p{font-family:var(--sans);font-size:clamp(11.5px,.95vw,13px);line-height:1.5;
+  color:var(--ink-soft);margin-top:10px;max-width:22ch;}
+@media (min-width:841px) and (max-width:1199px){.int-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media (max-width:840px){
+  .int-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .int.int-words h2{font-size:clamp(21px,6.2vw,26px);}
+  .int.int-words p{font-size:12.5px;max-width:none;}
+}
 </style>
 
 
@@ -1783,12 +1811,16 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
      energy line, and the approved founder copy opens on it. -->
 <section class="section" id="intention">
   <div class="wrap">
-    <div class="head reveal">
-      <span class="eyebrow">Start with the feeling</span>
-      <h2>Shop by how you want to feel.</h2>
-      <p class="lead">No need to know a crystal by name. Start with the energy you want more of.</p>
-    </div>
-    <div class="int-grid reveal"><a class="int" href="intention/protection/"><img src="assets/img/protection.jpg" srcset="assets/img/protection-480.jpg 480w, assets/img/protection-720.jpg 720w, assets/img/protection.jpg 1080w" sizes="(max-width:840px) 44vw, 260px" alt="Protection intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div></a><a class="int" href="intention/abundance/"><img src="assets/img/wealth.jpg" srcset="assets/img/wealth-480.jpg 480w, assets/img/wealth-720.jpg 720w, assets/img/wealth.jpg 1080w" sizes="(max-width:840px) 44vw, 260px" alt="Abundance intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div></a><a class="int" href="intention/calm/"><img src="assets/img/frequency.jpg" srcset="assets/img/frequency-480.jpg 480w, assets/img/frequency-720.jpg 720w, assets/img/frequency.jpg 1080w" sizes="(max-width:840px) 44vw, 260px" alt="Grounding and Calm intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Steadiness &middot; nervous-system ease</div><div class="t">Calm</div></div></a><a class="int" href="intention/connection/"><img src="assets/img/jewelry.jpg?v=2" alt="Love and Self-Worth intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Heart-opening &middot; connection</div><div class="t">Love</div></div></a><a class="int" href="intention/clarity/"><img src="assets/img/clarity.jpg" srcset="assets/img/clarity-480.jpg 480w, assets/img/clarity-720.jpg 720w, assets/img/clarity.jpg 1080w" sizes="(max-width:840px) 90vw, 260px" alt="Clarity and Intuition intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Focus &middot; intuition</div><div class="t">Clarity</div></div></a></div>
+    <!-- The section was eyebrow, headline, lead, grid - the layout every
+         wellness site ships with. The headline is a tile now, the first of
+         six, sitting in the grid with the five intentions rather than above
+         them: the words are part of the same object as the pictures. The
+         eyebrow said what the headline says and is gone; the lead is the
+         tile's second line. -->
+    <div class="int-grid reveal"><div class="int int-words"><div class="int-label">
+        <h2>Shop by how you want to feel.</h2>
+        <p>No need to know a crystal by name. Start with the energy you want more of.</p>
+      </div></div><a class="int" href="intention/protection/"><img src="assets/img/protection.jpg" srcset="assets/img/protection-480.jpg 480w, assets/img/protection-720.jpg 720w, assets/img/protection.jpg 1080w" sizes="(max-width:840px) 44vw, 260px" alt="Protection intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div></a><a class="int" href="intention/abundance/"><img src="assets/img/wealth.jpg" srcset="assets/img/wealth-480.jpg 480w, assets/img/wealth-720.jpg 720w, assets/img/wealth.jpg 1080w" sizes="(max-width:840px) 44vw, 260px" alt="Abundance intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div></a><a class="int" href="intention/calm/"><img src="assets/img/frequency.jpg" srcset="assets/img/frequency-480.jpg 480w, assets/img/frequency-720.jpg 720w, assets/img/frequency.jpg 1080w" sizes="(max-width:840px) 44vw, 260px" alt="Grounding and Calm intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Steadiness &middot; nervous-system ease</div><div class="t">Calm</div></div></a><a class="int" href="intention/connection/"><img src="assets/img/jewelry.jpg?v=2" alt="Love and Self-Worth intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Heart-opening &middot; connection</div><div class="t">Love</div></div></a><a class="int" href="intention/clarity/"><img src="assets/img/clarity.jpg" srcset="assets/img/clarity-480.jpg 480w, assets/img/clarity-720.jpg 720w, assets/img/clarity.jpg 1080w" sizes="(max-width:840px) 90vw, 260px" alt="Clarity and Intuition intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Focus &middot; intuition</div><div class="t">Clarity</div></div></a></div>
     <!-- One call here on purpose. A Shop All button briefly sat beside this one, on
          the reasoning that /shop/ is reachable from the footer and the Shop menu and
          from nowhere in the body of the front page - but two calls under five
