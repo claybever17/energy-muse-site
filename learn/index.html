@@ -201,6 +201,39 @@
    went with it; a 760px centred column was also what pushed the headline onto
    three lines. */
 @media (prefers-reduced-motion:reduce){.kind,.frow{transition:none}}
+
+/* Try one - three cards, because this is the doing moment and the index at the
+   top of the page is already a bare text list. A picture each, the kind it
+   belongs to, and the verb. */
+.tries{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,26px);
+  margin-top:clamp(24px,3.2vw,38px)}
+.try{display:flex;flex-direction:column;text-decoration:none;color:inherit;
+  border:1px solid var(--hair);border-radius:6px;overflow:hidden;background:var(--surface);
+  transition:border-color .3s,transform .4s cubic-bezier(.16,1,.3,1)}
+.try:hover{border-color:color-mix(in srgb,var(--copper) 50%,transparent);transform:translateY(-3px)}
+.try:focus-visible{outline:2px solid var(--copper);outline-offset:3px}
+.tryshot{display:block;aspect-ratio:4/3;overflow:hidden;background:var(--tint)}
+.tryshot img{width:100%;height:100%;object-fit:cover;display:block}
+.try .n{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--copper);margin:16px 18px 0}
+.try b{font-family:var(--serif);font-weight:400;font-size:clamp(18px,1.8vw,21px);
+  line-height:1.15;margin:5px 18px 0;transition:color .25s}
+.try .d{font-family:var(--sans);font-size:14px;line-height:1.5;color:var(--ink-soft);
+  margin:8px 18px 0;flex:1;text-wrap:balance}
+.try em{font-style:normal;font-family:var(--sans);font-weight:600;font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--copper);
+  margin:14px 18px 18px;display:inline-flex;align-items:center;gap:7px}
+.try em i{font-style:normal;font-size:14px;line-height:1;
+  transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.try:hover b{color:var(--copper)}
+.try:hover em i{transform:translateX(4px)}
+@media (max-width:820px){
+  /* three across is 118px a card at 375 - one column, and the picture shortens
+     so a card is not most of a screen on its own */
+  .tries{grid-template-columns:1fr;gap:12px}
+  .tryshot{aspect-ratio:16/9}
+}
+@media (prefers-reduced-motion:reduce){.try,.try em i{transition:none}}
 </style>
 </head><body>
 <main>
@@ -219,39 +252,6 @@
     </nav>
   </div>
 </section>
-
-
-<section class="sect tint" id="crystals">
-  <div class="wrap">
-    <span class="eyebrow">Crystals</span>
-    <h2>What the shapes mean.</h2>
-    <p>The shape is about how a stone is used, not how powerful it is.</p>
-    <div class="shapes">
-      <div class="shape"><h3>Point</h3><p>Directs. Aim it where the intention should go, or at yourself to draw it in.</p></div>
-      <div class="shape"><h3>Cluster</h3><p>Radiates every way at once. For a shared room, not a desk.</p></div>
-      <div class="shape"><h3>Tumbled</h3><p>Pocket-sized and smooth. Made to be carried, not displayed.</p></div>
-      <div class="shape"><h3>Pyramid</h3><p>Anchors and amplifies. Grounding and focus together.</p></div>
-      <div class="shape"><h3>Sphere &amp; heart</h3><p>Even all round. Softer, steadier, the usual gift.</p></div>
-    </div>
-  </div>
-</section>
-
-
-<section class="sect tint" id="frequency">
-  <div class="wrap">
-    <span class="eyebrow">Frequency</span>
-    <h2>The seven frequencies.</h2>
-    <p>Start with the one that sounds like what you want more of. No wrong first choice, and none
-      of them cancels another out.</p>
-    <div class="freqs" id="freqs"></div>
-    <p class="note">Frequency generators are not medical devices and are not a substitute for
-      healthcare. Experiences vary.</p>
-    <div class="cta-row">
-      <a class="btn btn-ghost" href="/frequency/">Shop Frequency Generators</a>
-    </div>
-  </div>
-</section>
-
 
 
 <section class="sect" id="jewelry">
@@ -274,7 +274,81 @@
   </div>
 </section>
 
+<section class="sect tint" id="crystals">
+  <div class="wrap">
+    <span class="eyebrow">Crystals</span>
+    <h2>What the shapes mean.</h2>
+    <p>The shape is about how a stone is used, not how powerful it is.</p>
+    <div class="shapes">
+      <div class="shape"><h3>Point</h3><p>Directs. Aim it where the intention should go, or at yourself to draw it in.</p></div>
+      <div class="shape"><h3>Cluster</h3><p>Radiates every way at once. For a shared room, not a desk.</p></div>
+      <div class="shape"><h3>Tumbled</h3><p>Pocket-sized and smooth. Made to be carried, not displayed.</p></div>
+      <div class="shape"><h3>Pyramid</h3><p>Anchors and amplifies. Grounding and focus together.</p></div>
+      <div class="shape"><h3>Sphere &amp; heart</h3><p>Even all round. Softer, steadier, the usual gift.</p></div>
+    </div>
+  </div>
+</section>
 
+<section class="sect tint" id="frequency">
+  <div class="wrap">
+    <span class="eyebrow">Frequency</span>
+    <h2>The seven frequencies.</h2>
+    <p>Start with the one that sounds like what you want more of. No wrong first choice, and none
+      of them cancels another out.</p>
+    <div class="freqs" id="freqs"></div>
+    <p class="note">Frequency generators are not medical devices and are not a substitute for
+      healthcare. Experiences vary.</p>
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="/frequency/">Shop Frequency Generators</a>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- The three interactive pieces, where the page has just explained the three
+     kinds they belong to. Same labels as the index at the top and the same
+     order, so this reads as the second half of that structure rather than a new
+     idea: what these are, how each works, now try one.
+
+     /box/ and /frequency-room/ were not linked from this page at all, and the
+     only thing presenting the three together was the floating pill. -->
+<section class="sect">
+  <div class="wrap">
+    <span class="eyebrow">Try one</span>
+    <h2>Reading only gets you so far.</h2>
+    <p class="lead">Three tools that let you build the thing before you buy it &mdash; no account, nothing to fill in.</p>
+    <div class="tries">
+      <a class="try" href="/designer/">
+        <span class="tryshot"><img src="/assets/img/life/em-try-atelier.jpg"
+          srcset="/assets/img/life/em-try-atelier-400.jpg 400w, /assets/img/life/em-try-atelier-800.jpg 800w, /assets/img/life/em-try-atelier.jpg 1200w"
+          sizes="(max-width:820px) 92vw, 300px" alt="A stack of beaded crystal bracelets" loading="lazy" decoding="async"></span>
+        <span class="n">Wear it</span>
+        <b>The Atelier</b>
+        <span class="d">Design a bracelet stone by stone, on your own wrist size.</span>
+        <em>Design a bracelet <i aria-hidden="true">&rarr;</i></em>
+      </a>
+      <a class="try" href="/box/">
+        <span class="tryshot"><img src="/assets/img/life/em-try-box.jpg"
+          srcset="/assets/img/life/em-try-box-400.jpg 400w, /assets/img/life/em-try-box-800.jpg 800w, /assets/img/life/em-try-box.jpg 1200w"
+          sizes="(max-width:820px) 92vw, 300px" alt="Tumbled blue opal touchstones" loading="lazy" decoding="async"></span>
+        <span class="n">Place it</span>
+        <b>Build a Box</b>
+        <span class="d">Choose the stones; we pack them with a card for each one.</span>
+        <em>Choose your stones <i aria-hidden="true">&rarr;</i></em>
+      </a>
+      <a class="try" href="/frequency-room/">
+        <span class="tryshot"><img src="/assets/img/life/em-try-room.jpg"
+          srcset="/assets/img/life/em-try-room-400.jpg 400w, /assets/img/life/em-try-room-800.jpg 800w, /assets/img/life/em-try-room.jpg 1200w"
+          sizes="(max-width:820px) 92vw, 300px" alt="The face of a frequency generator" loading="lazy" decoding="async"></span>
+        <span class="n">Tune the room</span>
+        <b>The Frequency Room</b>
+        <span class="d">Turn the dial and watch a room re-tune to each of the seven.</span>
+        <em>Turn the dial <i aria-hidden="true">&rarr;</i></em>
+      </a>
+    </div>
+  </div>
+</section>
 
 <section class="sect tint">
   <div class="wrap">
