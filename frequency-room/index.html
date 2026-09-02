@@ -505,6 +505,31 @@ img{display:block;max-width:100%}
   font:600 12px var(--sans);letter-spacing:.1em;text-transform:uppercase;
   color:var(--tone);border-bottom:1px solid color-mix(in srgb,var(--tone) 38%,transparent)}
 .alt:hover{border-bottom-color:var(--tone)}
+/* An exit that says where it goes. Every one of these pages had a way out
+   already - the logo - but a logo reads as a brand mark rather than as a door,
+   and it lands on the homepage, which is almost never where the visitor came
+   from. Most arrive from /try/, and /try/ is the hub that holds all three, so
+   leaving one tool puts them next to the other two instead of at the start.
+   Not history.back(): these pages hand out share links, and a visitor who
+   opened one has nothing behind them. */
+.backto{display:inline-flex;align-items:center;gap:.45em;font-family:var(--sans);
+  font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--stone);text-decoration:none;white-space:nowrap;
+  padding:9px 12px;margin:-9px -12px;border-radius:999px}
+.backto:hover{color:var(--copper)}
+.backto .ar{font-size:14px;line-height:1;letter-spacing:0}
+.backto:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+/* The label plus the logo plus the bag ran to 347px on a 320px screen, and a
+   page wider than the phone is the failure that makes iOS zoom the whole thing
+   out. Below 460 the arrow carries it alone - which is the plain back
+   affordance anyway - and the words stay for screen readers via aria-label. */
+@media (max-width:460px){
+  .backto{gap:0;padding:0;margin:0;min-width:44px;min-height:44px;justify-content:center}
+  .backto .ar{font-size:17px}
+  .backto .lbl{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;
+    clip-path:inset(50%);white-space:nowrap}
+}
+.tophead-r{display:flex;align-items:center;gap:clamp(12px,2vw,22px)}
 </style>
 <script>
 (function(){
@@ -548,8 +573,11 @@ img{display:block;max-width:100%}
       <span class="eyebrow">The frequency room</span>
       <h1>Choose your frequency.</h1>
     </div>
-    <a class="home" href="/" aria-label="Energy Muse home">
-      <img class="blogo" src="/assets/img/logo.svg" alt="Energy Muse"></a>
+    <div class="tophead-r">
+      <a class="backto" href="/try/" aria-label="All three tools"><span class="ar" aria-hidden="true">&larr;</span><span class="lbl">All three tools</span></a>
+      <a class="home" href="/" aria-label="Energy Muse home">
+        <img class="blogo" src="/assets/img/logo.svg" alt="Energy Muse"></a>
+    </div>
   </div>
 
   <section class="room roomin isfirst" id="instrument">

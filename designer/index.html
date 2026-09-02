@@ -59,7 +59,12 @@ a{color:inherit;text-decoration:none}
 p{text-wrap:pretty}
 
 /* ---------- layout ---------- */
-.wrap{display:grid;grid-template-columns:minmax(0,1fr) 380px;min-height:100svh}
+/* 380px was pinned, so every pixel of a wider screen went to the stage:
+   at 1920 the mostly-empty box illustration took 1540px and the column
+   holding the filters, the stones, the counter and the buttons kept 380 -
+   with 3900px of internal scroll behind it. The stage is the one element
+   here that is empty by design; it does not need the whole desk. */
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) clamp(380px,30vw,620px);min-height:100svh}
 .stagecol{position:relative;display:flex;flex-direction:column}
 .head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;
   padding:26px clamp(20px,3.4vw,44px) 0}
@@ -156,7 +161,7 @@ p{text-wrap:pretty}
 .compose svg{flex:none;width:19px;height:19px;color:var(--copper)}
 .compose span{font-family:var(--serif);font-weight:300;font-size:16px}
 .compose small{display:block;font-family:var(--sans);font-size:11px;color:var(--stone);letter-spacing:.02em}
-.beads{flex:1;overflow-y:auto;padding:16px 18px 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-content:start}
+.beads{flex:1;overflow-y:auto;padding:16px 18px 20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:12px;align-content:start}
 .bead{border:1px solid var(--hair);border-radius:14px;background:#fff;padding:10px 8px 11px;cursor:pointer;
   display:flex;flex-direction:column;align-items:center;gap:7px;transition:border-color .25s,transform .2s,box-shadow .25s}
 .bead:hover{border-color:var(--copper);transform:translateY(-2px);box-shadow:0 10px 24px rgba(169,104,62,.13)}
@@ -301,6 +306,30 @@ p{text-wrap:pretty}
   transition:border-color .25s,color .25s}
 .head .bagbtn:hover{border-color:var(--copper,#A9683E);color:var(--copper,#A9683E)}
 .head .bagbtn:focus-visible{outline:2px solid var(--copper,#A9683E);outline-offset:2px}
+/* An exit that says where it goes. Every one of these pages had a way out
+   already - the logo - but a logo reads as a brand mark rather than as a door,
+   and it lands on the homepage, which is almost never where the visitor came
+   from. Most arrive from /try/, and /try/ is the hub that holds all three, so
+   leaving one tool puts them next to the other two instead of at the start.
+   Not history.back(): these pages hand out share links, and a visitor who
+   opened one has nothing behind them. */
+.backto{display:inline-flex;align-items:center;gap:.45em;font-family:var(--sans);
+  font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--stone);text-decoration:none;white-space:nowrap;
+  padding:9px 12px;margin:-9px -12px;border-radius:999px}
+.backto:hover{color:var(--copper)}
+.backto .ar{font-size:14px;line-height:1;letter-spacing:0}
+.backto:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+/* The label plus the logo plus the bag ran to 347px on a 320px screen, and a
+   page wider than the phone is the failure that makes iOS zoom the whole thing
+   out. Below 460 the arrow carries it alone - which is the plain back
+   affordance anyway - and the words stay for screen readers via aria-label. */
+@media (max-width:460px){
+  .backto{gap:0;padding:0;margin:0;min-width:44px;min-height:44px;justify-content:center}
+  .backto .ar{font-size:17px}
+  .backto .lbl{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;
+    clip-path:inset(50%);white-space:nowrap}
+}
 .head .topright{display:flex;align-items:center;gap:12px;margin-left:auto}
 </style>
 </head>
@@ -310,6 +339,7 @@ p{text-wrap:pretty}
   <div class="stagecol">
     <div class="head">
       <div class="topright">
+        <a class="backto" href="/try/" aria-label="All three tools"><span class="ar" aria-hidden="true">&larr;</span><span class="lbl">All three tools</span></a>
         <a class="home" href="/" aria-label="Energy Muse home"><img src="/assets/img/logo.svg" alt="Energy Muse"></a>
       <button class="bagbtn" id="bagbtn" type="button">Bag <span id="bagn">0</span></button>
       </div>
