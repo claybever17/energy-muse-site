@@ -76,8 +76,14 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(27px,3.4vw,44px);let
   background:transparent;border:0;border-bottom:1px solid var(--hair);padding:5px 2px;min-width:210px;outline:none}
 .namewrap input:focus{border-color:var(--copper)}
 
-.stage{position:relative;flex:1;min-height:0;margin:clamp(12px,2vw,24px) 0 0}
-#boxc{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:manipulation}
+/* The two readouts are drawn ON the canvas, absolutely placed at top:6px,
+   and the canvas filled the stage edge to edge - so "4 crystals" and
+   "illustrative" ended up sitting on the lid of the box. The stage now
+   reserves a band for them and the canvas starts below it; resize() reads
+   the same padding so the drawing space and the element still agree. */
+.stage{position:relative;flex:1;min-height:0;margin:clamp(12px,2vw,24px) 0 0;
+  padding-top:clamp(54px,6.2vw,74px)}
+#boxc{position:absolute;left:0;top:0;display:block;touch-action:manipulation}
 .read{position:absolute;z-index:2;display:flex;flex-direction:column;line-height:1.15}
 .read .k{font:600 9px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
 .read b{font-family:var(--serif);font-weight:300;font-size:26px;margin-top:3px}
@@ -157,7 +163,8 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(27px,3.4vw,44px);let
   /* the note ran the full width of the screen with nothing holding it off the
      edges, same as the readouts above it */
   .stagenote{padding-inline:clamp(20px,3.4vw,44px)}
-  .reads{display:flex;justify-content:space-between;padding:0 clamp(20px,3.4vw,44px)}
+  .reads{display:flex;justify-content:space-between;padding:0 clamp(20px,3.4vw,44px);
+    position:absolute;top:6px;left:0;right:0}
   .sizes{flex-basis:100%;gap:6px}
   .sizes button{min-width:0;padding:8px 4px 7px}
   .sizes button .sz{font-size:15px}
@@ -445,7 +452,12 @@ function slotsFor(n){
 
 function invalidate(){dirty=true;}
 function resize(){
-  W=stage.clientWidth;H=stage.clientHeight;
+  /* clientHeight includes the reserved band, so take it back out - otherwise
+     the drawing is squeezed into a shorter element and every hit test that
+     maps a click back through it lands in the wrong place. */
+  var band=parseFloat(getComputedStyle(stage).paddingTop)||0;
+  W=stage.clientWidth;H=stage.clientHeight-band;
+  cv.style.top=band+'px';
   mob=W<=900||matchMedia('(pointer:coarse)').matches;
   dpr=Math.min(devicePixelRatio||1,mob?1.5:2);
   cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
