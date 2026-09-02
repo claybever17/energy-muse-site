@@ -292,7 +292,7 @@ html{scroll-padding-top:96px;}
 .hero{--hero-ink:#FFFFFF;--hero-soft:#E9E0D3;--hero-sub:#F0C79C;
   --hero-accent:#E8B183;--hero-shadow:0 2px 26px rgba(12,8,4,.5);}
 .hero-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:50% 52%;z-index:0;}
+  object-position:50% 38%;z-index:0;}
 /* the crop only ever slides sideways, and that is the axis that decides
    whether the device sits clear of the words. On a phone the frame is much
    narrower than the source, so it lifts to keep the product in view */
@@ -342,9 +342,12 @@ html{scroll-padding-top:96px;}
      is the gap - Madhappy gives the photograph 100% of the first screen and
      puts nothing on top of it but a headline. The picture is the screen now
      and the copy sits on it, which is what the scrim below is for. */
-  .hero{--band:100svh;min-height:var(--band);justify-content:flex-end;}
+  .hero{--hdr:178px;--band:calc(100svh - var(--hdr));min-height:var(--band);justify-content:flex-end;}
+  /* the bar is dismissable, so the header is not one height: when it is
+     gone the hero grows back into the room it leaves */
+  body:not(:has(.emh-ann)) .hero{--hdr:90px;}
   .hero-shot{position:absolute;inset:0;flex:none;aspect-ratio:auto;height:100%;
-    object-position:22% 50%;}
+    object-position:50% 30%;}
   .hero picture{position:absolute;inset:0;display:block}
   .hero-bg{inset:0;height:auto;}
   .herowave{inset:0;height:100%;}
@@ -353,7 +356,7 @@ html{scroll-padding-top:96px;}
      across the photograph. These stops sit on a smootherstep curve instead, so
      the alpha eases in and eases out and there is no point to see. Seventeen
      stops rather than four, which is what it costs to have no edge. */
-  .hero-bg{background:linear-gradient(180deg,rgba(20,14,7,.34) 0%,rgba(20,14,7,.10) 20%,rgba(20,14,7,0) 34%,rgba(20,14,7,.14) 46%,rgba(20,14,7,.38) 56%,rgba(20,14,7,.62) 66%,rgba(20,14,7,.80) 78%,rgba(20,14,7,.90) 90%,rgba(20,14,7,.93) 100%);}
+  .hero-bg{background:linear-gradient(180deg,rgba(20,14,7,.26) 0%,rgba(20,14,7,.06) 22%,rgba(20,14,7,0) 40%,rgba(20,14,7,.20) 56%,rgba(20,14,7,.52) 70%,rgba(20,14,7,.78) 86%,rgba(20,14,7,.86) 100%);}
 
   .hero-grid{margin-top:0;padding-top:0;
     padding-bottom:clamp(34px,7vh,64px);text-align:left;}
@@ -1305,6 +1308,10 @@ p{text-wrap:pretty;}
 .sinemark.c{top:26%;transform:translateX(-58%) rotate(-1.1deg) scaleY(.7);opacity:.15;}
 .sinemark.d{top:44%;transform:translateX(-40%) rotate(3.1deg) scaleY(1.2) scaleX(-1);opacity:.11;}
 .freq .sinemark{opacity:.28;color:#c9905a;}
+/* The animated wave was drawn for a product shot on a dark floor. Over a
+   photograph of a person it draws hairlines across her face - Clay caught it
+   on the desktop crop - which reads as a rendering fault, not atmosphere. */
+.herowave{display:none;}
 /* the content has to sit above it */
 .section{position:relative;}
 /* and the flourish has to stay inside it. These are 210% wide on a phone and
@@ -1691,14 +1698,14 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   <div class="hero-grain" aria-hidden="true"></div>
   <picture id="heropic">
     <source media="(max-width:840px)" type="image/webp"
-            srcset="assets/img/life/em-hero-family-p-600.webp 600w, assets/img/life/em-hero-family-p-900.webp 900w, assets/img/life/em-hero-family-p-1200.webp 1200w"
+            srcset="assets/img/life/em-hero-stacks-p-600.webp 600w, assets/img/life/em-hero-stacks-p-900.webp 900w, assets/img/life/em-hero-stacks-p-1200.webp 1200w"
             sizes="100vw">
     <source type="image/webp"
-            srcset="assets/img/life/em-hero-family-1200.webp 1200w, assets/img/life/em-hero-family-1800.webp 1800w, assets/img/life/em-hero-family-2400.webp 2400w"
+            srcset="assets/img/life/em-hero-stacks-1200.webp 1200w, assets/img/life/em-hero-stacks-1800.webp 1800w, assets/img/life/em-hero-stacks-2400.webp 2400w"
             sizes="100vw">
-    <img class="hero-shot" src="assets/img/life/em-hero-family.jpg"
+    <img class="hero-shot" src="assets/img/life/em-hero-stacks.jpg"
          fetchpriority="high" decoding="async"
-         alt="A frequency generator on a shelf in a sunlit living room, a mother and two children playing on the rug behind it">
+         alt="A woman resting her chin on her hands, stacked crystal bracelets on both wrists">
   </picture>
   <canvas class="herowave" id="herowave" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
@@ -2432,41 +2439,180 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 
 <script src="/assets/em-form.js?v=1" defer></script>
 <script>
-/* ?hero=med swaps the homepage photograph for the CRYSTAL365 meditation frame
-   without committing to it. Runs before paint so the browser never fetches the
-   family shot first - a hero that flickers from one picture to another is a
-   worse comparison than either picture. Drop the parameter and nothing here
-   has any effect. */
+/* The hero lab.
+ *
+ * Every decision about this hero so far has been made from a contact sheet or
+ * a screenshot. These flags make it on the real page instead, with real type
+ * over real photographs at the real widths, and nothing here touches the
+ * default: no parameter, no effect.
+ *
+ *   ?hero=med                    the alternative photograph (stacks is the page's own)
+ *   ?type=rail,sine,glass       which treatments, any combination
+ *   ?copy=seven                 the subhead the rail sets up
+ *   ?lab=1                      the switcher, so nobody edits a URL by hand
+ *
+ * The photograph swap runs before paint so the browser never fetches the
+ * default first - a hero that flickers between two pictures is a worse
+ * comparison than either on its own. The DOM additions wait for the frequency
+ * list, which is deferred. */
 (function () {
+  var q = location.search;
+  function get(k) { var m = q.match(new RegExp('[?&]' + k + '=([^&]*)')); return m ? decodeURIComponent(m[1]) : ''; }
+  var hero = get('hero'), types = get('type').split(',').filter(Boolean), copy = get('copy');
+  var lab = get('lab') === '1' || hero || types.length || copy;
+  if (!lab) return;
+
   var HEROES = {
-    /* the meditation frame: somewhere for the type to go, but no product in
-       it - "just a guy with his eyes closed", which is the whole objection */
+    /* stacks is the page's own hero now; it is in this table so the lab can
+       set its crop and scrim explicitly rather than by falling through */
+    stacks: { base: 'em-hero-stacks', pos: '50% 38%', posMobile: '50% 30%',
+      alt: 'A woman resting her chin on her hands, stacked crystal bracelets on both wrists' },
     med: { base: 'em-hero-med', pos: '50% 62%', posMobile: '50% 42%',
       alt: 'Someone sitting in meditation on a mat, a wall of tall cacti behind them' },
-    /* human AND product: she is looking straight down the lens and there are
-       four bracelet stacks on her wrists */
-    stacks: { base: 'em-hero-stacks', pos: '50% 38%', posMobile: '50% 30%',
-      alt: 'A woman resting her chin on her hands, stacked crystal bracelets on both wrists' }
   };
-  var pick = (location.search.match(/[?&]hero=([a-z]+)/) || [, ''])[1];
-  var H = HEROES[pick];
-  if (!H) return;
-  var pic = document.getElementById('heropic');
-  if (!pic) return;
-  var src = pic.querySelectorAll('source'), img = pic.querySelector('img');
-  var P = '/assets/img/life/' + H.base;
-  if (src[0]) src[0].srcset = P + '-p-600.webp 600w, ' + P + '-p-900.webp 900w, ' + P + '-p-1200.webp 1200w';
-  if (src[1]) src[1].srcset = P + '-1200.webp 1200w, ' + P + '-1800.webp 1800w, ' + P + '-2400.webp 2400w';
-  if (img) { img.src = P + '.jpg'; img.alt = H.alt; }
-  /* Her wall is grey and even where the family room was a bright window, so the
-     scrim can come back down and let the photograph be the photograph. */
-  var st = document.createElement('style');
-  st.textContent = '.hero-shot{object-position:' + H.pos + '}'
-    + '@media (max-width:840px){.hero-shot{object-position:' + H.posMobile + '}'
-    + '.hero-bg{background:linear-gradient(180deg,rgba(20,14,7,.26) 0%,rgba(20,14,7,.06) 22%,'
-    + 'rgba(20,14,7,0) 40%,rgba(20,14,7,.20) 56%,rgba(20,14,7,.52) 70%,rgba(20,14,7,.78) 86%,'
-    + 'rgba(20,14,7,.86) 100%)}}';
-  document.head.appendChild(st);
+  var H = HEROES[hero];
+  var css = '';
+
+  if (H) {
+    var pic = document.getElementById('heropic');
+    var src = pic ? pic.querySelectorAll('source') : [], img = pic ? pic.querySelector('img') : null;
+    var P = '/assets/img/life/' + H.base;
+    if (src[0]) src[0].srcset = P + '-p-600.webp 600w, ' + P + '-p-900.webp 900w, ' + P + '-p-1200.webp 1200w';
+    if (src[1]) src[1].srcset = P + '-1200.webp 1200w, ' + P + '-1800.webp 1800w, ' + P + '-2400.webp 2400w';
+    if (img) { img.src = P + '.jpg'; img.alt = H.alt; }
+    css += '.hero-shot{object-position:' + H.pos + '}'
+      + '@media (max-width:840px){.hero-shot{object-position:' + H.posMobile + '}'
+      + '.hero-bg{background:linear-gradient(180deg,rgba(20,14,7,.26) 0%,rgba(20,14,7,.06) 22%,'
+      + 'rgba(20,14,7,0) 40%,rgba(20,14,7,.20) 56%,rgba(20,14,7,.52) 70%,rgba(20,14,7,.78) 86%,'
+      + 'rgba(20,14,7,.86) 100%)}}';
+  }
+
+  /* A: the frequency rail. The seven numbers are the one thing on this page no
+     other wellness brand can run. They sit under the hero already, as a
+     marquee; here they come up into it as a plinth the headline stands on, and
+     the band below retires so the same seven are not shown twice in a row. */
+  if (types.indexOf('rail') > -1) {
+    css += '.hero .hzrail{position:absolute;left:0;right:0;bottom:0;z-index:5;display:flex;'
+      + 'justify-content:space-between;align-items:baseline;gap:6px;'
+      + 'padding:11px clamp(20px,5vw,60px);border-top:1px solid rgba(255,255,255,.2);'
+      + 'background:rgba(20,14,7,.30);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);'
+      + 'font-family:var(--serif);font-weight:300;color:rgba(255,255,255,.58);'
+      + 'font-size:clamp(12.5px,1.35vw,17px);letter-spacing:.01em;white-space:nowrap}'
+      + '.hero .hzrail span{display:inline-flex;align-items:baseline;gap:.34em}'
+      + '.hero .hzrail i{font-style:normal;font-family:var(--sans);font-weight:600;font-size:.56em;'
+      + 'letter-spacing:.16em;text-transform:uppercase;opacity:.75}'
+      + '.hero .hzrail b{font-weight:300;color:#F0C79C}'
+      + '.hero .hzrail b::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;'
+      + 'background:#F0C79C;box-shadow:0 0 0 3px rgba(240,199,156,.22);margin-right:.5em;vertical-align:middle}'
+      + '.hero-grid{padding-bottom:calc(clamp(26px,5vh,64px) + 54px)}'
+      + '@media (max-width:840px){.hero-grid{padding-bottom:calc(clamp(34px,7vh,64px) + 48px)}'
+      + '.hero .hzrail i{display:none}}'
+      + '.hzband{display:none}';
+  }
+
+  /* B: the sine as punctuation. One stroke of the mark that already runs down
+     the site, 64px wide, where a gap would otherwise sit between the headline
+     and the line under it. */
+  if (types.indexOf('sine') > -1) {
+    css += '.hero .sinedash{display:block;width:64px;height:9px;margin:16px 0 8px;color:#F0C79C;'
+      + 'overflow:visible}'
+      + '.hero .sinedash path{fill:none;stroke:currentColor;stroke-width:1.5;vector-effect:non-scaling-stroke;'
+      + 'stroke-linecap:round}'
+      + '.hero .sub{margin-top:0}'
+      + '@media (min-width:841px){.hero .sinedash{margin:18px 0 10px}}';
+  }
+
+  /* C: the CTA stops being a Shopify button. Glass the photograph shows
+     through, a hairline, and a lit dot at the left edge - the generator's
+     dial, not a form control. Same target, same words. */
+  if (types.indexOf('glass') > -1) {
+    css += '.hero .cta-row .btn{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.36);'
+      + 'color:#fff;border-radius:999px;padding-left:20px;'
+      + 'backdrop-filter:blur(12px) saturate(1.2);-webkit-backdrop-filter:blur(12px) saturate(1.2);'
+      + 'box-shadow:0 10px 32px rgba(20,14,7,.26);letter-spacing:.01em;transition:.22s}'
+      + '.hero .cta-row .btn::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;'
+      + 'background:#F0C79C;box-shadow:0 0 0 3px rgba(240,199,156,.24);margin-right:2px}'
+      + '.hero .cta-row .btn:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.62);transform:none}'
+      + '.hero .cta-row .btn:focus-visible{outline:2px solid #F0C79C;outline-offset:3px}';
+  }
+
+  /* The animated wave canvas was drawn for a product shot on a dark floor. Over
+     a photograph of a person it draws hairlines across her face, which reads
+     as a rendering fault rather than as atmosphere. Off whenever a real
+     photograph is in; ?wave=1 brings it back for the comparison. */
+  if (get('wave') === '1') css += '.herowave{display:block}';
+  if (css) { var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st); }
+
+  function ready() {
+    var hero = document.querySelector('.hero');
+    var h1 = hero && hero.querySelector('h1');
+    var sub = hero && hero.querySelector('.sub');
+
+    if (types.indexOf('sine') > -1 && h1 && !hero.querySelector('.sinedash')) {
+      h1.insertAdjacentHTML('afterend',
+        '<svg class="sinedash" viewBox="0 0 200 22" aria-hidden="true">'
+        + '<path d="M0,11 C17,0 33,0 50,11 S83,22 100,11 S133,0 150,11 S183,22 200,11"/></svg>');
+    }
+    if (types.indexOf('rail') > -1 && hero && !hero.querySelector('.hzrail')) {
+      var list = (window.EM_FREQ || []).map(function (f) { return f.hz; });
+      if (!list.length) list = ['7.83', '174', '417', '528', '639', '963', '1111'];
+      var sh = window.EM_FREQ_BY && window.EM_FREQ_BY.short;
+      hero.insertAdjacentHTML('beforeend', '<div class="hzrail" aria-label="The seven tuned frequencies">'
+        + list.map(function (hz) {
+            var lab = sh ? '<i>' + sh(hz) + '</i>' : '';
+            return String(hz) === '528'
+              ? '<span><b>' + hz + '</b>' + lab + '</span>'
+              : '<span>' + hz + lab + '</span>';
+          }).join('') + '</div>');
+    }
+    if (copy === 'seven' && sub) sub.textContent = 'Seven frequencies. One is yours.';
+
+    /* the switcher */
+    var cur = { hero: hero ? (H ? get('hero') : 'family') : 'family' };
+    function link(params) {
+      var o = { hero: get('hero'), type: types.join(','), copy: copy, wave: get('wave'), lab: '1' };
+      for (var k in params) o[k] = params[k];
+      var out = [];
+      for (var k2 in o) if (o[k2]) out.push(k2 + '=' + encodeURIComponent(o[k2]));
+      return location.pathname + '?' + out.join('&');
+    }
+    function tog(name) {
+      var t = types.slice(); var i = t.indexOf(name);
+      if (i > -1) t.splice(i, 1); else t.push(name);
+      return link({ type: t.join(',') });
+    }
+    var on = function (b) { return b ? ' on' : ''; };
+    var panel = document.createElement('div');
+    panel.className = 'herolab';
+    panel.innerHTML =
+        '<b>hero</b>'
+      + '<a class="hl' + on(!get('hero') || get('hero') === 'stacks') + '" href="' + link({ hero: '' }) + '">stacks</a>'
+      + '<a class="hl' + on(get('hero') === 'med') + '" href="' + link({ hero: 'med' }) + '">med</a>'
+      + '<b>type</b>'
+      + '<a class="hl' + on(types.indexOf('rail') > -1) + '" href="' + tog('rail') + '">rail</a>'
+      + '<a class="hl' + on(types.indexOf('sine') > -1) + '" href="' + tog('sine') + '">sine</a>'
+      + '<a class="hl' + on(types.indexOf('glass') > -1) + '" href="' + tog('glass') + '">glass</a>'
+      + '<b>wave</b>'
+      + '<a class="hl' + on(get('wave') === '1') + '" href="' + link({ wave: get('wave') === '1' ? '' : '1' }) + '">on</a>'
+      + '<b>copy</b>'
+      + '<a class="hl' + on(copy === 'seven') + '" href="' + link({ copy: copy === 'seven' ? '' : 'seven' }) + '">seven</a>'
+      + '<a class="hl x" href="' + location.pathname + '">exit</a>';
+    var ps = document.createElement('style');
+    ps.textContent = '.herolab{position:fixed;right:12px;bottom:12px;z-index:99999;display:flex;flex-wrap:wrap;'
+      + 'align-items:center;gap:4px;max-width:calc(100vw - 24px);padding:8px 10px;border-radius:12px;'
+      + 'background:rgba(20,14,7,.9);color:#EAE0D0;font:600 11px/1 "Instrument Sans",sans-serif;'
+      + 'box-shadow:0 12px 40px rgba(0,0,0,.35);backdrop-filter:blur(8px)}'
+      + '.herolab b{font-weight:600;font-size:9px;letter-spacing:.18em;text-transform:uppercase;opacity:.5;'
+      + 'margin:0 4px 0 6px}.herolab b:first-child{margin-left:0}'
+      + '.herolab a{color:inherit;text-decoration:none;padding:9px 11px;min-height:34px;display:inline-flex;'
+      + 'align-items:center;border-radius:999px;border:1px solid rgba(255,255,255,.18)}'
+      + '.herolab a.on{background:#F0C79C;color:#1A1208;border-color:#F0C79C}'
+      + '.herolab a.x{opacity:.6;margin-left:6px}.herolab a:hover{border-color:rgba(255,255,255,.6)}';
+    document.head.appendChild(ps);
+    document.body.appendChild(panel);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ready);
+  else ready();
 })();
 </script>
 <script src="/assets/em-header.js?v=32" defer></script>
