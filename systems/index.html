@@ -138,6 +138,13 @@
 .pcard .padd,.pcard .psold{min-height:44px;display:flex;align-items:center;justify-content:center;box-sizing:border-box}
 
 @media (max-width:840px){ .padd{min-height:44px;} }
+/* base first, override second - a base rule written after its own media query
+   wins at every width and the short lead never appears at all. */
+.lead-s{display:none}
+@media (max-width:700px){
+  .lead-l{display:none}
+  .lead-s{display:block}
+}
 </style>
 </head><body>
 <main>
@@ -158,8 +165,9 @@
   <div class="wrap">
     <span class="eyebrow">Frequency systems</span>
     <h1>The Frequency Formulas.</h1>
-    <p>Heather&rsquo;s own systems, built room by room. Each one pairs the generator with the copper
+    <p class="lead-l">Heather&rsquo;s own systems, built room by room. Each one pairs the generator with the copper
       that carries it, so the whole space is doing the work rather than one object on a shelf.</p>
+    <p class="lead-s">Heather&rsquo;s own systems, built room by room. The generator, paired with the copper that carries it.</p>
     <div class="feat" id="feat"></div>
   </div>
 </section>

@@ -138,6 +138,14 @@
    who chose them, the grid follows. The explanation below the grid was a third
    block of prose in a half-empty column and now carries a picture. */
 .kicker{color:var(--ink-soft);margin-top:16px}
+/* base first, override second - a base rule written after its own media query
+   wins at every width and the short lead never appears at all. */
+.lead-s{display:none}
+@media (max-width:700px){
+  .lead,.kicker{display:none}
+  .lead-s{display:block;color:var(--ink-soft);font-size:16px;line-height:1.5;
+    max-width:34ch;margin-top:16px}
+}
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,60px);align-items:center}
 .duo-img{border-radius:4px;overflow:hidden;background:var(--tint)}
 .duo-img img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3}
@@ -158,6 +166,7 @@
     <p class="lead">We&rsquo;ve already done the thinking, so you don&rsquo;t have to guess what goes
       together. Just choose your focus, and begin.</p>
     <p class="kicker">Curated by Heather, each with the ritual written out so you know what to do with it.</p>
+    <p class="lead-s">We&rsquo;ve done the thinking. Curated by Heather, each with its ritual written out.</p>
     <div class="pgrid" id="kitgrid"></div>
   </div>
 </section>
