@@ -1700,6 +1700,27 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   .int.int-words h2{font-size:clamp(21px,6.2vw,26px);}
   .int.int-words p{font-size:12.5px;max-width:none;}
 }
+
+/* ===== row label (the shop) =====
+   Headline and the see-all on one line, the fact beneath, small. */
+.rowlabel{display:flex;align-items:flex-end;justify-content:space-between;gap:18px 28px;
+  flex-wrap:wrap;margin:0 0 clamp(20px,2.6vw,30px);}
+.rowlabel h2{font-family:var(--serif);font-weight:400;font-size:clamp(21px,2.1vw,27px);
+  line-height:1.1;letter-spacing:-.012em;margin:0;}
+.rowlabel p{margin:6px 0 0;font-size:13.5px;color:var(--ink-soft);}
+.rowlabel .link{margin:0 0 2px;white-space:nowrap;}
+@media (max-width:600px){ .rowlabel .link{flex-basis:100%;} }
+.head:has(.rowlabel){max-width:none;}
+
+/* ===== the frequency block emerges instead of starting =====
+   A navy rectangle dropped onto cream reads as a placed box. Its top and bottom
+   edges are a short ramp between the two grounds now, so the section rises out
+   of the page and settles back into it. The ramp is on the section itself, not
+   a pseudo-element the wave or the content would have to be layered around. */
+.freq{background:
+  linear-gradient(180deg,var(--bg) 0,color-mix(in srgb,var(--bg) 50%,var(--navy)) 22px,var(--navy) 56px,
+                  var(--navy) calc(100% - 56px),color-mix(in srgb,var(--bg) 50%,var(--navy)) calc(100% - 22px),var(--bg) 100%);}
+.section.freq{padding-top:calc(var(--step) * .55 + 56px);padding-bottom:calc(var(--step) * .78 + 56px);}
 </style>
 
 
@@ -1850,16 +1871,21 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
          that section rather than restate it. The lede keeps the one fact it
          was carrying and drops the repetition; the quiz is offered in the
          announcement bar, in the hero and in its own section already. -->
-      <span class="eyebrow">The shop</span>
-      <h2>One for each intention.</h2>
-      <p>Chosen by hand and photographed as it arrives.</p>
+      <!-- A product rail does not need a 54px headline above it; it needs to
+           get to the products. The sites this page is measured against label a
+           row, small, with the "see all" on the same line, and let the goods be
+           the thing. The line about how the pieces are chosen stays: it is the
+           only sentence here that says something. -->
+      <div class="rowlabel">
+        <div><h2>One for each intention.</h2><p>Chosen by hand and photographed as it arrives.</p></div>
+        <a class="link" href="gems/">Shop all crystals <span class="a">&rarr;</span></a>
+      </div>
     </div>
     <div class="store-grid" id="store-grid"></div>
     <!-- An outlined rectangle on its own in a field of cream, which is the most
          boring shape a page can end a section with. The same page already has a
          quieter pattern for exactly this job - the arrow link that closes the
          intention grid - so this uses it rather than inventing a third style. -->
-    <div class="store-more"><a class="link" href="gems/">Shop all crystals <span class="a">&rarr;</span></a></div>
   </div>
 </section>
 
@@ -1988,8 +2014,10 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     <div class="media rect reveal" style="aspect-ratio:3/2"><div class="t3d"><img src="assets/img/founders.jpg" alt="Founders Heather Askinosie and Timmi Jandro" style="object-position:50% 25%" loading="lazy" decoding="async"><span class="glare"></span></div><span class="plab">Heather &amp; Timmi</span></div>
     <div class="copy reveal d1">
       <span class="big-num" aria-hidden="true">20<i>+</i></span>
-      <span class="eyebrow">Twenty years of knowing</span>
-      <h2>For more than two decades, helping people live better.</h2>
+      <!-- Three lines that said one thing. The eyebrow was the best line of the
+           three and it is the headline now; the sentence that repeated it in
+           twelve words is gone; the lede is the actual thought and stays. -->
+      <h2>Twenty years of knowing.</h2>
       <p class="lede-m">Energy is invisible &mdash; which is exactly why it&rsquo;s so easy to overlook.</p>
       <!-- The remaining four sentences - the necklace, the belief, the founders by
            name - are told at greater length on /about/, which is where the button
@@ -2499,7 +2527,7 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
  * over real photographs at the real widths, and nothing here touches the
  * default: no parameter, no effect.
  *
- *   ?hero=med                    the alternative photograph (stacks is the page's own)
+ *   ?hero=<name>                 any photograph in HEROES below (stacks is the page's own)
  *   ?type=rail                   the frequency plinth under the headline
  *   ?copy=seven                 the subhead the rail sets up
  *   ?lab=1                      the switcher, so nobody edits a URL by hand
@@ -2516,12 +2544,26 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
   if (!lab) return;
 
   var HEROES = {
-    /* stacks is the page's own hero now; it is in this table so the lab can
-       set its crop and scrim explicitly rather than by falling through */
-    stacks: { base: 'em-hero-stacks', pos: '50% 38%', posMobile: '50% 30%',
+    /* stacks is the page's own hero; it is in this table so the lab can set
+       its crop explicitly rather than by falling through */
+    stacks:  { base: 'em-hero-stacks',  pos: '50% 38%', posMobile: '50% 30%',
       alt: 'A woman resting her chin on her hands, stacked crystal bracelets on both wrists' },
-    med: { base: 'em-hero-med', pos: '50% 62%', posMobile: '50% 42%',
-      alt: 'Someone sitting in meditation on a mat, a wall of tall cacti behind them' },
+    sphere:  { base: 'em-hero-sphere',  pos: '50% 50%', posMobile: '50% 45%',
+      alt: 'Two hands cupping a lapis lazuli sphere, a white dress and the sea behind' },
+    hands:   { base: 'em-hero-hands',   pos: '50% 50%', posMobile: '50% 40%',
+      alt: 'Three hands meeting on the sand, crystal bracelets on each wrist' },
+    wrist:   { base: 'em-hero-wrist',   pos: '50% 50%', posMobile: '50% 42%',
+      alt: 'A wrist wearing crystal bracelets, resting on a towel on the sand' },
+    geode:   { base: 'em-hero-geode',   pos: '50% 46%', posMobile: '50% 40%',
+      alt: 'A hand reaching for an amethyst geode on a wooden dresser by a window' },
+    still:   { base: 'em-hero-still',   pos: '50% 50%', posMobile: '50% 45%',
+      alt: 'A selenite tower, black tourmaline and a sage bundle on dark wood' },
+    sand:    { base: 'em-hero-sand',    pos: '50% 55%', posMobile: '50% 50%',
+      alt: 'A lapis lazuli sphere on wet sand at the edge of the sea' },
+    heather: { base: 'em-hero-heather', pos: '50% 30%', posMobile: '50% 30%',
+      alt: 'Heather Askinosie standing beneath a tree' },
+    med:     { base: 'em-hero-med',     pos: '50% 62%', posMobile: '50% 42%',
+      alt: 'Someone sitting in meditation on a mat, a wall of tall cacti behind them' }
   };
   var H = HEROES[hero];
   var css = '';
@@ -2608,8 +2650,11 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
     panel.className = 'herolab';
     panel.innerHTML =
         '<b>hero</b>'
-      + '<a class="hl' + on(!get('hero') || get('hero') === 'stacks') + '" href="' + link({ hero: '' }) + '">stacks</a>'
-      + '<a class="hl' + on(get('hero') === 'med') + '" href="' + link({ hero: 'med' }) + '">med</a>'
+      + Object.keys(HEROES).map(function (k) {
+          var isHome = (k === 'stacks');
+          var active = isHome ? (!get('hero') || get('hero') === 'stacks') : (get('hero') === k);
+          return '<a class="hl' + on(active) + '" href="' + link({ hero: isHome ? '' : k }) + '">' + k + '</a>';
+        }).join('')
       + '<b>type</b>'
       + '<a class="hl' + on(types.indexOf('rail') > -1) + '" href="' + tog('rail') + '">rail</a>'
       + '<b>wave</b>'
