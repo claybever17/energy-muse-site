@@ -211,7 +211,7 @@ function boot(){
     +'<a href="/shop/?cat=Kit%7CSystem">Kits &amp; Sets</a>'
     +'</span></span>'
     +'<a href="/intention/">By Intention</a><a href="/learn/">Learn</a>'
-    +'<a href="/learn/#try">Try It</a></nav>'
+    +'<a href="/try/">Try It</a></nav>'
     /* Search was <a href="#">, wired to nothing, on every page of the site — a
        control in the primary nav that silently did nothing when clicked. Gone
        until there is something to search: product pages will give every item
@@ -229,7 +229,7 @@ function boot(){
        one the header shows, and stops differing from the homepage's own. */
     +'<nav><a href="/quiz/">Start Here</a><a href="/shop/">Shop</a>'
     +'<a href="/intention/">By Intention</a><a href="/learn/">Learn</a>'
-    +'<a href="/learn/#try">Try It</a></nav>'
+    +'<a href="/try/">Try It</a></nav>'
     /* the four categories, flat - a panel that has to be opened is worth it
        on a bar with no room, and pointless inside a menu that is already a
        list */
@@ -264,7 +264,7 @@ function boot(){
     +'<a href="/shop/">Shop</a><a href="/jewelry/">Jewelry</a><a href="/gems/">Crystals</a>'
     +'<a href="/frequency/">Frequency</a><a href="/sets/">Kits &amp; Sets</a>'
     +'<a href="/intention/">By Intention</a><a href="/quiz/">Energy Quiz</a>'
-    +'<a href="/frequency-room/">Frequency Room</a>'
+    +'<a href="/try/">Try It</a><a href="/frequency-room/">Frequency Room</a>'
     +'<a href="/learn/">Learn</a><a href="/faq/">FAQ</a>'
     +'<a href="/about/">About</a><a href="/support/">Support</a></div>'
     +'<p class="emh-foot-legal">© 2026 Energy Muse. Energy Muse products and content are intended for personal practice and general wellbeing. They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease. Individual experiences vary.</p>'
