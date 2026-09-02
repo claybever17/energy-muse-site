@@ -139,7 +139,13 @@
      price and the picture cannot drift from what the shop is selling. */
   var p = (window.EM_CATALOG && S.product) ? EM_CATALOG.get(S.product) : null;
 
-  function esc(t) { return String(t == null ? '' : t).replace(/[<>&]/g, ''); }
+  /* This deleted the characters instead of escaping them, so every title
+     with an ampersand lost it: "Stay Grounded & Raise Your Vibration"
+     rendered as "Stay Grounded  Raise Your Vibration". Escape, don't strip. */
+  function esc(t) {
+    return String(t == null ? '' : t)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
   function sec(title, body) {
     return body ? '<section class="msec"><h2>' + title + '</h2>' + body + '</section>' : '';
   }
