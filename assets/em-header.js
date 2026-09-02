@@ -262,6 +262,7 @@ function boot(){
     +'<a href="/shop/">Shop</a><a href="/jewelry/">Jewelry</a><a href="/gems/">Crystals</a>'
     +'<a href="/frequency/">Frequency</a><a href="/sets/">Kits &amp; Sets</a>'
     +'<a href="/intention/">By Intention</a><a href="/quiz/">Energy Quiz</a>'
+    +'<a href="/frequency-room/">Frequency Room</a>'
     +'<a href="/learn/">Learn</a><a href="/faq/">FAQ</a>'
     +'<a href="/about/">About</a><a href="/support/">Support</a></div>'
     +'<p class="emh-foot-legal">© 2026 Energy Muse. Energy Muse products and content are intended for personal practice and general wellbeing. They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease. Individual experiences vary.</p>'
