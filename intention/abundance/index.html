@@ -249,6 +249,37 @@ p{text-wrap:pretty;}
   .icard .sim{aspect-ratio:4/3;padding:5%}
   .icard b{font-size:11.5px;line-height:1.28;margin-top:9px}
   .icard .sg{font-size:8.5px}}
+
+/* The hero's right column ran out of things to say halfway down and left a
+   third of it empty - a photograph beside a paragraph, with the products three
+   screens below. The favourites come up into that space. The paragraph goes
+   with them: it was describing an intention to somebody who had just clicked
+   that intention's own name. */
+.hero .lead,.hero .lead-s{display:none}
+.hfav{margin-top:clamp(22px,3vw,34px)}
+.hfav .k{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--stone)}
+.hfav .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.hcard{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:14px 10px 13px;border:1px solid var(--hair);border-radius:8px;background:var(--surface);
+  transition:border-color .3s}
+.hcard:hover{border-color:color-mix(in srgb,var(--copper) 45%,transparent)}
+.hcard .tag{font-family:var(--sans);font-weight:600;font-size:8.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--copper)}
+.hcard img{width:80%;aspect-ratio:1/1;object-fit:contain;margin:8px 0 6px;
+  filter:drop-shadow(0 8px 12px rgba(61,41,23,.16))}
+.hcard img.plate{background:#F5EFE4;border-radius:8px;padding:7%}
+.hcard strong{font-family:var(--serif);font-weight:400;font-size:14px;line-height:1.16;
+  min-height:2.32em;display:flex;align-items:center}
+.hcard .why{display:none}
+.hcard .price{font-family:var(--serif);font-size:13.5px;color:var(--copper-lo);margin-top:3px}
+.hcard .radd{margin-top:9px;width:100%;font-size:11px;padding:9px 6px;min-height:40px}
+@media (max-width:900px){
+  .hfav .row{gap:8px}
+  .hcard{padding:11px 7px}
+  .hcard strong{font-size:12.5px}
+  .hcard .radd{min-height:44px;font-size:10px}
+}
 </style></head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
@@ -283,30 +314,26 @@ p{text-wrap:pretty;}
     <h1>Open yourself up to <em class="hl gemword">receive.</em></h1>
     <p class="lead">Abundance is an energetic state — the openness to receive, recognize possibility, and move with momentum. Choose a tool that keeps you connected to that energy, then support it with a practice that creates space for growth.</p>
     <p class="lead-s">Abundance is an energetic state &mdash; the openness to receive.</p>
-  </div>
-</section>
-
-<section class="ladder">
-  <div class="wrap">
-    <div class="head">
-      <h2>Founder favorites for abundance.</h2>
-    </div>
-    <div class="cards">
-      <div class="rcard"><span class="tag">Wear it</span>
+    <div class="hfav">
+      <span class="k">Founder favorites</span>
+      <div class="row">
+        <div class="hcard"><span class="tag">Wear it</span>
         <img src="../../assets/img/favorites/abundance-wear.png" alt="Infinite Prosperity Bracelet" loading="lazy">
         <strong>Infinite Prosperity Bracelet</strong><span class="why">Jade, red string and a gold Torus coin, formulated together as a daily reminder to stay open to what&rsquo;s growing.</span><span class="price">$64.88</span>
         <button class="radd" type="button" data-id="infinite-prosperity-bracelet" data-n="Infinite Prosperity Bracelet" data-p="64.88" data-img="/assets/img/favorites/abundance-wear.png" data-link="/jewelry/">Add to Bag</button></div>
-      <div class="rcard"><span class="tag">Place it</span>
+        <div class="hcard"><span class="tag">Place it</span>
         <img src="../../assets/img/favorites/abundance-place.png" alt="Pyrite Cube" loading="lazy">
         <strong>Pyrite Cube</strong><span class="why">Traditionally associated with abundance and opportunity &mdash; set wherever you plan, work, or make decisions.</span><span class="price">$24.88</span>
         <button class="radd" type="button" data-id="pyrite-cube" data-n="Pyrite Cube" data-p="24.88" data-img="/assets/img/favorites/abundance-place.png" data-link="/gems/">Add to Bag</button></div>
-      <div class="rcard"><span class="tag">Amplify it</span>
+        <div class="hcard"><span class="tag">Amplify it</span>
         <img src="../../assets/img/generators/528.png" class="plate" alt="528 Hz Frequency Generator" loading="lazy">
         <strong>528Hz &mdash; Accelerates Manifestation</strong><span class="why">Ready to go further? Extend that same energy into the whole space where you work.</span><span class="price">$99.88</span>
         <button class="radd" type="button" data-id="gen-528" data-n="528Hz Frequency Generator" data-p="99.88" data-img="/assets/img/generators/528.png" data-link="/frequency/#all">Add to Bag</button></div>
+      </div>
     </div>
   </div>
 </section>
+
 
 <!-- Every piece Energy Muse tags with this intention, from the same catalogue
      the shop reads, so the two can never disagree about what is in stock or
