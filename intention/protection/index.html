@@ -19,6 +19,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="../../assets/img/favicon.png">
 <script src="../../assets/em-header.js?v=32" defer></script>
 <script src="/assets/em-search.js?v=9" defer></script>
+<script src="../../assets/em-catalog.js?v=22" defer></script>
 <script src="../../assets/em-bag.js?v=10" defer></script>
 <script src="../../assets/em-prices.js?v=3" defer></script>
 <style>
@@ -227,6 +228,43 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     color:var(--ink-soft);max-width:34ch;margin-top:16px;}
   .hero .lead-s{margin-inline:auto;}
 }
+
+/* The hero used to end on a button that sent the reader to a filtered grid -
+   while three merchandised products with their own Add to Bag sat directly
+   underneath it. The weaker of the two paths was the one on top. The button is
+   gone and the grid it pointed at is on the page instead, so the intention
+   pages sell rather than forward. Same cards as the hub, deliberately: a
+   reader who lands on both should not be able to tell they are two pages. */
+.shelf{padding:clamp(46px,6vw,78px) 0 0}
+.shelf .shead{display:flex;align-items:baseline;justify-content:space-between;
+  gap:16px;flex-wrap:wrap}
+.shelf h2{font-family:var(--serif);font-weight:400;font-size:clamp(24px,3vw,38px);
+  line-height:1.08;letter-spacing:-.015em;margin:0}
+.shelf .sn{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--stone)}
+.sgrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:20px}
+.qwrap{display:flex;flex-direction:column}
+.icard{display:flex;flex-direction:column;text-align:center;text-decoration:none;color:inherit}
+.icard .sim{aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;
+  background:#fff;padding:9%;border:1px solid var(--hair)}
+.icard .sim img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+.icard b{font-family:var(--sans);font-weight:600;font-size:12.5px;line-height:1.3;margin-top:12px;
+  min-height:2.4em}
+.icard .sg{font-family:var(--sans);font-weight:600;font-size:9px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--stone);margin-top:4px}
+.icard .sp{font-family:var(--serif);font-size:15px;color:var(--copper);margin-top:auto;padding-top:7px}
+.icard.out{opacity:.68}
+.qsold{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--stone);text-align:center;margin-top:9px;padding:9px 0}
+.qadd{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.04em;margin-top:9px;
+  padding:9px 6px;min-height:40px;cursor:pointer;border:1px solid var(--hair);border-radius:999px;
+  background:transparent;color:var(--ink);transition:.18s}
+.qadd:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.qadd.done{background:var(--copper);border-color:var(--copper);color:#fff}
+@media (max-width:1080px){.sgrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:860px){.sgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.sgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .qadd{min-height:44px;font-size:10px}}
 </style></head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
@@ -261,9 +299,6 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     <h1><span class="s">Protect your energy.</span><span class="s"><em class="hl gemword">Hold your ground.</em></span></h1>
     <p class="lead">Your energy is yours — what you carry, what you take on, what you let in. Protection is what keeps it that way. It's the strength to say no, stay centered in a crowded room, close out the workday, or clear a heavy conversation before it becomes your own.</p>
     <p class="lead-s">Your energy is yours. Protection is what keeps it that way.</p>
-    <div class="ctas">
-      <a class="btn" href="../../intention/?feel=protection">Shop Protection</a>
-    </div>
   </div>
 </section>
 
@@ -289,6 +324,19 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   </div>
 </section>
 
+<!-- Every piece Energy Muse tags with this intention, from the same catalogue
+     the shop reads, so the two can never disagree about what is in stock or
+     what it costs. -->
+<section class="shelf">
+  <div class="wrap">
+    <div class="shead">
+      <h2>Everything for protection.</h2>
+      <span class="sn" id="scount"></span>
+    </div>
+    <div class="sgrid" id="sgrid"></div>
+  </div>
+</section>
+
 <section class="steps">
   <div class="wrap">
     <div class="step"><div class="k">01</div><h3>Set your intention</h3><p>Name one boundary or quality you want to keep.</p></div>
@@ -311,6 +359,43 @@ document.querySelectorAll('.radd').forEach(function(b){
     EMBag.add({id:b.dataset.id,name:b.dataset.n,price:parseFloat(b.dataset.p),img:b.dataset.img,link:b.dataset.link});
   });
 });
+</script>
+<script>
+/* Reads the catalogue rather than a hand-written list: a page that names its
+   own products goes stale the first time one sells out. */
+(function(){
+  var GROUP = "Protection";
+  var grid = document.getElementById('sgrid'), count = document.getElementById('scount');
+  function boot(){
+    if(!window.EM_CATALOG){ return; }
+    var list = EM_CATALOG.all().filter(function(p){ return p.group === GROUP; })
+                              .sort(function(a,b){ return a.price - b.price; });
+    grid.innerHTML = list.map(function(p){
+      var out = (p.stock === 'out');
+      return '<div class="qwrap">'
+        + '<a class="icard' + (out?' out':'') + '" href="/product/?id=' + encodeURIComponent(p.id) + '">'
+        + '<span class="sim"><img src="' + p.img + '" alt="' + String(p.name).replace(/"/g,'') + '" loading="lazy"></span>'
+        + '<b>' + p.name + '</b><span class="sg">' + p.cat + '</span>'
+        + '<span class="sp">$' + p.price.toFixed(2) + '</span></a>'
+        + (out ? '<span class="qsold">Unavailable</span>'
+               : '<button class="qadd" type="button" data-add="' + encodeURIComponent(p.id) + '">Add to Bag</button>')
+        + '</div>';
+    }).join('');
+    count.textContent = list.length + ' piece' + (list.length === 1 ? '' : 's');
+  }
+  grid && grid.addEventListener('click', function(e){
+    var b = e.target.closest('.qadd'); if(!b || !window.EMBag) return;
+    var p = window.EM_CATALOG.get(decodeURIComponent(b.getAttribute('data-add')));
+    if(!p) return;
+    EMBag.add({id:p.id,name:p.name,price:p.price,img:p.img,link:p.home||'/shop/'});
+    b.textContent = 'Added'; b.classList.add('done');
+    clearTimeout(b._t); b._t = setTimeout(function(){
+      b.textContent = 'Add to Bag'; b.classList.remove('done'); }, 1400);
+  });
+  /* em-catalog.js is deferred, so it has not run while this is being parsed */
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
 </script>
 <script src="/assets/em-depth.js?v=3" defer></script>
 </body></html>
