@@ -201,7 +201,7 @@ function boot(){
     (!dismissed?'<div class="emh-ann"><div class="emh-ann-in"><span>'+ann.say+'<span class="emh-ann-more">'+ann.more+'</span></span><a href="'+ann.href+'">'+ann.cta+'</a><button class="emh-annx" aria-label="Dismiss">\u00d7</button></div></div>':'')
     +'<header class="emh-nav"><div class="emh-in">'
     +'<a class="emh-brand" href="/"><svg class="emh-logo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo-hdr"/></svg></a>'
-    +'<nav class="emh-links"><a href="/quiz/">Start Here</a>'
+    +'<nav class="emh-links">'
     +'<span class="emh-shop"><button type="button" aria-expanded="false" aria-haspopup="true">Shop</button>'
     +'<span class="emh-panel">'
     +'<a href="/shop/">Everything</a><span class="sep"></span>'
@@ -227,7 +227,7 @@ function boot(){
        second tier alongside the two destinations this menu never carried at
        all — so the mobile menu stops being a different set of links from the
        one the header shows, and stops differing from the homepage's own. */
-    +'<nav><a href="/quiz/">Start Here</a><a href="/shop/">Shop</a>'
+    +'<nav><a href="/shop/">Shop</a>'
     +'<a href="/intention/">By Intention</a><a href="/learn/">Learn</a>'
     +'<a href="/try/">Try It</a></nav>'
     /* the four categories, flat - a panel that has to be opened is worth it
