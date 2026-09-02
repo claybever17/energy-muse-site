@@ -122,6 +122,23 @@ p{margin:0;}
    this only shows up in the run of four plain sections in the lower half
    (Small practices -> Everything you need -> Start with one stone -> Real
    energy). Halve the top pad where the neighbour shares the ground. */
+/* The rule below halves the top pad only where two sections share a ground,
+   on the reasoning that a change of colour reads as the boundary and earns the
+   full measure. Looking at the seams, that is half right: the colour change
+   does part of the separating, but it does not do all of it. A full measure
+   under a section that ends on a single 13px text link leaves 115px of empty
+   cream above the fold line, and what that reads as is a mistake, not as room.
+   Every pair gets some reduction now; the ones that change ground keep more of
+   it than the ones that do not. */
+.section + .section{padding-top:calc(var(--step) * .55);}
+/* Half a seam is the bottom pad of the section above it, and nothing was
+   touching that. In the shot Clay sent, the void under "SHOP ALL CRYSTALS"
+   is entirely this: 115px of empty cream before the navy starts. A section
+   that is followed by another one does not need its full closing measure -
+   the next section's opening measure is right there doing the same job. The
+   last section on the page still gets the whole thing, because below it
+   there is only the footer. */
+.section:has(+ .section){padding-bottom:calc(var(--step) * .78);}
 .section:not(.band):not(.freq):not(.final-cta):not(.email)
   + .section:not(.band):not(.freq):not(.final-cta):not(.email){
   padding-top:calc(var(--step) * .42);

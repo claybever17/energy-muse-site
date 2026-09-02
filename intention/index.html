@@ -25,6 +25,12 @@
 <script src="/assets/em-depth.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=9" defer></script>
 <style>
+/* h1 is capped at 20ch in em-page.css and this headline measures 20.2, so it
+   was breaking to a second line to save five pixels - a stacked headline over
+   a lede that runs the full width underneath it. One more character of measure
+   and it sits on one line at every desktop size. A phone still wraps it, which
+   is right; there the cap is not what breaks it, the screen is. */
+h1{max-width:21ch}
 /* -------------------------------------------------------------------------
    This page used to be a menu. Two identical "Take the Energy Quiz" buttons,
    five underlined text links, 319 words and not one product — you clicked
@@ -225,7 +231,7 @@
     else grid.innerHTML=list.map(card).join('');
     count.innerHTML=list.length+' piece'+(list.length===1?'':'s')
       +(k?' for '+label(k).toLowerCase():' across every intention')
-      +' &middot; <a href="/gems/#all">all crystals</a> &middot; <a href="/jewelry/#all">all jewelry</a>';
+      +' &middot; <a href="/gems/">all crystals</a> &middot; <a href="/jewelry/">all jewelry</a>';
     [].forEach.call(bar.children,function(b){
       var on=(b.getAttribute('data-f')||'')===k;
       b.classList.toggle('on',on);
