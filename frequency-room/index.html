@@ -529,7 +529,6 @@ img{display:block;max-width:100%}
   .backto .lbl{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;
     clip-path:inset(50%);white-space:nowrap}
 }
-.tophead-r{display:flex;align-items:center;gap:clamp(12px,2vw,22px)}
 </style>
 <script>
 (function(){
@@ -573,11 +572,12 @@ img{display:block;max-width:100%}
       <span class="eyebrow">The frequency room</span>
       <h1>Choose your frequency.</h1>
     </div>
-    <div class="tophead-r">
-      <a class="backto" href="/try/" aria-label="All three tools"><span class="ar" aria-hidden="true">&larr;</span><span class="lbl">All three tools</span></a>
-      <a class="home" href="/" aria-label="Energy Muse home">
-        <img class="blogo" src="/assets/img/logo.svg" alt="Energy Muse"></a>
-    </div>
+    <!-- The logo came off these three. It was here as the only way out
+         before the back link existed; now it sat between a back arrow and a
+         bag pill, doing nothing the back link does not do better and making
+         a three-item cluster out of a two-item one. These are full-screen
+         tools, and /try/ - one tap away - carries the full site chrome. -->
+    <a class="backto" href="/try/" aria-label="All three tools"><span class="ar" aria-hidden="true">&larr;</span><span class="lbl">All three tools</span></a>
   </div>
 
   <section class="room roomin isfirst" id="instrument">

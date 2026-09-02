@@ -331,6 +331,14 @@ p{text-wrap:pretty}
     clip-path:inset(50%);white-space:nowrap}
 }
 .head .topright{display:flex;align-items:center;gap:12px;margin-left:auto}
+/* Below the desktop breakpoint .topright is pushed right by margin-left:auto.
+   With three items that read as one cluster; with two it left the back arrow
+   floating in the middle of the row beside the bag. A back control belongs at
+   the left edge, so the row spans and the two ends take their own corners. */
+@media (max-width:900px){
+  .head .topright{margin-left:0;width:100%;justify-content:space-between}
+}
+
 </style>
 </head>
 <body>
@@ -340,7 +348,11 @@ p{text-wrap:pretty}
     <div class="head">
       <div class="topright">
         <a class="backto" href="/try/" aria-label="All three tools"><span class="ar" aria-hidden="true">&larr;</span><span class="lbl">All three tools</span></a>
-        <a class="home" href="/" aria-label="Energy Muse home"><img src="/assets/img/logo.svg" alt="Energy Muse"></a>
+        <!-- The logo came off these three. It was here as the only way out
+             before the back link existed; now it sat between a back arrow and a
+             bag pill, doing nothing the back link does not do better and making
+             a three-item cluster out of a two-item one. These are full-screen
+             tools, and /try/ - one tap away - carries the full site chrome. -->
       <button class="bagbtn" id="bagbtn" type="button">Bag <span id="bagn">0</span></button>
       </div>
       <div class="title">
