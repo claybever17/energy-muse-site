@@ -223,7 +223,7 @@ p{text-wrap:pretty;}
 .shelf .sn{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--stone)}
 .sgrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:20px}
-.qwrap{display:flex;flex-direction:column;background:var(--surface);
+.qwrap{position:relative;display:flex;flex-direction:column;background:var(--surface);
   border:1px solid var(--hair);border-radius:6px;padding:14px 13px;
   transition:border-color .3s}
 .qwrap:hover{border-color:var(--copper)}
@@ -239,21 +239,16 @@ p{text-wrap:pretty;}
   text-transform:uppercase;color:var(--stone);margin-top:4px}
 .icard .sp{font-family:var(--serif);font-size:15px;color:var(--copper);margin-top:auto;padding-top:7px}
 .icard.out{opacity:.68}
-.qsold{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--stone);text-align:center;margin-top:9px;padding:9px 0}
-.qadd{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.04em;margin-top:9px;
-  padding:9px 6px;min-height:40px;cursor:pointer;border:1px solid var(--hair);border-radius:999px;
-  background:transparent;color:var(--ink);transition:.18s}
-.qadd:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
-.qadd.done{background:var(--copper);border-color:var(--copper);color:#fff}
+.qsold{position:absolute;top:20px;right:19px;z-index:2;font-family:var(--sans);font-weight:600;
+  font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--stone);
+  background:var(--surface);border:1px solid var(--hair);border-radius:999px;padding:4px 8px}
 @media (max-width:1080px){.sgrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (max-width:860px){.sgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:560px){.sgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   .qwrap{padding:9px 9px 10px;border-radius:8px}
   .icard .sim{aspect-ratio:4/3;padding:5%}
   .icard b{font-size:11.5px;line-height:1.28;margin-top:9px}
-  .icard .sg{font-size:8.5px}
-  .qadd{min-height:44px;font-size:10px}}
+  .icard .sg{font-size:8.5px}}
 </style></head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
@@ -366,21 +361,11 @@ document.querySelectorAll('.radd').forEach(function(b){
         + '<span class="sim"><img src="' + p.img + '" alt="' + String(p.name).replace(/"/g,'') + '" loading="lazy"></span>'
         + '<b>' + p.name + '</b><span class="sg">' + p.cat + '</span>'
         + '<span class="sp">$' + p.price.toFixed(2) + '</span></a>'
-        + (out ? '<span class="qsold">Unavailable</span>'
-               : '<button class="qadd" type="button" data-add="' + encodeURIComponent(p.id) + '">Add to Bag</button>')
+        + (out ? '<span class="qsold">Sold out</span>' : '')
         + '</div>';
     }).join('');
     count.textContent = list.length + ' piece' + (list.length === 1 ? '' : 's');
   }
-  grid && grid.addEventListener('click', function(e){
-    var b = e.target.closest('.qadd'); if(!b || !window.EMBag) return;
-    var p = window.EM_CATALOG.get(decodeURIComponent(b.getAttribute('data-add')));
-    if(!p) return;
-    EMBag.add({id:p.id,name:p.name,price:p.price,img:p.img,link:p.home||'/shop/'});
-    b.textContent = 'Added'; b.classList.add('done');
-    clearTimeout(b._t); b._t = setTimeout(function(){
-      b.textContent = 'Add to Bag'; b.classList.remove('done'); }, 1400);
-  });
   /* em-catalog.js is deferred, so it has not run while this is being parsed */
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
