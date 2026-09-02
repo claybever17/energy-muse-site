@@ -47,7 +47,12 @@
   /* except the founders, where the picture leads: its column ends with the
      call to action, so a trailing image put the photograph below the buttons. */
   .duo.lead-img .duo-img{order:-1}
-  .duo-img img{aspect-ratio:16/9}
+  /* 16/9 against a 1400x1400 source discards 44% of its height, and cover
+     centres what is left - so the pendant and the hand under it went off the
+     bottom of one picture and the generator off the bottom of the other. 4/3
+     keeps enough of a square to hold its subject; where the subject still is
+     not centred, the image carries its own object-position. */
+  .duo-img img{aspect-ratio:4/3}
 }
 
 /* Four paragraphs of five lines each read as a wall on a phone and as ordinary
@@ -95,6 +100,7 @@
     <div class="duo-img"><img src="/assets/img/life/em-windowsill.jpg"
       srcset="/assets/img/life/em-windowsill-480.jpg 480w, /assets/img/life/em-windowsill-900.jpg 900w, /assets/img/life/em-windowsill.jpg 1400w"
       sizes="(max-width:820px) 92vw, 480px"
+      style="object-position:50% 62%"
       alt="Crystal pendants hung on a windowsill at home" loading="lazy" decoding="async"></div>
    </div>
   </div>
@@ -109,7 +115,8 @@
     <div class="duo-img"><img src="/assets/img/life/em-room-generator.jpg"
       srcset="/assets/img/life/em-room-generator-480.jpg 480w, /assets/img/life/em-room-generator-900.jpg 900w, /assets/img/life/em-room-generator.jpg 1400w"
       sizes="(max-width:820px) 92vw, 480px"
-      alt="A frequency generator on a side table in a living room" loading="lazy" decoding="async"></div>
+      style="object-position:50% 62%"
+      alt="A frequency generator held on the lap, in a living room" loading="lazy" decoding="async"></div>
     <div>
     <h2><span class="s">The materials evolve.</span><span class="s">The role remains the same.</span></h2>
     <p class="sm-hide">Energy Muse continues to explore new forms &mdash; copper, geometry, specified frequencies, and digital guidance &mdash; because customers deserve more ways to build a practice that fits them.</p><p class="sm-only">Copper, geometry, fixed frequencies, digital guidance &mdash; more ways to build a practice that fits you.</p>
@@ -150,7 +157,7 @@
       <a class="em-link" href="/craft/">Materials &amp; craft <span class="a" aria-hidden="true">&rarr;</span></a>
     </div>
     </div>
-    <div class="duo-img"><img src="/assets/img/founders.jpg" alt="Founders Heather Askinosie and Timmi Jandro" style="object-position:50% 25%" loading="lazy"></div>
+    <div class="duo-img"><img src="/assets/img/founders.jpg" alt="Founders Heather Askinosie and Timmi Jandro" style="object-position:50% 35%" loading="lazy"></div>
    </div>
   </div>
 </section>
