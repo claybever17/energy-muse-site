@@ -163,7 +163,8 @@ p+p{margin-top:16px}
 .qa details{border-top:1px solid var(--hair);padding:20px 0}
 .qa details:last-of-type{border-bottom:1px solid var(--hair)}
 .qa summary{font-family:var(--serif);font-size:clamp(17px,1.5vw,21px);cursor:pointer;list-style:none;
-  display:flex;justify-content:space-between;gap:20px;align-items:baseline}
+  display:flex;justify-content:space-between;gap:20px;align-items:baseline;
+  padding:20px 0;margin:-20px 0}
 .qa summary::-webkit-details-marker{display:none}
 .qa summary::after{content:"+";color:var(--copper);font-family:var(--sans);font-size:20px;line-height:1;flex:none}
 .qa details[open] summary::after{content:"\2013"}
