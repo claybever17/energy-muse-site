@@ -280,6 +280,28 @@ p{text-wrap:pretty;}
   .hcard strong{font-size:12.5px}
   .hcard .radd{min-height:44px;font-size:10px}
 }
+
+/* The three picks are equal-height grid items, but a name that wraps to three
+   lines - "639Hz - Emotional Balance" - pushed its own price and button down
+   past the two beside it. Anchoring the price to the bottom of the card puts
+   the buy control on one line whatever the name does above it. */
+.hcard .price{margin-top:auto}
+
+/* The shelf lost its buy control because "Add to Bag" written out 26 times was
+   the loudest thing on the page. This is the same action at a whisper: a bag
+   in the corner of the card, 40px of target on a pointer and 44 on a thumb.
+   The card is still a link to the product page; this is the shortcut. */
+.qbag{position:absolute;right:8px;bottom:8px;z-index:2;display:grid;place-items:center;
+  width:40px;height:40px;padding:0;cursor:pointer;border:1px solid var(--hair);
+  border-radius:999px;background:var(--surface);color:var(--ink);transition:.18s}
+.qbag svg{width:17px;height:17px;display:block}
+.qbag:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.qbag.done{background:var(--copper);border-color:var(--copper);color:#fff}
+.qbag:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+/* the price sits centred and the bag sits over its right end on a narrow card,
+   so the row it lives on keeps clear of it */
+.qwrap .sp{padding-right:34px;padding-left:34px}
+@media (max-width:560px){.qbag{width:44px;height:44px;right:6px;bottom:6px}}
 </style></head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
@@ -388,11 +410,22 @@ document.querySelectorAll('.radd').forEach(function(b){
         + '<span class="sim"><img src="' + p.img + '" alt="' + String(p.name).replace(/"/g,'') + '" loading="lazy"></span>'
         + '<b>' + p.name + '</b><span class="sg">' + p.cat + '</span>'
         + '<span class="sp">$' + p.price.toFixed(2) + '</span></a>'
-        + (out ? '<span class="qsold">Sold out</span>' : '')
+        + (out ? '<span class="qsold">Sold out</span>'
+               : '<button class="qbag" type="button" data-add="' + encodeURIComponent(p.id)
+                 + '" aria-label="Add ' + String(p.name).replace(/"/g,'') + ' to bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 8h13l-1.1 11.2a1.6 1.6 0 0 1-1.6 1.4H8.2a1.6 1.6 0 0 1-1.6-1.4Z"/><path d="M9 8.4V6.6a3 3 0 0 1 6 0v1.8"/></svg></button>')
         + '</div>';
     }).join('');
     count.textContent = list.length + ' piece' + (list.length === 1 ? '' : 's');
   }
+  grid && grid.addEventListener('click', function(e){
+    var b = e.target.closest('.qbag'); if(!b || !window.EMBag) return;
+    var p = window.EM_CATALOG.get(decodeURIComponent(b.getAttribute('data-add')));
+    if(!p) return;
+    EMBag.add({id:p.id,name:p.name,price:p.price,img:p.img,link:p.home||'/shop/'});
+    b.classList.add('done');
+    clearTimeout(b._t); b._t = setTimeout(function(){ b.classList.remove('done'); }, 1200);
+  });
+
   /* em-catalog.js is deferred, so it has not run while this is being parsed */
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
