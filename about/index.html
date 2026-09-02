@@ -42,6 +42,19 @@
   .duo.flip .duo-img{order:0}
   .duo-img img{aspect-ratio:16/9}
 }
+
+/* Four paragraphs of five lines each read as a wall on a phone and as ordinary
+   prose on a desktop, so the desktop keeps every word. What the short versions
+   drop is the abstraction - "ecosystem", "inaccessible expertise", "operational,
+   relational, and community perspective" - never a name, a number or a claim.
+
+   Base first, media query second. Written the other way round the base rule
+   wins at every width and the short copy never appears at all. */
+.sm-only{display:none}
+@media (max-width:700px){
+  .sm-hide{display:none}
+  .sm-only{display:block}
+}
 </style>
 </head><body>
 <main>
@@ -52,7 +65,7 @@
     <!-- The lede ran to two sentences and the second was the same inventory, told again below.
       On a phone that is eleven lines of type before the page has shown
       anything. The first sentence carries the idea on its own. -->
-      <p class="lead">Energy Muse began with founders Heather Askinosie and Timmi Jandro, and a simple idea: the objects we choose can help us stay connected to an intention.</p>
+      <p class="lead sm-hide">Energy Muse began with founders Heather Askinosie and Timmi Jandro, and a simple idea: the objects we choose can help us stay connected to an intention.</p><p class="lead sm-only">Heather Askinosie and Timmi Jandro began with one idea: the objects we choose can keep us connected to an intention.</p>
     <!-- No call to action here on purpose. A hero button that leaves the page
          asks the reader to abandon the thing they just chose to look at, before
          they have seen any of it - and what this page is for is directly below.
@@ -69,7 +82,7 @@
    <div class="duo">
     <div>
     <h2>It started with the need for something real.</h2>
-    <p>Heather&rsquo;s work with crystals and energy practices, combined with Timmi&rsquo;s ability to build connection and community, shaped a brand focused on usable guidance rather than inaccessible expertise.</p>
+    <p class="sm-hide">Heather&rsquo;s work with crystals and energy practices, combined with Timmi&rsquo;s ability to build connection and community, shaped a brand focused on usable guidance rather than inaccessible expertise.</p><p class="sm-only">Heather brought the crystals and the practice, Timmi the community &mdash; guidance you can use, not expertise out of reach.</p>
     <p>The first necklace wasn&rsquo;t created to prove a belief. It was created to help carry an intention into everyday life.</p>
     </div>
     <div class="duo-img"><img src="/assets/img/jewelry.jpg" alt="An Energy Muse crystal necklace" loading="lazy"></div>
@@ -87,7 +100,7 @@
       alt="An Energy Muse frequency generator, copper coil under glass"></div>
     <div>
     <h2><span class="s">The materials evolve.</span><span class="s">The role remains the same.</span></h2>
-    <p>Energy Muse continues to explore new forms &mdash; copper, geometry, specified frequencies, and digital guidance &mdash; because customers deserve more ways to build a practice that fits them.</p>
+    <p class="sm-hide">Energy Muse continues to explore new forms &mdash; copper, geometry, specified frequencies, and digital guidance &mdash; because customers deserve more ways to build a practice that fits them.</p><p class="sm-only">Copper, geometry, fixed frequencies, digital guidance &mdash; more ways to build a practice that fits you.</p>
     <p>Every new product still has to answer the same questions: Is it understandable? Is it thoughtfully made? Can someone use it in real life?</p>
     </div>
    </div>
@@ -111,7 +124,7 @@
    <div class="duo">
     <div>
     <h2>Heather Askinosie &amp; Timmi Jandro.</h2>
-    <p>Heather brings decades of study, practice, and product development. Timmi brings the operational, relational, and community perspective that helped one idea become a lasting brand.</p>
+    <p class="sm-hide">Heather brings decades of study, practice, and product development. Timmi brings the operational, relational, and community perspective that helped one idea become a lasting brand.</p><p class="sm-only">Heather brings decades of study and practice. Timmi brings the operations and the community that turned one idea into a brand.</p>
     <p>Together, they continue to shape what Energy Muse keeps, what it questions, and what it builds next.</p>
     <!-- "Meet the Founders" at the top of this page already goes to /heather/, so
          this asked for a second click to reach what the first one offers. The

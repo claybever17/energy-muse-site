@@ -44,6 +44,19 @@
   .duo.flip .duo-img{order:0}
   .duo-img img{aspect-ratio:16/10}
 }
+
+/* Four paragraphs of five lines each read as a wall on a phone and as ordinary
+   prose on a desktop, so the desktop keeps every word. What the short versions
+   drop is the abstraction - "ecosystem", "inaccessible expertise", "operational,
+   relational, and community perspective" - never a name, a number or a claim.
+
+   Base first, media query second. Written the other way round the base rule
+   wins at every width and the short copy never appears at all. */
+.sm-only{display:none}
+@media (max-width:700px){
+  .sm-hide{display:none}
+  .sm-only{display:block}
+}
 </style>
 </head><body>
 <main>
@@ -54,7 +67,7 @@
     <!-- The lede ran to two sentences and the second was the list of what we make, which the page then makes good on section by section.
       On a phone that is eleven lines of type before the page has shown
       anything. The first sentence carries the idea on its own. -->
-      <p class="lead">For more than 20 years, Energy Muse has searched the world for meaningful materials, developed intentional formulas, and considered how every piece will fit into real life.</p>
+      <p class="lead sm-hide">For more than 20 years, Energy Muse has searched the world for meaningful materials, developed intentional formulas, and considered how every piece will fit into real life.</p><p class="lead sm-only">Twenty years of searching for the right materials, and of asking how each piece will fit a real life.</p>
     <!-- No call to action here on purpose. A hero button that leaves the page
          asks the reader to abandon the thing they just chose to look at, before
          they have seen any of it - and what this page is for is directly below.
@@ -71,8 +84,8 @@
    <div class="duo">
     <div>
     <h2>Everything is curated with intention.</h2>
-    <p>Every Energy Muse product begins with an intention. We consider the materials, traditional associations, form, placement, and daily use before bringing the pieces together into a formula.</p>
-    <p>The result is more than a collection of individual products &mdash; it&rsquo;s an ecosystem designed to help you build a practice that feels personal, approachable, and easy to return to.</p>
+    <p class="sm-hide">Every Energy Muse product begins with an intention. We consider the materials, traditional associations, form, placement, and daily use before bringing the pieces together into a formula.</p><p class="sm-only">Every product begins with an intention. Materials, form, placement and daily use are all settled before anything becomes a formula.</p>
+    <p class="sm-hide">The result is more than a collection of individual products &mdash; it&rsquo;s an ecosystem designed to help you build a practice that feels personal, approachable, and easy to return to.</p><p class="sm-only">Not a shelf of separate products, but a set that builds into a practice you will come back to.</p>
     </div>
     <div class="duo-img"><img src="/assets/img/frequency.jpg" srcset="/assets/img/frequency-480.jpg 480w, /assets/img/frequency-720.jpg 720w, /assets/img/frequency.jpg 1080w" sizes="(max-width:820px) 92vw, 460px" alt="A copper-coil frequency tool" loading="lazy"></div>
    </div>
@@ -85,7 +98,7 @@
     <div class="duo-img"><img src="/assets/img/bracelets.jpg" alt="Stacked crystal bracelets on a wrist" loading="lazy"></div>
     <div>
     <h2>Each formula is created to support a specific intention.</h2>
-    <p>Our wearable formulas combine carefully selected crystals and materials based on how they complement one another. Our frequency formulas take the same approach.</p>
+    <p class="sm-hide">Our wearable formulas combine carefully selected crystals and materials based on how they complement one another. Our frequency formulas take the same approach.</p><p class="sm-only">Wearable formulas pair crystals that work together. The frequency formulas are built the same way.</p>
     <p>Whether you wear it, place it in your space, or bring it into your practice, every detail has a reason for being there.</p>
     </div>
    </div>
