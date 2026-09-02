@@ -292,7 +292,7 @@ html{scroll-padding-top:96px;}
 .hero{--hero-ink:#FFFFFF;--hero-soft:#E9E0D3;--hero-sub:#F0C79C;
   --hero-accent:#E8B183;--hero-shadow:0 2px 26px rgba(12,8,4,.5);}
 .hero-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:33% 50%;z-index:0;}
+  object-position:50% 52%;z-index:0;}
 /* the crop only ever slides sideways, and that is the axis that decides
    whether the device sits clear of the words. On a phone the frame is much
    narrower than the source, so it lifts to keep the product in view */
@@ -337,20 +337,26 @@ html{scroll-padding-top:96px;}
      canvas's intrinsic 195px and the whole field bunched into the top 40% of a
      490px photograph, stopping dead partway down. It belongs to the picture,
      so it gets the picture's height. */
-  .hero{--band:58svh;}
-  .hero-shot{position:relative;flex:none;aspect-ratio:auto;height:var(--band);
-    object-position:50% 46%;}
+  /* This was 58svh: a picture band across the top with the words on solid
+     ground underneath it. Measured against the sites Clay is aiming at, that
+     is the gap - Madhappy gives the photograph 100% of the first screen and
+     puts nothing on top of it but a headline. The picture is the screen now
+     and the copy sits on it, which is what the scrim below is for. */
+  .hero{--band:100svh;min-height:var(--band);justify-content:flex-end;}
+  .hero-shot{position:absolute;inset:0;flex:none;aspect-ratio:auto;height:100%;
+    object-position:22% 50%;}
+  .hero picture{position:absolute;inset:0;display:block}
   .hero-bg{inset:0;height:auto;}
-  .herowave{inset:0 0 auto 0;height:var(--band);}
+  .herowave{inset:0;height:100%;}
   /* A linear ramp to solid leaves a visible horizontal edge where it lands —
      the rate of change jumps, and the eye reads the jump as a line drawn
      across the photograph. These stops sit on a smootherstep curve instead, so
      the alpha eases in and eases out and there is no point to see. Seventeen
      stops rather than four, which is what it costs to have no edge. */
-  .hero-bg{background:linear-gradient(180deg,rgba(20,14,7,.20) 0%,rgba(20,14,7,.05) 18%,rgba(26,18,8,0.0000) 30.00%,rgba(26,18,8,0.0033) 33.00%,rgba(26,18,8,0.0233) 36.00%,rgba(26,18,8,0.0695) 39.00%,rgba(26,18,8,0.1447) 42.00%,rgba(26,18,8,0.2464) 45.00%,rgba(26,18,8,0.3679) 48.00%,rgba(26,18,8,0.5000) 51.00%,rgba(26,18,8,0.6321) 54.00%,rgba(26,18,8,0.7536) 57.00%,rgba(26,18,8,0.8553) 60.00%,rgba(26,18,8,0.9305) 63.00%,rgba(26,18,8,0.9767) 66.00%,rgba(26,18,8,0.9967) 69.00%,rgba(26,18,8,1.0000) 72.00%,rgba(26,18,8,1) 100%);}
+  .hero-bg{background:linear-gradient(180deg,rgba(20,14,7,.34) 0%,rgba(20,14,7,.10) 20%,rgba(20,14,7,0) 34%,rgba(20,14,7,.14) 46%,rgba(20,14,7,.38) 56%,rgba(20,14,7,.62) 66%,rgba(20,14,7,.80) 78%,rgba(20,14,7,.90) 90%,rgba(20,14,7,.93) 100%);}
 
-  .hero-grid{margin-top:-16%;padding-top:0;
-    padding-bottom:clamp(26px,4.5vh,44px);text-align:left;}
+  .hero-grid{margin-top:0;padding-top:0;
+    padding-bottom:clamp(34px,7vh,64px);text-align:left;}
   .hero-grid .hero-copy{max-width:none;text-align:left;}
   .hero .sub{margin-inline:0;}
   .hero .cta-row{justify-content:flex-start;}
@@ -1155,7 +1161,7 @@ footer.site{background:
   .reel figcaption span{font-size:10px;}
   /* padding-block put 40px above the photograph as well as below it, and a
      full-bleed picture that starts 40px down is not full bleed. Bottom only. */
-  .hero{min-height:auto;padding-top:0;padding-bottom:0;}
+  .hero{min-height:var(--band);padding-top:0;padding-bottom:0;}
   /* the grid's align-items:center carries over into the column flex, so the
      copy shrank to fit and floated off the page's left margin — every other
      block on the page starts at the gutter, and so should this one. */
@@ -1683,11 +1689,17 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 <section class="hero" id="top">
   <div class="hero-bg" aria-hidden="true"></div>
   <div class="hero-grain" aria-hidden="true"></div>
-  <img class="hero-shot"
-       src="assets/img/hero-generator.jpg"
-       srcset="assets/img/hero-generator-1200.webp 1200w, assets/img/hero-generator-1800.webp 1800w, assets/img/hero-generator-2000.webp 2000w"
-       sizes="(max-width:840px) 100vw, 100vw" fetchpriority="high"
-       alt="The copper frequency generator lit on a wood floor beside a clear quartz point">
+  <picture>
+    <source media="(max-width:840px)" type="image/webp"
+            srcset="assets/img/life/em-hero-family-p-600.webp 600w, assets/img/life/em-hero-family-p-900.webp 900w, assets/img/life/em-hero-family-p-1200.webp 1200w"
+            sizes="100vw">
+    <source type="image/webp"
+            srcset="assets/img/life/em-hero-family-1200.webp 1200w, assets/img/life/em-hero-family-1800.webp 1800w, assets/img/life/em-hero-family-2400.webp 2400w"
+            sizes="100vw">
+    <img class="hero-shot" src="assets/img/life/em-hero-family.jpg"
+         fetchpriority="high" decoding="async"
+         alt="A frequency generator on a shelf in a sunlit living room, a mother and two children playing on the rug behind it">
+  </picture>
   <canvas class="herowave" id="herowave" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
     <div class="hero-copy">
