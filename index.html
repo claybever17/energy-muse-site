@@ -1281,6 +1281,7 @@ p{text-wrap:pretty;}
 .sinemark.b{top:18%;transform:translateX(-50%) rotate(1.8deg) scaleY(1.5);opacity:.10;}
 .sinemark.c{top:26%;transform:translateX(-58%) rotate(-1.1deg) scaleY(.7);opacity:.15;}
 .sinemark.d{top:44%;transform:translateX(-40%) rotate(3.1deg) scaleY(1.2) scaleX(-1);opacity:.11;}
+.freq .sinemark{opacity:.28;color:#c9905a;}
 /* the content has to sit above it */
 .section{position:relative;}
 /* and the flourish has to stay inside it. These are 210% wide on a phone and
@@ -1321,10 +1322,18 @@ p{text-wrap:pretty;}
    visible anyway at 9% opacity behind a headline. */
 @media (max-width:840px){
   .sinemark{opacity:.09;width:96%;left:2%;}
+  .freq .sinemark{opacity:.20;}
   .sinemark.a{transform:rotate(-2.4deg);}
   .sinemark.b{transform:rotate(1.8deg) scaleY(1.5);}
   .sinemark.c{transform:rotate(-1.1deg) scaleY(.7);}
   .sinemark.d{transform:rotate(3.1deg) scaleY(1.2) scaleX(-1);}
+  /* The frequency section stacks on a phone: the generator drops 240px below
+     the headline, and the wave - anchored at 18% like every other one - ended
+     21px short of the top of it. The whole point of this one was depth behind
+     the generator, so on a narrow screen it is placed against the object
+     rather than against the type, and made tall enough to actually pass
+     behind it. Desktop is unchanged; there the two already overlap. */
+  .freq .sinemark.b{top:40%;transform:rotate(1.8deg) scaleY(2.1);}
 }
 @media (prefers-reduced-motion:no-preference){
   .sinemark{animation:sineDrift 34s ease-in-out infinite alternate;}
@@ -1773,7 +1782,13 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
      photographs, cross-faded. The WebGL device that used to mount here is
      gone: it rendered one generic body with no notion of frequency, so it
      could not follow the readout, and it cost 666KB of three.js to do it. -->
-<section class="section freq" id="freq" aria-label="Frequency generators">
+<!-- The one section on the page that is literally about waves had none of
+     them. Same .sinemark the quiz and founders blocks use - three paths,
+     380 bytes, currentColor - so it costs one more compositor-only drift
+     and no new CSS. The .b variant is the tall one, which sits behind the
+     generator rather than across the type. -->
+<section class="section freq has-sine" id="freq" aria-label="Frequency generators">
+  <div class="sinemark b" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
   <div class="wrap split">
     <div class="copy reveal">
       <span class="eyebrow">Frequency tools</span>

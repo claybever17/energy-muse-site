@@ -128,6 +128,31 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
    for the numbered disc, so the 40 was pure indent. The heading, the steps and
    the button share one left edge now. */
 .steps{padding-left:0;margin-left:0}
+
+/* The wave device from the homepage, on the page that sells the thing it
+   describes. Three paths, currentColor, 380 bytes; the drift is a translate,
+   which the compositor handles without laying out or painting anything, and it
+   only runs for people who have not asked for less motion.
+
+   The section needs position and clipping of its own: a sinemark is wider than
+   its container on purpose, so without overflow:clip it widens the page. */
+.sect:has(.sinemark){position:relative;overflow:clip}
+.sinemark{position:absolute;pointer-events:none;z-index:0;color:var(--copper);
+  width:min(1500px,150%);left:50%;opacity:.13;}
+.sinemark svg{width:100%;height:auto;display:block;overflow:visible;}
+.sinemark{-webkit-mask-image:radial-gradient(100% 100% at 50% 50%,#000 16%,rgba(0,0,0,.42) 40%,transparent 62%);
+  mask-image:radial-gradient(100% 100% at 50% 50%,#000 16%,rgba(0,0,0,.42) 40%,transparent 62%);}
+.sinemark path{fill:none;stroke:currentColor;stroke-width:1.1;vector-effect:non-scaling-stroke;}
+.sinemark path:nth-child(2){opacity:.62}
+.sinemark path:nth-child(3){opacity:.4}
+.sinemark.c{top:clamp(26px,3.2vw,56px);transform:translateX(-58%) rotate(-1.1deg) scaleY(.8);opacity:.16}
+.sect:has(.sinemark) > .wrap{position:relative;z-index:1}
+@media (max-width:840px){ .sinemark{opacity:.09;width:96%;left:2%}
+  .sinemark.c{top:46px;transform:rotate(-1.1deg) scaleY(1.9);opacity:.12} }
+@media (prefers-reduced-motion:no-preference){
+  .sinemark{animation:sineDrift 39s ease-in-out infinite alternate}
+}
+@keyframes sineDrift{to{translate:2.5% 0}}
 </style>
 <style>
 /* -------------------------------------------------------------------------
@@ -167,6 +192,7 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 <main>
 
 <section class="sect" id="all">
+  <div class="sinemark c" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
   <!-- One block, not two. This page opened with an eyebrow, a headline and a
        lede, and then opened again with a second heading and a line saying
        "Energy Muse offers seven fixed-frequency generators" directly above
