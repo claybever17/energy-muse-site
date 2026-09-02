@@ -234,6 +234,23 @@
   .tryshot{aspect-ratio:16/9}
 }
 @media (prefers-reduced-motion:reduce){.try,.try em i{transition:none}}
+
+/* The three reference sections are things you consult, not prose you read, and
+   together they ran 3428px - so "Try one" sat five screens down and the page
+   buried its best part under a sizing chart. Collapsed, using the same details
+   pattern /faq/ uses. The index at the top of the page finally has a job
+   beyond jumping: it opens the one you want. */
+.ref{border-top:1px solid var(--hair);padding-top:clamp(16px,2vw,22px)}
+.ref summary{cursor:pointer;list-style:none;display:flex;align-items:baseline;
+  justify-content:space-between;gap:18px}
+.ref summary::-webkit-details-marker{display:none}
+.ref summary h2{margin:0}
+.ref summary::after{content:"+";color:var(--copper);font-family:var(--sans);
+  font-size:24px;line-height:1;flex:none;transition:transform .25s}
+.ref[open] summary::after{content:"\2013"}
+.ref summary:hover h2{color:var(--copper)}
+.ref summary:focus-visible{outline:2px solid var(--copper);outline-offset:4px}
+.refbody{padding-top:clamp(6px,1vw,12px)}
 </style>
 </head><body>
 <main>
@@ -257,7 +274,9 @@
 <section class="sect" id="jewelry">
   <div class="wrap">
     <span class="eyebrow">Jewelry</span>
-    <h2>Getting the size right.</h2>
+    <details class="ref">
+      <summary><h2>Getting the size right.</h2></summary>
+      <div class="refbody">
     <p>Measure your wrist snug but not tight, then take the size at or just above that number.
       Beads sit on the inside of the curve, so a bracelet wears smaller than it measures.</p>
     <div class="sizes">
@@ -271,13 +290,17 @@
       <a class="btn btn-ghost" href="/jewelry/">Shop Jewelry</a>
       <a class="btn btn-ghost" href="/designer/">Design Your Own</a>
     </div>
+      </div>
+    </details>
   </div>
 </section>
 
 <section class="sect tint" id="crystals">
   <div class="wrap">
     <span class="eyebrow">Crystals</span>
-    <h2>What the shapes mean.</h2>
+    <details class="ref">
+      <summary><h2>What the shapes mean.</h2></summary>
+      <div class="refbody">
     <p>The shape is about how a stone is used, not how powerful it is.</p>
     <div class="shapes">
       <div class="shape"><h3>Point</h3><p>Directs. Aim it where the intention should go, or at yourself to draw it in.</p></div>
@@ -286,13 +309,17 @@
       <div class="shape"><h3>Pyramid</h3><p>Anchors and amplifies. Grounding and focus together.</p></div>
       <div class="shape"><h3>Sphere &amp; heart</h3><p>Even all round. Softer, steadier, the usual gift.</p></div>
     </div>
+      </div>
+    </details>
   </div>
 </section>
 
 <section class="sect tint" id="frequency">
   <div class="wrap">
     <span class="eyebrow">Frequency</span>
-    <h2>The seven frequencies.</h2>
+    <details class="ref">
+      <summary><h2>The seven frequencies.</h2></summary>
+      <div class="refbody">
     <p>Start with the one that sounds like what you want more of. No wrong first choice, and none
       of them cancels another out.</p>
     <div class="freqs" id="freqs"></div>
@@ -301,6 +328,8 @@
     <div class="cta-row">
       <a class="btn btn-ghost" href="/frequency/">Shop Frequency Generators</a>
     </div>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -394,6 +423,26 @@
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',paint);
   else paint();
+})();
+</script>
+
+<script>
+/* The index at the top and /faq/ both link to #crystals and #frequency. A
+   collapsed target would land the reader on a heading with nothing under it,
+   so a hash opens its section - on load and on every later hash change. */
+(function(){
+  function openTarget(){
+    var id=(location.hash||'').slice(1); if(!id)return;
+    var el=document.getElementById(id); if(!el)return;
+    var d=el.querySelector('details.ref'); if(!d)return;
+    d.open=true;
+    /* the anchor was measured against a closed section, so re-aim after opening */
+    requestAnimationFrame(function(){el.scrollIntoView({block:'start'});});
+  }
+  addEventListener('hashchange', openTarget);
+  if(document.readyState==='loading')
+    document.addEventListener('DOMContentLoaded', openTarget);
+  else openTarget();
 })();
 </script>
 </body></html>
