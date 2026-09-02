@@ -41,7 +41,10 @@
 .duo p + p{margin-top:14px}
 @media (max-width:820px){
   .duo{grid-template-columns:1fr;gap:22px}
-  .duo.flip .duo-img{order:0}
+  /* .flip put its picture first on a phone, which landed it directly under the
+     previous section's picture - two photographs in a row with only a section
+     boundary between. Text then picture every time, so the page alternates. */
+  .duo.flip .duo-img{order:1}
   .duo-img img{aspect-ratio:16/10}
 }
 
@@ -87,7 +90,10 @@
     <p class="sm-hide">Every Energy Muse product begins with an intention. We consider the materials, traditional associations, form, placement, and daily use before bringing the pieces together into a formula.</p><p class="sm-only">Every product begins with an intention. Materials, form, placement and daily use are all settled before anything becomes a formula.</p>
     <p class="sm-hide">The result is more than a collection of individual products &mdash; it&rsquo;s an ecosystem designed to help you build a practice that feels personal, approachable, and easy to return to.</p><p class="sm-only">Not a shelf of separate products, but a set that builds into a practice you will come back to.</p>
     </div>
-    <div class="duo-img"><img src="/assets/img/frequency.jpg" srcset="/assets/img/frequency-480.jpg 480w, /assets/img/frequency-720.jpg 720w, /assets/img/frequency.jpg 1080w" sizes="(max-width:820px) 92vw, 460px" alt="A copper-coil frequency tool" loading="lazy"></div>
+    <div class="duo-img"><img src="/assets/img/life/em-point-sunset.jpg"
+      srcset="/assets/img/life/em-point-sunset-480.jpg 480w, /assets/img/life/em-point-sunset-900.jpg 900w, /assets/img/life/em-point-sunset.jpg 1400w"
+      sizes="(max-width:820px) 92vw, 480px" style="object-position:50% 45%"
+      alt="A crystal point held up against an evening sky" loading="lazy" decoding="async"></div>
    </div>
   </div>
 </section>
@@ -95,11 +101,14 @@
 <section class="sect">
   <div class="wrap">
    <div class="duo flip">
-    <div class="duo-img"><img src="/assets/img/bracelets.jpg" alt="Stacked crystal bracelets on a wrist" loading="lazy"></div>
+    <div class="duo-img"><img src="/assets/img/life/em-meditate.jpg"
+      srcset="/assets/img/life/em-meditate-480.jpg 480w, /assets/img/life/em-meditate-900.jpg 900w, /assets/img/life/em-meditate.jpg 1400w"
+      sizes="(max-width:820px) 92vw, 480px"
+      alt="A copper wand resting on a frequency generator" loading="lazy" decoding="async"></div>
     <div>
     <h2>Each formula is created to support a specific intention.</h2>
     <p class="sm-hide">Our wearable formulas combine carefully selected crystals and materials based on how they complement one another. Our frequency formulas take the same approach.</p><p class="sm-only">Wearable formulas pair crystals that work together. The frequency formulas are built the same way.</p>
-    <p>Whether you wear it, place it in your space, or bring it into your practice, every detail has a reason for being there.</p>
+    <p class="sm-hide">Whether you wear it, place it in your space, or bring it into your practice, every detail has a reason for being there.</p>
     </div>
    </div>
   </div>
@@ -116,8 +125,13 @@
   </div>
 </section>
 
+<!-- The closing section and the one above it ran about 1500px with no image
+     between them, the longest unbroken stretch of prose on the page. A duo now,
+     so the page ends on a picture rather than a third column of type. -->
 <section class="sect">
-  <div class="wrap narrow">
+  <div class="wrap">
+   <div class="duo">
+    <div>
     <h2>Each piece can stand alone, and work more meaningfully together.</h2>
     <!-- Three parallel sentences, and then a fourth explaining them, which is
          the one the reader does not need. -->
@@ -127,6 +141,12 @@
          kits actually are - so the closing call goes somewhere the sentence
          leads, instead of repeating the one at the top. -->
     <div class="cta-row"><a class="em-link" href="/sets/">Kits &amp; sets <span class="a" aria-hidden="true">&rarr;</span></a></div>
+    </div>
+    <div class="duo-img"><img src="/assets/img/life/em-hold-light.jpg"
+      srcset="/assets/img/life/em-hold-light-480.jpg 480w, /assets/img/life/em-hold-light-900.jpg 900w, /assets/img/life/em-hold-light.jpg 1400w"
+      sizes="(max-width:820px) 92vw, 480px" style="object-position:50% 42%"
+      alt="A crystal held up to the light" loading="lazy" decoding="async"></div>
+   </div>
   </div>
 </section>
 
