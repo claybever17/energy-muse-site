@@ -2575,6 +2575,16 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
       alt: 'A lapis lazuli sphere on wet sand at the edge of the sea' },
     heather: { base: 'em-hero-heather', pos: '50% 30%', posMobile: '50% 30%',
       alt: 'Heather Askinosie standing beneath a tree' },
+    /* the four from the Drive, at PREVIEW resolution - 736px wide. Enough to
+       choose from, not enough to ship; the originals are still wanted. */
+    robe:    { base: 'em-hero-robe',    pos: '50% 46%', posMobile: '50% 40%', prev: true,
+      alt: 'A woman in a white robe holding a frequency generator to her chest, eyes closed' },
+    turq:    { base: 'em-hero-turq',    pos: '50% 50%', posMobile: '50% 40%', prev: true,
+      alt: 'A turquoise bead necklace with a gold spiral pendant, golden hour' },
+    eye:     { base: 'em-hero-eye',     pos: '50% 46%', posMobile: '50% 38%', prev: true,
+      alt: 'A lapis evil-eye necklace on a collarbone, golden hour' },
+    flatlay: { base: 'em-hero-flatlay', pos: '50% 50%', posMobile: '50% 50%', prev: true,
+      alt: 'A frequency generator on oak with sage, obsidian and pampas grass' },
     med:     { base: 'em-hero-med',     pos: '50% 62%', posMobile: '50% 42%',
       alt: 'Someone sitting in meditation on a mat, a wall of tall cacti behind them' }
   };
@@ -2585,8 +2595,15 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
     var pic = document.getElementById('heropic');
     var src = pic ? pic.querySelectorAll('source') : [], img = pic ? pic.querySelector('img') : null;
     var P = '/assets/img/life/' + H.base;
-    if (src[0]) src[0].srcset = P + '-p-600.webp 600w, ' + P + '-p-900.webp 900w, ' + P + '-p-1200.webp 1200w';
-    if (src[1]) src[1].srcset = P + '-1200.webp 1200w, ' + P + '-1800.webp 1800w, ' + P + '-2400.webp 2400w';
+    /* the previews only exist at 600 and 736, so their srcset must not
+       promise a 1200 the browser would then fetch and fail on */
+    if (H.prev) {
+      if (src[0]) src[0].srcset = P + '-p-600.webp 600w, ' + P + '-p-736.webp 736w';
+      if (src[1]) src[1].srcset = P + '-736.webp 736w';
+    } else {
+      if (src[0]) src[0].srcset = P + '-p-600.webp 600w, ' + P + '-p-900.webp 900w, ' + P + '-p-1200.webp 1200w';
+      if (src[1]) src[1].srcset = P + '-1200.webp 1200w, ' + P + '-1800.webp 1800w, ' + P + '-2400.webp 2400w';
+    }
     if (img) { img.src = P + '.jpg'; img.alt = H.alt; }
     css += '.hero-shot{object-position:' + H.pos + '}'
       + '@media (max-width:840px){.hero-shot{object-position:' + H.posMobile + '}'
