@@ -1717,10 +1717,23 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
    edges are a short ramp between the two grounds now, so the section rises out
    of the page and settles back into it. The ramp is on the section itself, not
    a pseudo-element the wave or the content would have to be layered around. */
-.freq{background:
-  linear-gradient(180deg,var(--bg) 0,color-mix(in srgb,var(--bg) 50%,var(--navy)) 22px,var(--navy) 56px,
-                  var(--navy) calc(100% - 56px),color-mix(in srgb,var(--bg) 50%,var(--navy)) calc(100% - 22px),var(--bg) 100%);}
-.section.freq{padding-top:calc(var(--step) * .55 + 56px);padding-bottom:calc(var(--step) * .78 + 56px);}
+.freq{--ramp:clamp(110px,14vw,170px);
+  background:linear-gradient(180deg,
+    var(--bg) 0,
+    color-mix(in srgb,var(--bg) 94%,var(--navy)) calc(var(--ramp) * .15),
+    color-mix(in srgb,var(--bg) 78%,var(--navy)) calc(var(--ramp) * .30),
+    color-mix(in srgb,var(--bg) 50%,var(--navy)) calc(var(--ramp) * .50),
+    color-mix(in srgb,var(--bg) 22%,var(--navy)) calc(var(--ramp) * .70),
+    color-mix(in srgb,var(--bg) 6%,var(--navy))  calc(var(--ramp) * .85),
+    var(--navy) var(--ramp),
+    var(--navy) calc(100% - var(--ramp)),
+    color-mix(in srgb,var(--bg) 6%,var(--navy))  calc(100% - var(--ramp) * .85),
+    color-mix(in srgb,var(--bg) 22%,var(--navy)) calc(100% - var(--ramp) * .70),
+    color-mix(in srgb,var(--bg) 50%,var(--navy)) calc(100% - var(--ramp) * .50),
+    color-mix(in srgb,var(--bg) 78%,var(--navy)) calc(100% - var(--ramp) * .30),
+    color-mix(in srgb,var(--bg) 94%,var(--navy)) calc(100% - var(--ramp) * .15),
+    var(--bg) 100%);}
+.section.freq{padding-top:calc(var(--step) * .55 + var(--ramp));padding-bottom:calc(var(--step) * .78 + var(--ramp));}
 </style>
 
 
