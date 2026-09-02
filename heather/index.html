@@ -56,6 +56,11 @@
   .hrow{grid-template-columns:1fr;gap:4px;padding:15px 0}
   .hrow p{font-size:14.5px}
 }
+/* the session photograph runs full width under the heading, above the list of
+   cases - the hero's .hshot is a column shape and this one is not */
+.hshot.wide{aspect-ratio:16/7;margin:clamp(18px,2.6vw,28px) 0 clamp(20px,3vw,30px)}
+.hshot.wide img{object-position:50% 50%}
+@media (max-width:820px){ .hshot.wide{aspect-ratio:4/3} }
 </style>
 </head><body>
 <main>
@@ -75,9 +80,17 @@
   </div>
 </section>
 
+<!-- The page had one image, in the hero, and 2413px of nothing after it - the
+     longest imageless stretch on the site. This section is what a session
+     actually looks like: two people, in a room, talking. -->
 <section class="sect tint">
   <div class="wrap">
     <h2>A session may be right for you if&hellip;</h2>
+    <div class="hshot wide"><img src="/assets/img/life/em-room-two.jpg"
+      srcset="/assets/img/life/em-room-two-480.jpg 480w, /assets/img/life/em-room-two-900.jpg 900w, /assets/img/life/em-room-two.jpg 1400w"
+      sizes="(max-width:820px) 92vw, 900px"
+      alt="Two people talking on a sofa, a frequency generator on the table between them"
+      loading="lazy" decoding="async"></div>
     <div class="hlist">
       <div class="hrow"><h3>You&rsquo;re choosing between tools</h3><p>You feel drawn to several and want help choosing a clear starting point.</p></div>
       <div class="hrow"><h3>You&rsquo;re entering a transition</h3><p>And want to create a personal practice around it.</p></div>
