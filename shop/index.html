@@ -23,12 +23,11 @@
 <script src="/assets/em-catalog.js?v=22"></script>
 <script src="/assets/em-more.js?v=1"></script>
 <script src="/assets/em-sort.js?v=1"></script>
-<script src="/assets/em-header.js?v=28" defer></script>
+<script src="/assets/em-header.js?v=29" defer></script>
 <script src="/assets/em-bag.js?v=10" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=9" defer></script>
-<script src="/assets/em-versions.js?v=22" defer></script>
 <style>
 /* A shop landing is the one page where the pictures are the navigation, so
    this page carries three shapes the shared shell has no business owning:
@@ -139,7 +138,7 @@
    because they answer different questions - one is "I want to make something",
    the other is "I don't know what I want" - and they sit side by side on a
    desktop rather than stacking into more scroll. */
-.mk{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(24px,4vw,64px);
+.mk{display:grid;grid-template-columns:repeat(3,1fr);gap:0 clamp(20px,3vw,44px);
   margin-top:clamp(20px,2.6vw,30px);border-bottom:1px solid var(--hair)}
 .mkr{display:grid;grid-template-columns:minmax(0,1fr) auto;
   grid-template-areas:"name act" "desc act";align-items:center;
@@ -414,6 +413,11 @@
         <b>Build a Box</b>
         <span>Choose the stones; we pack them with a card for each one.</span>
         <em>Choose your stones <i aria-hidden="true">&rarr;</i></em>
+      </a>
+      <a class="mkr" href="/frequency-room/">
+        <b>The Frequency Room</b>
+        <span>Turn the dial and watch a room re-tune to each of the seven.</span>
+        <em>Turn the dial <i aria-hidden="true">&rarr;</i></em>
       </a>
     </div>
   </div>

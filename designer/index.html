@@ -268,12 +268,21 @@ p{text-wrap:pretty}
   .tabs::-webkit-scrollbar{display:none}
   .tab{flex:none}
 }
+
+/* /designer/ and /box/ carried no link off the page at all - the floating
+   "Try it" pill was the only way out, and it has been removed. The same logo
+   link /frequency-room/ uses, in the head row. */
+.head .home{flex:none;opacity:.72;transition:opacity .3s;align-self:flex-start}
+.head .home:hover{opacity:1}
+.head .home img{height:22px;width:auto;display:block}
+@media (max-width:900px){ .head .home img{height:19px} }
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="stagecol">
     <div class="head">
+      <a class="home" href="/" aria-label="Energy Muse home"><img src="/assets/img/logo.svg" alt="Energy Muse"></a>
       <div class="title">
         <span class="eyeb">Atelier &middot; design your own</span>
         <h1>Compose your energy.</h1>
@@ -326,7 +335,6 @@ p{text-wrap:pretty}
 
 <script src="/assets/em-bag.js?v=10" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
-<script src="/assets/em-versions.js?v=22" defer></script>
 <script>
 (function(){
 'use strict';

@@ -210,7 +210,8 @@ function boot(){
     +'<a href="/shop/?cat=Frequency">Frequency</a>'
     +'<a href="/shop/?cat=Kit%7CSystem">Kits &amp; Sets</a>'
     +'</span></span>'
-    +'<a href="/intention/">By Intention</a><a href="/learn/">Learn</a></nav>'
+    +'<a href="/intention/">By Intention</a><a href="/learn/">Learn</a>'
+    +'<a href="/learn/#try">Try It</a></nav>'
     /* Search was <a href="#">, wired to nothing, on every page of the site — a
        control in the primary nav that silently did nothing when clicked. Gone
        until there is something to search: product pages will give every item
@@ -227,7 +228,8 @@ function boot(){
        all — so the mobile menu stops being a different set of links from the
        one the header shows, and stops differing from the homepage's own. */
     +'<nav><a href="/quiz/">Start Here</a><a href="/shop/">Shop</a>'
-    +'<a href="/intention/">By Intention</a><a href="/learn/">Learn</a></nav>'
+    +'<a href="/intention/">By Intention</a><a href="/learn/">Learn</a>'
+    +'<a href="/learn/#try">Try It</a></nav>'
     /* the four categories, flat - a panel that has to be opened is worth it
        on a bar with no room, and pointless inside a menu that is already a
        list */
