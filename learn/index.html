@@ -179,7 +179,7 @@
    buried its best part under a sizing chart. Collapsed, using the same details
    pattern /faq/ uses. The index at the top of the page finally has a job
    beyond jumping: it opens the one you want. */
-.reflist{display:grid;gap:0}
+.reflist{display:grid;gap:0;margin-top:clamp(28px,3.6vw,48px)}
 .ref{border-top:1px solid var(--hair);padding:clamp(18px,2.2vw,26px) 0}
 .ref:last-of-type{border-bottom:1px solid var(--hair)}
 .ref .rk{grid-column:1;font-family:var(--sans);font-weight:600;font-size:10px;
@@ -204,17 +204,12 @@
     <h1><span class="s">Start with the basics.</span><span class="s">Build your practice from there.</span></h1>
     <p class="lead">You do not need all three &mdash; starting with all three is how most
       people end up using none.</p>
-  </div>
-</section>
 
-
-<!-- One section, not three. Collapsed, each was a full .sect - 76px of padding
-     top and bottom around 46px of heading, so 255px a row and 765px for the
-     three, and two of them tinted and touching read as one empty band. They are
-     an index of three reference topics, so they are set as one: the ids move onto
-     the details and the kind moves into the summary beside its heading. -->
-<section class="sect">
-  <div class="wrap">
+    <!-- The three reference topics. One section, not three: collapsed, each
+         was a full .sect - 76px of padding around 46px of heading - so the three
+         came to 765px of near-empty band, two of them tinted and touching. The
+         ids sit on the details and the kind sits in the summary above its
+         heading; the anchor script handles the id being on the details. -->
     <div class="reflist">
       <details class="ref" id="jewelry">
       <summary><span class="rk">Jewelry</span><h2>Getting the size right.</h2></summary>
