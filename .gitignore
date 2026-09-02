@@ -2,3 +2,8 @@
 node_modules/
 .vercel
 .claude/
+
+# Meeting and review documents. These are client-facing drafts about
+# placeholder prices and unreviewed copy - they should not deploy to a URL
+# that is being shared for review.
+*.pdf
