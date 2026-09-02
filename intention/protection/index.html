@@ -20,6 +20,7 @@
 <script src="../../assets/em-header.js?v=32" defer></script>
 <script src="/assets/em-search.js?v=9" defer></script>
 <script src="../../assets/em-catalog.js?v=22" defer></script>
+<script src="/assets/em-more.js?v=1"></script>
 <script src="../../assets/em-bag.js?v=10" defer></script>
 <script src="../../assets/em-prices.js?v=3" defer></script>
 <style>
@@ -235,7 +236,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
    gone and the grid it pointed at is on the page instead, so the intention
    pages sell rather than forward. Same cards as the hub, deliberately: a
    reader who lands on both should not be able to tell they are two pages. */
-.shelf{padding:clamp(46px,6vw,78px) 0 0}
+.shelf{padding:clamp(46px,6vw,78px) 0 clamp(52px,6.5vw,86px)}
 .shelf .shead{display:flex;align-items:baseline;justify-content:space-between;
   gap:16px;flex-wrap:wrap}
 .shelf h2{font-family:var(--serif);font-weight:400;font-size:clamp(24px,3vw,38px);
@@ -314,7 +315,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 .qbag{position:absolute;right:8px;bottom:8px;z-index:2;display:grid;place-items:center;
   width:40px;height:40px;padding:0;cursor:pointer;border:1px solid var(--hair);
   border-radius:999px;background:var(--surface);color:var(--ink);transition:.18s}
-.qbag svg{width:17px;height:17px;display:block}
+.qbag svg{width:16px;height:16px;display:block;stroke-width:1.5}
 .qbag:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .qbag.done{background:var(--copper);border-color:var(--copper);color:#fff}
 .qbag:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
@@ -322,6 +323,50 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
    so the row it lives on keeps clear of it */
 .qwrap .sp{padding-right:34px;padding-left:34px}
 @media (max-width:560px){.qbag{width:44px;height:44px;right:6px;bottom:6px}}
+
+/* The photograph goes. It was a bracelet close-up holding half of a hero and
+   saying nothing the intention's own name had not already said, and it pushed
+   the products 350px down a phone. What it was really doing was making the
+   right-hand column narrow, which is why the three picks were thumbnails.
+   Without it they get the whole measure and become product cards. */
+.hero{display:block;text-align:center;
+  padding:clamp(34px,6vh,64px) clamp(20px,5vw,60px) clamp(30px,5vw,54px)}
+.hero .media{display:none}
+.hero .eyebrow{justify-content:center}
+.hero h1{max-width:18ch;margin-inline:auto}
+.hfav{max-width:1040px;margin-inline:auto;margin-top:clamp(30px,4vw,46px)}
+.hfav .row{gap:clamp(12px,1.6vw,20px)}
+.hcard{padding:clamp(18px,2vw,26px) clamp(14px,1.6vw,20px) clamp(18px,2vw,24px)}
+.hcard .tag{font-size:9.5px;letter-spacing:.2em}
+.hcard img{width:72%;margin:12px 0 8px}
+.hcard strong{font-size:clamp(15px,1.5vw,19px)}
+.hcard .price{font-size:clamp(14px,1.3vw,16px);margin-top:auto;padding-top:4px}
+.hcard .radd{margin-top:14px;font-size:12px;min-height:44px}
+@media (max-width:700px){
+  .hfav .row{grid-template-columns:1fr;gap:10px}
+  .hcard{display:grid;grid-template-columns:84px minmax(0,1fr) auto;align-items:center;
+    text-align:left;gap:0 16px;padding:12px 14px 12px 12px}
+  .hcard .tag{grid-column:2;align-self:end}
+  .hcard img{grid-column:1;grid-row:1 / span 3;width:100%;margin:0}
+  .hcard strong{grid-column:2;min-height:0;display:block;font-size:15px}
+  .hcard .price{grid-column:2;margin-top:0;padding-top:2px;align-self:start}
+  .hcard .radd{grid-column:3;grid-row:1 / span 3;width:auto;margin-top:0;padding:0 16px;white-space:nowrap}
+}
+
+/* Three full copper buttons stacked down a phone is the same repetition the
+   shelf had, in a heavier weight. On a wide screen the three picks sit side by
+   side and a written label is the merchandising - it says what to do. Stacked,
+   it is three slabs saying it three times, so the row takes the same bag the
+   shelf uses and the label goes. */
+.hcard .radd .bg{display:none}
+@media (max-width:700px){
+  .hcard .radd{padding:0;width:44px;min-width:44px;height:44px;border-radius:999px;
+    display:grid;place-items:center;background:var(--surface);border:1px solid var(--hair);
+    color:var(--ink);box-shadow:none}
+  .hcard .radd:hover{background:var(--ink);border-color:var(--ink);color:var(--bg);transform:none}
+  .hcard .radd .lbl{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  .hcard .radd .bg{display:block;width:18px;height:18px}
+}
 </style></head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
@@ -347,10 +392,6 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 </svg>
 <main>
 <section class="hero wrap">
-  <div class="media">
-    <img src="../../assets/img/protection.jpg" srcset="../../assets/img/protection-480.jpg 480w, ../../assets/img/protection-720.jpg 720w, ../../assets/img/protection.jpg 1080w" sizes="(max-width:820px) 100vw, 500px" alt="Protection intention">
-    <svg viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
-  </div>
   <div>
     <span class="eyebrow">Protection</span>
     <h1><span class="s">Protect your energy.</span><span class="s"><em class="hl gemword">Hold your ground.</em></span></h1>
@@ -362,15 +403,15 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
         <div class="hcard"><span class="tag">Wear it</span>
         <img src="../../assets/img/favorites/protection-wear.png" alt="Protection Crystal Bracelet" loading="lazy">
         <strong>Protection Crystal Bracelet</strong><span class="why">Black Tourmaline, Lapis Lazuli and Copper, formulated together as a daily boundary you can feel on your wrist. Our go-to starting point for protection.</span><span class="price">$26.88</span>
-        <button class="radd" type="button" data-id="protection-bracelet" data-n="Protection Crystal Bracelet" data-p="26.88" data-img="/assets/img/favorites/protection-wear.png" data-link="/jewelry/">Add to Bag</button></div>
+        <button class="radd" type="button" data-id="protection-bracelet" data-n="Protection Crystal Bracelet" data-p="26.88" data-img="/assets/img/favorites/protection-wear.png" data-link="/jewelry/"><svg class="bg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.4 3h9.2l2.4 3.6v12.2a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6.6Z"/><path d="M5 6.6h14"/><path d="M15.4 10.2a3.4 3.4 0 0 1-6.8 0"/></svg><span class="lbl">Add to Bag</span></button></div>
         <div class="hcard"><span class="tag">Place it</span>
         <img src="../../assets/img/favorites/protection-place.png" alt="Black Tourmaline" loading="lazy">
         <strong>Black Tourmaline</strong><span class="why">One of the most trusted stones in crystal tradition for protection and clearing. Set it by your door, your desk, or wherever you want a clear line drawn.</span><span class="price">$8.88</span>
-        <button class="radd" type="button" data-id="blacktourmaline" data-n="Black Tourmaline" data-p="8.88" data-img="/assets/img/favorites/protection-place.png" data-link="/gems/">Add to Bag</button></div>
+        <button class="radd" type="button" data-id="blacktourmaline" data-n="Black Tourmaline" data-p="8.88" data-img="/assets/img/favorites/protection-place.png" data-link="/gems/"><svg class="bg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.4 3h9.2l2.4 3.6v12.2a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6.6Z"/><path d="M5 6.6h14"/><path d="M15.4 10.2a3.4 3.4 0 0 1-6.8 0"/></svg><span class="lbl">Add to Bag</span></button></div>
         <div class="hcard"><span class="tag">Amplify it</span>
         <img src="../../assets/img/generators/417.png" class="plate" alt="417 Hz Frequency Generator" loading="lazy">
         <strong>417Hz &mdash; Energy Clearing</strong><span class="why">For when unwanted energy sneaks past your boundary anyway &mdash; clear it right away, before it settles into the room.</span><span class="price">$99.88</span>
-        <button class="radd" type="button" data-id="gen-417" data-n="417Hz Frequency Generator" data-p="99.88" data-img="/assets/img/generators/417.png" data-link="/frequency/#all">Add to Bag</button></div>
+        <button class="radd" type="button" data-id="gen-417" data-n="417Hz Frequency Generator" data-p="99.88" data-img="/assets/img/generators/417.png" data-link="/frequency/#all"><svg class="bg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.4 3h9.2l2.4 3.6v12.2a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6.6Z"/><path d="M5 6.6h14"/><path d="M15.4 10.2a3.4 3.4 0 0 1-6.8 0"/></svg><span class="lbl">Add to Bag</span></button></div>
       </div>
     </div>
   </div>
@@ -423,7 +464,7 @@ document.querySelectorAll('.radd').forEach(function(b){
     if(!window.EM_CATALOG){ return; }
     var list = EM_CATALOG.all().filter(function(p){ return p.group === GROUP; })
                               .sort(function(a,b){ return a.price - b.price; });
-    grid.innerHTML = list.map(function(p){
+    function card(p){
       var out = (p.stock === 'out');
       return '<div class="qwrap">'
         + '<a class="icard' + (out?' out':'') + '" href="/product/?id=' + encodeURIComponent(p.id) + '">'
@@ -432,9 +473,13 @@ document.querySelectorAll('.radd').forEach(function(b){
         + '<span class="sp">$' + p.price.toFixed(2) + '</span></a>'
         + (out ? '<span class="qsold">Sold out</span>'
                : '<button class="qbag" type="button" data-add="' + encodeURIComponent(p.id)
-                 + '" aria-label="Add ' + String(p.name).replace(/"/g,'') + ' to bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 8h13l-1.1 11.2a1.6 1.6 0 0 1-1.6 1.4H8.2a1.6 1.6 0 0 1-1.6-1.4Z"/><path d="M9 8.4V6.6a3 3 0 0 1 6 0v1.8"/></svg></button>')
+                 + '" aria-label="Add ' + String(p.name).replace(/"/g,'') + ' to bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.4 3h9.2l2.4 3.6v12.2a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6.6Z"/><path d="M5 6.6h14"/><path d="M15.4 10.2a3.4 3.4 0 0 1-6.8 0"/></svg></button>')
         + '</div>';
-    }).join('');
+    }
+    /* twenty-four, then the rest on request - the same em-more.js the
+       shop, gems, jewelry and the intention hub all render through. */
+    if (window.EM_MORE) EM_MORE.paint(grid, list, card);
+    else grid.innerHTML = list.map(card).join('');
     count.textContent = list.length + ' piece' + (list.length === 1 ? '' : 's');
   }
   grid && grid.addEventListener('click', function(e){
