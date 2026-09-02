@@ -243,10 +243,15 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 .shelf .sn{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--stone)}
 .sgrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:20px}
-.qwrap{display:flex;flex-direction:column}
+.qwrap{display:flex;flex-direction:column;background:var(--surface);
+  border:1px solid var(--hair);border-radius:6px;padding:14px 13px;
+  transition:border-color .3s}
+.qwrap:hover{border-color:var(--copper)}
+.qwrap.out{opacity:.68}
+.qwrap .icard{flex:1}
 .icard{display:flex;flex-direction:column;text-align:center;text-decoration:none;color:inherit}
 .icard .sim{aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;
-  background:#fff;padding:9%;border:1px solid var(--hair)}
+  padding:9%;overflow:hidden;background:var(--tint)}
 .icard .sim img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
 .icard b{font-family:var(--sans);font-weight:600;font-size:12.5px;line-height:1.3;margin-top:12px;
   min-height:2.4em}
@@ -264,6 +269,10 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 @media (max-width:1080px){.sgrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (max-width:860px){.sgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:560px){.sgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .qwrap{padding:9px 9px 10px;border-radius:8px}
+  .icard .sim{aspect-ratio:4/3;padding:5%}
+  .icard b{font-size:11.5px;line-height:1.28;margin-top:9px}
+  .icard .sg{font-size:8.5px}
   .qadd{min-height:44px;font-size:10px}}
 </style></head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
