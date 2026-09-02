@@ -186,6 +186,19 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 .head .home:hover{opacity:1}
 .head .home img{height:22px;width:auto;display:block}
 @media (max-width:900px){ .head .home img{height:19px} }
+
+/* EMBag.open() and the drawer are already here; em-header.js renders the
+   control that opens them and these pages do not load it. So the bag was
+   addable and unopenable - you could build a box, press Add to Bag, and have
+   nowhere to go but the logo. */
+.head .bagbtn{flex:none;font:600 11.5px var(--sans,'Instrument Sans',sans-serif);
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink,#1D2739);
+  background:none;border:1px solid var(--hair,#E4DCCB);border-radius:99px;
+  padding:0 15px;min-height:38px;cursor:pointer;
+  transition:border-color .25s,color .25s}
+.head .bagbtn:hover{border-color:var(--copper,#A9683E);color:var(--copper,#A9683E)}
+.head .bagbtn:focus-visible{outline:2px solid var(--copper,#A9683E);outline-offset:2px}
+.head .topright{display:flex;align-items:center;gap:12px;margin-left:auto}
 </style>
 <script src="/assets/em-frequencies.js?v=4"></script>
 <script src="/assets/em-catalog.js?v=22"></script>
@@ -194,7 +207,10 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 <div class="wrap">
   <div class="stagecol">
     <div class="head">
-      <a class="home" href="/" aria-label="Energy Muse home"><img src="/assets/img/logo.svg" alt="Energy Muse"></a>
+      <div class="topright">
+        <a class="home" href="/" aria-label="Energy Muse home"><img src="/assets/img/logo.svg" alt="Energy Muse"></a>
+      <button class="bagbtn" id="bagbtn" type="button">Bag <span id="bagn">0</span></button>
+      </div>
       <div class="title">
         <span class="eyeb">Build your own &middot; crystal box</span>
         <h1>Choose your crystals.</h1>
@@ -650,4 +666,17 @@ window.__box={state:function(){return {box:box.slice(),boxN:boxN,cat:cat,total:t
 })();
 </script>
 <script src="/assets/em-depth.js?v=3" defer></script>
+
+<script>
+/* the count has to track the bag, not just the first render */
+(function(){
+  var b=document.getElementById('bagbtn'), n=document.getElementById('bagn');
+  if(!b)return;
+  b.addEventListener('click',function(){ if(window.EMBag)EMBag.open(); });
+  function sync(){ if(window.EMBag&&n)n.textContent=EMBag.count(); }
+  sync();
+  addEventListener('storage',sync);
+  document.addEventListener('click',function(){setTimeout(sync,60);},true);
+})();
+</script>
 </body></html>
