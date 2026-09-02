@@ -1689,7 +1689,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 <section class="hero" id="top">
   <div class="hero-bg" aria-hidden="true"></div>
   <div class="hero-grain" aria-hidden="true"></div>
-  <picture>
+  <picture id="heropic">
     <source media="(max-width:840px)" type="image/webp"
             srcset="assets/img/life/em-hero-family-p-600.webp 600w, assets/img/life/em-hero-family-p-900.webp 900w, assets/img/life/em-hero-family-p-1200.webp 1200w"
             sizes="100vw">
@@ -2431,6 +2431,44 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 </script>
 
 <script src="/assets/em-form.js?v=1" defer></script>
+<script>
+/* ?hero=med swaps the homepage photograph for the CRYSTAL365 meditation frame
+   without committing to it. Runs before paint so the browser never fetches the
+   family shot first - a hero that flickers from one picture to another is a
+   worse comparison than either picture. Drop the parameter and nothing here
+   has any effect. */
+(function () {
+  var HEROES = {
+    /* the meditation frame: somewhere for the type to go, but no product in
+       it - "just a guy with his eyes closed", which is the whole objection */
+    med: { base: 'em-hero-med', pos: '50% 62%', posMobile: '50% 42%',
+      alt: 'Someone sitting in meditation on a mat, a wall of tall cacti behind them' },
+    /* human AND product: she is looking straight down the lens and there are
+       four bracelet stacks on her wrists */
+    stacks: { base: 'em-hero-stacks', pos: '50% 38%', posMobile: '50% 30%',
+      alt: 'A woman resting her chin on her hands, stacked crystal bracelets on both wrists' }
+  };
+  var pick = (location.search.match(/[?&]hero=([a-z]+)/) || [, ''])[1];
+  var H = HEROES[pick];
+  if (!H) return;
+  var pic = document.getElementById('heropic');
+  if (!pic) return;
+  var src = pic.querySelectorAll('source'), img = pic.querySelector('img');
+  var P = '/assets/img/life/' + H.base;
+  if (src[0]) src[0].srcset = P + '-p-600.webp 600w, ' + P + '-p-900.webp 900w, ' + P + '-p-1200.webp 1200w';
+  if (src[1]) src[1].srcset = P + '-1200.webp 1200w, ' + P + '-1800.webp 1800w, ' + P + '-2400.webp 2400w';
+  if (img) { img.src = P + '.jpg'; img.alt = H.alt; }
+  /* Her wall is grey and even where the family room was a bright window, so the
+     scrim can come back down and let the photograph be the photograph. */
+  var st = document.createElement('style');
+  st.textContent = '.hero-shot{object-position:' + H.pos + '}'
+    + '@media (max-width:840px){.hero-shot{object-position:' + H.posMobile + '}'
+    + '.hero-bg{background:linear-gradient(180deg,rgba(20,14,7,.26) 0%,rgba(20,14,7,.06) 22%,'
+    + 'rgba(20,14,7,0) 40%,rgba(20,14,7,.20) 56%,rgba(20,14,7,.52) 70%,rgba(20,14,7,.78) 86%,'
+    + 'rgba(20,14,7,.86) 100%)}}';
+  document.head.appendChild(st);
+})();
+</script>
 <script src="/assets/em-header.js?v=32" defer></script>
 <script src="assets/em-bag.js?v=10" defer></script>
 <script src="assets/em-prices.js?v=3" defer></script>
