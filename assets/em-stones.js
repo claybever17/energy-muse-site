@@ -42,7 +42,7 @@ window.EM_STONES = {
   },
   "clear-quartz": {
     "name": "Clear Quartz",
-    "product": "fresh-start",
+    "product": "clear-quartz-stone",
     "photo": "clear-quartz",
     "hook": "When someone asks you what you want in life or what your goals are, do you find it difficult to answer? Do you know what you want but find it challenging to make it a reality? You need the energy of clarity and manifestation that Clear Quartz crystals and jewelry provide.",
     "meaning": "The Quartz Clear crystal meaning is known for its high vibrations. By clearing your mind, body, and spirit of any clutter, a Clear Quartz crystal can help you align with your highest self and live at your highest potential. The Clear Quartz crystal stone meaning is especially powerful for anyone looking to set and achieve new goals.",
@@ -57,7 +57,7 @@ window.EM_STONES = {
   },
   "pyrite": {
     "name": "Pyrite",
-    "product": "wealth",
+    "product": "pyrite-money-sign",
     "photo": "pyrite",
     "hook": "Do you have financial anxiety? Do you lack focus and motivation when it comes to career goals and creative projects? If you want to have more commitment and persistence in all your endeavors, the Pyrite stone is the crystal you need.",
     "meaning": "All that glitters isn't gold, but this glamorous stone is just as good. The frequencies of the Pyrite crystal meaning is a must-have for your office or workspace because it's the ultimate symbol of wealth and good luck. It's also known as “Fool’s gold” because of its shimmery golden hue, the color of gold and the midday sun at its full strength.",
