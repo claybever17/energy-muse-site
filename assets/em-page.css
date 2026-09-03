@@ -256,3 +256,5 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   .cta-row .em-link::after{content:"";position:absolute;left:0;top:50%;
     transform:translateY(-50%);width:100%;height:44px}
 }
+/* Sept 2: the italic copper word - the homepage's voice, on every page's headline */
+h1 em.gemword,h2 em.gemword,.gemword{font-style:italic;font-weight:300;color:var(--copper)}
