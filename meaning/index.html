@@ -109,6 +109,13 @@
   .mhook{font-size:16.5px;max-width:none}
 }
 .missing{padding:clamp(50px,9vh,110px) 0;text-align:center}
+
+/* Sept 3: glass - Clay, on the meaning page's Add to Bag: "cmonnnnnn!? glass." */
+.madd{color:var(--ink,var(--fg));border:1px solid rgba(152,94,56,.38);border-radius:999px;
+  background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);
+  backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(152,94,56,.14),0 8px 24px rgba(152,94,56,.16);transition:background .25s,border-color .25s}
+.madd:hover{filter:none;background:linear-gradient(135deg,rgba(216,158,112,.38) 0%,rgba(184,122,75,.2) 55%,rgba(255,255,255,.3) 100%);border-color:rgba(152,94,56,.6)}
 </style>
 </head>
 <body>
@@ -170,8 +177,10 @@
       + '<span class="sim"><img src="' + p.img + '" alt="' + esc(p.name) + '" loading="lazy"></span>'
       + '<div><span class="k">Where to start</span><b>' + esc(p.name) + '</b>'
       + '<span class="p">$' + p.price.toFixed(2) + '</span>'
-      + '<p class="why">One piece, not a shelf. Begin here and add another only when it '
-      + 'makes the practice clearer.</p></div>'
+      /* the line beside the piece is the product's own catalogue description -
+         their words - or nothing. The prototype line that sat here ("One piece,
+         not a shelf...") was ours, and Clay asked. */
+      + (p.desc ? '<p class="why">' + esc(p.desc) + '</p>' : '') + '</div>'
       + (p.stock === 'out'
           ? '<span class="k">Currently unavailable</span>'
           : '<button class="madd" id="madd" type="button">Add to Bag</button>')
