@@ -2651,9 +2651,11 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
     if (!document.querySelector('.hero') || document.querySelector('.hpick')) return;
     var pill = document.createElement('button');
     pill.type = 'button'; pill.className = 'hpick'; pill.setAttribute('aria-expanded', 'false');
-    pill.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">'
+    /* an icon, not a label - Clay: "make photo toggle a small icon" */
+    pill.setAttribute('aria-label', 'Change photo'); pill.title = 'Change photo';
+    pill.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">'
       + '<rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="10.5" r="1.8"/>'
-      + '<path d="M21 16l-5.2-5.2a1 1 0 0 0-1.4 0L7 18"/></svg>Change photo';
+      + '<path d="M21 16l-5.2-5.2a1 1 0 0 0-1.4 0L7 18"/></svg>';
 
     var strip = document.createElement('div');
     strip.className = 'hstrip'; strip.setAttribute('role', 'group'); strip.setAttribute('aria-label', 'Hero photograph');
@@ -2679,8 +2681,8 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
     });
 
     var ps = document.createElement('style');
-    ps.textContent = '.hpick{position:fixed;right:14px;bottom:14px;z-index:9999;display:inline-flex;align-items:center;gap:8px;'
-      + 'min-height:42px;padding:0 16px 0 14px;border-radius:999px;cursor:pointer;'
+    ps.textContent = '.hpick{position:fixed;right:14px;bottom:14px;z-index:9999;display:inline-flex;align-items:center;justify-content:center;'
+      + 'width:44px;height:44px;padding:0;border-radius:999px;cursor:pointer;'
       + 'background:rgba(20,14,7,.74);color:#F2EADF;border:1px solid rgba(255,255,255,.22);'
       + 'font:600 11px/1 "Instrument Sans",sans-serif;letter-spacing:.14em;text-transform:uppercase;'
       + 'box-shadow:0 10px 30px rgba(0,0,0,.28);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}'
