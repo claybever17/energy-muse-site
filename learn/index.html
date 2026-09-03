@@ -20,6 +20,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
 <script src="/assets/em-journal.js?v=1"></script>
+<script src="/assets/em-stones.js?v=2"></script>
 <script src="/assets/em-header.js?v=35" defer></script>
 <script src="/assets/em-bag.js?v=10" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
@@ -196,6 +197,10 @@
 .ref summary:hover h2{color:var(--copper)}
 .ref summary:focus-visible{outline:2px solid var(--copper);outline-offset:4px}
 .refbody{padding-top:clamp(6px,1vw,12px)}
+.meanings{margin-top:clamp(18px,2.4vw,26px);padding-top:16px;border-top:1px solid var(--hair)}
+.meanings .k{display:block;font:600 10px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--stone);margin-bottom:10px}
+.meanings a{display:inline-flex;align-items:center;min-height:40px;margin:0 18px 0 0;font-family:var(--serif);font-size:17px;color:var(--fg);text-decoration:none}
+.meanings a:hover{color:var(--copper)}
 /* From the journal: the three latest posts, on the page where someone
    curious already is. The card is the journal's own, cut down. */
 .jrow{display:flex;align-items:flex-end;justify-content:space-between;gap:18px 28px;flex-wrap:wrap}
@@ -259,6 +264,9 @@
       <div class="shape"><h3>Pyramid</h3><p>Anchors and amplifies. Grounding and focus together.</p></div>
       <div class="shape"><h3>Sphere &amp; heart</h3><p>Even all round. Softer, steadier, the usual gift.</p></div>
     </div>
+    <!-- The meaning pages had no way in - nothing on the site linked to them.
+         Painted from em-stones.js, so a stone added there appears here. -->
+    <div class="meanings" id="meanings"></div>
       </div>
     </details>
       <details class="ref" id="frequency">
@@ -325,6 +333,13 @@
 </section>
 
 </main>
+<script>
+(function(){
+  var host=document.getElementById('meanings'),S=window.EM_STONES||{};var keys=Object.keys(S);
+  if(!host||!keys.length){ if(host) host.remove(); return; }
+  host.innerHTML='<span class="k">Crystal meanings</span>'+keys.map(function(k){return '<a href="/meaning/?stone='+encodeURIComponent(k)+'">'+S[k].name+'</a>';}).join('');
+})();
+</script>
 <script>
 (function(){
   var host=document.getElementById('jgrid'),posts=window.EM_JOURNAL||[];
