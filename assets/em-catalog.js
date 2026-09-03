@@ -10,6 +10,10 @@
    em-frequencies.js and are folded in at load, so that file stays the only
    place a frequency is described.
 
+   Sept 3: protection, fresh-start and wealth are early stand-ins with no store
+   link; their one-line descriptions were written here, not lifted, so they are
+   blank now - a page shows nothing rather than words that are not theirs.
+
    stock: "out" is set from Energy Muse's own live products.json, checked
    2026-08-25. Absent means in stock. When this moves to Shopify the platform
    owns it and these flags go away — until then they are real, not decorative.
@@ -80,12 +84,12 @@
      (no assets/gems/, no .glb on any live page), so that is not a fallback
      either. If they
      confirm it is a real product and send a photograph, it can come back. */
-  { id: "protection", imgs: ["/assets/img/gallery/protection-2.webp", "/assets/img/gallery/protection-3.webp"], name: "Black Tourmaline", cat: "Crystal", sub: "Raw", group: "Protection", price: 8.88, img: "/assets/img/products/protection.webp", desc: "The classic boundary crystal — striated black crystal for entries, desks and thresholds.", home: "/gems/", scan: true },
+  { id: "protection", imgs: ["/assets/img/gallery/protection-2.webp", "/assets/img/gallery/protection-3.webp"], name: "Black Tourmaline", cat: "Crystal", sub: "Raw", group: "Protection", price: 8.88, img: "/assets/img/products/protection.webp", desc: "", home: "/gems/", scan: true },
   { id: "wellness", imgs: ["/assets/img/gallery/wellness-2.webp", "/assets/img/gallery/wellness-3.webp"], name: "Quantum Quattro Crystal", cat: "Crystal", sub: "Raw", group: "Protection", price: 229.88, sizes: [{t:"M",d:"2.5\"-3\"",p:229.88},{t:"L",d:"3.5\"",p:299.88}], img: "/assets/img/products/wellness.webp", desc: "A real Energy Muse specimen — shattuckite, dioptase, malachite and smoky quartz in quartz.", home: "/gems/", scan: true },
   { id: "spirituality", stock: "out", imgs: ["/assets/img/gallery/spirituality-2.webp", "/assets/img/gallery/spirituality-3.webp"], name: "Amethyst Cluster", cat: "Crystal", sub: "Raw", group: "Calm", price: 19.88, sizes: [{t:"S",d:"1-2\"",p:19.88},{t:"M",d:"2-3\"",p:24.88},{t:"L",d:"3-4\"",p:28.88},{t:"XL",d:"4-5\"",p:38.88}], img: "/assets/img/products/spirituality.webp", desc: "Natural amethyst points on a copper stand — the classic meditative crystal for clarity and quiet attention.", home: "/gems/" },
   { id: "wealth", imgs: ["/assets/img/gallery/wealth-2.webp"], name: "Pyrite Cube", cat: "Crystal", sub: "Carvings", group: "Abundance", price: 24.88, sizes: [{t:"S",d:"0.75\"-1\"",p:24.88},{t:"M",d:"1\"-1.25\"",p:34.88},{t:"L",d:"2\"-2.25\"",p:44.88}], img: "/assets/img/products/wealth.webp", desc: "A naturally cubic pyrite crystal — bright, metallic and grounded. Kept where plans are made.", home: "/gems/" },
   { id: "love", imgs: ["/assets/img/gallery/love-2.webp", "/assets/img/gallery/love-3.webp"], name: "Rhodochrosite Point", cat: "Crystal", sub: "Points", group: "Connection", price: 48.88, sizes: [{t:"XS",d:"~1\"",p:48.88},{t:"S",d:"1-2\"",p:47.10},{t:"M",d:"2-3\"",p:52.96},{t:"L",d:"3-4\"",p:87.81}], img: "/assets/img/products/love.webp", desc: "A tender rose-banded point for compassion, self-worth and the relationships you nurture.", home: "/gems/" },
-  { id: "fresh-start", imgs: ["/assets/img/gallery/fresh-start-2.webp"], name: "Clear Quartz Pyramid", cat: "Crystal", sub: "Points", group: "Clarity", price: 18.88, img: "/assets/img/products/fresh-start.webp", desc: "A polished quartz pyramid — a bright, clean point of focus for beginning again.", home: "/gems/" },
+  { id: "fresh-start", imgs: ["/assets/img/gallery/fresh-start-2.webp"], name: "Clear Quartz Pyramid", cat: "Crystal", sub: "Points", group: "Clarity", price: 18.88, img: "/assets/img/products/fresh-start.webp", desc: "", home: "/gems/" },
   { id: "trapiche", imgs: ["/assets/img/gallery/trapiche-2.webp"], name: "Trapiche Amethyst Slice", cat: "Crystal", sub: "Carvings", group: "Calm", price: 39.88, img: "/assets/img/products/trapiche.webp", desc: "A rare star-patterned amethyst slice \\u2014 six rays formed over millions of years.", home: "/gems/" },
   { id: "blue-agate", imgs: ["/assets/img/gallery/blue-agate-2.webp"], name: "Blue Sky Agate Point", cat: "Crystal", sub: "Points", group: "Calm", price: 48.88, img: "/assets/img/products/blue-agate.webp", desc: "Soft blue banding in a standing point \\u2014 a quiet horizon for desk or bedside.", home: "/gems/" },
   { id: "rose-heart", stock: "out", imgs: ["/assets/img/gallery/rose-heart-2.webp"], name: "Rose Quartz Heart", cat: "Crystal", sub: "Carvings", group: "Connection", price: 12.88, sizes: [{t:"S",d:"1.25-1.5\"",p:12.88},{t:"M",p:24.88},{t:"L",d:"3-3.5\"",p:88.88},{t:"XL",d:"~3.75\"",p:99.88}], img: "/assets/img/products/rose-heart.webp", desc: "The classic crystal of gentle affection, carved into a hand-sized heart.", home: "/gems/" },
