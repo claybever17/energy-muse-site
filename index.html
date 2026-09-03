@@ -1779,6 +1779,30 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 #jewelry .t3d img,#about .t3d img{border-radius:8px;transform:none;}
 #jewelry .media::after,#about .media::after{display:none;}
 #about .t3d picture{display:block;height:100%;}
+
+/* ===== Sept 2: the words tile goes navy, the headline gets the hero's voice,
+   and a glass button - Clay: "play w the type, seems lacking.. and glass
+   button there". Navy because glass needs something behind it, and the page
+   already speaks navy in the frequency block. ===== */
+.int.int-words{background:var(--navy);align-items:stretch;}
+.int.int-words .int-label{color:var(--navy-text);display:flex;flex-direction:column;}
+.int.int-words h2{color:var(--navy-text);font-size:clamp(21px,1.95vw,29px);line-height:1.02;letter-spacing:-.012em;max-width:none;}
+.int.int-words h2 em{display:block;font-style:italic;font-weight:300;color:var(--copper-hi);font-size:1.6em;
+  line-height:.92;margin-top:.08em;letter-spacing:-.02em;}
+.int.int-words p{color:var(--navy-soft);margin-top:auto;padding-top:12px;}
+.int.int-words .btn{align-self:flex-start;margin-top:12px;min-height:40px;font-size:12px;padding:0 16px;
+  background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.34);color:#fff;border-radius:999px;
+  backdrop-filter:blur(12px) saturate(1.2);-webkit-backdrop-filter:blur(12px) saturate(1.2);
+  box-shadow:0 8px 24px rgba(0,0,0,.25);transition:.22s;}
+.int.int-words .btn:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.6);}
+@media (max-width:840px){
+  /* the tile is half a phone wide: the headline, the word and the button;
+     the note is the desktop's */
+  .int.int-words p{display:none;}
+  .int.int-words h2{font-size:clamp(20px,5.8vw,25px);}
+  .int.int-words .btn{margin-top:auto;font-size:11.5px;padding:0 14px;}
+  .veza .more{display:none;}
+}
 </style>
 
 
@@ -1897,8 +1921,10 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
          eyebrow said what the headline says and is gone; the lead is the
          tile's second line. -->
     <div class="int-grid reveal"><div class="int int-words"><div class="int-label">
-        <h2>Shop by how you want to feel.</h2>
+        <!-- "feel." is the word, set the way the hero sets "personal." -->
+        <h2>Shop by how you want to <em>feel.</em></h2>
         <p>No need to know a crystal by name. Start with the energy you want more of.</p>
+        <a class="btn" href="intention/">See all five</a>
       </div></div><a class="int" href="intention/protection/"><img src="assets/img/protection.jpg" srcset="assets/img/protection-480.jpg 480w, assets/img/protection-720.jpg 720w, assets/img/protection.jpg 1080w" sizes="(max-width:840px) 44vw, 260px" alt="Protection intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Boundaries &middot; grounded confidence</div><div class="t">Protection</div></div></a><a class="int" href="intention/abundance/"><img src="assets/img/wealth.jpg" srcset="assets/img/wealth-480.jpg 480w, assets/img/wealth-720.jpg 720w, assets/img/wealth.jpg 1080w" sizes="(max-width:840px) 44vw, 260px" alt="Abundance intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Momentum &middot; opportunity</div><div class="t">Abundance</div></div></a><a class="int" href="intention/calm/"><img src="assets/img/frequency.jpg" srcset="assets/img/frequency-480.jpg 480w, assets/img/frequency-720.jpg 720w, assets/img/frequency.jpg 1080w" sizes="(max-width:840px) 44vw, 260px" alt="Grounding and Calm intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Steadiness &middot; nervous-system ease</div><div class="t">Calm</div></div></a><a class="int" href="intention/connection/"><img src="assets/img/jewelry.jpg?v=2" alt="Love and Self-Worth intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Heart-opening &middot; connection</div><div class="t">Love</div></div></a><a class="int" href="intention/clarity/"><img src="assets/img/clarity.jpg" srcset="assets/img/clarity-480.jpg 480w, assets/img/clarity-720.jpg 720w, assets/img/clarity.jpg 1080w" sizes="(max-width:840px) 90vw, 260px" alt="Clarity and Intuition intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Focus &middot; intuition</div><div class="t">Clarity</div></div></a></div>
     <!-- One call here on purpose. A Shop All button briefly sat beside this one, on
          the reasoning that /shop/ is reachable from the footer and the Shop menu and
@@ -2131,7 +2157,9 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
       <svg class="veza-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
       <span class="eyebrow">Veza &mdash; coming soon</span>
       <h2>Personal guidance, made even more personal.</h2>
-      <p>A personal healer in your pocket. Veza is the coming Energy Muse companion &mdash; here to help you
+      <!-- five lines on a phone; the middle clause names the product a second
+           time and goes there. Desktop keeps the whole sentence. -->
+      <p>A personal healer in your pocket<span class="more">. Veza is the coming Energy Muse companion</span> &mdash; here to help you
         find your energy match and learn how to use it well.</p>
       <!-- This was onsubmit="return false" with no handler behind it: a form that
            looked real, accepted an address and silently discarded it. -->
