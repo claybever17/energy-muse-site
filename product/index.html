@@ -167,6 +167,11 @@
 .pmeaning{margin:14px 0 0;display:inline-flex}
 .seeall:hover{color:var(--copper-lo)}
 .seeall:hover .a{transform:translateX(3px)}
+
+/* ===== Sept 3: the light card, as on the catalogue grids: the related pieces
+   sit on their plates without a box. */
+.rcard{background:transparent;border:0;box-shadow:none;padding:0;border-radius:0}
+.rcard:hover{border-color:transparent;box-shadow:none;transform:translateY(-3px)}
 </style>
 </head><body>
 <main>
@@ -193,6 +198,23 @@ function SEEALL(c){return SEEALL_PLURAL[c] || String(c||'').toLowerCase();}
   var C = window.EM_CATALOG;
   var host = document.getElementById('pdp');
   var id = new URLSearchParams(location.search).get('id') || '';
+
+  /* The meaning link: a stone that has a meaning page gets one line under its
+     description. Matched by the catalogue id the stone names as its product,
+     then by name; anything else renders nothing. Guarded - the paint must
+     never depend on the stones table having loaded. */
+  function meaningLink(p){
+    var S = window.EM_STONES; if (!S || !p) return '';
+    var keys = Object.keys(S), hit = '', i, nm = String(p.name || '').toLowerCase();
+    for (i = 0; i < keys.length; i++) if (S[keys[i]].product === p.id) { hit = keys[i]; break; }
+    if (!hit) for (i = 0; i < keys.length; i++) {
+      var sn = String(S[keys[i]].name || '').toLowerCase();
+      if (sn && nm.indexOf(sn) !== -1) { hit = keys[i]; break; }
+    }
+    if (!hit) return '';
+    return '<a class="seeall pmeaning" href="/meaning/?stone=' + encodeURIComponent(hit) + '">Read the '
+      + S[hit].name + ' meaning <span class="a" aria-hidden="true">&rarr;</span></a>';
+  }
   var p = C && C.get(id);
 
   if (!p) {
