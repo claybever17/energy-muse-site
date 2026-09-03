@@ -380,6 +380,22 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 .qwrap .qadd,.qadd{align-self:center;width:auto;min-width:0;margin-top:10px;min-height:38px;padding:0 18px;font-size:12.5px;letter-spacing:.02em;text-transform:none;color:var(--ink,var(--fg));border:1px solid rgba(152,94,56,.38);border-radius:999px;background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(152,94,56,.14),0 6px 18px rgba(152,94,56,.14);transition:background .25s,border-color .25s}
 .qwrap .qadd:hover,.qadd:hover{background:linear-gradient(135deg,rgba(216,158,112,.38) 0%,rgba(184,122,75,.2) 55%,rgba(255,255,255,.3) 100%);border-color:rgba(152,94,56,.6);color:var(--ink,var(--fg))}
 .qwrap .qsold,.qsold{align-self:center;margin-top:10px}
+
+/* Sept 3: the shelf's round bag glyph goes - Clay: "should the big white bags be
+   smaller? looks off". It becomes the same compact light-glass Add to Bag pill
+   every other grid has, under the piece instead of floating over its corner.
+   The button is icon-only in the markup, so the label is drawn by CSS. */
+.qwrap .qbag,.qbag{position:static;right:auto;bottom:auto;width:auto;height:auto;min-height:38px;align-self:center;
+  margin-top:10px;padding:0 18px;display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--sans);font-weight:600;font-size:12.5px;letter-spacing:.02em;line-height:1;color:var(--ink,var(--fg));border:1px solid rgba(152,94,56,.38);border-radius:999px;background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(152,94,56,.14),0 6px 18px rgba(152,94,56,.14);transition:background .25s,border-color .25s}
+.qwrap .qbag svg,.qbag svg{display:none}
+.qwrap .qbag::after,.qbag::after{content:"Add to Bag"}
+.qwrap .qbag.done::after,.qbag.done::after{content:"Added"}
+.qwrap .qbag:hover,.qbag:hover{background:linear-gradient(135deg,rgba(216,158,112,.38) 0%,rgba(184,122,75,.2) 55%,rgba(255,255,255,.3) 100%);border-color:rgba(152,94,56,.6);color:var(--ink,var(--fg));transform:none}
+.qwrap .qbag.done,.qbag.done{background:var(--copper);border-color:var(--copper);color:#fff}
+.qwrap{display:flex;flex-direction:column}
+.qwrap .icard{flex:1 1 auto}
+@media (max-width:560px){ .qwrap .qbag,.qbag{width:auto;height:auto;min-height:36px;right:auto;bottom:auto} }
 </style></head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
