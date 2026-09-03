@@ -292,7 +292,7 @@ html{scroll-padding-top:96px;}
 .hero{--hero-ink:#FFFFFF;--hero-soft:#E9E0D3;--hero-sub:#F0C79C;
   --hero-accent:#E8B183;--hero-shadow:0 2px 26px rgba(12,8,4,.5);}
 .hero-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:50% 38%;z-index:0;}
+  object-position:50% 26%;z-index:0;}
 /* the crop only ever slides sideways, and that is the axis that decides
    whether the device sits clear of the words. On a phone the frame is much
    narrower than the source, so it lifts to keep the product in view */
@@ -347,7 +347,7 @@ html{scroll-padding-top:96px;}
      gone the hero grows back into the room it leaves */
   body:not(:has(.emh-ann)) .hero{--hdr:90px;}
   .hero-shot{position:absolute;inset:0;flex:none;aspect-ratio:auto;height:100%;
-    object-position:50% 30%;}
+    object-position:50% 36%;}
   .hero picture{position:absolute;inset:0;display:block}
   .hero-bg{inset:0;height:auto;}
   .herowave{inset:0;height:100%;}
@@ -1816,14 +1816,14 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   <div class="hero-grain" aria-hidden="true"></div>
   <picture id="heropic">
     <source media="(max-width:840px)" type="image/webp"
-            srcset="assets/img/life/em-hero-stacks-p-600.webp 600w, assets/img/life/em-hero-stacks-p-900.webp 900w, assets/img/life/em-hero-stacks-p-1200.webp 1200w"
+            srcset="assets/img/life/em-hero-happy-p-600.webp 600w, assets/img/life/em-hero-happy-p-900.webp 900w, assets/img/life/em-hero-happy-p-1200.webp 1200w"
             sizes="100vw">
     <source type="image/webp"
-            srcset="assets/img/life/em-hero-stacks-1200.webp 1200w, assets/img/life/em-hero-stacks-1800.webp 1800w, assets/img/life/em-hero-stacks-2400.webp 2400w"
+            srcset="assets/img/life/em-hero-happy-1200.webp 1200w, assets/img/life/em-hero-happy-1800.webp 1800w, assets/img/life/em-hero-happy-2400.webp 2400w"
             sizes="100vw">
-    <img class="hero-shot" src="assets/img/life/em-hero-stacks.jpg"
+    <img class="hero-shot" src="assets/img/life/em-hero-happy.jpg"
          fetchpriority="high" decoding="async"
-         alt="A woman resting her chin on her hands, stacked crystal bracelets on both wrists">
+         alt="A woman lying on teal, laughing, an arc of clear quartz laid around her head">
   </picture>
   <canvas class="herowave" id="herowave" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
@@ -2571,199 +2571,132 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 
 <script src="/assets/em-form.js?v=1" defer></script>
 <script>
-/* The hero lab.
+/* The hero chooser.
  *
- * Every decision about this hero so far has been made from a contact sheet or
- * a screenshot. These flags make it on the real page instead, with real type
- * over real photographs at the real widths, and nothing here touches the
- * default: no parameter, no effect.
+ * Eleven photographs, chosen on Sept 2 from two Drive drops and the older
+ * candidates. The page ships with happy; the other ten are here so the
+ * client can flip between them on the live prototype without editing a URL.
+ * A small pill sits bottom-right and opens a strip of thumbnails. A pick is
+ * remembered in this browser, so the whole review session shows it - a
+ * chooser that forgets on the next page is a demo of the chooser, not of
+ * the photograph.
  *
- *   ?hero=<name>                 any photograph in HEROES below (stacks is the page's own)
- *   ?type=rail                   the frequency plinth under the headline
- *   ?copy=seven                 the subhead the rail sets up
- *   ?lab=1                      the switcher, so nobody edits a URL by hand
+ *   ?hero=<name>   one photograph, and a link that shares it
+ *   ?lab=1         open the strip on arrival
+ *   ?lab=0         no pill at all - a clean demo
  *
  * The photograph swap runs before paint so the browser never fetches the
  * default first - a hero that flickers between two pictures is a worse
- * comparison than either on its own. The DOM additions wait for the frequency
- * list, which is deferred. */
+ * comparison than either on its own. Nothing here touches the crop rules or
+ * the type; each entry only carries where its own face is. */
 (function () {
   var q = location.search;
   function get(k) { var m = q.match(new RegExp('[?&]' + k + '=([^&]*)')); return m ? decodeURIComponent(m[1]) : ''; }
-  var hero = get('hero'), types = get('type').split(',').filter(Boolean), copy = get('copy');
-  var lab = get('lab') === '1' || hero || types.length || copy;
-  if (!lab) return;
+  var KEY = 'em-hero';
+  function stored() { try { return localStorage.getItem(KEY) || ''; } catch (e) { return ''; } }
+  function store(v) { try { if (v && v !== 'happy') localStorage.setItem(KEY, v); else localStorage.removeItem(KEY); } catch (e) {} }
 
+  /* in the order Clay ranked them; happy is the page's own (Sept 2) */
   var HEROES = {
-    /* stacks is the page's own hero; it is in this table so the lab can set
-       its crop explicitly rather than by falling through */
-    stacks:  { base: 'em-hero-stacks',  pos: '50% 38%', posMobile: '50% 30%',
-      alt: 'A woman resting her chin on her hands, stacked crystal bracelets on both wrists' },
-    sphere:  { base: 'em-hero-sphere',  pos: '50% 50%', posMobile: '50% 45%',
-      alt: 'Two hands cupping a lapis lazuli sphere, a white dress and the sea behind' },
-    hands:   { base: 'em-hero-hands',   pos: '50% 50%', posMobile: '50% 40%',
-      alt: 'Three hands meeting on the sand, crystal bracelets on each wrist' },
-    wrist:   { base: 'em-hero-wrist',   pos: '50% 50%', posMobile: '50% 42%',
-      alt: 'A wrist wearing crystal bracelets, resting on a towel on the sand' },
-    geode:   { base: 'em-hero-geode',   pos: '50% 46%', posMobile: '50% 40%',
-      alt: 'A hand reaching for an amethyst geode on a wooden dresser by a window' },
-    still:   { base: 'em-hero-still',   pos: '50% 50%', posMobile: '50% 45%',
-      alt: 'A selenite tower, black tourmaline and a sage bundle on dark wood' },
-    sand:    { base: 'em-hero-sand',    pos: '50% 55%', posMobile: '50% 50%',
-      alt: 'A lapis lazuli sphere on wet sand at the edge of the sea' },
-    heather: { base: 'em-hero-heather', pos: '50% 30%', posMobile: '50% 30%',
-      alt: 'Heather Askinosie standing beneath a tree' },
-    /* the four from the Drive, at PREVIEW resolution - 736px wide. Enough to
-       choose from, not enough to ship; the originals are still wanted. */
-    robe:    { base: 'em-hero-robe',    pos: '50% 46%', posMobile: '50% 40%', prev: true,
-      alt: 'A woman in a white robe holding a frequency generator to her chest, eyes closed' },
-    turq:    { base: 'em-hero-turq',    pos: '50% 50%', posMobile: '50% 40%', prev: true,
-      alt: 'A turquoise bead necklace with a gold spiral pendant, golden hour' },
-    eye:     { base: 'em-hero-eye',     pos: '50% 46%', posMobile: '50% 38%', prev: true,
-      alt: 'A lapis evil-eye necklace on a collarbone, golden hour' },
-    flatlay: { base: 'em-hero-flatlay', pos: '50% 50%', posMobile: '50% 50%', prev: true,
-      alt: 'A frequency generator on oak with sage, obsidian and pampas grass' },
-    med:     { base: 'em-hero-med',     pos: '50% 62%', posMobile: '50% 42%',
-      alt: 'Someone sitting in meditation on a mat, a wall of tall cacti behind them' },
-    /* the eight people from the second Drive drop, Sept 2 - full resolution
-       this time. Each mobile crop was cut around the face, not the middle:
-       a phone shows 37% of a landscape photograph's width, so the crop is
-       the choice. duo is the founders, and belongs to the founders band
-       more than to the hero; it is here so it can be compared. */
-    quartz:  { base: 'em-hero-quartz', pos: '50% 49%', posMobile: '50% 100%',
-      alt: 'A woman smiling at the camera, a clear quartz point in her hand, a macramé wall hanging behind her' },
-    glance:  { base: 'em-hero-glance', pos: '50% 22%', posMobile: '50% 36%',
-      alt: 'A woman looking up and smiling, a small clear quartz point held in her fingers' },
-    amethyst:{ base: 'em-hero-amethyst', pos: '50% 49%', posMobile: '50% 100%',
-      alt: 'A woman in a denim jacket holding an amethyst cluster to her forehead, eyes closed' },
-    happy:   { base: 'em-hero-happy', pos: '50% 45%', posMobile: '50% 36%',
+    happy:    { base: 'em-hero-happy',    pos: '50% 26%', posMobile: '50% 36%',
       alt: 'A woman lying on teal, laughing, an arc of clear quartz laid around her head' },
-    mono:    { base: 'em-hero-mono', pos: '50% 50%', posMobile: '50% 100%',
+    med:      { base: 'em-hero-med',      pos: '50% 62%', posMobile: '50% 42%',
+      alt: 'Someone sitting in meditation on a mat, a wall of tall cacti behind them' },
+    amethyst: { base: 'em-hero-amethyst', pos: '50% 49%', posMobile: '50% 100%',
+      alt: 'A woman in a denim jacket holding an amethyst cluster to her forehead, eyes closed' },
+    mono:     { base: 'em-hero-mono',     pos: '50% 50%', posMobile: '50% 100%',
       alt: 'A woman in a black top holding an amethyst cluster to her forehead, eyes closed, on white' },
-    pendant: { base: 'em-hero-pendant', pos: '50% 44%', posMobile: '50% 0%',
+    pendant:  { base: 'em-hero-pendant',  pos: '50% 44%', posMobile: '50% 0%',
       alt: 'A woman in a denim jacket looking down at the pendant she is holding, on pale blue' },
-    knit:    { base: 'em-hero-knit', pos: '50% 18%', posMobile: '50% 0%',
+    knit:     { base: 'em-hero-knit',     pos: '50% 18%', posMobile: '50% 0%',
       alt: 'A woman in a knit top holding an amethyst cluster to her forehead, on white' },
-    duo:     { base: 'em-hero-duo', pos: '50% 0%', posMobile: '50% 0%',
-      alt: 'The founders, Heather Askinosie and Timmi Jandro, standing in a field of wildflowers' }
+    duo:      { base: 'em-hero-duo',      pos: '50% 0%',  posMobile: '50% 0%',
+      alt: 'The founders, Heather Askinosie and Timmi Jandro, standing in a field of wildflowers' },
+    stacks:   { base: 'em-hero-stacks',   pos: '50% 38%', posMobile: '50% 30%',
+      alt: 'A woman resting her chin on her hands, stacked crystal bracelets on both wrists' },
+    hands:    { base: 'em-hero-hands',    pos: '50% 50%', posMobile: '50% 40%',
+      alt: 'Three hands meeting on the sand, crystal bracelets on each wrist' },
+    wrist:    { base: 'em-hero-wrist',    pos: '50% 50%', posMobile: '50% 42%',
+      alt: 'A wrist wearing crystal bracelets, resting on a towel on the sand' },
+    geode:    { base: 'em-hero-geode',    pos: '50% 46%', posMobile: '50% 40%',
+      alt: 'A hand reaching for an amethyst geode on a wooden dresser by a window' }
   };
-  var H = HEROES[hero];
-  var css = '';
 
-  if (H) {
+  /* a shared link wins over the remembered pick, and becomes it */
+  var hero = get('hero') || stored();
+  if (!HEROES[hero]) hero = 'happy';
+  if (get('hero')) store(hero);
+  var H = HEROES[hero];
+
+  if (hero !== 'happy') {
     var pic = document.getElementById('heropic');
     var src = pic ? pic.querySelectorAll('source') : [], img = pic ? pic.querySelector('img') : null;
     var P = '/assets/img/life/' + H.base;
-    /* the previews only exist at 600 and 736, so their srcset must not
-       promise a 1200 the browser would then fetch and fail on */
-    if (H.prev) {
-      if (src[0]) src[0].srcset = P + '-p-600.webp 600w, ' + P + '-p-736.webp 736w';
-      if (src[1]) src[1].srcset = P + '-736.webp 736w';
-    } else {
-      if (src[0]) src[0].srcset = P + '-p-600.webp 600w, ' + P + '-p-900.webp 900w, ' + P + '-p-1200.webp 1200w';
-      if (src[1]) src[1].srcset = P + '-1200.webp 1200w, ' + P + '-1800.webp 1800w, ' + P + '-2400.webp 2400w';
-    }
+    if (src[0]) src[0].srcset = P + '-p-600.webp 600w, ' + P + '-p-900.webp 900w, ' + P + '-p-1200.webp 1200w';
+    if (src[1]) src[1].srcset = P + '-1200.webp 1200w, ' + P + '-1800.webp 1800w, ' + P + '-2400.webp 2400w';
     if (img) { img.src = P + '.jpg'; img.alt = H.alt; }
-    css += '.hero-shot{object-position:' + H.pos + '}'
-      + '@media (max-width:840px){.hero-shot{object-position:' + H.posMobile + '}'
-      + '.hero-bg{background:linear-gradient(180deg,rgba(20,14,7,.26) 0%,rgba(20,14,7,.06) 22%,'
-      + 'rgba(20,14,7,0) 40%,rgba(20,14,7,.20) 56%,rgba(20,14,7,.52) 70%,rgba(20,14,7,.78) 86%,'
-      + 'rgba(20,14,7,.86) 100%)}}';
+    var st = document.createElement('style');
+    st.textContent = '.hero-shot{object-position:' + H.pos + '}'
+      + '@media (max-width:840px){.hero-shot{object-position:' + H.posMobile + '}}';
+    document.head.appendChild(st);
   }
 
-  /* A: the frequency rail. The seven numbers are the one thing on this page no
-     other wellness brand can run. They sit under the hero already, as a
-     marquee; here they come up into it as a plinth the headline stands on, and
-     the band below retires so the same seven are not shown twice in a row. */
-  if (types.indexOf('rail') > -1) {
-    css += '.hero .hzrail{position:absolute;left:0;right:0;bottom:0;z-index:5;display:flex;'
-      + 'justify-content:space-between;align-items:baseline;gap:6px;'
-      + 'padding:11px clamp(20px,5vw,60px);border-top:1px solid rgba(255,255,255,.2);'
-      + 'background:rgba(20,14,7,.30);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);'
-      + 'font-family:var(--serif);font-weight:300;color:rgba(255,255,255,.58);'
-      + 'font-size:clamp(12.5px,1.35vw,17px);letter-spacing:.01em;white-space:nowrap}'
-      + '.hero .hzrail span{display:inline-flex;align-items:baseline;gap:.34em}'
-      + '.hero .hzrail i{font-style:normal;font-family:var(--sans);font-weight:600;font-size:.56em;'
-      + 'letter-spacing:.16em;text-transform:uppercase;opacity:.75}'
-      + '.hero .hzrail b{font-weight:300;color:#F0C79C}'
-      + '.hero .hzrail b::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;'
-      + 'background:#F0C79C;box-shadow:0 0 0 3px rgba(240,199,156,.22);margin-right:.5em;vertical-align:middle}'
-      + '.hero-grid{padding-bottom:calc(clamp(26px,5vh,64px) + 54px)}'
-      + '@media (max-width:840px){.hero-grid{padding-bottom:calc(clamp(34px,7vh,64px) + 48px)}'
-      + '.hero .hzrail i{display:none}}'
-      + '.hzband{display:none}';
-  }
-
-  /* The animated wave canvas was drawn for a product shot on a dark floor. Over
-     a photograph of a person it draws hairlines across her face, which reads
-     as a rendering fault rather than as atmosphere. Off whenever a real
-     photograph is in; ?wave=1 brings it back for the comparison. */
-  if (get('wave') === '1') css += '.herowave{display:block}';
-  if (css) { var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st); }
+  if (get('lab') === '0') return;
 
   function ready() {
-    var hero = document.querySelector('.hero');
-    var h1 = hero && hero.querySelector('h1');
-    var sub = hero && hero.querySelector('.sub');
+    if (!document.querySelector('.hero') || document.querySelector('.hpick')) return;
+    var pill = document.createElement('button');
+    pill.type = 'button'; pill.className = 'hpick'; pill.setAttribute('aria-expanded', 'false');
+    pill.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">'
+      + '<rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="10.5" r="1.8"/>'
+      + '<path d="M21 16l-5.2-5.2a1 1 0 0 0-1.4 0L7 18"/></svg>Change photo';
 
-    if (types.indexOf('rail') > -1 && hero && !hero.querySelector('.hzrail')) {
-      var list = (window.EM_FREQ || []).map(function (f) { return f.hz; });
-      if (!list.length) list = ['7.83', '174', '417', '528', '639', '963', '1111'];
-      var sh = window.EM_FREQ_BY && window.EM_FREQ_BY.short;
-      hero.insertAdjacentHTML('beforeend', '<div class="hzrail" aria-label="The seven tuned frequencies">'
-        + list.map(function (hz) {
-            var lab = sh ? '<i>' + sh(hz) + '</i>' : '';
-            return String(hz) === '528'
-              ? '<span><b>' + hz + '</b>' + lab + '</span>'
-              : '<span>' + hz + lab + '</span>';
-          }).join('') + '</div>');
-    }
-    if (copy === 'seven' && sub) sub.textContent = 'Seven frequencies. One is yours.';
+    var strip = document.createElement('div');
+    strip.className = 'hstrip'; strip.setAttribute('role', 'group'); strip.setAttribute('aria-label', 'Hero photograph');
+    strip.innerHTML = Object.keys(HEROES).map(function (k) {
+      var on = k === hero;
+      return '<a class="ht' + (on ? ' on' : '') + '" href="' + location.pathname + '?hero=' + k + '" data-hero="' + k + '"'
+        + (on ? ' aria-current="true"' : '') + ' aria-label="' + HEROES[k].alt.replace(/"/g, '&quot;') + '">'
+        + '<img src="/assets/img/life/' + HEROES[k].base + '-p-600.webp" alt="" loading="lazy" decoding="async"></a>';
+    }).join('');
+    strip.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[data-hero]') : null;
+      if (a) store(a.getAttribute('data-hero'));
+    });
 
-    /* the switcher */
-    var cur = { hero: hero ? (H ? get('hero') : 'family') : 'family' };
-    function link(params) {
-      var o = { hero: get('hero'), type: types.join(','), copy: copy, wave: get('wave'), lab: '1' };
-      for (var k in params) o[k] = params[k];
-      var out = [];
-      for (var k2 in o) if (o[k2]) out.push(k2 + '=' + encodeURIComponent(o[k2]));
-      return location.pathname + '?' + out.join('&');
+    function open(v) {
+      strip.classList.toggle('open', v); pill.setAttribute('aria-expanded', String(v));
+      if (v) { var on = strip.querySelector('.on'); if (on && on.scrollIntoView) on.scrollIntoView({ block: 'nearest', inline: 'center' }); }
     }
-    function tog(name) {
-      var t = types.slice(); var i = t.indexOf(name);
-      if (i > -1) t.splice(i, 1); else t.push(name);
-      return link({ type: t.join(',') });
-    }
-    var on = function (b) { return b ? ' on' : ''; };
-    var panel = document.createElement('div');
-    panel.className = 'herolab';
-    panel.innerHTML =
-        '<b>hero</b>'
-      + Object.keys(HEROES).map(function (k) {
-          var isHome = (k === 'stacks');
-          var active = isHome ? (!get('hero') || get('hero') === 'stacks') : (get('hero') === k);
-          return '<a class="hl' + on(active) + '" href="' + link({ hero: isHome ? '' : k }) + '">' + k + '</a>';
-        }).join('')
-      + '<b>type</b>'
-      + '<a class="hl' + on(types.indexOf('rail') > -1) + '" href="' + tog('rail') + '">rail</a>'
-      + '<b>wave</b>'
-      + '<a class="hl' + on(get('wave') === '1') + '" href="' + link({ wave: get('wave') === '1' ? '' : '1' }) + '">on</a>'
-      + '<b>copy</b>'
-      + '<a class="hl' + on(copy === 'seven') + '" href="' + link({ copy: copy === 'seven' ? '' : 'seven' }) + '">seven</a>'
-      + '<a class="hl x" href="' + location.pathname + '">exit</a>';
+    pill.addEventListener('click', function () { open(!strip.classList.contains('open')); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') open(false); });
+    document.addEventListener('click', function (e) {
+      if (!strip.contains(e.target) && !pill.contains(e.target)) open(false);
+    });
+
     var ps = document.createElement('style');
-    ps.textContent = '.herolab{position:fixed;right:12px;bottom:12px;z-index:99999;display:flex;flex-wrap:wrap;'
-      + 'align-items:center;gap:4px;max-width:calc(100vw - 24px);padding:8px 10px;border-radius:12px;'
-      + 'background:rgba(20,14,7,.9);color:#EAE0D0;font:600 11px/1 "Instrument Sans",sans-serif;'
-      + 'box-shadow:0 12px 40px rgba(0,0,0,.35);backdrop-filter:blur(8px)}'
-      + '.herolab b{font-weight:600;font-size:9px;letter-spacing:.18em;text-transform:uppercase;opacity:.5;'
-      + 'margin:0 4px 0 6px}.herolab b:first-child{margin-left:0}'
-      + '.herolab a{color:inherit;text-decoration:none;padding:9px 11px;min-height:34px;display:inline-flex;'
-      + 'align-items:center;border-radius:999px;border:1px solid rgba(255,255,255,.18)}'
-      + '.herolab a.on{background:#F0C79C;color:#1A1208;border-color:#F0C79C}'
-      + '.herolab a.x{opacity:.6;margin-left:6px}.herolab a:hover{border-color:rgba(255,255,255,.6)}';
+    ps.textContent = '.hpick{position:fixed;right:14px;bottom:14px;z-index:9999;display:inline-flex;align-items:center;gap:8px;'
+      + 'min-height:42px;padding:0 16px 0 14px;border-radius:999px;cursor:pointer;'
+      + 'background:rgba(20,14,7,.74);color:#F2EADF;border:1px solid rgba(255,255,255,.22);'
+      + 'font:600 11px/1 "Instrument Sans",sans-serif;letter-spacing:.14em;text-transform:uppercase;'
+      + 'box-shadow:0 10px 30px rgba(0,0,0,.28);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}'
+      + '.hpick:hover{border-color:rgba(255,255,255,.55)}'
+      + '.hpick:focus-visible{outline:2px solid #F0C79C;outline-offset:2px}'
+      + '.hstrip{position:fixed;right:14px;bottom:66px;z-index:9999;display:none;gap:6px;'
+      + 'max-width:calc(100vw - 28px);overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;'
+      + 'padding:8px;border-radius:14px;background:rgba(20,14,7,.82);'
+      + 'box-shadow:0 14px 40px rgba(0,0,0,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}'
+      + '.hstrip::-webkit-scrollbar{display:none}.hstrip.open{display:flex}'
+      + '.hstrip .ht{flex:none;width:64px;height:100px;border-radius:8px;overflow:hidden;'
+      + 'border:2px solid transparent;opacity:.78;transition:.18s}'
+      + '.hstrip .ht img{width:100%;height:100%;object-fit:cover;display:block}'
+      + '.hstrip .ht:hover{opacity:1}.hstrip .ht.on{opacity:1;border-color:#F0C79C}'
+      + '.hstrip .ht:focus-visible{outline:2px solid #F0C79C;outline-offset:1px;opacity:1}'
+      + '@media (prefers-reduced-motion:reduce){.hstrip .ht{transition:none}}';
     document.head.appendChild(ps);
-    document.body.appendChild(panel);
+    document.body.appendChild(strip);
+    document.body.appendChild(pill);
+    if (get('lab') === '1') open(true);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ready);
   else ready();
