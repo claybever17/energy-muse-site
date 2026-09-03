@@ -1780,6 +1780,14 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 #jewelry .media::after,#about .media::after,#quiz .media::after{display:none;}
 #about .t3d picture,#jewelry .t3d picture{display:block;height:100%;}
 
+/* ===== Sept 2: the social row - one handle, three glyphs ===== */
+.foot-social{display:flex;align-items:center;gap:6px;margin-top:16px;}
+.foot-social span{font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.06em;color:var(--ink-soft);margin-right:6px;}
+.foot-social a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;color:var(--ink-soft);transition:color .2s,background .2s;}
+.foot-social a svg{width:19px;height:19px;}
+.foot-social a:hover{color:var(--copper);background:color-mix(in srgb,var(--copper) 10%,transparent);}
+.foot-social a:focus-visible{outline:2px solid var(--copper);outline-offset:2px;}
+
 /* ===== Sept 2: the waitlist button is bronze glass =====
    Clay: "giv me a cool glass button here. cool bronze glass color no one has
    ever seen". Glass tinted with the page's own copper: a warm gradient at low
@@ -2363,8 +2371,11 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     </div>
     <div class="foot-grid">
       <div class="foot-brand"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse" style="height:34px"><use href="#em-logo"/></svg>
-        <p>Guided energy for real life.<span class="foot-more"> Crystal jewelry, natural crystals, frequency and personal guidance &mdash; created to help you choose with confidence and build a practice that fits.</span></p></div>
-      <div class="foot-col"><h3>Start Here</h3><a href="quiz/">Energy Quiz</a><a href="learn/">Beginner&rsquo;s Guide</a><a href="faq/">How It Works</a><a href="intention/">By Intention</a></div>
+        <p>Guided energy for real life.<span class="foot-more"> Crystal jewelry, natural crystals, frequency and personal guidance &mdash; created to help you choose with confidence and build a practice that fits.</span></p>
+        <!-- one handle across the three that matter for this brand; Twitter and
+             Pinterest were left off on purpose (Clay) -->
+        <div class="foot-social"><span>@energymuse</span><a href="https://www.instagram.com/energymuse/" target="_blank" rel="noopener" aria-label="Energy Muse on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@energymuse" target="_blank" rel="noopener" aria-label="Energy Muse on TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 3v11.2a3.3 3.3 0 1 1-3.3-3.3"/><path d="M13.5 3c.4 2.6 2.2 4.4 4.8 4.8"/></svg></a><a href="https://www.youtube.com/user/EnergyMuse" target="_blank" rel="noopener" aria-label="Energy Muse on YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.2v5.6l4.8-2.8z" fill="currentColor" stroke="none"/></svg></a></div></div>
+      <div class="foot-col"><h3>Start Here</h3><a href="quiz/">Energy Quiz</a><a href="learn/">Beginner&rsquo;s Guide</a><a href="faq/">How It Works</a><a href="intention/">By Intention</a><a href="try/">Try the Tools</a></div>
       <div class="foot-col"><h3>Shop</h3><a href="shop/">Everything</a><a href="jewelry/">Jewelry</a><a href="gems/">Crystals</a><a href="frequency/">Frequency Generators</a><a href="sets/">Kits &amp; Sets</a><a href="systems/">Frequency Systems</a><a href="box/">Build a Box</a></div>
       <div class="foot-col"><h3>Learn</h3><a href="learn/">Learning Center</a><a href="blog/">Journal</a><a href="learn/#crystals">Crystal Guide</a><a href="learn/#frequency">Frequency Guide</a><a href="learn/#jewelry">Jewelry Care</a><a href="craft/">Materials &amp; Craft</a><a href="heather/">With Heather</a><a href="veza/">Veza</a></div>
       <div class="foot-col"><h3>Help</h3><a href="support/">Contact</a><a href="support/#orders">Shipping &amp; Returns</a><a href="faq/">FAQ</a><a href="support/#accessibility">Accessibility</a><a href="about/">Our Story</a><a href="affiliates/">Affiliates</a></div>
@@ -2853,7 +2864,7 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
   else ready();
 })();
 </script>
-<script src="/assets/em-header.js?v=33" defer></script>
+<script src="/assets/em-header.js?v=34" defer></script>
 <script src="assets/em-bag.js?v=10" defer></script>
 <script src="assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=9" defer></script>

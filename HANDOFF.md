@@ -207,6 +207,90 @@ the direction is ever revived.
   390 and 430 across every page** — iframes at a fixed width make this a one-shot sweep, and a
   page can be clean at 390 and broken at 320.
 
+## Sept 2 — the photo-first homepage, and what changed around it
+
+Sixty-odd commits in one day, all on `main`, all deployed. What a fresh
+session needs to know:
+
+### The hero
+- The page ships **happy** (`em-hero-happy`): the woman on teal, laughing,
+  an arc of clear quartz around her head. Desktop crop `50% 42%` (the eyes
+  near 40% of the band; the arc's top is sacrificed), phone crop cut so the
+  arc's outer stones sit 2% from each edge with 7% trimmed off the top.
+- **The photo chooser** replaces the old hero lab. A round picture-glyph
+  button bottom-right opens a strip of eight thumbnails (happy, med,
+  amethyst, mono, pendant, knit, stacks, wrist). A pick is remembered in
+  that browser (`localStorage` key `em-hero`); `?hero=<name>` overrides it
+  and becomes it; `?lab=1` opens the strip on arrival; `?lab=0` removes the
+  button for a clean demo. Every set is `-p-{600,900,1200}.webp` (phone
+  crop, 0.56) + `-{1200,1800,2400}.webp` + `.jpg` (whole photo). The
+  desktop rule: eyes near 40% of the band, whatever is above gets cut.
+  amethyst is cut from the portrait frame of that shoot (A74I3580), not
+  the landscape, because the landscape had no room above the face.
+- Dropped sets (in history): sphere, still, sand, heather, robe, turq,
+  eye, flatlay, quartz, glance, hands, geode, family. The four previews
+  from the first Drive drop (robe, turq, eye, flatlay) never got originals.
+
+### Glass, three recipes
+- **On a photograph or navy** (hero, words tile, frequency block, the
+  bands' on-photo buttons): white at 12% with a 40% white hairline, blur
+  12px, white type.
+- **Bronze on navy** (Veza's waitlist): the copper at low alpha in a
+  gradient, a hairline of light along the top edge, cream type.
+- **Light, for the cream ground** (`.btn.glass-lt`: the quiz button, the
+  signup's JOIN): copper at low alpha, copper hairline border, ink type,
+  whatever is behind it blurring through.
+Navy filled buttons are gone from the homepage.
+
+### The bands (jewelry, founders, quiz)
+Mats, tilt, copper echo, caption and glare are off all three photographs.
+Each headline carries one italic copper word (`energy.`, `knowing.`,
+`begin?`) - the hero's `personal.` and the words tile's `feel.` are the
+same signature. Shop the jewelry and Our story sit on their photographs
+as glass; the quiz button sits under its text as light glass. The wrist
+photograph is **mirrored with CSS** (`scaleX(-1)`) so the button lands on
+sand, not fingers. Copy: one sentence per band on phones; the second
+sentence is back on desktop in a `.desk` span (`display:none` under
+841px). The quiz band is hidden on phones on purpose (a third ask).
+
+### The intention tiles
+The words tile is navy with `feel.` at 1.6x and a glass See all five.
+Calm is `calm-pool` (the pool frame, C15), Love is `love-hands` (C14);
+both cut to the tiles' 9:16 sets as new files. Labels show only the first
+term on phones (`.more` hidden).
+
+### Less on a phone
+Section headlines step down one notch under 841px (`.split h2` 25px,
+`.duo-card h2` 23px, `#stories h2` 24px with its sentences flowing).
+The Learning Center's eyebrow is its title on phones; Veza's headline is
+"A personal healer in your pocket." with its paragraph desktop-only;
+"Social proof" reads Reviews; the shop's row label is headline + link.
+Copper wave marks (`.sinemark`) are off on phones.
+
+### Ways in that did not exist
+- The journal (`/blog/`) is linked from the shared footer, the homepage
+  footer's Learn column, the Learning Center card, and a "From the
+  journal" row on `/learn/` painted from `em-journal.js`.
+- Social: `@energymuse` once, with Instagram, TikTok and YouTube glyphs, in
+  both footers. Twitter and Pinterest left off on purpose (Clay).
+- The homepage footer gained Try the Tools (the designer link left the
+  jewelry band).
+
+### Deviations to flag to Energy Muse
+- Family photo hero rejected; happy is the page's own.
+- Jewelry band: "Wear the intention" eyebrow and the Design your own link
+  gone; the photograph is the wrist on the sand, mirrored.
+- Founders band: second sentence phone-only trimmed; button on the photo.
+- Veza: headline and paragraph rewritten from their module copy.
+- "Social proof" -> Reviews.
+- The quiz band hidden on phones; the Ways to begin module and the fourth
+  quiz link removed earlier; Copper Harmonizers founder favourite not in
+  the catalogue.
+
+### Still owed by the client
+Form endpoint, generator prices, 1111Hz stock, per-product "how to use"
+copy, full-resolution originals for robe / turq / eye / flatlay.
+
 ## Backlog
 
 Most of the old backlog is done: the PDP template shipped (`/product/`), quiz bag-ids are

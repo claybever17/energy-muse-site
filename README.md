@@ -16,6 +16,10 @@ personalized guidance, and the coming Veza app).
 
 Slugs for GLB drops: `wellness, wealth, protection, calm, love, spirituality, fresh-start, power`.
 
+- `/blog/` — the journal: a listing and `?post=` articles from `assets/em-journal.js`
+- `/meaning/?stone=` — the stone meaning template from `assets/em-stones.js`
+- Homepage photo chooser: `?lab=1` opens it, `?lab=0` hides it, `?hero=<name>` picks one
+
 ## Run locally
 
 Static site — any web server works:

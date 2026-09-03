@@ -143,7 +143,12 @@ var css=[
 '.emh-foot{background:'+P.footbg+';border-top:1px solid '+P.line+';font-family:"Instrument Sans",sans-serif;}',
 '.emh-foot-in{max-width:1240px;margin:0 auto;padding:44px clamp(20px,4vw,44px) 30px;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;}',
 '.emh-foot .emh-logo{height:30px;}',
-'.emh-foot-links{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:center;font-size:13px;font-weight:600;}'
+'.emh-foot-links{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:center;font-size:13px;font-weight:600;}',
+'.emh-foot-social{display:flex;align-items:center;justify-content:center;gap:6px;}',
+'.emh-foot-social span{font-size:12px;font-weight:600;letter-spacing:.06em;color:'+P.soft+';margin-right:6px;}',
+'.emh-foot-social a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;color:'+P.soft+';}',
+'.emh-foot-social a svg{width:19px;height:19px;}',
+'.emh-foot-social a:hover{color:'+P.accent+';}'
   /* The footer nav sat at 21px - a real target on every page of the site. An
      overlay is wrong here because the links wrap with an 8px row gap and a
      44px box would reach into the row above and take its taps. Padding grows
@@ -260,6 +265,9 @@ function boot(){
     /* Six links that predate most of the site: no route to the shop at all, and
        "Frequency" pointed at /generator/, which is the film rather than the
        page that sells the devices. */
+    +'<div class="emh-foot-social"><span>@energymuse</span>'
+    +'<a href="https://www.instagram.com/energymuse/" target="_blank" rel="noopener" aria-label="Energy Muse on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@energymuse" target="_blank" rel="noopener" aria-label="Energy Muse on TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 3v11.2a3.3 3.3 0 1 1-3.3-3.3"/><path d="M13.5 3c.4 2.6 2.2 4.4 4.8 4.8"/></svg></a><a href="https://www.youtube.com/user/EnergyMuse" target="_blank" rel="noopener" aria-label="Energy Muse on YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.2v5.6l4.8-2.8z" fill="currentColor" stroke="none"/></svg></a>'
+    +'</div>'
     +'<div class="emh-foot-links">'
     +'<a href="/shop/">Shop</a><a href="/jewelry/">Jewelry</a><a href="/gems/">Crystals</a>'
     +'<a href="/frequency/">Frequency</a><a href="/sets/">Kits &amp; Sets</a>'
