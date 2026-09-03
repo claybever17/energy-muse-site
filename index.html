@@ -1870,6 +1870,12 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   .rowlabel p{display:none;}
   .rowlabel .link{margin:0;}
   .store .head{margin-bottom:18px;}
+  /* the Learning Center rows: the descriptor that pushed the arrow to the
+     edge is hidden on phones, so the arrow sat wherever the title ended -
+     next to a short one, at the edge after a wrapped one. The title takes
+     the room now and every arrow sits at the edge, centred on its row. */
+  .guide-list a{align-items:center;}
+  .guide-list a span{flex:1 1 auto;min-width:0;font-size:17px;}
 }
 </style>
 
