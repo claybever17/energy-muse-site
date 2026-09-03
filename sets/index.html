@@ -46,21 +46,8 @@
   letter-spacing:.03em;padding:11px 12px;border-radius:3px;cursor:pointer;transition:.25s}
 .padd:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 
-/* Two white boxes side by side, each with a heading, a paragraph and a solid
-   button, is the same repeated component the rest of the site has been losing.
-   These are two real and different offers, so they stay two columns - they just
-   stop being boxes. A rule at the top of each does the separating that a border
-   was doing on all four sides, and the button becomes the quiet link every
-   other secondary call on the site now uses. */
-.mk{display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,3.4vw,56px);
-  margin-top:clamp(26px,3.4vw,38px)}
-.mkc{padding-top:18px;border-top:1px solid var(--hair)}
-.mkc h3{margin-bottom:8px;font-size:clamp(19px,1.9vw,24px);font-weight:400}
-.mkc p{color:var(--ink-soft);font-size:15.5px;line-height:1.6;max-width:44ch}
-.mkc .cta-row{margin-top:14px}
-
 @media (max-width:1000px){.pgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media (max-width:760px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.mk{grid-template-columns:1fr}}
+@media (max-width:760px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* Cards link to the product page now. The anchor replaces what used to be a
    plain span, so it has to lay out like one — an inline <a> would collapse
@@ -190,24 +177,6 @@
   </div>
 </section>
 
-<section class="sect tint" id="make">
-  <div class="wrap">
-    <h2>Or make the set yourself.</h2>
-    <div class="mk">
-      <div class="mkc">
-        <h3>Build a Box</h3>
-        <p>Your stones, packed with a card for each.</p>
-        <div class="cta-row"><a class="em-link" href="/box/">Build a box <span class="a" aria-hidden="true">&rarr;</span></a></div>
-      </div>
-      <div class="mkc">
-        <h3>The Atelier</h3>
-        <p>A bracelet, stone by stone, to your wrist size.</p>
-        <div class="cta-row"><a class="em-link" href="/designer/">Design a bracelet <span class="a" aria-hidden="true">&rarr;</span></a></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="sect signpost-sect">
   <div class="wrap narrow">
     <!-- This was a full section - its own heading, its own paragraph, two
@@ -219,7 +188,6 @@
       <a class="em-link" href="/systems/">See the Frequency Systems <span class="a" aria-hidden="true">&rarr;</span></a></p>
   </div>
 </section>
-
 
 </main>
 <script>
