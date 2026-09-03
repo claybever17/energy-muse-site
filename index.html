@@ -1919,6 +1919,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   #stories h2 span,#stories h2 .s{display:inline;}  /* the sentences flow rather than stack */
   #stories h2 span + span::before,#stories h2 .s + .s::before{content:" ";}
   #stories h2 br{display:none;}
+  #stories h2{line-height:1.14;}   /* the sentences flow now; the stacked leading was too tight for two lines - "too close?" */
   /* the Learning Center's eyebrow is its title on a phone; the headline
      stays for screen readers only */
   .duo-card:not(.veza) h2{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:0;}
