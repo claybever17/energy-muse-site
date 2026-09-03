@@ -1780,6 +1780,23 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 #jewelry .media::after,#about .media::after,#quiz .media::after{display:none;}
 #about .t3d picture,#jewelry .t3d picture{display:block;height:100%;}
 
+/* ===== Sept 2: the tiles read small at laptop width ===== 
+   Six across at 1440 is 211px a tile - thumbnails. Three across in two rows
+   up to 1599px (about 430px a tile at 1440, squarer so two rows do not run
+   to a screen and a half); six across from 1600, where a tile clears 260px. */
+@media (min-width:841px) and (max-width:1599px){
+  .int-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.4vw,18px);}
+  .int{aspect-ratio:3/3.3;}
+  .int.int-words h2{font-size:clamp(26px,2.6vw,34px);}
+  .int.int-words p{font-size:14px;max-width:26ch;}
+}
+/* the row label's link sits on the headline's line, not the sentence's -
+   "shop all crystals looks misaligned from hero" */
+@media (min-width:601px){
+  .rowlabel{align-items:flex-start;}
+  .rowlabel .link{margin:9px 0 0;}
+}
+
 /* ===== Sept 2: the social row - one handle, three glyphs ===== */
 .foot-social{display:flex;align-items:center;gap:6px;margin-top:16px;}
 .foot-social span{font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.06em;color:var(--ink-soft);margin-right:6px;}
