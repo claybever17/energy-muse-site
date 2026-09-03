@@ -341,7 +341,7 @@ html{scroll-padding-top:96px;}
      is the gap - Madhappy gives the photograph 100% of the first screen and
      puts nothing on top of it but a headline. The picture is the screen now
      and the copy sits on it, which is what the scrim below is for. */
-  .hero{--hdr:178px;--band:calc(100svh - var(--hdr));min-height:var(--band);justify-content:flex-end;}
+  .hero{--hdr:178px;--peek:64px;--band:calc(100svh - var(--hdr) - var(--peek));  /* a sliver of the marquee shows under the hero, so the page reads as scrollable - Clay: "there still needs to be a sliver at the bottom on mobile, like desktop" */min-height:var(--band);justify-content:flex-end;}
   /* the bar is dismissable, so the header is not one height: when it is
      gone the hero grows back into the room it leaves */
   body:not(:has(.emh-ann)) .hero{--hdr:90px;}
