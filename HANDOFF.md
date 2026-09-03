@@ -300,6 +300,9 @@ Copper wave marks (`.sinemark`) are off on phones.
 Form endpoint, generator prices, 1111Hz stock, per-product "how to use"
 copy, full-resolution originals for robe / turq / eye / flatlay.
 
+### Sept 3: the light card
+The catalogue grids lost their boxes (shop `.qwrap`, sets/systems `.pcard`, jewelry `.jcard`, frequency `.fcard`, gems `.scard`): the piece sits on its tint plate, name and price under it, and Add to Bag is a compact light-glass pill (`.qadd`/`.padd`/`.jadd`/`.fadd`, 105x40) instead of a full-width outlined slab. The active filter chip (`.sfb.on`, `.jf.on`, `.sf.on`) takes the same glass; the Added state (`.qadd.done`) keeps its copper fill. Each page carries the override as a `Sept 3: the light card` block at the end of its LAST style block (the shop has two - a block appended to the first one loses to the rules after it). The box tool: one-line stage note, no empty-box label, 30px of room under the box on phones.
+
 ## Backlog
 
 Most of the old backlog is done: the PDP template shipped (`/product/`), quiz bag-ids are

@@ -322,7 +322,7 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
         <div class="read r-size"><span class="k">Box</span><b id="bval">The Four</b><span id="bsub">4 crystals</span></div>
         <div class="read r-total"><span class="k">Total</span><b id="tval">&mdash;</b><span>illustrative</span></div>
       </div>
-      <div class="stagenote" id="note">Tap a crystal to add &middot; tap one in the box to take it out</div>
+      <div class="stagenote" id="note">Tap a crystal to add &middot; tap it again to remove</div>
     </div>
 
     <div class="sizer">
@@ -515,7 +515,7 @@ function paint(){
   /* The box Clay sent for reference: a white square box seen from above, a
      square window cut in the lid, and a clear insert with one cell per
      crystal showing through it. Everything below draws that. */
-  var side=Math.min(W-pad*2,H-pad*2); bw=side; bh=side; bx=(W-bw)/2; by=(H-bh)/2;
+  var side=Math.min(W-pad*2,H-pad*2-(mob?30:0)); bw=side; bh=side; bx=(W-bw)/2; by=(H-bh)/2-(mob?15:0);
   ctx.save();
   ctx.shadowColor='rgba(61,41,23,.22)';ctx.shadowBlur=Math.max(22,bh*0.10);ctx.shadowOffsetY=bh*0.04;
   rrect(ctx,bx,by,bw,bh,Math.max(4,bw*0.012));
@@ -593,7 +593,7 @@ function paint(){
        pinned (absolute, bottom:10px) — two different labels printed over each
        other. Inside the box is where it belongs anyway: the empty container
        is the thing being described, and the instruction keeps the bottom. */
-    ctx.fillText('AN EMPTY BOX', W/2, by+bh+Math.max(16,bh*0.05));
+    /* no 'AN EMPTY BOX' label: the clear cells say it, and on a phone the label ran into the note */
     ctx.restore();
   }
 }
