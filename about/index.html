@@ -85,6 +85,24 @@
 .ph .btn.onphoto:hover{background:linear-gradient(135deg,rgba(152,94,56,.62) 0%,rgba(60,38,22,.5) 100%);border-color:rgba(255,255,255,.7)}
 .materials img{object-position:50% 100%}
 @media (max-width:700px){ .materials img{object-position:50% 55%} .ph .btn.onphoto{margin-top:14px;min-height:40px} }
+
+/* Sept 3: the bracelet photograph is a portrait. Full-bleed at 2:1 it became
+   arms edge to edge - Clay: "works on mobile, not so much here". From 701px
+   up the band is a split like the homepage bands: copy on the left, the photo
+   standing tall on the right, face and bracelets together as on a phone. */
+@media (min-width:701px){
+  .materials{height:auto;min-height:0;background:var(--tint);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    align-items:center;gap:clamp(24px,4vw,60px);padding:clamp(40px,5.6vw,76px) max(var(--edge),calc((100% - 1080px)/2));overflow:visible}
+  .materials::after{display:none}
+  .materials picture{position:static;order:2;width:100%;max-width:520px;height:auto;aspect-ratio:4/5;justify-self:end;
+    border-radius:4px;overflow:hidden;background:var(--tint)}
+  .materials picture img{position:static;width:100%;height:100%;object-fit:cover;object-position:50% 38%}
+  .materials .wrap{position:static;height:auto;padding:0;margin:0;max-width:none;justify-content:center}
+  .materials h2{color:var(--ink,var(--fg));text-shadow:none;max-width:12ch}
+  .materials h2 em{color:var(--copper)}
+  .materials .btn.onphoto{color:var(--ink,var(--fg));border:1px solid rgba(152,94,56,.38);background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(152,94,56,.14),0 6px 18px rgba(152,94,56,.14);text-shadow:none}
+  .materials .btn.onphoto:hover{background:linear-gradient(135deg,rgba(216,158,112,.38) 0%,rgba(184,122,75,.2) 55%,rgba(255,255,255,.3) 100%);border-color:rgba(152,94,56,.6)}
+}
 </style>
 </head><body>
 <main>
