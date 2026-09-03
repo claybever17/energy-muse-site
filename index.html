@@ -2928,7 +2928,22 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
   else ready();
 })();
 </script>
-<script src="/assets/em-header.js?v=35" defer></script>
+<script src="/assets/em-header.js?v=36" defer></script>
+<script>
+/* The hero's band is the screen minus the header, and the header's height was
+   guessed in CSS - 178px with the announcement bar, 90 without. It is measured
+   now, and re-measured whenever the header changes: the bar dismissed, the bar
+   wrapping to two lines, the phone turned. Clay: "make sure when a user Xs the
+   quiz banner at top, the landing homepage image fills correctly". */
+document.addEventListener('DOMContentLoaded', function () {
+  var hero = document.querySelector('.hero'), emh = document.getElementById('emh');
+  if (!hero || !emh) return;
+  function fit () { hero.style.setProperty('--hdr', emh.offsetHeight + 'px'); }
+  fit();
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(emh);
+  window.addEventListener('orientationchange', function () { setTimeout(fit, 120); });
+});
+</script>
 <script src="assets/em-bag.js?v=10" defer></script>
 <script src="assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=9" defer></script>

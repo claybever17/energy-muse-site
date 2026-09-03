@@ -10,7 +10,13 @@ if(document.getElementById('emh'))return;
 
 function lum(){try{var m=getComputedStyle(document.body).backgroundColor.match(/\d+/g);
   if(!m)return 1;return (0.2126*m[0]+0.7152*m[1]+0.0722*m[2])/255;}catch(e){return 1;}}
-var dark=lum()<0.45;
+/* The palette used to be picked by measuring the body's background when the
+   script ran. On the About page on an iPhone that read as transparent - which
+   the maths calls black - so the bar went navy over a cream page. The site
+   has no dark design: light, unless a page says <html data-header="dark">,
+   and only then does the measurement matter. */
+var want=document.documentElement.getAttribute('data-header');
+var dark=want==='dark'||(want==='auto'&&lum()<0.45);
 var P=dark?{ink:'#F1EADF',soft:'#AEB9C8',stone:'#7C879A',line:'#243247',copper:'#C4855A',
             navbg:'rgba(10,17,28,.9)',annbg:'rgba(255,255,255,.03)',footbg:'#0B1320',menubg:'#0A111C'}
           :{ink:'#1D2739',soft:'#4E5A70',stone:'#8D8778',line:'#E4DCCB',copper:'#A9683E',
@@ -292,7 +298,9 @@ function boot(){
 
   var annx=frag.querySelector('.emh-annx');
   if(annx)annx.addEventListener('click',function(){
-    frag.querySelector('.emh-ann').style.display='none';
+    /* removed, not hidden: the homepage sizes its hero from whether the bar
+       is in the page, and a hidden bar still counted */
+    var a=frag.querySelector('.emh-ann'); if(a)a.parentNode.removeChild(a);
     try{sessionStorage.setItem('em-ann','off');}catch(e){}
   });
   var burger=frag.querySelector('.emh-burger'),close=menu.querySelector('.emh-close');
