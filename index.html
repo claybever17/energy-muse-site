@@ -1774,17 +1774,34 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
    The ivory mat, the tilt, the hover lift, the copper echo, the caption and
    the glare came off the jewelry and founders bands - Clay: "lets try more
    subtle changes". The layout, the headlines and the buttons stay put. */
-#jewelry .t3d,#about .t3d{background:transparent;padding:0;box-shadow:none;transform:none;border-radius:8px;}
-#jewelry .media:hover .t3d,#about .media:hover .t3d{transform:none;}
-#jewelry .t3d img,#about .t3d img{border-radius:8px;transform:none;}
-#jewelry .media::after,#about .media::after{display:none;}
+#jewelry .t3d,#about .t3d,#quiz .t3d{background:transparent;padding:0;box-shadow:none;transform:none;border-radius:8px;}
+#jewelry .media:hover .t3d,#about .media:hover .t3d,#quiz .media:hover .t3d{transform:none;}
+#jewelry .t3d img,#about .t3d img,#quiz .t3d img{border-radius:8px;transform:none;}
+#jewelry .media::after,#about .media::after,#quiz .media::after{display:none;}
 #about .t3d picture,#jewelry .t3d picture{display:block;height:100%;}
+
+/* ===== Sept 2: the waitlist button is bronze glass =====
+   Clay: "giv me a cool glass button here. cool bronze glass color no one has
+   ever seen". Glass tinted with the page's own copper: a warm gradient at low
+   alpha over the navy, the card's copper rings blurring through it, a hairline
+   of light along the top edge, cream type. Hover warms the tint; it does not
+   move. */
+.veza form button,.veza .btn-copper{
+  background:linear-gradient(135deg,rgba(216,158,112,.34) 0%,rgba(184,122,75,.22) 55%,rgba(152,94,56,.18) 100%);
+  color:#F7EEE2;border:1px solid rgba(240,199,156,.48);border-radius:999px;
+  backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);
+  box-shadow:inset 0 1px 0 rgba(255,240,220,.38),inset 0 -1px 0 rgba(0,0,0,.18),0 10px 30px rgba(0,0,0,.35);
+  text-shadow:0 1px 6px rgba(0,0,0,.25);transition:background .25s,border-color .25s,box-shadow .25s;}
+.veza form button:hover,.veza .btn-copper:hover{
+  background:linear-gradient(135deg,rgba(216,158,112,.48) 0%,rgba(184,122,75,.32) 55%,rgba(152,94,56,.26) 100%);
+  border-color:rgba(240,199,156,.7);box-shadow:inset 0 1px 0 rgba(255,240,220,.5),inset 0 -1px 0 rgba(0,0,0,.18),0 12px 34px rgba(0,0,0,.4);}
+.veza form button:focus-visible{outline:2px solid #F0C79C;outline-offset:3px;}
 
 /* ===== Sept 2: the bands' buttons go onto the photographs as glass, and each
    headline carries one italic copper word - the page's voice, from the hero
    ("personal.") and the words tile ("feel."). Clay: "we are back to the
    buttons and CTAs and text. ideas?? this cant be it." ===== */
-#jewelry h2 em,#about h2 em{font-style:italic;font-weight:300;color:var(--copper);}
+#jewelry h2 em,#about h2 em,#quiz h2 em{font-style:italic;font-weight:300;color:var(--copper);}
 .split .media .onphoto{position:absolute;left:14px;bottom:14px;z-index:4;min-height:42px;font-size:12.5px;padding:0 18px;
   background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:999px;
   backdrop-filter:blur(12px) saturate(1.2);-webkit-backdrop-filter:blur(12px) saturate(1.2);
@@ -1822,11 +1839,37 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   .int.int-words p{display:none;}
   .int.int-words h2{font-size:clamp(20px,5.8vw,25px);}
   .int.int-words .btn{margin-top:auto;font-size:11.5px;padding:0 14px;}
-  .veza .more{display:none;}
   /* the tile labels hold one line on a phone: the first word stays, the
      second goes with the width - Clay: "anyway we can one line the eyebrow
      texts? on mobile?" Desktop keeps both. */
   .int-label .n .more{display:none;}
+}
+
+/* ===== Sept 2: less on a phone =====
+   Clay: "lotta text, mobile especially". Most of it was the type scale: at
+   335px every section headline ran three lines. One notch down, page-wide,
+   and the same words hold two. The founders line holds one. */
+@media (max-width:840px){
+  .head > h2{font-size:27px;}          /* the big headlines, not the row labels inside .head */
+  .split h2{font-size:25px;}
+  .duo-card h2{font-size:23px;}
+  .final-cta h2{font-size:26px;}
+  #stories h2{font-size:24px;}         /* three sentences; two lines at this size */
+  #stories h2 span,#stories h2 .s{display:inline;}  /* the sentences flow rather than stack */
+  #stories h2 span + span::before,#stories h2 .s + .s::before{content:" ";}
+  #stories h2 br{display:none;}
+  /* the Learning Center's eyebrow is its title on a phone; the headline
+     stays for screen readers only */
+  .duo-card:not(.veza) h2{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:0;}
+  .duo-card:not(.veza) .eyebrow{font-size:12px;margin-bottom:6px;}
+  /* the copper wave marks read as stray rules between sections at this width */
+  .has-sine .sinemark{display:none;}
+  /* the shop's row label on a phone: the headline and the link, tight, and
+     the grid right under - Clay: "seems off". The sentence is the desktop's. */
+  .rowlabel{gap:8px 18px;}
+  .rowlabel p{display:none;}
+  .rowlabel .link{margin:0;}
+  .store .head{margin-bottom:18px;}
 }
 </style>
 
@@ -2069,12 +2112,12 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 <section class="section has-sine" id="quiz">
   <div class="sinemark a" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
   <div class="wrap split">
-    <div class="media portrait reveal" style="aspect-ratio:4/4.4"><div class="t3d"><img src="assets/img/clarity-quiz.jpg" alt="A woman resting a clear quartz point to her brow" loading="lazy" decoding="async"><span class="glare"></span></div><span class="plab">Clear quartz &middot; a first tool</span></div>
+    <div class="media portrait reveal" style="aspect-ratio:4/4.4"><div class="t3d"><img src="assets/img/clarity-quiz.jpg" alt="A woman resting a clear quartz point to her brow" loading="lazy" decoding="async"></div><a class="btn onphoto" href="quiz/">Find My Energy Match</a></div>
     <div class="copy reveal d1">
       <span class="eyebrow">The Energy Quiz</span>
-      <h2>Not sure where to begin?</h2>
-      <p>Tell us your focus, your practice style, and what fits your life. In a few minutes, you'll get your energy match: a starting point, a simple practice, and products chosen just for you.</p>
-      <div class="cta-row"><a href="quiz/" class="btn btn-copper">Find My Energy Match</a></div>
+      <h2>Not sure where to <em>begin?</em></h2>
+      <!-- two sentences; the button is on the photograph, as in the bands below -->
+      <p>Tell us your focus, your practice style, and what fits your life. In a few minutes, you'll get your energy match.</p>
     </div>
   </div>
 </section>
@@ -2185,11 +2228,9 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     <div class="duo-card veza reveal d1">
       <svg class="veza-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
       <span class="eyebrow">Veza &mdash; coming soon</span>
-      <h2>Personal guidance, made even more personal.</h2>
-      <!-- five lines on a phone; the middle clause names the product a second
-           time and goes there. Desktop keeps the whole sentence. -->
-      <p>A personal healer in your pocket<span class="more">. Veza is the coming Energy Muse companion</span> &mdash; here to help you
-        find your energy match and learn how to use it well.</p>
+      <h2>A personal healer in your pocket.</h2>
+      <!-- The paragraph's first clause became the headline and the rest went:
+           the eyebrow says coming soon, the form says join. -->
       <!-- This was onsubmit="return false" with no handler behind it: a form that
            looked real, accepted an address and silently discarded it. -->
       <form class="veza-form emf-plain" data-emform="veza-waitlist-home"
@@ -2210,7 +2251,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
      would be inventing customers. -->
 <section class="section" id="stories" aria-label="Customer stories">
   <div class="wrap">
-    <span class="eyebrow">Social proof</span>
+    <span class="eyebrow">Reviews</span>
     <h2 class="proof-h"><span class="s">Real energy.</span><span class="s">Real people.</span><span class="s">Real transformations.</span></h2>
     <div class="proof">
       <!-- Energy Muse's own customers, transcribed from the approved rewrite
@@ -2680,8 +2721,6 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
       alt: 'A woman in a denim jacket looking down at the pendant she is holding, on pale blue' },
     knit:     { base: 'em-hero-knit',     pos: '50% 22%', posMobile: '50% 0%',
       alt: 'A woman in a knit top holding an amethyst cluster to her forehead, on white' },
-    duo:      { base: 'em-hero-duo',      pos: '50% 0%',  posMobile: '50% 0%',
-      alt: 'The founders, Heather Askinosie and Timmi Jandro, standing in a field of wildflowers' },
     stacks:   { base: 'em-hero-stacks',   pos: '50% 38%', posMobile: '50% 30%',
       alt: 'A woman resting her chin on her hands, stacked crystal bracelets on both wrists' },
     wrist:    { base: 'em-hero-wrist',    pos: '50% 50%', posMobile: '50% 42%',
