@@ -292,7 +292,7 @@ html{scroll-padding-top:96px;}
 .hero{--hero-ink:#FFFFFF;--hero-soft:#E9E0D3;--hero-sub:#F0C79C;
   --hero-accent:#E8B183;--hero-shadow:0 2px 26px rgba(12,8,4,.5);}
 .hero-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:50% 55%;z-index:0;}
+  object-position:50% 42%;z-index:0;}
 /* the crop only ever slides sideways, and that is the axis that decides
    whether the device sits clear of the words. On a phone the frame is much
    narrower than the source, so it lifts to keep the product in view */
@@ -1966,11 +1966,11 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
             srcset="assets/img/life/em-hero-happy-p-600.webp 600w, assets/img/life/em-hero-happy-p-900.webp 900w, assets/img/life/em-hero-happy-p-1200.webp 1200w"
             sizes="100vw">
     <source type="image/webp"
-            srcset="assets/img/life/em-hero-med-1200.webp 1200w, assets/img/life/em-hero-med-1800.webp 1800w, assets/img/life/em-hero-med-2400.webp 2400w"
+            srcset="assets/img/life/em-hero-happy-1200.webp 1200w, assets/img/life/em-hero-happy-1800.webp 1800w, assets/img/life/em-hero-happy-2400.webp 2400w"
             sizes="100vw">
-    <img class="hero-shot" src="assets/img/life/em-hero-med.jpg"
+    <img class="hero-shot" src="assets/img/life/em-hero-happy.jpg"
          fetchpriority="high" decoding="async"
-         alt="Someone sitting in meditation on a mat, a wall of tall cacti behind them">
+         alt="A woman lying on teal, laughing, an arc of clear quartz laid around her head">
   </picture>
   <canvas class="herowave" id="herowave" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
@@ -2759,7 +2759,7 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
   function get(k) { var m = q.match(new RegExp('[?&]' + k + '=([^&]*)')); return m ? decodeURIComponent(m[1]) : ''; }
   var KEY = 'em-hero';
   function stored() { try { return localStorage.getItem(KEY) || ''; } catch (e) { return ''; } }
-  function store(v) { try { if (v) localStorage.setItem(KEY, v); else localStorage.removeItem(KEY); } catch (e) {} }
+  function store(v) { try { if (v && v !== 'happy') localStorage.setItem(KEY, v); else localStorage.removeItem(KEY); } catch (e) {} }
 
   /* in the order Clay ranked them; happy is the page's own (Sept 2) */
   var HEROES = {
@@ -2781,19 +2781,13 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
       alt: 'A wrist wearing crystal bracelets, resting on a towel on the sand' }
   };
 
-  /* The page's own is a pair - Clay: "this is best for desktop id say. can
-     we set that as desktop default, and mobile as happy?" - so the markup
-     carries med for desktops and happy for phones, and "no pick" means
-     that pair. A shared link wins over the remembered pick, and becomes it. */
-  var PHONE = window.matchMedia && matchMedia('(max-width:840px)').matches;
-  var OWN = PHONE ? 'happy' : 'med';
+  /* a shared link wins over the remembered pick, and becomes it */
   var hero = get('hero') || stored();
-  if (!HEROES[hero]) hero = '';
+  if (!HEROES[hero]) hero = 'happy';
   if (get('hero')) store(hero);
   var H = HEROES[hero];
-  if (!hero) { var own = document.querySelector('#heropic img'); if (own) own.alt = HEROES[OWN].alt; }
 
-  if (hero) {
+  if (hero !== 'happy') {
     var pic = document.getElementById('heropic');
     var src = pic ? pic.querySelectorAll('source') : [], img = pic ? pic.querySelector('img') : null;
     var P = '/assets/img/life/' + H.base;
@@ -2820,21 +2814,15 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 
     var strip = document.createElement('div');
     strip.className = 'hstrip'; strip.setAttribute('role', 'group'); strip.setAttribute('aria-label', 'Hero photograph');
-    var active = hero || OWN;
     strip.innerHTML = Object.keys(HEROES).map(function (k) {
-      var on = k === active;
+      var on = k === hero;
       return '<a class="ht' + (on ? ' on' : '') + '" href="' + location.pathname + '?hero=' + k + '" data-hero="' + k + '"'
         + (on ? ' aria-current="true"' : '') + ' aria-label="' + HEROES[k].alt.replace(/"/g, '&quot;') + '">'
         + '<img src="/assets/img/life/' + HEROES[k].base + '-p-600.webp" alt="" loading="lazy" decoding="async"></a>';
     }).join('');
     strip.addEventListener('click', function (e) {
       var a = e.target.closest ? e.target.closest('a[data-hero]') : null;
-      if (!a) return;
-      var k = a.getAttribute('data-hero');
-      /* picking this width's own photograph clears the memory, so the pair
-         comes back on both widths rather than one name winning everywhere */
-      if (k === OWN) { e.preventDefault(); store(''); location.href = location.pathname; return; }
-      store(k);
+      if (a) store(a.getAttribute('data-hero'));
     });
 
     function open(v) {
