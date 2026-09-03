@@ -103,6 +103,12 @@
   .materials .btn.onphoto{color:var(--ink,var(--fg));border:1px solid rgba(152,94,56,.38);background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(152,94,56,.14),0 6px 18px rgba(152,94,56,.14);text-shadow:none}
   .materials .btn.onphoto:hover{background:linear-gradient(135deg,rgba(216,158,112,.38) 0%,rgba(184,122,75,.2) 55%,rgba(255,255,255,.3) 100%);border-color:rgba(152,94,56,.6)}
 }
+/* Sept 3: the headlines are two short phrases so a phone never breaks them into
+   three lines with a stranded word (Clay). The materials line lives in the desktop
+   split only. */
+.materials p{color:var(--ink-soft);font-size:clamp(15.5px,1.2vw,18px);max-width:40ch;margin-top:10px}
+.materials .btn.onphoto{margin-top:20px}
+@media (max-width:700px){ .materials p{display:none} }
 </style>
 </head><body>
 <main>
@@ -113,12 +119,12 @@
     <img src="/assets/img/life/em-hero-duo.jpg" alt="Founders Heather Askinosie and Timmi Jandro" style="object-position:50% 28%" fetchpriority="high" decoding="async">
   </picture>
   <div class="wrap">
-    <h1>One necklace became a <em class="hl gemword">practice.</em></h1>
+    <h1>One necklace. A <em class="hl gemword">practice.</em></h1>
   </div>
 </section>
 <section class="sect say">
   <div class="wrap">
-    <h2>It started with the need for something <em class="hl gemword">real.</em></h2>
+    <h2>Made for something <em class="hl gemword">real.</em></h2>
     <p>The first necklace wasn&rsquo;t made to prove a belief. It was made to carry an intention into everyday life.</p>
   </div>
 </section>
@@ -133,7 +139,8 @@
     <img src="/assets/img/life/em-hero-stacks.jpg" alt="A woman resting her chin on her hands, four crystal bracelets stacked on her wrist" loading="lazy" decoding="async" style="object-position:50% 100%">
   </picture>
   <div class="wrap">
-    <h2>The materials evolve. The role stays the <em>same.</em></h2>
+    <h2>New materials, same <em>role.</em></h2>
+    <p>Copper, geometry, fixed frequencies, digital guidance.</p>
     <a class="btn onphoto" href="/craft/">Materials &amp; craft</a>
   </div>
 </section>
