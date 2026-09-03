@@ -1790,11 +1790,15 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   backdrop-filter:blur(12px) saturate(1.2);-webkit-backdrop-filter:blur(12px) saturate(1.2);
   box-shadow:0 8px 28px rgba(20,14,7,.22);text-shadow:0 1px 8px rgba(20,14,7,.3);transition:.22s;}
 .split .media .onphoto:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.65);}
-/* bottom-right on the wrist: bottom-left sat on the hand and the bracelets */
-#jewelry .media .onphoto{left:auto;right:14px;}
+/* The hand fills the wrist photograph's bottom-left to the edge, so a
+   bottom-left button sat on the fingers and bottom-right looked off - Clay:
+   "move to left.. i just think fingers look weird cut off by button". The
+   photograph is mirrored: the arm enters top-right, the hand rests
+   bottom-right, and the bottom-left corner is towel and sand for the button.
+   No asset touched. */
+#jewelry .t3d img{transform:scaleX(-1);}
 @media (max-width:840px){
   .split .media .onphoto{left:12px;bottom:12px;min-height:40px;font-size:12px;padding:0 16px;}
-  #jewelry .media .onphoto{left:auto;right:12px;}
 }
 
 /* ===== Sept 2: the words tile goes navy, the headline gets the hero's voice,
