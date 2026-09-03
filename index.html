@@ -1778,7 +1778,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 #jewelry .media:hover .t3d,#about .media:hover .t3d{transform:none;}
 #jewelry .t3d img,#about .t3d img{border-radius:8px;transform:none;}
 #jewelry .media::after,#about .media::after{display:none;}
-#about .t3d picture{display:block;height:100%;}
+#about .t3d picture,#jewelry .t3d picture{display:block;height:100%;}
 
 /* ===== Sept 2: the words tile goes navy, the headline gets the hero's voice,
    and a glass button - Clay: "play w the type, seems lacking.. and glass
@@ -2057,7 +2057,13 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 <!-- ===== JEWELRY ===== -->
 <section class="section band" id="jewelry">
   <div class="wrap split rev">
-    <div class="media portrait reveal" style="aspect-ratio:4/4.4"><div class="t3d"><img src="assets/img/jewelry.jpg?v=2" alt="Stacked crystal-bead bracelets in warm tones" loading="lazy" decoding="async"></div></div>
+    <!-- The bracelets worn, on a wrist, on the sand - jewelry in a life rather
+         than a product crop. Clay: "this may be the only section lacking on
+         the hompage". The frame and the crop rules are unchanged. -->
+    <div class="media portrait reveal" style="aspect-ratio:4/4.4"><div class="t3d"><picture>
+      <source type="image/webp" srcset="assets/img/life/em-hero-wrist-1200.webp 1200w, assets/img/life/em-hero-wrist-1800.webp 1800w, assets/img/life/em-hero-wrist-2400.webp 2400w" sizes="(max-width:840px) 100vw, 46vw">
+      <img src="assets/img/life/em-hero-wrist.jpg" alt="Stacked crystal-bead bracelets on a wrist, resting on a towel on the sand" style="object-position:50% 45%" loading="lazy" decoding="async">
+    </picture></div></div>
     <div class="copy reveal d1">
       <h2>Wear your energy.</h2>
       <!-- one sentence; "Wear your energy." already says the rest -->
