@@ -1790,9 +1790,11 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   backdrop-filter:blur(12px) saturate(1.2);-webkit-backdrop-filter:blur(12px) saturate(1.2);
   box-shadow:0 8px 28px rgba(20,14,7,.22);text-shadow:0 1px 8px rgba(20,14,7,.3);transition:.22s;}
 .split .media .onphoto:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.65);}
-#jewelry .cta-row{margin-top:18px;}
+/* bottom-right on the wrist: bottom-left sat on the hand and the bracelets */
+#jewelry .media .onphoto{left:auto;right:14px;}
 @media (max-width:840px){
   .split .media .onphoto{left:12px;bottom:12px;min-height:40px;font-size:12px;padding:0 16px;}
+  #jewelry .media .onphoto{left:auto;right:12px;}
 }
 
 /* ===== Sept 2: the words tile goes navy, the headline gets the hero's voice,
@@ -2104,11 +2106,9 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
            button, the designer becomes the arrow link the page already uses to
            close the crystal grid and the intention grid - so this section ends
            with one weight and one lighter offer instead of two of the same. -->
-      <!-- the shop button lives on the photograph now, as glass, the way the
-           hero's does; the designer stays here as the light offer -->
-      <div class="cta-row cta-row-lead">
-        <a href="designer/" class="link">Design your own <span class="a">&rarr;</span></a>
-      </div>
+      <!-- the shop button lives on the photograph, as glass, the way the
+           hero's does. The designer link that sat here is gone - Clay:
+           "remove this now"; the tools page and the footer still carry it. -->
     </div>
   </div>
 </section>
