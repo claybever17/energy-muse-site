@@ -156,6 +156,15 @@
 /* Sept 2: glass - the product page's Add to Bag joins the site's light glass */
 .bigadd{color:var(--ink,var(--fg));border:1px solid rgba(152,94,56,.38);border-radius:999px;background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(152,94,56,.14),0 8px 24px rgba(152,94,56,.16)}
 .bigadd:hover{background:linear-gradient(135deg,rgba(216,158,112,.38) 0%,rgba(184,122,75,.2) 55%,rgba(255,255,255,.3) 100%);border-color:rgba(152,94,56,.6)}
+
+/* Sept 3: the second button beside Add to Bag was a boxed ghost next to a
+   glass pill - "seems out of place". It is the arrow link the rest of the
+   site uses for the light offer. */
+.seeall{display:inline-flex;align-items:center;gap:.45em;min-height:44px;margin-left:14px;
+  font:600 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--copper);text-decoration:none}
+.seeall .a{transition:transform .25s}
+.seeall:hover{color:var(--copper-lo)}
+.seeall:hover .a{transform:translateX(3px)}
 </style>
 </head><body>
 <main>
@@ -332,7 +341,7 @@ function buildPanels(p){
     + '<div class="pbuy">'
     + (out ? '<span class="soldout">Currently unavailable</span>'
            : '<button class="bigadd" id="bigadd" type="button">Add to Bag</button>')
-    + '<a class="btn btn-ghost" href="' + p.home + '">See all ' + SEEALL(p.cat) + '</a>'
+    + '<a class="seeall" href="' + p.home + '">See all ' + SEEALL(p.cat) + ' <span class="a" aria-hidden="true">&rarr;</span></a>'
     + '</div>'
     + buildPanels(p)
     + '</div></div>';
