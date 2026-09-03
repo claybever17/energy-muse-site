@@ -19,7 +19,8 @@
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=16">
-<script src="/assets/em-header.js?v=32" defer></script>
+<script src="/assets/em-journal.js?v=1"></script>
+<script src="/assets/em-header.js?v=33" defer></script>
 <script src="/assets/em-bag.js?v=10" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
@@ -195,6 +196,26 @@
 .ref summary:hover h2{color:var(--copper)}
 .ref summary:focus-visible{outline:2px solid var(--copper);outline-offset:4px}
 .refbody{padding-top:clamp(6px,1vw,12px)}
+/* From the journal: the three latest posts, on the page where someone
+   curious already is. The card is the journal's own, cut down. */
+.jrow{display:flex;align-items:flex-end;justify-content:space-between;gap:18px 28px;flex-wrap:wrap}
+.jrow h2{font-family:var(--serif);font-weight:400;font-size:clamp(23px,2.6vw,34px);line-height:1.12;margin:0}
+.jrow p{margin:6px 0 0;font-size:13.5px;color:var(--ink-soft)}
+.jrow .link{margin:0 0 2px;white-space:nowrap}
+.jgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2.2vw,28px);margin-top:clamp(18px,2.4vw,28px)}
+.jcard{display:flex;flex-direction:column;text-decoration:none;color:inherit;min-width:0}
+.jcard .shot{aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:var(--tint);border:1px solid var(--hair)}
+.jcard .shot img{width:100%;height:100%;object-fit:cover;display:block}
+.jcard h3{font-family:var(--serif);font-weight:400;font-size:clamp(16px,1.6vw,19px);line-height:1.2;margin:12px 0 0}
+.jcard p{margin-top:6px;font-size:13px;color:var(--ink-soft);line-height:1.5}
+.jcard:hover h3{color:var(--copper)}
+@media (max-width:700px){
+  .jgrid{grid-template-columns:1fr;gap:18px}
+  .jcard{display:grid;grid-template-columns:112px minmax(0,1fr);grid-template-rows:auto auto;column-gap:14px;align-items:start}
+  .jcard .shot{grid-row:1/3;aspect-ratio:1}
+  .jcard h3{margin-top:0}
+  .jrow .link{flex-basis:100%}
+}
 </style>
 </head><body>
 <main>
@@ -274,6 +295,19 @@
      are the same kind of thing - what to do once you have finished reading -
      so they are now one block with two rows, and a near-empty section is
      gone from the page. -->
+<!-- ===== FROM THE JOURNAL =====
+     Nine articles were built at /blog/ and nothing on the site pointed at them.
+     The three latest sit here, where a reader who wants more already is. -->
+<section class="sect" id="journal">
+  <div class="wrap">
+    <div class="jrow">
+      <div><h2>From the journal.</h2><p>Practices, founder guidance and what to work with this month.</p></div>
+      <a class="link" href="/blog/">See all <span class="a">&rarr;</span></a>
+    </div>
+    <div class="jgrid" id="jgrid"></div>
+  </div>
+</section>
+
 <section class="sect tint">
   <div class="wrap">
     <div class="deeper">
@@ -298,6 +332,19 @@
 </section>
 
 </main>
+<script>
+(function(){
+  var host=document.getElementById('jgrid'),posts=window.EM_JOURNAL||[];
+  if(!host||!posts.length){ if(host) host.closest('section').remove(); return; }
+  function esc(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function trim(t,n){t=String(t||'');if(t.length<=n)return t;var c=t.slice(0,n),sp=c.lastIndexOf(' ');return (sp>n*.6?c.slice(0,sp):c).replace(/[,;:.\s]+$/,'')+'\u2026';}
+  host.innerHTML=posts.slice(0,3).map(function(p){
+    return '<a class="jcard" href="/blog/?post='+encodeURIComponent(p.slug)+'">'
+      +(p.img?'<span class="shot"><img src="'+p.img+'-600.webp" alt="" loading="lazy" decoding="async"></span>':'<span class="shot"></span>')
+      +'<h3>'+esc(p.title)+'</h3>'+(p.excerpt?'<p>'+esc(trim(p.excerpt,110))+'</p>':'')+'</a>';
+  }).join('');
+})();
+</script>
 <script>
 /* Built from em-frequencies.js, so the range, the names, the descriptions and
    the stock state are the same ones the shop sells. A guide that disagrees
