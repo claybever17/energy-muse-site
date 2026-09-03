@@ -292,7 +292,7 @@ html{scroll-padding-top:96px;}
 .hero{--hero-ink:#FFFFFF;--hero-soft:#E9E0D3;--hero-sub:#F0C79C;
   --hero-accent:#E8B183;--hero-shadow:0 2px 26px rgba(12,8,4,.5);}
 .hero-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:50% 26%;z-index:0;}
+  object-position:50% 42%;z-index:0;}
 /* the crop only ever slides sideways, and that is the axis that decides
    whether the device sits clear of the words. On a phone the frame is much
    narrower than the source, so it lifts to keep the product in view */
@@ -2598,28 +2598,24 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
 
   /* in the order Clay ranked them; happy is the page's own (Sept 2) */
   var HEROES = {
-    happy:    { base: 'em-hero-happy',    pos: '50% 26%', posMobile: '50% 36%',
+    happy:    { base: 'em-hero-happy',    pos: '50% 42%', posMobile: '50% 36%',
       alt: 'A woman lying on teal, laughing, an arc of clear quartz laid around her head' },
-    med:      { base: 'em-hero-med',      pos: '50% 62%', posMobile: '50% 42%',
+    med:      { base: 'em-hero-med',      pos: '50% 55%', posMobile: '50% 42%',
       alt: 'Someone sitting in meditation on a mat, a wall of tall cacti behind them' },
-    amethyst: { base: 'em-hero-amethyst', pos: '50% 49%', posMobile: '50% 100%',
+    amethyst: { base: 'em-hero-amethyst', pos: '50% 52%', posMobile: '50% 100%',
       alt: 'A woman in a denim jacket holding an amethyst cluster to her forehead, eyes closed' },
-    mono:     { base: 'em-hero-mono',     pos: '50% 50%', posMobile: '50% 100%',
+    mono:     { base: 'em-hero-mono',     pos: '50% 58%', posMobile: '50% 100%',
       alt: 'A woman in a black top holding an amethyst cluster to her forehead, eyes closed, on white' },
-    pendant:  { base: 'em-hero-pendant',  pos: '50% 44%', posMobile: '50% 0%',
+    pendant:  { base: 'em-hero-pendant',  pos: '50% 32%', posMobile: '50% 0%',
       alt: 'A woman in a denim jacket looking down at the pendant she is holding, on pale blue' },
-    knit:     { base: 'em-hero-knit',     pos: '50% 18%', posMobile: '50% 0%',
+    knit:     { base: 'em-hero-knit',     pos: '50% 22%', posMobile: '50% 0%',
       alt: 'A woman in a knit top holding an amethyst cluster to her forehead, on white' },
     duo:      { base: 'em-hero-duo',      pos: '50% 0%',  posMobile: '50% 0%',
       alt: 'The founders, Heather Askinosie and Timmi Jandro, standing in a field of wildflowers' },
     stacks:   { base: 'em-hero-stacks',   pos: '50% 38%', posMobile: '50% 30%',
       alt: 'A woman resting her chin on her hands, stacked crystal bracelets on both wrists' },
-    hands:    { base: 'em-hero-hands',    pos: '50% 50%', posMobile: '50% 40%',
-      alt: 'Three hands meeting on the sand, crystal bracelets on each wrist' },
     wrist:    { base: 'em-hero-wrist',    pos: '50% 50%', posMobile: '50% 42%',
-      alt: 'A wrist wearing crystal bracelets, resting on a towel on the sand' },
-    geode:    { base: 'em-hero-geode',    pos: '50% 46%', posMobile: '50% 40%',
-      alt: 'A hand reaching for an amethyst geode on a wooden dresser by a window' }
+      alt: 'A wrist wearing crystal bracelets, resting on a towel on the sand' }
   };
 
   /* a shared link wins over the remembered pick, and becomes it */
