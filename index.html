@@ -1935,6 +1935,13 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   .rowlabel p{display:none;}
   .rowlabel .link{margin:0;}
   .store .head{margin-bottom:18px;}
+  /* six cards two-up ran three screens on a phone - Clay: "should we make
+     this 4? not 6?". Four on a phone, a clean two by two; the desktop row
+     keeps all six across. The category line under the name goes with it:
+     the name and the price are the card. */
+  .store-grid > .pcard:nth-child(n+5){display:none;}
+  .store-grid .pcard .pc{display:none;}
+  .store-grid .pcard .pn{min-height:0;}
   /* the Learning Center rows: the descriptor that pushed the arrow to the
      edge is hidden on phones, so the arrow sat wherever the title ended -
      next to a short one, at the edge after a wrapped one. The title takes
