@@ -122,8 +122,16 @@ p+p{margin-top:16px}
   font-weight:600;font-size:14px;padding:15px 28px;border-radius:3px;border:1px solid transparent;
   text-decoration:none;cursor:pointer;transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s,color .3s,border-color .3s}
 .btn:hover{transform:translateY(-2px)}
-.btn-copper{background:var(--copper);color:#fff}
-.btn-copper:hover{background:var(--copper-lo)}
+/* Sept 2: the homepage's light glass, site-wide. Copper at low alpha over the
+   cream, a copper hairline, ink type, a thread of light along the top. Every
+   copper button on the site sits on a cream or tint ground, so one rule. */
+.btn-copper{color:var(--ink);border:1px solid rgba(152,94,56,.38);border-radius:999px;
+  background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);
+  backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(152,94,56,.14),0 8px 24px rgba(152,94,56,.16);
+  transition:background .25s,border-color .25s,box-shadow .25s}
+.btn-copper:hover{background:linear-gradient(135deg,rgba(216,158,112,.38) 0%,rgba(184,122,75,.2) 55%,rgba(255,255,255,.3) 100%);
+  border-color:rgba(152,94,56,.6)}
 .btn-ghost{background:transparent;color:var(--ink);border-color:color-mix(in srgb,var(--ink) 32%,transparent)}
 .btn-ghost:hover{border-color:var(--ink)}
 .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}

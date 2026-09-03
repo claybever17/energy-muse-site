@@ -240,7 +240,12 @@ session needs to know:
 - **Light, for the cream ground** (`.btn.glass-lt`: the quiz button, the
   signup's JOIN): copper at low alpha, copper hairline border, ink type,
   whatever is behind it blurring through.
-Navy filled buttons are gone from the homepage.
+Navy filled buttons are gone from the homepage. Later the same day the
+light recipe went site-wide: `.btn-copper` in `em-page.css` IS the light
+glass now (every copper button sits on a cream or tint ground), and the
+shared footer's JOIN in `em-header.js` picks light or bronze by the
+footer's own ground. The homepage repeats the `.btn-copper` rule inline
+because it does not load `em-page.css`.
 
 ### The bands (jewelry, founders, quiz)
 Mats, tilt, copper echo, caption and glare are off all three photographs.
@@ -266,6 +271,10 @@ The Learning Center's eyebrow is its title on phones; Veza's headline is
 "A personal healer in your pocket." with its paragraph desktop-only;
 "Social proof" reads Reviews; the shop's row label is headline + link.
 Copper wave marks (`.sinemark`) are off on phones.
+
+### The share image
+`assets/og.jpg` is the hero (happy) at 2400x1260, and every page's
+`og:image:alt` says so. It was a generator on a wood floor.
 
 ### Ways in that did not exist
 - The journal (`/blog/`) is linked from the shared footer, the homepage
