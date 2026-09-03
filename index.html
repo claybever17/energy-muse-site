@@ -1797,6 +1797,20 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   border-color:rgba(240,199,156,.7);box-shadow:inset 0 1px 0 rgba(255,240,220,.5),inset 0 -1px 0 rgba(0,0,0,.18),0 12px 34px rgba(0,0,0,.4);}
 .veza form button:focus-visible{outline:2px solid #F0C79C;outline-offset:3px;}
 
+/* ===== Sept 2: the desktop holes =====
+   Clay: "now there is too much blank space on desktop.. but im loving mobile
+   a lot". One sentence beside a photograph over 500px tall left a column of
+   cream; the Veza card stretched to the Learning Center's height with
+   nothing in its lower half. */
+@media (min-width:841px){
+  /* the bands' copy centres against the photograph */
+  #jewelry .split .copy,#about .split .copy{align-self:center;padding-top:0;}
+  /* Veza: the words at the head, the form at the foot, the rings in between */
+  .duo-card.veza{display:flex;flex-direction:column;}
+  .duo-card.veza form{margin-top:auto;}
+  .veza-rings{width:min(70%,440px);height:auto;aspect-ratio:1;right:-9%;top:50%;transform:translateY(-46%);opacity:.32;}
+}
+
 /* ===== Sept 2: the bands' buttons go onto the photographs as glass, and each
    headline carries one italic copper word - the page's voice, from the hero
    ("personal.") and the words tile ("feel."). Clay: "we are back to the
@@ -1864,6 +1878,9 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   .duo-card:not(.veza) .eyebrow{font-size:12px;margin-bottom:6px;}
   /* the copper wave marks read as stray rules between sections at this width */
   .has-sine .sinemark{display:none;}
+  /* copy that only the desktop has room for - Clay: "can also have more
+     text on desktop if needed" */
+  .desk{display:none;}
   /* the shop's row label on a phone: the headline and the link, tight, and
      the grid right under - Clay: "seems off". The sentence is the desktop's. */
   .rowlabel{gap:8px 18px;}
@@ -2134,14 +2151,14 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     <!-- The bracelets worn, on a wrist, on the sand - jewelry in a life rather
          than a product crop. Clay: "this may be the only section lacking on
          the hompage". The frame and the crop rules are unchanged. -->
-    <div class="media portrait reveal" style="aspect-ratio:4/4.4"><div class="t3d"><picture>
+    <div class="media portrait reveal" style="aspect-ratio:3/2"><div class="t3d"><picture>
       <source type="image/webp" srcset="assets/img/life/em-hero-wrist-1200.webp 1200w, assets/img/life/em-hero-wrist-1800.webp 1800w, assets/img/life/em-hero-wrist-2400.webp 2400w" sizes="(max-width:840px) 100vw, 46vw">
       <img src="assets/img/life/em-hero-wrist.jpg" alt="Stacked crystal-bead bracelets on a wrist, resting on a towel on the sand" style="object-position:50% 45%" loading="lazy" decoding="async">
     </picture></div><a class="btn onphoto" href="jewelry/">Shop the jewelry</a></div>
     <div class="copy reveal d1">
       <h2>Wear your <em>energy.</em></h2>
       <!-- one sentence; "Wear your energy." already says the rest -->
-      <p>The reminder you reach for before a big moment.</p>
+      <p><span class="desk">Jewelry can be more than something beautiful. </span>The reminder you reach for before a big moment.</p>
       <!-- This was href="#". The one call to action in the jewelry section led
            nowhere, which is most of why the section reads as absent: the path
            in is "Wear it" -> this section -> a dead end. The Atelier is the
@@ -2186,7 +2203,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
            three and it is the headline now; the sentence that repeated it in
            twelve words is gone; the lede is the actual thought and stays. -->
       <h2>Twenty years of <em>knowing.</em></h2>
-      <p class="lede-m">Energy is invisible &mdash; which is exactly why it&rsquo;s so easy to overlook.</p>
+      <p class="lede-m">Energy is invisible &mdash; which is exactly why it&rsquo;s so easy to overlook.<span class="desk"> But small shifts in your energy can lead to the biggest transformations in your life.</span></p>
       <!-- one sentence; the rest is told at length on /about/, where the button on the photograph goes -->
       <!-- Two buttons that read as the same errand, and /about/ carries a link
            to Heather twice over, so the second one was asking for a click to
@@ -2235,8 +2252,11 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
       <svg class="veza-rings" viewBox="0 0 231.33 238.67" aria-hidden="true"><use href="#em-markline"/></svg>
       <span class="eyebrow">Veza &mdash; coming soon</span>
       <h2>A personal healer in your pocket.</h2>
-      <!-- The paragraph's first clause became the headline and the rest went:
-           the eyebrow says coming soon, the form says join. -->
+      <!-- The paragraph's first clause became the headline. The rest is
+           desktop-only, where the card has the room; a phone gets the
+           headline, the form and the note. -->
+      <p class="desk">Veza is the coming Energy Muse companion &mdash; here to help you find your
+        energy match and learn how to use it well.</p>
       <!-- This was onsubmit="return false" with no handler behind it: a form that
            looked real, accepted an address and silently discarded it. -->
       <form class="veza-form emf-plain" data-emform="veza-waitlist-home"
