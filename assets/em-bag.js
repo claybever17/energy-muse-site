@@ -97,7 +97,7 @@ function build(){
     '<div class="embag-items" id="embag-items"></div>'+
     '<div class="embag-foot"><div class="embag-sub"><span>Subtotal</span><b id="embag-sub"></b></div>'+
     '<button class="embag-go" id="embag-go">Checkout</button>'+
-    '<div class="embag-note">Prototype bag &mdash; saved on this device. Checkout connects when the store goes live.</div></div>';
+    '<div class="embag-note">Saved on this device. Checkout connects when the store goes live.</div></div>';
   document.body.appendChild(veil);document.body.appendChild(drawer);
   drawer.querySelector('.embag-x').addEventListener('click',close);
   itemsEl=drawer.querySelector('#embag-items');
