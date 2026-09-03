@@ -1769,6 +1769,16 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
    the lower one. */
 .trust{padding-block:clamp(26px,3.4vw,40px);}
 #intention{padding-top:0;}
+
+/* ===== Sept 2: the two photographs are photographs, not prints =====
+   The ivory mat, the tilt, the hover lift, the copper echo, the caption and
+   the glare came off the jewelry and founders bands - Clay: "lets try more
+   subtle changes". The layout, the headlines and the buttons stay put. */
+#jewelry .t3d,#about .t3d{background:transparent;padding:0;box-shadow:none;transform:none;border-radius:8px;}
+#jewelry .media:hover .t3d,#about .media:hover .t3d{transform:none;}
+#jewelry .t3d img,#about .t3d img{border-radius:8px;transform:none;}
+#jewelry .media::after,#about .media::after{display:none;}
+#about .t3d picture{display:block;height:100%;}
 </style>
 
 
@@ -2021,14 +2031,11 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 <!-- ===== JEWELRY ===== -->
 <section class="section band" id="jewelry">
   <div class="wrap split rev">
-    <div class="media portrait reveal" style="aspect-ratio:4/4.4"><div class="t3d"><img src="assets/img/jewelry.jpg?v=2" alt="Stacked crystal-bead bracelets in warm tones" loading="lazy" decoding="async"><span class="glare"></span></div><span class="plab">Intention, layered</span></div>
+    <div class="media portrait reveal" style="aspect-ratio:4/4.4"><div class="t3d"><img src="assets/img/jewelry.jpg?v=2" alt="Stacked crystal-bead bracelets in warm tones" loading="lazy" decoding="async"></div></div>
     <div class="copy reveal d1">
-      <span class="eyebrow">Wear the intention</span>
       <h2>Wear your energy.</h2>
-      <!-- Five lines on a phone, and the last three are three ways of saying the
-           same thing. The first two sentences carry it. -->
-      <p>Jewelry can be more than something beautiful. It can be the reminder you
-        reach for before a big moment.</p>
+      <!-- one sentence; "Wear your energy." already says the rest -->
+      <p>The reminder you reach for before a big moment.</p>
       <!-- This was href="#". The one call to action in the jewelry section led
            nowhere, which is most of why the section reads as absent: the path
            in is "Wear it" -> this section -> a dead end. The Atelier is the
@@ -2062,7 +2069,12 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 <section class="section has-sine" id="about">
   <div class="sinemark c" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
   <div class="wrap split">
-    <div class="media rect reveal" style="aspect-ratio:3/2"><div class="t3d"><img src="assets/img/founders.jpg" alt="Founders Heather Askinosie and Timmi Jandro" style="object-position:50% 25%" loading="lazy" decoding="async"><span class="glare"></span></div><span class="plab">Heather &amp; Timmi</span></div>
+    <!-- the same frame at full resolution: the field photograph from the second
+         Drive drop, in place of the 1200px copy -->
+    <div class="media rect reveal" style="aspect-ratio:3/2"><div class="t3d"><picture>
+      <source type="image/webp" srcset="assets/img/life/em-hero-duo-1200.webp 1200w, assets/img/life/em-hero-duo-1800.webp 1800w, assets/img/life/em-hero-duo-2400.webp 2400w" sizes="(max-width:840px) 100vw, 60vw">
+      <img src="assets/img/life/em-hero-duo.jpg" alt="Founders Heather Askinosie and Timmi Jandro" style="object-position:50% 25%" loading="lazy" decoding="async">
+    </picture></div></div>
     <div class="copy reveal d1">
       <span class="big-num" aria-hidden="true">20<i>+</i></span>
       <!-- Three lines that said one thing. The eyebrow was the best line of the
@@ -2070,11 +2082,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
            twelve words is gone; the lede is the actual thought and stays. -->
       <h2>Twenty years of knowing.</h2>
       <p class="lede-m">Energy is invisible &mdash; which is exactly why it&rsquo;s so easy to overlook.</p>
-      <!-- The remaining four sentences - the necklace, the belief, the founders by
-           name - are told at greater length on /about/, which is where the button
-           under this goes. Carrying them here as well made a column so much taller
-           than the photograph beside it that the section ended in dead space. -->
-      <p>But small shifts in your energy can lead to the biggest transformations in your life.</p>
+      <!-- one sentence; the rest is told at length on /about/, where the button goes -->
       <!-- Two buttons that read as the same errand, and /about/ carries a link
            to Heather twice over, so the second one was asking for a click to
            reach something the first click already offers. -->
