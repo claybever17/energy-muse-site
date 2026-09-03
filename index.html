@@ -1949,6 +1949,42 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   .guide-list a{align-items:center;}
   .guide-list a span{flex:1 1 auto;min-width:0;font-size:17px;}
 }
+
+/* ===== Sept 3: the shop row - pieces on the cream, not in boxes =====
+   Clay: "this is no webby" - and "AND MOBILE TOO". The product images are
+   transparent cutouts, so the white card around each one was the whole
+   problem: six white boxes on cream is the stock-theme grid. The piece sits
+   on the ground with a contact shadow, the name and the price under it in
+   the serif, and the add is the bag glyph the intention pages use, in the
+   light glass, top-right of the piece. */
+.pcard{background:transparent;border:0;box-shadow:none;padding:0 0 4px;overflow:visible;}
+.pcard:hover{transform:translateY(-4px);border-color:transparent;box-shadow:none;}
+.pcard .shot{aspect-ratio:1;max-height:none;margin-bottom:10px;background:transparent;}
+.pcard .shot img{max-width:90%;max-height:90%;filter:drop-shadow(0 16px 22px rgba(61,41,23,.16));transition:transform .4s cubic-bezier(.16,1,.3,1);}
+.pcard:hover .shot img{transform:translateY(-3px);}
+.pcard .pn{font-size:16px;line-height:1.25;min-height:0;}
+.pcard .pc{display:none;}
+.pcard .pf{margin-top:4px;padding-top:0;justify-content:flex-start;}
+.pcard .pp{font-size:15px;color:var(--copper-lo);}
+.pcard .padd{position:absolute;right:6px;top:6px;width:40px;height:40px;padding:0;border-radius:999px;display:grid;place-items:center;
+  border:1px solid rgba(152,94,56,.38);color:var(--ink);font-size:0;letter-spacing:0;text-transform:none;
+  background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);
+  backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 6px 18px rgba(152,94,56,.14);transition:background .2s,border-color .2s,color .2s;}
+.pcard .padd svg{width:17px;height:17px;display:block;stroke-width:1.5;}
+.pcard .padd:hover{background:linear-gradient(135deg,rgba(216,158,112,.4) 0%,rgba(184,122,75,.22) 55%,rgba(255,255,255,.3) 100%);border-color:rgba(152,94,56,.6);color:var(--ink);}
+.pcard .padd.done{background:var(--copper);border-color:var(--copper);color:#fff;}
+.pcard .padd:focus-visible{outline:2px solid var(--copper);outline-offset:2px;}
+/* and then no glyph at all - Clay: "just remove bag symbols all together?
+   ... nah remove em". The piece links to its product page, where Add to
+   Bag lives; a second ask on the photograph was one too many. */
+.pcard .padd{display:none;}
+@media (max-width:560px){
+  .store-grid{gap:18px 12px;}
+  .pcard{padding:0;}
+  .pcard .pn{font-size:14.5px;}
+  .pcard .pp{font-size:14px;}
+}
 </style>
 
 
@@ -2110,7 +2146,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
            the thing. The line about how the pieces are chosen stays: it is the
            only sentence here that says something. -->
       <div class="rowlabel">
-        <div><h2>One for each intention.</h2><p>Chosen by hand and photographed as it arrives.</p></div>
+        <div><h2>One for each <em class="hl gemword">intention.</em></h2></div>
         <a class="link" href="gems/">Shop all crystals <span class="a">&rarr;</span></a>
       </div>
     </div>
@@ -2609,7 +2645,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
         +'<img src="'+p.img+'" alt="'+String(p.name).replace(/"/g,'')+'" loading="lazy"></a>'
         +'<div class="pn">'+p.name+'</div><div class="pc">'+(EM_CATALOG.label(p.group)||p.cat)+'</div>'
         +'<div class="pf"><span class="pp">$'+p.price.toFixed(2)+'</span>'
-        +'<button class="padd" type="button" data-id="'+encodeURIComponent(p.id)+'">Add</button></div>'
+        +'<button class="padd" type="button" data-id="'+encodeURIComponent(p.id)+'" aria-label="Add '+String(p.name).replace(/"/g,'')+' to bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.4 3h9.2l2.4 3.6v12.2a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6.6Z"/><path d="M5 6.6h14"/><path d="M15.4 10.2a3.4 3.4 0 0 1-6.8 0"/></svg></button></div>'
         +'</article>';
     }).join('');
     host.addEventListener('click',function(e){
@@ -2617,8 +2653,8 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
       var it=window.EM_CATALOG.get(decodeURIComponent(b.getAttribute('data-id')));
       if(!it)return;
       EMBag.add({id:it.id,name:it.name,price:it.price,img:it.img,link:it.home||'/shop/'});
-      b.textContent='Added'; b.disabled=true;
-      setTimeout(function(){b.textContent='Add'; b.disabled=false;},1400);
+      b.classList.add('done'); b.disabled=true;
+      setTimeout(function(){b.classList.remove('done'); b.disabled=false;},1400);
     });
   })();
 
