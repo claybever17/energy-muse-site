@@ -291,6 +291,9 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 .btn-c{color:var(--fg);border:1px solid rgba(152,94,56,.38);border-radius:999px;background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(152,94,56,.14),0 8px 24px rgba(152,94,56,.16)}
 .btn-c:hover{background:linear-gradient(135deg,rgba(216,158,112,.38) 0%,rgba(184,122,75,.2) 55%,rgba(255,255,255,.3) 100%);border-color:rgba(152,94,56,.6)}
 .btn-c:disabled{background:rgba(228,220,203,.6);color:var(--stone);border-color:var(--hair);box-shadow:none;backdrop-filter:none}
+/* Sept 3: the title came off the head, so the name field rose into the row the
+   back link and the bag pill sit on (they are absolute there). Room for them. */
+@media (min-width:901px){ .head{padding-top:62px} }
 </style>
 <script src="/assets/em-frequencies.js?v=4"></script>
 <script src="/assets/em-catalog.js?v=23"></script>
