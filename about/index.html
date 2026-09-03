@@ -25,112 +25,92 @@
 <script src="/assets/em-depth.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=9" defer></script>
 <style>
+/* ===== Sept 3: the About rebuilt photo-first - Clay: "weak, text HEAVYYYY,
+   especially on mobile". Two photographs carry the page; the copy is one line
+   under each heading. The founders' portrait is the hero, the generator in a
+   living room is the materials band, both composed like the homepage bands:
+   picture full-bleed, words bottom-left over a scrim. */
+.ph{position:relative;overflow:hidden;background:var(--tint);padding:0;border-top:0}
+.ph::before{display:none}
+.ph picture,.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.ph::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to top,rgba(24,18,12,.66) 0%,rgba(24,18,12,.3) 36%,rgba(24,18,12,0) 62%)}
+.ph .wrap{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;
+  padding-bottom:clamp(26px,3.6vw,48px)}
+.ph h1,.ph h2,.ph p{color:#FBF6EE}
+.ph h1 em.gemword,.ph h2 em.gemword,.ph h2 em{color:#EAC09A;font-style:italic;font-weight:300}
+.ph .lead{color:rgba(251,246,238,.88);margin-top:10px;max-width:44ch}
+.ph h1{text-shadow:0 2px 24px rgba(0,0,0,.25)}
+.about-hero{aspect-ratio:2/1;max-height:640px;min-height:400px}
+.materials{aspect-ratio:21/9;max-height:560px;min-height:360px}
+.materials h2{font-size:clamp(28px,3.4vw,44px);max-width:16ch;text-wrap:balance}
+.materials h2 em{font-style:italic;font-weight:300}
+.materials p{margin-top:8px;max-width:40ch;font-size:clamp(15.5px,1.2vw,18px);color:rgba(251,246,238,.88)}
+
+/* the statement: one heading, one sentence */
+.say .wrap{max-width:760px}
+.say h2{max-width:18ch;text-wrap:balance}
+.say p{margin-top:14px;font-size:clamp(17px,1.4vw,20px);color:var(--ink-soft);max-width:48ch;text-wrap:balance}
+
+/* the founders */
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,60px);align-items:center}
-.duo.flip .duo-img{order:-1}
 .duo-img{border-radius:4px;overflow:hidden;background:var(--tint)}
 .duo-img img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3}
+.duo p{text-wrap:balance}
+.duo h2{margin-bottom:12px}
+.duo .cta-row{margin-top:22px}
+.cols p{text-wrap:balance}
 
-/* em-page.css balances ".sect > .wrap > p"; wrapping these in .duo moved
-   them out of that selector and the two-word orphans came back. */
-.duo p,.cols p{text-wrap:balance}
-.duo h2{margin-bottom:14px}
-.duo p + p{margin-top:14px}
 @media (max-width:820px){
-  .duo{grid-template-columns:1fr;gap:22px}
-  /* Every .duo used to put its picture last on a phone except .flip, which put
-     its picture first - so the flip section's image landed directly under the
-     previous section's image and the page showed two photographs in a row with
-     only a section boundary between them. Text then picture, every time, so the
-     page alternates instead. */
-  .duo.flip .duo-img{order:1}
-  /* except the founders, where the picture leads: its column ends with the
-     call to action, so a trailing image put the photograph below the buttons. */
+  .duo{grid-template-columns:1fr;gap:20px}
   .duo.lead-img .duo-img{order:-1}
-  /* 16/9 against a 1400x1400 source discards 44% of its height, and cover
-     centres what is left - so the pendant and the hand under it went off the
-     bottom of one picture and the generator off the bottom of the other. 4/3
-     keeps enough of a square to hold its subject; where the subject still is
-     not centred, the image carries its own object-position. */
-  .duo-img img{aspect-ratio:4/3}
 }
-
-/* Four paragraphs of five lines each read as a wall on a phone and as ordinary
-   prose on a desktop, so the desktop keeps every word. What the short versions
-   drop is the abstraction - "ecosystem", "inaccessible expertise", "operational,
-   relational, and community perspective" - never a name, a number or a claim.
-
-   Base first, media query second. Written the other way round the base rule
-   wins at every width and the short copy never appears at all. */
-.sm-only{display:none}
 @media (max-width:700px){
-  .sm-hide{display:none}
-  .sm-only{display:block}
+  .about-hero{aspect-ratio:auto;height:min(76svh,640px);min-height:440px;max-height:none}
+  .about-hero h1{font-size:34px}
+  .ph .lead{font-size:15.5px;margin-top:8px}
+  .materials{aspect-ratio:4/5;max-height:none;min-height:0}
+  .materials h2{font-size:27px}
+  .materials p{font-size:15px}
+  /* the four values keep their titles only on a phone */
+  .cols p{display:none}
+  .cols>*{grid-template-columns:1fr;padding-block:12px}
 }
 
-/* Sept 2: glass - the one navy button left on the site, "Shop All", takes the light glass */
-.btn-primary{color:var(--ink,var(--fg));border:1px solid rgba(152,94,56,.38);border-radius:999px;background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(152,94,56,.14),0 8px 24px rgba(152,94,56,.16);transition:background .25s,border-color .25s}
+/* Sept 2: glass - "Shop all" takes the light glass */
+.btn-primary{color:var(--ink,var(--fg));border:1px solid rgba(152,94,56,.38);border-radius:999px;background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(152,94,56,.14),0 6px 18px rgba(152,94,56,.14);transition:background .25s,border-color .25s}
 .btn-primary:hover{background:linear-gradient(135deg,rgba(216,158,112,.38) 0%,rgba(184,122,75,.2) 55%,rgba(255,255,255,.3) 100%);border-color:rgba(152,94,56,.6);transform:none;filter:none}
 </style>
 </head><body>
 <main>
-<section class="sect">
+<section class="sect ph about-hero">
+  <picture>
+    <source type="image/webp" media="(max-width:700px)" srcset="/assets/img/life/em-hero-duo-p-600.webp 600w, /assets/img/life/em-hero-duo-p-900.webp 900w, /assets/img/life/em-hero-duo-p-1200.webp 1200w" sizes="100vw">
+    <source type="image/webp" srcset="/assets/img/life/em-hero-duo-1200.webp 1200w, /assets/img/life/em-hero-duo-1800.webp 1800w, /assets/img/life/em-hero-duo-2400.webp 2400w" sizes="100vw">
+    <img src="/assets/img/life/em-hero-duo.jpg" alt="Founders Heather Askinosie and Timmi Jandro" style="object-position:50% 28%" fetchpriority="high" decoding="async">
+  </picture>
   <div class="wrap">
     <h1>One necklace became a <em class="hl gemword">practice.</em></h1>
-    <!-- The lede ran to two sentences and the second was the same inventory, told again below.
-      On a phone that is eleven lines of type before the page has shown
-      anything. The first sentence carries the idea on its own. -->
-      <p class="lead sm-hide">Energy Muse began with founders Heather Askinosie and Timmi Jandro, and a simple idea: the objects we choose can help us stay connected to an intention.</p><p class="lead sm-only">Heather Askinosie and Timmi Jandro began with one idea: the objects we choose can keep us connected to an intention.</p>
-    <!-- No call to action here on purpose. A hero button that leaves the page
-         asks the reader to abandon the thing they just chose to look at, before
-         they have seen any of it - and what this page is for is directly below.
-         The same fault /jewelry/ and /sets/ had. A hero CTA earns its place only
-         when it leads somewhere the page itself cannot go: /affiliates/,
-         /heather/ and /veza/ keep theirs because they jump to a form 700-1700px
-         down, and /intention/ keeps its five because choosing between them is
-         the whole point of the page. -->
   </div>
 </section>
-
+<section class="sect say">
+  <div class="wrap">
+    <h2>It started with the need for something <em class="hl gemword">real.</em></h2>
+    <p>The first necklace wasn&rsquo;t made to prove a belief. It was made to carry an intention into everyday life.</p>
+  </div>
+</section>
+<section class="sect ph materials">
+  <img src="/assets/img/life/em-room-generator.jpg"
+    srcset="/assets/img/life/em-room-generator-480.jpg 480w, /assets/img/life/em-room-generator-900.jpg 900w, /assets/img/life/em-room-generator.jpg 1400w"
+    sizes="100vw" style="object-position:50% 58%"
+    alt="A frequency generator held on the lap, in a living room" loading="lazy" decoding="async">
+  <div class="wrap">
+    <h2>The materials evolve. The role stays the <em>same.</em></h2>
+  </div>
+</section>
 <section class="sect tint">
   <div class="wrap">
-   <div class="duo">
-    <div>
-    <h2>It started with the need for something real.</h2>
-    <p class="sm-hide">Heather&rsquo;s work with crystals and energy practices, combined with Timmi&rsquo;s ability to build connection and community, shaped a brand focused on usable guidance rather than inaccessible expertise.</p><p class="sm-only">Heather brought the crystals and the practice, Timmi the community &mdash; guidance you can use, not expertise out of reach.</p>
-    <p>The first necklace wasn&rsquo;t created to prove a belief. It was created to help carry an intention into everyday life.</p>
-    </div>
-    <div class="duo-img"><img src="/assets/img/life/em-windowsill.jpg"
-      srcset="/assets/img/life/em-windowsill-480.jpg 480w, /assets/img/life/em-windowsill-900.jpg 900w, /assets/img/life/em-windowsill.jpg 1400w"
-      sizes="(max-width:820px) 92vw, 480px"
-      style="object-position:50% 62%"
-      alt="Crystal pendants hung on a windowsill at home" loading="lazy" decoding="async"></div>
-   </div>
-  </div>
-</section>
-
-<section class="sect">
-  <div class="wrap">
-   <div class="duo flip">
-    <!-- Was generator-render.jpg, a bare product render on white. This section is
-         about the objects living in a real life, so it shows one doing that.
-         From Energy Muse's own Shopify photography. -->
-    <div class="duo-img"><img src="/assets/img/life/em-room-generator.jpg"
-      srcset="/assets/img/life/em-room-generator-480.jpg 480w, /assets/img/life/em-room-generator-900.jpg 900w, /assets/img/life/em-room-generator.jpg 1400w"
-      sizes="(max-width:820px) 92vw, 480px"
-      style="object-position:50% 62%"
-      alt="A frequency generator held on the lap, in a living room" loading="lazy" decoding="async"></div>
-    <div>
-    <h2><span class="s">The materials evolve.</span><span class="s">The role remains the same.</span></h2>
-    <p class="sm-hide">Energy Muse continues to explore new forms &mdash; copper, geometry, specified frequencies, and digital guidance &mdash; because customers deserve more ways to build a practice that fits them.</p><p class="sm-only">Copper, geometry, fixed frequencies, digital guidance &mdash; more ways to build a practice that fits you.</p>
-    <p>Every new product still has to answer the same questions: Is it understandable? Is it thoughtfully made? Can someone use it in real life?</p>
-    </div>
-   </div>
-  </div>
-</section>
-
-<section class="sect tint">
-  <div class="wrap">
-    <h2>What guides us.</h2>
+    <h2>What guides <em class="hl gemword">us.</em></h2>
     <div class="cols">
       <div><h3>Guidance over gatekeeping</h3><p>A first step that feels welcoming, not a test you have to pass.</p></div>
       <div><h3>Real materials</h3><p>Thoughtful construction, and clear information about what a thing is.</p></div>
@@ -139,30 +119,17 @@
     </div>
   </div>
 </section>
-
 <section class="sect">
   <div class="wrap">
    <div class="duo lead-img">
     <div>
     <h2>Heather Askinosie &amp; Timmi Jandro.</h2>
-    <p class="sm-hide">Heather brings decades of study, practice, and product development. Timmi brings the operational, relational, and community perspective that helped one idea become a lasting brand.</p><p class="sm-only">Heather brings decades of study and practice. Timmi brings the operations and the community that turned one idea into a brand.</p>
-    <p>Together, they continue to shape what Energy Muse keeps, what it questions, and what it builds next.</p>
-    <!-- "Meet the Founders" at the top of this page already goes to /heather/, so
-         this asked for a second click to reach what the first one offers. The
-         paragraph above is about what they build next; that is /craft/. -->
-    <!-- The only way off this page was /craft/ - another article. Someone who has
-         just read why the company exists had no route to anything it sells. Same
-         shape as the homepage intention finder: a shop door, and the editorial
-         link kept beside it. -->
-    <div class="cta-row">
-      <a class="btn btn-primary" href="/shop/">Shop All</a>
-      <a class="em-link" href="/craft/">Materials &amp; craft <span class="a" aria-hidden="true">&rarr;</span></a>
-    </div>
+    <p>Heather brings decades of study and practice. Timmi brings the operations and the community that turned one idea into a brand.</p>
+    <div class="cta-row"><a class="btn btn-primary" href="/shop/">Shop all</a></div>
     </div>
     <div class="duo-img"><img src="/assets/img/founders.jpg" alt="Founders Heather Askinosie and Timmi Jandro" style="object-position:50% 35%" loading="lazy"></div>
    </div>
   </div>
 </section>
-
 </main>
 </body></html>
