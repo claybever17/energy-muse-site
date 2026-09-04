@@ -216,11 +216,11 @@ function boot(){
     +'<nav class="emh-links">'
     +'<span class="emh-shop"><button type="button" aria-expanded="false" aria-haspopup="true">Shop</button>'
     +'<span class="emh-panel">'
-    +'<a href="/shop/">Everything</a><span class="sep"></span>'
-    +'<a href="/shop/?cat=Crystal">Crystals</a>'
-    +'<a href="/shop/?cat=Jewelry">Jewelry</a>'
-    +'<a href="/shop/?cat=Frequency">Frequency</a>'
-    +'<a href="/shop/?cat=Kit%7CSystem">Kits &amp; Sets</a>'
+    +'<a href="/gems/">Crystals</a>'
+    +'<a href="/jewelry/">Jewelry</a>'
+    +'<a href="/frequency/">Frequency</a>'
+    +'<a href="/sets/">Kits &amp; Sets</a><span class="sep"></span>'
+    +'<a href="/shop/">Shop all</a>'
     +'</span></span>'
     +'<a href="/intention/">By Intention</a><a href="/learn/">Learn</a>'
     +'<a href="/try/">Try It</a></nav>'
@@ -245,10 +245,10 @@ function boot(){
     /* the four categories, flat - a panel that has to be opened is worth it
        on a bar with no room, and pointless inside a menu that is already a
        list */
-    +'<div class="emh-menu-cats"><a href="/shop/?cat=Crystal">Crystals</a>'
-    +'<a href="/shop/?cat=Jewelry">Jewelry</a>'
-    +'<a href="/shop/?cat=Frequency">Frequency</a>'
-    +'<a href="/shop/?cat=Kit%7CSystem">Kits &amp; Sets</a></div>'
+    +'<div class="emh-menu-cats"><a href="/gems/">Crystals</a>'
+    +'<a href="/jewelry/">Jewelry</a>'
+    +'<a href="/frequency/">Frequency</a>'
+    +'<a href="/sets/">Kits &amp; Sets</a><a href="/shop/">Shop all</a></div>'
     +'<div class="emh-menu-sec"><a href="/heather/">With Heather</a><a href="/veza/">Veza</a><a href="/about/">About</a></div>'
     /* Search and Bag live in the menu now, not in the header bar. The
        homepage's own menu already had this row; this is the shared one

@@ -19,7 +19,7 @@
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
-<script src="/assets/em-header.js?v=37" defer></script>
+<script src="/assets/em-header.js?v=38" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
@@ -185,7 +185,7 @@ h1{max-width:21ch}
 </main>
 
 <script src="/assets/em-frequencies.js?v=4"></script>
-<script src="/assets/em-catalog.js?v=23"></script>
+<script src="/assets/em-catalog.js?v=24"></script>
 <script src="/assets/em-more.js?v=1"></script>
 <script src="/assets/em-sort.js?v=1"></script>
 <script src="/assets/em-bag.js?v=11"></script>
@@ -198,8 +198,8 @@ h1{max-width:21ch}
      Connection, and the seven generators store their intention in lower case
      while everything else is capitalised — so a naive match on "Protection"
      silently dropped every generator out of the results. Compare folded. */
-  var FEELS=[['','All'],['protection','Protection'],['abundance','Abundance'],
-             ['connection','Love'],['calm','Calm'],['clarity','Clarity']];
+  var FEELS=[['protection','Protection'],['abundance','Abundance'],
+             ['connection','Love'],['calm','Calm'],['clarity','Clarity'],['','All']];
   var fold=function(x){return String(x||'').trim().toLowerCase();};
   var KEYS={}; FEELS.forEach(function(f){ if(f[0]) KEYS[f[0]]=1; });
 

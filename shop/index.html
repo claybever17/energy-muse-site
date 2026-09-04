@@ -20,10 +20,10 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
 <script src="/assets/em-frequencies.js?v=4"></script>
-<script src="/assets/em-catalog.js?v=23"></script>
+<script src="/assets/em-catalog.js?v=24"></script>
 <script src="/assets/em-more.js?v=1"></script>
 <script src="/assets/em-sort.js?v=1"></script>
-<script src="/assets/em-header.js?v=37" defer></script>
+<script src="/assets/em-header.js?v=38" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
@@ -384,8 +384,8 @@
       count=document.getElementById('scount');
   if(!host||!window.EM_CATALOG)return;
 
-  var CATS=[['','All'],['Jewelry','Jewelry'],['Crystal','Crystals'],
-            ['Frequency','Frequency'],['Kit|System','Kits & Sets']];
+  var CATS=[['Jewelry','Jewelry'],['Crystal','Crystals'],
+            ['Frequency','Frequency'],['Kit|System','Kits & Sets'],['','Shop all']];
   var ALL=window.EM_CATALOG.all();
 
   CATS.forEach(function(c){

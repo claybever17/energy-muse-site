@@ -20,9 +20,9 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
 <script src="/assets/em-frequencies.js?v=4"></script>
-<script src="/assets/em-catalog.js?v=23"></script>
+<script src="/assets/em-catalog.js?v=24"></script>
 <script src="/assets/em-more.js?v=1"></script>
-<script src="/assets/em-header.js?v=37" defer></script>
+<script src="/assets/em-header.js?v=38" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
@@ -121,6 +121,13 @@
   .sect:first-of-type h1{font-size:clamp(28px,8.4vw,34px);white-space:nowrap;max-width:none}
   .jfilter{margin-top:18px}
 }
+/* Sept 4: Sara - the kinds should be obvious at the top, as bubbles */
+.typerow{display:flex;flex-wrap:wrap;gap:4px 22px;margin-top:14px}
+.typerow .tb{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--stone);background:none;border:0;border-bottom:2px solid transparent;padding:8px 0;cursor:pointer;transition:.2s}
+.typerow .tb .n{font-weight:400;letter-spacing:.04em;opacity:.6;margin-left:5px}
+.typerow .tb:hover{color:var(--copper)}
+.typerow .tb.on{color:var(--ink);border-bottom-color:var(--copper)}
+@media (max-width:700px){ .typerow{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:0 18px} .typerow::-webkit-scrollbar{display:none} .typerow .tb{flex:none;min-height:44px} }
 </style>
 </head><body>
 <main>
@@ -157,6 +164,7 @@
       <button class="jf" type="button" data-g="Connection">Love</button>
       <button class="jf" type="button" data-g="Clarity">Clarity</button>
     </div>
+    <div class="typerow" id="jtypes" aria-label="Type"></div>
     <div class="jtools">
       <p class="jcount" id="jcount"></p>
       <label class="jsort"><span>Sort</span>
@@ -213,11 +221,12 @@ document.querySelectorAll('.jadd').forEach(function(b){
   /* filter and sort belong in the URL — see the note on /gems/ */
   function readURL(){
     var q=new URLSearchParams(location.search);
-    return {g:q.get('for')||'', s:SORTS[q.get('sort')]?q.get('sort'):'price-asc'};
+    return {g:q.get('for')||'', t:q.get('type')||'', s:SORTS[q.get('sort')]?q.get('sort'):'price-asc'};
   }
-  function writeURL(g,srt){
+  function writeURL(g,srt,t){
     var q=new URLSearchParams(location.search);
     g?q.set('for',g.toLowerCase()):q.delete('for');
+    t?q.set('type',t):q.delete('type');
     srt&&srt!=='price-asc'?q.set('sort',srt):q.delete('sort');
     var qs=q.toString();
     history.replaceState(null,'',location.pathname+(qs?'?'+qs:'')+location.hash);
@@ -234,8 +243,20 @@ document.querySelectorAll('.jadd').forEach(function(b){
             : '<button class="jadd" type="button" data-id="'+c.id+'">Add to Bag</button>')+'</div>';
   }
   var bar=document.getElementById('jfilter'), sortEl=document.getElementById('jsort');
-  function paint(g,srt){
+  var trow=document.getElementById('jtypes');
+  function paintTypes(g,t){
+    if(!trow||!EM_CATALOG.subs)return;
+    var base=(g?ALL.filter(function(c){return (c.group||'').toLowerCase()===g.toLowerCase();}):ALL.slice());
+    var defs=EM_CATALOG.subs('Jewelry',base);
+    if(defs.length<2){trow.innerHTML='';return;}
+    trow.innerHTML='<button type="button" class="tb'+(t?'':' on')+'" data-t="">All<span class="n">'+base.length+'</span></button>'
+      +defs.map(function(d){return '<button type="button" class="tb'+(d.key===t?' on':'')+'" data-t="'+d.key+'">'+d.name+'<span class="n">'+d.n+'</span></button>';}).join('');
+  }
+  function paint(g,srt,t){
+    t=t||'';
+    paintTypes(g,t);
     var list=(g?ALL.filter(function(c){return (c.group||'').toLowerCase()===g.toLowerCase();}):ALL.slice())
+              .filter(function(c){return !t||c.sub===t;})
               .sort(SORTS[srt]||SORTS['price-asc']);
     if(window.EM_MORE)EM_MORE.paint(host,list,card);
     else host.innerHTML=list.map(card).join('');
@@ -249,15 +270,19 @@ document.querySelectorAll('.jadd').forEach(function(b){
     if(sortEl) sortEl.value=srt;
   }
   var st=readURL();
-  paint(st.g,st.s);
+  paint(st.g,st.s,st.t);
+  if(trow) trow.addEventListener('click',function(e){
+    var b=e.target.closest('.tb'); if(!b)return;
+    st.t=b.getAttribute('data-t')||''; writeURL(st.g,st.s,st.t); paint(st.g,st.s,st.t);
+  });
   if(bar) bar.addEventListener('click',function(e){
     var b=e.target.closest('.jf'); if(!b)return;
-    st.g=b.getAttribute('data-g')||''; writeURL(st.g,st.s); paint(st.g,st.s);
+    st.g=b.getAttribute('data-g')||''; st.t=''; writeURL(st.g,st.s,st.t); paint(st.g,st.s,st.t);
   });
   if(sortEl) sortEl.addEventListener('change',function(){
-    st.s=sortEl.value; writeURL(st.g,st.s); paint(st.g,st.s);
+    st.s=sortEl.value; writeURL(st.g,st.s,st.t); paint(st.g,st.s,st.t);
   });
-  addEventListener('popstate',function(){ st=readURL(); paint(st.g,st.s); });
+  addEventListener('popstate',function(){ st=readURL(); paint(st.g,st.s,st.t); });
   var byId={}; ALL.forEach(function(c){byId[c.id]=c;});
   host.addEventListener('click',function(e){
     var b=e.target.closest('.jadd'); if(!b||!window.EMBag)return;

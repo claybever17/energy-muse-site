@@ -289,12 +289,19 @@ p{text-wrap:pretty;}
 .scard{background:transparent;border:0;box-shadow:none;padding:0;border-radius:0}
 .scard:hover{border-color:transparent;box-shadow:none;transform:translateY(-3px)}
 .sf.on{color:var(--ink,var(--fg));border:1px solid rgba(152,94,56,.38);border-radius:999px;background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(152,94,56,.14),0 6px 18px rgba(152,94,56,.14);transition:background .25s,border-color .25s;color:var(--ink,var(--fg))}
+/* Sept 4: Sara - the kinds should be obvious at the top, as bubbles */
+.typerow{display:flex;flex-wrap:wrap;gap:4px 22px;margin-top:14px}
+.typerow .tb{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--stone);background:none;border:0;border-bottom:2px solid transparent;padding:8px 0;cursor:pointer;transition:.2s}
+.typerow .tb .n{font-weight:400;letter-spacing:.04em;opacity:.6;margin-left:5px}
+.typerow .tb:hover{color:var(--copper)}
+.typerow .tb.on{color:var(--ink);border-bottom-color:var(--copper)}
+@media (max-width:700px){ .typerow{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:0 18px} .typerow::-webkit-scrollbar{display:none} .typerow .tb{flex:none;min-height:44px} }
 </style>
-<script src="../assets/em-header.js?v=37" defer></script>
+<script src="../assets/em-header.js?v=38" defer></script>
 <script src="/assets/em-search.js?v=9" defer></script>
 <script src="../assets/em-bag.js?v=11" defer></script>
 <script src="../assets/em-prices.js?v=3" defer></script><script src="/assets/em-frequencies.js?v=4"></script>
-<script src="/assets/em-catalog.js?v=23"></script>
+<script src="/assets/em-catalog.js?v=24"></script>
 <script src="/assets/em-more.js?v=1"></script>
 </head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
@@ -347,6 +354,7 @@ p{text-wrap:pretty;}
            and it is what this button filters on. -->
       <button class="sf" type="button" data-g="Connection">Love</button>
     </div>
+    <div class="typerow" id="stypes" aria-label="Type"></div>
     <div class="stools">
       <p class="scount" id="scount"></p>
       <label class="ssort"><span>Sort</span>
@@ -414,18 +422,31 @@ p{text-wrap:pretty;}
      which is the moment a shopper gives up. */
   function readURL(){
     var q=new URLSearchParams(location.search);
-    return {g:q.get('for')||'', s:SORTS[q.get('sort')]?q.get('sort'):'price-asc'};
+    return {g:q.get('for')||'', t:q.get('type')||'', s:SORTS[q.get('sort')]?q.get('sort'):'price-asc'};
   }
-  function writeURL(g,srt){
+  function writeURL(g,srt,t){
     var q=new URLSearchParams(location.search);
     g?q.set('for',g.toLowerCase()):q.delete('for');
+    t?q.set('type',t):q.delete('type');
     srt&&srt!=='price-asc'?q.set('sort',srt):q.delete('sort');
     var qs=q.toString();
     history.replaceState(null,'',location.pathname+(qs?'?'+qs:'')+location.hash);
   }
 
-  function paint(g,srt){
+  var trow=document.getElementById('stypes');
+  function paintTypes(g,t){
+    if(!trow||!EM_CATALOG.subs)return;
+    var base=(g?ALL.filter(function(c){return (c.group||'').toLowerCase()===g.toLowerCase();}):ALL.slice());
+    var defs=EM_CATALOG.subs('Crystal',base);
+    if(defs.length<2){trow.innerHTML='';return;}
+    trow.innerHTML='<button type="button" class="tb'+(t?'':' on')+'" data-t="">All<span class="n">'+base.length+'</span></button>'
+      +defs.map(function(d){return '<button type="button" class="tb'+(d.key===t?' on':'')+'" data-t="'+d.key+'">'+d.name+'<span class="n">'+d.n+'</span></button>';}).join('');
+  }
+  function paint(g,srt,t){
+    t=t||'';
+    paintTypes(g,t);
     var list=(g?ALL.filter(function(c){return (c.group||'').toLowerCase()===g.toLowerCase();}):ALL.slice())
+              .filter(function(c){return !t||c.sub===t;})
               .sort(SORTS[srt]||SORTS['price-asc']);
     /* the card builder was written inline; it is a named function now so
        em-more can call it again for each page the reader asks for */
@@ -449,18 +470,22 @@ p{text-wrap:pretty;}
   }
 
   var st=readURL();
-  paint(st.g,st.s);
+  paint(st.g,st.s,st.t);
+  if(trow) trow.addEventListener('click',function(e){
+    var b=e.target.closest('.tb'); if(!b)return;
+    st.t=b.getAttribute('data-t')||''; writeURL(st.g,st.s,st.t); paint(st.g,st.s,st.t);
+  });
 
   bar.addEventListener('click',function(e){
     var b=e.target.closest('.sf'); if(!b)return;
     st.g=b.getAttribute('data-g')||'';
-    writeURL(st.g,st.s); paint(st.g,st.s);
+    st.t=''; writeURL(st.g,st.s,st.t); paint(st.g,st.s,st.t);
   });
   if(sortEl) sortEl.addEventListener('change',function(){
-    st.s=sortEl.value; writeURL(st.g,st.s); paint(st.g,st.s);
+    st.s=sortEl.value; writeURL(st.g,st.s,st.t); paint(st.g,st.s,st.t);
   });
   /* back and forward move between filters, the way they should */
-  addEventListener('popstate',function(){ st=readURL(); paint(st.g,st.s); });
+  addEventListener('popstate',function(){ st=readURL(); paint(st.g,st.s,st.t); });
 })();
 </script>
 </body></html>
