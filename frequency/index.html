@@ -314,6 +314,12 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 /* the film's captions run one line on a phone; the device is right under them */
 .film .cap p .sm{display:none}
 @media (max-width:700px){ .film .cap p .lg{display:none} .film .cap p .sm{display:inline} .film .cap p{margin-top:12px} }
+/* on a phone the ring ran into the neighbouring card; the tuned card tints its plate instead */
+@media (max-width:760px){
+  .fcard.tuned{outline:0}
+  .fcard.tuned .shot{background:color-mix(in srgb,var(--tone,var(--copper)) 16%,var(--tint));box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--tone,var(--copper)) 55%,transparent)}
+  .fcard.tuned .hz{color:var(--tone,var(--copper))}
+}
 </style>
 </head><body>
 <script>if(/[?&]nofilm=1/.test(location.search))document.documentElement.classList.add('nofilm');</script>
