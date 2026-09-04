@@ -276,7 +276,7 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 .tuner .stop b em{font-style:normal;font-size:.8em;margin-left:1px;opacity:.7}
 .tuner .stop[aria-selected="true"] b{color:var(--ink)}
 .fgrid{margin-top:34px}
-.fcard.tuned{border-color:var(--tone,var(--copper));box-shadow:0 0 0 2px color-mix(in srgb,var(--tone,var(--copper)) 45%,transparent)}
+.fcard.tuned{outline:2px solid color-mix(in srgb,var(--tone,var(--copper)) 60%,transparent);outline-offset:10px;border-radius:6px}
 @media (max-width:760px){
   .tuner .trow{grid-template-columns:1fr;gap:6px}
   .tuner .dwave{height:52px;margin-top:6px}
@@ -311,6 +311,9 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
   .film .hzpick button{padding:8px 7px;font-size:10.5px;letter-spacing:.02em}
   .film .hzpick button em{display:none}
 }
+/* the film's captions run one line on a phone; the device is right under them */
+.film .cap p .sm{display:none}
+@media (max-width:700px){ .film .cap p .lg{display:none} .film .cap p .sm{display:inline} .film .cap p{margin-top:12px} }
 </style>
 </head><body>
 <script>if(/[?&]nofilm=1/.test(location.search))document.documentElement.classList.add('nofilm');</script>
@@ -327,17 +330,17 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
         <!-- the first caption is this page's title, so it is the h1. It was an
              h2 and the page had no h1 at all. -->
         <h1>Frequency,<br>made tangible.</h1>
-        <p>A physical object, tuned to a specified frequency and built to be understood. Scroll to look inside.</p>
+        <p><span class="lg">A physical object, tuned to a specified frequency and built to be understood. Scroll to look inside.</span><span class="sm">Scroll to look inside.</span></p>
       </div>
       <div class="cap c1" data-lo="0.20" data-hi="0.40">
         <div class="eye">Sealed by hand</div>
         <h2>Glass, copper,<br>and four bolts.</h2>
-        <p>A tinted glass cover, machined black plates and chrome hardware — the materials that make the energy world tangible.</p>
+        <p><span class="lg">A tinted glass cover, machined black plates and chrome hardware — the materials that make the energy world tangible.</span><span class="sm">Tinted glass, machined plates, chrome bolts.</span></p>
       </div>
       <div class="cap c2" data-lo="0.44" data-hi="0.58">
         <div class="eye">Inside</div>
         <h2>A single<br>copper coil.</h2>
-        <p>One continuous spiral, tuned to a specified frequency and set behind a silver ring. This is the heart of the generator.</p>
+        <p><span class="lg">One continuous spiral, tuned to a specified frequency and set behind a silver ring. This is the heart of the generator.</span><span class="sm">One continuous spiral, tuned to one frequency.</span></p>
       </div>
       <div class="dial" id="dial" aria-hidden="true">
         <div class="dv"><span id="dialv">639</span><em>Hz</em></div>
@@ -628,7 +631,7 @@ const currentTex=(function(){
   return t;
 })();
 matGold.emissiveMap=currentTex;
-const matRing=new THREE.MeshStandardMaterial({color:0xe6eaee,metalness:0.95,roughness:0.2,envMapIntensity:1.6});
+const matRing=new THREE.MeshStandardMaterial({color:0xb9bdc3,metalness:0.9,roughness:0.34,envMapIntensity:1.2});
 const matChrome=new THREE.MeshStandardMaterial({color:0xdfe3e6,metalness:1.0,roughness:0.14,envMapIntensity:1.8});
 const matSteel=new THREE.MeshStandardMaterial({color:0xb8bdc2,metalness:1.0,roughness:0.28,envMapIntensity:1.4});
 function part(geo,mat,x,y,z,parent){const m=new THREE.Mesh(geo,mat);m.position.set(x||0,y||0,z||0);m.castShadow=true;m.receiveShadow=true;(parent||device).add(m);return m;}
@@ -679,18 +682,31 @@ function drawGeometry(hz){
 const geoMat=new THREE.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide});
 const geoPlane=new THREE.Mesh(new THREE.PlaneGeometry(1.40,1.40),geoMat);geoPlane.rotation.x=-Math.PI/2;geoPlane.position.y=0.1285;base.add(geoPlane);
 const geoCache={};
-const plateColors={black:{plate:0x0b0d11,base:0x0d0f13,gloss:1.0,rough:0.12,env:1.5},pearl:{plate:0xf0eae0,base:0xd6cfc4,gloss:1.0,rough:0.22,env:2.4}};
+const TW={coil:new THREE.Color(0xC97A45),coilE:new THREE.Color(0x6b3a1a),plate:new THREE.Color(0x0b0d11),base:new THREE.Color(0x0d0f13),rough:0.12,env:1.5,baseRough:0.2,baseEnv:1.2,geoNext:null,geoTarget:0,swapPending:false};
+let lastT=0;
+function easeMaterials(t){
+  const dt=Math.min(0.1,Math.max(0,t-lastT));lastT=t;const k=1-Math.exp(-dt*4.5);
+  matGold.color.lerp(TW.coil,k);matGold.emissive.lerp(TW.coilE,k);
+  matBlackGloss.color.lerp(TW.plate,k);matBlack.color.lerp(TW.base,k);
+  matBlackGloss.roughness+=(TW.rough-matBlackGloss.roughness)*k;matBlackGloss.envMapIntensity+=(TW.env-matBlackGloss.envMapIntensity)*k;
+  matBlack.roughness+=(TW.baseRough-matBlack.roughness)*k;matBlack.envMapIntensity+=(TW.baseEnv-matBlack.envMapIntensity)*k;
+  if(TW.swapPending){geoMat.opacity=Math.max(0,geoMat.opacity-dt*5);if(geoMat.opacity<=0.02){geoMat.map=TW.geoNext;geoMat.needsUpdate=true;TW.swapPending=false;}}
+  else{geoMat.opacity+=(TW.geoTarget-geoMat.opacity)*Math.min(1,dt*4);}
+}
+const plateColors={black:{plate:0x0b0d11,base:0x0d0f13,gloss:1.0,rough:0.12,env:1.5},pearl:{plate:0xe4ddd0,base:0xcdc5b8,gloss:1.0,rough:0.24,env:1.6}};
 function setHz(hz){
   hz=HZS.indexOf(String(hz))>=0?String(hz):'7.83';
   window.__hz=hz;
   try{window.dispatchEvent(new CustomEvent('em:hz',{detail:hz}));}catch(e){}
-  if(hz==='7.83'){geoMat.opacity=0;}
-  else{if(!geoCache[hz])geoCache[hz]=drawGeometry(hz);geoMat.map=geoCache[hz];geoMat.needsUpdate=true;geoMat.opacity=0.95;}
-  // the 963 winds a silver coil; the 1111 sits on a pearl plate
+  // targets; frame() eases the materials toward them, and the line-art crossfades
+  if(hz==='7.83'){TW.geoNext=null;TW.geoTarget=0;}
+  else{if(!geoCache[hz])geoCache[hz]=drawGeometry(hz);TW.geoNext=geoCache[hz];TW.geoTarget=0.95;}
+  TW.swapPending=true;
+  // the 963 winds a silver coil; the 1111 sits on an ivory plate
   const silver=hz==='963';
-  matGold.color.setHex(silver?0xd8d9d6:0xC97A45);matGold.emissive.setHex(silver?0x3a3a3a:0x6b3a1a);
+  TW.coil.setHex(silver?0xd8d9d6:0xC97A45);TW.coilE.setHex(silver?0x3a3a3a:0x6b3a1a);
   const pc=hz==='1111'?plateColors.pearl:plateColors.black;
-  matBlackGloss.color.setHex(pc.plate);matBlack.color.setHex(pc.base);matBlackGloss.clearcoat=pc.gloss;matBlackGloss.roughness=pc.rough;matBlackGloss.envMapIntensity=pc.env;matBlack.roughness=hz==='1111'?0.32:0.2;matBlack.envMapIntensity=hz==='1111'?1.8:1.2;matBlackGloss.needsUpdate=true;
+  TW.plate.setHex(pc.plate);TW.base.setHex(pc.base);TW.rough=pc.rough;TW.env=pc.env;TW.baseRough=hz==='1111'?0.32:0.2;TW.baseEnv=hz==='1111'?1.8:1.2;
   document.querySelectorAll('.hzpick button').forEach(b=>b.classList.toggle('on',b.dataset.hz===hz));
   const dv=document.getElementById('dialv');if(dv&&!window.__dialing)dv.textContent=hz;
 }
@@ -798,7 +814,7 @@ function clamp01(v){return v<0?0:v>1?1:v;}
 function smooth(e0,e1,x){const t=clamp01((x-e0)/(e1-e0));return t*t*(3-2*t);}
 const V=THREE.Vector3;
 const camHero=new V(0,1.78,4.05),lookHero=new V(0,0.0,0);
-const camTop=new V(0.02,3.5,0.46),lookTop=new V(0,0.10,0);
+const camTop=new V(0.75,3.25,1.15),lookTop=new V(0,0.10,0);
 const camEnd=new V(0.08,1.62,2.0),lookEnd=new V(0,0.26,0); // finale: glide in past the bolts, settle on the stone
 const veil=document.getElementById('veil');
 const dialEl=document.getElementById('dial'),dialV=document.getElementById('dialv');
@@ -811,6 +827,7 @@ addEventListener('resize',resize);resize();
 const clock=new THREE.Clock();
 function frame(){
   const t=clock.getElapsedTime();
+  easeMaterials(t);
   // smoothed scroll: animation eases toward the scroll position (butter on phones)
   scrollP+=(targetP-scrollP)*(reduce?1:0.09);
   if(Math.abs(targetP-scrollP)<0.0004)scrollP=targetP;
@@ -859,7 +876,7 @@ function frame(){
   const bob=reduce?0:Math.sin(t*0.9)*0.035*heroFade;
   // portrait: sit the device in the lower half so captions own the top of the screen
   const portK=Math.max(0,Math.min(1,(1.05-camera.aspect)*2));
-  const dy=-0.72*portK*(1-camT);
+  const dy=-0.72*portK*(1-smooth(0.34,0.58,p));
   device.position.set(dx,bob+dy,dz);
   catcher.position.set(dx,bob+dy-0.42,dz);catcher.material.opacity=0.34*(1-endT*0.5);
   const idleSpin=reduce?0:Math.sin(t*0.22)*0.30*heroFade; // gentle sway, logo stays near front
@@ -891,12 +908,12 @@ function frame(){
   // a slow steady pulse once the stone is charging on it
   if(!reduce)currentTex.offset.x=-t*(0.08+0.10*smooth(0.48,0.66,p));
   // the designation dial ticks past while the open coil holds the frame
-  const dOp=smooth(0.585,0.625,p)*(1-smooth(0.675,0.71,p));
+  const dOp=smooth(0.555,0.60,p)*(1-smooth(0.70,0.735,p));
   const capsEl=document.querySelector('.film .caps');
   if(capsEl)capsEl.classList.toggle('dialing',dOp>0.005);
   if(dOp>0.005){
-    const dprog=Math.min(0.999,Math.max(0,(p-0.585)/0.095));
-    const dhz=HZS[Math.min(6,Math.floor(dprog*7))];dialV.textContent=dhz;
+    const dprog=Math.min(0.999,Math.max(0,(p-0.565)/0.15));
+    const DIAL=['7.83','417','528','963'];const dhz=DIAL[Math.min(3,Math.floor(dprog*4))];dialV.textContent=dhz;
     if(!window.__dialing){window.__dialing=true;window.__hzChosen=window.__hz||'7.83';}
     if(window.__hzShown!==dhz){window.__hzShown=dhz;setHz(dhz);}
     dialEl.style.opacity=dOp.toFixed(3);
