@@ -311,6 +311,15 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 .nofilm .film{display:none}
 /* while the designation dial holds the frame, no caption shares it - on a phone both sat at the top */
 .film .caps.dialing .cap{opacity:0!important;transform:translateY(20px)}
+/* the picker: lighter glass, and on a phone all seven fit without scrolling (the Hz suffix goes, the number is enough) */
+.film .hzpick{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);box-shadow:0 10px 30px rgba(0,0,0,.28);gap:2px;padding:4px}
+.film .hzpick button{color:rgba(246,242,236,.78);padding:9px 11px;letter-spacing:.04em}
+.film .hzpick button.on{color:#1b1d22;background:linear-gradient(135deg,#f3d9bd,#dcae7f);box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
+@media (max-width:700px){
+  .film .hzpick{left:50%;bottom:16px;max-width:none;width:auto;overflow:visible;padding:3px;gap:0}
+  .film .hzpick button{padding:8px 7px;font-size:10.5px;letter-spacing:.02em}
+  .film .hzpick button em{display:none}
+}
 </style>
 </head><body>
 <script>if(/[?&]nofilm=1/.test(location.search))document.documentElement.classList.add('nofilm');</script>
