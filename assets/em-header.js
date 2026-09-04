@@ -356,7 +356,16 @@ function keepChipInView(){
   [].forEach.call(document.querySelectorAll(ROWS),function(row){
     if(row.scrollWidth<=row.clientWidth+1)return;
     var on=row.querySelector('.on,[aria-pressed="true"],[aria-current]');
-    if(on&&on.scrollIntoView)on.scrollIntoView({block:'nearest',inline:'nearest'});
+    if(!on||!on.scrollIntoView)return;
+    /* The default chip (All / Everything / Shop all, an empty data value) now
+       sits LAST in these rows, so revealing it at load scrolled a phone's row to
+       its end and hid the first categories. Only a real selection from the URL
+       earns the scroll. */
+    var KEYS=['data-c','data-g','data-t','data-s','data-f'];
+    var has=KEYS.some(function(a){return on.hasAttribute(a);});
+    var chosen=KEYS.some(function(a){return (on.getAttribute(a)||'')!=='';});
+    if(has&&!chosen)return;
+    on.scrollIntoView({block:'nearest',inline:'nearest'});
   });
 }
 
