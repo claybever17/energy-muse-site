@@ -307,8 +307,11 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 .trioc .tarch{font:600 10.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--copper)}
 .trioc .tp{font-family:var(--serif);font-size:17px;color:var(--copper-lo,var(--copper));margin-top:2px}
 @media (max-width:700px){ .trios{grid-template-columns:1fr} .trioc{grid-template-columns:96px minmax(0,1fr);gap:14px;padding:10px} }
+/* ?nofilm=1 hides the film for captures and for anyone whose browser cannot run it */
+.nofilm .film{display:none}
 </style>
 </head><body>
+<script>if(/[?&]nofilm=1/.test(location.search))document.documentElement.classList.add('nofilm');</script>
 <main>
 <div class="film">
 <section class="stage" id="stage">
