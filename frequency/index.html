@@ -309,6 +309,8 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (max-width:700px){ .trios{grid-template-columns:1fr} .trioc{grid-template-columns:96px minmax(0,1fr);gap:14px;padding:10px} }
 /* ?nofilm=1 hides the film for captures and for anyone whose browser cannot run it */
 .nofilm .film{display:none}
+/* while the designation dial holds the frame, no caption shares it - on a phone both sat at the top */
+.film .caps.dialing .cap{opacity:0!important;transform:translateY(20px)}
 </style>
 </head><body>
 <script>if(/[?&]nofilm=1/.test(location.search))document.documentElement.classList.add('nofilm');</script>
@@ -903,6 +905,8 @@ function frame(){
   if(!reduce)currentTex.offset.x=-t*(0.08+0.10*smooth(0.48,0.66,p));
   // the designation dial ticks past while the open coil holds the frame
   const dOp=smooth(0.585,0.625,p)*(1-smooth(0.675,0.71,p));
+  const capsEl=document.querySelector('.film .caps');
+  if(capsEl)capsEl.classList.toggle('dialing',dOp>0.005);
   if(dOp>0.005){
     const dprog=Math.min(0.999,Math.max(0,(p-0.585)/0.095));
     const dhz=HZS[Math.min(6,Math.floor(dprog*7))];dialV.textContent=dhz;
