@@ -252,46 +252,37 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 
 .ash1{font-size:clamp(34px,5vw,64px);max-width:20ch;text-wrap:balance;font-weight:300}
 
-/* ===== the dial band (the Frequency Room, folded in) ===== */
-.dialband{background:#0a1017;color:#ece6da;padding:clamp(44px,6vw,88px) 0;position:relative;overflow:hidden;--tone:#A9683E}
-.dialband::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 55% at 70% 45%,color-mix(in srgb,var(--tone) 22%,transparent),transparent 70%);transition:background .9s ease;pointer-events:none}
-.dialgrid{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:clamp(24px,4vw,64px);align-items:center}
-.deye{font:600 11px var(--sans);letter-spacing:.28em;text-transform:uppercase;color:#c08a4e}
-.readout{display:flex;align-items:baseline;gap:12px;margin-top:10px}
-.readout .num{font-family:var(--serif);font-weight:300;font-size:clamp(58px,9vw,120px);line-height:.92;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:#f3ead9}
-.readout .unit{font-family:var(--serif);font-weight:300;font-size:clamp(20px,3vw,32px);color:#9fb0be}
-.dname{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(24px,3.4vw,40px);color:var(--tone);margin-top:2px;transition:color .6s}
-.dsay{margin-top:14px;max-width:44ch;color:#b4c0d0;font-size:15.5px;line-height:1.55;text-wrap:balance;min-height:2.4em}
-.dwave{position:relative;margin-top:18px;height:92px;width:100%;max-width:540px}
-.dwave canvas{width:100%;height:100%;display:block}
-.ddial{position:relative;margin-top:22px;max-width:540px}
-.ddial .track{position:relative;height:2px;background:rgba(159,176,190,.28);border-radius:2px}
-.ddial .fillbar{position:absolute;left:0;top:0;height:100%;background:var(--tone);border-radius:2px;transition:width .5s cubic-bezier(.16,1,.3,1),background-color .6s}
-.ddial .stops{display:flex;justify-content:space-between;margin-top:-9px}
-.ddial .stop{position:relative;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:none;border:0;cursor:pointer;padding:0}
-.ddial .stop::after{content:"";position:absolute;left:50%;transform:translateX(-50%);top:-6px;bottom:-16px;width:46px}
-.ddial .stop i{width:9px;height:9px;border-radius:50%;background:rgba(159,176,190,.45);display:block;transition:transform .35s cubic-bezier(.16,1,.3,1),background-color .35s}
-.ddial .stop:hover i{transform:scale(1.35);background:color-mix(in srgb,var(--tone) 70%,#9fb0be)}
-.ddial .stop[aria-selected="true"] i{transform:scale(1.9);background:var(--tone)}
-.ddial .stop b{position:absolute;top:32px;font:600 9.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#9fb0be;white-space:nowrap;font-variant-numeric:tabular-nums;transition:color .3s}
-.ddial .stop b em{font-style:normal;font-size:.8em;margin-left:1px;opacity:.7}
-.ddial .stop[aria-selected="true"] b{color:#f3ead9}
-.dbuy{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin-top:44px}
-.dcta{color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:999px;background:linear-gradient(135deg,rgba(152,94,56,.5) 0%,rgba(60,38,22,.42) 100%);backdrop-filter:blur(12px) saturate(1.2);-webkit-backdrop-filter:blur(12px) saturate(1.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 8px 24px rgba(0,0,0,.18);display:inline-flex;align-items:center;min-height:44px;padding:0 22px;font:600 12.5px var(--sans);letter-spacing:.02em;cursor:pointer;transition:background .25s,border-color .25s}
-.dcta:hover{background:linear-gradient(135deg,rgba(152,94,56,.62) 0%,rgba(60,38,22,.5) 100%);border-color:rgba(255,255,255,.7)}
-.dcta.done{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3)}
-.dalt{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;font:600 11.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#c08a4e}
-.dalt:hover{color:#f3ead9}
-.ddevice{position:relative;aspect-ratio:1;width:100%}
-.ddevice img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .45s ease;filter:drop-shadow(0 30px 40px rgba(0,0,0,.45))}
-@media (max-width:900px){
-  .dialgrid{grid-template-columns:1fr;gap:12px}
-  .ddevice{order:-1;max-width:230px;margin:0 auto}
-  .dwave{max-width:none;height:56px;margin-top:12px}
-  .ddial{max-width:none;margin-top:14px}
-  .ddial .stop{width:26px} .ddial .stop b{font-size:8.5px;letter-spacing:.06em}
-  .dbuy{margin-top:40px}
-  .dsay{min-height:0}
+/* ===== the tuner: the Frequency Room's dial as the grid's instrument ===== */
+.tuner{margin:22px 0 30px;padding-top:22px;border-top:1px solid var(--hair);--tone:#A9683E}
+.tuner .deye{font:600 11px var(--sans);letter-spacing:.28em;text-transform:uppercase;color:var(--copper)}
+.tuner .trow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(20px,4vw,64px);align-items:center;margin-top:6px}
+.tuner .readout{display:flex;align-items:baseline;gap:10px}
+.tuner .num{font-family:var(--serif);font-weight:300;font-size:clamp(52px,7vw,92px);line-height:.95;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--ink)}
+.tuner .unit{font-family:var(--serif);font-weight:300;font-size:clamp(18px,2.4vw,28px);color:var(--stone)}
+.tuner .dname{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(22px,2.8vw,34px);color:var(--tone);margin-top:2px;transition:color .6s}
+.tuner .dsay{margin-top:10px;max-width:42ch;color:var(--ink-soft);font-size:15px;line-height:1.5;text-wrap:balance}
+.tuner .dwave{position:relative;height:84px;width:100%}
+.tuner .dwave canvas{width:100%;height:100%;display:block}
+.tuner .ddial{position:relative;margin-top:10px}
+.tuner .track{position:relative;height:2px;background:var(--hair);border-radius:2px}
+.tuner .fillbar{position:absolute;left:0;top:0;height:100%;background:var(--tone);border-radius:2px;transition:width .5s cubic-bezier(.16,1,.3,1),background-color .6s}
+.tuner .stops{display:flex;justify-content:space-between;margin-top:-9px}
+.tuner .stop{position:relative;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:none;border:0;cursor:pointer;padding:0}
+.tuner .stop::after{content:"";position:absolute;left:50%;transform:translateX(-50%);top:-6px;bottom:-16px;width:46px}
+.tuner .stop i{width:9px;height:9px;border-radius:50%;background:var(--hair);display:block;transition:transform .35s cubic-bezier(.16,1,.3,1),background-color .35s}
+.tuner .stop:hover i{transform:scale(1.35);background:color-mix(in srgb,var(--tone) 60%,var(--hair))}
+.tuner .stop[aria-selected="true"] i{transform:scale(1.9);background:var(--tone)}
+.tuner .stop b{position:absolute;top:32px;font:600 9.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--stone);white-space:nowrap;font-variant-numeric:tabular-nums;transition:color .3s}
+.tuner .stop b em{font-style:normal;font-size:.8em;margin-left:1px;opacity:.7}
+.tuner .stop[aria-selected="true"] b{color:var(--ink)}
+.fgrid{margin-top:34px}
+.fcard.tuned{border-color:var(--tone,var(--copper));box-shadow:0 0 0 2px color-mix(in srgb,var(--tone,var(--copper)) 45%,transparent)}
+@media (max-width:760px){
+  .tuner .trow{grid-template-columns:1fr;gap:6px}
+  .tuner .dwave{height:52px;margin-top:6px}
+  .tuner .stop{width:26px} .tuner .stop b{font-size:8.5px;letter-spacing:.06em}
+  .tuner .dsay{font-size:14.5px}
+  .fgrid{margin-top:40px}
 }
 /* ===== the Formulas, compact ===== */
 .fhead{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
@@ -368,33 +359,6 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 </section>
 </div>
 
-<!-- The Frequency Room, folded in (Sara: "should that little function on the
-     top where you can drag it and explore be more on the overall frequency
-     page"). Turn the dial: the readout, the wave, the photograph and the 3D
-     device above all re-tune together. One line of copy per frequency. -->
-<section class="dialband" id="tune" aria-label="Choose a frequency">
-  <div class="wrap dialgrid">
-    <div class="dlede">
-      <div class="deye">Turn the dial</div>
-      <div class="readout"><span class="num" id="dnum">528</span><span class="unit">Hz</span></div>
-      <div class="dname" id="dname">Accelerates Manifestation</div>
-      <p class="dsay" id="dsay"></p>
-      <div class="dwave"><canvas id="dwave" aria-hidden="true"></canvas></div>
-      <div class="ddial">
-        <div class="track"><div class="fillbar" id="dfill"></div></div>
-        <div class="stops" id="dstops" role="tablist" aria-label="Frequencies"></div>
-      </div>
-      <div class="dbuy">
-        <button class="dcta" id="dbuy" type="button">Add the generator</button>
-        <a class="dalt" id="dread" href="/product/?id=gen-528">Read about it <span aria-hidden="true">&rarr;</span></a>
-      </div>
-    </div>
-    <div class="ddevice" aria-hidden="true">
-      <img id="dimg" src="/assets/img/generators/528.png" alt="">
-      <img id="dimg2" src="/assets/img/generators/528.png" alt="">
-    </div>
-  </div>
-</section>
 <section class="sect" id="all">
   <div class="sinemark c" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
   <!-- One block, not two. This page opened with an eyebrow, a headline and a
@@ -404,6 +368,27 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
        whole content is one grid. -->
   <div class="wrap">
     <h2 class="ash1">Where wellness meets <em class="hl gemword">tech.</em></h2>
+    <!-- The Frequency Room's dial, as the grid's instrument (Sara: the explore
+         function belongs on the overall frequency page). Turn it and the card
+         below lights up, the 3D device in the film re-tunes, one sentence
+         changes. No second photograph, no second Add button: the cards have those. -->
+    <div class="tuner" id="tune" aria-label="Choose a frequency">
+      <div class="deye">Turn the dial</div>
+      <div class="trow">
+        <div>
+          <div class="readout"><span class="num" id="dnum">528</span><span class="unit">Hz</span></div>
+          <div class="dname" id="dname">Accelerates Manifestation</div>
+          <p class="dsay" id="dsay"></p>
+        </div>
+        <div>
+          <div class="dwave"><canvas id="dwave" aria-hidden="true"></canvas></div>
+          <div class="ddial">
+            <div class="track"><div class="fillbar" id="dfill"></div></div>
+            <div class="stops" id="dstops" role="tablist" aria-label="Frequencies"></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="fgrid" id="fgrid"></div>
     <p class="note">Frequency generators are not medical devices and are not a substitute for
       healthcare. Experiences vary.</p>
@@ -516,6 +501,7 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
     var out=(c.stock==='out');
     var el=document.createElement('div');
     el.className='fcard'+(out?' out':'');
+    el.setAttribute('data-hz',String(c.hz));
     el.innerHTML=
       (c.tag?'<span class="ftag">'+c.tag+'</span>':'')+
       '<a class="plink" href="/product/?id='+encodeURIComponent(c.id)+'">'+
@@ -557,22 +543,18 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
     line:f.say||(f.purpose||[]).join(' · ')};});
   var band=document.getElementById('tune'),numEl=document.getElementById('dnum'),nameEl=document.getElementById('dname'),
       sayEl=document.getElementById('dsay'),fill=document.getElementById('dfill'),stops=document.getElementById('dstops'),
-      read=document.getElementById('dread'),buy=document.getElementById('dbuy'),a=document.getElementById('dimg'),b=document.getElementById('dimg2');
+      sect=document.getElementById('all');
   if(!band||!stops)return;
-  var cur=3,front=a,back=b,at=null,reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  function src(hz){return '/assets/img/generators/'+hz.replace('.','-')+'.png';}
-  function setDevice(hz){var next=src(hz);if(at===next)return;at=next;
-    if(reduce){front.src=next;return;}
-    back.onload=function(){back.style.opacity='1';front.style.opacity='0';var t=front;front=back;back=t;};back.src=next;}
+  var cur=3,reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function setDevice(hz){document.querySelectorAll('#fgrid .fcard').forEach(function(c){c.classList.toggle('tuned',c.getAttribute('data-hz')===hz);});}
   ROOM.forEach(function(r,i){var s=document.createElement('button');s.className='stop';s.type='button';s.setAttribute('role','tab');
     s.setAttribute('aria-label',r.hz+' hertz, '+r.name);s.innerHTML='<i></i><b>'+r.hz+'<em>Hz</em></b>';
     s.addEventListener('click',function(){tune(i,false);});stops.appendChild(s);});
   var syncing=false;
   function tune(i,silent){
     cur=i;var r=ROOM[i];
-    band.style.setProperty('--tone',r.tone);
+    band.style.setProperty('--tone',r.tone);if(sect)sect.style.setProperty('--tone',r.tone);
     numEl.textContent=r.hz;nameEl.textContent=r.name;sayEl.textContent=r.line;
-    read.href='/product/?id='+encodeURIComponent(r.id);
     fill.style.width=(i/(ROOM.length-1)*100)+'%';
     [].slice.call(stops.children).forEach(function(x,k){x.setAttribute('aria-selected',k===i?'true':'false');});
     setDevice(r.hz);
@@ -588,10 +570,6 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
       wx.strokeStyle=tone;wx.globalAlpha=[0.95,0.42,0.22][k];wx.lineWidth=[1.7,1.3,1.1][k];wx.lineCap='round';wx.stroke();}
     wx.globalAlpha=1;}
   (function loop(t){if(!reduce)requestAnimationFrame(loop);draw(t||0);})();
-  buy.addEventListener('click',function(){var r=ROOM[cur];if(!window.EMBag)return;
-    var f=BY.hz?BY.hz(r.hz):null;var price=(f&&typeof f.price==='number')?f.price:0;
-    EMBag.add({id:r.id,name:r.hz+'Hz Frequency Generator',price:price,img:src(r.hz),link:'/frequency/'});
-    buy.textContent='Added';buy.classList.add('done');setTimeout(function(){buy.textContent='Add the generator';buy.classList.remove('done');},1400);});
   var want=new URLSearchParams(location.search).get('hz');
   var i0=want?ROOM.map(function(r){return r.hz;}).indexOf(String(want)):-1;
   tune(i0>=0?i0:0,true);

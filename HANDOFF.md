@@ -398,3 +398,5 @@ If a product is not in their catalogue, it does not go on the site.
 - Glows/halos take **each stone's own colour**, sampled from its pixels — a single copper glow on every
   crystal was rejected ("the brown glow looks bad"). Clamp channels: the saturation boost can push one
   negative, which yields invalid rgba and silently kills the glow.
+
+**Then folded once more (Clay: "a lot of the same content"):** the dark dial band is gone. The dial is now the grid's instrument - `.tuner#tune` sits inside `#all` between "Where wellness meets tech." and the seven cards: readout, one sentence, the wave, the seven stops, and nothing the cards already carry (no second photograph, no second Add). Turning it rings the matching card (`.fcard.tuned`, `data-hz`, `--tone` on `#all`) and re-tunes the film. The film's picker got lighter glass and all seven chips fit on a phone (the Hz suffix hides). The film's designation beat now hides the captions while it holds the frame.
