@@ -197,9 +197,106 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (max-width:720px){.vgrid{grid-template-columns:1fr}}
 .filmlink{display:inline-block;margin-top:14px;font-family:var(--sans);font-weight:600;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--copper);text-decoration:none}
 .filmlink:hover{color:var(--ink)}
+
+/* ===== the generator film, folded in from /generator/ (Sara: one dark landing) ===== */
+.film{--navy:#0a1017;--paper:#f3ece1;--copper:#c08a4e;--ink:#ece6da;--soft:#9fb0be}
+.film .stage{position:relative;height:460vh}
+.film .sticky{position:sticky;top:0;height:100vh;overflow:hidden}
+.film #c{position:absolute;inset:0;width:100%;height:100%;display:block}
+.film .bg{position:absolute;inset:0;background:radial-gradient(120% 90% at 68% 40%,rgba(192,138,78,.16),transparent 55%),radial-gradient(90% 80% at 30% 100%,rgba(20,40,70,.4),transparent 60%),var(--navy);z-index:0}
+.film .veil{position:absolute;inset:0;z-index:2;background:#0a1017;opacity:0;pointer-events:none}
+.film .caps{position:absolute;inset:0;z-index:3;pointer-events:none}
+.film .cap{position:absolute;left:0;right:0;padding:0 8vw;opacity:0;transition:opacity .5s ease,transform .6s cubic-bezier(.16,1,.3,1);transform:translateY(20px);text-shadow:0 2px 24px rgba(7,12,18,.85),0 0 60px rgba(7,12,18,.55)}
+.film .cap.in{opacity:1;transform:none}
+.film .cap .eye{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--copper);font-weight:600}
+.film .cap h1,.film .cap h2{font-family:'Fraunces';font-weight:300;font-size:clamp(34px,6vw,74px);line-height:1.02;letter-spacing:-.02em;margin-top:16px;text-wrap:balance}
+.film .cap p{margin-top:18px;max-width:34ch;color:var(--soft);font-size:clamp(15px,1.6vw,18px);line-height:1.6}
+.film .cap.c0{top:32%;max-width:820px}
+.film .cap.c1{top:30%;left:auto;right:0;text-align:right;max-width:none}
+.film .cap.c1 p{margin-left:auto}
+.film .cap.c2{top:30%}
+.film .cap.c3{top:auto;bottom:7%;text-align:center}
+.film .cap.c3 p,.film .cap.c3 .specs{margin-left:auto;margin-right:auto}
+.film .specs{display:flex;gap:10px;margin-top:26px;max-width:560px}
+.film .spec{padding:14px 20px;flex:1;position:relative;border:1px solid #223247;border-radius:6px;
+  background:linear-gradient(180deg,rgba(20,33,47,.85),rgba(13,23,36,.85));backdrop-filter:blur(4px)}
+.film .spec::before{content:"";position:absolute;top:-1px;left:14px;right:14px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--copper),transparent);opacity:.75}
+.film .spec .k{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);font-weight:600}
+.film .spec .v{font-family:'Fraunces';font-size:18px;margin-top:4px}
+.film .dial{position:absolute;top:13%;left:0;right:0;text-align:center;opacity:0;pointer-events:none;
+  text-shadow:0 2px 24px rgba(7,12,18,.9),0 0 60px rgba(7,12,18,.6)}
+.film .dial .dv{font-family:'Fraunces';font-weight:300;font-size:clamp(70px,9vw,128px);color:#f3ead9;letter-spacing:-.02em;line-height:1}
+.film .dial .dv em{font-style:normal;font-size:.34em;color:var(--copper);margin-left:8px;vertical-align:.22em}
+.film .dial .dl{margin-top:10px;font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--soft);font-weight:600}
+.film .cue{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:4;color:var(--soft);font-size:11px;letter-spacing:.24em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px;transition:opacity .4s}
+.film .cue .bar{width:1px;height:38px;background:linear-gradient(var(--copper),transparent)}
+@media (max-width:560px){.film .specs{flex-wrap:wrap}
+.film .spec{flex-basis:100%;border-left:0!important;border-top:1px solid #223247}
+.film .spec:first-child{border-top:0}
+.film .cap p{max-width:none}}
+@media (max-width:700px){.film .cap.c0,.film .cap.c1,.film .cap.c2{top:9%}}
+.film .hzpick{position:fixed;left:50%;bottom:64px;transform:translateX(-50%);z-index:6;display:flex;gap:6px;padding:6px;border-radius:999px;
+  background:rgba(12,14,18,.55);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.film .hzpick button{font-family:var(--sans,'Instrument Sans',sans-serif);font-weight:600;font-size:11.5px;letter-spacing:.06em;color:rgba(246,242,236,.72);background:none;border:0;border-radius:999px;padding:9px 12px;cursor:pointer;transition:.2s}
+.film .hzpick button em{font-style:normal;font-size:8.5px;letter-spacing:.14em;margin-left:2px;opacity:.7}
+.film .hzpick button:hover{color:#fff}
+.film .hzpick button.on{color:#1b1d22;background:linear-gradient(135deg,#f0d3b3,#d9a978)}
+@media (max-width:700px){.film .hzpick{bottom:14px;gap:2px;padding:4px;max-width:96vw;overflow-x:auto;scrollbar-width:none}
+.film .hzpick button{padding:8px 8px;font-size:10.5px}}
+/* the film on the frequency page: its own dark ground, its cue and picker travel with it */
+.film{background:var(--navy);color:var(--ink);font-family:'Instrument Sans',sans-serif;position:relative}
+.film .cue,.film .hzpick{position:absolute}
+.film .cap h1,.film .cap h2{color:var(--ink);max-width:none}
+.film .cap p{color:var(--soft)}
+
+.ash1{font-size:clamp(34px,5vw,64px);max-width:20ch;text-wrap:balance;font-weight:300}
 </style>
 </head><body>
 <main>
+<div class="film">
+<section class="stage" id="stage">
+  <div class="sticky">
+    <div class="bg"></div>
+    <canvas id="c"></canvas>
+    <div class="veil" id="veil"></div>
+    <div class="caps">
+      <div class="cap c0" data-lo="0" data-hi="0.16">
+        <div class="eye">The Frequency Generator</div>
+        <!-- the first caption is this page's title, so it is the h1. It was an
+             h2 and the page had no h1 at all. -->
+        <h1>Frequency,<br>made tangible.</h1>
+        <p>A physical object, tuned to a specified frequency and built to be understood. Scroll to look inside.</p>
+      </div>
+      <div class="cap c1" data-lo="0.20" data-hi="0.40">
+        <div class="eye">Sealed by hand</div>
+        <h2>Glass, copper,<br>and four bolts.</h2>
+        <p>A tinted glass cover, machined black plates and chrome hardware — the materials that make the energy world tangible.</p>
+      </div>
+      <div class="cap c2" data-lo="0.44" data-hi="0.58">
+        <div class="eye">Inside</div>
+        <h2>A single<br>copper coil.</h2>
+        <p>One continuous spiral, tuned to a specified frequency and set behind a silver ring. This is the heart of the generator.</p>
+      </div>
+      <div class="dial" id="dial" aria-hidden="true">
+        <div class="dv"><span id="dialv">639</span><em>Hz</em></div>
+        <div class="dl">one coil &middot; one designation</div>
+      </div>
+      <div class="cap c3" data-lo="0.90" data-hi="1.01">
+        <div class="eye">Made real</div>
+        <h2>Yours to use.</h2>
+        <div class="specs">
+          <div class="spec"><div class="k">Material</div><div class="v">Copper coil</div></div>
+          <div class="spec"><div class="k">Placement</div><div class="v">Room · desk</div></div>
+          <div class="spec"><div class="k">Setup</div><div class="v">Under 5 min</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="hzpick" id="hzpick" aria-label="Choose a frequency"></div>
+  <div class="cue" id="cue"><span>Scroll</span><span class="bar"></span></div>
+  </div>
+</section>
+</div>
 
 <section class="sect" id="all">
   <div class="sinemark c" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
@@ -209,8 +306,7 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
        seven fixed-frequency generators. Two introductions to a page whose
        whole content is one grid. -->
   <div class="wrap">
-    <h1>Where wellness meets <em class="hl gemword">tech.</em></h1>
-    <a class="seeall filmlink" href="/generator/">See the generator up close <span class="a" aria-hidden="true">&rarr;</span></a>
+    <h2 class="ash1">Where wellness meets <em class="hl gemword">tech.</em></h2>
     <div class="fgrid" id="fgrid"></div>
     <p class="note">Frequency generators are not medical devices and are not a substitute for
       healthcare. Experiences vary.</p>
@@ -350,5 +446,394 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
                img:c.img,link:'/frequency/'});
   });
 })();
+</script>
+<script type="importmap">{"imports":{"three":"/assets/three.module.min.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+window.addEventListener('error',e=>{window.__err=(e.message||'')+' @'+e.lineno;});
+const canvas=document.getElementById('c');
+const isMobile=matchMedia('(pointer:coarse)').matches||Math.min(screen.width,innerWidth)<700;
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(devicePixelRatio,isMobile?1.5:2));
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.18;
+renderer.shadowMap.enabled=!isMobile;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(32,innerWidth/innerHeight,0.1,100);
+
+function makeEnv(){
+  const cv=document.createElement('canvas');cv.width=64;cv.height=256;const x=cv.getContext('2d');
+  const base=x.createLinearGradient(0,0,0,256);
+  base.addColorStop(0,'#3a4250');base.addColorStop(.5,'#20252e');base.addColorStop(1,'#0d1016');
+  x.fillStyle=base;x.fillRect(0,0,64,256);
+  function strip(cy,h,a){const s=x.createLinearGradient(0,cy-h,0,cy+h);s.addColorStop(0,'rgba(255,251,243,0)');s.addColorStop(.5,'rgba(255,251,243,'+a+')');s.addColorStop(1,'rgba(255,251,243,0)');x.fillStyle=s;x.fillRect(0,cy-h,64,h*2);}
+  strip(46,26,0.95);strip(150,20,0.5);
+  const t=new THREE.CanvasTexture(cv);t.mapping=THREE.EquirectangularReflectionMapping;t.colorSpace=THREE.SRGBColorSpace;
+  const p=new THREE.PMREMGenerator(renderer);const e=p.fromEquirectangular(t).texture;t.dispose();p.dispose();return e;
+}
+scene.environment=makeEnv();
+scene.add(new THREE.HemisphereLight(0xdfe6f0,0x2a2f38,0.5));
+const key=new THREE.DirectionalLight(0xfff2e0,1.7);key.position.set(2.2,3.6,2.4);scene.add(key);
+key.castShadow=true;key.shadow.mapSize.set(1024,1024);key.shadow.radius=6;key.shadow.bias=-0.0004;
+key.shadow.camera.left=-1.8;key.shadow.camera.right=1.8;key.shadow.camera.top=1.8;key.shadow.camera.bottom=-1.8;
+key.shadow.camera.near=0.5;key.shadow.camera.far=10;
+const fill=new THREE.DirectionalLight(0xbcd0f0,0.55);fill.position.set(-2.8,1.4,2.2);scene.add(fill);
+const rim=new THREE.DirectionalLight(0xffffff,1.0);rim.position.set(-1.2,2.4,-2.6);scene.add(rim);
+
+const device=new THREE.Group();scene.add(device);
+const catcher=new THREE.Mesh(new THREE.PlaneGeometry(9,9),new THREE.ShadowMaterial({opacity:0.34}));catcher.rotation.x=-Math.PI/2;catcher.receiveShadow=true;scene.add(catcher);
+const SLAB=2.0;
+const matGlass=new THREE.MeshPhysicalMaterial({color:0xaebdcc,metalness:0,roughness:0.05,transparent:true,opacity:0.13,clearcoat:1,clearcoatRoughness:0.04,envMapIntensity:1.25,depthWrite:false});
+const matBlackGloss=new THREE.MeshPhysicalMaterial({color:0x0b0d11,metalness:0.22,roughness:0.12,clearcoat:1,clearcoatRoughness:0.05,envMapIntensity:1.5,transparent:true,opacity:1});
+const matBlack=new THREE.MeshPhysicalMaterial({color:0x0d0f13,metalness:0.3,roughness:0.2,clearcoat:0.8,clearcoatRoughness:0.15,envMapIntensity:1.2});
+const matDisc=new THREE.MeshStandardMaterial({color:0x0b0e13,metalness:0.3,roughness:0.45});
+const matGold=new THREE.MeshPhysicalMaterial({color:0xC97A45,metalness:1.0,roughness:0.30,envMapIntensity:2.0,emissive:0x6b3a1a,emissiveIntensity:0.5});
+if('anisotropy' in matGold){matGold.anisotropy=0.7;matGold.anisotropyRotation=Math.PI/2;}
+// coil current: a bright band that travels the length of the spiral (rides the tube UVs)
+const currentTex=(function(){
+  const cv=document.createElement('canvas');cv.width=512;cv.height=2;const x=cv.getContext('2d');
+  const g=x.createLinearGradient(0,0,512,0);
+  g.addColorStop(0,'#4e4e4e');g.addColorStop(0.455,'#4e4e4e');g.addColorStop(0.5,'#ffffff');
+  g.addColorStop(0.545,'#4e4e4e');g.addColorStop(1,'#4e4e4e');
+  x.fillStyle=g;x.fillRect(0,0,512,2);
+  const t=new THREE.CanvasTexture(cv);t.wrapS=THREE.RepeatWrapping;t.wrapT=THREE.ClampToEdgeWrapping;
+  return t;
+})();
+matGold.emissiveMap=currentTex;
+const matRing=new THREE.MeshStandardMaterial({color:0xe6eaee,metalness:0.95,roughness:0.2,envMapIntensity:1.6});
+const matChrome=new THREE.MeshStandardMaterial({color:0xdfe3e6,metalness:1.0,roughness:0.14,envMapIntensity:1.8});
+const matSteel=new THREE.MeshStandardMaterial({color:0xb8bdc2,metalness:1.0,roughness:0.28,envMapIntensity:1.4});
+function part(geo,mat,x,y,z,parent){const m=new THREE.Mesh(geo,mat);m.position.set(x||0,y||0,z||0);m.castShadow=true;m.receiveShadow=true;(parent||device).add(m);return m;}
+
+const base=new THREE.Group();device.add(base);
+// flat, wide stack — proportions from the product photo (coil face ~70% of plate width)
+part(new THREE.BoxGeometry(SLAB,0.09,SLAB),matBlack,0,0,0,base);                       // bottom slab
+part(new THREE.BoxGeometry(SLAB*1.004,0.014,SLAB*1.004),matSteel,0,0.052,0,base);      // lamination line
+part(new THREE.BoxGeometry(SLAB,0.035,SLAB),matBlack,0,0.077,0,base);                  // upper base layer
+part(new THREE.CylinderGeometry(0.73,0.73,0.04,120),matBlack,0,0.077,0,base);          // recess well
+part(new THREE.CylinderGeometry(0.71,0.71,0.024,120),matDisc,0,0.096,0,base);          // coil disc
+const ring=new THREE.Mesh(new THREE.TorusGeometry(0.70,0.008,16,160),matRing);ring.rotation.x=Math.PI/2;ring.position.y=0.112;ring.castShadow=true;base.add(ring);
+(function(){
+  // spiral winds all the way to a small open curl at the center (like the product):
+  // pitch is ~1.5x wider for the innermost turns, easing to uniform fine pitch outward
+  const turns=36,N=isMobile?2200:3600,r0=0.012,rMax=0.665,A=turns*Math.PI*2;const pts=[];
+  for(let i=0;i<=N;i++){
+    const a=i/N*A,u=a/A;
+    const f=0.9*u+0.1*(1-Math.pow(1-u,6));
+    const r=r0+(rMax-r0)*f;
+    pts.push(new THREE.Vector3(Math.cos(a)*r,0,Math.sin(a)*r));
+  }
+  const g=new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),isMobile?2000:3400,0.0046,isMobile?6:8,false);
+  const m=new THREE.Mesh(g,matGold);m.position.y=0.115;m.castShadow=true;m.receiveShadow=true;base.add(m);window.__coil=m;})();
+// ---------- the designation: each frequency carries its own line-art over the coil, as the product does ----------
+// 7.83 is the bare spiral; 174 a twelve-point web; 417 the Seed of Life; 528 the Sri Yantra;
+// 639 the Merkaba; 963 the torus vortex on a silver coil; 1111 three circles on a pearl plate.
+const HZS=['7.83','174','417','528','639','963','1111'];
+function drawGeometry(hz){
+  const S=1024,R=470,cx=S/2,cy=S/2;const cv=document.createElement('canvas');cv.width=cv.height=S;const x=cv.getContext('2d');
+  x.clearRect(0,0,S,S);x.strokeStyle='rgba(246,242,236,0.92)';x.lineWidth=3.2;x.lineCap='round';x.lineJoin='round';
+  const circle=(px,py,r)=>{x.beginPath();x.arc(px,py,r,0,Math.PI*2);x.stroke();};
+  const poly=(pts)=>{x.beginPath();pts.forEach((q,i)=>i?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1]));x.closePath();x.stroke();};
+  const tri=(h,up)=>{const s=up?1:-1;const yb=cy+s*h*0.5,ya=cy-s*h*0.5;const w=h*1.05;poly([[cx,ya],[cx-w/2,yb],[cx+w/2,yb]]);};
+  if(hz==='417'){const r=R/2;circle(cx,cy,r);for(let i=0;i<6;i++){const a=i*Math.PI/3;circle(cx+Math.cos(a)*r,cy+Math.sin(a)*r,r);}circle(cx,cy,R);}
+  else if(hz==='528'){[0.95,0.74,0.52,0.32].forEach(h=>tri(R*2*h*0.5,true));[0.9,0.7,0.48,0.28,0.14].forEach(h=>tri(R*2*h*0.5,false));circle(cx,cy,R*0.98);circle(cx,cy,R*0.9);
+    x.lineWidth=2.2;for(let i=0;i<8;i++){const a=i*Math.PI/4;x.beginPath();x.ellipse(cx+Math.cos(a)*R*0.94,cy+Math.sin(a)*R*0.94,R*0.05,R*0.09,a,0,Math.PI*2);x.stroke();}}
+  else if(hz==='639'){const r=R*0.92;const hex=[];for(let i=0;i<6;i++){const a=-Math.PI/2+i*Math.PI/3;hex.push([cx+Math.cos(a)*r,cy+Math.sin(a)*r]);}
+    poly([hex[0],hex[2],hex[4]]);poly([hex[1],hex[3],hex[5]]);poly(hex);x.lineWidth=2.4;hex.forEach(q=>{x.beginPath();x.moveTo(cx,cy);x.lineTo(q[0],q[1]);x.stroke();});}
+  else if(hz==='174'){const n=12,r=R*0.95;const pts=[];for(let i=0;i<n;i++){const a=-Math.PI/2+i*2*Math.PI/n;pts.push([cx+Math.cos(a)*r,cy+Math.sin(a)*r]);}
+    for(let k=4;k<=6;k++){x.beginPath();for(let i=0;i<n;i++){const q=pts[i],w=pts[(i+k)%n];x.moveTo(q[0],q[1]);x.lineTo(w[0],w[1]);}x.stroke();}
+    x.lineWidth=2.2;[0.72,0.5,0.28].forEach(f=>{const rr=r*f;const pp=[];for(let i=0;i<n;i++){const a=-Math.PI/2+i*2*Math.PI/n;pp.push([cx+Math.cos(a)*rr,cy+Math.sin(a)*rr]);}poly(pp);});
+    pts.forEach(q=>{x.beginPath();x.moveTo(cx,cy);x.lineTo(q[0],q[1]);x.stroke();});}
+  else if(hz==='963'){x.lineWidth=2.4;const n=36,r=R*0.5;for(let i=0;i<n;i++){const a=i*2*Math.PI/n;circle(cx+Math.cos(a)*r,cy+Math.sin(a)*r,r);}circle(cx,cy,R*0.98);}
+  else if(hz==='1111'){const d=R*0.34,r=R*0.6;for(let i=0;i<3;i++){const a=-Math.PI/2+i*2*Math.PI/3;circle(cx+Math.cos(a)*d,cy+Math.sin(a)*d,r);}}
+  const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=4;return t;
+}
+const geoMat=new THREE.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide});
+const geoPlane=new THREE.Mesh(new THREE.PlaneGeometry(1.40,1.40),geoMat);geoPlane.rotation.x=-Math.PI/2;geoPlane.position.y=0.1285;base.add(geoPlane);
+const geoCache={};
+const plateColors={black:{plate:0x0b0d11,base:0x0d0f13,gloss:1.0,rough:0.12,env:1.5},pearl:{plate:0xf0eae0,base:0xd6cfc4,gloss:1.0,rough:0.22,env:2.4}};
+function setHz(hz){
+  hz=HZS.indexOf(String(hz))>=0?String(hz):'7.83';
+  window.__hz=hz;
+  if(hz==='7.83'){geoMat.opacity=0;}
+  else{if(!geoCache[hz])geoCache[hz]=drawGeometry(hz);geoMat.map=geoCache[hz];geoMat.needsUpdate=true;geoMat.opacity=0.95;}
+  // the 963 winds a silver coil; the 1111 sits on a pearl plate
+  const silver=hz==='963';
+  matGold.color.setHex(silver?0xd8d9d6:0xC97A45);matGold.emissive.setHex(silver?0x3a3a3a:0x6b3a1a);
+  const pc=hz==='1111'?plateColors.pearl:plateColors.black;
+  matBlackGloss.color.setHex(pc.plate);matBlack.color.setHex(pc.base);matBlackGloss.clearcoat=pc.gloss;matBlackGloss.roughness=pc.rough;matBlackGloss.envMapIntensity=pc.env;matBlack.roughness=hz==='1111'?0.32:0.2;matBlack.envMapIntensity=hz==='1111'?1.8:1.2;matBlackGloss.needsUpdate=true;
+  document.querySelectorAll('.hzpick button').forEach(b=>b.classList.toggle('on',b.dataset.hz===hz));
+  const dv=document.getElementById('dialv');if(dv&&!window.__dialing)dv.textContent=hz;
+}
+window.__setHz=setHz;
+// bloom glow over the coil + soft under-glow beneath the floating device
+function radialTex(rgb){const cv=document.createElement('canvas');cv.width=cv.height=256;const x=cv.getContext('2d');
+  const g=x.createRadialGradient(128,128,10,128,128,128);
+  g.addColorStop(0,'rgba('+rgb+',0.85)');g.addColorStop(0.45,'rgba('+rgb+',0.28)');g.addColorStop(1,'rgba('+rgb+',0)');
+  x.fillStyle=g;x.fillRect(0,0,256,256);
+  const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;return t;}
+const coilGlow=new THREE.Sprite(new THREE.SpriteMaterial({map:radialTex('232,188,102'),transparent:true,opacity:0.15,blending:THREE.AdditiveBlending,depthWrite:false}));
+coilGlow.scale.set(1.75,1.75,1);coilGlow.position.y=0.13;base.add(coilGlow);
+const underGlow=new THREE.Sprite(new THREE.SpriteMaterial({map:radialTex('169,104,62'),transparent:true,opacity:0.10,blending:THREE.AdditiveBlending,depthWrite:false}));
+underGlow.scale.set(4.6,4.6,1);underGlow.position.y=-0.85;device.add(underGlow);
+// bolts get their own fade-able materials so they can unscrew and drift away in the reveal
+const boltChrome=matChrome.clone(),boltSteel=matSteel.clone();
+boltChrome.transparent=true;boltSteel.transparent=true;
+const bolts=[];
+function bolt(x,z){const g=new THREE.Group();
+  const sh=new THREE.Mesh(new THREE.CylinderGeometry(0.028,0.028,0.34,20),boltChrome);sh.position.y=0.06;g.add(sh);
+  const wa=new THREE.Mesh(new THREE.CylinderGeometry(0.094,0.094,0.012,32),boltSteel);wa.position.y=0.212;g.add(wa);
+  // hex head with a rounded (domed) top, like the photo
+  const hT=new THREE.Mesh(new THREE.CylinderGeometry(0.080,0.086,0.046,6),boltChrome);hT.position.y=0.242;hT.rotation.y=0.3;g.add(hT);
+  const dome=new THREE.Mesh(new THREE.SphereGeometry(0.072,24,14,0,Math.PI*2,0,Math.PI/2),boltChrome);
+  dome.scale.set(1,0.42,1);dome.position.y=0.265;g.add(dome);
+  const hB=new THREE.Mesh(new THREE.CylinderGeometry(0.066,0.070,0.042,6),boltChrome);hB.position.y=-0.066;hB.rotation.y=0.3;g.add(hB);
+  const domeB=new THREE.Mesh(new THREE.SphereGeometry(0.060,24,14,0,Math.PI*2,0,Math.PI/2),boltChrome);
+  domeB.scale.set(1,-0.4,1);domeB.position.y=-0.087;g.add(domeB);
+  g.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});
+  g.position.set(x,0,z);base.add(g);bolts.push(g);}
+const bo=0.85;bolt(bo,bo);bolt(-bo,bo);bolt(bo,-bo);bolt(-bo,-bo);
+
+// lid = glossy black plate with circular window + clear glass sheet + branding
+const topAssembly=new THREE.Group();
+const lidMats=[]; // [material, baseOpacity] pairs faded during the reveal
+(function(){
+  const H=1.0,R=0.06; // rounded square
+  const s=new THREE.Shape();
+  s.moveTo(-H+R,-H);s.lineTo(H-R,-H);s.quadraticCurveTo(H,-H,H,-H+R);s.lineTo(H,H-R);
+  s.quadraticCurveTo(H,H,H-R,H);s.lineTo(-H+R,H);s.quadraticCurveTo(-H,H,-H,H-R);
+  s.lineTo(-H,-H+R);s.quadraticCurveTo(-H,-H,-H+R,-H);
+  const hole=new THREE.Path();hole.absarc(0,0,0.72,0,Math.PI*2,true);s.holes.push(hole);
+  const geo=new THREE.ExtrudeGeometry(s,{depth:0.05,bevelEnabled:true,bevelThickness:0.008,bevelSize:0.008,bevelSegments:2,curveSegments:72});
+  geo.rotateX(-Math.PI/2);geo.translate(0,-0.025,0);
+  const plate=new THREE.Mesh(geo,matBlackGloss);plate.castShadow=true;plate.receiveShadow=true;topAssembly.add(plate);
+  lidMats.push([matBlackGloss,1]);
+  const sheet=new THREE.Mesh(new THREE.BoxGeometry(SLAB*0.995,0.016,SLAB*0.995),matGlass);
+  sheet.position.y=0.042;topAssembly.add(sheet);
+  lidMats.push([matGlass,0.13]);
+  // branding centered below the coil window, like the product photo
+  const cv=document.createElement('canvas');cv.width=640;cv.height=140;const x=cv.getContext('2d');
+  x.fillStyle='#9aabae';x.font='italic 600 64px Georgia';x.textBaseline='middle';x.textAlign='center';x.fillText('energy muse',320,78);
+  const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;
+  const brandMat=new THREE.MeshBasicMaterial({map:t,transparent:true,opacity:0.92});
+  const pl=new THREE.Mesh(new THREE.PlaneGeometry(0.56,0.123),brandMat);
+  pl.position.set(0,0.054,0.865);pl.rotation.x=-Math.PI/2;pl.rotation.z=0.0;topAssembly.add(pl);
+  lidMats.push([brandMat,0.92]);
+})();
+topAssembly.position.y=0.16;device.add(topAssembly);
+
+// ---------- crystal finale: a real scanned stone descends and settles on the coil ----------
+let crystal=null,crystalH=0.6,crystalReady=false,crystalLoadStarted=false;
+const rippleMat=new THREE.MeshBasicMaterial({color:0xE3B45E,transparent:true,opacity:0,
+  side:THREE.DoubleSide,depthWrite:false,blending:THREE.AdditiveBlending});
+const ripple=new THREE.Mesh(new THREE.RingGeometry(0.55,0.585,64),rippleMat);
+ripple.rotation.x=-Math.PI/2;ripple.position.y=0.218;device.add(ripple);
+// charging motes: faint copper light rising off the coil once the stone has settled
+let motes,moteMat,moteSeed;
+(function(){
+  const N=42,pos=new Float32Array(N*3);moteSeed=new Float32Array(N);
+  for(let i=0;i<N;i++){const r=Math.sqrt(Math.random())*0.6,a=Math.random()*Math.PI*2;
+    pos[i*3]=Math.cos(a)*r;pos[i*3+1]=Math.random()*0.85;pos[i*3+2]=Math.sin(a)*r;moteSeed[i]=Math.random();}
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  moteMat=new THREE.PointsMaterial({color:0xE8C9A0,size:0.016,transparent:true,opacity:0,
+    blending:THREE.AdditiveBlending,depthWrite:false});
+  motes=new THREE.Points(g,moteMat);motes.position.y=0.21;device.add(motes);
+})();
+// touchdown dust: a ring of sparks kicked outward across the plate when the stone lands
+let dust,dustMat,dustSeed;
+(function(){
+  const N=16,pos=new Float32Array(N*3);dustSeed=[];
+  for(let i=0;i<N;i++){
+    const a=(i/N)*Math.PI*2+Math.random()*0.35,sp=0.7+Math.random()*0.6;
+    dustSeed.push({a,sp,up:0.06+Math.random()*0.12});
+    pos[i*3]=Math.cos(a)*0.5;pos[i*3+1]=0.225;pos[i*3+2]=Math.sin(a)*0.5;
+  }
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  dustMat=new THREE.PointsMaterial({color:0xF2D9AE,size:0.022,transparent:true,opacity:0,
+    blending:THREE.AdditiveBlending,depthWrite:false});
+  dust=new THREE.Points(g,dustMat);device.add(dust);
+})();
+/* The scanned crystal finale is gone with the rest of the 3D scans. The
+   device itself is procedural geometry and still renders; this only removed
+   the .glb stone that descended onto the coil at the end of the scroll.
+   crystalReady stays false, so the choreography below simply skips that
+   beat rather than needing to be unpicked. */
+function loadCrystal(){ /* scans retired */ }
+
+// ---------- choreography ----------
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let scrollP=0, targetP=0, mx=0,my=0,tmx=0,tmy=0;
+if(!isMobile)addEventListener('pointermove',e=>{tmx=e.clientX/innerWidth-0.5;tmy=e.clientY/innerHeight-0.5;});
+function lerp(a,b,t){return a+(b-a)*t;}
+function clamp01(v){return v<0?0:v>1?1:v;}
+function smooth(e0,e1,x){const t=clamp01((x-e0)/(e1-e0));return t*t*(3-2*t);}
+const V=THREE.Vector3;
+const camHero=new V(0,1.78,4.05),lookHero=new V(0,0.0,0);
+const camTop=new V(0.02,3.5,0.46),lookTop=new V(0,0.10,0);
+const camEnd=new V(0.08,1.62,2.0),lookEnd=new V(0,0.26,0); // finale: glide in past the bolts, settle on the stone
+const veil=document.getElementById('veil');
+const dialEl=document.getElementById('dial'),dialV=document.getElementById('dialv');
+let viewK=1; // widen framing on narrow (portrait) screens
+function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;
+  viewK=Math.max(1,Math.min(1.85,1.22/camera.aspect));
+  camera.updateProjectionMatrix();}
+addEventListener('resize',resize);resize();
+
+const clock=new THREE.Clock();
+function frame(){
+  const t=clock.getElapsedTime();
+  // smoothed scroll: animation eases toward the scroll position (butter on phones)
+  scrollP+=(targetP-scrollP)*(reduce?1:0.09);
+  if(Math.abs(targetP-scrollP)<0.0004)scrollP=targetP;
+  const p=scrollP;
+  mx+=(tmx-mx)*0.05;my+=(tmy-my)*0.05;
+  // ---- beats ----
+  // A 0.00-0.18  hero: closed, floating, gentle sway      (cap c0, text left  -> device right)
+  // B 0.18-0.42  materials: closed, camera starts overhead (cap c1, text right -> device left)
+  // C 0.44-0.68  reveal: camera top-down, lid lifts+fades  (cap c2, text left  -> device right)
+  // E 0.72-1.00  finale: glide in past the bolts, come to rest, veil to a ghosted spiral (cap c3)
+  const camT=smooth(0.18,0.58,p);
+  const endT=smooth(0.72,0.96,p);
+  let cx=lerp(lerp(camHero.x,camTop.x,camT),camEnd.x,endT);
+  let cy=lerp(lerp(camHero.y,camTop.y,camT),camEnd.y,endT);
+  let cz=lerp(lerp(camHero.z,camTop.z,camT),camEnd.z,endT);
+  const lk=new V(
+    lerp(lerp(lookHero.x,lookTop.x,camT),lookEnd.x,endT),
+    lerp(lerp(lookHero.y,lookTop.y,camT),lookEnd.y,endT),
+    lerp(lerp(lookHero.z,lookTop.z,camT),lookEnd.z,endT));
+  // widen framing on portrait screens by pulling the camera out along its axis
+  camera.position.set(lk.x+(cx-lk.x)*viewK,lk.y+(cy-lk.y)*viewK,lk.z+(cz-lk.z)*viewK);
+  // beat B: the camera swings a gentle arc around the device — filmed, not posed
+  const orb=0.30*smooth(0.16,0.28,p)*(1-smooth(0.36,0.52,p));
+  if(orb!==0){
+    const ox=camera.position.x-lk.x,oz=camera.position.z-lk.z;
+    const ca=Math.cos(orb),sa=Math.sin(orb);
+    camera.position.x=lk.x+ox*ca-oz*sa;
+    camera.position.z=lk.z+ox*sa+oz*ca;
+  }
+  // at rest the frame breathes: a slow orbital drift once the stone has landed
+  const drift=reduce?0:smooth(0.96,1,p);
+  if(drift>0){camera.position.x+=Math.sin(t*0.22)*0.06*drift;camera.position.y+=Math.cos(t*0.17)*0.035*drift;}
+  camera.lookAt(lk);
+  // device travel: keep the object opposite the active caption (damped on narrow screens)
+  const dxK=Math.min(1,camera.aspect*0.72);
+  let dx=0.52;
+  dx+=(-1.02)*smooth(0.16,0.24,p);   // -> -0.50 for caption right
+  dx+=( 0.95)*smooth(0.40,0.48,p);   // -> +0.45 for caption left
+  dx+=(-0.45)*smooth(0.66,0.76,p);   // -> 0 centered for the finale
+  dx*=dxK;
+  const endTd=smooth(0.72,0.96,p);
+  let dz=(-0.16)*smooth(0.68,0.82,p); // slight settle upward as we glide in
+  dz+=0.46*Math.max(0,Math.min(1,(1.05-camera.aspect)*2))*smooth(0.18,0.58,p)*(1-endTd); // portrait: clear the caption in top-down beats
+  // float + sway only in hero
+  const heroFade=1-smooth(0.14,0.24,p);
+  const bob=reduce?0:Math.sin(t*0.9)*0.035*heroFade;
+  // portrait: sit the device in the lower half so captions own the top of the screen
+  const portK=Math.max(0,Math.min(1,(1.05-camera.aspect)*2));
+  const dy=-0.72*portK*(1-camT);
+  device.position.set(dx,bob+dy,dz);
+  catcher.position.set(dx,bob+dy-0.42,dz);catcher.material.opacity=0.34*(1-endT*0.5);
+  const idleSpin=reduce?0:Math.sin(t*0.22)*0.30*heroFade; // gentle sway, logo stays near front
+  const rest=1-endT; // rotation comes to rest at the end
+  device.rotation.y=-0.78+idleSpin+camT*0.3+mx*0.35*(1-camT*0.6)*rest;
+  device.rotation.x=lerp(0.5,0.12,camT)+my*0.12*(1-camT)*rest;
+  // the four bolts unscrew and drift away — then thread back home before the finale,
+  // so the device reads as sealed: you set a stone ON it, you don't open it
+  const bT=smooth(0.40,0.52,p)*(1-smooth(0.76,0.85,p));
+  const bFade=1-smooth(0.47,0.56,p)*(1-smooth(0.76,0.84,p));
+  boltChrome.opacity=bFade;boltSteel.opacity=bFade;
+  bolts.forEach((g,i)=>{
+    g.rotation.y=-bT*Math.PI*(1.25+i*0.14);      // each backs out (and rethreads) at its own pace
+    g.position.y=Math.pow(Math.max(bT,0),1.4)*(0.34+i*0.06);
+    g.visible=bFade>0.02;
+  });
+  // the lid lifts away for the reveal, then settles back into place
+  const lidOut=smooth(0.46,0.62,p)*(1-smooth(0.70,0.80,p));
+  topAssembly.position.y=0.16+lidOut*0.5;
+  topAssembly.position.z=-1.35*lidOut;         // slide off toward top of frame
+  topAssembly.rotation.x=-0.12*lidOut;         // slight peel
+  const lidFade=1-smooth(0.0,0.6,lidOut);
+  lidMats.forEach(mo=>{mo[0].opacity=mo[1]*lidFade;});
+  topAssembly.visible=lidFade>0.02;
+  // the coil wakes when the lid comes off, then hands over to the crystal glow
+  let glowO=0.15+0.22*smooth(0.50,0.64,p)*(1-smooth(0.68,0.80,p));
+  matGold.emissiveIntensity=0.5+0.6*smooth(0.48,0.62,p)*(1-smooth(0.66,0.82,p));
+  // coil current: the bright band sweeps the spiral — faster while the coil wakes,
+  // a slow steady pulse once the stone is charging on it
+  if(!reduce)currentTex.offset.x=-t*(0.08+0.10*smooth(0.48,0.66,p));
+  // the designation dial ticks past while the open coil holds the frame
+  const dOp=smooth(0.585,0.625,p)*(1-smooth(0.675,0.71,p));
+  if(dOp>0.005){
+    const dprog=Math.min(0.999,Math.max(0,(p-0.585)/0.095));
+    const dhz=HZS[Math.min(6,Math.floor(dprog*7))];dialV.textContent=dhz;
+    if(!window.__dialing){window.__dialing=true;window.__hzChosen=window.__hz||'7.83';}
+    if(window.__hzShown!==dhz){window.__hzShown=dhz;setHz(dhz);}
+    dialEl.style.opacity=dOp.toFixed(3);
+  } else {dialEl.style.opacity=0;if(window.__dialing){window.__dialing=false;window.__hzShown=null;setHz(window.__hzChosen||'7.83');}}
+  // finale light: the studio warms as the stone arrives
+  key.intensity=1.7+0.25*endT;
+  key.color.setRGB(1,0.95-0.05*endT,0.88-0.12*endT);
+  // crystal finale: the stone descends, settles on the coil, and the ring answers
+  if(crystalReady){
+    const cT=smooth(0.84,0.955,p);              // the stone arrives only once the device is sealed again
+    crystal.visible=cT>0.001;
+    const restY=0.215+crystalH/2;               // resting on the glass, coil glowing beneath
+    const drop=1-Math.pow(1-cT,2.1);            // ease-out fall
+    crystal.position.y=2.3-(2.3-restY)*drop;
+    crystal.rotation.y=1.2+(1-cT)*2.0;          // slow spin that settles as it lands
+    const lp=smooth(0.955,1.0,p);               // touchdown pulse
+    const sq=Math.sin(Math.min(lp*3,1)*Math.PI)*0.07;  // settle squash: a breath of weight
+    crystal.scale.set(1+sq*0.6,1-sq,1+sq*0.6);
+    rippleMat.opacity=cT>0.92?(1-lp)*0.5:0;
+    ripple.scale.setScalar(0.6+lp*1.5);
+    // dust: sparks skid outward across the plate with the ripple
+    dustMat.opacity=(cT>0.92?(1-lp):0)*0.85;
+    if(dustMat.opacity>0.01){
+      const pa=dust.geometry.attributes.position;
+      dustSeed.forEach((s,i)=>{
+        const r=0.5+lp*s.sp*0.55;
+        pa.array[i*3]=Math.cos(s.a)*r;
+        pa.array[i*3+1]=0.222+lp*s.up*(1-lp*0.6);
+        pa.array[i*3+2]=Math.sin(s.a)*r;
+      });
+      pa.needsUpdate=true;
+    }
+    // charging idle: once settled, the coil breathes and light motes rise off it
+    const landed=smooth(0.972,0.998,p);
+    const breathe=reduce?0.5:(0.5+0.5*Math.sin(t*1.3));
+    glowO+=0.14*lp+landed*0.14*breathe;
+    moteMat.opacity=landed*0.5;
+    if(!reduce&&landed>0.01){
+      const pa=motes.geometry.attributes.position;
+      for(let i=0;i<moteSeed.length;i++){pa.array[i*3+1]=((moteSeed[i]+t*0.05*(0.5+moteSeed[i]))%1)*0.85;}
+      pa.needsUpdate=true;
+    }
+  }
+  coilGlow.material.opacity=glowO;
+  // finale veil: kept faint so the landing stays visible behind the closing caption
+  veil.style.opacity=(0.30*endT).toFixed(3);
+  renderer.render(scene,camera);
+  requestAnimationFrame(frame);
+}
+frame();
+
+// ---------- scroll wiring ----------
+const stage=document.getElementById('stage');
+const caps=[].slice.call(document.querySelectorAll('.film .cap'));
+const cue=document.getElementById('cue');
+function onScroll(){
+  const rect=stage.getBoundingClientRect();
+  const total=stage.offsetHeight-innerHeight;
+  targetP=clamp01(-rect.top/total);
+  if(targetP>0.12)loadCrystal(); // fetch the stone once the reader commits to the scroll
+  caps.forEach(c=>{const lo=+c.dataset.lo,hi=+c.dataset.hi;c.classList.toggle('in',targetP>=lo&&targetP<hi);});
+  cue.style.opacity=targetP>0.04?0:1;
+}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+(function(){var q=new URLSearchParams(location.search).get('p');if(q!==null){var v=Math.max(0,Math.min(1,parseFloat(q)||0));var st=document.getElementById('stage');function go(){window.scrollTo(0,v*(st.offsetHeight-innerHeight));if(window.__setP)__setP(v);}setTimeout(go,300);setTimeout(go,1200);}})();
+(function(){const host=document.getElementById('hzpick');if(host){host.innerHTML=HZS.map(h=>'<button type="button" data-hz="'+h+'">'+h+'<em>Hz</em></button>').join('');
+  host.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;setHz(b.dataset.hz);const q=new URLSearchParams(location.search);q.set('hz',b.dataset.hz);history.replaceState(null,'',location.pathname+'?'+q.toString());});}
+  setHz(new URLSearchParams(location.search).get('hz')||'7.83');})();
+window.__ready=true;window.__setP=v=>{targetP=scrollP=clamp01(v);if(v>0.12)loadCrystal();caps.forEach(c=>{const lo=+c.dataset.lo,hi=+c.dataset.hi;c.classList.toggle('in',targetP>=lo&&targetP<hi);});};
 </script>
 </body></html>
