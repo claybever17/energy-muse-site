@@ -82,7 +82,7 @@ var css=[
    on a touch screen is the thing that gets called glitchy, and it has been
    called that on this project already. */
 '.emh-shop{position:relative;}',
-'.emh-shop > button{background:none;border:0;padding:0;cursor:pointer;color:inherit;',
+'.emh-shop > button{background:none;border:0;padding:0;cursor:pointer;color:'+P.soft+';font:500 13px "Instrument Sans",sans-serif;letter-spacing:.03em;',
 '  font:inherit;letter-spacing:inherit;display:inline-flex;align-items:center;gap:5px;}',
 '.emh-shop > button::after{content:"";width:5px;height:5px;border-right:1.4px solid currentColor;',
 '  border-bottom:1.4px solid currentColor;transform:rotate(45deg) translate(-1px,-1px);',
