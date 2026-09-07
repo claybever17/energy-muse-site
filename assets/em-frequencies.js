@@ -6,7 +6,9 @@
    enough that we were selling a device that does not exist and three of the
    five intention pages pointed at the same generator.
 
-   Checked against energymuse.com/pages/frequency-generators, August 2026.
+   Checked against energymuse.com/pages/frequency-generators, August 2026;
+   the purpose words re-checked against their seven product pages 2026-09-07
+   (1111 now reads Breakthrough / Attune / Ignite on their site).
    Names and purpose words are THEIRS — they are product names, not our
    copy, and must not be rewritten for tone. The `say` prose is ours and
    follows the rigorous voice: what it is and where to put it, no claims.
@@ -76,7 +78,7 @@
     {
       hz: '639', url: 'https://energymuse.com/products/639hz-frequency-generator', slug: 'emotional-balance', id: 'gen-639',
       name: 'Emotional Balance',
-      purpose: ['Connection', 'Relationship Healing', 'Harmony'],
+      purpose: ['Connection', 'Harmony', 'Relationship Healing'],
       cats: ['Love'],
       intention: 'connection',
       img: 'assets/img/generators/639.png',
@@ -102,7 +104,7 @@
          their collection page. Shown, not sold: hiding it would misrepresent the
          range the copy document describes as seven. */
       stock: 'out',
-      purpose: ['Alignment', 'Momentum', 'Manifestation'],
+      purpose: ['Breakthrough', 'Attune', 'Ignite'],
       cats: ['Power', 'Wealth'],
       intention: null,
       img: 'assets/img/generators/1111.png',

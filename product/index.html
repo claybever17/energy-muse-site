@@ -19,8 +19,9 @@
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
-<script src="/assets/em-frequencies.js?v=4"></script>
+<script src="/assets/em-frequencies.js?v=5"></script>
 <script src="/assets/em-catalog.js?v=24"></script>
+<script src="/assets/em-generators.js?v=1"></script>
 <script src="/assets/em-stones.js?v=2"></script>
 <script src="/assets/em-header.js?v=42" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
@@ -172,6 +173,46 @@
    sit on their plates without a box. */
 .rcard{background:transparent;border:0;box-shadow:none;padding:0;border-radius:0}
 .rcard:hover{border-color:transparent;box-shadow:none;transform:translateY(-3px)}
+/* ===== Sept 7: the generator format (Sara, 13:14). Their three words under
+   the title, a quantity, their preview and its points, where to place it as
+   the one visible band, Why / Benefits / Details as panels, and the copper,
+   the ring and the Formula as what goes with it. Tone and soft come from
+   EM_FREQ, set on #pdp. */
+.pdp.gen h1{max-width:22ch}
+.pfor{display:block;font-size:.58em;font-style:italic;font-weight:300;color:var(--copper-lo);margin-top:8px;letter-spacing:0}
+.pthree{margin:14px 0 0;font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:6px 0}
+.pthree span+span::before{content:"\2022";color:var(--tone,var(--copper));margin:0 10px;font-weight:400}
+.ppoints{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:8px;max-width:52ch}
+.ppoints li{position:relative;padding-left:18px;font-size:14.5px;line-height:1.5;color:var(--ink-soft)}
+.ppoints li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--tone,var(--copper));opacity:.75}
+.pshot.photo{padding:0}
+.pshot.photo img{object-fit:cover}
+.place{margin-top:clamp(30px,4vw,52px);padding-top:clamp(24px,3vw,36px);border-top:1px solid var(--hair)}
+.place .eyebrow{margin-bottom:16px}
+.rooms{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.room{background:var(--soft,var(--tint));border-top:2px solid var(--tone,var(--copper));border-radius:0 0 6px 6px;padding:16px 18px 18px}
+.room b{display:block;font-family:var(--serif);font-weight:400;font-size:19px;line-height:1.2;letter-spacing:-.01em}
+.room span{display:block;margin-top:7px;font-size:13.5px;line-height:1.5;color:var(--ink-soft)}
+.rooms.chips{display:flex;flex-wrap:wrap;gap:10px}
+.rooms.chips .room{border:1px solid color-mix(in srgb,var(--tone,var(--copper)) 40%,transparent);border-radius:999px;padding:11px 18px}
+.rooms.chips .room b{font-size:16px}
+.tip{margin:16px 0 0;font-size:13.5px;line-height:1.55;color:var(--ink-soft);max-width:62ch}
+.tip b{font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);margin-right:8px}
+.rlead{color:var(--ink-soft);font-size:15.5px;margin-top:12px}
+.pbody p{margin:0 0 10px;font-size:14px;line-height:1.6;color:var(--ink-soft);max-width:60ch}
+.pbody p:last-child{margin-bottom:0}
+.pbody ul+p{margin-top:12px}
+.pbody .bl li b{display:block;font-family:var(--sans);font-weight:600;font-size:13.5px;color:var(--ink);margin-bottom:2px}
+@media (max-width:640px){
+  .srest{display:none}
+  /* scroll-padding, or the snap pulls the first card flush to the viewport edge and clips it */
+  .rooms:not(.chips){display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--edge);gap:10px;margin-inline:calc(-1*var(--edge));padding-inline:var(--edge);padding-bottom:6px;scrollbar-width:none}
+  .rooms:not(.chips)::-webkit-scrollbar{display:none}
+  .rooms:not(.chips) .room{flex:0 0 74%;scroll-snap-align:start}
+  .rel.gen{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--edge);gap:12px;margin-inline:calc(-1*var(--edge));padding-inline:var(--edge);padding-bottom:6px;scrollbar-width:none}
+  .rel.gen::-webkit-scrollbar{display:none}
+  .rel.gen .rcard{flex:0 0 46%;scroll-snap-align:start}
+}
 </style>
 </head><body>
 <main>
@@ -191,7 +232,7 @@
    would come out "jewelrys", so the plurals are named rather than derived.
    Destinations, for the record: Crystal /gems/, Jewelry /jewelry/,
    System /systems/, Kit /sets/. */
-var SEEALL_PLURAL={Crystal:'crystals',Jewelry:'jewelry',System:'systems',Kit:'kits'};
+var SEEALL_PLURAL={Crystal:'crystals',Jewelry:'jewelry',System:'systems',Kit:'kits',Frequency:'generators'};
 function SEEALL(c){return SEEALL_PLURAL[c] || String(c||'').toLowerCase();}
 
 (function(){
@@ -234,6 +275,22 @@ function SEEALL(c){return SEEALL_PLURAL[c] || String(c||'').toLowerCase();}
   document.title = 'Energy Muse — ' + p.name;
   var md = document.querySelector('meta[name="description"]');
   if (md) md.setAttribute('content', p.desc || p.name);
+
+  /* Sept 7: the generator format. Sara (review, 13:14) wants the generator
+     pages built out the way their current site has them - where to put it,
+     the accessories, more explanation. em-generators.js carries their words;
+     G is null for every other product and nothing below changes for those. */
+  var isGen = p.cat === 'Frequency';
+  var GHZ = isGen ? p.id.replace(/^gen-/, '') : '';
+  var G = (isGen && window.EM_GEN && window.EM_GEN[GHZ]) || null;
+  var GF = (G && window.EM_FREQ_BY) ? EM_FREQ_BY.hz(GHZ) : null;
+  if (G) {
+    if (GF) { host.style.setProperty('--tone', GF.tone); host.style.setProperty('--soft', GF.soft); }
+    /* their real variants: one, or three or five at a saving. The size control
+       already does one selected option, its price, and its own bag line. */
+    if (p.stock !== 'out') p.sizes = [{ t: '1 Generator', p: p.price }].concat((G.packs || []).map(function (k) {
+      return { t: k[0] + ' Generators (Save ' + k[2] + '%)', p: k[1] }; }));
+  }
 
 
 /* Details, how to use, and care.
@@ -320,16 +377,86 @@ function buildPanels(p){
     + '</div>';
 }
 
+  /* ---- the generator pieces. Every string that is not markup is theirs. */
+  function li(t){ return '<li>' + t + '</li>'; }
+  function genTitle(t){
+    var i = t.indexOf(' for ');
+    return i < 0 ? t : t.slice(0, i) + '<span class="pfor">' + t.slice(i + 1) + '</span>';
+  }
+  function threeLine(w){
+    return '<p class="pthree">' + w.map(function(x){ return '<span>' + x + '</span>'; }).join('') + '</p>';
+  }
+  /* the first two sentences show on a phone, the rest from 641px - their
+     paragraph, cut at a sentence, never rewritten. 7.83 has a decimal point
+     that is not a full stop. */
+  function introHTML(t){
+    var m = t.match(/(?:[^.!?]|\.(?=\d))+[.!?]+(?:\s+|$)/g) || [t];
+    var head = m.slice(0, 2).join(''), tail = m.slice(2).join('');
+    return head + (tail ? '<span class="srest">' + tail + '</span>' : '');
+  }
+  function pointsList(pts){ return '<ul class="ppoints">' + pts.map(li).join('') + '</ul>'; }
+  function genDetails(p, G){
+    var D = window.EM_GEN_DEVICE || {};
+    var rows = [['Frequency', 'Fixed at ' + GHZ + 'Hz. Nothing to tune.']];
+    if (D.field) rows.push(['Field', D.field]);
+    if (D.range) rows.push(['Range', D.range]);
+    if (G.detail) rows.push(G.detail);
+    if (D.power) rows.push(['Power', D.power]);
+    if (D.light) rows.push(['Indicator light', D.light]);
+    if (D.switch) rows.push(['Switch', D.switch]);
+    rows.push(['Setup', 'Switch it on and leave it. It holds one frequency and stays there.']);
+    rows.push(['Note', 'Not a medical device, and not a substitute for professional care.']);
+    return rows;
+  }
+  function genPanels(p, G){
+    var why = G.why.map(function(b){
+      return Array.isArray(b) ? '<ul>' + b.map(li).join('') + '</ul>' : '<p>' + b + '</p>'; }).join('');
+    var ben = '<ul class="bl">' + G.benefits.map(function(r){
+      return '<li><b>' + r[0] + '</b>' + r[1] + '</li>'; }).join('') + '</ul>';
+    var det = '<dl>' + genDetails(p, G).map(function(r){
+      return '<dt>' + r[0] + '</dt><dd>' + r[1] + '</dd>'; }).join('') + '</dl>';
+    return '<div class="ppanels">'
+      + panel('p-why', 'Why ' + GHZ + 'Hz?', why)
+      + panel('p-ben', 'Benefits you can feel', ben)
+      + panel('p-det', 'Details', det)
+      + '</div>';
+  }
+  /* placement is the thing she named first, so it is the one visible band:
+     a room and its reason as a card, or, where their page lists rooms alone,
+     a row of chips */
+  function placeBand(G){
+    var withWhy = G.place.every(function(r){ return r[1]; });
+    return '<div class="place"><span class="eyebrow">Where to place it</span>'
+      + '<div class="rooms' + (withWhy ? '' : ' chips') + '">'
+      + G.place.map(function(r){
+          return '<div class="room"><b>' + r[0] + '</b>' + (r[1] ? '<span>' + r[1] + '</span>' : '') + '</div>'; }).join('')
+      + '</div>'
+      + (G.tip ? '<p class="tip"><b>Pro tip</b>' + G.tip + '</p>' : '')
+      + '</div>';
+  }
+  /* what goes with a generator is not the other six generators: the ring
+     that wears the frequency, the Formula it belongs to, and the copper */
+  function genRelated(G){
+    var ids = [G.ring].concat(G.formulas || [], ['copper-plate', 'copper-conductor', 'copper-spheres', 'copper-pyramid', 'frequency-bag']);
+    return ids.map(function(i){ return i && C.get(i); }).filter(Boolean).slice(0, 8);
+  }
+  function genLead(G){
+    var parts = ['Copper to set it on'];
+    if (G.ring && C.get(G.ring)) parts.push('the ring that wears it');
+    if ((G.formulas || []).length) parts.push('the Formula it belongs to');
+    return parts.length === 1 ? parts[0] + '.' : parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1] + '.';
+  }
+
   var out = (p.stock === 'out');
   /* the main shot first, then whatever else the catalogue carries for it */
-  var shots = [p.img].concat(p.imgs || []);
+  var shots = [p.img].concat(G ? G.photos.map(function(f){ return '/assets/img/generators/' + f; }) : (p.imgs || []));
   var facts = [];
   if (p.group) facts.push(['Intention', EM_CATALOG.label(p.group)]);
   facts.push(['Category', p.cat]);
   if (p.cat === 'Frequency') facts.push(['Tuned to', p.name.replace(' Frequency Generator', '') + ', and left there']);
 
   host.innerHTML =
-    '<div class="pdp">'
+    '<div class="pdp' + (G ? ' gen' : '') + '">'
     + '<div><div class="pshot"><img id="pmain" src="' + p.img + '" alt="' + p.name.replace(/"/g,'') + '"></div>'
     + (shots.length > 1
         ? '<div class="pgal" role="group" aria-label="More views">'
@@ -344,8 +471,9 @@ function buildPanels(p){
     + '</div>'
     + '<div>'
     + '<p class="crumb"><a href="/shop/">Shop</a> &nbsp;/&nbsp; <a href="' + p.home + '">' + p.cat + '</a></p>'
-    + '<span class="pcat">' + (EM_CATALOG.label(p.group) || p.cat) + '</span>'
-    + '<h1>' + p.name + '</h1>'
+    + '<span class="pcat">' + (G ? 'Fixed frequency generator' : (EM_CATALOG.label(p.group) || p.cat)) + '</span>'
+    + '<h1>' + (G ? genTitle(G.title) : p.name) + '</h1>'
+    + (G ? threeLine(G.three) : '')
     + '<div class="pprice" id="pprice">$' + p.price.toFixed(2) + '</div>'
     /* Energy Muse sells most stones and every bracelet in sizes, and the size
        carries the dimension: S (0.75"-1"). Their own page puts the selector
@@ -353,7 +481,7 @@ function buildPanels(p){
        Products without variants render nothing here at all. */
     + (p.sizes && p.sizes.length > 1
         ? '<div class="psize">'
-          + '<label for="psel">Size</label>'
+          + '<label for="psel">' + (G ? 'Quantity' : 'Size') + '</label>'
           + '<select id="psel">'
           + p.sizes.map(function(v, n){
               return '<option value="' + n + '">' + v.t + '</option>'; }).join('')
@@ -361,15 +489,17 @@ function buildPanels(p){
           + '<p class="pdim" id="pdim">' + (p.sizes[0].d ? 'Approx. ' + p.sizes[0].d : '') + '</p>'
           + '</div>'
         : '')
-    + '<p class="pdesc">' + (p.desc || '') + '</p>'
+    + '<p class="pdesc">' + (G ? introHTML(G.intro) : (p.desc || '')) + '</p>'
+    + (G ? pointsList(G.points) : '')
     + meaningLink(p)
     + '<div class="pbuy">'
     + (out ? '<span class="soldout">Currently unavailable</span>'
            : '<button class="bigadd" id="bigadd" type="button">Add to Bag</button>')
     + '<a class="seeall" href="' + p.home + '">See all ' + SEEALL(p.cat) + ' <span class="a" aria-hidden="true">&rarr;</span></a>'
     + '</div>'
-    + buildPanels(p)
-    + '</div></div>';
+    + (G ? genPanels(p, G) : buildPanels(p))
+    + '</div></div>'
+    + (G ? placeBand(G) : '');
 
   /* Thumbnails swap the frame rather than navigating. The image fades so the
      change reads as the same object turning rather than a page flicker, and
@@ -385,6 +515,8 @@ function buildPanels(p){
       if (main.getAttribute('src') === src) { b.focus(); return; }
       var frame = main.parentNode;
       frame.classList.add('swapping');
+      /* their lifestyle photographs fill the frame; the product shot keeps its plate */
+      if (G) frame.classList.toggle('photo', i > 0);
       /* The swap only happened inside pre.onload, and onload is not guaranteed
          for an image the browser already has: assign a cached src and Safari can
          have complete true before the handler is attached, so the event never
@@ -443,9 +575,14 @@ function buildPanels(p){
     setTimeout(function(){ add.textContent = 'Add to Bag'; add.classList.remove('done'); }, 1600);
   });
 
-  var rel = C.related(p.id, 4);
+  var rel = G ? genRelated(G) : C.related(p.id, 4);
   if (rel.length) {
     document.getElementById('relwrap').hidden = false;
+    if (G) {
+      var rg = document.getElementById('rel'); rg.classList.add('gen');
+      var rh = rg.parentNode.querySelector('h2');
+      if (rh) rh.insertAdjacentHTML('afterend', '<p class="rlead">' + genLead(G) + '</p>');
+    }
     document.getElementById('rel').innerHTML = rel.map(function(r){
       return '<a class="rcard" href="/product/?id=' + r.id + '">'
         + '<span class="shot"><img src="' + r.img + '" alt="" loading="lazy"></span>'
