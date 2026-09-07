@@ -1995,6 +1995,12 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 .split .copy .band-btn{margin-top:22px;align-self:flex-start}
 @media (max-width:840px){ .split .copy .band-btn{margin-top:16px} }
 
+/* ===== Sept 7: four quotes, not three. Four across on a wide screen, two by
+   two in the band between the swipe rail and 1080, so no column is starved
+   and no quote is orphaned on a row of its own. The rail and its dots below
+   840 count the quotes themselves and need nothing. */
+@media (min-width:1081px){.proof{grid-template-columns:repeat(4,1fr);gap:clamp(20px,2.6vw,40px)}}
+@media (min-width:841px) and (max-width:1080px){.proof{grid-template-columns:repeat(2,1fr)}}
 </style>
 
 
@@ -2245,6 +2251,12 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
       <blockquote><span class="qt">My Grounding Bracelet has been immensely helpful in helping me attain peace while I
         took on the great challenge of building a brand-new curriculum this year. Thank you for the
         inspiration!</span><cite class="who">Shannon Gallagher</cite></blockquote>
+      <!-- Sept 7: the fourth, from the same set Sara offered in the rewrite's
+           comments (sa8R6); EJ there: "These are all good. We'll try to use
+           them all." Shortened by cutting a clause, as the other three were. -->
+      <blockquote><span class="qt">I found Energy Muse and as a Christian, I was quite skeptical. But I could not
+        help but be drawn to the crystals. I started using them as &lsquo;little friends&rsquo; who whispered wisdom
+        and guidance, blessing me with positive energy all day.</span><cite class="who">Tammy N.</cite></blockquote>
     </div>
     <!-- Built by script from the quotes themselves, so the row cannot fall out
          of step with them if a quote is ever added or taken away. Desktop shows
