@@ -2170,6 +2170,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 
 
 
+
 <!-- ===== FREQUENCY (dark) =====
      Copy is the approved "Frequency Tools Feature" module, verbatim. The
      readout ticks through all seven and the device follows it — seven real
@@ -2215,6 +2216,40 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
       <img id="freq-poster" src="assets/img/generators/7-83.png" alt="The 7.83Hz frequency generator" decoding="async">
       <img id="freq-poster2" src="assets/img/generators/7-83.png" alt="" aria-hidden="true" decoding="async">
     </div>
+  </div>
+</section>
+
+<!-- ===== SOCIAL PROOF =====
+     Approved copy, Part 4. Plain first pass: three quotes on one rule, no
+     portraits or star ratings, because we have neither and inventing them
+     would be inventing customers.
+     Sept 7: moved up from second-to-last to here, under the frequency section
+     and before the quiz - Sara (review, 1:36) asked whether the reviews should
+     be higher without saying where; Clay chose this slot. Still three; she
+     will send more. -->
+<section class="section" id="stories" aria-label="Customer stories">
+  <div class="wrap">
+    <span class="eyebrow">Reviews</span>
+    <h2 class="proof-h"><span class="s">Real energy.</span><span class="s">Real people.</span><span class="s">Real transformations.</span></h2>
+    <div class="proof">
+      <!-- Energy Muse's own customers, transcribed from the approved rewrite
+           (COPY.md §12) — not written here. Shirley's quote is deliberately
+           absent: it is a medical/menopause claim and the rewrite omits it
+           under the non-medical-device mandate. Do not add it back. -->
+      <blockquote><span class="qt">I feel noticeably calmer when it&rsquo;s near me. I keep it in my backpack for classes and
+        clinicals &mdash; it&rsquo;s been a game changer for managing my stress. It helps me feel grounded and present
+        even in high-stress environments.</span><cite class="who">Kaylee</cite></blockquote>
+      <blockquote><span class="qt">I always have my Protection Necklace in my pocket at work. If I start to feel
+        overwhelmed, I reach in and hold it. There is true power in believing that something is protecting
+        you.</span><cite class="who">Sher McAfee</cite></blockquote>
+      <blockquote><span class="qt">My Grounding Bracelet has been immensely helpful in helping me attain peace while I
+        took on the great challenge of building a brand-new curriculum this year. Thank you for the
+        inspiration!</span><cite class="who">Shannon Gallagher</cite></blockquote>
+    </div>
+    <!-- Built by script from the quotes themselves, so the row cannot fall out
+         of step with them if a quote is ever added or taken away. Desktop shows
+         all three at once and has no use for it. -->
+    <div class="proof-dots" id="proofdots" role="tablist" aria-label="Quotes"></div>
   </div>
 </section>
 
@@ -2378,35 +2413,6 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 </section>
 
 
-<!-- ===== SOCIAL PROOF =====
-     Approved copy, Part 4. Plain first pass: three quotes on one rule, no
-     portraits or star ratings, because we have neither and inventing them
-     would be inventing customers. -->
-<section class="section" id="stories" aria-label="Customer stories">
-  <div class="wrap">
-    <span class="eyebrow">Reviews</span>
-    <h2 class="proof-h"><span class="s">Real energy.</span><span class="s">Real people.</span><span class="s">Real transformations.</span></h2>
-    <div class="proof">
-      <!-- Energy Muse's own customers, transcribed from the approved rewrite
-           (COPY.md §12) — not written here. Shirley's quote is deliberately
-           absent: it is a medical/menopause claim and the rewrite omits it
-           under the non-medical-device mandate. Do not add it back. -->
-      <blockquote><span class="qt">I feel noticeably calmer when it&rsquo;s near me. I keep it in my backpack for classes and
-        clinicals &mdash; it&rsquo;s been a game changer for managing my stress. It helps me feel grounded and present
-        even in high-stress environments.</span><cite class="who">Kaylee</cite></blockquote>
-      <blockquote><span class="qt">I always have my Protection Necklace in my pocket at work. If I start to feel
-        overwhelmed, I reach in and hold it. There is true power in believing that something is protecting
-        you.</span><cite class="who">Sher McAfee</cite></blockquote>
-      <blockquote><span class="qt">My Grounding Bracelet has been immensely helpful in helping me attain peace while I
-        took on the great challenge of building a brand-new curriculum this year. Thank you for the
-        inspiration!</span><cite class="who">Shannon Gallagher</cite></blockquote>
-    </div>
-    <!-- Built by script from the quotes themselves, so the row cannot fall out
-         of step with them if a quote is ever added or taken away. Desktop shows
-         all three at once and has no use for it. -->
-    <div class="proof-dots" id="proofdots" role="tablist" aria-label="Quotes"></div>
-  </div>
-</section>
 
 <!-- ===== FINAL CTA =====
      Back, on Clay's word, and plain: the approved copy asks for it and the
@@ -2422,7 +2428,9 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 <!-- The one general email ask, and it comes last on purpose. It used to sit
      between the founders block and the Learn/Veza pair, which split those two
      apart and dropped a conversion ask into the middle of the reading. After
-     the customer quotes it has something to stand on. -->
+     the customer quotes it has something to stand on.
+     Sept 7: the quotes moved up the page (Sara asked whether reviews should
+     sit higher; Clay said move them), so this now follows Learn and Veza. -->
 <section class="subband" aria-label="Email signup">
   <div class="wrap">
     <div>
@@ -2960,7 +2968,7 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('orientationchange', function () { setTimeout(fit, 120); });
 });
 </script>
-<script src="assets/em-bag.js?v=10" defer></script>
+<script src="assets/em-bag.js?v=11" defer></script>
 <script src="assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=11" defer></script>
 <script>
