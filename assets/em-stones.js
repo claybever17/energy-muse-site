@@ -19,7 +19,14 @@
  *
  * Sept 3: six more, pulled from their live pages the same way - angelite,
  * apatite, jade, shungite, turquoise, chrysocolla - the ones with a CRYSTAL365
- * photograph on hand and an in-stock piece to sell. Nine now. */
+ * photograph on hand and an in-stock piece to sell. Nine now.
+ *
+ * Sept 7: `video` - Sara wants a place for Heather's videos on these pages.
+ * None exist yet, so the page shows the place. When one does, add it here:
+ *   video: { youtube: 'ID' }               or { vimeo: 'ID' }
+ *   video: { src: '/assets/video/x.mp4', poster: '/assets/img/...' }
+ * with an optional caption: '...'. The stone's own photograph is the poster
+ * unless one is given. */
 window.EM_STONES = {
   "black-tourmaline": {
     "name": "Black Tourmaline",

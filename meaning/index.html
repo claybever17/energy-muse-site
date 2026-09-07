@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
 <script src="/assets/em-catalog.js?v=24"></script>
-<script src="/assets/em-stones.js?v=2"></script>
+<script src="/assets/em-stones.js?v=3"></script>
 <script src="/assets/em-header.js?v=42" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
@@ -116,6 +116,33 @@
   backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(152,94,56,.14),0 8px 24px rgba(152,94,56,.16);transition:background .25s,border-color .25s}
 .madd:hover{filter:none;background:linear-gradient(135deg,rgba(216,158,112,.38) 0%,rgba(184,122,75,.2) 55%,rgba(255,255,255,.3) 100%);border-color:rgba(152,94,56,.6)}
+/* ===== Sept 7: a place for video. Sara, on the crystal meanings (13:09):
+   "maybe we even can leave a place for video and I can have Heather do
+   video". One slot, under the hero. With a video in the stone's data it is a
+   poster and a play button, and the player loads on the click rather than
+   with the page; without one it is the stone, softened, and a note that the
+   video is coming - so the place is visible before the film exists. Preview
+   the player on any stone with ?video=yt:ID or ?video=vimeo:ID. */
+.vslot{position:relative;aspect-ratio:16/9;max-width:760px;border-radius:10px;overflow:hidden;background:var(--tint);margin-top:clamp(16px,2.2vw,22px)}
+.vslot img,.vslot iframe,.vslot video{position:absolute;inset:0;width:100%;height:100%;display:block;border:0}
+.vslot img{object-fit:cover}
+.vslot.empty{border:1px solid var(--hair);background:linear-gradient(135deg,var(--tint),color-mix(in srgb,var(--tint) 60%,#fff))}
+.vslot .vp{position:absolute;inset:0;margin:auto;width:76px;height:76px;border-radius:50%;display:grid;place-items:center;cursor:pointer;z-index:2;padding:0;
+  color:var(--ink);border:1px solid rgba(152,94,56,.38);
+  background:linear-gradient(135deg,rgba(216,158,112,.32) 0%,rgba(184,122,75,.16) 55%,rgba(255,255,255,.3) 100%);
+  backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 8px 24px rgba(152,94,56,.18);transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.vslot .vp:hover{transform:scale(1.06)}
+.vslot .vp:focus-visible{outline:2px solid var(--copper);outline-offset:3px}
+.vslot .vp svg{width:26px;height:26px;margin-left:4px;fill:currentColor}
+.vslot .vnote{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;white-space:nowrap;
+  padding:12px 20px;border-radius:999px;font:600 11px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ink);
+  border:1px solid rgba(152,94,56,.38);
+  background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);
+  backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 6px 18px rgba(152,94,56,.14)}
+.vcap{margin-top:12px;font-size:13.5px;color:var(--stone)}
+@media (max-width:760px){ .vslot{border-radius:8px} .vslot .vp{width:64px;height:64px} }
 </style>
 </head>
 <body>
@@ -164,6 +191,33 @@
       + 'fetchpriority="high" decoding="async"></div>'
     : '';
 
+  /* The video. S.video is the stone's own - { youtube: id } or { vimeo: id }
+     or { src: '/assets/video/x.mp4' }, with an optional poster and caption -
+     and ?video=yt:ID or ?video=vimeo:ID previews the player on any stone
+     without touching the data. Only ids, never a URL from the address bar. */
+  function parseVideo(t) {
+    var m;
+    if ((m = t.match(/^yt:([\w-]{6,})$/))) return { youtube: m[1] };
+    if ((m = t.match(/^vimeo:(\d{5,})$/))) return { vimeo: m[1] };
+    return null;
+  }
+  var qv = (location.search.match(/[?&]video=([^&]*)/) || [, ''])[1];
+  var V = S.video || (qv ? parseVideo(decodeURIComponent(qv)) : null);
+  /* the poster is the film's own frame, not the hero photograph again: a
+     given poster, else YouTube's thumbnail, else the stone. The empty slot
+     carries no picture at all - the hero is right above it. */
+  var poster = !V ? ''
+    : V.poster || (V.youtube ? 'https://i.ytimg.com/vi/' + encodeURIComponent(V.youtube) + '/hqdefault.jpg'
+    : (S.photo ? '/assets/img/c365/' + S.photo + '-1200.webp' : ''));
+  var slot = '<div class="vslot' + (V ? '' : ' empty') + '" id="vslot">'
+    + (poster ? '<img src="' + poster + '" alt="" loading="lazy" decoding="async">' : '')
+    + (V
+        ? '<button class="vp" type="button" aria-label="Play: Heather on ' + esc(S.name) + '">'
+          + '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></button>'
+        : '<span class="vnote">Video coming</span>')
+    + '</div>'
+    + (V && V.caption ? '<p class="vcap">' + esc(V.caption) + '</p>' : '');
+
   var uses = (S.uses || []).filter(function (u) { return u.text; });
   var usesHtml = uses.length
     ? '<div class="muses' + (uses.length === 1 ? ' one' : '') + '">'
@@ -203,6 +257,7 @@
     + '<h1>' + esc(S.name) + '</h1>'
     + (S.hook ? '<p class="mhook">' + esc(S.hook) + '</p>' : '')
     + '</div></section>'
+    + sec('Heather on ' + S.name, slot)
     + sec('What ' + S.name + ' is', S.meaning ? '<p>' + esc(S.meaning) + '</p>' : '')
     + sec('What it is for', usesHtml)
     + sec('How to use it', '<p>Put it where the intention lives — where you work, where you rest, '
@@ -216,6 +271,29 @@
               return '<a href="?stone=' + k + '">' + esc(window.EM_STONES[k].name) + '</a>';
             }).join('') + '</div></section>'
         : '');
+
+  /* the player arrives on the click: no third-party iframe on a page nobody
+     asked to play, and the poster is the stone until then */
+  var vp = document.querySelector('#vslot .vp');
+  if (vp && V) vp.addEventListener('click', function () {
+    var el, box = document.getElementById('vslot'), title = 'Heather on ' + S.name;
+    if (V.youtube) {
+      el = document.createElement('iframe');
+      el.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(V.youtube) + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      el.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    } else if (V.vimeo) {
+      el = document.createElement('iframe');
+      el.src = 'https://player.vimeo.com/video/' + encodeURIComponent(V.vimeo) + '?autoplay=1&dnt=1';
+      el.allow = 'autoplay; fullscreen; picture-in-picture';
+    } else if (V.src) {
+      el = document.createElement('video');
+      el.src = V.src; el.controls = true; el.autoplay = true; el.playsInline = true;
+      if (poster) el.poster = poster;
+    }
+    if (!el) return;
+    if (el.tagName === 'IFRAME') { el.setAttribute('allowfullscreen', ''); el.title = title; }
+    box.innerHTML = ''; box.appendChild(el); box.classList.add('playing');
+  });
 
   var add = document.getElementById('madd');
   if (add && p) add.addEventListener('click', function () {
