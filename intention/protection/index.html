@@ -19,7 +19,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="../../assets/img/favicon.png">
 <script src="../../assets/em-header.js?v=42" defer></script>
 <script src="/assets/em-search.js?v=11" defer></script>
-<script src="../../assets/em-catalog.js?v=24" defer></script>
+<script src="../../assets/em-catalog.js?v=25" defer></script>
 <script src="/assets/em-more.js?v=1"></script>
 <script src="../../assets/em-bag.js?v=11" defer></script>
 <script src="../../assets/em-prices.js?v=3" defer></script>
@@ -396,6 +396,8 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 .qwrap{display:flex;flex-direction:column}
 .qwrap .icard{flex:1 1 auto}
 @media (max-width:560px){ .qwrap .qbag,.qbag{width:auto;height:auto;min-height:36px;right:auto;bottom:auto} }
+/* Sept 7: their three words under the name where the page has them, the category otherwise */
+.icard .sg{white-space:normal;line-height:1.45}
 </style></head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
@@ -498,7 +500,7 @@ document.querySelectorAll('.radd').forEach(function(b){
       return '<div class="qwrap">'
         + '<a class="icard' + (out?' out':'') + '" href="/product/?id=' + encodeURIComponent(p.id) + '">'
         + '<span class="sim"><img src="' + p.img + '" alt="' + String(p.name).replace(/"/g,'') + '" loading="lazy"></span>'
-        + '<b>' + p.name + '</b><span class="sg">' + p.cat + '</span>'
+        + '<b>' + p.name + '</b><span class="sg">' + (p.three ? p.three.join(' &middot; ') : p.cat) + '</span>'
         + '<span class="sp">$' + p.price.toFixed(2) + '</span></a>'
         + (out ? '<span class="qsold">Sold out</span>'
                : '<button class="qbag" type="button" data-add="' + encodeURIComponent(p.id)

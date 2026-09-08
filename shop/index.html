@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
 <script src="/assets/em-frequencies.js?v=5"></script>
-<script src="/assets/em-catalog.js?v=24"></script>
+<script src="/assets/em-catalog.js?v=25"></script>
 <script src="/assets/em-more.js?v=1"></script>
 <script src="/assets/em-sort.js?v=1"></script>
 <script src="/assets/em-header.js?v=42" defer></script>
@@ -339,6 +339,8 @@
 .qwrap .qadd:hover,.qadd:hover{background:linear-gradient(135deg,rgba(216,158,112,.38) 0%,rgba(184,122,75,.2) 55%,rgba(255,255,255,.3) 100%);border-color:rgba(152,94,56,.6);color:var(--ink,var(--fg))}
 .qwrap .qsold,.qsold{align-self:center;margin-top:10px}
 .sfb.on{color:var(--ink,var(--fg));border:1px solid rgba(152,94,56,.38);border-radius:999px;background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(152,94,56,.14),0 6px 18px rgba(152,94,56,.14);transition:background .25s,border-color .25s;color:var(--ink,var(--fg))}
+/* Sept 7: the three words on a card */
+.qwrap .tw{display:block;font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);line-height:1.45;margin-top:4px}
 </style>
 </head><body>
 <main>
@@ -405,6 +407,8 @@
          category-while-faceting-by-feeling, which is information the card
          does not otherwise carry. */
       +'<b>'+p.name+'</b>'
+      /* Sept 7: their three words under the name, where their page has them (Sara, 7:44) */
+      +(p.three?'<span class="tw">'+p.three.join(' &middot; ')+'</span>':'')
       +'<span class="sp">$'+p.price.toFixed(2)+'</span></a>'
       +(out?'<span class="qsold">Unavailable</span>'
            :'<button class="qadd" type="button" data-add="'+encodeURIComponent(p.id)+'">Add to Bag</button>')

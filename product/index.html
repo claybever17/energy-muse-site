@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
 <script src="/assets/em-frequencies.js?v=5"></script>
-<script src="/assets/em-catalog.js?v=24"></script>
+<script src="/assets/em-catalog.js?v=25"></script>
 <script src="/assets/em-generators.js?v=1"></script>
 <script src="/assets/em-stones.js?v=3"></script>
 <script src="/assets/em-header.js?v=42" defer></script>
@@ -180,8 +180,9 @@
    EM_FREQ, set on #pdp. */
 .pdp.gen h1{max-width:22ch}
 .pfor{display:block;font-size:.58em;font-style:italic;font-weight:300;color:var(--copper-lo);margin-top:8px;letter-spacing:0}
-.pthree{margin:14px 0 0;font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:6px 0}
-.pthree span+span::before{content:"\2022";color:var(--tone,var(--copper));margin:0 10px;font-weight:400}
+.pthree{margin:14px 0 0;font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);line-height:1.7}
+.pthree span{white-space:nowrap}
+.pthree span:not(:last-child)::after{content:"\2022";color:var(--tone,var(--copper));margin:0 10px;font-weight:400}
 .ppoints{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:8px;max-width:52ch}
 .ppoints li{position:relative;padding-left:18px;font-size:14.5px;line-height:1.5;color:var(--ink-soft)}
 .ppoints li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--tone,var(--copper));opacity:.75}
@@ -213,6 +214,12 @@
   .rel.gen::-webkit-scrollbar{display:none}
   .rel.gen .rcard{flex:0 0 46%;scroll-snap-align:start}
 }
+/* Sept 7: the long description panel - their paragraphs, at reading size */
+.pbody .long p{margin:0 0 10px;font-size:14px;line-height:1.6;color:var(--ink-soft);max-width:60ch}
+.pbody .long p.h{margin-top:14px;color:var(--ink)}
+.pbody .long p:last-child{margin-bottom:0}
+.pbody .long ul,.pbody .long ol{margin:0 0 12px}
+.pbody .long li{font-size:14px}
 </style>
 </head><body>
 <main>
@@ -384,7 +391,9 @@ function buildPanels(p){
     return i < 0 ? t : t.slice(0, i) + '<span class="pfor">' + t.slice(i + 1) + '</span>';
   }
   function threeLine(w){
-    return '<p class="pthree">' + w.map(function(x){ return '<span>' + x + '</span>'; }).join('') + '</p>';
+    /* a space between the spans is the only place the line may wrap; each
+       span keeps its own words together and carries the dot after it */
+    return '<p class="pthree">' + w.map(function(x){ return '<span>' + x + '</span>'; }).join(' ') + '</p>';
   }
   /* the first two sentences show on a phone, the rest from 641px - their
      paragraph, cut at a sentence, never rewritten. 7.83 has a decimal point
@@ -473,7 +482,7 @@ function buildPanels(p){
     + '<p class="crumb"><a href="/shop/">Shop</a> &nbsp;/&nbsp; <a href="' + p.home + '">' + p.cat + '</a></p>'
     + '<span class="pcat">' + (G ? 'Fixed frequency generator' : (EM_CATALOG.label(p.group) || p.cat)) + '</span>'
     + '<h1>' + (G ? genTitle(G.title) : p.name) + '</h1>'
-    + (G ? threeLine(G.three) : '')
+    + (G ? threeLine(G.three) : (p.three ? threeLine(p.three) : ''))
     + '<div class="pprice" id="pprice">$' + p.price.toFixed(2) + '</div>'
     /* Energy Muse sells most stones and every bracelet in sizes, and the size
        carries the dimension: S (0.75"-1"). Their own page puts the selector
@@ -574,6 +583,35 @@ function buildPanels(p){
     add.textContent = 'Added to bag'; add.classList.add('done');
     setTimeout(function(){ add.textContent = 'Add to Bag'; add.classList.remove('done'); }, 1600);
   });
+
+  /* Sept 7: the long description. Energy Muse's product pages carry two
+     texts - the preview above the button and a longer description beneath
+     it (Sara, 6:13: "I don't know if that can be put somewhere"). The long
+     one is theirs, pulled from their store on Sept 7 into one small JSON
+     file per product in /assets/copy/, sanitised to paragraphs, lists and
+     emphasis, and fetched only on the page that shows it. It opens the
+     panel row, collapsed like the others. No file, no panel. The generators
+     carry their own copy in em-generators.js and skip this. */
+  if (!G) fetch('/assets/copy/' + encodeURIComponent(p.id) + '.json')
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d || !d.body) return;
+      var row = host.querySelector('.ppanels'); if (!row) return;
+      row.insertAdjacentHTML('afterbegin', panel('p-about', 'About this piece', '<div class="long">' + d.body + '</div>'));
+      /* the preview under the price is the opening of this same text, so the
+         panel's first paragraph would repeat it word for word. Cut the part
+         the page has already said - a trim, not a rewrite - and drop the
+         paragraph if nothing is left of it. */
+      var first = row.querySelector('#p-about .long > p'), pre = String(p.desc || '').replace(/\s+/g, ' ').trim();
+      if (first && pre) {
+        var t = first.textContent.replace(/\s+/g, ' ').trim();
+        var norm = function (x) { return x.replace(/[\u2019']/g, "'").replace(/[\u201c\u201d]/g, '"').toLowerCase(); };
+        if (norm(t).indexOf(norm(pre)) === 0) {
+          var rest = t.slice(pre.length).trim();
+          if (rest) first.textContent = rest; else first.remove();
+        }
+      }
+    }).catch(function () {});
 
   var rel = G ? genRelated(G) : C.related(p.id, 4);
   if (rel.length) {

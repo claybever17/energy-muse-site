@@ -296,12 +296,14 @@ p{text-wrap:pretty;}
 .typerow .tb:hover{color:var(--copper)}
 .typerow .tb.on{color:var(--ink);border-bottom-color:var(--copper)}
 @media (max-width:700px){ .typerow{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:0 18px} .typerow::-webkit-scrollbar{display:none} .typerow .tb{flex:none;min-height:44px} }
+/* Sept 7: the line under the name carries their three words where the page has them, and wraps */
+.scard .sg{white-space:normal;line-height:1.45}
 </style>
 <script src="../assets/em-header.js?v=42" defer></script>
 <script src="/assets/em-search.js?v=11" defer></script>
 <script src="../assets/em-bag.js?v=11" defer></script>
 <script src="../assets/em-prices.js?v=3" defer></script><script src="/assets/em-frequencies.js?v=5"></script>
-<script src="/assets/em-catalog.js?v=24"></script>
+<script src="/assets/em-catalog.js?v=25"></script>
 <script src="/assets/em-more.js?v=1"></script>
 </head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
@@ -453,7 +455,7 @@ p{text-wrap:pretty;}
       var out=(c.stock==='out');
       return '<a class="scard'+(out?' out':'')+'" href="/product/?id='+encodeURIComponent(c.id)+'">'
         +'<span class="sim"><img src="'+c.img+'" alt="'+String(c.name).replace(/"/g,'')+'" loading="lazy"></span>'
-        +'<b>'+c.name+'</b>'+(c.group?'<span class="sg">'+EM_CATALOG.label(c.group)+'</span>':'')
+        +'<b>'+c.name+'</b>'+(c.three?'<span class="sg">'+c.three.join(' &middot; ')+'</span>':(c.group?'<span class="sg">'+EM_CATALOG.label(c.group)+'</span>':''))
         +'<span class="sp">$'+c.price.toFixed(2)+'</span>'
         +(out?'<span class="ss">Unavailable</span>':'')+'</a>';};
     if(window.EM_MORE)EM_MORE.paint(host,list,gcard);

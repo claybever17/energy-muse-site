@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
 <script src="/assets/em-frequencies.js?v=5"></script>
-<script src="/assets/em-catalog.js?v=24"></script>
+<script src="/assets/em-catalog.js?v=25"></script>
 <script src="/assets/em-more.js?v=1"></script>
 <script src="/assets/em-header.js?v=42" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
@@ -128,6 +128,8 @@
 .typerow .tb:hover{color:var(--copper)}
 .typerow .tb.on{color:var(--ink);border-bottom-color:var(--copper)}
 @media (max-width:700px){ .typerow{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:0 18px} .typerow::-webkit-scrollbar{display:none} .typerow .tb{flex:none;min-height:44px} }
+/* Sept 7: the line under the name carries their three words where the page has them, and wraps */
+.jcard .jg{white-space:normal;line-height:1.45}
 </style>
 </head><body>
 <main>
@@ -237,7 +239,7 @@ document.querySelectorAll('.jadd').forEach(function(b){
       +'<a class="plink" href="/product/?id='+encodeURIComponent(c.id)+'">'
       +'<img src="'+c.img+'" alt="'+String(c.name).replace(/"/g,'')+'" loading="lazy">'
       +'<strong>'+c.name+'</strong></a>'
-      +(c.group?'<span class="jg">'+EM_CATALOG.label(c.group)+'</span>':'')
+      +(c.three?'<span class="jg">'+c.three.join(' &middot; ')+'</span>':(c.group?'<span class="jg">'+EM_CATALOG.label(c.group)+'</span>':''))
       +'<span class="jp">$'+c.price.toFixed(2)+'</span>'
       +(out ? '<span class="jsold">Unavailable</span>'
             : '<button class="jadd" type="button" data-id="'+c.id+'">Add to Bag</button>')+'</div>';
