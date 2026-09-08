@@ -298,6 +298,16 @@ p{text-wrap:pretty;}
 @media (max-width:700px){ .typerow{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:0 18px} .typerow::-webkit-scrollbar{display:none} .typerow .tb{flex:none;min-height:44px} }
 /* Sept 7: the line under the name carries their three words where the page has them, and wraps */
 .scard .sg{white-space:normal;line-height:1.45}
+/* Sept 7: this page does not load em-page.css, so the lead is defined here to match it */
+.gwrap .lead{font-family:'Instrument Sans',-apple-system,sans-serif;font-size:clamp(17px,1.4vw,20px);color:var(--ink-soft,#4E5A70);max-width:62ch;margin-top:18px;line-height:1.55}
+
+/* Sept 7: the blurb under the headline - full from 701px, one sentence on a phone.
+   Base first, override second, as on /sets/. */
+.lead-s{display:none}
+@media (max-width:700px){
+  .lead{display:none}
+  .lead-s{display:block;color:var(--ink-soft,#4E5A70);font-family:'Instrument Sans',-apple-system,sans-serif;font-size:16px;line-height:1.5;max-width:34ch;margin-top:14px}
+}
 </style>
 <script src="../assets/em-header.js?v=42" defer></script>
 <script src="/assets/em-search.js?v=11" defer></script>
@@ -343,6 +353,12 @@ p{text-wrap:pretty;}
 <section class="gsec tinted" id="allstones">
   <div class="gwrap">
     <h1>Every crystal, by what it is <em class="hl gemword">for.</em></h1>
+    <!-- Sept 7: the blurb is back, in the rewrite's words (Part 4, crystals landing).
+         Sara (review, 4:26): the site is losing words and that costs SEO, so even
+         without the image, keep "the little blurb" and the products stay high.
+         The full sentence from 701px, the first sentence on a phone. -->
+    <p class="lead">Whatever energy you need, there&rsquo;s a crystal to help. We&rsquo;re here to help you find that.</p>
+    <p class="lead-s">Whatever energy you need, there&rsquo;s a crystal to help.</p>
     <div class="sfilter" id="sfilter">
       <button class="sf on" type="button" data-g="">Everything</button>
       <button class="sf" type="button" data-g="Calm">Calm</button>

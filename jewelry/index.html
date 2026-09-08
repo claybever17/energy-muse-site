@@ -130,12 +130,25 @@
 @media (max-width:700px){ .typerow{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:0 18px} .typerow::-webkit-scrollbar{display:none} .typerow .tb{flex:none;min-height:44px} }
 /* Sept 7: the line under the name carries their three words where the page has them, and wraps */
 .jcard .jg{white-space:normal;line-height:1.45}
+/* Sept 7: the blurb under the headline - full from 701px, one sentence on a phone.
+   Base first, override second, as on /sets/. */
+.lead-s{display:none}
+@media (max-width:700px){
+  .lead{display:none}
+  .lead-s{display:block;color:var(--ink-soft);font-size:16px;line-height:1.5;max-width:34ch;margin-top:14px}
+}
 </style>
 </head><body>
 <main>
 <section class="sect">
   <div class="wrap">
     <h1>Wear your <em class="hl gemword">energy.</em></h1>
+    <!-- Sept 7: the blurb is back, in the rewrite's words (Part 4, jewelry landing).
+         Sara (review, 4:26): the site is losing words and that costs SEO, so even
+         without the image, keep "the little blurb" and the products stay high.
+         The full sentence from 701px, the first sentence on a phone. -->
+    <p class="lead">Energy Muse jewelry pairs crystals in purposeful combinations to provide you with energy on-the-go. Choose the piece that best fits your energetic needs.</p>
+    <p class="lead-s">Energy Muse jewelry pairs crystals in purposeful combinations to provide you with energy on-the-go.</p>
     <!-- "Shop by Intention" was the primary call on the jewelry page and it went
          to /intention/ - away from the thirty-three pieces sitting directly
          below it. The same fault the homepage had. There is nothing to send
