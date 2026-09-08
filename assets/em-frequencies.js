@@ -10,7 +10,9 @@
    the purpose words re-checked against their seven product pages 2026-09-07
    (1111 now reads Breakthrough / Attune / Ignite on their site).
    Names and purpose words are THEIRS — they are product names, not our
-   copy, and must not be rewritten for tone. The `say` prose is ours and
+   copy, and must not be rewritten for tone. Stock is theirs too: check the
+   product's own endpoint, not the collection page, which has omitted the
+   1111 while the product was on sale. The `say` prose is ours and
    follows the rigorous voice: what it is and where to put it, no claims.
 
    SEVEN generators. Their live shop page lists six and omits 1111 Hz, so an
@@ -100,10 +102,10 @@
     {
       hz: '1111', url: 'https://energymuse.com/products/1111hz-frequency-generator', slug: 'manifestation-mastery', id: 'gen-1111',
       name: 'Manifestation Mastery',
-      /* real product, currently out of stock — which is why it is missing from
-         their collection page. Shown, not sold: hiding it would misrepresent the
-         range the copy document describes as seven. */
-      stock: 'out',
+      /* Marked out of stock in August, when their collection page omitted it.
+         Their product endpoint sells all three quantities as of 2026-09-08,
+         so it is in stock here too. If it drops out again, `stock: 'out'`
+         goes back on this line and the site shows it without selling it. */
       purpose: ['Breakthrough', 'Attune', 'Ignite'],
       cats: ['Power', 'Wealth'],
       intention: null,
