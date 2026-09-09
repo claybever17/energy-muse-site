@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
 <script src="/assets/em-frequencies.js?v=6"></script>
-<script src="/assets/em-catalog.js?v=25"></script>
+<script src="/assets/em-catalog.js?v=26"></script>
 <script src="/assets/em-more.js?v=1"></script>
 <script src="/assets/em-header.js?v=48" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
@@ -137,6 +137,9 @@
   .lead{display:none}
   .lead-s{display:block;color:var(--ink-soft);font-size:16px;line-height:1.5;max-width:34ch;margin-top:14px}
 }
+/* Sept 9: New, for a piece Energy Muse published in the last 120 days */
+.jcard{position:relative}
+.jcard .newtag{position:absolute;top:10px;left:10px;z-index:2;font-family:var(--sans);font-weight:600;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--copper);padding:5px 8px;border-radius:999px}
 </style>
 </head><body>
 <main>
@@ -251,6 +254,7 @@ document.querySelectorAll('.jadd').forEach(function(b){
     return '<div class="jcard'+(out?' out':'')+'" data-g="'+(c.group||'')+'">'
       +'<a class="plink" href="/product/?id='+encodeURIComponent(c.id)+'">'
       +'<img src="'+c.img+'" alt="'+String(c.name).replace(/"/g,'')+'" loading="lazy">'
+      +(EM_CATALOG.isNew&&EM_CATALOG.isNew(c)?'<span class="newtag">New</span>':'')
       +'<strong>'+c.name+'</strong></a>'
       +(c.three?'<span class="jg">'+c.three.join(' &middot; ')+'</span>':(c.group?'<span class="jg">'+EM_CATALOG.label(c.group)+'</span>':''))
       +'<span class="jp">$'+c.price.toFixed(2)+'</span>'

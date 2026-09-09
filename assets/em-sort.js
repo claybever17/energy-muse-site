@@ -23,7 +23,8 @@
     ['featured',   'Featured'],
     ['price-asc',  'Price: Low to High'],
     ['price-desc', 'Price: High to Low'],
-    ['name',       'Name: A–Z']
+    ['name',       'Name: A–Z'],
+    ['newest',     'Newest']
   ];
   var DEFAULT = 'featured', PARAM = 'sort', sel = null;
 
@@ -73,6 +74,9 @@
     else if (mode === 'price-desc') a.sort(function (x, y) { return y.price - x.price; });
     else if (mode === 'name') a.sort(function (x, y) {
       return String(x.name || '').localeCompare(String(y.name || ''));
+    });
+    else if (mode === 'newest') a.sort(function (x, y) {
+      return String(y.added || '').localeCompare(String(x.added || ''));
     });
     else a = featured(a);
     /* Whatever the order asked for, nothing unavailable comes first. A sold-out
