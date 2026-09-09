@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
 <script src="/assets/em-frequencies.js?v=6"></script>
-<script src="/assets/em-catalog.js?v=25"></script>
+<script src="/assets/em-catalog.js?v=26"></script>
 <script src="/assets/em-generators.js?v=1"></script>
 <script src="/assets/em-stones.js?v=3"></script>
 <script src="/assets/em-header.js?v=48" defer></script>
@@ -220,6 +220,23 @@
 .pbody .long p:last-child{margin-bottom:0}
 .pbody .long ul,.pbody .long ol{margin:0 0 12px}
 .pbody .long li{font-size:14px}
+/* Sept 9: Complete the practice - the piece and two companions, one button */
+.trio{margin-top:clamp(22px,3vw,30px);padding:16px 18px 18px;border:1px solid var(--hair);border-radius:6px;background:var(--surface)}
+.trio .tk{display:block;font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
+.trio .trow{display:flex;align-items:center;gap:10px;margin-top:12px}
+.trio .tm{display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;color:var(--ink);flex:1 1 0;min-width:0}
+.trio .tm img{width:64px;height:64px;object-fit:contain;background:var(--tint);border-radius:4px;padding:6px}
+.trio .tm span{font-family:var(--sans);font-size:11px;line-height:1.3;text-align:center;color:var(--ink-soft)}
+.trio .plus{font-family:var(--serif);font-size:20px;color:var(--copper);opacity:.7;flex:none}
+.trio .tbuy{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;padding-top:12px;border-top:1px solid var(--hair)}
+.trio .tadd{font-family:var(--sans);font-weight:600;font-size:12.5px;letter-spacing:.04em;min-height:42px;padding:0 18px;cursor:pointer;
+  color:var(--ink);border:1px solid rgba(152,94,56,.38);border-radius:999px;background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 6px 18px rgba(152,94,56,.14)}
+.trio .tadd.done{background:var(--ink);color:#fff;border-color:var(--ink)}
+.trio .ttotal{font-family:var(--serif);font-size:18px;color:var(--copper-lo)}
+.pfounder{margin:18px 0 0;font-size:13px;line-height:1.5;color:var(--ink-soft);max-width:52ch}
+.pfounder em{font-style:italic}
+.pfounder a{color:var(--copper);text-decoration:none;font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-left:6px;white-space:nowrap}
+.pfounder a:hover{color:var(--copper-lo)}
 </style>
 </head><body>
 <main>
@@ -345,10 +362,13 @@ function useFor(p){
     'Set it where you spend the time you want it to affect \u2014 a desk, a bedside table, the room you work in.',
     'Leave it on. It holds one frequency and stays there; there is nothing to tune.',
     'Not a medical device, and not a substitute for professional care.'];
+  /* Sept 9: her order (wireframe note on the product template): "cleanse it,
+     set your intention, wear it". The first line is the jewelry page's own
+     cleansing copy from the rewrite; the sizing line moved to Details. */
   if (p.cat === 'Jewelry') return [
-    'Wear it where you will see it. The point is the reminder, not the object.',
-    'Measure your wrist snug but not tight and take the size at or just above that number \u2014 beads sit on the inside of the curve, so a bracelet wears smaller than it measures.',
-    'Between two sizes, take the larger one.'];
+    'Cleanse it first. You can energetically cleanse your jewelry by placing it on Selenite or a frequency generator daily. This practice ensures your jewelry emits the right energy.',
+    'Set your intention. Hold it and name what it is for. That is the whole practice; the object is the reminder.',
+    'Wear it where you will see it. The point is the reminder, not the object.'];
   return [
     'Put it where the intention lives \u2014 where you work, where you rest, or in a pocket for the day.',
     'Hold it and name what it is for. That is the whole practice; the object is the reminder.',
@@ -359,7 +379,8 @@ function detailsFor(p){
   var rows = [];
   if (p.sizes && p.sizes.length) {
     rows.push(['Sizes', p.sizes.map(function(v){
-      return v.t + (v.d ? ' \u00b7 approx. ' + v.d : ''); }).join('<br>')]);
+      return v.t + (v.d ? ' \u00b7 approx. ' + v.d : ''); }).join('<br>')
+      + (p.cat === 'Jewelry' ? '<br>Measure your wrist snug but not tight and take the size at or just above that number. Between two sizes, take the larger one.' : '')]);
   }
   rows.push(['Type', p.cat + (p.sub ? ' \u00b7 ' + p.sub : '')]);
   if (p.group) rows.push(['Intention', EM_CATALOG.label(p.group)]);
@@ -456,6 +477,24 @@ function buildPanels(p){
     return parts.length === 1 ? parts[0] + '.' : parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1] + '.';
   }
 
+  /* Sept 9: "this plus this plus this, so they can create their own bundle,
+     sort of like Amazon" (Sara, 5:28). The piece and its two companions from
+     the same row that Goes with this uses, one button, the real sum - no
+     discount is invented. On Shopify this is the native Bundles feature. */
+  function trioHtml(p){
+    if (p.stock === 'out') return '';
+    var mates = (G ? genRelated(G) : C.related(p.id, 4)).filter(function(m){ return m.stock !== 'out'; }).slice(0, 2);
+    if (mates.length < 2) return '';
+    var all = [p].concat(mates), total = all.reduce(function(s, m){ return s + m.price; }, 0);
+    return '<div class="trio" id="trio"><span class="tk">Complete the practice</span>'
+      + '<div class="trow">' + all.map(function(m, i){
+          return (i ? '<span class="plus" aria-hidden="true">+</span>' : '')
+            + '<a class="tm" href="/product/?id=' + encodeURIComponent(m.id) + '"><img src="' + m.img + '" alt="' + m.name.replace(/"/g, '') + '" loading="lazy"><span>' + m.name + '</span></a>'; }).join('')
+      + '</div>'
+      + '<div class="tbuy"><button class="tadd" type="button" data-ids="' + all.map(function(m){ return m.id; }).join(',') + '">Add all three</button>'
+      + '<span class="ttotal">$' + total.toFixed(2) + '</span></div></div>';
+  }
+
   var out = (p.stock === 'out');
   /* the main shot first, then whatever else the catalogue carries for it */
   var shots = [p.img].concat(G ? G.photos.map(function(f){ return '/assets/img/generators/' + f; }) : (p.imgs || []));
@@ -506,7 +545,11 @@ function buildPanels(p){
            : '<button class="bigadd" id="bigadd" type="button">Add to Bag</button>')
     + '<a class="seeall" href="' + p.home + '">See all ' + SEEALL(p.cat) + ' <span class="a" aria-hidden="true">&rarr;</span></a>'
     + '</div>'
+    + trioHtml(p)
     + (G ? genPanels(p, G) : buildPanels(p))
+    /* Sept 9: "something that leads to the founder story" (her wireframe note
+       on the product template). The trust strip's own sentence, and the way on. */
+    + '<p class="pfounder">Founder-led for two decades by Heather Askinosie, best-selling author of <em>Crystal 365</em> and <em>Crystal Muse</em>. <a href="/about/">Our story <span aria-hidden="true">&rarr;</span></a></p>'
     + '</div></div>'
     + (G ? placeBand(G) : '');
 
@@ -612,6 +655,17 @@ function buildPanels(p){
         }
       }
     }).catch(function () {});
+
+  var tadd = document.querySelector('#trio .tadd');
+  if (tadd) tadd.addEventListener('click', function(){
+    if (!window.EMBag) return;
+    tadd.getAttribute('data-ids').split(',').forEach(function(id){
+      var m = C.get(id); if (!m) return;
+      EMBag.add({ id: m.id, name: m.name, price: m.price, img: m.img, link: '/product/?id=' + m.id });
+    });
+    tadd.textContent = 'Added all three'; tadd.classList.add('done');
+    setTimeout(function(){ tadd.textContent = 'Add all three'; tadd.classList.remove('done'); }, 1800);
+  });
 
   var rel = G ? genRelated(G) : C.related(p.id, 4);
   if (rel.length) {
