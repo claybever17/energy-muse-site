@@ -308,12 +308,17 @@ p{text-wrap:pretty;}
   .lead{display:none}
   .lead-s{display:block;color:var(--ink-soft,#4E5A70);font-family:'Instrument Sans',-apple-system,sans-serif;font-size:16px;line-height:1.5;max-width:34ch;margin-top:14px}
 }
+/* Sept 9: the stone row and the New mark */
+.typerow.stones{margin-top:10px}
+.typerow .tk{font-family:var(--sans,'Instrument Sans',sans-serif);font-weight:600;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone,#6D695D);opacity:.7;align-self:center;margin-right:4px}
+.scard{position:relative}
+.scard .newtag{position:absolute;top:10px;left:10px;z-index:2;font-family:var(--sans,'Instrument Sans',sans-serif);font-weight:600;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--copper,#985E38);padding:5px 8px;border-radius:999px}
 </style>
 <script src="../assets/em-header.js?v=48" defer></script>
 <script src="/assets/em-search.js?v=11" defer></script>
 <script src="../assets/em-bag.js?v=11" defer></script>
 <script src="../assets/em-prices.js?v=3" defer></script><script src="/assets/em-frequencies.js?v=6"></script>
-<script src="/assets/em-catalog.js?v=25"></script>
+<script src="/assets/em-catalog.js?v=26"></script>
 <script src="/assets/em-more.js?v=1"></script>
 </head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
@@ -371,6 +376,7 @@ p{text-wrap:pretty;}
            and it is what this button filters on. -->
       <button class="sf" type="button" data-g="Connection">Love</button>
     </div>
+    <div class="typerow stones" id="sstones" role="group" aria-label="Shop by stone"></div>
     <div class="typerow" id="stypes" aria-label="Type"></div>
     <div class="stools">
       <p class="scount" id="scount"></p>
@@ -379,6 +385,7 @@ p{text-wrap:pretty;}
           <option value="price-asc">Price, low to high</option>
           <option value="price-desc">Price, high to low</option>
           <option value="name">Name, A to Z</option>
+          <option value="newest">Newest</option>
         </select>
       </label>
     </div>
@@ -424,14 +431,35 @@ p{text-wrap:pretty;}
   var bar=document.getElementById('sfilter'), sortEl=document.getElementById('ssort');
   if(!host||!window.EM_CATALOG)return;
   var ALL=window.EM_CATALOG.all().filter(function(p){return p.cat==='Crystal';});
+  var isNew=window.EM_CATALOG.isNew||function(){return false;};
 
   /* The shelf is 41 stones and the only order was cheapest first, which buried
      everything interesting under a page of tumbled stones. */
   var SORTS={
     'price-asc' :function(a,b){return a.price-b.price;},
     'price-desc':function(a,b){return b.price-a.price;},
-    'name'      :function(a,b){return a.name.localeCompare(b.name);}
+    'name'      :function(a,b){return a.name.localeCompare(b.name);},
+    'newest'    :function(a,b){return String(b.added||'').localeCompare(String(a.added||''));}
   };
+  /* Sept 9: shop by stone. Sara (review, 11:14): "an ability somewhere to
+     filter it by crystal... if there was an easy way to do that". The stone
+     is the product name with its form word taken off - Selenite Tower,
+     Selenite Stone and Selenite Pyramid are one stone - and a stone with two
+     or more pieces gets a chip. It composes with the intention and the type. */
+  var FORM=/\b(stones?|crystals?|tumbled|points?|pyramids?|clusters?|slices?|hearts?|towers?|carvings?|angels?|skulls?|wands?|cubes?|bowls?|plates?|dragons?|signs?|flames?|diamonds?|touchstones?|charging|cleansing|etched|faceted|prosperity|money|mother mary|tall|in matrix|aa-grade)\b/g;
+  function stoneOf(c){return String(c.name||'').toLowerCase().replace(/\([^)]*\)/g,' ').replace(FORM,' ').replace(/[^a-z' ]/g,' ').replace(/\s+/g,' ').trim();}
+  function stoneLabel(k){return k.replace(/(^|\s)\w/g,function(m){return m.toUpperCase();});}
+  var srow=document.getElementById('sstones');
+  function paintStones(g,t,stone){
+    if(!srow)return;
+    var base=(g?ALL.filter(function(c){return (c.group||'').toLowerCase()===g.toLowerCase();}):ALL.slice())
+              .filter(function(c){return !t||c.sub===t;});
+    var n={};base.forEach(function(c){var k=stoneOf(c);if(k)n[k]=(n[k]||0)+1;});
+    var keys=Object.keys(n).filter(function(k){return n[k]>=2||k===stone;}).sort(function(a,b){return n[b]-n[a]||a.localeCompare(b);});
+    if(keys.length<2){srow.innerHTML='';return;}
+    srow.innerHTML='<span class="tk">Stone</span><button type="button" class="tb'+(stone?'':' on')+'" data-st="">All</button>'
+      +keys.map(function(k){return '<button type="button" class="tb'+(k===stone?' on':'')+'" data-st="'+k+'">'+stoneLabel(k)+'<span class="n">'+n[k]+'</span></button>';}).join('');
+  }
 
   /* Filter and sort live in the URL. Without that you cannot send anyone
      "crystals for calm", cannot bookmark it, and — worst of the three — the
@@ -439,12 +467,13 @@ p{text-wrap:pretty;}
      which is the moment a shopper gives up. */
   function readURL(){
     var q=new URLSearchParams(location.search);
-    return {g:q.get('for')||'', t:q.get('type')||'', s:SORTS[q.get('sort')]?q.get('sort'):'price-asc'};
+    return {g:q.get('for')||'', t:q.get('type')||'', st:q.get('stone')||'', s:SORTS[q.get('sort')]?q.get('sort'):'price-asc'};
   }
-  function writeURL(g,srt,t){
+  function writeURL(g,srt,t,stone){
     var q=new URLSearchParams(location.search);
     g?q.set('for',g.toLowerCase()):q.delete('for');
     t?q.set('type',t):q.delete('type');
+    stone?q.set('stone',stone):q.delete('stone');
     srt&&srt!=='price-asc'?q.set('sort',srt):q.delete('sort');
     var qs=q.toString();
     history.replaceState(null,'',location.pathname+(qs?'?'+qs:'')+location.hash);
@@ -459,11 +488,13 @@ p{text-wrap:pretty;}
     trow.innerHTML='<button type="button" class="tb'+(t?'':' on')+'" data-t="">All<span class="n">'+base.length+'</span></button>'
       +defs.map(function(d){return '<button type="button" class="tb'+(d.key===t?' on':'')+'" data-t="'+d.key+'">'+d.name+'<span class="n">'+d.n+'</span></button>';}).join('');
   }
-  function paint(g,srt,t){
-    t=t||'';
+  function paint(g,srt,t,stone){
+    t=t||'';stone=stone||'';
     paintTypes(g,t);
+    paintStones(g,t,stone);
     var list=(g?ALL.filter(function(c){return (c.group||'').toLowerCase()===g.toLowerCase();}):ALL.slice())
               .filter(function(c){return !t||c.sub===t;})
+              .filter(function(c){return !stone||stoneOf(c)===stone;})
               .sort(SORTS[srt]||SORTS['price-asc']);
     /* the card builder was written inline; it is a named function now so
        em-more can call it again for each page the reader asks for */
@@ -471,6 +502,7 @@ p{text-wrap:pretty;}
       var out=(c.stock==='out');
       return '<a class="scard'+(out?' out':'')+'" href="/product/?id='+encodeURIComponent(c.id)+'">'
         +'<span class="sim"><img src="'+c.img+'" alt="'+String(c.name).replace(/"/g,'')+'" loading="lazy"></span>'
+        +(isNew(c)?'<span class="newtag">New</span>':'')
         +'<b>'+c.name+'</b>'+(c.three?'<span class="sg">'+c.three.join(' &middot; ')+'</span>':(c.group?'<span class="sg">'+EM_CATALOG.label(c.group)+'</span>':''))
         +'<span class="sp">$'+c.price.toFixed(2)+'</span>'
         +(out?'<span class="ss">Unavailable</span>':'')+'</a>';};
@@ -480,26 +512,30 @@ p{text-wrap:pretty;}
        The filter still matches on the group, so only what is printed changes -
        otherwise the chip said Love and the line under it said connection. */
     var say=function(k){return (k||'').toLowerCase()==='connection'?'love':(k||'').toLowerCase();};
-    count.textContent=list.length+(list.length===1?' crystal':' crystals')+(g?' for '+say(g):'');
+    count.textContent=list.length+(list.length===1?' crystal':' crystals')+(g?' for '+say(g):'')+(stone?' \u00b7 '+stoneLabel(stone):'');
     [].forEach.call(bar.children,function(x){
       x.classList.toggle('on',(x.getAttribute('data-g')||'').toLowerCase()===(g||'').toLowerCase());});
     if(sortEl) sortEl.value=srt;
   }
 
   var st=readURL();
-  paint(st.g,st.s,st.t);
+  paint(st.g,st.s,st.t,st.st);
   if(trow) trow.addEventListener('click',function(e){
     var b=e.target.closest('.tb'); if(!b)return;
-    st.t=b.getAttribute('data-t')||''; writeURL(st.g,st.s,st.t); paint(st.g,st.s,st.t);
+    st.t=b.getAttribute('data-t')||''; writeURL(st.g,st.s,st.t,st.st); paint(st.g,st.s,st.t,st.st);
+  });
+  if(srow) srow.addEventListener('click',function(e){
+    var b=e.target.closest('.tb'); if(!b)return;
+    st.st=b.getAttribute('data-st')||''; writeURL(st.g,st.s,st.t,st.st); paint(st.g,st.s,st.t,st.st);
   });
 
   bar.addEventListener('click',function(e){
     var b=e.target.closest('.sf'); if(!b)return;
     st.g=b.getAttribute('data-g')||'';
-    st.t=''; writeURL(st.g,st.s,st.t); paint(st.g,st.s,st.t);
+    st.t='';st.st=''; writeURL(st.g,st.s,st.t,st.st); paint(st.g,st.s,st.t,st.st);
   });
   if(sortEl) sortEl.addEventListener('change',function(){
-    st.s=sortEl.value; writeURL(st.g,st.s,st.t); paint(st.g,st.s,st.t);
+    st.s=sortEl.value; writeURL(st.g,st.s,st.t,st.st); paint(st.g,st.s,st.t,st.st);
   });
   /* back and forward move between filters, the way they should */
   addEventListener('popstate',function(){ st=readURL(); paint(st.g,st.s,st.t); });
