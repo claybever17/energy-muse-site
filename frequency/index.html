@@ -348,6 +348,12 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
   .film .hzpick .hzrail button{min-width:0;padding:4px 6px 4px;font-size:10px;letter-spacing:.02em}
   .film .cap.c3{bottom:96px}
 }
+/* Sept 9: the device in numbers, above the fixed-versus-variable explainer */
+.specrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:clamp(26px,3.4vw,40px)}
+.specc{border:1px solid var(--hair);border-radius:6px;background:var(--surface);padding:14px 16px 15px}
+.specc .k{display:block;font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
+.specc .v{display:block;font-family:var(--serif);font-size:clamp(17px,1.6vw,21px);line-height:1.2;margin-top:6px;color:var(--ink)}
+@media (max-width:700px){.specrow{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.specc{padding:12px 14px}}
 </style>
 </head><body>
 <script>if(/[?&]nofilm=1/.test(location.search))document.documentElement.classList.add('nofilm');</script>
@@ -463,6 +469,16 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 </section>
 <section class="sect">
   <div class="wrap">
+    <!-- Sept 9: the device in numbers. Sara's note on the brief's frequency
+         page: "This should be the spec / how the generator works. All the
+         technicality." Four facts, all theirs: the instruction card for range
+         and battery, their product copy for silent and fixed. -->
+    <div class="specrow" aria-label="The device in numbers">
+      <div class="specc"><span class="k">Range</span><span class="v">308 sq. ft</span></div>
+      <div class="specc"><span class="k">Battery</span><span class="v">Up to 7 days</span></div>
+      <div class="specc"><span class="k">Field</span><span class="v">Silent. No sound, no app</span></div>
+      <div class="specc"><span class="k">Signal</span><span class="v">One fixed frequency</span></div>
+    </div>
     <h2>Why a fixed frequency reaches further.</h2>
     <!-- Seven lines on a phone about oscillators and tensor coils, before the
          reader has decided they want one. The first sentence is the claim; the
