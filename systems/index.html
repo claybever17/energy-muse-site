@@ -152,6 +152,52 @@
 .pcard:hover{border-color:transparent;box-shadow:none;transform:translateY(-3px)}
 .pcard .padd,.padd{align-self:center;width:auto;min-width:0;margin-top:12px;min-height:40px;padding:0 18px;font-size:12.5px;letter-spacing:.02em;text-transform:none;color:var(--ink,var(--fg));border:1px solid rgba(152,94,56,.38);border-radius:999px;background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(152,94,56,.14),0 6px 18px rgba(152,94,56,.14);transition:background .25s,border-color .25s}
 .pcard .padd:hover,.padd:hover{background:linear-gradient(135deg,rgba(216,158,112,.38) 0%,rgba(184,122,75,.2) 55%,rgba(255,255,255,.3) 100%);border-color:rgba(152,94,56,.6);color:var(--ink,var(--fg))}
+
+/* ===== Sept 9: the rest of the house. Sara's Environmental Optimizations doc
+   holds seven room Formulas; the two above are products in her store. The
+   other five are not - no kit, no case, no photo, no price - so each is its
+   three generators, added as three at the real sum, in her words: her room
+   names, her layer lines. Three cards, because the kid's bedroom is one card
+   with her three age ranges. They borrow .fcell for the frame, the eyebrow
+   and the heading so the row reads as one family with the kits. */
+.rhead{margin-top:clamp(34px,4.4vw,56px);display:flex;align-items:baseline;justify-content:space-between;gap:10px 24px;flex-wrap:wrap}
+.rhead h2{margin:0}
+.rhead p{margin:0;font-size:15px;color:var(--ink-soft);max-width:52ch}
+.rooms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.8vw,24px);margin-top:20px}
+.rcard{padding:20px 20px 18px}
+.rcard h3{font-size:clamp(19px,1.6vw,22px);margin-top:6px}
+.ages{display:flex;gap:6px;margin-top:12px}
+.ages button{font-family:var(--sans);font-weight:600;font-size:11.5px;letter-spacing:.04em;min-height:34px;padding:0 12px;
+  border:1px solid var(--hair);border-radius:999px;background:transparent;color:var(--ink-soft);cursor:pointer}
+.ages button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ages button:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+.rarch{list-style:none;margin:14px 0 0;padding:0;border-top:1px solid var(--hair)}
+.rarch li{padding:10px 0;border-bottom:1px solid var(--hair)}
+.rarch .rk{display:flex;align-items:baseline;gap:10px}
+.rarch .step{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);min-width:62px}
+.rarch .ahz{font-family:var(--serif);font-weight:300;font-size:19px;line-height:1;color:var(--ink)}
+.rarch .ahz em{font-style:normal;font-family:var(--sans);font-weight:600;font-size:.42em;letter-spacing:.08em;margin-left:3px;color:var(--stone)}
+.rarch .asay{display:block;font-size:12.5px;line-height:1.5;color:var(--ink-soft);margin-top:4px}
+.rthumbs{display:flex;gap:8px;margin-top:14px}
+.rthumbs a{width:56px;height:56px;border-radius:4px;background:var(--tint);display:grid;place-items:center;padding:6px}
+.rthumbs img{width:100%;height:100%;object-fit:contain}
+.rbuy{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:16px}
+.rbuy .padd{margin-top:0;align-self:auto}
+.rcard .pr{font-size:20px;margin-top:0}
+.padd.done{background:var(--ink);color:#fff;border-color:var(--ink)}
+@media (max-width:1000px){.rooms{grid-template-columns:1fr 1fr}}
+/* On a phone the three stacked cards ran 1425px - Clay: "not too much room
+   taken up on the site right?" - so they are a swipe row, the way the
+   journal's rail and the product rails already work: one card high, the next
+   card's edge showing. scroll-padding keeps the first card off the gutter. */
+@media (max-width:700px){
+  .rooms{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:2px;
+    padding:2px 2px 8px;margin-inline:-2px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .rooms::-webkit-scrollbar{display:none}
+  .rooms > .rcard{flex:0 0 86%;scroll-snap-align:start}
+  .ages button{min-height:44px}
+  .rhead{display:block}.rhead p{margin-top:8px}
+}
 </style>
 </head><body>
 <main>
@@ -175,6 +221,18 @@
       that carries it, so the whole space is doing the work rather than one object on a shelf.</p>
     <p class="lead-s">Heather&rsquo;s own systems, built room by room. The generator, paired with the copper that carries it.</p>
     <div class="feat" id="feat"></div>
+    <!-- Sept 9: the rest of the house. Sara, in her review (15:54): "I'm going
+         to share a doc with you that has all of the frequency systems." Her
+         Environmental Optimizations doc: seven rooms, three layers each. The
+         two products are above; these are the other five as three generators
+         each, her words throughout. The office's middle layer is 174 as her
+         doc lists it - her own note there reads "963 vs. 174 for
+         consideration", and it is in the email. -->
+    <div class="rhead">
+      <h2>The rest of the house.</h2>
+      <p>A single frequency can shift a moment. Three, run together, build an environment.</p>
+    </div>
+    <div class="rooms" id="rooms"></div>
   </div>
 </section>
 
@@ -258,6 +316,76 @@
       +'<span class="pr">$'+c.p.toFixed(2)+'</span>'
       +'<button class="padd" type="button" data-id="'+c.id+'">Add to Bag</button></div>';
     feat.appendChild(el);
+  });
+
+  /* The rest of the house: her doc, verbatim - room, name, the three layers
+     in her order and her reason lines (first letter up, a full stop added).
+     Everything else on the card is the catalogue: EM_FREQ by hz gives the
+     generator's id, photo and price, so the sum is real and the bag gets
+     three real products. .gprice opts the sum into em-prices' generator hold. */
+  var ROOMS=[
+    {room:'For the kid’s bedroom', ages:[
+      {n:'Ages 0–7', arch:[['Stabilize','7.83','Grounds the room in safety, comfort, and familiarity.'],
+                               ['Clear','528','Gently resets the nervous system, cellular restoration for little bodies still learning to self-regulate.'],
+                               ['Direct','639','Directs the space toward bonding, softness, and connection.']]},
+      {n:'Ages 8–12', arch:[['Clear','417','Clears the overstimulation of a growing social world — school, friendships, screen time.'],
+                                ['Stabilize','7.83','Holds the room in a steady, safe baseline.'],
+                                ['Direct','174','Releases physical tension as bodies grow and change.']]},
+      {n:'Ages 13–18', arch:[['Clear','417','Clears the emotional and social accumulation of the teenage day.'],
+                                 ['Stabilize','174','Eases physical tension during a stage of rapid growth and stress.'],
+                                 ['Direct','963','Directs the space toward mental clarity and communication, supporting a mind that’s decompressing and individuating.']]}
+    ]},
+    {room:'For the office', n:'Focused Flow', arch:[['Clear','417','Clears dysregulation.'],
+                                                   ['Stabilize','174','Releases tension, holds a steady baseline.'],
+                                                   ['Direct','1111','Directs the space toward opportunity and momentum.']]},
+    {room:'For the kitchen', n:'Nourished Home', arch:[['Clear','417','Clears the space.'],
+                                                       ['Stabilize','528','Holds an uplifting, energizing charge.'],
+                                                       ['Direct','963','Directs the space toward conversation, creativity, downloads.']]}
+  ];
+  var byHz=(window.EM_FREQ_BY&&EM_FREQ_BY.hz)||function(){return null;};
+  function roomBody(f){
+    var gens=f.arch.map(function(a){return byHz(a[1]);});
+    var sum=gens.reduce(function(t,g){return t+(g?g.price:0);},0);
+    return '<h3>'+f.n+'</h3>'
+      +'<ol class="rarch">'+f.arch.map(function(a){
+          return '<li><span class="rk"><span class="step">'+a[0]+'</span><span class="ahz">'+a[1]+'<em>Hz</em></span></span>'
+               + '<span class="asay">'+a[2]+'</span></li>';}).join('')+'</ol>'
+      +'<div class="rthumbs">'+gens.map(function(g){
+          return g?'<a class="plink" href="/product/?id='+g.id+'" aria-label="'+g.hz+'Hz Frequency Generator"><img src="/'+g.img+'" alt="" loading="lazy"></a>':'';}).join('')+'</div>'
+      +'<div class="rbuy"><button class="padd radd" type="button" data-hz="'+f.arch.map(function(a){return a[1];}).join(',')+'">Add all three</button>'
+      /* em-prices holds generator prices at load; a card re-rendered by a tab
+         click after that would show the real sum beside three held ones, so
+         this paints the hold itself once the mode is known. */
+      +(window.EM_PRICE_MODE==='hold'
+          ?'<span class="pr gprice" data-em-held="$'+sum.toFixed(2)+'" title="Price to be confirmed">$\u2014</span>'
+          :'<span class="pr gprice">$'+sum.toFixed(2)+'</span>')+'</div>';
+  }
+  var rooms=document.getElementById('rooms');
+  ROOMS.forEach(function(r){
+    var el=document.createElement('div'); el.className='fcell rcard';
+    var head='<span class="room">'+r.room+'</span>';
+    if(r.ages){
+      head+='<div class="ages" role="group" aria-label="Age range">'+r.ages.map(function(a,i){
+        return '<button type="button" aria-pressed="'+(i?'false':'true')+'" data-i="'+i+'">'+a.n.replace('Ages ','')+'</button>';}).join('')+'</div>';
+      el.innerHTML=head+'<div class="rbody">'+roomBody(r.ages[0])+'</div>';
+      el.querySelector('.ages').addEventListener('click',function(e){
+        var b=e.target.closest('button'); if(!b)return;
+        el.querySelectorAll('.ages button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+        el.querySelector('.rbody').innerHTML=roomBody(r.ages[+b.getAttribute('data-i')]);
+      });
+    } else {
+      el.innerHTML=head+'<div class="rbody">'+roomBody(r)+'</div>';
+    }
+    rooms.appendChild(el);
+  });
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('.radd'); if(!b||!window.EMBag)return;
+    b.getAttribute('data-hz').split(',').forEach(function(hz){
+      var g=byHz(hz); if(!g)return;
+      EMBag.add({id:g.id,name:g.hz+'Hz Frequency Generator',price:g.price,img:'/'+g.img,link:'/product/?id='+g.id});
+    });
+    b.textContent='Added all three'; b.classList.add('done');
+    setTimeout(function(){b.textContent='Add all three'; b.classList.remove('done');},1800);
   });
 
   var parts=document.getElementById('parts');
