@@ -120,6 +120,10 @@
 .jcard .k{margin-top:12px;color:var(--copper-lo)}
 .jcard .k + h3{margin-top:6px}
 @media (min-width:1101px){ .jgrid{grid-template-columns:repeat(4,minmax(0,1fr))} }
+/* Sept 9 (Clay's screenshot): the last row of cards ran straight into the
+   footer. The index and the article both end in a grid, so the page's own
+   container carries the room, not the grids. */
+#journal{padding-bottom:clamp(48px,7vw,96px)}
 </style>
 </head>
 <body>
@@ -155,7 +159,7 @@
     if (t.length <= n) return t;
     var cut = t.slice(0, n);
     var sp = cut.lastIndexOf(' ');
-    return (sp > n * 0.6 ? cut.slice(0, sp) : cut).replace(/[,;:.\s]+$/, '') + '\u2026';
+    return (sp > n * 0.6 ? cut.slice(0, sp) : cut).replace(/[,;:.!?\s]+$/, '') + '\u2026';
   }
 
   function stamp(p) {
