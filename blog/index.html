@@ -19,6 +19,8 @@
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
+<script src="/assets/em-frequencies.js?v=6"></script>
+<script src="/assets/em-catalog.js?v=25"></script>
 <script src="/assets/em-journal.js?v=1"></script>
 <script src="/assets/em-header.js?v=42" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
@@ -85,6 +87,29 @@
 .jnext .k{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.2em;
   text-transform:uppercase;color:var(--stone)}
 .missing{padding:clamp(50px,9vh,110px) 0}
+/* ===== Sept 9: "Shop this post". Sara (review, 14:15): their current blog
+   carries a product feed so the content is shoppable, and she wants it
+   dynamic, not static. Here it is the products the article mentions, found
+   by name in its own text, four at most, one per stone; a post that names
+   nothing gets one of each kind the shop sells. On Shopify it is a product
+   list metafield on the article, and the fallback is the bestsellers
+   collection - the theme just outputs it. */
+.jshop{margin-top:clamp(36px,4.6vw,60px);padding-top:clamp(24px,3vw,34px);border-top:1px solid var(--hair)}
+.jshop .k{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
+.jshop .jline{margin:8px 0 0;color:var(--ink-soft);font-size:15px}
+.jrail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,1.8vw,24px);margin-top:clamp(18px,2.2vw,26px)}
+.jprod{display:block;text-decoration:none;color:inherit;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.jprod:hover{transform:translateY(-3px)}
+.jprod .shot{display:block;aspect-ratio:1;background:var(--tint);border-radius:4px;padding:9%}
+.jprod .shot img{width:100%;height:100%;object-fit:contain;display:block}
+.jprod .n{display:block;font-family:var(--sans);font-weight:600;font-size:13px;line-height:1.3;margin-top:11px;color:var(--ink)}
+.jprod .tw{display:block;font-family:var(--sans);font-weight:600;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);line-height:1.45;margin-top:4px}
+.jprod .p{display:block;font-family:var(--serif);font-size:16px;color:var(--copper-lo);margin-top:5px}
+@media (max-width:700px){
+  .jrail{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--edge);gap:12px;margin-inline:calc(-1*var(--edge));padding-inline:var(--edge);padding-bottom:6px;scrollbar-width:none}
+  .jrail::-webkit-scrollbar{display:none}
+  .jprod{flex:0 0 46%;scroll-snap-align:start}
+}
 </style>
 </head>
 <body>
@@ -149,6 +174,42 @@
 
     var others = POSTS.filter(function (x) { return x.slug !== slug; }).slice(0, 3);
 
+    /* Shop this post: the products the article names, or one of each kind */
+    var FORM = /\b(stones?|crystals?|tumbled|points?|pyramids?|clusters?|slices?|hearts?|towers?|bracelets?|necklaces?|rings?|earrings?|hoops?|kits?|sets?|bundles?|carvings?|angels?|skulls?|wands?|cubes?|bowls?|plates?|dragons?|signs?|flames?|diamonds?|pendants?|anklets?|touchstones?|for|the)\b/g;
+    function shopThis(post) {
+      var C = window.EM_CATALOG; if (!C) return null;
+      var all = C.all();
+      var txt = (post.title + ' ' + (post.excerpt || '') + ' ' + (post.body || []).map(function (b) { return b.x || ''; }).join(' ')).toLowerCase();
+      var byBase = {}, order = [];
+      all.forEach(function (q) {
+        var base = q.name.toLowerCase().replace(FORM, ' ').replace(/[^a-z ]/g, ' ').replace(/\s+/g, ' ').trim();
+        if (base.length < 5) return;
+        var at = txt.indexOf(base); if (at < 0) return;
+        if (!byBase[base]) { byBase[base] = { at: at, p: q }; order.push(base); }
+        else if (q.name.length < byBase[base].p.name.length) byBase[base].p = q;   /* the plainest piece of that stone */
+      });
+      order.sort(function (a, b) { return byBase[a].at - byBase[b].at; });
+      var picks = order.slice(0, 4).map(function (b) { return byBase[b].p; });
+      if (picks.length) return { line: 'Mentioned in this article.', items: picks };
+      /* nothing named: one of each kind the shop sells, in its own order */
+      var seen = {}, out = [];
+      all.forEach(function (q) { if (!seen[q.cat] && q.stock !== 'out') { seen[q.cat] = true; out.push(q); } });
+      return { line: 'From the shop.', items: out.slice(0, 4) };
+    }
+    function prod(q) {
+      return '<a class="jprod" href="/product/?id=' + encodeURIComponent(q.id) + '">'
+        + '<span class="shot"><img src="' + q.img + '" alt="" loading="lazy"></span>'
+        + '<span class="n">' + esc(q.name) + '</span>'
+        + (q.three ? '<span class="tw">' + q.three.map(esc).join(' &middot; ') + '</span>' : '')
+        + '<span class="p">$' + q.price.toFixed(2) + '</span></a>';
+    }
+    var shop = shopThis(p);
+    var shopHtml = (shop && shop.items.length)
+      ? '<section class="jshop" aria-label="Shop this post"><span class="k">Shop this post</span>'
+        + '<p class="jline">' + shop.line + '</p>'
+        + '<div class="jrail">' + shop.items.map(prod).join('') + '</div></section>'
+      : '';
+
     host.innerHTML =
         '<article class="post">'
       + '<a class="back" href="/blog/"><span aria-hidden="true">&larr;</span> The journal</a>'
@@ -159,6 +220,7 @@
           + 'sizes="(max-width:820px) 92vw, 70vw" alt="" fetchpriority="high"></div>' : '')
       + '<div class="copy">' + body + '</div>'
       + '</article>'
+      + shopHtml
       + (others.length
           ? '<section class="jnext"><span class="k">Keep reading</span>'
             + '<div class="jgrid">' + others.map(card).join('') + '</div></section>'
