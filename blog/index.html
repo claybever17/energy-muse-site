@@ -110,6 +110,16 @@
   .jrail::-webkit-scrollbar{display:none}
   .jprod{flex:0 0 46%;scroll-snap-align:start}
 }
+/* Sept 9: the index. A read cue on the hero, the kicker above each title in
+   copper, and eight posts as two full rows of four on a wide screen instead of
+   three rows with two orphans. */
+.jlead .jmore{display:inline-flex;align-items:center;gap:.45em;margin-top:18px;font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--copper-lo)}
+.jlead .jmore .a{transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.jlead:hover .jmore{color:var(--copper)}
+.jlead:hover .jmore .a{transform:translateX(5px)}
+.jcard .k{margin-top:12px;color:var(--copper-lo)}
+.jcard .k + h3{margin-top:6px}
+@media (min-width:1101px){ .jgrid{grid-template-columns:repeat(4,minmax(0,1fr))} }
 </style>
 </head>
 <body>
@@ -155,6 +165,52 @@
     return [p.date, p.author].filter(Boolean).join(' &middot; ');
   }
 
+  /* Shop this post: the products the article names, or one of each kind */
+  var FORM = /\b(stones?|crystals?|tumbled|points?|pyramids?|clusters?|slices?|hearts?|towers?|bracelets?|necklaces?|rings?|earrings?|hoops?|kits?|sets?|bundles?|carvings?|angels?|skulls?|wands?|cubes?|bowls?|plates?|dragons?|signs?|flames?|diamonds?|pendants?|anklets?|touchstones?|for|the)\b/g;
+  function shopThis(post) {
+    var C = window.EM_CATALOG; if (!C) return null;
+    var all = C.all();
+    var txt = (post.title + ' ' + (post.excerpt || '') + ' ' + (post.body || []).map(function (b) { return b.x || ''; }).join(' ')).toLowerCase();
+    var byBase = {}, order = [];
+    all.forEach(function (q) {
+      var base = q.name.toLowerCase().replace(FORM, ' ').replace(/[^a-z ]/g, ' ').replace(/\s+/g, ' ').trim();
+      if (base.length < 5) return;
+      var at = txt.indexOf(base); if (at < 0) return;
+      if (!byBase[base]) { byBase[base] = { at: at, p: q }; order.push(base); }
+      else if (q.name.length < byBase[base].p.name.length) byBase[base].p = q;   /* the plainest piece of that stone */
+    });
+    order.sort(function (a, b) { return byBase[a].at - byBase[b].at; });
+    var picks = order.slice(0, 4).map(function (b) { return byBase[b].p; });
+    if (picks.length) return { line: 'Mentioned in this article.', items: picks, bases: order.slice(0, 4) };
+    /* nothing named: one of each kind the shop sells, in its own order */
+    var seen = {}, out = [];
+    all.forEach(function (q) { if (!seen[q.cat] && q.stock !== 'out') { seen[q.cat] = true; out.push(q); } });
+    return { line: 'From the shop.', items: out.slice(0, 4), bases: [] };
+  }
+  function prod(q) {
+    return '<a class="jprod" href="/product/?id=' + encodeURIComponent(q.id) + '">'
+      + '<span class="shot"><img src="' + q.img + '" alt="" loading="lazy"></span>'
+      + '<span class="n">' + esc(q.name) + '</span>'
+      + (q.three ? '<span class="tw">' + q.three.map(esc).join(' &middot; ') + '</span>' : '')
+      + '<span class="p">$' + q.price.toFixed(2) + '</span></a>';
+  }
+  /* Sept 9 (Clay: "journal landing is bland?"): the cards said nothing but a
+     title and a cut excerpt - their articles carry no date and no author. The
+     stones a post works with are the kicker now, the matched base names, cased;
+     a post that names no piece prints nothing rather than something invented. */
+  function worksWith(post) {
+    var sh = shopThis(post); if (!sh || !sh.bases.length) return '';
+    return sh.bases.slice(0, 3).map(function (b) {
+      return b.replace(/(^|\s)\w/g, function (m) { return m.toUpperCase(); }); }).join(' \u00b7 ');
+  }
+  function railHtml(sh, label) {
+    return (sh && sh.items.length)
+      ? '<section class="jshop" aria-label="' + label + '"><span class="k">' + label + '</span>'
+        + '<p class="jline">' + sh.line + '</p>'
+        + '<div class="jrail">' + sh.items.map(prod).join('') + '</div></section>'
+      : '';
+  }
+
   if (slug) {
     var p = POSTS.filter(function (x) { return x.slug === slug; })[0];
     if (!p) {
@@ -174,41 +230,7 @@
 
     var others = POSTS.filter(function (x) { return x.slug !== slug; }).slice(0, 3);
 
-    /* Shop this post: the products the article names, or one of each kind */
-    var FORM = /\b(stones?|crystals?|tumbled|points?|pyramids?|clusters?|slices?|hearts?|towers?|bracelets?|necklaces?|rings?|earrings?|hoops?|kits?|sets?|bundles?|carvings?|angels?|skulls?|wands?|cubes?|bowls?|plates?|dragons?|signs?|flames?|diamonds?|pendants?|anklets?|touchstones?|for|the)\b/g;
-    function shopThis(post) {
-      var C = window.EM_CATALOG; if (!C) return null;
-      var all = C.all();
-      var txt = (post.title + ' ' + (post.excerpt || '') + ' ' + (post.body || []).map(function (b) { return b.x || ''; }).join(' ')).toLowerCase();
-      var byBase = {}, order = [];
-      all.forEach(function (q) {
-        var base = q.name.toLowerCase().replace(FORM, ' ').replace(/[^a-z ]/g, ' ').replace(/\s+/g, ' ').trim();
-        if (base.length < 5) return;
-        var at = txt.indexOf(base); if (at < 0) return;
-        if (!byBase[base]) { byBase[base] = { at: at, p: q }; order.push(base); }
-        else if (q.name.length < byBase[base].p.name.length) byBase[base].p = q;   /* the plainest piece of that stone */
-      });
-      order.sort(function (a, b) { return byBase[a].at - byBase[b].at; });
-      var picks = order.slice(0, 4).map(function (b) { return byBase[b].p; });
-      if (picks.length) return { line: 'Mentioned in this article.', items: picks };
-      /* nothing named: one of each kind the shop sells, in its own order */
-      var seen = {}, out = [];
-      all.forEach(function (q) { if (!seen[q.cat] && q.stock !== 'out') { seen[q.cat] = true; out.push(q); } });
-      return { line: 'From the shop.', items: out.slice(0, 4) };
-    }
-    function prod(q) {
-      return '<a class="jprod" href="/product/?id=' + encodeURIComponent(q.id) + '">'
-        + '<span class="shot"><img src="' + q.img + '" alt="" loading="lazy"></span>'
-        + '<span class="n">' + esc(q.name) + '</span>'
-        + (q.three ? '<span class="tw">' + q.three.map(esc).join(' &middot; ') + '</span>' : '')
-        + '<span class="p">$' + q.price.toFixed(2) + '</span></a>';
-    }
-    var shop = shopThis(p);
-    var shopHtml = (shop && shop.items.length)
-      ? '<section class="jshop" aria-label="Shop this post"><span class="k">Shop this post</span>'
-        + '<p class="jline">' + shop.line + '</p>'
-        + '<div class="jrail">' + shop.items.map(prod).join('') + '</div></section>'
-      : '';
+    var shopHtml = railHtml(shopThis(p), 'Shop this post');
 
     host.innerHTML =
         '<article class="post">'
@@ -229,11 +251,12 @@
   }
 
   function card(p) {
+    var kick = worksWith(p) || stamp(p);
     return '<a class="jcard" href="?post=' + encodeURIComponent(p.slug) + '">'
       + shot(p, 'shot')
+      + (kick ? '<span class="k">' + kick + '</span>' : '')
       + '<h3>' + esc(p.title) + '</h3>'
       + (p.excerpt ? '<p>' + esc(trim(p.excerpt, 130)) + '</p>' : '')
-      + (stamp(p) ? '<span class="k">' + stamp(p) + '</span>' : '')
       + '</a>';
   }
 
@@ -247,7 +270,12 @@
         ? '<a class="jlead" href="?post=' + encodeURIComponent(lead.slug) + '" style="text-decoration:none;color:inherit">'
           + shot(lead, 'shot')
           + '<div><span class="eyebrow">Latest</span><h2>' + esc(lead.title) + '</h2>'
-          + (lead.excerpt ? '<p>' + esc(trim(lead.excerpt, 185)) + '</p>' : '') + '</div></a>'
+          + (lead.excerpt ? '<p>' + esc(trim(lead.excerpt, 185)) + '</p>' : '')
+          + '<span class="jmore">Read the post <span class="a" aria-hidden="true">&rarr;</span></span></div></a>'
+          /* the month's post sells what it names, on the index as on the post
+             (Sara, 14:15: "a product feed somewhere in it so that it makes the
+             content more shoppable") */
+          + railHtml(shopThis(lead), 'Shop this post')
         : '')
     + '<div class="jgrid">' + rest.map(card).join('') + '</div>';
 })();
