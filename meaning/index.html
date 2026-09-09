@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
 <script src="/assets/em-catalog.js?v=26"></script>
 <script src="/assets/em-stones.js?v=3"></script>
-<script src="/assets/em-header.js?v=50" defer></script>
+<script src="/assets/em-header.js?v=51" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
 <script src="/assets/em-prices.js?v=3" defer></script>
 <script src="/assets/em-search.js?v=11" defer></script>
@@ -143,6 +143,21 @@
   box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 6px 18px rgba(152,94,56,.14)}
 .vcap{margin-top:12px;font-size:13.5px;color:var(--stone)}
 @media (max-width:760px){ .vslot{border-radius:8px} .vslot .vp{width:64px;height:64px} }
+/* the index: one card per stone with a guide */
+.mindex{padding:clamp(28px,4vw,48px) 0 clamp(40px,6vw,72px)}
+.mindex h1{font-family:var(--serif);font-weight:300;font-size:clamp(34px,4.6vw,54px);line-height:1.05;margin:10px 0 0;letter-spacing:-.01em}
+.mindex h1 em{font-style:italic;color:var(--copper)}
+.mlead{margin:14px 0 0;font-size:15.5px;line-height:1.55;color:var(--ink-soft);max-width:48ch}
+.mgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,26px);margin-top:clamp(24px,3vw,36px)}
+.mcard{display:block;text-decoration:none;color:inherit}
+.mcard:focus-visible{outline:2px solid var(--copper);outline-offset:4px;border-radius:8px}
+.mcard .mim{display:block;aspect-ratio:4/5;border-radius:8px;overflow:hidden;background:var(--tint)}
+.mcard .mim img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.mcard:hover .mim img{transform:scale(1.03)}
+.mcard b{display:block;margin-top:12px;font-family:var(--serif);font-weight:400;font-size:19px;line-height:1.2}
+.mcard .mfor{display:block;margin-top:5px;font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone)}
+@media (max-width:700px){.mgrid{grid-template-columns:1fr 1fr;gap:16px 12px}.mcard b{font-size:16px}.mcard .mfor{font-size:10px;letter-spacing:.1em}}
+@media (prefers-reduced-motion:reduce){.mcard .mim img{transition:none}.mcard:hover .mim img{transform:none}}
 </style>
 </head>
 <body>
@@ -154,8 +169,29 @@
 (function () {
   'use strict';
   var host = document.getElementById('stone');
-  var key = (location.search.match(/[?&]stone=([^&]*)/) || [, 'black-tourmaline'])[1];
-  key = decodeURIComponent(key);
+  var qm = location.search.match(/[?&]stone=([^&]*)/);
+  /* Sept 9: no stone chosen means the index, not Black Tourmaline (Clay:
+     "should crystal meanings have a sort of landing?"). One card per stone
+     with a guide: its photo, its name, and what it is for from its own uses.
+     The nav's Crystal Meanings lands here. */
+  if (!qm) {
+    var KEYS = Object.keys(window.EM_STONES || {});
+    document.title = 'Energy Muse \u2014 Crystal Meanings';
+    host.innerHTML = '<section class="mindex"><span class="eyebrow">Crystal meanings</span>'
+      + '<h1>What each stone is <em>for.</em></h1>'
+      + '<p class="mlead">What a stone is for, how to use it, and the piece we would start with.</p>'
+      + '<div class="mgrid">' + KEYS.map(function (k) {
+          var st = window.EM_STONES[k];
+          var uses = (st.uses || []).slice(0, 2).map(function (u) { return esc(u.title); });
+          return '<a class="mcard" href="?stone=' + encodeURIComponent(k) + '">'
+            + '<span class="mim">' + (st.photo ? '<img src="/assets/img/c365/' + st.photo + '-600.webp" alt="" loading="lazy">' : '') + '</span>'
+            + '<b>' + esc(st.name) + '</b>'
+            + (uses.length ? '<span class="mfor">' + uses.join(' \u00b7 ') + '</span>' : '')
+            + '</a>';
+        }).join('') + '</div></section>';
+    return;
+  }
+  var key = decodeURIComponent(qm[1]);
   var S = (window.EM_STONES || {})[key];
 
   if (!S) {

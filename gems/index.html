@@ -267,6 +267,7 @@ p{text-wrap:pretty;}
 @media (max-width:620px){.sgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 .stools{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:14px}
+.ssel{display:flex;align-items:center;gap:8px 18px;flex-wrap:wrap}
 .ssort{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans,'Instrument Sans',sans-serif);
   font-size:12px;color:var(--soft)}
 .ssort span{font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:10px;opacity:.75}
@@ -309,12 +310,10 @@ p{text-wrap:pretty;}
   .lead-s{display:block;color:var(--ink-soft,#4E5A70);font-family:'Instrument Sans',-apple-system,sans-serif;font-size:16px;line-height:1.5;max-width:34ch;margin-top:14px}
 }
 /* Sept 9: the stone row and the New mark */
-.typerow.stones{margin-top:10px}
-.typerow .tk{font-family:var(--sans,'Instrument Sans',sans-serif);font-weight:600;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone,#6D695D);opacity:.7;align-self:center;margin-right:4px}
 .scard{position:relative}
 .scard .newtag{position:absolute;top:10px;left:10px;z-index:2;font-family:var(--sans,'Instrument Sans',sans-serif);font-weight:600;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--copper,#985E38);padding:5px 8px;border-radius:999px}
 </style>
-<script src="../assets/em-header.js?v=50" defer></script>
+<script src="../assets/em-header.js?v=51" defer></script>
 <script src="/assets/em-search.js?v=11" defer></script>
 <script src="../assets/em-bag.js?v=11" defer></script>
 <script src="../assets/em-prices.js?v=3" defer></script><script src="/assets/em-frequencies.js?v=6"></script>
@@ -376,18 +375,27 @@ p{text-wrap:pretty;}
       <button class="sf" type="button" data-g="Connection">Love</button>
           <button class="sf on" type="button" data-g="">All</button>
     </div>
-    <div class="typerow stones" id="sstones" role="group" aria-label="Shop by stone"></div>
     <div class="typerow" id="stypes" aria-label="Type"></div>
     <div class="stools">
       <p class="scount" id="scount"></p>
-      <label class="ssort"><span>Sort</span>
-        <select id="ssort">
-          <option value="price-asc">Price, low to high</option>
-          <option value="price-desc">Price, high to low</option>
-          <option value="name">Name, A to Z</option>
-          <option value="newest">Newest</option>
-        </select>
-      </label>
+      <!-- Sept 9: shop by stone was a third row of chips in a third style, and
+           it wrapped to two lines (Clay: "is this the best UI/UX way?"). It is
+           a dropdown beside Sort now, the same control, the same counts, one
+           row less. It still composes with the intention and the type, and it
+           still lives in the URL as ?stone=. -->
+      <div class="ssel">
+        <label class="ssort" id="sstonewrap" hidden><span>Stone</span>
+          <select id="sstone"></select>
+        </label>
+        <label class="ssort"><span>Sort</span>
+          <select id="ssort">
+            <option value="price-asc">Price, low to high</option>
+            <option value="price-desc">Price, high to low</option>
+            <option value="name">Name, A to Z</option>
+            <option value="newest">Newest</option>
+          </select>
+        </label>
+      </div>
     </div>
     <div class="sgrid" id="sgrid"></div>
   </div>
@@ -449,16 +457,16 @@ p{text-wrap:pretty;}
   var FORM=/\b(stones?|crystals?|tumbled|points?|pyramids?|clusters?|slices?|hearts?|towers?|carvings?|angels?|skulls?|wands?|cubes?|bowls?|plates?|dragons?|signs?|flames?|diamonds?|touchstones?|charging|cleansing|etched|faceted|prosperity|money|mother mary|tall|in matrix|aa-grade)\b/g;
   function stoneOf(c){return String(c.name||'').toLowerCase().replace(/\([^)]*\)/g,' ').replace(FORM,' ').replace(/[^a-z' ]/g,' ').replace(/\s+/g,' ').trim();}
   function stoneLabel(k){return k.replace(/(^|\s)\w/g,function(m){return m.toUpperCase();});}
-  var srow=document.getElementById('sstones');
+  var ssel=document.getElementById('sstone'),sselWrap=document.getElementById('sstonewrap');
   function paintStones(g,t,stone){
-    if(!srow)return;
+    if(!ssel)return;
     var base=(g?ALL.filter(function(c){return (c.group||'').toLowerCase()===g.toLowerCase();}):ALL.slice())
               .filter(function(c){return !t||c.sub===t;});
     var n={};base.forEach(function(c){var k=stoneOf(c);if(k)n[k]=(n[k]||0)+1;});
     var keys=Object.keys(n).filter(function(k){return n[k]>=2||k===stone;}).sort(function(a,b){return n[b]-n[a]||a.localeCompare(b);});
-    if(keys.length<2){srow.innerHTML='';return;}
-    srow.innerHTML='<span class="tk">Stone</span><button type="button" class="tb'+(stone?'':' on')+'" data-st="">All</button>'
-      +keys.map(function(k){return '<button type="button" class="tb'+(k===stone?' on':'')+'" data-st="'+k+'">'+stoneLabel(k)+'<span class="n">'+n[k]+'</span></button>';}).join('');
+    sselWrap.hidden=keys.length<2;
+    ssel.innerHTML='<option value="">All stones</option>'
+      +keys.map(function(k){return '<option value="'+k+'"'+(k===stone?' selected':'')+'>'+stoneLabel(k)+' ('+n[k]+')</option>';}).join('');
   }
 
   /* Filter and sort live in the URL. Without that you cannot send anyone
@@ -524,9 +532,8 @@ p{text-wrap:pretty;}
     var b=e.target.closest('.tb'); if(!b)return;
     st.t=b.getAttribute('data-t')||''; writeURL(st.g,st.s,st.t,st.st); paint(st.g,st.s,st.t,st.st);
   });
-  if(srow) srow.addEventListener('click',function(e){
-    var b=e.target.closest('.tb'); if(!b)return;
-    st.st=b.getAttribute('data-st')||''; writeURL(st.g,st.s,st.t,st.st); paint(st.g,st.s,st.t,st.st);
+  if(ssel) ssel.addEventListener('change',function(){
+    st.st=ssel.value||''; writeURL(st.g,st.s,st.t,st.st); paint(st.g,st.s,st.t,st.st);
   });
 
   bar.addEventListener('click',function(e){
@@ -538,7 +545,7 @@ p{text-wrap:pretty;}
     st.s=sortEl.value; writeURL(st.g,st.s,st.t,st.st); paint(st.g,st.s,st.t,st.st);
   });
   /* back and forward move between filters, the way they should */
-  addEventListener('popstate',function(){ st=readURL(); paint(st.g,st.s,st.t); });
+  addEventListener('popstate',function(){ st=readURL(); paint(st.g,st.s,st.t,st.st); });
 })();
 </script>
 </body></html>

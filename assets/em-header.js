@@ -234,11 +234,17 @@ function boot(){
   var dismissed=false;try{dismissed=sessionStorage.getItem('em-ann')==='off';}catch(e){}
   /* the four panels, defined once: the bar's dropdowns and the phone menu's
      fold-outs are the same lists */
+  /* Sept 9 (Clay, on the Learn menu: "they all go to the same spot"): one
+     page, one name, one place. The Learning Center is one page with three
+     fold-out sections; it had been listed as three sections, as All guides and
+     as Beginner's Guide, five entries for one URL. It is Learning Center, once,
+     under Learn; the FAQ is How it works, once, under Start Here; Crystal
+     Meanings now opens on an index of the stones. The footer follows. */
   var MENUS=[
-    ['Start Here',[['/quiz/','Energy Quiz'],['/learn/','Beginner&rsquo;s Guide'],['/faq/','How it works']]],
+    ['Start Here',[['/quiz/','Energy Quiz'],['/faq/','How it works']]],
     ['Shop',[['/jewelry/','Jewelry'],['/gems/','Crystals'],['/frequency/','Frequency'],['/sets/','Kits &amp; Sets'],['/systems/','Tools &amp; Accessories'],'sep',['/shop/','Shop all']]],
     ['By Intention',[['/intention/protection/','Protection'],['/intention/abundance/','Abundance'],['/intention/connection/','Love'],['/intention/calm/','Calm'],['/intention/clarity/','Clarity'],'sep',['/intention/','All intentions']]],
-    ['Learn',[['/learn/#crystals','Crystal Guide'],['/learn/#frequency','Frequency Guide'],['/learn/#jewelry','Jewelry Care &amp; Sizing'],['/meaning/','Crystal Meanings'],['/blog/','Journal'],'sep',['/learn/','All guides']]]
+    ['Learn',[['/learn/','Learning Center'],['/meaning/','Crystal Meanings'],['/blog/','Journal']]]
   ];
   /* one dropdown: a button and its panel, the Shop panel's shape for all four */
   function dd(label,items){
@@ -305,10 +311,10 @@ function boot(){
   /* The site map, the homepage's four columns of five. Keep index.html's
      footer in step when a link changes here. */
   var FOOT=[
-    ['Start Here',[['/quiz/','Energy Quiz'],['/learn/','Beginner&rsquo;s Guide'],['/faq/','How It Works'],['/intention/','By Intention'],['/try/','Make it yours']]],
-    ['Shop',[['/jewelry/','Jewelry'],['/gems/','Crystals'],['/frequency/','Frequency Generators'],['/sets/','Kits &amp; Sets'],['/shop/','Shop all']]],
-    ['Learn',[['/learn/','Learning Center'],['/blog/','Journal'],['/learn/#crystals','Crystal Guide'],['/heather/','With Heather'],['/veza/','Veza']]],
-    ['Help',[['/support/','Contact'],['/support/#orders','Shipping &amp; Returns'],['/faq/','FAQ'],['/about/','Our Story'],['/affiliates/','Affiliates']]]
+    ['Start Here',[['/quiz/','Energy Quiz'],['/faq/','How it works'],['/intention/','By Intention'],['/try/','Make it yours']]],
+    ['Shop',[['/jewelry/','Jewelry'],['/gems/','Crystals'],['/frequency/','Frequency'],['/sets/','Kits &amp; Sets'],['/shop/','Shop all']]],
+    ['Learn',[['/learn/','Learning Center'],['/meaning/','Crystal Meanings'],['/blog/','Journal'],['/heather/','With Heather'],['/veza/','Veza']]],
+    ['Help',[['/support/','Contact'],['/support/#orders','Shipping &amp; Returns'],['/about/','Our Story'],['/affiliates/','Affiliates'],['/craft/','Materials &amp; Craft']]]
   ];
   function col(c){return '<div class="emh-foot-col"><h3>'+c[0]+'</h3>'+c[1].map(function(l){return '<a href="'+l[0]+'">'+l[1]+'</a>';}).join('')+'</div>';}
   foot.innerHTML='<div class="emh-foot-in"><div class="emh-foot-grid">'
@@ -325,7 +331,7 @@ function boot(){
     +FOOT.map(col).join('')
     +'</div>'
     +'<div class="emh-foot-bottom"><span>&copy; 2026 Energy Muse. All rights reserved.</span>'
-    +'<span class="emh-foot-links2"><a href="/support/#accessibility">Accessibility</a><a href="/craft/">Materials &amp; Craft</a></span>'
+    +'<span class="emh-foot-links2"><a href="/support/#accessibility">Accessibility</a></span>'
     +'<span>Energy Muse products and content are intended for personal practice and general wellbeing. They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease. Individual experiences vary.</span></div>'
     +'</div>';
   document.body.appendChild(foot);
