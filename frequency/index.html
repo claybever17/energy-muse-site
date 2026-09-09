@@ -320,6 +320,34 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
   .fcard.tuned .shot{background:color-mix(in srgb,var(--tone,var(--copper)) 16%,var(--tint));box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--tone,var(--copper)) 55%,transparent)}
   .fcard.tuned .hz{color:var(--tone,var(--copper))}
 }
+/* ===== Sept 9: the picker as a rail. The pill of seven "Hz" chips read
+   oddly (Clay: "bar reads weird") and, at the end of the film, sat across the
+   spec cards. Now: the chosen frequency's name and number as a label, and
+   under it one line with seven stops, the chosen one lit - the same instrument
+   the tuner in the grid is. No glass, no pill. The finale caption stops above
+   it at both widths. */
+.film .hzpick{background:none;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;
+  display:flex;flex-direction:column;align-items:center;gap:6px;padding:0;border-radius:0;bottom:56px}
+.film .hzlabel{display:flex;align-items:baseline;gap:10px;font-family:var(--sans,'Instrument Sans',sans-serif);text-shadow:0 2px 14px rgba(7,12,18,.6)}
+.film .hzlabel b{font-family:'Fraunces',Georgia,serif;font-weight:300;font-size:22px;letter-spacing:-.01em;color:#f6f2ec}
+.film .hzlabel span{font-weight:600;font-size:10.5px;letter-spacing:.16em;color:rgba(246,242,236,.62)}
+.film .hzrail{position:relative;display:flex;gap:0;padding:0 6px}
+.film .hzrail::before{content:"";position:absolute;left:24px;right:24px;top:9px;height:1px;background:rgba(246,242,236,.28)}
+.film .hzpick .hzrail button{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;border-radius:0;box-shadow:none;
+  padding:4px 10px 6px;min-width:52px;font-family:var(--sans,'Instrument Sans',sans-serif);font-weight:600;font-size:11px;letter-spacing:.06em;color:rgba(246,242,236,.55);cursor:pointer;transition:color .2s}
+.film .hzpick .hzrail button i{display:block;width:7px;height:7px;border-radius:50%;background:rgba(246,242,236,.35);transition:transform .25s,background .25s;margin-top:2px}
+.film .hzpick .hzrail button:hover{color:#fff}
+.film .hzpick .hzrail button.on{color:#f6f2ec;background:none;box-shadow:none}
+.film .hzpick .hzrail button.on i{background:linear-gradient(135deg,#f3d9bd,#d09b68);transform:scale(1.5);box-shadow:0 0 0 4px rgba(217,169,120,.22)}
+.film .cap.c3{bottom:150px}
+@media (max-width:700px){
+  .film .hzpick{bottom:14px;gap:4px}
+  .film .hzlabel b{font-size:18px}
+  .film .hzrail{padding:0}
+  .film .hzrail::before{left:18px;right:18px}
+  .film .hzpick .hzrail button{min-width:0;padding:4px 6px 4px;font-size:10px;letter-spacing:.02em}
+  .film .cap.c3{bottom:96px}
+}
 </style>
 </head><body>
 <script>if(/[?&]nofilm=1/.test(location.search))document.documentElement.classList.add('nofilm');</script>
@@ -713,6 +741,8 @@ function setHz(hz){
   const pc=hz==='1111'?plateColors.pearl:plateColors.black;
   TW.plate.setHex(pc.plate);TW.base.setHex(pc.base);TW.rough=pc.rough;TW.env=pc.env;TW.baseRough=hz==='1111'?0.32:0.2;TW.baseEnv=hz==='1111'?1.8:1.2;
   document.querySelectorAll('.hzpick button').forEach(b=>b.classList.toggle('on',b.dataset.hz===hz));
+  const hn=document.getElementById('hzname'),hm=document.getElementById('hznum');
+  if(hn){const BY=window.EM_FREQ_BY;hn.textContent=(BY&&BY.short&&BY.short(hz))||'';hm.textContent=hz+' Hz';}
   const dv=document.getElementById('dialv');if(dv&&!window.__dialing)dv.textContent=hz;
 }
 window.__setHz=setHz;
@@ -984,7 +1014,8 @@ function onScroll(){
 }
 addEventListener('scroll',onScroll,{passive:true});onScroll();
 (function(){var q=new URLSearchParams(location.search).get('p');if(q!==null){var v=Math.max(0,Math.min(1,parseFloat(q)||0));var st=document.getElementById('stage');function go(){window.scrollTo(0,v*(st.offsetHeight-innerHeight));if(window.__setP)__setP(v);}setTimeout(go,300);setTimeout(go,1200);}})();
-(function(){const host=document.getElementById('hzpick');if(host){host.innerHTML=HZS.map(h=>'<button type="button" data-hz="'+h+'">'+h+'<em>Hz</em></button>').join('');
+(function(){const host=document.getElementById('hzpick');if(host){host.innerHTML='<div class="hzlabel"><b id="hzname"></b><span id="hznum"></span></div>'
+    +'<div class="hzrail">'+HZS.map(h=>'<button type="button" data-hz="'+h+'" aria-label="'+h+' Hz"><i></i>'+h+'</button>').join('')+'</div>';
   host.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;setHz(b.dataset.hz);const q=new URLSearchParams(location.search);q.set('hz',b.dataset.hz);history.replaceState(null,'',location.pathname+'?'+q.toString());});}
   setHz(new URLSearchParams(location.search).get('hz')||'7.83');})();
 window.__ready=true;window.__setP=v=>{targetP=scrollP=clamp01(v);if(v>0.12)loadCrystal();caps.forEach(c=>{const lo=+c.dataset.lo,hi=+c.dataset.hi;c.classList.toggle('in',targetP>=lo&&targetP<hi);});};
