@@ -237,6 +237,35 @@
 .pfounder em{font-style:italic}
 .pfounder a{color:var(--copper);text-decoration:none;font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-left:6px;white-space:nowrap}
 .pfounder a:hover{color:var(--copper-lo)}
+
+/* Sept 9: a video slot on every generator page. Sara, by email: "I am shooting
+   videos with Heather today for each of the Frequency devices." The same slot
+   the meaning pages carry: with a film in the generator's data it is a poster
+   and a play button and the player loads on the click; without one it is a
+   note that the film is coming, so the place is visible before it exists. */
+.pvid{margin-top:clamp(30px,4vw,52px);padding-top:clamp(24px,3vw,36px);border-top:1px solid var(--hair)}
+.pvid .eyebrow{margin-bottom:16px}
+.vslot{position:relative;aspect-ratio:16/9;max-width:760px;border-radius:10px;overflow:hidden;background:var(--tint)}
+.vslot img,.vslot iframe,.vslot video{position:absolute;inset:0;width:100%;height:100%;display:block;border:0}
+.vslot img{object-fit:cover}
+.vslot.empty{border:1px solid var(--hair);background:linear-gradient(135deg,var(--tint),color-mix(in srgb,var(--tint) 60%,#fff))}
+.vslot .vp{position:absolute;inset:0;margin:auto;width:76px;height:76px;border-radius:50%;display:grid;place-items:center;cursor:pointer;z-index:2;padding:0;
+  color:var(--ink);border:1px solid rgba(152,94,56,.38);
+  background:linear-gradient(135deg,rgba(216,158,112,.32) 0%,rgba(184,122,75,.16) 55%,rgba(255,255,255,.3) 100%);
+  backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 8px 24px rgba(152,94,56,.18);transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.vslot .vp:hover{transform:scale(1.06)}
+.vslot .vp:focus-visible{outline:2px solid var(--copper);outline-offset:3px}
+.vslot .vp svg{width:26px;height:26px;margin-left:4px;fill:currentColor}
+.vslot .vnote{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;white-space:nowrap;
+  padding:12px 20px;border-radius:999px;font:600 11px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ink);
+  border:1px solid rgba(152,94,56,.38);
+  background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);
+  backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 6px 18px rgba(152,94,56,.14)}
+.vcap{margin-top:12px;font-size:13.5px;color:var(--stone)}
+@media (max-width:760px){ .vslot{border-radius:8px} .vslot .vp{width:64px;height:64px} }
+@media (prefers-reduced-motion:reduce){ .vslot .vp{transition:none} .vslot .vp:hover{transform:none} }
 </style>
 </head><body>
 <main>
@@ -464,6 +493,32 @@ function buildPanels(p){
       + (G.tip ? '<p class="tip"><b>Pro tip</b>' + G.tip + '</p>' : '')
       + '</div>';
   }
+  /* Sept 9: the video, one per generator (Sara, by email: "I am shooting
+     videos with Heather today for each of the Frequency devices"). G.video is
+     the generator's own - { youtube: id } or { vimeo: id } or { src: '/assets/
+     video/x.mp4' }, with an optional poster and caption - and ?video=yt:ID or
+     ?video=vimeo:ID previews the player on any generator without touching the
+     data. Only ids, never a URL from the address bar. */
+  function parseVideo(t){
+    var m; if (!t) return null;
+    if ((m = t.match(/^yt:([\w-]{6,})$/))) return { youtube: m[1] };
+    if ((m = t.match(/^vimeo:(\d{5,})$/))) return { vimeo: m[1] };
+    return null;
+  }
+  var GV = G ? (G.video || parseVideo(decodeURIComponent((location.search.match(/[?&]video=([^&]*)/) || [, ''])[1]))) : null;
+  var GPOSTER = !GV ? '' : (GV.poster || (GV.youtube ? 'https://i.ytimg.com/vi/' + encodeURIComponent(GV.youtube) + '/hqdefault.jpg' : ''));
+  function genVideo(){
+    var t = 'Heather on ' + GHZ + ' Hz';
+    return '<div class="pvid"><span class="eyebrow">' + t + '</span>'
+      + '<div class="vslot' + (GV ? '' : ' empty') + '" id="pvslot">'
+      + (GPOSTER ? '<img src="' + GPOSTER + '" alt="" loading="lazy" decoding="async">' : '')
+      + (GV
+          ? '<button class="vp" type="button" aria-label="Play: ' + t + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></button>'
+          : '<span class="vnote">Video coming</span>')
+      + '</div>'
+      + (GV && GV.caption ? '<p class="vcap">' + GV.caption + '</p>' : '')
+      + '</div>';
+  }
   /* what goes with a generator is not the other six generators: the ring
      that wears the frequency, the Formula it belongs to, and the copper */
   function genRelated(G){
@@ -551,7 +606,31 @@ function buildPanels(p){
        on the product template). The trust strip's own sentence, and the way on. */
     + '<p class="pfounder">Founder-led for two decades by Heather Askinosie, best-selling author of <em>Crystal 365</em> and <em>Crystal Muse</em>. <a href="/about/">Our story <span aria-hidden="true">&rarr;</span></a></p>'
     + '</div></div>'
+    + (G ? genVideo() : '')
     + (G ? placeBand(G) : '');
+
+  /* the player arrives on the click: no third-party iframe on a page nobody
+     asked to play */
+  var pvp = host.querySelector('#pvslot .vp');
+  if (pvp && GV) pvp.addEventListener('click', function(){
+    var el, box = document.getElementById('pvslot'), title = 'Heather on ' + GHZ + ' Hz';
+    if (GV.youtube) {
+      el = document.createElement('iframe');
+      el.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(GV.youtube) + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      el.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    } else if (GV.vimeo) {
+      el = document.createElement('iframe');
+      el.src = 'https://player.vimeo.com/video/' + encodeURIComponent(GV.vimeo) + '?autoplay=1&dnt=1';
+      el.allow = 'autoplay; fullscreen; picture-in-picture';
+    } else if (GV.src) {
+      el = document.createElement('video');
+      el.src = GV.src; el.controls = true; el.autoplay = true; el.playsInline = true;
+      if (GPOSTER) el.poster = GPOSTER;
+    }
+    if (!el) return;
+    if (el.tagName === 'IFRAME') { el.setAttribute('allowfullscreen', ''); el.title = title; }
+    box.innerHTML = ''; box.appendChild(el); box.classList.add('playing');
+  });
 
   /* Thumbnails swap the frame rather than navigating. The image fades so the
      change reads as the same object turning rather than a page flicker, and

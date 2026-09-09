@@ -3,6 +3,10 @@
    Sara, in her review (13:14): the generator pages on the current site are
    more built out than the normal product pages - where to put it, the
    accessories - and she wants a format for them that keeps that.
+   Sept 9: each record may carry video: { youtube: 'id' } or { vimeo: 'id' } or
+   { src: '/assets/video/x.mp4' }, with optional poster and caption. Sara is
+   filming one per device; none is in yet, and the product page shows the
+   slot with "Video coming" until it is.
 
    Everything here is lifted from energymuse.com/products/{slug} on 2026-09-07:
    their title, their three words, their preview paragraph and its points,
