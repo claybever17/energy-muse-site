@@ -117,7 +117,7 @@
     <div class="grp" id="crystals">
       <h2>Crystals.</h2>
       <div class="qa">
-        <details><summary>How do I cleanse or recharge my crystals?</summary>
+        <details id="cleanse"><summary>How do I cleanse or recharge my crystals?</summary>
           <p>You can cleanse crystals by placing them in sunlight or moonlight, using sound, or resting them on a selenite plate overnight.</p></details>
         <details><summary>Can I put my crystals in water?</summary>
           <p>Some, not all. Selenite dissolves, malachite and turquoise are damaged by prolonged
@@ -244,4 +244,18 @@
 
 
 </main>
+<script>
+/* Sept 9: a link can land on one answer. The jewelry page's cleansing note
+   points at #cleanse (Sara, review 6:58: "if that led to a cleansing page,
+   that totally makes sense"); the group chips still use the group ids, which
+   are not <details>, so they are left alone. */
+(function(){
+  function openHash(){
+    var h=location.hash&&location.hash.slice(1); if(!h)return;
+    var d=document.getElementById(h); if(!d||d.tagName!=='DETAILS')return;
+    d.open=true; d.scrollIntoView({block:'start'});
+  }
+  openHash(); window.addEventListener('hashchange',openHash);
+})();
+</script>
 </body></html>
