@@ -126,6 +126,14 @@ var css=[
 '.emh-menu nav{display:flex;flex-direction:column;margin-top:clamp(22px,5vh,44px);flex:1;justify-content:flex-start;}',
 '.emh-menu nav a{font:300 28px "Fraunces",Georgia,serif;color:'+P.ink+';text-decoration:none;padding:13px 0;border-bottom:1px solid '+P.line+';}',
 '.emh-menu nav a:hover{color:'+P.copper+';}',
+'.emh-mi button{display:flex;align-items:center;justify-content:space-between;width:100%;background:none;border:0;border-bottom:1px solid '+P.line+';padding:13px 0;font:300 28px "Fraunces",Georgia,serif;color:'+P.ink+';text-align:left;cursor:pointer;}',
+'.emh-mi button::after{content:"";width:8px;height:8px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin-right:6px;transition:transform .25s;opacity:.55;}',
+'.emh-mi.open button::after{transform:rotate(225deg);}',
+'.emh-msub{display:none;padding:6px 0 10px;border-bottom:1px solid '+P.line+';}',
+'.emh-mi.open .emh-msub{display:grid;}',
+/* .emh-menu nav a outranks a bare .emh-msub a, so these carry the menu class too */
+'.emh-menu .emh-msub a{font:500 16px "Instrument Sans",sans-serif;letter-spacing:.02em;color:'+P.soft+';text-decoration:none;padding:11px 0 11px 14px;border:0;min-height:44px;display:flex;align-items:center;}',
+'.emh-menu .emh-msub a:hover{color:'+P.copper+';}',
 /* the quiet tier — utility weight, still 44px to tap */
 '.emh-menu-sec{display:flex;flex-wrap:wrap;gap:4px 22px;padding-top:14px;}',
 '.emh-menu-sec a{font:500 13.5px "Instrument Sans",sans-serif;letter-spacing:.04em;color:'+P.soft+';text-decoration:none;min-height:44px;display:inline-flex;align-items:center;}',
@@ -209,6 +217,14 @@ function boot(){
     : {say:'New to Energy Muse?', more:' Find your energy match in a few simple questions.',
        cta:'Take the Energy Quiz \u2192', href:'/quiz/'};
   var dismissed=false;try{dismissed=sessionStorage.getItem('em-ann')==='off';}catch(e){}
+  /* the four panels, defined once: the bar's dropdowns and the phone menu's
+     fold-outs are the same lists */
+  var MENUS=[
+    ['Start Here',[['/quiz/','Energy Quiz'],['/learn/','Beginner&rsquo;s Guide'],['/faq/','How it works']]],
+    ['Shop',[['/jewelry/','Jewelry'],['/gems/','Crystals'],['/frequency/','Frequency'],['/sets/','Kits &amp; Sets'],['/systems/','Tools &amp; Accessories'],'sep',['/shop/','Shop all']]],
+    ['By Intention',[['/intention/protection/','Protection'],['/intention/abundance/','Abundance'],['/intention/connection/','Love'],['/intention/calm/','Calm'],['/intention/clarity/','Clarity'],'sep',['/intention/','All intentions']]],
+    ['Learn',[['/learn/#crystals','Crystal Guide'],['/learn/#frequency','Frequency Guide'],['/learn/#jewelry','Jewelry Care &amp; Sizing'],['/meaning/','Crystal Meanings'],['/blog/','Journal'],'sep',['/learn/','All guides']]]
+  ];
   /* one dropdown: a button and its panel, the Shop panel's shape for all four */
   function dd(label,items){
     return '<span class="emh-dd"><button type="button" aria-expanded="false" aria-haspopup="true">'+label+'</button>'
@@ -230,10 +246,7 @@ function boot(){
        With Heather and Veza were the table's, not her words - Clay took them
        back out of the bar; both stay in the footer and the phone menu. */
     +'<nav class="emh-links">'
-    +dd('Start Here',[['/quiz/','Energy Quiz'],['/learn/','Beginner&rsquo;s Guide'],['/faq/','How it works']])
-    +dd('Shop',[['/jewelry/','Jewelry'],['/gems/','Crystals'],['/frequency/','Frequency'],['/sets/','Kits &amp; Sets'],['/systems/','Tools &amp; Accessories'],'sep',['/shop/','Shop all']])
-    +dd('By Intention',[['/intention/protection/','Protection'],['/intention/abundance/','Abundance'],['/intention/connection/','Love'],['/intention/calm/','Calm'],['/intention/clarity/','Clarity'],'sep',['/intention/','All intentions']])
-    +dd('Learn',[['/learn/#crystals','Crystal Guide'],['/learn/#frequency','Frequency Guide'],['/learn/#jewelry','Jewelry Care &amp; Sizing'],['/meaning/','Crystal Meanings'],['/blog/','Journal'],'sep',['/learn/','All guides']])
+    +MENUS.map(function(m){return dd(m[0],m[1]);}).join('')
     +'<a href="/try/">Make it yours</a></nav>'
     /* Search was <a href="#">, wired to nothing, on every page of the site — a
        control in the primary nav that silently did nothing when clicked. Gone
@@ -250,19 +263,18 @@ function boot(){
        second tier alongside the two destinations this menu never carried at
        all — so the mobile menu stops being a different set of links from the
        one the header shows, and stops differing from the homepage's own. */
-    +'<nav><a href="/shop/">Shop</a>'
-    +'<a href="/intention/">By Intention</a><a href="/learn/">Learn</a>'
+    /* Sept 9: the same five as the bar. The four with panels fold out in
+       place on a tap, one at a time - the three loose rows of chips that sat
+       under the list before were the old design's leftovers (Clay: "looks
+       crazy"). With Heather, Veza and About keep the quiet second row. */
+    +'<nav class="emh-macc">'
+    +MENUS.map(function(m){
+        return '<div class="emh-mi"><button type="button" aria-expanded="false">'+m[0]+'</button>'
+          +'<div class="emh-msub">'+m[1].filter(function(it){return it!=='sep';}).map(function(it){
+              return '<a href="'+it[0]+'">'+it[1]+'</a>';}).join('')+'</div></div>';
+      }).join('')
     +'<a href="/try/">Make it yours</a></nav>'
-    /* the four categories, flat - a panel that has to be opened is worth it
-       on a bar with no room, and pointless inside a menu that is already a
-       list */
-    +'<div class="emh-menu-cats"><a href="/jewelry/">Jewelry</a><a href="/gems/">Crystals</a>'
-    +'<a href="/frequency/">Frequency</a>'
-    +'<a href="/sets/">Kits &amp; Sets</a><a href="/systems/">Tools &amp; Accessories</a><a href="/shop/">Shop all</a></div>'
-    /* the intentions and the start-here trio, flat, as the bar's dropdowns hold them */
-    +'<div class="emh-menu-cats"><a href="/intention/protection/">Protection</a><a href="/intention/abundance/">Abundance</a>'
-    +'<a href="/intention/connection/">Love</a><a href="/intention/calm/">Calm</a><a href="/intention/clarity/">Clarity</a></div>'
-    +'<div class="emh-menu-sec"><a href="/quiz/">Energy Quiz</a><a href="/faq/">How it works</a><a href="/heather/">With Heather</a><a href="/veza/">Veza</a><a href="/about/">About</a></div>'
+    +'<div class="emh-menu-sec"><a href="/heather/">With Heather</a><a href="/veza/">Veza</a><a href="/about/">About</a></div>'
     /* Search and Bag live in the menu now, not in the header bar. The
        homepage's own menu already had this row; this is the shared one
        catching up, so the two menus finally carry the same things. */
@@ -334,6 +346,16 @@ function boot(){
     });
     document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDDs();});
   }
+
+  /* the phone panels: one open at a time */
+  var mis=[].slice.call(menu.querySelectorAll('.emh-mi'));
+  mis.forEach(function(mi){
+    mi.querySelector('button').addEventListener('click',function(){
+      var open=mi.classList.contains('open');
+      mis.forEach(function(x){x.classList.remove('open');x.querySelector('button').setAttribute('aria-expanded','false');});
+      mi.classList.toggle('open',!open);mi.querySelector('button').setAttribute('aria-expanded',open?'false':'true');
+    });
+  });
 
   function set(o){menu.classList.toggle('open',o);document.body.classList.toggle('emh-open',o);
     document.documentElement.style.overflow=o?'hidden':'';
