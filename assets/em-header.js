@@ -72,6 +72,7 @@ var css=[
 '.emh-in{max-width:1240px;margin:0 auto;padding:0 clamp(20px,4vw,44px);height:70px;display:flex;align-items:center;gap:clamp(22px,3vw,40px);}',
 '.emh-brand{display:flex;align-items:center;flex-shrink:0;}',
 '.emh-logo{height:38px;width:auto;aspect-ratio:1167/247.5;display:block;color:'+P.ink+';}',
+'@media(max-width:1180px){.emh-links{gap:18px!important;}}',
 '.emh-links{display:flex;gap:26px;font:500 13px "Instrument Sans",sans-serif;letter-spacing:.03em;transform:translateY(3px);}',
 /* Crystals, Jewelry, Frequency and Kits lived only in the footer, seventeen
    screens down, so reaching a category cost Shop -> scroll -> a card -> the
@@ -81,19 +82,19 @@ var css=[
    It opens on CLICK, not hover. A hover menu on a nav that also has to work
    on a touch screen is the thing that gets called glitchy, and it has been
    called that on this project already. */
-'.emh-shop{position:relative;}',
-'.emh-shop > button{background:none;border:0;padding:0;cursor:pointer;color:'+P.soft+';font:500 13px "Instrument Sans",sans-serif;letter-spacing:.03em;',
+'.emh-dd{position:relative;}',
+'.emh-dd > button{background:none;border:0;padding:0;cursor:pointer;color:'+P.soft+';font:500 13px "Instrument Sans",sans-serif;letter-spacing:.03em;',
 '  font:inherit;letter-spacing:inherit;display:inline-flex;align-items:center;gap:5px;}',
-'.emh-shop > button::after{content:"";width:5px;height:5px;border-right:1.4px solid currentColor;',
+'.emh-dd > button::after{content:"";width:5px;height:5px;border-right:1.4px solid currentColor;',
 '  border-bottom:1.4px solid currentColor;transform:rotate(45deg) translate(-1px,-1px);',
 '  transition:transform .2s;}',
-'.emh-shop.open > button::after{transform:rotate(225deg) translate(-2px,-2px);}',
-'.emh-shop > button:hover{color:'+P.copper+';}',
+'.emh-dd.open > button::after{transform:rotate(225deg) translate(-2px,-2px);}',
+'.emh-dd > button:hover{color:'+P.copper+';}',
 '.emh-panel{position:absolute;top:calc(100% + 14px);left:-16px;min-width:190px;z-index:120;',
 '  background:'+P.menubg+';border:1px solid '+P.line+';border-radius:8px;padding:6px;',
 '  box-shadow:0 18px 44px rgba(11,19,32,.13);opacity:0;visibility:hidden;transform:translateY(-6px);',
 '  transition:opacity .2s,transform .2s,visibility .2s;}',
-'.emh-shop.open .emh-panel{opacity:1;visibility:visible;transform:none;}',
+'.emh-dd.open .emh-panel{opacity:1;visibility:visible;transform:none;}',
 '.emh-panel a{display:block;padding:10px 12px;border-radius:5px;color:'+P.ink+';',
 '  text-decoration:none;font:500 13px "Instrument Sans",sans-serif;letter-spacing:.02em;}',
 '.emh-panel a:hover{background:'+P.annbg+';color:'+P.copper+';}',
@@ -208,22 +209,30 @@ function boot(){
     : {say:'New to Energy Muse?', more:' Find your energy match in a few simple questions.',
        cta:'Take the Energy Quiz \u2192', href:'/quiz/'};
   var dismissed=false;try{dismissed=sessionStorage.getItem('em-ann')==='off';}catch(e){}
+  /* one dropdown: a button and its panel, the Shop panel's shape for all four */
+  function dd(label,items){
+    return '<span class="emh-dd"><button type="button" aria-expanded="false" aria-haspopup="true">'+label+'</button>'
+      +'<span class="emh-panel">'+items.map(function(it){
+        return it==='sep'?'<span class="sep"></span>':'<a href="'+it[0]+'">'+it[1]+'</a>';}).join('')
+      +'</span></span>';
+  }
   var frag=document.createElement('div');frag.id='emh';
   frag.innerHTML=
     (!dismissed?'<div class="emh-ann"><div class="emh-ann-in"><span>'+ann.say+'<span class="emh-ann-more">'+ann.more+'</span></span><a href="'+ann.href+'">'+ann.cta+'</a><button class="emh-annx" aria-label="Dismiss">\u00d7</button></div></div>':'')
     +'<header class="emh-nav"><div class="emh-in">'
     +'<a class="emh-brand" href="/"><svg class="emh-logo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo-hdr"/></svg></a>'
+    /* Sept 9: the nav Sara asked for (review, 2:36: "in the copy doc there was
+       a part for the nav where it's more built out... intention by intention
+       would have a drop down... maybe we pull out the quiz separately"). It is
+       the brief's Recommended Navigation table with her marks on it: About to
+       the footer, "Frequency" not "Frequency Tools", Tools & Accessories added,
+       and the name she wanted for Try It. Four dropdowns, three plain links. */
     +'<nav class="emh-links">'
-    +'<span class="emh-shop"><button type="button" aria-expanded="false" aria-haspopup="true">Shop</button>'
-    +'<span class="emh-panel">'
-    +'<a href="/gems/">Crystals</a>'
-    +'<a href="/jewelry/">Jewelry</a>'
-    +'<a href="/frequency/">Frequency</a>'
-    +'<a href="/sets/">Kits &amp; Sets</a><span class="sep"></span>'
-    +'<a href="/shop/">Shop all</a>'
-    +'</span></span>'
-    +'<a href="/intention/">By Intention</a><a href="/learn/">Learn</a>'
-    +'<a href="/try/">Try It</a></nav>'
+    +dd('Start Here',[['/quiz/','Energy Quiz'],['/learn/','Beginner&rsquo;s Guide'],['/faq/','How it works']])
+    +dd('Shop',[['/jewelry/','Jewelry'],['/gems/','Crystals'],['/frequency/','Frequency'],['/sets/','Kits &amp; Sets'],['/systems/','Tools &amp; Accessories'],'sep',['/shop/','Shop all']])
+    +dd('By Intention',[['/intention/protection/','Protection'],['/intention/abundance/','Abundance'],['/intention/connection/','Love'],['/intention/calm/','Calm'],['/intention/clarity/','Clarity'],'sep',['/intention/','All intentions']])
+    +dd('Learn',[['/learn/#crystals','Crystal Guide'],['/learn/#frequency','Frequency Guide'],['/learn/#jewelry','Jewelry Care &amp; Sizing'],['/meaning/','Crystal Meanings'],['/blog/','Journal'],'sep',['/learn/','All guides']])
+    +'<a href="/try/">Make it yours</a><a href="/heather/">With Heather</a><a href="/veza/">Veza</a></nav>'
     /* Search was <a href="#">, wired to nothing, on every page of the site — a
        control in the primary nav that silently did nothing when clicked. Gone
        until there is something to search: product pages will give every item
@@ -241,15 +250,17 @@ function boot(){
        one the header shows, and stops differing from the homepage's own. */
     +'<nav><a href="/shop/">Shop</a>'
     +'<a href="/intention/">By Intention</a><a href="/learn/">Learn</a>'
-    +'<a href="/try/">Try It</a></nav>'
+    +'<a href="/try/">Make it yours</a><a href="/heather/">With Heather</a><a href="/veza/">Veza</a></nav>'
     /* the four categories, flat - a panel that has to be opened is worth it
        on a bar with no room, and pointless inside a menu that is already a
        list */
-    +'<div class="emh-menu-cats"><a href="/gems/">Crystals</a>'
-    +'<a href="/jewelry/">Jewelry</a>'
+    +'<div class="emh-menu-cats"><a href="/jewelry/">Jewelry</a><a href="/gems/">Crystals</a>'
     +'<a href="/frequency/">Frequency</a>'
-    +'<a href="/sets/">Kits &amp; Sets</a><a href="/shop/">Shop all</a></div>'
-    +'<div class="emh-menu-sec"><a href="/heather/">With Heather</a><a href="/veza/">Veza</a><a href="/about/">About</a></div>'
+    +'<a href="/sets/">Kits &amp; Sets</a><a href="/systems/">Tools &amp; Accessories</a><a href="/shop/">Shop all</a></div>'
+    /* the intentions and the start-here trio, flat, as the bar's dropdowns hold them */
+    +'<div class="emh-menu-cats"><a href="/intention/protection/">Protection</a><a href="/intention/abundance/">Abundance</a>'
+    +'<a href="/intention/connection/">Love</a><a href="/intention/calm/">Calm</a><a href="/intention/clarity/">Clarity</a></div>'
+    +'<div class="emh-menu-sec"><a href="/quiz/">Energy Quiz</a><a href="/faq/">How it works</a><a href="/about/">About</a></div>'
     /* Search and Bag live in the menu now, not in the header bar. The
        homepage's own menu already had this row; this is the shared one
        catching up, so the two menus finally carry the same things. */
@@ -279,7 +290,7 @@ function boot(){
     +'<a href="/shop/">Shop</a><a href="/jewelry/">Jewelry</a><a href="/gems/">Crystals</a>'
     +'<a href="/frequency/">Frequency</a><a href="/sets/">Kits &amp; Sets</a>'
     +'<a href="/intention/">By Intention</a><a href="/quiz/">Energy Quiz</a>'
-    +'<a href="/try/">Try It</a><a href="/frequency/#tune">Frequency Room</a>'
+    +'<a href="/try/">Make it yours</a><a href="/frequency/#tune">Frequency Room</a>'
     +'<a href="/learn/">Learn</a><a href="/blog/">Journal</a><a href="/faq/">FAQ</a>'
     +'<a href="/about/">About</a><a href="/heather/">With Heather</a><a href="/veza/">Veza</a><a href="/support/">Support</a></div>'
     +'<p class="emh-foot-legal">© 2026 Energy Muse. Energy Muse products and content are intended for personal practice and general wellbeing. They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease. Individual experiences vary.</p>'
@@ -304,24 +315,22 @@ function boot(){
     try{sessionStorage.setItem('em-ann','off');}catch(e){}
   });
   var burger=frag.querySelector('.emh-burger'),close=menu.querySelector('.emh-close');
-  /* the Shop panel: click to open, click away or Escape to close */
-  var shop=document.querySelector('.emh-shop');
-  if(shop){
-    var sb=shop.querySelector('button');
-    var setShop=function(o){
-      shop.classList.toggle('open',o);
-      sb.setAttribute('aria-expanded',o?'true':'false');
-    };
-    sb.addEventListener('click',function(e){
+  /* the dropdowns: click to open, one at a time; click away or Escape closes */
+  var dds=[].slice.call(document.querySelectorAll('.emh-dd'));
+  function setDD(d,o){d.classList.toggle('open',o);d.querySelector('button').setAttribute('aria-expanded',o?'true':'false');}
+  function closeDDs(except){dds.forEach(function(d){if(d!==except)setDD(d,false);});}
+  dds.forEach(function(d){
+    d.querySelector('button').addEventListener('click',function(e){
       e.stopPropagation();
-      setShop(!shop.classList.contains('open'));
+      var open=d.classList.contains('open');
+      closeDDs(d);setDD(d,!open);
     });
+  });
+  if(dds.length){
     document.addEventListener('click',function(e){
-      if(!shop.contains(e.target))setShop(false);
+      if(!dds.some(function(d){return d.contains(e.target);}))closeDDs();
     });
-    document.addEventListener('keydown',function(e){
-      if(e.key==='Escape')setShop(false);
-    });
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDDs();});
   }
 
   function set(o){menu.classList.toggle('open',o);document.body.classList.toggle('emh-open',o);
