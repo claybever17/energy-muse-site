@@ -1990,6 +1990,9 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 /* Sept 3: the Veza card had the waitlist but no way to the page itself */
 .duo-card.veza .veza-more{display:inline-block;margin-top:14px;font-family:var(--sans);font-weight:600;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#E9BE97;text-decoration:none;align-self:flex-start}
 .duo-card.veza .veza-more:hover{color:#fff}
+/* a control, not a word in a sentence: the same 44px overlay the other standalone links carry */
+.duo-card.veza .veza-more{position:relative}
+@media (max-width:900px){.duo-card.veza .veza-more::after{content:"";position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:44px}}
 
 /* Sept 4: Sara - buttons belong under the copy, "where people expect to find it", not on the photograph */
 .split .copy .band-btn{margin-top:22px;align-self:flex-start}

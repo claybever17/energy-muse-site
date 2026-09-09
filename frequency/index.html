@@ -344,6 +344,8 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
   .film .hzpick{bottom:14px;gap:4px}
   .film .hzlabel b{font-size:18px}
   .film .hzrail{padding:0}
+  /* each stop is a 44px target; the dot stays on the line, the extra height hangs below the label */
+  .film .hzpick .hzrail button{min-height:44px;justify-content:flex-start}
   .film .hzrail::before{left:18px;right:18px}
   .film .hzpick .hzrail button{min-width:0;padding:4px 6px 4px;font-size:10px;letter-spacing:.02em}
   .film .cap.c3{bottom:96px}

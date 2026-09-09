@@ -207,6 +207,8 @@
 .jrow h2{font-family:var(--serif);font-weight:400;font-size:clamp(23px,2.6vw,34px);line-height:1.12;margin:0}
 .jrow p{margin:6px 0 0;font-size:13.5px;color:var(--ink-soft)}
 .jrow .link{margin:0 0 2px;white-space:nowrap}
+.jrow .link{position:relative}
+@media (max-width:900px){.jrow .link::after{content:"";position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:44px}}
 .jgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2.2vw,28px);margin-top:clamp(18px,2.4vw,28px)}
 .jcard{display:flex;flex-direction:column;text-decoration:none;color:inherit;min-width:0}
 .jcard .shot{aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:var(--tint);border:1px solid var(--hair)}
