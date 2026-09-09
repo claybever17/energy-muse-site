@@ -40,30 +40,27 @@ still works but is not needed.)
 
 ## Site map
 
-| Route | What it is |
+| Route | What it is (as of Sept 9) |
 |---|---|
-| `/` | **Classic** — the production homepage. Approved rewrite copy, logo-left nav (Start Here · Shop · By Intention · Learn), dismissible announcement bar, alternating image/text splits, **the seven generator photographs cross-fading on the Hz ticker** (the WebGL device was removed — it rendered one generic body with no notion of frequency, so it could never follow the readout), live scanned crystal, day-photo hero, `foldCut()` scroll invitation, Versions popup (bottom-right, includes the 3 color skins). |
-| `/home/` | Chooser for the concept films. **Nothing links to it** — the concepts are an archive, reachable only by typing the URL. `/home/cascade/` is the exception: it is the live Frequency Room, listed in the Try-it panel. |
-| `/home/current/` | **Current** — the concept film. One continuous scene; scroll scrubs the timeline: the **brand mark, drawn in copper outline and breathing, unravels into the energy line** → five intention strands → winds into the live 3D generator's coil (Hz ticker 7.83→1111) → through a duotone photo → closes into a ring around the quiz CTA, all under a **day→dusk color grade**. The mark's strokes are sampled at runtime from the real `#em-markline` geometry (`getPointAtLength`). Test hook: `window.__film.go(p)` (0..1). Static fallback for reduced-motion/no-JS. |
-| `/home/cascade/` | **Cascade** — an *experiment* on Current (boss asked to try "crystals rain down as you scroll"). Canvas 2D film: **scroll is gravity** — 12 alpha-cut product stones sink snow-globe slow (position is a pure function of progress + seed: reversible, resize-safe) over a far layer of copper line-art facets. Stones pre-render at two focus tiers (far = lens blur). Each intention chapter **catches its two stones and docks them as labeled products** (real catalog names; a soft light band sweeps each stone as it settles), then the rain gathers into the same finale ring as Current (identical geometry). Grade is **paper→earth (depth, not time)**. **No hands / no stands / no baked backgrounds in stone art** — himalayan, labradorite (now the tumbled "Labradorite Stone") and rose-heart were re-cut with `rembg`; amethyst-on-stand stays out of the cast until a clean shot exists. **3D:** baked turntable sprite sheets were tried first and rejected (they ghosted/stepped between frames — Clay: "glitchy as hell"). The working answer is **live geometry**: a WebGL layer (`#live3d`) mounts `calm.glb` with an **orthographic camera in pixel space** (1 world unit = 1 CSS px), so the real scan falls, docks and turns in the same physics as the painted stones — perfectly smooth, and it loads lazily only when its chapter nears. glTF materials export with alpha blending on and read as a ghost over the paper: **force `transparent=false` on load** or the stone looks see-through. Driven via `window.__live`. Only one scan is live because the GLBs are 7–12MB each — **optimise them before adding more**. **Motion:** stones keep a slow float/tilt driven by time, not scroll, so nothing freezes when the reader stops (damped by depth; docked stones keep a gentler breath). **Chapter text:** never cross-fade the intention captions — that put two intentions on screen at once mid-transition. `capInt()` gives each chapter a clean handoff (out finishes before the next starts, with an empty beat), and the words settle up out of focus / sink away downward with the eyebrow, line and link staggered. Verified by sweeping 541 scroll positions for zero double-visibility; **re-run that check if you retime `CW`/`DW`**. Same `window.__film` hook, same fallback pattern. Not part of the official trio — listed in Versions as "experiment". |
-| `/home/crystallize/` | **Crystallize** — the synthesis of Current and Cascade, and the strongest of the concepts. Not the two stacked: **one physics**. A frequency passing through a medium makes solid form precipitate out of it (which is how a crystal actually grows, and what this brand sells). The mark unravels into one line of energy → the line meets the **live 3D generator** and resonates (Hz ticker) → at the crests, stones **precipitate out of the line itself** → they fall and **settle into a bed** on the floor → five strands each shed their own intention's stones, docking as labeled products → the settled bed **lifts and closes into the ring**, with the mark seated inside it (full on mobile, a ghost on desktop so it never fights the headline). Landing is a centred title card — type first, then the mark — and it bookends the finale. Day→dusk grade. Every stone is a pure function of progress + seed, so scrubbing back **un-crystallises**. Ends in a **brand-film slot** (`assets/video/brand.mp4`), honestly labelled. **Edge rule learned here:** the strands used to stop dead at the frame and read as cropped — they now run past it *and* stroke with a gradient that goes transparent at both ends, and the bed is clamped so no stone is ever sliced by an edge. |
-| `/designer/` | **Atelier** — the bracelet builder (our answer to myastris.com/designer, "way cooler"). Intention-first: five tabs of real stones, **"Compose for me"** tiles a per-intention recipe around the whole wrist, tap to add, **drag beads around the ring to reorder, fling one outward to remove**. Canvas strand on the etched true-scale ring, copper pulse travels the ring on each add (the Current energy line), live wrist math (`beads = wrist_in × 25.4 / 8mm`), in/cm toggle, energy-signature bars, and **Add to Bag via `EMBag.add()`** with a hashed design id so identical designs stack. Beads are **Python-rendered spheres** (`assets/img/beads/*.png`): an opaque texture patch is sampled from each product photo, then sphere-mapped with lambert + tight specular + copper rim — this replaced a three.js bake that rendered flat squares. Pricing is **illustrative** and labeled as such; swap in real numbers when the client supplies them. **Mobile perf (hard-won):** repainting 21 beads with `ctx.shadowBlur` every frame made phones lag. The canvas now uses a **pre-baked contact-shadow sprite**, a **dirty flag** (idle costs zero frames; animations run then return to rest), and a **1.5× backing store cap** on coarse pointers. Nothing floats over the strand on mobile — wrist and total mirror into the sizer/footer rows. **A design is a link:** the strand encodes to one-character stone codes — `/designer/?s=gghgg…&w=6.5&n=For%20Mom` — so a whole 21-stone bracelet fits in ~73 characters, restores exactly on load (order, wrist, name), and "Copy share link" also rewrites the address bar so plain copy-paste works. Test hooks: `window.__atelier` (`url()`, `paints()`, `tick()` — drive `tick()` manually when verifying, since a hidden preview pane throttles rAF and makes paint counts read as zero). |
-| `/shop/` | **Shop landing.** Four doorways (arched frames, staggered, each carrying the verb that is true of it — wear it · place it · tune the room · begin with a set), eight real products wired to the bag, the five intentions, the generator on black, and the two build-your-own tools. |
-| `/frequency/` | Generator shop — the seven, from `em-frequencies.js`. `/generator/` is the film; this is the shop. |
-| `/jewelry/` | Eight real pieces, real prices, all linking to their product pages. |
-| `/sets/` | **Kits & Sets** — seven real ritual kits and bundles from Energy Muse's own catalogue. |
-| `/systems/` | **Frequency Systems** — the two Frequency Formulas (each layered clear / stabilize / direct, which is a real sequence and is set as one), the two bundles, and the copper and accessories you add to them. |
-| `/product/?id=<id>` | **One product template for all 39 products**, driven by `em-catalog.js`. Large image, description, price, add-to-bag, four related. Unknown id gets a real "couldn't find that" with a way out; out-of-stock gets the unavailable state, not a dead button. |
-| `/learn/` | **Learning Center** hub. Five paths, all of which now go somewhere — this section shipped once with five plain `<div>`s styled like navigation and linked to nothing. |
-| `/learn/{start,crystals,frequency,jewelry}/` | The four guides. Crystals and frequency are **built from `em-catalog.js` / `em-frequencies.js`**, so a guide cannot drift out of agreement with the shop it explains. |
-| `/faq/` | 25 questions in five groups with jump links. |
-| `/box/` | Build a Box of Crystals. |
-| `/about/`, `/craft/`, `/veza/`, `/heather/`, `/support/`, `/affiliates/`, `/intention/` | Written pages from the approved copy rewrite. The affiliate and quiz capture forms validate and confirm in the browser and are **labelled as not connected to a mailbox**. |
-| `/quiz` | The Energy Quiz funnel (3 questions → intention → 3 matches → email capture stub). Unified chrome, no announcement bar (it advertises the quiz). |
-| `/gems` | The Crystal Gallery shop — 16 products, WebGL viewer for the three scanned stones, tilt-card for photos. Dark theme. |
-| `/generator` | Apple-style 3D scroll showcase of the device. Dark theme. |
-| `/intention/{protection,abundance,calm,connection,clarity}` | Intention pages with approved rewrite heroes. **`connection` is labeled "Love"** everywhere (URL unchanged). Ladders titled "Founder favorites for …". |
-| — | `home-v1.html`, `home-v2.html` — frozen early mockups; archives only (still contain old fonts/octagons — leave them). |
+| `/` | The homepage: photo-first hero (Sara is creating the lifestyle image for it), the five intention tiles, the dark frequency section, the product row ("One for each intention"), the quiz, the jewelry band, About, four reviews, the learn band, and the site-map footer. It carries a light/dark/sage theme toggle, which is why it keeps its own footer (`em-header` leaves a page's own `<footer>` alone). |
+| `/shop/` | The whole shop, about 140 pieces from their catalogue: category chips with Shop all last, type chips per category, sort with Newest, New marks on anything published in 120 days, three words on every card. |
+| `/jewelry/` | Jewelry: the blurb, intention chips with All last, type chips (bracelets, necklaces, rings, earrings), and the cleansing note that leads to the FAQ's cleansing answer. |
+| `/gems/` | Crystals, 83 pieces: intention chips with All last, type tabs (tumbled, shapes, points, clusters), a Stone dropdown beside Sort, Newest, New marks. |
+| `/sets/` | Kits & Sets from their catalogue, with the Build a Box and Frequency Systems tiles. |
+| `/frequency/` | The one frequency landing: the 3D film (three.js, the rail picker), the tuner (`#tune`, the old Frequency Room), the seven generator cards, the Formulas band, the spec strip, the fixed-versus-variable explainer, what people notice. `/frequency-room/` and `/generator/` redirect here. |
+| `/systems/` | The Formulas page: the two kits that are products, "The rest of the house" (the other five rooms as three generators each; the kid's bedroom by age), and the copper parts. |
+| `/product/?id=<id>` | One template for every catalogue product: gallery, three words, their long description under "About this piece" (`assets/copy/`), sizes or packs, Add to Bag, "Complete the practice" (the trio), the panels, the founder line. Generator pages add the video slot ("Heather on 963 Hz"), the placement band and the accessories rail. |
+| `/intention/` and the five | The hub and Protection, Abundance, Love (`connection` in the URL), Calm, Clarity: a lead line, cards with three words, Add. |
+| `/meaning/` | Crystal Meanings: the index of the nine stones with guides; `?stone=` is a stone's page with the video slot, the meaning, the uses, and the piece to start with. |
+| `/learn/` | The Learning Center, one page with fold-out sections: crystals (shapes), frequency, jewelry care and sizing in their own words, and the journal row. |
+| `/blog/` | The Journal: the index (the month's post with Shop this post under it, cards carrying the pieces they work with, four across) and `?post=` articles with Shop this post and Keep reading. Nine of their posts. |
+| `/faq/` | 44 questions in five groups, her thirty folded in; `#cleanse` opens the cleansing answer on arrival. |
+| `/quiz/` | The Energy Quiz: three questions, three matches, an email stub. No announcement bar, since it advertises the quiz. |
+| `/try/` | Make it yours: the bracelet builder, Build a Box and the tuner. |
+| `/designer/`, `/box/` | Atelier, the bracelet builder; Build a Box. |
+| `/about/`, `/craft/`, `/support/`, `/affiliates/`, `/heather/`, `/veza/` | Written pages from the approved copy rewrite. The forms validate in the browser and say they are not connected to a mailbox. |
+| `/home/` and four concept films | Archive, `noindex`, nothing links to them but the chooser. Prototype only; nothing here goes to Shopify. |
+| `/tools/` | Two internal capture pages, `noindex`. |
 
 **Retired** (deleted in the "Narrow the lineup" commit; recoverable from git history):
 `/home/editorial`, `/home/grid`, `/home/boutique`, `/home/cinematic` — four style studies
@@ -107,9 +104,9 @@ Self-injecting scripts, all following the same pattern (inject own CSS + DOM):
   button cannot exist unless the code behind it loaded. The nav previously carried
   `<a href="#">Search</a>` on every page for months. Neither the catalogue nor the frequencies are
   fetched until the first time someone opens search. `/` or Cmd-K opens.
-- **`em-prices.js`** — holds generator prices at `$—` while they are unconfirmed. `MODE='hold'`;
-  `?prices=live` to preview. The live store currently agrees with our numbers ($99.88), so this can
-  be lifted whenever the client confirms.
+- **`em-prices.js`** — `MODE='live'` since Sept 9 (Sara confirmed $99.88). `MODE='hold'`, or
+  `?prices=hold` per visit, paints every generator price as `$—` again; the numbers stay in the
+  markup and in `em-frequencies.js` either way.
 - **`em-device.js` / `em-crystal.js`** — live 3D (device, scanned GLB crystal). ES modules via
   importmap (`three` → `assets/three.module.min.js`). **`em-device` is only used by `/generator/`
   now** — it was removed from the homepage and the Frequency Room, where it rendered one generic
@@ -412,10 +409,10 @@ sells real products throughout.
    Both are in git history if the gate is wanted again; `SITE_PASSWORD` can stay in Vercel's
    environment harmlessly, and restoring the two files closes the gate on the next deploy.
 
-   **Now that it is open it is also indexable** — there is no robots.txt and no noindex. If it
-   should not appear in search before launch, that is a two-file change.
-3. **Confirm generator pricing**, then flip `MODE` in `em-prices.js` to `'live'`. Their store
-   says $99.88, which is what `em-frequencies.js` already carries.
+   It is open but not indexable: `robots.txt` disallows everything, and the archive and tool
+   pages carry `noindex`. Both come off at launch (the launch checklist).
+3. ~~Confirm generator pricing, then flip `MODE` in `em-prices.js`~~ **Done Sept 9** — Sara
+   confirmed $99.88 by email; `MODE='live'`.
 4. **Three forms are not connected to a mailbox** — affiliate application, quiz result capture,
    Veza waitlist. All three say so on the page. Point them at the Energy Muse system.
 5. **`Agate Geode Slice` was removed from the catalogue.** It had no match anywhere in
