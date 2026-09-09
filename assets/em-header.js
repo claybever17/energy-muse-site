@@ -226,13 +226,15 @@ function boot(){
        would have a drop down... maybe we pull out the quiz separately"). It is
        the brief's Recommended Navigation table with her marks on it: About to
        the footer, "Frequency" not "Frequency Tools", Tools & Accessories added,
-       and the name she wanted for Try It. Four dropdowns, three plain links. */
+       and the name she wanted for Try It. Four dropdowns and one plain link:
+       With Heather and Veza were the table's, not her words - Clay took them
+       back out of the bar; both stay in the footer and the phone menu. */
     +'<nav class="emh-links">'
     +dd('Start Here',[['/quiz/','Energy Quiz'],['/learn/','Beginner&rsquo;s Guide'],['/faq/','How it works']])
     +dd('Shop',[['/jewelry/','Jewelry'],['/gems/','Crystals'],['/frequency/','Frequency'],['/sets/','Kits &amp; Sets'],['/systems/','Tools &amp; Accessories'],'sep',['/shop/','Shop all']])
     +dd('By Intention',[['/intention/protection/','Protection'],['/intention/abundance/','Abundance'],['/intention/connection/','Love'],['/intention/calm/','Calm'],['/intention/clarity/','Clarity'],'sep',['/intention/','All intentions']])
     +dd('Learn',[['/learn/#crystals','Crystal Guide'],['/learn/#frequency','Frequency Guide'],['/learn/#jewelry','Jewelry Care &amp; Sizing'],['/meaning/','Crystal Meanings'],['/blog/','Journal'],'sep',['/learn/','All guides']])
-    +'<a href="/try/">Make it yours</a><a href="/heather/">With Heather</a><a href="/veza/">Veza</a></nav>'
+    +'<a href="/try/">Make it yours</a></nav>'
     /* Search was <a href="#">, wired to nothing, on every page of the site — a
        control in the primary nav that silently did nothing when clicked. Gone
        until there is something to search: product pages will give every item
@@ -250,7 +252,7 @@ function boot(){
        one the header shows, and stops differing from the homepage's own. */
     +'<nav><a href="/shop/">Shop</a>'
     +'<a href="/intention/">By Intention</a><a href="/learn/">Learn</a>'
-    +'<a href="/try/">Make it yours</a><a href="/heather/">With Heather</a><a href="/veza/">Veza</a></nav>'
+    +'<a href="/try/">Make it yours</a></nav>'
     /* the four categories, flat - a panel that has to be opened is worth it
        on a bar with no room, and pointless inside a menu that is already a
        list */
@@ -260,7 +262,7 @@ function boot(){
     /* the intentions and the start-here trio, flat, as the bar's dropdowns hold them */
     +'<div class="emh-menu-cats"><a href="/intention/protection/">Protection</a><a href="/intention/abundance/">Abundance</a>'
     +'<a href="/intention/connection/">Love</a><a href="/intention/calm/">Calm</a><a href="/intention/clarity/">Clarity</a></div>'
-    +'<div class="emh-menu-sec"><a href="/quiz/">Energy Quiz</a><a href="/faq/">How it works</a><a href="/about/">About</a></div>'
+    +'<div class="emh-menu-sec"><a href="/quiz/">Energy Quiz</a><a href="/faq/">How it works</a><a href="/heather/">With Heather</a><a href="/veza/">Veza</a><a href="/about/">About</a></div>'
     /* Search and Bag live in the menu now, not in the header bar. The
        homepage's own menu already had this row; this is the shared one
        catching up, so the two menus finally carry the same things. */
