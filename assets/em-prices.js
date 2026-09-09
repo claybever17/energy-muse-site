@@ -22,7 +22,7 @@
 (function () {
   'use strict';
 
-  var MODE = 'hold';
+  var MODE = 'live' /* Sept 9: Sara, by email to Eric: "Generator pricing is $99.88" - the hold is off */;
 
   try {
     var q = new URLSearchParams(location.search).get('prices');
