@@ -1,7 +1,8 @@
 /* em-header.js — unified site header + footer shared by the inner pages.
    Injects (same pattern as em-bag/em-versions): announcement bar (not on /quiz/),
    logo-left nav (Start Here · Shop · By Intention · Learn | Bag), a full
-   mobile menu, and a compact footer with the non-medical disclaimer. Light/dark
+   mobile menu, and the footer: the homepage's four link columns, the signup and
+   the non-medical disclaimer. Light/dark
    palette auto-picked from the page background. Include BEFORE em-bag.js so the
    injected Bag link gets bound by the cart. Root-absolute links work at any depth. */
 (function(){
@@ -155,40 +156,54 @@ var css=[
    and set() below sets the same property directly for those that do not,
    which also keeps the scroll position from being lost on iOS. */
 'html:has(body.emh-open){overflow:hidden;}',
-'.emh-foot{background:'+P.footbg+';border-top:1px solid '+P.line+';font-family:"Instrument Sans",sans-serif;}',
-'.emh-foot-in{max-width:1240px;margin:0 auto;padding:44px clamp(20px,4vw,44px) 30px;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;}',
+/* The inner pages' footer was one centred stack: logo, signup, social, then
+   sixteen links in a wrapping row, then the disclaimer. On a phone the row was
+   a five-line cloud with no order to it (Clay, Sept 9: "is it normal to have
+   all these on mobile?"). It is the homepage's footer now: the same site map
+   in the same four columns of five - Start Here, Shop, Learn, Help - the brand
+   block on the left carrying the tagline, the signup and the handles, and the
+   legal line under a rule. Between 841 and 1100 the brand block takes a row of
+   its own so the four columns keep their width ("Frequency Generators" wrapped
+   at five across); on a phone the columns sit two by two. The lists are the
+   ones in index.html and are kept in step by hand: the homepage's footer is
+   static markup on the page's own theme tokens, and the theme toggle
+   recolours it, so it cannot be this module's. */
+'.emh-foot{background:'+P.footbg+';border-top:1px solid '+P.line+';font-family:"Instrument Sans",sans-serif;color:'+P.ink+';}',
+'.emh-foot-in{max-width:1240px;margin:0 auto;padding:0 clamp(20px,4vw,44px);}',
+'.emh-foot-grid{display:grid;grid-template-columns:1.7fr repeat(4,1fr);gap:32px;padding-block:56px 40px;}',
 '.emh-foot .emh-logo{height:30px;}',
-'.emh-foot-links{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:center;font-size:13px;font-weight:600;}',
-'.emh-foot-social{display:flex;align-items:center;justify-content:center;gap:6px;}',
+'.emh-foot-brand > p{margin:18px 0 0;font-size:14px;line-height:1.55;color:'+P.soft+';max-width:34ch;}',
+'.emh-foot-col h3{font:600 11px/1.3 "Instrument Sans",sans-serif;letter-spacing:.18em;text-transform:uppercase;color:'+P.stone+';margin:0 0 12px;}',
+/* 22px of text and 11px each side: a 44px target on every link, as the brief asks */
+'.emh-foot-col a{display:block;font-size:14px;line-height:22px;padding:11px 0;color:'+P.soft+';text-decoration:none;transition:color .2s;}',
+'.emh-foot-col a:hover{color:'+P.copper+';}',
+'.emh-foot-social{display:flex;align-items:center;gap:6px;margin-top:16px;}',
 '.emh-foot-social span{font-size:12px;font-weight:600;letter-spacing:.06em;color:'+P.soft+';margin-right:6px;}',
 '.emh-foot-social a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;color:'+P.soft+';}',
 '.emh-foot-social a svg{width:19px;height:19px;}',
-'.emh-foot-social a:hover{color:'+P.accent+';}'
-  /* The footer nav sat at 21px - a real target on every page of the site. An
-     overlay is wrong here because the links wrap with an 8px row gap and a
-     44px box would reach into the row above and take its taps. Padding grows
-     each link's own box instead, and the row gap comes off so the footer does
-     not get taller for it. The text does not move: the padding is symmetric. */
-+'@media(max-width:840px){.emh-foot-links{gap:0 20px}.emh-foot-links a{display:inline-block;padding-block:12px}}',
+'.emh-foot-social a:hover{color:'+P.copper+';}',
+'.emh-foot-bottom{border-top:1px solid '+P.line+';padding-block:22px;font-size:11.5px;line-height:1.55;color:'+P.stone+';display:flex;justify-content:space-between;gap:10px 22px;flex-wrap:wrap;}',
+'.emh-foot-links2{display:flex;gap:18px;flex-wrap:wrap;}',
+'.emh-foot-links2 a{color:'+P.stone+';text-decoration:none;transition:color .2s;}',
+'.emh-foot-links2 a:hover{color:'+P.copper+';}',
+'@media(max-width:1100px){.emh-foot-grid{grid-template-columns:repeat(4,1fr);gap:28px;padding-block:48px 36px;}.emh-foot-brand{grid-column:1 / -1;}}',
+'@media(max-width:840px){.emh-foot-grid{grid-template-columns:1fr 1fr;gap:26px 18px;padding-block:40px 28px;}.emh-foot-more{display:none;}.emh-foot-bottom{font-size:11px;padding-block:14px;}.emh-foot-links2 a{display:inline-block;padding-block:14px;}}',
 /* email capture belongs on every page, not just the homepage */
-'.emh-sub{width:100%;max-width:440px;text-align:center;}',
-'.emh-sub h3{font-family:Fraunces,Georgia,serif;font-weight:300;font-size:20px;margin:0 0 4px;max-width:none;color:'+P.fg+';}',
+'.emh-sub{margin-top:22px;max-width:400px;text-align:left;}',
+'.emh-sub h3{font-family:Fraunces,Georgia,serif;font-weight:300;font-size:20px;margin:0 0 4px;max-width:none;color:'+P.ink+';}',
 '.emh-sub p{font-size:12.5px;max-width:none;color:'+P.soft+';margin:0 0 12px;}',
 '.emh-sub form{display:flex;gap:8px;}',
 /* Both came out at 43px from padding and line-height, one short of the 44 the
    brief asks for. Stated rather than inferred. */
 '.emh-sub form input,.emh-sub form button{min-height:44px;}',
 '.emh-sub input{flex:1;min-width:0;padding:12px 14px;border-radius:8px;font-size:14px;font-family:inherit;',
-'  border:1px solid '+P.line+';background:'+(dark?'rgba(255,255,255,.05)':'#fff')+';color:'+P.fg+';}',
-'.emh-sub input:focus{outline:none;border-color:'+P.accent+';}',
+'  border:1px solid '+P.line+';background:'+(dark?'rgba(255,255,255,.05)':'#fff')+';color:'+P.ink+';}',
+'.emh-sub input:focus{outline:none;border-color:'+P.copper+';}',
 '.emh-sub button{font:700 11px "Instrument Sans",sans-serif;letter-spacing:.1em;text-transform:uppercase;',
 '  padding:12px 18px;border-radius:8px;border:none;cursor:pointer;color:#fff;',
 '  background:linear-gradient(160deg,#9E6038,#96592F 46%,#8A4E2C);}',
 '.emh-sub button{border-radius:999px;transition:background .25s,border-color .25s;'+(dark?'color:#F7EEE2;border:1px solid rgba(240,199,156,.48);background:linear-gradient(135deg,rgba(216,158,112,.34) 0%,rgba(184,122,75,.22) 55%,rgba(152,94,56,.18) 100%);box-shadow:inset 0 1px 0 rgba(255,240,220,.38),0 10px 30px rgba(0,0,0,.35);':'color:#1D2739;border:1px solid rgba(152,94,56,.38);background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(152,94,56,.14),0 8px 24px rgba(152,94,56,.16);')+'backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);}',
-'.emh-sub .ok{font-size:13px;font-weight:600;color:'+P.accent+';margin:0;}',
-'.emh-foot-links a{color:'+P.soft+';text-decoration:none;}',
-'.emh-foot-links a:hover{color:'+P.copper+';}',
-'.emh-foot-legal{font-size:11.5px;color:'+P.stone+';line-height:1.6;max-width:72ch;text-wrap:balance;}',
+'.emh-sub .ok{font-size:13px;font-weight:600;color:'+P.copper+';margin:0;}',
 /* Keyboard focus, which the bar had none of: the links, the Shop button,
    the burger and the bag were all reachable by tab and showed nothing when
    they got there. */
@@ -281,35 +296,40 @@ function boot(){
     +'<div class="emh-menu-foot"><a href="#" class="bag">Bag (0)</a></div>';
   document.body.appendChild(menu);
 
-  /* A page that already has a footer of its own keeps it. Until now nothing
-     needed this, because every page loading em-header had no footer - but the
-     homepage does, and its footer is the fuller one: four link columns and the
-     brand mark against this module's single flat row. Injecting ours as well
-     would have given that page two. */
+  /* A page that already has a footer of its own keeps it. The homepage does:
+     the same four columns as the ones built here, in its own static markup on
+     the page's theme tokens, with the brand mark at the right - and its theme
+     toggle recolours it, which this module's one-time palette could not. */
   if(!document.querySelector('footer')){
   var foot=document.createElement('footer');foot.className='emh-foot';
-  foot.innerHTML='<div class="emh-foot-in">'
-    +'<svg class="emh-logo" viewBox="0 0 1167 247.5" aria-label="Energy Muse"><use href="#em-logo-hdr"/></svg>'
+  /* The site map, the homepage's four columns of five. Keep index.html's
+     footer in step when a link changes here. */
+  var FOOT=[
+    ['Start Here',[['/quiz/','Energy Quiz'],['/learn/','Beginner&rsquo;s Guide'],['/faq/','How It Works'],['/intention/','By Intention'],['/try/','Make it yours']]],
+    ['Shop',[['/jewelry/','Jewelry'],['/gems/','Crystals'],['/frequency/','Frequency Generators'],['/sets/','Kits &amp; Sets'],['/shop/','Shop all']]],
+    ['Learn',[['/learn/','Learning Center'],['/blog/','Journal'],['/learn/#crystals','Crystal Guide'],['/heather/','With Heather'],['/veza/','Veza']]],
+    ['Help',[['/support/','Contact'],['/support/#orders','Shipping &amp; Returns'],['/faq/','FAQ'],['/about/','Our Story'],['/affiliates/','Affiliates']]]
+  ];
+  function col(c){return '<div class="emh-foot-col"><h3>'+c[0]+'</h3>'+c[1].map(function(l){return '<a href="'+l[0]+'">'+l[1]+'</a>';}).join('')+'</div>';}
+  foot.innerHTML='<div class="emh-foot-in"><div class="emh-foot-grid">'
+    +'<div class="emh-foot-brand">'
+    +'<svg class="emh-logo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse"><use href="#em-logo-hdr"/></svg>'
+    +'<p>Guided energy for real life.<span class="emh-foot-more"> Crystal jewelry, natural crystals, frequency and personal guidance &mdash; created to help you choose with confidence and build a practice that fits.</span></p>'
     +'<div class="emh-sub"><h3>Let&rsquo;s stay connected</h3>'
       +'<p>New practices, founder guidance, product education, and early access — sent with intention, never noise.</p>'
       +'<form novalidate><input type="email" placeholder="you@email.com" aria-label="Email address" required>'
       +'<button type="submit">Join</button></form></div>'
-    /* Six links that predate most of the site: no route to the shop at all, and
-       "Frequency" pointed at /generator/, which is the film rather than the
-       page that sells the devices. */
     +'<div class="emh-foot-social"><span>@energymuse</span>'
     +'<a href="https://www.instagram.com/energymuse/" target="_blank" rel="noopener" aria-label="Energy Muse on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@energymuse" target="_blank" rel="noopener" aria-label="Energy Muse on TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 3v11.2a3.3 3.3 0 1 1-3.3-3.3"/><path d="M13.5 3c.4 2.6 2.2 4.4 4.8 4.8"/></svg></a><a href="https://www.youtube.com/user/EnergyMuse" target="_blank" rel="noopener" aria-label="Energy Muse on YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.2v5.6l4.8-2.8z" fill="currentColor" stroke="none"/></svg></a>'
+    +'</div></div>'
+    +FOOT.map(col).join('')
     +'</div>'
-    +'<div class="emh-foot-links">'
-    +'<a href="/shop/">Shop</a><a href="/jewelry/">Jewelry</a><a href="/gems/">Crystals</a>'
-    +'<a href="/frequency/">Frequency</a><a href="/sets/">Kits &amp; Sets</a>'
-    +'<a href="/intention/">By Intention</a><a href="/quiz/">Energy Quiz</a>'
-    +'<a href="/try/">Make it yours</a><a href="/frequency/#tune">Frequency Room</a>'
-    +'<a href="/learn/">Learn</a><a href="/blog/">Journal</a><a href="/faq/">FAQ</a>'
-    +'<a href="/about/">About</a><a href="/heather/">With Heather</a><a href="/veza/">Veza</a><a href="/support/">Support</a></div>'
-    +'<p class="emh-foot-legal">© 2026 Energy Muse. Energy Muse products and content are intended for personal practice and general wellbeing. They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease. Individual experiences vary.</p>'
+    +'<div class="emh-foot-bottom"><span>&copy; 2026 Energy Muse. All rights reserved.</span>'
+    +'<span class="emh-foot-links2"><a href="/support/#accessibility">Accessibility</a><a href="/craft/">Materials &amp; Craft</a></span>'
+    +'<span>Energy Muse products and content are intended for personal practice and general wellbeing. They are not medical devices and are not intended to diagnose, treat, cure or prevent any disease. Individual experiences vary.</span></div>'
     +'</div>';
   document.body.appendChild(foot);
+
 
   /* inside the guard: foot only exists when we built it */
   var sf=foot.querySelector('.emh-sub form');
