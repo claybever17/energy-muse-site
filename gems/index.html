@@ -312,12 +312,39 @@ p{text-wrap:pretty;}
 /* Sept 9: the stone row and the New mark */
 .scard{position:relative}
 .scard .newtag{position:absolute;top:10px;left:10px;z-index:2;font-family:var(--sans,'Instrument Sans',sans-serif);font-weight:600;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--copper,#985E38);padding:5px 8px;border-radius:999px}
+/* Sept 11, Sara (collection Loom, 0:11 and 3:06): "the all bracelets, necklaces,
+   rings, earrings should be the primary buttons and then these ones [intentions]
+   can be the secondary"; same on crystals, with their category names. The type
+   row is the pill row now and sits first; the intention row is the underlined
+   row under it. Same controls, same URL, the styles trade places. */
+#stypes.typerow{gap:8px;margin-top:22px;flex-wrap:wrap}
+#stypes .tb{font-family:var(--sans,'Instrument Sans',sans-serif);font-weight:600;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft,#4E5A70);border:1px solid var(--hair,#E4DCCB);border-radius:999px;background:transparent;padding:0 16px;min-height:40px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;transition:border-color .25s,color .25s,background .25s}
+#stypes .tb .n{font-weight:400;letter-spacing:.04em;opacity:.6;margin-left:0}
+#stypes .tb:hover{border-color:var(--copper);color:var(--copper)}
+#stypes .tb.on{color:var(--ink,var(--fg));border:1px solid rgba(152,94,56,.38);background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(152,94,56,.14),0 6px 18px rgba(152,94,56,.14)}
+#sfilter{gap:4px 22px;margin-top:14px}
+#sfilter .sf{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--stone);background:none;border:0;border-bottom:2px solid transparent;border-radius:0;padding:10px 0 8px;min-height:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+#sfilter .sf:hover{color:var(--copper);border-color:transparent;border-bottom-color:transparent}
+#sfilter .sf.on{color:var(--ink);border:0;border-bottom:2px solid var(--copper);background:none;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+@media (max-width:700px){ #stypes.typerow{flex-wrap:nowrap;overflow-x:auto;gap:8px} #stypes .tb{min-height:44px;flex:none} }
+.seotext{padding:clamp(20px,3vw,34px) 0 clamp(36px,5vw,60px)}
+.seotext details{border-top:1px solid var(--hair,#E4DCCB)}
+.seotext summary{cursor:pointer;list-style:none;padding:16px 0;font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone,#8D8778);display:flex;align-items:center;justify-content:space-between}
+.seotext summary::-webkit-details-marker{display:none}
+.seotext summary::after{content:"+";font-size:18px;line-height:1}
+.seotext details[open] summary::after{content:"\2212"}
+.seobody p{font-size:14px;line-height:1.7;color:var(--ink-soft,#4E5A70);max-width:72ch;margin:0 0 12px}
+.gtwo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px)}
+.gk{display:block;font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--copper);margin-bottom:10px}
+.gtwo h2{margin:0 0 10px;font-size:clamp(24px,2.6vw,32px)}
+.gtwo p{font-size:15px;line-height:1.6;color:var(--ink-soft);max-width:48ch;margin:0 0 18px}
+@media (max-width:760px){.gtwo{grid-template-columns:1fr;gap:34px}}
 </style>
 <script src="../assets/em-header.js?v=53" defer></script>
 <script src="/assets/em-search.js?v=11" defer></script>
 <script src="../assets/em-bag.js?v=11" defer></script>
 <script src="../assets/em-prices.js?v=4" defer></script><script src="/assets/em-frequencies.js?v=6"></script>
-<script src="/assets/em-catalog.js?v=26"></script>
+<script src="/assets/em-catalog.js?v=27"></script>
 <script src="/assets/em-more.js?v=1"></script>
 </head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
@@ -363,6 +390,7 @@ p{text-wrap:pretty;}
          The full sentence from 701px, the first sentence on a phone. -->
     <p class="lead">Whatever energy you need, there&rsquo;s a crystal to help. We&rsquo;re here to help you find that.</p>
     <p class="lead-s">Whatever energy you need, there&rsquo;s a crystal to help.</p>
+    <div class="typerow" id="stypes" aria-label="Type"></div>
     <div class="sfilter" id="sfilter">
       <button class="sf" type="button" data-g="Calm">Calm</button>
       <button class="sf" type="button" data-g="Clarity">Clarity</button>
@@ -375,7 +403,6 @@ p{text-wrap:pretty;}
       <button class="sf" type="button" data-g="Connection">Love</button>
           <button class="sf on" type="button" data-g="">All</button>
     </div>
-    <div class="typerow" id="stypes" aria-label="Type"></div>
     <div class="stools">
       <p class="scount" id="scount"></p>
       <!-- Sept 9: shop by stone was a third row of chips in a third style, and
@@ -389,7 +416,8 @@ p{text-wrap:pretty;}
         </label>
         <label class="ssort"><span>Sort</span>
           <select id="ssort">
-            <option value="price-asc">Price, low to high</option>
+            <option value="featured">Featured</option>
+          <option value="price-asc">Price, low to high</option>
             <option value="price-desc">Price, high to low</option>
             <option value="name">Name, A to Z</option>
             <option value="newest">Newest</option>
@@ -406,16 +434,30 @@ p{text-wrap:pretty;}
      story — closing with a "Shop All Crystals" button at the bottom of the
      crystals page. Reduced to the two links that were actually doing work.
      The sourcing copy lives on /about/, where someone looking for it goes. -->
+<!-- Sept 11, Sara (collection Loom, 4:30): "it looks funky... unintentional... I'm
+     unclear where these are going". The copy doc's two blocks for this page,
+     Beginner Guidance and Authenticity, her words, each with its own way on. -->
 <section class="gsec">
-  <div class="gwrap narrow">
-    <p class="glede">Every crystal is cleansed and charged before it ships, and sourced
-      directly from miners and suppliers we work with.</p>
-    <div class="gctas">
-      <a class="gbtn ghost" href="/learn/#crystals">The Beginner&rsquo;s Guide</a>
-      <a class="gbtn ghost" href="/about/">Our sourcing</a>
+  <div class="gwrap">
+    <div class="gtwo">
+      <div><span class="gk">New to crystals?</span><h2>Begin with one.</h2>
+        <p>Choose one energy, one crystal, and one place you&rsquo;ll see it often. Learn the crystal basics, and we&rsquo;ll walk you through it.</p>
+        <a class="gbtn ghost" href="/learn/#crystals">Read the Beginner&rsquo;s Guide</a></div>
+      <div><span class="gk">Authenticity</span><h2>Intentionally sourced.</h2>
+        <p>We work directly with trusted miners and suppliers, so we know exactly where each crystal comes from and how it was sourced. That relationship is part of what makes a crystal feel different before it ever reaches you. From there, our team cleanses and charges each crystal, so when it arrives, it&rsquo;s ready to become part of your practice.</p>
+        <a class="gbtn ghost" href="/about/#sourcing">Our Sourcing &amp; Process</a></div>
     </div>
   </div>
 </section>
+<!-- Sept 11, Sara (collection Loom, 2:24): "there is like hidden SEO text... the
+     description that's in the collection... have it be hidden somewhere so that we
+     don't mess too much with our SEO". Their own collection description, behind
+     a fold, the way their theme does it behind Read More. -->
+<section class="sect seotext"><div class="wrap narrow"><details><summary>More about healing crystals</summary><div class="seobody"><p>Have you ever wondered where to buy healing crystals, stones, and gems? Unlike traditional healing remedies, crystals can sometimes be difficult to locate.</p><p>However, you’ve come to the top place to buy healing crystals for sale! We have a large selection of healing crystals for sale, along with information on each crystal’s attribute, their specific meaning and more.
+With an increasing number of people working from their residence, the home office has become an important area, which can be greatly improved by adding a few healing crystals. All of our Healing Crystals for sale are powerful crystals to have in your home. Having crystals in your home, office, meditation area, bedroom and other spaces helps you to manifest your dreams into reality. Healing crystals, stones, and gems bring the purifying and uplifting energy of the Earth into your environment, which is. These energy crystals for sale help to harmonize the home, bringing peace and balance to every room.
+Each healing crystal carries its own beneficial, purifying and unique healing properties. For instance, Rose Quartz brings the energy of love, encourages dreaming and helps you to get a restful night of sleep when placed in the bedroom. Amethyst helps to create a balanced sanctuary in your home. It rids the space of all negative energy and replaces it with positive energy. Quartz Crystal, or Clear Quartz, radiates large amounts of positive energy and has the ability to be programmed with an beneficial intentions. Knowing which crystals affect which areas of your life is the key to create a harmonious living space. Healing crystals from Energy Muse can help you discover a new, invigorating environment.
+Read the description of each individual crystal to learn more about the crystals and their meanings. Trust your intuition when choosing the perfect healing crystal for you. Close your eyes and envision your desired intention or energy in your mind. Then open your eyes and look at Energy Muse’s healing crystals. Usually, you will be drawn to certain crystals and these are the ones you should choose. Find the one that is perfect for you from Energy Muse&#x27;s selection of healing crystals for sale!</p></div></details></div></section>
+
 </main>
 
 <!-- The gallery above is the curated set. This is the rest of the shelf: every
@@ -444,6 +486,7 @@ p{text-wrap:pretty;}
   /* The shelf is 41 stones and the only order was cheapest first, which buried
      everything interesting under a page of tumbled stones. */
   var SORTS={
+    'featured':function(){return 0;},
     'price-asc' :function(a,b){return a.price-b.price;},
     'price-desc':function(a,b){return b.price-a.price;},
     'name'      :function(a,b){return a.name.localeCompare(b.name);},
@@ -475,14 +518,14 @@ p{text-wrap:pretty;}
      which is the moment a shopper gives up. */
   function readURL(){
     var q=new URLSearchParams(location.search);
-    return {g:q.get('for')||'', t:q.get('type')||'', st:q.get('stone')||'', s:SORTS[q.get('sort')]?q.get('sort'):'price-asc'};
+    return {g:q.get('for')||'', t:q.get('type')||'', st:q.get('stone')||'', s:SORTS[q.get('sort')]?q.get('sort'):'featured'};
   }
   function writeURL(g,srt,t,stone){
     var q=new URLSearchParams(location.search);
     g?q.set('for',g.toLowerCase()):q.delete('for');
     t?q.set('type',t):q.delete('type');
     stone?q.set('stone',stone):q.delete('stone');
-    srt&&srt!=='price-asc'?q.set('sort',srt):q.delete('sort');
+    srt&&srt!=='featured'?q.set('sort',srt):q.delete('sort');
     var qs=q.toString();
     history.replaceState(null,'',location.pathname+(qs?'?'+qs:'')+location.hash);
   }
@@ -493,8 +536,8 @@ p{text-wrap:pretty;}
     var base=(g?ALL.filter(function(c){return (c.group||'').toLowerCase()===g.toLowerCase();}):ALL.slice());
     var defs=EM_CATALOG.subs('Crystal',base);
     if(defs.length<2){trow.innerHTML='';return;}
-    trow.innerHTML='<button type="button" class="tb'+(t?'':' on')+'" data-t="">All<span class="n">'+base.length+'</span></button>'
-      +defs.map(function(d){return '<button type="button" class="tb'+(d.key===t?' on':'')+'" data-t="'+d.key+'">'+d.name+'<span class="n">'+d.n+'</span></button>';}).join('');
+    trow.innerHTML=defs.map(function(d){return '<button type="button" class="tb'+(d.key===t?' on':'')+'" data-t="'+d.key+'">'+d.name+'<span class="n">'+d.n+'</span></button>';}).join('')
+      +'<button type="button" class="tb'+(t?'':' on')+'" data-t="">All<span class="n">'+base.length+'</span></button>';
   }
   function paint(g,srt,t,stone){
     t=t||'';stone=stone||'';
@@ -503,7 +546,7 @@ p{text-wrap:pretty;}
     var list=(g?ALL.filter(function(c){return (c.group||'').toLowerCase()===g.toLowerCase();}):ALL.slice())
               .filter(function(c){return !t||c.sub===t;})
               .filter(function(c){return !stone||stoneOf(c)===stone;})
-              .sort(SORTS[srt]||SORTS['price-asc']);
+              .sort(SORTS[srt]||SORTS['featured']);
     /* the card builder was written inline; it is a named function now so
        em-more can call it again for each page the reader asks for */
     var gcard=function(c){

@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
 <script src="/assets/em-frequencies.js?v=6"></script>
-<script src="/assets/em-catalog.js?v=26"></script>
+<script src="/assets/em-catalog.js?v=27"></script>
 <script src="/assets/em-more.js?v=1"></script>
 <script src="/assets/em-header.js?v=53" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
@@ -140,6 +140,28 @@
 /* Sept 9: New, for a piece Energy Muse published in the last 120 days */
 .jcard{position:relative}
 .jcard .newtag{position:absolute;top:10px;left:10px;z-index:2;font-family:var(--sans);font-weight:600;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--copper);padding:5px 8px;border-radius:999px}
+/* Sept 11, Sara (collection Loom, 0:11 and 3:06): "the all bracelets, necklaces,
+   rings, earrings should be the primary buttons and then these ones [intentions]
+   can be the secondary"; same on crystals, with their category names. The type
+   row is the pill row now and sits first; the intention row is the underlined
+   row under it. Same controls, same URL, the styles trade places. */
+#jtypes.typerow{gap:8px;margin-top:22px;flex-wrap:wrap}
+#jtypes .tb{font-family:var(--sans,'Instrument Sans',sans-serif);font-weight:600;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft,#4E5A70);border:1px solid var(--hair,#E4DCCB);border-radius:999px;background:transparent;padding:0 16px;min-height:40px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;transition:border-color .25s,color .25s,background .25s}
+#jtypes .tb .n{font-weight:400;letter-spacing:.04em;opacity:.6;margin-left:0}
+#jtypes .tb:hover{border-color:var(--copper);color:var(--copper)}
+#jtypes .tb.on{color:var(--ink,var(--fg));border:1px solid rgba(152,94,56,.38);background:linear-gradient(135deg,rgba(216,158,112,.26) 0%,rgba(184,122,75,.13) 55%,rgba(255,255,255,.22) 100%);backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(152,94,56,.14),0 6px 18px rgba(152,94,56,.14)}
+#jfilter{gap:4px 22px;margin-top:14px}
+#jfilter .jf{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--stone);background:none;border:0;border-bottom:2px solid transparent;border-radius:0;padding:10px 0 8px;min-height:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+#jfilter .jf:hover{color:var(--copper);border-color:transparent;border-bottom-color:transparent}
+#jfilter .jf.on{color:var(--ink);border:0;border-bottom:2px solid var(--copper);background:none;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+@media (max-width:700px){ #jtypes.typerow{flex-wrap:nowrap;overflow-x:auto;gap:8px} #jtypes .tb{min-height:44px;flex:none} }
+.seotext{padding:clamp(20px,3vw,34px) 0 clamp(36px,5vw,60px)}
+.seotext details{border-top:1px solid var(--hair,#E4DCCB)}
+.seotext summary{cursor:pointer;list-style:none;padding:16px 0;font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone,#8D8778);display:flex;align-items:center;justify-content:space-between}
+.seotext summary::-webkit-details-marker{display:none}
+.seotext summary::after{content:"+";font-size:18px;line-height:1}
+.seotext details[open] summary::after{content:"\2212"}
+.seobody p{font-size:14px;line-height:1.7;color:var(--ink-soft,#4E5A70);max-width:72ch;margin:0 0 12px}
 </style>
 </head><body>
 <main>
@@ -171,6 +193,7 @@
          above already says, and #jcount prints "33 pieces" a line below. -->
     <!-- Thirty-three pieces now, from Energy Muse's own catalogue, filtered by
          the intention THEY tag each one with rather than a meaning we assigned. -->
+    <div class="typerow" id="jtypes" aria-label="Type"></div>
     <div class="jfilter" id="jfilter">
       <button class="jf" type="button" data-g="Protection">Protection</button>
       <button class="jf" type="button" data-g="Abundance">Abundance</button>
@@ -182,7 +205,6 @@
       <button class="jf" type="button" data-g="Clarity">Clarity</button>
           <button class="jf on" type="button" data-g="">All</button>
     </div>
-    <div class="typerow" id="jtypes" aria-label="Type"></div>
     <div class="jtools">
       <p class="jcount" id="jcount"></p>
       <label class="jsort"><span>Sort</span>
@@ -212,10 +234,34 @@
          page, that totally makes sense." It leads to her own cleansing answer on
          the FAQ, which opens on arrival; the generator button stays, since the
          generator is the cleansing tool the note names. -->
-    <div class="cta-row"><a class="btn btn-copper" href="/frequency/">Explore Frequency Generators</a><a class="em-link" href="/faq/#cleanse">How to cleanse your crystals <span class="a" aria-hidden="true">&rarr;</span></a></div>
+    <!-- Sept 11, Sara (collection Loom, 1:06): the generators button "makes absolutely
+         no sense"; the copy doc's call here is Jewelry Care Guide, and the guide is
+         on Learn now, her own care answers. -->
+    <div class="cta-row"><a class="em-link" href="/learn/#care">Jewelry care guide <span class="a" aria-hidden="true">&rarr;</span></a></div>
   </div>
 </section>
 
+<!-- Sept 11, Sara (collection Loom, 2:24): "there is like hidden SEO text... the
+     description that's in the collection... have it be hidden somewhere so that we
+     don't mess too much with our SEO". Their own collection description, behind
+     a fold, the way their theme does it behind Read More. -->
+<section class="sect seotext"><div class="wrap narrow"><details><summary>More about our crystal jewelry</summary><div class="seobody"><p>At Energy Muse, our collection of crystal jewelry is specially designed for an intention of wellbeing, from happiness and kindness to prosperity and abundance.</p><p>We also feature necklaces and bracelets for focus and clarity, empowerment, and much more. When you follow your heart, it’s easy to choose the best crystal jewelry for your healing needs. Using the synergistic power of healing crystals, we have designed each piece to maximize its cleansing and restorative powers. Whether you need an all-over chakra cleanse, a grounding bracelet, or general happiness and balance, we have the perfect jewelry for uplifting your soul.
+Crystal Jewelry By Intention
+People in the crystal world often say that the crystal chooses you and not the other way around. In fact, there’s a reason that you’re drawn to a particular piece of jewelry or crystal—it’s exactly what you need in that moment.
+Love &amp;amp; Happiness
+Connect with your guardian angels with the Attract Angels Bracelet, a combination of calming and soothing stones like Angelite, Aquamarine, Chevron Amethyst, and Copper as an energy enhancer. If you’re looking for love, the Attraction Bracelet is designed to open and activate your heart chakra with Malachite, the stone of love and transformation. Made with cheerful sun crystals, the Happiness Bracelet radiates joy and optimism with Citrine, Tiger’s Eye, and Sunstone.
+Health &amp;amp; Wellness
+Radiance and vitality come from within, which is why you need to cleanse your mind-body-spirit as part of your overall wellness routine. Get back into alignment with the balancing and purifying energy of our Chakra Healing Bracelet, which is made with stones that are associated with all 7 chakras. 
+Balance &amp;amp; Focus
+When you wear the Clarity Bracelet, your focus will be crystal clear with the purifying power of Clear Quartz. This high vibrational stone is so full of light that no negativity can survive in its presence. Without negativity to distract you, you can focus on the light in your life. This is the perfect bracelet for releasing negative thought patterns because Quartz is one of the most powerful stones for cleansing toxic energy.
+New Beginnings
+The Transformation Bracelet is designed with a special combination of stones that facilitate the release of negative emotions. When you let go of painful memories of the past, it allows you to reconnect with your true self, the gateway to positive transformation.
+Passion &amp;amp; Creativity
+Made with stones associated with the sacral chakra, the energy center of passion, sexuality, and creativity, our Energy Bracelet inspires and motivates you to get creative.
+Protection &amp;amp; Clearing
+Selenite has the highest vibrations of any stone in the mineral kingdom, which is why it is the centerpiece of the Energy Clearing Necklace. The Selenite pendant is a form of “liquid light” that infuses your mind-body-spirit with positive frequencies. A protective stone, Selenite also cleanses your energetic field of negative energy.
+Wealth &amp;amp; Success
+Bring abundance into your life with the Affluence Wrap. This bracelet isdesigned in a simple and elegant pattern featuring Gold Pyrite, a big-time wealth-attracting stone. Wearing this bracelet is a reminder that your life is full of abundance and endless opportunities for growth and transformation.</p></div></details></div></section>
 </main>
 <script>
 document.querySelectorAll('.jadd').forEach(function(b){
@@ -272,8 +318,8 @@ document.querySelectorAll('.jadd').forEach(function(b){
     var base=(g?ALL.filter(function(c){return (c.group||'').toLowerCase()===g.toLowerCase();}):ALL.slice());
     var defs=EM_CATALOG.subs('Jewelry',base);
     if(defs.length<2){trow.innerHTML='';return;}
-    trow.innerHTML='<button type="button" class="tb'+(t?'':' on')+'" data-t="">All<span class="n">'+base.length+'</span></button>'
-      +defs.map(function(d){return '<button type="button" class="tb'+(d.key===t?' on':'')+'" data-t="'+d.key+'">'+d.name+'<span class="n">'+d.n+'</span></button>';}).join('');
+    trow.innerHTML=defs.map(function(d){return '<button type="button" class="tb'+(d.key===t?' on':'')+'" data-t="'+d.key+'">'+d.name+'<span class="n">'+d.n+'</span></button>';}).join('')
+      +'<button type="button" class="tb'+(t?'':' on')+'" data-t="">All<span class="n">'+base.length+'</span></button>';
   }
   function paint(g,srt,t){
     t=t||'';

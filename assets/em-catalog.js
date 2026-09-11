@@ -259,10 +259,10 @@
      which is the right answer for Frequency (7) and Kits & Sets (15), where
      splitting seven things four ways helps nobody. */
   var SUBS = {
-    Crystal: [['Tumbled', 'Tumbled & stones', 'Tumbled'],
-              ['Carvings', 'Shapes & carvings', 'Carvings'],
-              ['Points', 'Points & towers', 'Points'],
-              ['Raw', 'Clusters & raw', 'Raw']],
+    Crystal: [['Tumbled', 'Tumbled Stones', 'Tumbled'],
+              ['Carvings', 'Shapes & Carvings', 'Carvings'],
+              ['Points', 'Points & Towers', 'Points'],
+              ['Raw', 'Crystal Clusters', 'Raw']],
     Jewelry: [['Bracelets', 'Bracelets'], ['Necklaces', 'Necklaces'],
               ['Rings', 'Rings'], ['Earrings', 'Earrings']]
   };
