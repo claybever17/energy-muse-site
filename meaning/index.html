@@ -19,7 +19,7 @@
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
-<script src="/assets/em-catalog.js?v=28"></script>
+<script src="/assets/em-catalog.js?v=29"></script>
 <script src="/assets/em-stones.js?v=3"></script>
 <script src="/assets/em-header.js?v=54" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
@@ -340,6 +340,15 @@
           + others.map(function (k) {
               return '<a href="?stone=' + k + '">' + esc(window.EM_STONES[k].name) + '</a>';
             }).join('') + '</div></section>'
+        : '')
+    + (window.EM_CATALOG && EM_CATALOG.all().some(function (q) { return q.cat === 'Class'; })
+        /* Sept 11, Sara (meaning Loom, 2:21): "a feed on the bottom that was just
+           like digital offerings... if people are looking to learn" */
+        ? '<section class="msec"><h2>Go deeper with Heather</h2><div class="mrail">'
+          + EM_CATALOG.all().filter(function (q) { return q.cat === 'Class' && q.stock !== 'out'; }).slice(0, 4).map(function (q) {
+              return '<a class="mprod" href="/product/?id=' + encodeURIComponent(q.id) + '"><span class="shot"><img src="' + q.img + '" alt="" loading="lazy"></span>'
+                + '<span class="n">' + esc(q.name) + '</span><span class="p">$' + q.price.toFixed(2) + '</span></a>'; }).join('')
+          + '</div></section>'
         : '')
     + '<section class="msec mmods"><h2>Make it your own</h2><div class="mmodrow">'
     + '<a class="mmod" href="/designer/"><b>Build your own bracelet</b><span>Choose your beads, choose your design, and we build it for you.</span></a>'

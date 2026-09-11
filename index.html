@@ -25,7 +25,7 @@
 <!-- the generators, once. Not deferred: the marquee and the frequency band are
      built by inline script, which runs before any deferred file exists. -->
 <script src="assets/em-frequencies.js?v=6"></script>
-<script src="assets/em-catalog.js?v=28"></script>
+<script src="assets/em-catalog.js?v=29"></script>
 <style>
 /* ===== Fonts: Fraunces (display serif) + Instrument Sans (grotesk body) ===== */
 @font-face{font-family:'Fraunces';src:url(assets/fonts/fraunces_300.woff2?v=3) format('woff2');font-weight:300;font-style:normal;font-display:swap;}
@@ -919,7 +919,9 @@ html{scroll-padding-top:96px;}
   display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden;box-shadow:var(--shadow);
   transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1);}
 .duo-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);}
-.duo-card.veza:hover{box-shadow:var(--shadow-lg),var(--shadow-copper);}
+/* Sept 11, Clay: the copper glow on hover read as a cropped brown shade on the
+   phone; the card lifts like its neighbour and nothing else. */
+.duo-card.veza:hover{box-shadow:var(--shadow-lg);}
 .veza-rings{}
 .duo-card h2{font-size:clamp(26px,2.6vw,36px);}
 .guide-list{list-style:none;margin:8px 0 0;padding:0;}

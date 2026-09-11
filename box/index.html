@@ -294,9 +294,10 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 /* Sept 3: the title came off the head, so the name field rose into the row the
    back link and the bag pill sit on (they are absolute there). Room for them. */
 @media (min-width:901px){ .head{padding-top:62px} }
+.gem .tw{display:block;font-family:var(--sans);font-weight:600;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--stone,#8D8778);line-height:1.35;margin-top:2px}
 </style>
 <script src="/assets/em-frequencies.js?v=6"></script>
-<script src="/assets/em-catalog.js?v=28"></script>
+<script src="/assets/em-catalog.js?v=29"></script>
 </head>
 <body>
 <main>
@@ -323,7 +324,7 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
       <canvas id="boxc"></canvas>
       <div class="reads">
         <div class="read r-size"><span class="k">Box</span><b id="bval">The Four</b><span id="bsub">4 crystals</span></div>
-        <div class="read r-total"><span class="k">Total</span><b id="tval">&mdash;</b><span>illustrative</span></div>
+        <div class="read r-total"><span class="k">Total</span><b id="tval">&mdash;</b></div>
       </div>
       <div class="stagenote" id="note">Tap a crystal to add &middot; tap it again to remove</div>
     </div>
@@ -350,8 +351,7 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
         <button class="btn btn-g" id="share" type="button">Copy share link</button>
         <button class="btn btn-g" id="clear" type="button">Start over</button>
       </div>
-      <p class="disc">Pricing shown is illustrative for this prototype. Energy Muse products are intended for
-        personal practice and general wellbeing &mdash; not medical devices, and not a substitute for healthcare.</p>
+      <p class="disc">Energy Muse products are intended for personal practice and general wellbeing &mdash; not medical devices, and not a substitute for healthcare.</p>
     </div>
   </aside>
 </div>
@@ -387,7 +387,7 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
    prices, filed under the same five intentions as everything else. */
 var GEMS=(window.EM_CATALOG?window.EM_CATALOG.all():[])
   .filter(function(p){return p.cat==='Crystal';})
-  .map(function(p){return {slug:p.id,name:p.name,cat:p.group||'',price:p.price,src:p.img};})
+  .map(function(p){return {slug:p.id,name:p.name,cat:p.group||'',price:p.price,src:p.img,three:p.three||[]};})
   .sort(function(x,y){return x.price-y.price;});
 var CATS=['All','Calm','Clarity','Protection','Abundance','Connection'];
 
@@ -474,7 +474,7 @@ var LAYOUT={
 };
 function slotsFor(n){
   var rows = n===3 ? [3] : n===4 ? [2,2] : n===5 ? [3,2] : [4,3];
-  var out=[], ry=rows.length===1?[0.5]:rows.length===2?[0.36,0.66]:[0.5];
+  var out=[], ry=rows.length===1?[0.5]:rows.length===2?[0.30,0.70]:[0.5]; /* Sept 11: rows further apart, so the (now non-overlapping) cells can be larger */
   rows.forEach(function(count,ri){
     for(var i=0;i<count;i++){
       var x=(i+0.5)/count;
@@ -558,6 +558,13 @@ function paint(){
   var gap=ww*0.035;
   var cell=Math.min((ww-gap*(colsN+1))/colsN,(wh-gap*(rowsN+1))/rowsN);
   var iw=ww, ih=wh;
+  /* Sept 11, Sara (builder Loom, 2:12): "have them not overlapped". The cells were
+     sized from the window but laid out on the slot centres, which sit closer than
+     that, so neighbouring cells overlapped in a lighter band. The cell is capped
+     at the spacing between centres, less the gap. */
+  var dmin=Infinity;
+  pts.forEach(function(a,i){pts.forEach(function(b,j){if(i<j){var d=Math.hypot((a[0]-b[0])*iw,(a[1]-b[1])*ih);if(d<dmin)dmin=d;}});});
+  if(isFinite(dmin))cell=Math.min(cell,dmin-gap);
   slots=[];
   pts.forEach(function(p,i){
     var cx=wx+p[0]*iw, cy=wy+p[1]*ih;
@@ -576,15 +583,26 @@ function paint(){
     var g=box[i]?byId(box[i]):null;
     if(!g) return;
     var gl=glowOf(g);
-    if(gl){ctx.globalAlpha=.85;ctx.drawImage(gl,cx-cell*0.62,cy-cell*0.62,cell*1.24,cell*1.24);ctx.globalAlpha=1;}
+    /* Sept 11, Sara (builder Loom, 2:12): "have them not overlapped, you really see
+       the stones... the name should be on the stones". The glow stays inside its
+       own cell, the stone sits a little higher and smaller, and its name is
+       printed under it. */
+    if(gl){ctx.globalAlpha=.85;ctx.drawImage(gl,cx-cell*0.5,cy-cell*0.56,cell,cell);ctx.globalAlpha=1;}
     ctx.globalAlpha=.6;
-    ctx.drawImage(SHADOW,cx-cell*0.46,cy-cell*0.34+cell*0.18,cell*0.92,cell*0.64);
+    ctx.drawImage(SHADOW,cx-cell*0.4,cy-cell*0.34+cell*0.08,cell*0.8,cell*0.56);
     ctx.globalAlpha=1;
     if(g.img.complete&&g.img.naturalWidth){
       var ar=g.img.naturalWidth/g.img.naturalHeight;
-      var dw=ar>=1?cell*0.78:cell*0.78*ar, dh=ar>=1?cell*0.78/ar:cell*0.78;
-      ctx.drawImage(g.img,cx-dw/2,cy-dh/2,dw,dh);
+      var dw=ar>=1?cell*0.64:cell*0.64*ar, dh=ar>=1?cell*0.64/ar:cell*0.64;
+      ctx.drawImage(g.img,cx-dw/2,cy-cell*0.08-dh/2,dw,dh);
     }
+    ctx.save();
+    ctx.font='600 '+Math.max(9,Math.min(12,cell*0.105))+'px "Instrument Sans",sans-serif';
+    ctx.fillStyle='#3D4658';ctx.textAlign='center';ctx.textBaseline='middle';
+    var label=String(g.name).replace(/\s+(Stone|Crystal)$/i,'');
+    if(ctx.measureText(label).width>cell*0.9){while(label.length>3&&ctx.measureText(label+'\u2026').width>cell*0.9)label=label.slice(0,-1);label+='\u2026';}
+    ctx.fillText(label,cx,cy+cell*0.36);
+    ctx.restore();
   });
 
   if(!box.length){
@@ -663,7 +681,7 @@ function buildGems(){
     var b=document.createElement('button');
     b.type='button';b.className='gem';
     b.innerHTML='<img src="'+g.src+'" alt="" loading="lazy">'+
-      '<span class="n">'+g.name+'</span><span class="p">$'+g.price.toFixed(2)+'</span>';
+      '<span class="n">'+g.name+'</span>'+(g.three.length?'<span class="tw">'+g.three.join(' \u00b7 ')+'</span>':'')+'<span class="p">$'+g.price.toFixed(2)+'</span>';
     b.setAttribute('aria-label','Add '+g.name+', $'+g.price.toFixed(2));
     if(box.length>=boxN)b.disabled=true;
     b.addEventListener('click',function(){add(g.slug);});

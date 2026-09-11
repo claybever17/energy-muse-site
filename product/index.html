@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
 <script src="/assets/em-frequencies.js?v=6"></script>
-<script src="/assets/em-catalog.js?v=28"></script>
+<script src="/assets/em-catalog.js?v=29"></script>
 <script src="/assets/em-generators.js?v=1"></script>
 <script src="/assets/em-stones.js?v=3"></script>
 <script src="/assets/em-header.js?v=54" defer></script>
@@ -272,6 +272,13 @@
 .pfounders .k{display:block;font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--copper-lo)}
 .pfounders p{margin:8px 0 10px;font-size:15px;line-height:1.6;color:var(--ink-soft)}
 @media (max-width:700px){.pfounders{grid-template-columns:1fr}}
+.pstack{display:none}
+@media (min-width:1000px){
+  .pgal{display:none}
+  .pstack{display:grid;gap:14px;margin-top:14px}
+  .pstack img{width:100%;display:block;border-radius:8px}
+  .pdp > div:last-child{position:sticky;top:96px;align-self:start}
+}
 </style>
 </head><body>
 <main>
@@ -291,7 +298,7 @@
    would come out "jewelrys", so the plurals are named rather than derived.
    Destinations, for the record: Crystal /gems/, Jewelry /jewelry/,
    System /systems/, Kit /sets/. */
-var SEEALL_PLURAL={Crystal:'crystals',Jewelry:'jewelry',System:'systems',Kit:'kits',Frequency:'generators'};
+var SEEALL_PLURAL={Crystal:'crystals',Jewelry:'jewelry',System:'systems',Kit:'kits',Frequency:'generators',Tool:'tools',Class:'classes'};
 function SEEALL(c){return SEEALL_PLURAL[c] || String(c||'').toLowerCase();}
 
 (function(){
@@ -340,6 +347,7 @@ function SEEALL(c){return SEEALL_PLURAL[c] || String(c||'').toLowerCase();}
      the accessories, more explanation. em-generators.js carries their words;
      G is null for every other product and nothing below changes for those. */
   var isGen = p.cat === 'Frequency';
+  var isClass = p.cat === 'Class'; /* Sept 11: her classes and courses, sold as products */
   var GHZ = isGen ? p.id.replace(/^gen-/, '') : '';
   var G = (isGen && window.EM_GEN && window.EM_GEN[GHZ]) || null;
   var GF = (G && window.EM_FREQ_BY) ? EM_FREQ_BY.hz(GHZ) : null;
@@ -580,10 +588,15 @@ function buildPanels(p){
                    + '<img src="' + src + '" alt="" loading="lazy"></button>';
             }).join('')
           + '</div>'
+          /* Sept 11, Sara (product Loom, 1:01): "the pictures all display sort of in a
+             column to fill this space... keep scrolling as you scroll". On a wide
+             screen every photograph stacks under the first and the text column
+             stays put; the thumbnails remain the phone's gallery. */
+          + '<div class="pstack">' + shots.slice(1).map(function(src){ return '<div class="pshot"><img src="' + src + '" alt="" loading="lazy"></div>'; }).join('') + '</div>'
         : '')
     + '</div>'
     + '<div>'
-    + '<p class="crumb"><a href="/shop/">Shop</a> &nbsp;/&nbsp; <a href="' + p.home + '">' + p.cat + '</a></p>'
+    + '<p class="crumb"><a href="/shop/">Shop</a> &nbsp;/&nbsp; <a href="' + p.home + '">' + (p.cat === 'Class' ? 'With Heather' : p.cat) + '</a></p>'
     + '<h1>' + (G ? genTitle(G.title) : p.name) + '</h1>'
     + (G ? threeLine(G.three) : (p.three ? threeLine(p.three) : ''))
     + '<div class="pprice" id="pprice">$' + p.price.toFixed(2) + '</div>'
@@ -609,8 +622,8 @@ function buildPanels(p){
            : '<button class="bigadd" id="bigadd" type="button">Add to Bag</button>')
     + '<a class="seeall" href="' + p.home + '">See all ' + SEEALL(p.cat) + ' <span class="a" aria-hidden="true">&rarr;</span></a>'
     + '</div>'
-    + trioHtml(p)
-    + (G ? genPanels(p, G) : buildPanels(p))
+    + (isClass ? '' : trioHtml(p))
+    + (G ? genPanels(p, G) : isClass ? '' : buildPanels(p))
     /* Sept 9: "something that leads to the founder story" (her wireframe note
        on the product template). The trust strip's own sentence, and the way on. */
     /* Sept 11, Sara (product Loom, 1:45): "pull it out and put it on the bottom...
@@ -760,7 +773,7 @@ function buildPanels(p){
     setTimeout(function(){ tadd.textContent = 'Add all three'; tadd.classList.remove('done'); }, 1800);
   });
 
-  var rel = G ? genRelated(G) : C.related(p.id, 4);
+  var rel = (G ? genRelated(G) : C.related(p.id, 8)).filter(function (r) { return r.stock !== 'out' && r.price > 0; }).slice(0, 4);
   if (rel.length) {
     document.getElementById('relwrap').hidden = false;
     if (G) {

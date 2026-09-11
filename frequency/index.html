@@ -200,7 +200,7 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 
 /* ===== the generator film, folded in from /generator/ (Sara: one dark landing) ===== */
 .film{--navy:#0a1017;--paper:#f3ece1;--copper:#c08a4e;--ink:#ece6da;--soft:#9fb0be}
-.film .stage{position:relative;height:460vh}
+.film .stage{position:relative;height:380vh} /* Sept 11: shorter with the dial beat gone - Sara: "the fact that you can't scroll until you get through all of that" */
 .film .sticky{position:sticky;top:0;height:100vh;overflow:hidden}
 .film #c{position:absolute;inset:0;width:100%;height:100%;display:block}
 .film .bg{position:absolute;inset:0;background:radial-gradient(120% 90% at 68% 40%,rgba(192,138,78,.16),transparent 55%),radial-gradient(90% 80% at 30% 100%,rgba(20,40,70,.4),transparent 60%),var(--navy);z-index:0}
@@ -362,6 +362,15 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 .sect:first-of-type::before{display:none}
 #why p{max-width:62ch;color:var(--ink-soft);font-size:16px;line-height:1.6;margin-top:12px}
 #why .specrow{margin-top:clamp(22px,3vw,34px)}
+.film .dial{display:none!important}
+.fvid{margin-top:clamp(24px,3.4vw,40px);max-width:880px}
+.fvid .eyebrow{display:block;margin-bottom:12px}
+.fvid .vslot{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#0B1220;box-shadow:var(--shadow,0 14px 34px rgba(61,41,23,.12))}
+.fvid .vslot img,.fvid .vslot iframe{width:100%;height:100%;display:block;border:0;object-fit:cover}
+.fvid .vp{position:absolute;inset:0;margin:auto;width:76px;height:76px;border-radius:50%;border:0;background:rgba(255,255,255,.92);cursor:pointer;display:grid;place-items:center;transition:transform .25s}
+.fvid .vp:hover{transform:scale(1.06)}
+.fvid .vp svg{width:30px;height:30px;fill:var(--ink,#1B2233);margin-left:3px}
+.fvid .vcap{margin-top:10px;font-size:13.5px;color:var(--ink-soft)}
 </style>
 </head><body>
 <script>if(/[?&]nofilm=1/.test(location.search))document.documentElement.classList.add('nofilm');</script>
@@ -373,28 +382,34 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
     <canvas id="c"></canvas>
     <div class="veil" id="veil"></div>
     <div class="caps">
+      <!-- Sept 11, Sara (collection Loom, 5:37-12:35): the film's copy "doesn't feel
+           like it's in line with the copy doc"; "this first section should be a
+           little bit more about what is it, why do they care"; "the second part...
+           the science behind the device, the oscillator, the copper coil, how the
+           signal is produced"; "I don't love the glass copper and four bolts"; the
+           seven-frequency dial "is also right here [below]... a little repetitive,
+           so maybe we just keep the first two". Three beats now, her hero copy,
+           her science line and her fixed-frequency paragraph, and no dial. -->
       <div class="cap c0" data-lo="0" data-hi="0.16">
         <div class="eye">The Frequency Generator</div>
-        <!-- the first caption is this page's title, so it is the h1. It was an
-             h2 and the page had no h1 at all. -->
-        <h1>Frequency,<br>made tangible.</h1>
-        <p><span class="lg">A physical object, tuned to a specified frequency and built to be understood. Scroll to look inside.</span><span class="sm">Scroll to look inside.</span></p>
+        <h1>Where wellness<br>meets <em>tech.</em></h1>
+        <p><span class="lg">Frequency generators are precision-crafted to emit specific frequencies, so you&rsquo;re always in control of how your space feels. Scroll to look inside.</span><span class="sm">Precision-crafted to emit one frequency. Scroll to look inside.</span></p>
       </div>
-      <div class="cap c1" data-lo="0.20" data-hi="0.40">
-        <div class="eye">Sealed by hand</div>
-        <h2>Glass, copper,<br>and four bolts.</h2>
-        <p><span class="lg">A tinted glass cover, machined black plates and chrome hardware — the materials that make the energy world tangible.</span><span class="sm">Tinted glass, machined plates, chrome bolts.</span></p>
-      </div>
-      <div class="cap c2" data-lo="0.44" data-hi="0.58">
+      <div class="cap c1" data-lo="0.20" data-hi="0.42">
         <div class="eye">Inside</div>
-        <h2>A single<br>copper coil.</h2>
-        <p><span class="lg">One continuous spiral, tuned to a specified frequency and set behind a silver ring. This is the heart of the generator.</span><span class="sm">One continuous spiral, tuned to one frequency.</span></p>
+        <h2>The science behind<br>the device.</h2>
+        <p><span class="lg">Every Energy Muse generator starts with a crystal oscillator, copper tensor coil and matched with a specific sacred geometric shape &mdash; a design and engineering combination exclusive to us.</span><span class="sm">A crystal oscillator, a copper tensor coil, a sacred geometric shape.</span></p>
       </div>
-      <div class="dial" id="dial" aria-hidden="true">
+      <div class="cap c2" data-lo="0.46" data-hi="0.76">
+        <div class="eye">One fixed frequency</div>
+        <h2>A stronger signal,<br>a larger radius.</h2>
+        <p><span class="lg">We&rsquo;re home to the world&rsquo;s most extensive fixed-frequency collection. Fixed frequency devices are more powerful than variable frequency devices that others sell. This means that our devices reach a larger radius and have a stronger signal, which yields better results.</span><span class="sm">Fixed frequency: a larger radius and a stronger signal than variable devices.</span></p>
+      </div>
+      <div class="dial" id="dial" aria-hidden="true" hidden>
         <div class="dv"><span id="dialv">639</span><em>Hz</em></div>
-        <div class="dl">one coil &middot; one designation</div>
+        <div class="dl"></div>
       </div>
-      <div class="cap c3" data-lo="0.90" data-hi="1.01">
+      <div class="cap c3" data-lo="0.84" data-hi="1.01">
         <h2>Yours to use.</h2>
         <div class="specs">
           <div class="spec"><div class="k">Material</div><div class="v">Copper coil</div></div>
@@ -425,7 +440,39 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
       <div class="specc"><span class="k">Field</span><span class="v">Silent. No sound, no app</span></div>
       <div class="specc"><span class="k">Signal</span><span class="v">One fixed frequency</span></div>
     </div>
-  </div>
+      <!-- Sept 11. The copy doc's note on this section: "Video of the process";
+         Sara: "Does this exist? Not completely. I will get one made." And her
+         email: a spot for video that automatically disappears if no video is
+         present. FREQ_VIDEO below stays null until the film exists, so nothing
+         renders; ?video=yt:ID or ?video=vimeo:ID previews the player. -->
+    <div class="fvid" id="fvid" hidden></div>
+    <script>
+    (function(){
+      var FREQ_VIDEO = null; /* { youtube: 'ID' } or { vimeo: 'ID' }, optional poster, caption */
+      function parseVideo(t){
+        var m; if (!t) return null;
+        if ((m = t.match(/^yt:([\w-]{6,})$/))) return { youtube: m[1] };
+        if ((m = t.match(/^vimeo:(\d{5,})$/))) return { vimeo: m[1] };
+        return null;
+      }
+      var V = FREQ_VIDEO || parseVideo(decodeURIComponent((location.search.match(/[?&]video=([^&]*)/) || [, ''])[1]));
+      if (!V) return;
+      var poster = V.poster || (V.youtube ? 'https://i.ytimg.com/vi/' + encodeURIComponent(V.youtube) + '/hqdefault.jpg' : '');
+      var el = document.getElementById('fvid'); el.hidden = false;
+      el.innerHTML = '<span class="eyebrow">The process</span><div class="vslot">'
+        + (poster ? '<img src="' + poster + '" alt="" loading="lazy" decoding="async">' : '')
+        + '<button class="vp" type="button" aria-label="Play: the process"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></button></div>'
+        + (V.caption ? '<p class="vcap">' + V.caption + '</p>' : '');
+      el.querySelector('.vp').addEventListener('click', function(){
+        var f = document.createElement('iframe');
+        f.allow = 'autoplay; fullscreen; picture-in-picture'; f.allowFullscreen = true; f.title = 'The process';
+        f.src = V.youtube ? 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(V.youtube) + '?autoplay=1&rel=0&modestbranding=1&playsinline=1'
+                          : 'https://player.vimeo.com/video/' + encodeURIComponent(V.vimeo) + '?autoplay=1&dnt=1';
+        var box = el.querySelector('.vslot'); box.innerHTML = ''; box.appendChild(f);
+      });
+    })();
+    </script>
+</div>
 </section>
 
 <section class="sect" id="all">
@@ -988,7 +1035,7 @@ function frame(){
   // a slow steady pulse once the stone is charging on it
   if(!reduce)currentTex.offset.x=-t*(0.08+0.10*smooth(0.48,0.66,p));
   // the designation dial ticks past while the open coil holds the frame
-  const dOp=smooth(0.555,0.60,p)*(1-smooth(0.70,0.735,p));
+  const dOp=0; /* Sept 11: the dial beat is gone - the seven are the cards below (Sara) */
   const capsEl=document.querySelector('.film .caps');
   if(capsEl)capsEl.classList.toggle('dialing',dOp>0.005);
   if(dOp>0.005){
