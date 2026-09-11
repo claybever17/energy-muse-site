@@ -708,8 +708,9 @@ const ring=new THREE.Mesh(new THREE.TorusGeometry(0.70,0.008,16,160),matRing);ri
   const g=new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),isMobile?2000:3400,0.0046,isMobile?6:8,false);
   const m=new THREE.Mesh(g,matGold);m.position.y=0.115;m.castShadow=true;m.receiveShadow=true;base.add(m);window.__coil=m;})();
 // ---------- the designation: each frequency carries its own line-art over the coil, as the product does ----------
-// 7.83 is the bare spiral; 174 a twelve-point web; 417 the Seed of Life; 528 the Sri Yantra;
-// 639 the Merkaba; 963 the torus vortex on a silver coil; 1111 three circles on a pearl plate.
+// 7.83 draws nothing; 174 the Vector of Equilibrium; 417 the Seed of Life; 528 the Sri Yantra;
+// 639 the Merkaba; 963 the torus vortex on a silver coil; 1111 the Vesica Piscis on a pearl plate
+// (Sara's list, Sept 11 email).
 const HZS=['7.83','174','417','528','639','963','1111'];
 function drawGeometry(hz){
   const S=1024,R=470,cx=S/2,cy=S/2;const cv=document.createElement('canvas');cv.width=cv.height=S;const x=cv.getContext('2d');
@@ -722,12 +723,23 @@ function drawGeometry(hz){
     x.lineWidth=2.2;for(let i=0;i<8;i++){const a=i*Math.PI/4;x.beginPath();x.ellipse(cx+Math.cos(a)*R*0.94,cy+Math.sin(a)*R*0.94,R*0.05,R*0.09,a,0,Math.PI*2);x.stroke();}}
   else if(hz==='639'){const r=R*0.92;const hex=[];for(let i=0;i<6;i++){const a=-Math.PI/2+i*Math.PI/3;hex.push([cx+Math.cos(a)*r,cy+Math.sin(a)*r]);}
     poly([hex[0],hex[2],hex[4]]);poly([hex[1],hex[3],hex[5]]);poly(hex);x.lineWidth=2.4;hex.forEach(q=>{x.beginPath();x.moveTo(cx,cy);x.lineTo(q[0],q[1]);x.stroke();});}
-  else if(hz==='174'){const n=12,r=R*0.95;const pts=[];for(let i=0;i<n;i++){const a=-Math.PI/2+i*2*Math.PI/n;pts.push([cx+Math.cos(a)*r,cy+Math.sin(a)*r]);}
-    for(let k=4;k<=6;k++){x.beginPath();for(let i=0;i<n;i++){const q=pts[i],w=pts[(i+k)%n];x.moveTo(q[0],q[1]);x.lineTo(w[0],w[1]);}x.stroke();}
-    x.lineWidth=2.2;[0.72,0.5,0.28].forEach(f=>{const rr=r*f;const pp=[];for(let i=0;i<n;i++){const a=-Math.PI/2+i*2*Math.PI/n;pp.push([cx+Math.cos(a)*rr,cy+Math.sin(a)*rr]);}poly(pp);});
-    pts.forEach(q=>{x.beginPath();x.moveTo(cx,cy);x.lineTo(q[0],q[1]);x.stroke();});}
+  else if(hz==='174'){
+    /* Sept 11, Sara: 174 is the Vector of Equilibrium (the cuboctahedron: twelve
+       vertices, every one the same distance from the centre as from its
+       neighbours). Seen down its three-fold axis: an outer hexagon, an inner
+       hexagon turned thirty degrees at 1/sqrt(3), the zigzag of edges between
+       them, and the twelve equal vectors from the centre. */
+    const r=R*0.95,ri=r/Math.sqrt(3);const outer=[],inner=[];
+    for(let i=0;i<6;i++){const a=-Math.PI/2+i*Math.PI/3,b=a+Math.PI/6;outer.push([cx+Math.cos(a)*r,cy+Math.sin(a)*r]);inner.push([cx+Math.cos(b)*ri,cy+Math.sin(b)*ri]);}
+    poly(outer);poly(inner);
+    for(let i=0;i<6;i++){const o=outer[i],p=inner[i],q=inner[(i+5)%6];x.beginPath();x.moveTo(o[0],o[1]);x.lineTo(p[0],p[1]);x.moveTo(o[0],o[1]);x.lineTo(q[0],q[1]);x.stroke();}
+    x.lineWidth=2.2;outer.concat(inner).forEach(q=>{x.beginPath();x.moveTo(cx,cy);x.lineTo(q[0],q[1]);x.stroke();});}
   else if(hz==='963'){x.lineWidth=2.4;const n=36,r=R*0.5;for(let i=0;i<n;i++){const a=i*2*Math.PI/n;circle(cx+Math.cos(a)*r,cy+Math.sin(a)*r,r);}circle(cx,cy,R*0.98);}
-  else if(hz==='1111'){const d=R*0.34,r=R*0.6;for(let i=0;i<3;i++){const a=-Math.PI/2+i*2*Math.PI/3;circle(cx+Math.cos(a)*d,cy+Math.sin(a)*d,r);}}
+  else if(hz==='1111'){
+    /* Sept 11, Sara: 1111 is the Vesica Piscis - two equal circles, each
+       passing through the other's centre, the lens between them. */
+    /* set on the diagonal, the way the two circles sit on the device itself */
+    const r=R*0.62,d=r/2*Math.SQRT1_2;circle(cx-d,cy-d,r);circle(cx+d,cy+d,r);}
   const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=4;return t;
 }
 const geoMat=new THREE.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide});
