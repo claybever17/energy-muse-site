@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
 <script src="/assets/em-frequencies.js?v=6"></script>
-<script src="/assets/em-header.js?v=53" defer></script>
+<script src="/assets/em-header.js?v=54" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
 <script src="/assets/em-prices.js?v=4" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
@@ -210,6 +210,15 @@
   .fcell .arch li .step,.fcell .arch li .ahz{display:inline-block;vertical-align:baseline;padding-top:0;min-width:0}
   .fcell .arch li .step{margin-right:10px}
   .fcell .arch li .asay{display:block;margin-top:4px}
+}
+/* Sept 11 (Clay's phone screenshot: "add to bag buttons make it seem off"): the
+   price sat in a row with the button, the button hugging the left. The price
+   moves up beside the picture-and-name row, and the button takes the full
+   width under the line, the way every other add on a phone reads. */
+@media (max-width:560px){
+  .pcard{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"link pr" "say say" "add add"}
+  .pcard .pr{grid-area:pr;align-self:start;margin-top:4px;text-align:right;font-size:18px}
+  .pcard .padd,.pcard .psold{grid-area:add;width:100%;justify-self:stretch;margin-top:12px;min-height:44px}
 }
 </style>
 </head><body>

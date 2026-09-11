@@ -241,7 +241,7 @@ function boot(){
      under Learn; the FAQ is How it works, once, under Start Here; Crystal
      Meanings now opens on an index of the stones. The footer follows. */
   var MENUS=[
-    ['Shop',[['/jewelry/','Jewelry'],['/gems/','Crystals'],['/frequency/','Frequency'],['/sets/','Kits &amp; Sets'],['/systems/','Tools &amp; Accessories'],'sep',['/shop/','Shop all']]],
+    ['Shop',[['/jewelry/','Jewelry'],['/gems/','Crystals'],['/frequency/','Frequency'],['/sets/','Kits &amp; Sets'],['/energy-tools/','Tools &amp; Accessories'],'sep',['/shop/','Shop all']]],
     ['By Intention',[['/intention/protection/','Protection'],['/intention/abundance/','Abundance'],['/intention/connection/','Love'],['/intention/calm/','Calm'],['/intention/clarity/','Clarity'],'sep',['/intention/','All intentions']]],
     ['Learn',[['/learn/','Learning Center'],['/meaning/','Crystal Meanings'],['/blog/','Journal']]]
   ];
