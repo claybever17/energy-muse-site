@@ -241,7 +241,6 @@ function boot(){
      under Learn; the FAQ is How it works, once, under Start Here; Crystal
      Meanings now opens on an index of the stones. The footer follows. */
   var MENUS=[
-    ['Start Here',[['/quiz/','Energy Quiz'],['/faq/','How it works']]],
     ['Shop',[['/jewelry/','Jewelry'],['/gems/','Crystals'],['/frequency/','Frequency'],['/sets/','Kits &amp; Sets'],['/systems/','Tools &amp; Accessories'],'sep',['/shop/','Shop all']]],
     ['By Intention',[['/intention/protection/','Protection'],['/intention/abundance/','Abundance'],['/intention/connection/','Love'],['/intention/calm/','Calm'],['/intention/clarity/','Clarity'],'sep',['/intention/','All intentions']]],
     ['Learn',[['/learn/','Learning Center'],['/meaning/','Crystal Meanings'],['/blog/','Journal']]]
@@ -267,8 +266,13 @@ function boot(){
        With Heather and Veza were the table's, not her words - Clay took them
        back out of the bar; both stay in the footer and the phone menu. */
     +'<nav class="emh-links">'
+    /* Sept 11, Sara (nav Loom): Start Here goes - the quiz is in the bar above it
+       and "how it works" leading to the FAQ "doesn't make sense"; "what's new" is
+       "important to our brand" and takes its place. Make it yours is Personalize
+       it, "something that speaks more to the function". */
+    +'<a href="/shop/?new=1">What&rsquo;s New</a>'
     +MENUS.map(function(m){return dd(m[0],m[1]);}).join('')
-    +'<a href="/try/">Make it yours</a></nav>'
+    +'<a href="/try/">Personalize it</a></nav>'
     /* Search was <a href="#">, wired to nothing, on every page of the site — a
        control in the primary nav that silently did nothing when clicked. Gone
        until there is something to search: product pages will give every item
@@ -294,7 +298,7 @@ function boot(){
           +'<div class="emh-msub">'+m[1].filter(function(it){return it!=='sep';}).map(function(it){
               return '<a href="'+it[0]+'">'+it[1]+'</a>';}).join('')+'</div></div>';
       }).join('')
-    +'<a href="/try/">Make it yours</a></nav>'
+    +'<a href="/shop/?new=1">What&rsquo;s New</a><a href="/try/">Personalize it</a></nav>'
     +'<div class="emh-menu-sec"><a href="/heather/">With Heather</a><a href="/veza/">Veza</a><a href="/about/">About</a></div>'
     /* Search and Bag live in the menu now, not in the header bar. The
        homepage's own menu already had this row; this is the shared one
@@ -311,7 +315,7 @@ function boot(){
   /* The site map, the homepage's four columns of five. Keep index.html's
      footer in step when a link changes here. */
   var FOOT=[
-    ['Start Here',[['/quiz/','Energy Quiz'],['/faq/','How it works'],['/intention/','By Intention'],['/try/','Make it yours']]],
+    ['Start Here',[['/quiz/','Energy Quiz'],['/shop/?new=1','What&rsquo;s New'],['/faq/','How it works'],['/intention/','By Intention'],['/try/','Personalize it']]],
     ['Shop',[['/jewelry/','Jewelry'],['/gems/','Crystals'],['/frequency/','Frequency'],['/sets/','Kits &amp; Sets'],['/shop/','Shop all']]],
     ['Learn',[['/learn/','Learning Center'],['/meaning/','Crystal Meanings'],['/blog/','Journal'],['/heather/','With Heather'],['/veza/','Veza']]],
     ['Help',[['/support/','Contact'],['/support/#orders','Shipping &amp; Returns'],['/about/','Our Story'],['/affiliates/','Affiliates'],['/craft/','Materials &amp; Craft']]]

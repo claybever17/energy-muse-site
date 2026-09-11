@@ -23,7 +23,7 @@
 <script src="/assets/em-catalog.js?v=26"></script>
 <script src="/assets/em-generators.js?v=1"></script>
 <script src="/assets/em-stones.js?v=3"></script>
-<script src="/assets/em-header.js?v=51" defer></script>
+<script src="/assets/em-header.js?v=53" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
 <script src="/assets/em-prices.js?v=4" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
@@ -266,6 +266,12 @@
 .vcap{margin-top:12px;font-size:13.5px;color:var(--stone)}
 @media (max-width:760px){ .vslot{border-radius:8px} .vslot .vp{width:64px;height:64px} }
 @media (prefers-reduced-motion:reduce){ .vslot .vp{transition:none} .vslot .vp:hover{transform:none} }
+.sect:first-of-type::before{display:none} /* Sept 11, Sara: "remove the turning logo" on product pages */
+.pfounders{display:grid;grid-template-columns:260px minmax(0,1fr);gap:clamp(18px,2.4vw,30px);align-items:center;margin-top:clamp(30px,4vw,52px);padding-top:clamp(24px,3vw,36px);border-top:1px solid var(--hair)}
+.pfounders img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;display:block}
+.pfounders .k{display:block;font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--copper-lo)}
+.pfounders p{margin:8px 0 10px;font-size:15px;line-height:1.6;color:var(--ink-soft)}
+@media (max-width:700px){.pfounders{grid-template-columns:1fr}}
 </style>
 </head><body>
 <main>
@@ -505,10 +511,14 @@ function buildPanels(p){
     if ((m = t.match(/^vimeo:(\d{5,})$/))) return { vimeo: m[1] };
     return null;
   }
-  var GV = G ? (G.video || parseVideo(decodeURIComponent((location.search.match(/[?&]video=([^&]*)/) || [, ''])[1]))) : null;
+  /* Sept 11, Sara by email: "a spot for video that automatically disappears if
+     no video is present" - on every product, not only the generators, and no
+     placeholder frame: nothing renders until a film is in the record. */
+  var GV = (G ? G.video : p.video) || parseVideo(decodeURIComponent((location.search.match(/[?&]video=([^&]*)/) || [, ''])[1]));
   var GPOSTER = !GV ? '' : (GV.poster || (GV.youtube ? 'https://i.ytimg.com/vi/' + encodeURIComponent(GV.youtube) + '/hqdefault.jpg' : ''));
   function genVideo(){
-    var t = 'Heather on ' + GHZ + ' Hz';
+    if (!GV) return '';
+    var t = 'Heather on ' + (G ? GHZ + ' Hz' : p.name);
     return '<div class="pvid"><span class="eyebrow">' + t + '</span>'
       + '<div class="vslot' + (GV ? '' : ' empty') + '" id="pvslot">'
       + (GPOSTER ? '<img src="' + GPOSTER + '" alt="" loading="lazy" decoding="async">' : '')
@@ -574,7 +584,6 @@ function buildPanels(p){
     + '</div>'
     + '<div>'
     + '<p class="crumb"><a href="/shop/">Shop</a> &nbsp;/&nbsp; <a href="' + p.home + '">' + p.cat + '</a></p>'
-    + '<span class="pcat">' + (G ? 'Fixed frequency generator' : (EM_CATALOG.label(p.group) || p.cat)) + '</span>'
     + '<h1>' + (G ? genTitle(G.title) : p.name) + '</h1>'
     + (G ? threeLine(G.three) : (p.three ? threeLine(p.three) : ''))
     + '<div class="pprice" id="pprice">$' + p.price.toFixed(2) + '</div>'
@@ -604,16 +613,21 @@ function buildPanels(p){
     + (G ? genPanels(p, G) : buildPanels(p))
     /* Sept 9: "something that leads to the founder story" (her wireframe note
        on the product template). The trust strip's own sentence, and the way on. */
-    + '<p class="pfounder">Founder-led for two decades by Heather Askinosie, best-selling author of <em>Crystal 365</em> and <em>Crystal Muse</em>. <a href="/about/">Our story <span aria-hidden="true">&rarr;</span></a></p>'
+    /* Sept 11, Sara (product Loom, 1:45): "pull it out and put it on the bottom...
+       about the founders". Her About copy's founders paragraph, verbatim, and the
+       two of them. Replaces the one-line founder note. */
+    + '<div class="pfounders"><img src="/assets/img/life/founders-field-600.webp" srcset="/assets/img/life/founders-field-600.webp 600w, /assets/img/life/founders-field-1200.webp 1200w" sizes="(max-width:700px) 92vw, 260px" alt="Heather Askinosie and Timmi Jandro" loading="lazy">'
+    + '<div><span class="k">Meet the founders</span><p>Energy Muse began with two best friends who met at age six. Heather Askinosie brought her deep study of crystals, energy, and holistic traditions. Timmi Jandro brought her experience in business, product development, and building relationships. Together, they turned one necklace and a shared belief into an enduring wellness brand.</p>'
+    + '<a class="em-link" href="/about/">Our story <span class="a" aria-hidden="true">&rarr;</span></a></div></div>'
     + '</div></div>'
-    + (G ? genVideo() : '')
+    + genVideo()
     + (G ? placeBand(G) : '');
 
   /* the player arrives on the click: no third-party iframe on a page nobody
      asked to play */
   var pvp = host.querySelector('#pvslot .vp');
   if (pvp && GV) pvp.addEventListener('click', function(){
-    var el, box = document.getElementById('pvslot'), title = 'Heather on ' + GHZ + ' Hz';
+    var el, box = document.getElementById('pvslot'), title = 'Heather on ' + (G ? GHZ + ' Hz' : p.name);
     if (GV.youtube) {
       el = document.createElement('iframe');
       el.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(GV.youtube) + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';

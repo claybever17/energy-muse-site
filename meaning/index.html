@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
 <script src="/assets/em-catalog.js?v=26"></script>
 <script src="/assets/em-stones.js?v=3"></script>
-<script src="/assets/em-header.js?v=51" defer></script>
+<script src="/assets/em-header.js?v=53" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
 <script src="/assets/em-prices.js?v=4" defer></script>
 <script src="/assets/em-search.js?v=11" defer></script>
@@ -158,6 +158,20 @@
 .mcard .mfor{display:block;margin-top:5px;font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone)}
 @media (max-width:700px){.mgrid{grid-template-columns:1fr 1fr;gap:16px 12px}.mcard b{font-size:16px}.mcard .mfor{font-size:10px;letter-spacing:.1em}}
 @media (prefers-reduced-motion:reduce){.mcard .mim img{transition:none}.mcard:hover .mim img{transform:none}}
+.mquiz{margin:18px 0 0;font-size:14.5px;color:var(--ink-soft)}
+.mrail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.8vw,22px);margin-top:18px}
+.mprod{display:block;text-decoration:none;color:inherit}
+.mprod .shot{display:block;aspect-ratio:1;background:var(--tint);border-radius:6px;padding:9%}
+.mprod .shot img{width:100%;height:100%;object-fit:contain;display:block}
+.mprod .n{display:block;font-family:var(--sans);font-weight:600;font-size:13px;line-height:1.3;margin-top:10px;color:var(--ink)}
+.mprod .tw{display:block;font-family:var(--sans);font-weight:600;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);margin-top:4px;line-height:1.45}
+.mprod .p{display:block;font-family:var(--serif);font-size:16px;color:var(--copper-lo);margin-top:5px}
+.mmodrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,20px);margin-top:16px}
+.mmod{display:block;padding:18px 18px 20px;border:1px solid var(--hair);border-radius:8px;text-decoration:none;color:inherit;background:var(--surface,#fff);transition:border-color .25s}
+.mmod:hover{border-color:var(--copper)}
+.mmod b{display:block;font-family:var(--serif);font-weight:400;font-size:19px;line-height:1.2}
+.mmod span{display:block;margin-top:6px;font-size:13.5px;color:var(--ink-soft);line-height:1.5}
+@media (max-width:700px){.mrail{grid-template-columns:1fr 1fr;gap:14px 12px}.mmodrow{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -286,27 +300,52 @@
     : '';
 
   var others = Object.keys(window.EM_STONES).filter(function (k) { return k !== key; });
+  /* every catalogue piece of this stone: the name contains the stone's name
+     (Sara, 1:09: "shop all black tourmaline... a feed that has all of the black
+     tourmaline stuff in it") */
+  var shopAll = '';
+  if (window.EM_CATALOG) {
+    var nm = S.name.toLowerCase();
+    var mine = EM_CATALOG.all().filter(function (q) { return q.name.toLowerCase().indexOf(nm) >= 0 && q.id !== (p && p.id); });
+    if (mine.length) shopAll = '<section class="msec"><h2>Shop all ' + esc(S.name) + '</h2><div class="mrail">'
+      + mine.slice(0, 8).map(function (q) {
+          return '<a class="mprod" href="/product/?id=' + encodeURIComponent(q.id) + '"><span class="shot"><img src="' + q.img + '" alt="" loading="lazy"></span>'
+            + '<span class="n">' + esc(q.name) + '</span>' + (q.three ? '<span class="tw">' + q.three.map(esc).join(' &middot; ') + '</span>' : '')
+            + '<span class="p">$' + q.price.toFixed(2) + '</span></a>'; }).join('')
+      + '</div></section>';
+  }
 
   host.innerHTML =
       '<section class="mhero">' + photo
     + '<div>'
     + '<h1>' + esc(S.name) + '</h1>'
     + (S.hook ? '<p class="mhook">' + esc(S.hook) + '</p>' : '')
+    /* Sept 11, Sara (meaning Loom): a quiz presence high up for the lookers,
+       Where to start moved up, the video only when there is one and lower down,
+       a shop-all feed for the stone at the foot, and the personalize modules. */
+    + '<p class="mquiz">Not sure it is your stone? <a class="em-link" href="/quiz/">Take the Energy Quiz <span class="a" aria-hidden="true">&rarr;</span></a></p>'
     + '</div></section>'
-    + sec('Heather on ' + S.name, slot)
+    + (buy ? sec('Where to start', buy) : '')
     + sec('What ' + S.name + ' is', S.meaning ? '<p>' + esc(S.meaning) + '</p>' : '')
     + sec('What it is for', usesHtml)
+    + (V ? sec('Heather on ' + S.name, slot) : '')
     + sec('How to use it', '<p>Put it where the intention lives — where you work, where you rest, '
         + 'or in a pocket for the day. Hold it and name what it is for; that is the whole practice, '
         + 'and the object is the reminder. Clear it with smoke, with sound, or simply by holding it '
-        + 'and restating what it is for.</p>' + buy)
+        + 'and restating what it is for.</p>')
     + (ref ? '<section class="msec">' + ref + '</section>' : '')
+    + shopAll
     + (others.length
         ? '<section class="msec"><h2>Other stones</h2><div class="mmore">'
           + others.map(function (k) {
               return '<a href="?stone=' + k + '">' + esc(window.EM_STONES[k].name) + '</a>';
             }).join('') + '</div></section>'
-        : '');
+        : '')
+    + '<section class="msec mmods"><h2>Make it your own</h2><div class="mmodrow">'
+    + '<a class="mmod" href="/designer/"><b>Build your own bracelet</b><span>Choose your beads, choose your design, and we build it for you.</span></a>'
+    + '<a class="mmod" href="/box/"><b>Build your own crystal box</b><span>Your stones, packed with a card for each.</span></a>'
+    + '<a class="mmod" href="/frequency/#tune"><b>The Frequency Room</b><span>Turn the dial. The room follows.</span></a>'
+    + '</div></section>';
 
   /* the player arrives on the click: no third-party iframe on a page nobody
      asked to play, and the poster is the stone until then */

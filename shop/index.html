@@ -23,7 +23,7 @@
 <script src="/assets/em-catalog.js?v=26"></script>
 <script src="/assets/em-more.js?v=1"></script>
 <script src="/assets/em-sort.js?v=2"></script>
-<script src="/assets/em-header.js?v=51" defer></script>
+<script src="/assets/em-header.js?v=53" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
 <script src="/assets/em-prices.js?v=4" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
@@ -459,18 +459,24 @@
     return sel;
   }
 
+  /* Sept 11, Sara (nav Loom, 0:39): "what's new... is important to our brand".
+     ?new=1 narrows the whole shop to what was published in the last 120 days
+     (EM_CATALOG.isNew), newest first, and the page says so at the top. */
+  var NEW=q('new')==='1';
   function paint(k,sub){
     var re=k?new RegExp('^('+k+')$'):null;
     var list=re?ALL.filter(function(p){return re.test(p.cat);}):ALL.slice();
+    if(NEW&&EM_CATALOG.isNew)list=list.filter(function(p){return EM_CATALOG.isNew(p);});
     /* the sub row is built from the category's whole list, then the list is
        narrowed - so the counts on the row stay put as you move along it */
     sub=paintSubs(k,list,sub||'');
     if(sub)list=list.filter(function(p){return p.sub===sub;});
     list=window.EM_SORT?EM_SORT.apply(list):list.sort(function(a,b){return a.price-b.price;});
+    if(NEW&&!q('sort'))list.sort(function(a,b){return String(b.added||'').localeCompare(String(a.added||''));});
     /* twenty-four, then the rest on request - see em-more.js */
     if(window.EM_MORE)EM_MORE.paint(host,list,card);
     else host.innerHTML=list.map(card).join('');
-    count.textContent=list.length+' piece'+(list.length===1?'':'s')
+    count.textContent=list.length+(NEW?' new piece':' piece')+(list.length===1?'':'s')
       +(sub?' in '+subName.toLowerCase():k?' in '+label(k).toLowerCase():' across the shop');
     [].forEach.call(bar.children,function(b){
       var on=(b.getAttribute('data-c')||'')===k;
@@ -482,7 +488,7 @@
   function read(){return q('cat');}
   function readSub(){return q('sub');}
   function write(k,sub){
-    var p=[]; if(k)p.push('cat='+encodeURIComponent(k));
+    var p=[]; if(NEW)p.push('new=1'); if(k)p.push('cat='+encodeURIComponent(k));
     if(sub)p.push('sub='+encodeURIComponent(sub));
     history.replaceState(null,'',location.pathname+(p.length?'?'+p.join('&'):'')+location.hash);
   }
@@ -497,6 +503,11 @@
   });
   window.addEventListener('popstate',function(){paint(read(),readSub());});
   var init=read();
+  if(NEW){
+    var h=document.querySelector('h1'); if(h)h.innerHTML='What&rsquo;s <em class="hl gemword">new.</em>';
+    document.querySelectorAll('.lead,.lead-s').forEach(function(e){e.textContent='The newest pieces across the shop.';});
+    document.title='Energy Muse \u2014 What\u2019s New';
+  }
 
   /* one listener for the grid rather than one per card */
   host.addEventListener('click',function(e){

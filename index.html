@@ -1683,7 +1683,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
    has an orphan cell. The words tile shares the intentions' proportion and
    corner, on the page's tint rather than a photograph, so the row reads as one
    set of objects with one of them talking. */
-.int-grid{grid-template-columns:repeat(6,minmax(0,1fr));}
+.int-grid{grid-template-columns:repeat(5,minmax(0,1fr));}
 .int.int-words{background:var(--tint);box-shadow:none;cursor:default;align-items:flex-start;
   border:1px solid var(--hair);}
 .int.int-words::before{display:none;}
@@ -2008,6 +2008,14 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 .foot-links2{display:flex;gap:18px;flex-wrap:wrap}
 .foot-links2 a{color:var(--stone);text-decoration:none;font-size:11.5px;transition:.2s}
 .foot-links2 a:hover{color:var(--copper)}
+.int-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;margin-bottom:clamp(18px,2.4vw,28px)}
+.int-head h2{margin:0}
+.int-head p{margin:8px 0 0;color:var(--ink-soft)}
+.foot-sub{margin-top:22px;max-width:400px}
+.foot-sub h3{font-family:var(--serif);font-weight:300;font-size:20px;margin:0 0 4px;color:var(--ink)}
+.foot-brand .foot-sub p{margin:0;font-size:12.5px;max-width:none}
+.foot-sub .sub-inline{margin-top:10px;max-width:none}
+@media (max-width:560px){.int-grid .int:nth-child(5){grid-column:1/-1;aspect-ratio:16/9}}
 </style>
 
 
@@ -2125,12 +2133,16 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
          them: the words are part of the same object as the pictures. The
          eyebrow said what the headline says and is gone; the lead is the
          tile's second line. -->
-    <div class="int-grid reveal"><div class="int int-words"><div class="int-label">
-        <!-- "feel." is the word, set the way the hero sets "personal." -->
-        <h2>Shop by how you want to <em>feel.</em></h2>
-        <p>No need to know a crystal by name.</p>
-        <a class="btn" href="intention/">See all five</a>
-      </div></div><a class="int" href="intention/protection/"><img src="assets/img/protection.jpg" srcset="assets/img/protection-480.jpg 480w, assets/img/protection-720.jpg 720w, assets/img/protection.jpg 1080w" sizes="(max-width:840px) 44vw, 260px" alt="Protection intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Boundaries<span class="more"> &middot; grounded confidence</span></div><div class="t">Protection</div></div></a><a class="int" href="intention/abundance/"><img src="assets/img/wealth.jpg" srcset="assets/img/wealth-480.jpg 480w, assets/img/wealth-720.jpg 720w, assets/img/wealth.jpg 1080w" sizes="(max-width:840px) 44vw, 260px" alt="Abundance intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Momentum<span class="more"> &middot; opportunity</span></div><div class="t">Abundance</div></div></a><a class="int" href="intention/calm/"><img src="assets/img/calm-pool.jpg" srcset="assets/img/calm-pool-480.jpg 480w, assets/img/calm-pool-720.jpg 720w, assets/img/calm-pool.jpg 1080w" sizes="(max-width:840px) 44vw, 260px" alt="A woman standing by a pool with her eyes closed" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Steadiness<span class="more"> &middot; nervous-system ease</span></div><div class="t">Calm</div></div></a><a class="int" href="intention/connection/"><img src="assets/img/love-hands.jpg" srcset="assets/img/love-hands-480.jpg 480w, assets/img/love-hands-720.jpg 720w, assets/img/love-hands.jpg 1080w" sizes="(max-width:840px) 44vw, 260px" alt="Two open hands holding crystals over a pink pillow" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Heart-opening<span class="more"> &middot; connection</span></div><div class="t">Love</div></div></a><a class="int" href="intention/clarity/"><img src="assets/img/clarity.jpg" srcset="assets/img/clarity-480.jpg 480w, assets/img/clarity-720.jpg 720w, assets/img/clarity.jpg 1080w" sizes="(max-width:840px) 90vw, 260px" alt="Clarity and Intuition intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Focus<span class="more"> &middot; intuition</span></div><div class="t">Clarity</div></div></a></div>
+    <!-- Sept 11, Sara (homepage Loom, 1:22): "I liked it better when it was Shop by
+         How You Want to Feel and it was more pulled out... have a CTA to shop
+         all intentions". The headline comes back out of the grid, above the
+         five tiles, with that call beside it. -->
+    <div class="int-head reveal">
+      <div><h2>Shop by how you want to <em>feel.</em></h2>
+      <p>No need to know a crystal by name.</p></div>
+      <a class="link" href="intention/">Shop all intentions <span class="a">&rarr;</span></a>
+    </div>
+    <div class="int-grid reveal"><a class="int" href="intention/protection/"><img src="assets/img/protection.jpg" srcset="assets/img/protection-480.jpg 480w, assets/img/protection-720.jpg 720w, assets/img/protection.jpg 1080w" sizes="(max-width:840px) 44vw, 260px" alt="Protection intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Boundaries<span class="more"> &middot; grounded confidence</span></div><div class="t">Protection</div></div></a><a class="int" href="intention/abundance/"><img src="assets/img/wealth.jpg" srcset="assets/img/wealth-480.jpg 480w, assets/img/wealth-720.jpg 720w, assets/img/wealth.jpg 1080w" sizes="(max-width:840px) 44vw, 260px" alt="Abundance intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Momentum<span class="more"> &middot; opportunity</span></div><div class="t">Abundance</div></div></a><a class="int" href="intention/calm/"><img src="assets/img/calm-pool.jpg" srcset="assets/img/calm-pool-480.jpg 480w, assets/img/calm-pool-720.jpg 720w, assets/img/calm-pool.jpg 1080w" sizes="(max-width:840px) 44vw, 260px" alt="A woman standing by a pool with her eyes closed" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Steadiness<span class="more"> &middot; nervous-system ease</span></div><div class="t">Calm</div></div></a><a class="int" href="intention/connection/"><img src="assets/img/love-hands.jpg" srcset="assets/img/love-hands-480.jpg 480w, assets/img/love-hands-720.jpg 720w, assets/img/love-hands.jpg 1080w" sizes="(max-width:840px) 44vw, 260px" alt="Two open hands holding crystals over a pink pillow" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Heart-opening<span class="more"> &middot; connection</span></div><div class="t">Love</div></div></a><a class="int" href="intention/clarity/"><img src="assets/img/clarity.jpg" srcset="assets/img/clarity-480.jpg 480w, assets/img/clarity-720.jpg 720w, assets/img/clarity.jpg 1080w" sizes="(max-width:840px) 90vw, 260px" alt="Clarity and Intuition intention" loading="lazy" decoding="async"><div class="int-light" aria-hidden="true"></div><div class="int-label"><div class="n">Focus<span class="more"> &middot; intuition</span></div><div class="t">Clarity</div></div></a></div>
     <!-- One call here on purpose. A Shop All button briefly sat beside this one, on
          the reasoning that /shop/ is reachable from the footer and the Shop menu and
          from nowhere in the body of the front page - but two calls under five
@@ -2148,53 +2160,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
 
 
 
-<!-- ===== FREQUENCY (dark) =====
-     Copy is the approved "Frequency Tools Feature" module, verbatim. The
-     readout ticks through all seven and the device follows it — seven real
-     photographs, cross-faded. The WebGL device that used to mount here is
-     gone: it rendered one generic body with no notion of frequency, so it
-     could not follow the readout, and it cost 666KB of three.js to do it. -->
-<!-- The one section on the page that is literally about waves had none of
-     them. Same .sinemark the quiz and founders blocks use - three paths,
-     380 bytes, currentColor - so it costs one more compositor-only drift
-     and no new CSS. The .b variant is the tall one, which sits behind the
-     generator rather than across the type. -->
-<section class="section freq has-sine" id="freq" aria-label="Frequency generators">
-  <div class="sinemark b" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
-  <div class="wrap split">
-    <div class="copy reveal">
-      <h2>Frequency, made simple.</h2>
-      <div class="freq-hz"><span id="freqhz">7.83</span><em>Hz</em></div>
-      <svg class="mini-wave" viewBox="0 0 190 22" aria-hidden="true" focusable="false">
-        <path d="M0,11 C24,1 47,21 71,11 S118,1 142,11 S166,21 190,11"/>
-      </svg>
-      <!-- Where to put one - the desk, the bedside - is what /frequency/ is for:
-           every generator there carries its own placement line. Two sentences is
-           what this column can hold beside the device without running past it. -->
-      <p>Energy Muse frequency generators are where wellness meets tech. These devices are
-        precision-crafted to emit specific frequencies, so you&rsquo;re always in control of how
-        your space feels.</p>
-      <!-- One call. Both buttons pointed at the same page after the shop link
-           was given a real destination, and two identical destinations is one
-           button too many. /frequency/ carries the shop, the routine, what
-           people notice, and the science; it offers the film from there. -->
-      <div class="cta-row">
-        <a class="btn btn-copper" href="frequency/">Shop Frequency Generators</a>
-      </div>
-      <p class="freq-note">Not medical devices, and not a substitute for healthcare.</p>
-    </div>
-    <!-- The readout ticks through all seven, and the device follows it now.
-         It used to hold one fixed image of a copper-bodied 528 while the
-         number counted past it, because this column was selling that copper
-         device — a product that does not exist anywhere in Energy Muse's
-         catalogue. So the front door advertised a fiction AND disagreed with
-         its own readout. Seven real photographs, cross-faded. -->
-    <div class="media live3d">
-      <img id="freq-poster" src="assets/img/generators/7-83.png" alt="The 7.83Hz frequency generator" decoding="async">
-      <img id="freq-poster2" src="assets/img/generators/7-83.png" alt="" aria-hidden="true" decoding="async">
-    </div>
-  </div>
-</section>
+
 
 <!-- Sept 7: the shop row now follows the frequency section rather than the
      intention cards. Sara (review, 0:49), with both rows on her screen: "the
@@ -2227,7 +2193,7 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
            only sentence here that says something. -->
       <div class="rowlabel">
         <div><h2>One for each <em class="hl gemword">intention.</em></h2></div>
-        <a class="link" href="gems/">Shop all crystals <span class="a">&rarr;</span></a>
+        <a class="link" href="shop/">Shop all <span class="a">&rarr;</span></a>
       </div>
     </div>
     <div class="store-grid" id="store-grid"></div>
@@ -2379,16 +2345,10 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   </div>
 </section>
 
-<!-- ===== EMAIL, mid-page ===== capture is repeated, not saved for the footer -->
-<!-- "Small practices that make real progress" — the 1-2-3 sequence — is gone.
-     It was the third time this page explained how to begin, after the hero
-     and after "Your first step can be simple", which offers the same four
-     routes in more detail and stays.
 
-     The Learning Center below is NOT the same thing and stays too: it is a
-     directory of guides, not another onboarding lesson. -->
+</main>
 
-<!-- ===== LEARN + VEZA ===== -->
+<!-- ===== FOOTER ===== -->
 <section class="section has-sine" id="learn2">
   <div class="sinemark b" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
   <div class="wrap duo">
@@ -2438,45 +2398,55 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
   </div>
 </section>
 
-
-
-<!-- ===== FINAL CTA =====
-     Back, on Clay's word, and plain: the approved copy asks for it and the
-     version removed earlier carried a scanned-crystal canvas that was never
-     sized. Headline, line, two buttons. -->
-<!-- The closing CTA is gone. By the time you reached it the page had already
-     offered the quiz in the announcement bar, in the hero, and in its own
-     "Not sure where to begin?" section — and "Shop by Intention" is now a
-     nav item. A fourth ask, made after everything else has been said. -->
-
-
-
-<!-- The one general email ask, and it comes last on purpose. It used to sit
-     between the founders block and the Learn/Veza pair, which split those two
-     apart and dropped a conversion ask into the middle of the reading. After
-     the customer quotes it has something to stand on.
-     Sept 7: the quotes moved up the page (Sara asked whether reviews should
-     sit higher; Clay said move them), so this now follows Learn and Veza. -->
-<section class="subband" aria-label="Email signup">
-  <div class="wrap">
-    <div>
-      <!-- The approved copy calls this module "Let's stay connected" (Website Copy
-           Re-write, Email Capture). We had our own heading and body here; these are
-           theirs, word for word. The button stays "Join" until the form has
-           somewhere to send an address - their label is "Join the Energy Muse List",
-           which promises a list to join, and this one still drops what it is given. -->
-      <h3>Let&rsquo;s stay connected</h3>
-      <p>New practices, founder guidance and early access &mdash; sent with intention.</p>
+<!-- Sept 11, Sara (homepage Loom, 1:22): the dark frequency section "last" -->
+<!-- ===== FREQUENCY (dark) =====
+     Copy is the approved "Frequency Tools Feature" module, verbatim. The
+     readout ticks through all seven and the device follows it — seven real
+     photographs, cross-faded. The WebGL device that used to mount here is
+     gone: it rendered one generic body with no notion of frequency, so it
+     could not follow the readout, and it cost 666KB of three.js to do it. -->
+<!-- The one section on the page that is literally about waves had none of
+     them. Same .sinemark the quiz and founders blocks use - three paths,
+     380 bytes, currentColor - so it costs one more compositor-only drift
+     and no new CSS. The .b variant is the tall one, which sits behind the
+     generator rather than across the type. -->
+<section class="section freq has-sine" id="freq" aria-label="Frequency generators">
+  <div class="sinemark b" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
+  <div class="wrap split">
+    <div class="copy reveal">
+      <h2>Frequency, made simple.</h2>
+      <div class="freq-hz"><span id="freqhz">7.83</span><em>Hz</em></div>
+      <svg class="mini-wave" viewBox="0 0 190 22" aria-hidden="true" focusable="false">
+        <path d="M0,11 C24,1 47,21 71,11 S118,1 142,11 S166,21 190,11"/>
+      </svg>
+      <!-- Where to put one - the desk, the bedside - is what /frequency/ is for:
+           every generator there carries its own placement line. Two sentences is
+           what this column can hold beside the device without running past it. -->
+      <p>Energy Muse frequency generators are where wellness meets tech. These devices are
+        precision-crafted to emit specific frequencies, so you&rsquo;re always in control of how
+        your space feels.</p>
+      <!-- One call. Both buttons pointed at the same page after the shop link
+           was given a real destination, and two identical destinations is one
+           button too many. /frequency/ carries the shop, the routine, what
+           people notice, and the science; it offers the film from there. -->
+      <div class="cta-row">
+        <a class="btn btn-copper" href="frequency/">Shop Frequency Generators</a>
+      </div>
+      <p class="freq-note">Not medical devices, and not a substitute for healthcare.</p>
     </div>
-    <form class="sub-inline" data-sub novalidate>
-      <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" required>
-      <button type="submit">Join</button>
-    </form>
+    <!-- The readout ticks through all seven, and the device follows it now.
+         It used to hold one fixed image of a copper-bodied 528 while the
+         number counted past it, because this column was selling that copper
+         device — a product that does not exist anywhere in Energy Muse's
+         catalogue. So the front door advertised a fiction AND disagreed with
+         its own readout. Seven real photographs, cross-faded. -->
+    <div class="media live3d">
+      <img id="freq-poster" src="assets/img/generators/7-83.png" alt="The 7.83Hz frequency generator" decoding="async">
+      <img id="freq-poster2" src="assets/img/generators/7-83.png" alt="" aria-hidden="true" decoding="async">
+    </div>
   </div>
 </section>
-</main>
 
-<!-- ===== FOOTER ===== -->
 <footer class="site" id="learn">
   <div class="wrap foot-wrap">
     <div class="foot-mark" aria-hidden="true">
@@ -2486,10 +2456,17 @@ h1:has(> .s), h2:has(> .s){max-width:min(34ch,100%)}
     <div class="foot-grid">
       <div class="foot-brand"><svg class="blogo" viewBox="0 0 1167 247.5" role="img" aria-label="Energy Muse" style="height:34px"><use href="#em-logo"/></svg>
         <p>Guided energy for real life.<span class="foot-more"> Crystal jewelry, natural crystals, frequency and personal guidance &mdash; created to help you choose with confidence and build a practice that fits.</span></p>
-        <!-- one handle across the three that matter for this brand; Twitter and
-             Pinterest were left off on purpose (Clay) -->
+        <!-- Sept 11, Deanna via Sara (homepage Loom, 0:53): "move the email opt-in to
+             the footer, that way it's on every single page". The inner pages' footer
+             already carried it; this is the homepage catching up, same words. -->
+        <div class="foot-sub"><h3>Let&rsquo;s stay connected</h3>
+          <p>New practices, founder guidance and early access &mdash; sent with intention.</p>
+          <form class="sub-inline" data-sub novalidate>
+            <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" required>
+            <button type="submit">Join</button>
+          </form></div>
         <div class="foot-social"><span>@energymuse</span><a href="https://www.instagram.com/energymuse/" target="_blank" rel="noopener" aria-label="Energy Muse on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@energymuse" target="_blank" rel="noopener" aria-label="Energy Muse on TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 3v11.2a3.3 3.3 0 1 1-3.3-3.3"/><path d="M13.5 3c.4 2.6 2.2 4.4 4.8 4.8"/></svg></a><a href="https://www.youtube.com/user/EnergyMuse" target="_blank" rel="noopener" aria-label="Energy Muse on YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.2v5.6l4.8-2.8z" fill="currentColor" stroke="none"/></svg></a></div></div>
-      <div class="foot-col"><h3>Start Here</h3><a href="quiz/">Energy Quiz</a><a href="faq/">How it works</a><a href="intention/">By Intention</a><a href="try/">Make it yours</a></div>
+      <div class="foot-col"><h3>Start Here</h3><a href="quiz/">Energy Quiz</a><a href="shop/?new=1">What&rsquo;s New</a><a href="faq/">How it works</a><a href="intention/">By Intention</a><a href="try/">Personalize it</a></div>
       <!-- Sept 9: five links a column. Sara (review, 2:00): the footer "seems a
            little bit long", though "it has absolutely everything". The columns
            are still the site map; the pages that belong to another page
@@ -2985,7 +2962,7 @@ document.querySelectorAll('.reel[data-video]').forEach(function(r){
   else ready();
 })();
 </script>
-<script src="/assets/em-header.js?v=51" defer></script>
+<script src="/assets/em-header.js?v=53" defer></script>
 <script>
 /* The hero's band is the screen minus the header, and the header's height was
    guessed in CSS - 178px with the announcement bar, 90 without. It is measured

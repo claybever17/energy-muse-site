@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
 <script src="/assets/em-frequencies.js?v=6"></script>
-<script src="/assets/em-header.js?v=51" defer></script>
+<script src="/assets/em-header.js?v=53" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
 <script src="/assets/em-prices.js?v=4" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
@@ -356,6 +356,12 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 .specc .k{display:block;font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
 .specc .v{display:block;font-family:var(--serif);font-size:clamp(17px,1.6vw,21px);line-height:1.2;margin-top:6px;color:var(--ink)}
 @media (max-width:700px){.specrow{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.specc{padding:12px 14px}}
+/* Sept 11, Sara (collection Loom, 7:53): "remove this spinning logo... especially
+   this page, because there's a lot going on". The shared first-section mark stays
+   on the collection pages, where she was fine with it. */
+.sect:first-of-type::before{display:none}
+#why p{max-width:62ch;color:var(--ink-soft);font-size:16px;line-height:1.6;margin-top:12px}
+#why .specrow{margin-top:clamp(22px,3vw,34px)}
 </style>
 </head><body>
 <script>if(/[?&]nofilm=1/.test(location.search))document.documentElement.classList.add('nofilm');</script>
@@ -402,6 +408,25 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
   </div>
 </section>
 </div>
+
+<!-- Sept 11, Sara (collection Loom, 9:03): "somewhere on this page we should add
+     the text about your space shapes more than you think... maybe before the
+     tune". The copy doc's What It Is block, her words, and the device in
+     numbers moved up here with it (9:42: "I don't know if it should be down
+     here"). -->
+<section class="sect" id="why">
+  <div class="wrap">
+    <h2>Your space shapes you more than you <em class="hl gemword">think.</em></h2>
+    <p>The rooms you live, work, and rest in have their own energy &mdash; and that energy affects how you feel every day. Frequency is one of the fastest ways to shape it.</p>
+    <p>Each Energy Muse frequency generator is tuned to a specific frequency and designed for intentional use in a room, workspace, or personal practice.</p>
+    <div class="specrow" aria-label="The device in numbers">
+      <div class="specc"><span class="k">Range</span><span class="v">308 sq. ft</span></div>
+      <div class="specc"><span class="k">Battery</span><span class="v">Up to 7 days</span></div>
+      <div class="specc"><span class="k">Field</span><span class="v">Silent. No sound, no app</span></div>
+      <div class="specc"><span class="k">Signal</span><span class="v">One fixed frequency</span></div>
+    </div>
+  </div>
+</section>
 
 <section class="sect" id="all">
   <div class="sinemark c" aria-hidden="true"><svg viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0,110 C83,26 167,26 250,110 S417,194 500,110 S667,26 750,110 S917,194 1000,110"/><path d="M0,132 C90,60 180,58 268,120 S440,196 520,124 S690,44 772,116 S930,182 1000,140"/><path d="M0,88 C74,150 158,158 246,96 S404,20 496,92 S672,170 760,104 S918,40 1000,78"/></svg></div>
@@ -471,16 +496,6 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 </section>
 <section class="sect">
   <div class="wrap">
-    <!-- Sept 9: the device in numbers. Sara's note on the brief's frequency
-         page: "This should be the spec / how the generator works. All the
-         technicality." Four facts, all theirs: the instruction card for range
-         and battery, their product copy for silent and fixed. -->
-    <div class="specrow" aria-label="The device in numbers">
-      <div class="specc"><span class="k">Range</span><span class="v">308 sq. ft</span></div>
-      <div class="specc"><span class="k">Battery</span><span class="v">Up to 7 days</span></div>
-      <div class="specc"><span class="k">Field</span><span class="v">Silent. No sound, no app</span></div>
-      <div class="specc"><span class="k">Signal</span><span class="v">One fixed frequency</span></div>
-    </div>
     <h2>Why a fixed frequency reaches further.</h2>
     <!-- Seven lines on a phone about oscillators and tensor coils, before the
          reader has decided they want one. The first sentence is the claim; the
@@ -537,7 +552,7 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
       <div><h3>The integration</h3><p>Over time, people often say the space simply feels more like their
         own &mdash; a place they return to on purpose.</p></div>
     </div>
-    <div class="cta-row"><a class="btn btn-ghost" href="/faq/">Read the FAQs</a></div>
+    <div class="cta-row"><a class="btn btn-ghost" href="/faq/#frequency">Read the FAQs</a></div>
   </div>
 </section>
 

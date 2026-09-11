@@ -671,6 +671,7 @@ function buildGems(){
   });
 }
 
+var fillN=0;
 document.getElementById('compose').addEventListener('click',function(){
   /* fills what is left, cheapest-first within the chosen intention so the
      suggestion is a starting point rather than the most expensive box we
@@ -678,8 +679,12 @@ document.getElementById('compose').addEventListener('click',function(){
   var pool=GEMS.filter(function(g){return cat==='All'||g.cat===cat;})
                .slice().sort(function(a,b){return a.price-b.price;});
   if(!pool.length)return;
-  var i=0;
-  while(box.length<boxN){box.push(pool[i%pool.length].slug);i++;}
+  /* Sept 11, Sara (builder Loom, 2:12): "fill it for me always gives you the same
+     option". Each press starts further along the pool, and every other press
+     walks it the other way, so the box comes out different. */
+  fillN++;
+  var i=fillN%pool.length; var step=(fillN%2===0)?-1:1;
+  while(box.length<boxN){box.push(pool[((i%pool.length)+pool.length)%pool.length].slug);i+=step;}
   sync();toast('Filled '+BOXES.filter(function(b){return b.n===boxN;})[0].label);
 });
 document.getElementById('clear').addEventListener('click',function(){box=[];sync();});

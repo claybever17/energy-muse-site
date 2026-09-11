@@ -17,7 +17,7 @@
 <meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <link rel="icon" type="image/svg+xml" href="../../assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="../../assets/img/favicon.png">
-<script src="../../assets/em-header.js?v=51" defer></script>
+<script src="../../assets/em-header.js?v=53" defer></script>
 <script src="/assets/em-search.js?v=11" defer></script>
 <script src="../../assets/em-catalog.js?v=26" defer></script>
 <script src="/assets/em-more.js?v=1"></script>
@@ -378,6 +378,11 @@ p{text-wrap:pretty;}
 @media (max-width:560px){ .qwrap .qbag,.qbag{width:auto;height:auto;min-height:44px;right:auto;bottom:auto} }
 /* Sept 7: their three words under the name where the page has them, the category otherwise */
 .icard .sg{white-space:normal;line-height:1.45}
+/* Sept 11, Sara (intention Loom): generator cards sat on a cream ground and
+   looked smaller; white, like the rest. The three words on every card, from the
+   catalogue, the way the grid below already had them. */
+.hcard img,.hcard img.plate{background:#fff}
+.hcard .tw{display:block;font-family:var(--sans);font-weight:600;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);line-height:1.45;margin-top:4px}
 </style></head><body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <symbol id="em-logo" viewBox="0 0 1167 247.5">
@@ -406,8 +411,8 @@ p{text-wrap:pretty;}
   <div>
     <span class="eyebrow">Clarity</span>
     <h1>Clear your <em class="hl gemword">mind.</em></h1>
-    <p class="lead">A quiet opening. A steadier thought.</p>
-    <p class="lead-s">When your mind feels crowded, clarity begins as a quiet opening.</p>
+    <p class="lead">When your mind feels crowded, clarity can begin as a quiet opening, a steadier thought, a renewed sense of focus, or the feeling of moving back into flow. Choose tools that help clear the noise, stay open to new perspective, and reconnect with what guides your next step.</p>
+    <p class="lead-s">When your mind feels crowded, clarity can begin as a quiet opening.</p>
     <div class="hfav">
       <span class="k">Founder favorites</span>
       <div class="row">
@@ -508,4 +513,10 @@ document.querySelectorAll('.radd').forEach(function(b){
 })();
 </script>
 <script src="/assets/em-depth.js?v=3" defer></script>
+<script>
+/* the three words on the founder-favorites cards, from the catalogue record each
+   card's button already names */
+(function(){function go(){if(!window.EM_CATALOG)return;document.querySelectorAll('.hcard').forEach(function(c){var b=c.querySelector('button[data-id]'),st=c.querySelector('strong');if(!b||!st||c.querySelector('.tw'))return;var q=EM_CATALOG.get(b.getAttribute('data-id'));if(q&&q.three){var t=document.createElement('span');t.className='tw';t.textContent=q.three.join(' \u00b7 ');st.insertAdjacentElement('afterend',t);}});}
+if(window.EM_CATALOG)go();else window.addEventListener('load',go);})();
+</script>
 </body></html>

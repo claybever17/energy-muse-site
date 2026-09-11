@@ -2,10 +2,10 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Energy Muse &#8212; Atelier &middot; Design Your Own</title>
+<title>Energy Muse &#8212; Build your own bracelet</title>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Energy Muse">
-<meta property="og:title" content="Energy Muse — Atelier">
+<meta property="og:title" content="Energy Muse — Build your own bracelet">
 <meta property="og:description" content="Design your own bracelet, bead by bead.">
 <meta property="og:url" content="https://energy-muse-workingfolder.vercel.app/designer/">
 <meta property="og:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
@@ -13,7 +13,7 @@
 <meta property="og:image:height" content="1260">
 <meta property="og:image:alt" content="A woman lying on teal, laughing, an arc of clear quartz laid around her head">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Energy Muse — Atelier">
+<meta name="twitter:title" content="Energy Muse — Build your own bracelet">
 <meta name="twitter:description" content="Design your own bracelet, bead by bead.">
 <meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 
@@ -400,7 +400,7 @@ p{text-wrap:pretty}
     <div class="stage" id="stage">
       <canvas id="strand"></canvas>
       <div class="read r-size"><span class="k">Size</span><b id="wval">7&frac12;&Prime;</b><span id="wsub">24 beads</span></div>
-      <div class="read r-total"><span class="k">Total</span><b id="tval">&mdash;</b><span>illustrative</span></div>
+      <div class="read r-total"><span class="k">Total</span><b id="tval">&mdash;</b></div>
       <div class="sig" id="sig"></div>
       <div class="stagenote" id="note">Tap a stone to add &middot; drag to rearrange</div>
     </div>
@@ -431,7 +431,7 @@ p{text-wrap:pretty}
         <button class="btn btn-g" id="share">Copy share link</button>
         <button class="btn btn-g" id="clear">Start over</button>
       </div>
-      <p class="disc">Pricing shown is illustrative for this prototype. Energy Muse products are intended for personal practice and general wellbeing &mdash; not medical devices, and not a substitute for healthcare.</p>
+      <p class="disc">Energy Muse products are intended for personal practice and general wellbeing &mdash; not medical devices, and not a substitute for healthcare.</p>
     </div>
   </aside>
 </div>
@@ -991,6 +991,7 @@ function addBead(id){
   invalidate();sync();
 }
 
+var composeN=0;
 document.getElementById('compose').addEventListener('click',function(){
   var r=RECIPES[tab]||[];
   if(tab==='*'){
@@ -1003,8 +1004,14 @@ document.getElementById('compose').addEventListener('click',function(){
     }
   }
   if(!r.length)return;
+  /* Sept 11, Sara (builder Loom, 0:48): "if I start over, it's still giving me
+     the same one... suggest a different design". Each press turns the recipe:
+     the focal stone stays, the companions rotate and, every other press, run
+     the other way round the wrist. */
+  composeN++;
+  var rot=composeN%r.length, seq=r.slice(rot).concat(r.slice(0,rot)); if(composeN%2===0)seq.reverse();
   /* the pattern repeats around the whole wrist, so the strand is a real one */
-  strand=[];for(var i=0;i<stoneCount();i++)strand.push(r[i%r.length]);
+  strand=[];for(var i=0;i<stoneCount();i++)strand.push(seq[i%seq.length]);
   ensureRondelle();
   anim=strand.map(function(_,i){return {born:performance.now()+i*32};});
   pulse=performance.now();
