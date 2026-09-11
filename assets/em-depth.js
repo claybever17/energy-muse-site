@@ -78,7 +78,9 @@ function boot(){
   '.btn-c:hover,.cta:hover,.btn.primary:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.26),inset 0 -1px 0 rgba(0,0,0,.22),var(--em-lift);}',
 
   /* hairline separators gain a highlight edge — one pixel of relief */
-  'header,.trust,.band{box-shadow:0 1px 0 '+(dark?'rgba(255,255,255,.05)':'rgba(255,255,255,.8)')+';}',
+  /* Sept 11, Clay: the trust strip's light edge read as a white line above the
+     intention headline, so .trust is out of this rule */
+  'header,.band{box-shadow:0 1px 0 '+(dark?'rgba(255,255,255,.05)':'rgba(255,255,255,.8)')+';}',
 
   '@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;}}'
   ]);
