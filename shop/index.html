@@ -20,14 +20,14 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
 <script src="/assets/em-frequencies.js?v=6"></script>
-<script src="/assets/em-catalog.js?v=30"></script>
+<script src="/assets/em-catalog.js?v=31"></script>
 <script src="/assets/em-more.js?v=1"></script>
 <script src="/assets/em-sort.js?v=2"></script>
 <script src="/assets/em-header.js?v=55" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
 <script src="/assets/em-prices.js?v=4" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
-<script src="/assets/em-search.js?v=11" defer></script>
+<script src="/assets/em-search.js?v=12" defer></script>
 <style>
 /* A shop landing is the one page where the pictures are the navigation, so
    this page carries three shapes the shared shell has no business owning:
@@ -406,7 +406,7 @@
 
   var CATS=[['Jewelry','Jewelry'],['Crystal','Crystals'],
             ['Frequency','Frequency'],['Kit|System','Kits & Sets'],['Tool','Tools & Accessories'],['','Shop all']];
-  var ALL=window.EM_CATALOG.all().filter(function(p){return p.cat!=='Class';}); /* classes live on the With Heather page */
+  var ALL=window.EM_CATALOG.all().filter(function(p){return p.cat!=='Class'&&!p.twin;}); /* classes live on the With Heather page; a twin is the Formulas page's copy of a tool sold once */
 
   CATS.forEach(function(c){
     var b=document.createElement('button');

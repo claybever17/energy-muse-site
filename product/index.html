@@ -20,14 +20,14 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
 <script src="/assets/em-frequencies.js?v=6"></script>
-<script src="/assets/em-catalog.js?v=30"></script>
+<script src="/assets/em-catalog.js?v=31"></script>
 <script src="/assets/em-generators.js?v=1"></script>
 <script src="/assets/em-stones.js?v=4"></script>
 <script src="/assets/em-header.js?v=55" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
 <script src="/assets/em-prices.js?v=4" defer></script>
 <script src="/assets/em-depth.js?v=3" defer></script>
-<script src="/assets/em-search.js?v=11" defer></script>
+<script src="/assets/em-search.js?v=12" defer></script>
 <style>
 /* One product, two columns: the thing on the left, the reason to want it on
    the right. Everything here is driven by ?id= — there is one of these pages,
@@ -540,7 +540,7 @@ function buildPanels(p){
   /* what goes with a generator is not the other six generators: the ring
      that wears the frequency, the Formula it belongs to, and the copper */
   function genRelated(G){
-    var ids = [G.ring].concat(G.formulas || [], ['copper-plate', 'copper-conductor', 'copper-spheres', 'copper-pyramid', 'frequency-bag']);
+    var ids = [G.ring].concat(G.formulas || [], ['solid-copper-plate', 'copper-conductor', 'copper-spheres', 'copper-pyramid', 'frequency-generator-bag']);
     return ids.map(function(i){ return i && C.get(i); }).filter(Boolean).slice(0, 8);
   }
   function genLead(G){

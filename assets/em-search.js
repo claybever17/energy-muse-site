@@ -55,7 +55,9 @@
     if (loading) return loading;
     var need = [];
     if (!window.EM_FREQ) need.push('/assets/em-frequencies.js?v=2');
-    if (!window.EM_CATALOG) need.push('/assets/em-catalog.js?v=1');
+    /* the catalogue at the version the page itself names, so a bump there is a
+       bump here; pages that do not carry it get the current one */
+    if (!window.EM_CATALOG) { var ct = document.querySelector('script[src*="em-catalog.js"]'); need.push(ct ? ct.getAttribute('src') : '/assets/em-catalog.js?v=31'); }
     loading = need.reduce(function (p, src) {
       return p.then(function () { return loadScript(src); });
     }, Promise.resolve()).then(function () {
@@ -64,6 +66,7 @@
       });
       if (window.EM_CATALOG) {
         window.EM_CATALOG.all().forEach(function (p) {
+          if (p.twin) return; /* the same product under the Formulas page's id */
           rows.push({
             title: p.name, url: '/product/?id=' + encodeURIComponent(p.id),
             cat: p.cat, sub: '$' + p.price.toFixed(2), img: p.img,
