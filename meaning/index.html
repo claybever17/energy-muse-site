@@ -174,6 +174,11 @@
 @media (max-width:700px){.mrail{grid-template-columns:1fr 1fr;gap:14px 12px}.mmodrow{grid-template-columns:1fr}}
 .mimg{margin:clamp(26px,3.4vw,44px) 0 clamp(26px,3.4vw,44px);max-width:880px}
 .mimg img{width:100%;display:block;border-radius:12px;aspect-ratio:3/2;object-fit:cover;box-shadow:var(--shadow,0 14px 34px rgba(61,41,23,.10))}
+.mfull h2{margin-bottom:6px}
+.mfull details.mref + details.mref{margin-top:0;border-top:0}
+.mfull .in p+p{margin-top:10px}
+.mfull .in ul,.mfull .in ol{margin:10px 0 10px 20px}
+.mfull .in li+li{margin-top:6px}
 </style>
 </head>
 <body>
@@ -209,6 +214,17 @@
   }
   var key = decodeURIComponent(qm[1]);
   var S = (window.EM_STONES || {})[key];
+  fetch('/assets/copy/meaning/' + encodeURIComponent(key) + '.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+    if (!d || !d.sections || !d.sections.length) return;
+    var box = document.getElementById('mfull'), inn = document.getElementById('mfull-in'); if (!box || !inn) return;
+    inn.innerHTML = d.sections.map(function (x) {
+      return '<details class="mref"><summary><span>' + esc(x.t) + '</span></summary><div class="in">' + x.html + '</div></details>';
+    }).join('');
+    box.hidden = false;
+    if (d.sections.some(function (x) { return /history|origin/i.test(x.t); })) {
+      var old = host.querySelector('.msec > details.mref'); if (old && old.parentElement && !old.closest('#mfull')) old.parentElement.hidden = true;
+    }
+  }).catch(function () {});
 
   if (!S) {
     host.innerHTML = '<div class="missing"><span class="eyebrow">Not found</span>'
@@ -347,6 +363,12 @@
         + 'or in a pocket for the day. Hold it and name what it is for; that is the whole practice, '
         + 'and the object is the reminder. Clear it with smoke, with sound, or simply by holding it '
         + 'and restating what it is for.</p>')
+    /* Sept 11, Sara (meaning Loom, 0:30): "make sure that all of the content that is on
+       the current page is carried over". Their page, in full, section by section,
+       as folds under the short version Heather asked for: assets/copy/meaning/<stone>.json,
+       pulled from energymuse.com. History and origin live in it, so the small fold
+       below gives way once it loads. */
+    + '<section class="msec mfull" id="mfull" hidden><h2>The full guide</h2><div id="mfull-in"></div></section>'
     + (ref ? '<section class="msec">' + ref + '</section>' : '')
     + shopAll
     + (others.length
