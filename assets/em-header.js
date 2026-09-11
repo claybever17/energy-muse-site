@@ -243,7 +243,10 @@ function boot(){
   var MENUS=[
     ['Shop',[['/jewelry/','Jewelry'],['/gems/','Crystals'],['/frequency/','Frequency'],['/sets/','Kits &amp; Sets'],['/energy-tools/','Tools &amp; Accessories'],'sep',['/shop/','Shop all']]],
     ['By Intention',[['/intention/protection/','Protection'],['/intention/abundance/','Abundance'],['/intention/connection/','Love'],['/intention/calm/','Calm'],['/intention/clarity/','Clarity'],'sep',['/intention/','All intentions']]],
-    ['Learn',[['/learn/','Learning Center'],['/meaning/','Crystal Meanings'],['/blog/','Journal']]]
+    /* Sept 11, Sara (nav Loom, 1:10): "originally it was proposed that there was like a
+       With Heather section, so I don't know that should be in there too". Under
+       Learn, once; it leaves the phone menu's second row so it stays in one place. */
+    ['Learn',[['/learn/','Learning Center'],['/meaning/','Crystal Meanings'],['/blog/','Journal'],['/heather/','With Heather']]]
   ];
   /* one dropdown: a button and its panel, the Shop panel's shape for all four */
   function dd(label,items){
@@ -299,7 +302,7 @@ function boot(){
               return '<a href="'+it[0]+'">'+it[1]+'</a>';}).join('')+'</div></div>';
       }).join('')
     +'<a href="/shop/?new=1">What&rsquo;s New</a><a href="/try/">Personalize it</a></nav>'
-    +'<div class="emh-menu-sec"><a href="/heather/">With Heather</a><a href="/veza/">Veza</a><a href="/about/">About</a></div>'
+    +'<div class="emh-menu-sec"><a href="/veza/">Veza</a><a href="/about/">About</a></div>'
     /* Search and Bag live in the menu now, not in the header bar. The
        homepage's own menu already had this row; this is the shared one
        catching up, so the two menus finally carry the same things. */
