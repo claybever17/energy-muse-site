@@ -32,7 +32,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>The thumb is associated with Venus, the planet of love, beauty, and creativity. Metaphysically, the thumb is associated with Mars, the planet of energy, action, and assertiveness, representing our willpower and drive to take action. Wearing crystals on the thumb aligns with Martian energies, fostering courage, determination, and the ability to overcome challenges. <a href=\"/shop/\" rel=\"noopener\">Red Jasper</a> and <a href=\"/shop/\" rel=\"noopener\">Carnelian</a> are particularly effective for this purpose. <a href=\"/shop/\" rel=\"noopener\">Red Jasper</a> enhances endurance, persistence, and protection during tough times, while <a href=\"/shop/\" rel=\"noopener\">Carnelian</a> stimulates motivation, bravery, and confidence, empowering individuals to pursue their goals with passion and assertiveness</p>"
+    "x": "<p>The thumb is associated with Venus, the planet of love, beauty, and creativity. Metaphysically, the thumb is associated with Mars, the planet of energy, action, and assertiveness, representing our willpower and drive to take action. Wearing crystals on the thumb aligns with Martian energies, fostering courage, determination, and the ability to overcome challenges. <a href=\"/product/?id=red-jasper-stone\" rel=\"noopener\">Red Jasper</a> and <a href=\"https://energymuse.com/collections/carnelian-crystals\" rel=\"noopener\" target=\"_blank\">Carnelian</a> are particularly effective for this purpose. <a href=\"/product/?id=red-jasper-stone\" rel=\"noopener\">Red Jasper</a> enhances endurance, persistence, and protection during tough times, while <a href=\"https://energymuse.com/collections/carnelian-crystals\" rel=\"noopener\" target=\"_blank\">Carnelian</a> stimulates motivation, bravery, and confidence, empowering individuals to pursue their goals with passion and assertiveness</p>"
    },
    {
     "t": "html",
@@ -40,7 +40,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>The index finger connects energetically to Jupiter, the planet of power, leadership, and expansion. This association underscores its role in representing our potential for growth, ambition, and leadership abilities. Wearing crystals on the index finger is intended to amplify confidence, foster personal growth, and enhance leadership capabilities. Crystals like <a href=\"/shop/\" rel=\"noopener\">Carnelian</a> and <a href=\"/shop/\" rel=\"noopener\">Citrine</a> are particularly beneficial. <a href=\"/shop/\" rel=\"noopener\">Carnelian</a> stimulates courage and motivation, empowering you to face challenges with confidence and seize new opportunities. <a href=\"/shop/\" rel=\"noopener\">Citrine</a>, known as the merchant's stone, attracts abundance and prosperity, promoting a positive outlook and effective leadership. </p>"
+    "x": "<p>The index finger connects energetically to Jupiter, the planet of power, leadership, and expansion. This association underscores its role in representing our potential for growth, ambition, and leadership abilities. Wearing crystals on the index finger is intended to amplify confidence, foster personal growth, and enhance leadership capabilities. Crystals like <a href=\"https://energymuse.com/collections/carnelian-crystals\" rel=\"noopener\" target=\"_blank\">Carnelian</a> and <a href=\"https://energymuse.com/collections/citrine-crystals\" rel=\"noopener\" target=\"_blank\">Citrine</a> are particularly beneficial. <a href=\"https://energymuse.com/collections/carnelian-crystals\" rel=\"noopener\" target=\"_blank\">Carnelian</a> stimulates courage and motivation, empowering you to face challenges with confidence and seize new opportunities. <a href=\"https://energymuse.com/collections/citrine-crystals\" rel=\"noopener\" target=\"_blank\">Citrine</a>, known as the merchant's stone, attracts abundance and prosperity, promoting a positive outlook and effective leadership. </p>"
    },
    {
     "t": "html",
@@ -48,7 +48,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>The middle finger is influenced by Saturn, symbolizing balance, responsibility, and discipline. It represents our ability to stay grounded, manage responsibilities, and uphold self-discipline. The intention behind wearing crystals on the middle finger is to bolster grounding and enhance stability. Crystals such as <a href=\"/shop/\" rel=\"noopener\">Black Tourmaline</a> and <a href=\"/shop/\" rel=\"noopener\">Onyx</a> are well-suited for this purpose. <a href=\"/shop/\" rel=\"noopener\">Black Tourmaline</a> is renowned for its grounding properties and protection against negative energies, promoting emotional stability and balance. <a href=\"/shop/\" rel=\"noopener\">Onyx</a> reinforces self-control and resilience, aiding in navigating challenges and maintaining emotional equilibrium. </p>"
+    "x": "<p>The middle finger is influenced by Saturn, symbolizing balance, responsibility, and discipline. It represents our ability to stay grounded, manage responsibilities, and uphold self-discipline. The intention behind wearing crystals on the middle finger is to bolster grounding and enhance stability. Crystals such as <a href=\"/product/?id=protection\" rel=\"noopener\">Black Tourmaline</a> and <a href=\"https://energymuse.com/collections/onyx-crystals\" rel=\"noopener\" target=\"_blank\">Onyx</a> are well-suited for this purpose. <a href=\"/product/?id=protection\" rel=\"noopener\">Black Tourmaline</a> is renowned for its grounding properties and protection against negative energies, promoting emotional stability and balance. <a href=\"https://energymuse.com/collections/onyx-crystals\" rel=\"noopener\" target=\"_blank\">Onyx</a> reinforces self-control and resilience, aiding in navigating challenges and maintaining emotional equilibrium. </p>"
    },
    {
     "t": "html",
@@ -56,7 +56,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>The ring finger holds a unique significance due to its connection with both the Sun and Venus. The Sun symbolizes life force, vitality, and personal power, while Venus represents love, beauty, and emotional depth. This dual association makes the ring finger a potent channel for enhancing personal power and emotional well-being. Wearing crystals on the ring finger amplifies one's life force, strengthens relationships, and promotes emotional harmony. Crystals such as <a href=\"/shop/\" rel=\"noopener\">Sunstone</a> and <a href=\"/shop/\" rel=\"noopener\">Moonstone</a> are effective for this purpose. <a href=\"/shop/\" rel=\"noopener\">Sunstone</a> enhances personal power and vitality, helping you overcome fears and embrace opportunities. <a href=\"/shop/\" rel=\"noopener\">Moonstone</a> fosters emotional balance and supports intuition, facilitating personal growth and harmonious relationships.</p>"
+    "x": "<p>The ring finger holds a unique significance due to its connection with both the Sun and Venus. The Sun symbolizes life force, vitality, and personal power, while Venus represents love, beauty, and emotional depth. This dual association makes the ring finger a potent channel for enhancing personal power and emotional well-being. Wearing crystals on the ring finger amplifies one's life force, strengthens relationships, and promotes emotional harmony. Crystals such as <a href=\"https://energymuse.com/collections/sunstone-crystals\" rel=\"noopener\" target=\"_blank\">Sunstone</a> and <a href=\"https://energymuse.com/collections/moonstone-crystals\" rel=\"noopener\" target=\"_blank\">Moonstone</a> are effective for this purpose. <a href=\"https://energymuse.com/collections/sunstone-crystals\" rel=\"noopener\" target=\"_blank\">Sunstone</a> enhances personal power and vitality, helping you overcome fears and embrace opportunities. <a href=\"https://energymuse.com/collections/moonstone-crystals\" rel=\"noopener\" target=\"_blank\">Moonstone</a> fosters emotional balance and supports intuition, facilitating personal growth and harmonious relationships.</p>"
    },
    {
     "t": "html",
@@ -64,7 +64,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>The little finger is connected to Mercury, the planet of communication, intelligence, and intuition. This association highlights its role in articulating thoughts, forging connections, and enhancing intuitive insights. Wearing crystals on the little finger refines communication skills and boosts intuitive abilities. Crystals such as <a href=\"/shop/\" rel=\"noopener\">Aquamarine</a> and <a href=\"/shop/\" rel=\"noopener\">Amethyst</a> are particularly beneficial. <a href=\"/shop/\" rel=\"noopener\">Aquamarine</a> promotes clear communication and calmness, aiding in articulating thoughts and engaging in peaceful dialogue. <a href=\"/shop/\" rel=\"noopener\">Amethyst</a> enhances mental clarity and supports emotional stability, deepening intuitive insights and spiritual awareness.</p>"
+    "x": "<p>The little finger is connected to Mercury, the planet of communication, intelligence, and intuition. This association highlights its role in articulating thoughts, forging connections, and enhancing intuitive insights. Wearing crystals on the little finger refines communication skills and boosts intuitive abilities. Crystals such as <a href=\"https://energymuse.com/collections/aquamarine-crystals\" rel=\"noopener\" target=\"_blank\">Aquamarine</a> and <a href=\"/gems/?stone=amethyst\" rel=\"noopener\">Amethyst</a> are particularly beneficial. <a href=\"https://energymuse.com/collections/aquamarine-crystals\" rel=\"noopener\" target=\"_blank\">Aquamarine</a> promotes clear communication and calmness, aiding in articulating thoughts and engaging in peaceful dialogue. <a href=\"/gems/?stone=amethyst\" rel=\"noopener\">Amethyst</a> enhances mental clarity and supports emotional stability, deepening intuitive insights and spiritual awareness.</p>"
    },
    {
     "t": "html",
@@ -80,7 +80,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p> For those born under Aries (March 21 - April 19), the ideal placement for harnessing their dynamic energies is the index finger. The crystals <a href=\"/shop/\" rel=\"noopener\">Carnelian</a> and Red Jasper are particularly effective. <a href=\"/shop/\" rel=\"noopener\">Carnelian</a> stimulates bravery and motivation, amplifying courage and drive, while Red Jasper offers grounding and revitalization, enhancing determination and persistence. Together, these crystals support Aries' inherent leadership qualities and energetic nature, helping them tackle challenges with confidence and resolve. The <a href=\"https://energymuse.com/products/carnelian-crystal-ring?_pos=1&amp;_sid=e68d003f4&amp;_ss=r\" rel=\"noopener\"><strong>Carnelian Crystal Ring</strong></a> and <a href=\"https://energymuse.com/products/wealth-crystal-ring?_pos=1&amp;_sid=88091da2e&amp;_ss=r\" rel=\"noopener\"><strong>Wealth Crystal Ring</strong></a> are ideal for amplifying Aries' boldness and leadership, making them unstoppable in their pursuits.</p>"
+    "x": "<p> For those born under Aries (March 21 - April 19), the ideal placement for harnessing their dynamic energies is the index finger. The crystals <a href=\"https://energymuse.com/collections/carnelian-crystals\" rel=\"noopener\" target=\"_blank\">Carnelian</a> and Red Jasper are particularly effective. <a href=\"https://energymuse.com/collections/carnelian-crystals\" rel=\"noopener\" target=\"_blank\">Carnelian</a> stimulates bravery and motivation, amplifying courage and drive, while Red Jasper offers grounding and revitalization, enhancing determination and persistence. Together, these crystals support Aries' inherent leadership qualities and energetic nature, helping them tackle challenges with confidence and resolve. The <a href=\"https://energymuse.com/products/carnelian-crystal-ring?_pos=1&amp;_sid=e68d003f4&amp;_ss=r\" rel=\"noopener\"><strong>Carnelian Crystal Ring</strong></a> and <a href=\"https://energymuse.com/products/wealth-crystal-ring?_pos=1&amp;_sid=88091da2e&amp;_ss=r\" rel=\"noopener\"><strong>Wealth Crystal Ring</strong></a> are ideal for amplifying Aries' boldness and leadership, making them unstoppable in their pursuits.</p>"
    },
    {
     "t": "html",
@@ -330,15 +330,15 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h2><a href=\"/shop/\" rel=\"noopener\"><strong>Smoky Quartz: The Stone of Stability</strong></a></h2>"
+    "x": "<h2><a href=\"https://energymuse.com/collections/smoky-quartz-crystals\" rel=\"noopener\" target=\"_blank\"><strong>Smoky Quartz: The Stone of Stability</strong></a></h2>"
    },
    {
     "t": "html",
-    "x": "<p><a href=\"/shop/\" rel=\"noopener\">Smoky Quartz</a> is renowned for its ability to ground energy and remove negativity. As one of the most powerful grounding stones, it helps absorb and neutralize negative thoughts, emotions, and energy. This crystal is perfect for navigating fall’s emotional transitions, as it clears mental fog, stabilizes mood swings, and promotes a sense of calm and protection.</p>"
+    "x": "<p><a href=\"https://energymuse.com/collections/smoky-quartz-crystals\" rel=\"noopener\" target=\"_blank\">Smoky Quartz</a> is renowned for its ability to ground energy and remove negativity. As one of the most powerful grounding stones, it helps absorb and neutralize negative thoughts, emotions, and energy. This crystal is perfect for navigating fall’s emotional transitions, as it clears mental fog, stabilizes mood swings, and promotes a sense of calm and protection.</p>"
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"/shop/\" rel=\"noopener\">Smoky Quartz </a>Key Properties:</h3>"
+    "x": "<h3><a href=\"https://energymuse.com/collections/smoky-quartz-crystals\" rel=\"noopener\" target=\"_blank\">Smoky Quartz </a>Key Properties:</h3>"
    },
    {
     "t": "html",
@@ -354,7 +354,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3>How to Use <a href=\"/shop/\" rel=\"noopener\">Smoky Quartz</a> in the Fall:</h3>"
+    "x": "<h3>How to Use <a href=\"https://energymuse.com/collections/smoky-quartz-crystals\" rel=\"noopener\" target=\"_blank\">Smoky Quartz</a> in the Fall:</h3>"
    },
    {
     "t": "html",
@@ -370,15 +370,15 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h2><a href=\"/shop/\" rel=\"noopener\"><strong>Hematite: The Stone of Grounded Strength</strong></a></h2>"
+    "x": "<h2><a href=\"https://energymuse.com/collections/hematite-crystals\" rel=\"noopener\" target=\"_blank\"><strong>Hematite: The Stone of Grounded Strength</strong></a></h2>"
    },
    {
     "t": "html",
-    "x": "<p><a href=\"/shop/\" rel=\"noopener\">Hematite</a> is well-known for its ability to ground and protect by providing a strong connection to the Earth’s core energies. Its dense, metallic composition gives it a naturally grounding vibration, which helps to balance emotions, promote mental clarity, and shield against negative influences. Hematite is particularly useful during the fall when emotional and mental imbalances are common due to the seasonal shift.</p>"
+    "x": "<p><a href=\"https://energymuse.com/collections/hematite-crystals\" rel=\"noopener\" target=\"_blank\">Hematite</a> is well-known for its ability to ground and protect by providing a strong connection to the Earth’s core energies. Its dense, metallic composition gives it a naturally grounding vibration, which helps to balance emotions, promote mental clarity, and shield against negative influences. Hematite is particularly useful during the fall when emotional and mental imbalances are common due to the seasonal shift.</p>"
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"/shop/\" rel=\"noopener\">Hematite </a>Key Properties:</h3>"
+    "x": "<h3><a href=\"https://energymuse.com/collections/hematite-crystals\" rel=\"noopener\" target=\"_blank\">Hematite </a>Key Properties:</h3>"
    },
    {
     "t": "html",
@@ -394,7 +394,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3>How to Incorporate <a href=\"/shop/\" rel=\"noopener\">Hematite</a>:</h3>"
+    "x": "<h3>How to Incorporate <a href=\"https://energymuse.com/collections/hematite-crystals\" rel=\"noopener\" target=\"_blank\">Hematite</a>:</h3>"
    },
    {
     "t": "html",
@@ -414,11 +414,11 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>- <a href=\"/shop/\" rel=\"noopener\">Black Tourmaline</a>: A powerful protective stone that grounds and dispels negative energy.</p>"
+    "x": "<p>- <a href=\"/product/?id=protection\" rel=\"noopener\">Black Tourmaline</a>: A powerful protective stone that grounds and dispels negative energy.</p>"
    },
    {
     "t": "html",
-    "x": "<p>- <a href=\"/shop/\" rel=\"noopener\">Red Jasper</a>: Known for its stabilizing influence, Red Jasper strengthens your sense of purpose and offers courage during transitions.</p>"
+    "x": "<p>- <a href=\"/product/?id=red-jasper-stone\" rel=\"noopener\">Red Jasper</a>: Known for its stabilizing influence, Red Jasper strengthens your sense of purpose and offers courage during transitions.</p>"
    },
    {
     "t": "html",
@@ -628,87 +628,87 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"/shop/\" rel=\"noopener\"><strong>Black Tourmaline: The Ultimate Protector</strong></a></h3>"
+    "x": "<h3><a href=\"/meaning/?stone=black-tourmaline\" rel=\"noopener\"><strong>Black Tourmaline: The Ultimate Protector</strong></a></h3>"
    },
    {
     "t": "html",
-    "x": "<p><a href=\"/shop/\" rel=\"noopener\">Black Tourmaline </a>is widely considered one of the most effective stones for protection. Its grounding energy forms a protective shield around the user, absorbing and neutralizing negative energy before it can affect the aura. <a href=\"/shop/\" rel=\"noopener\">Black Tourmaline</a> is particularly beneficial for those who are sensitive to electromagnetic frequencies (EMFs) or psychic attacks, as it helps block out unwanted influences.</p>"
+    "x": "<p><a href=\"/product/?id=protection\" rel=\"noopener\">Black Tourmaline </a>is widely considered one of the most effective stones for protection. Its grounding energy forms a protective shield around the user, absorbing and neutralizing negative energy before it can affect the aura. <a href=\"/product/?id=protection\" rel=\"noopener\">Black Tourmaline</a> is particularly beneficial for those who are sensitive to electromagnetic frequencies (EMFs) or psychic attacks, as it helps block out unwanted influences.</p>"
    },
    {
     "t": "html",
-    "x": "<p>- Carry it with you: Keep a piece of <a href=\"/shop/\" rel=\"noopener\">Black Tourmaline</a> in your pocket, purse, or wear it as jewelry to keep its protective energy close throughout the day.</p>"
+    "x": "<p>- Carry it with you: Keep a piece of <a href=\"/product/?id=protection\" rel=\"noopener\">Black Tourmaline</a> in your pocket, purse, or wear it as jewelry to keep its protective energy close throughout the day.</p>"
    },
    {
     "t": "html",
-    "x": "<p>- Place it in your home: Set <a href=\"/shop/\" rel=\"noopener\">Black Tourmaline</a> near doorways, windows, or electronic devices to create a protective shield around your living space.</p>"
+    "x": "<p>- Place it in your home: Set <a href=\"/product/?id=protection\" rel=\"noopener\">Black Tourmaline</a> near doorways, windows, or electronic devices to create a protective shield around your living space.</p>"
    },
    {
     "t": "html",
-    "x": "<p>- Meditate with it: Hold <a href=\"/shop/\" rel=\"noopener\">Black Tourmaline</a> in your hand during meditation to ground your energy and create a protective bubble around your aura. </p>"
+    "x": "<p>- Meditate with it: Hold <a href=\"/product/?id=protection\" rel=\"noopener\">Black Tourmaline</a> in your hand during meditation to ground your energy and create a protective bubble around your aura. </p>"
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"/shop/\" rel=\"noopener\"><strong>Labradorite: Shield of Mystical Energy</strong></a></h3>"
+    "x": "<h3><a href=\"/product/?id=labradorite-stone\" rel=\"noopener\"><strong>Labradorite: Shield of Mystical Energy</strong></a></h3>"
    },
    {
     "t": "html",
-    "x": "<p><a href=\"/shop/\" rel=\"noopener\">Labradorite</a> is a powerful stone of transformation and spiritual protection. Its shimmering surface reflects a variety of colors, symbolizing its ability to shield the aura and prevent energy leaks.<a href=\"/shop/\" rel=\"noopener\"> Labradorite </a>is particularly effective for those engaging in spiritual exploration, such as astral travel, meditation, or dreamwork, as it strengthens the aura and prevents spiritual fatigue.</p>"
+    "x": "<p><a href=\"/product/?id=labradorite-stone\" rel=\"noopener\">Labradorite</a> is a powerful stone of transformation and spiritual protection. Its shimmering surface reflects a variety of colors, symbolizing its ability to shield the aura and prevent energy leaks.<a href=\"/product/?id=labradorite-stone\" rel=\"noopener\"> Labradorite </a>is particularly effective for those engaging in spiritual exploration, such as astral travel, meditation, or dreamwork, as it strengthens the aura and prevents spiritual fatigue.</p>"
    },
    {
     "t": "html",
-    "x": "<p><em>How to Use <a href=\"/shop/\" rel=\"noopener\">Labradorite</a>:</em></p>"
+    "x": "<p><em>How to Use <a href=\"/product/?id=labradorite-stone\" rel=\"noopener\">Labradorite</a>:</em></p>"
    },
    {
     "t": "html",
-    "x": "<p>- During rituals or meditation: Place<a href=\"/shop/\" rel=\"noopener\"> Labradorite</a> on your altar or hold it during meditation to protect your energy as you explore deeper spiritual realms.</p>"
+    "x": "<p>- During rituals or meditation: Place<a href=\"/product/?id=labradorite-stone\" rel=\"noopener\"> Labradorite</a> on your altar or hold it during meditation to protect your energy as you explore deeper spiritual realms.</p>"
    },
    {
     "t": "html",
-    "x": "<p>- In dreamwork: Keep a piece of <a href=\"/shop/\" rel=\"noopener\">Labradorite</a> under your pillow to enhance spiritual dreams while shielding your energy during sleep.</p>"
+    "x": "<p>- In dreamwork: Keep a piece of <a href=\"/product/?id=labradorite-stone\" rel=\"noopener\">Labradorite</a> under your pillow to enhance spiritual dreams while shielding your energy during sleep.</p>"
    },
    {
     "t": "html",
-    "x": "<p>- Wear it: Wearing <a href=\"/shop/\" rel=\"noopener\">Labradorite</a> as jewelry can create an energetic shield around you, offering protection from emotional drain and psychic attacks.</p>"
+    "x": "<p>- Wear it: Wearing <a href=\"/product/?id=labradorite-stone\" rel=\"noopener\">Labradorite</a> as jewelry can create an energetic shield around you, offering protection from emotional drain and psychic attacks.</p>"
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"/shop/\" rel=\"noopener\"><strong>Smoky Quartz: Grounding and Energy Clearing</strong></a></h3>"
+    "x": "<h3><a href=\"https://energymuse.com/collections/smoky-quartz-crystals\" rel=\"noopener\" target=\"_blank\"><strong>Smoky Quartz: Grounding and Energy Clearing</strong></a></h3>"
    },
    {
     "t": "html",
-    "x": "<p><a href=\"/shop/\" rel=\"noopener\">Smoky Quartz</a> is known for its dual role in grounding and clearing negative energy. It anchors spiritual experiences into the physical realm, making it easier to integrate those experiences into everyday life. <a href=\"/shop/\" rel=\"noopener\">Smoky Quartz</a> is also excellent for clearing away negative energies, making it a perfect stone to use during periods of spiritual work when unwanted energies may be present.</p>"
+    "x": "<p><a href=\"https://energymuse.com/collections/smoky-quartz-crystals\" rel=\"noopener\" target=\"_blank\">Smoky Quartz</a> is known for its dual role in grounding and clearing negative energy. It anchors spiritual experiences into the physical realm, making it easier to integrate those experiences into everyday life. <a href=\"https://energymuse.com/collections/smoky-quartz-crystals\" rel=\"noopener\" target=\"_blank\">Smoky Quartz</a> is also excellent for clearing away negative energies, making it a perfect stone to use during periods of spiritual work when unwanted energies may be present.</p>"
    },
    {
     "t": "html",
-    "x": "<p>- In your home: Place <a href=\"/shop/\" rel=\"noopener\">Smoky Quartz</a> in areas of your home that feel energetically heavy or stagnant to clear negative energy and promote balance.</p>"
+    "x": "<p>- In your home: Place <a href=\"https://energymuse.com/collections/smoky-quartz-crystals\" rel=\"noopener\" target=\"_blank\">Smoky Quartz</a> in areas of your home that feel energetically heavy or stagnant to clear negative energy and promote balance.</p>"
    },
    {
     "t": "html",
-    "x": "<p>- During meditation: Use<a href=\"/shop/\" rel=\"noopener\"> Smoky Quartz</a> during meditation to ground your energy and provide clarity, especially after intense spiritual experiences.</p>"
+    "x": "<p>- During meditation: Use<a href=\"https://energymuse.com/collections/smoky-quartz-crystals\" rel=\"noopener\" target=\"_blank\"> Smoky Quartz</a> during meditation to ground your energy and provide clarity, especially after intense spiritual experiences.</p>"
    },
    {
     "t": "html",
-    "x": "<p>- Carry it: Keep <a href=\"/shop/\" rel=\"noopener\">Smoky Quartz</a> with you to stay grounded and protected from negative influences throughout the day.</p>"
+    "x": "<p>- Carry it: Keep <a href=\"https://energymuse.com/collections/smoky-quartz-crystals\" rel=\"noopener\" target=\"_blank\">Smoky Quartz</a> with you to stay grounded and protected from negative influences throughout the day.</p>"
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"/shop/\" rel=\"noopener\"><strong>Obsidian: Mirror for Protection and Truth</strong></a></h3>"
+    "x": "<h3><a href=\"https://energymuse.com/collections/obsidian-crystals\" rel=\"noopener\" target=\"_blank\"><strong>Obsidian: Mirror for Protection and Truth</strong></a></h3>"
    },
    {
     "t": "html",
-    "x": "<p><a href=\"/shop/\" rel=\"noopener\">Obsidian</a> is a powerful stone for both protection and introspection. It acts as a mirror, reflecting negative energy away from the user and back to its source. <a href=\"/shop/\" rel=\"noopener\">Obsidian</a> is also deeply connected to the process of shadow work, helping individuals uncover hidden truths and confront the darker aspects of themselves for healing and transformation. </p>"
+    "x": "<p><a href=\"https://energymuse.com/collections/obsidian-crystals\" rel=\"noopener\" target=\"_blank\">Obsidian</a> is a powerful stone for both protection and introspection. It acts as a mirror, reflecting negative energy away from the user and back to its source. <a href=\"https://energymuse.com/collections/obsidian-crystals\" rel=\"noopener\" target=\"_blank\">Obsidian</a> is also deeply connected to the process of shadow work, helping individuals uncover hidden truths and confront the darker aspects of themselves for healing and transformation. </p>"
    },
    {
     "t": "html",
-    "x": "<p>- For shadow work: Meditate with <a href=\"/shop/\" rel=\"noopener\">Obsidian</a> to explore hidden aspects of your psyche and confront any unresolved issues or traumas.</p>"
+    "x": "<p>- For shadow work: Meditate with <a href=\"https://energymuse.com/collections/obsidian-crystals\" rel=\"noopener\" target=\"_blank\">Obsidian</a> to explore hidden aspects of your psyche and confront any unresolved issues or traumas.</p>"
    },
    {
     "t": "html",
-    "x": "<p>- In your sacred space: Place <a href=\"/shop/\" rel=\"noopener\">Obsidian</a> around your home or altar to protect your space from negative influences and enhance spiritual insights.</p>"
+    "x": "<p>- In your sacred space: Place <a href=\"https://energymuse.com/collections/obsidian-crystals\" rel=\"noopener\" target=\"_blank\">Obsidian</a> around your home or altar to protect your space from negative influences and enhance spiritual insights.</p>"
    },
    {
     "t": "html",
-    "x": "<p>- As a protective shield: Carry or wear <a href=\"/shop/\" rel=\"noopener\">Obsidian</a> to create a reflective barrier against negative energy, keeping your aura clear and strong.</p>"
+    "x": "<p>- As a protective shield: Carry or wear <a href=\"https://energymuse.com/collections/obsidian-crystals\" rel=\"noopener\" target=\"_blank\">Obsidian</a> to create a reflective barrier against negative energy, keeping your aura clear and strong.</p>"
    },
    {
     "t": "html",
@@ -728,7 +728,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<ol> <li> Select a crystal: Choose a protective crystal such as <a href=\"/shop/\" rel=\"noopener\">Black Tourmaline</a>, <a href=\"/shop/\" rel=\"noopener\">Labradorite</a>, or <a href=\"/shop/\" rel=\"noopener\">Smoky Quartz</a>.</li> <li> Set an intention: Hold the crystal in your hand and set an intention for protection, stating something like, \"I am shielded from negative energy, and my aura is strong and balanced.\"</li> <li> Visualize protection: Close your eyes and visualize a bubble of protective light surrounding you. Imagine this light expanding as your crystal's energy merges with your own.</li> <li> Carry the energy with you: Carry your crystal with you throughout the day or keep it on your nightstand to reinforce your energy shield.</li> </ol>"
+    "x": "<ol> <li> Select a crystal: Choose a protective crystal such as <a href=\"/product/?id=protection\" rel=\"noopener\">Black Tourmaline</a>, <a href=\"/product/?id=labradorite-stone\" rel=\"noopener\">Labradorite</a>, or <a href=\"https://energymuse.com/collections/smoky-quartz-crystals\" rel=\"noopener\" target=\"_blank\">Smoky Quartz</a>.</li> <li> Set an intention: Hold the crystal in your hand and set an intention for protection, stating something like, \"I am shielded from negative energy, and my aura is strong and balanced.\"</li> <li> Visualize protection: Close your eyes and visualize a bubble of protective light surrounding you. Imagine this light expanding as your crystal's energy merges with your own.</li> <li> Carry the energy with you: Carry your crystal with you throughout the day or keep it on your nightstand to reinforce your energy shield.</li> </ol>"
    },
    {
     "t": "html",
@@ -752,7 +752,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>One of the easiest ways to stay protected is by carrying protective crystals with you. Keep them in your pocket, purse, or wear them as jewelry to create a continuous energetic shield. Stores like <a href=\"https://energymuse.com/\" rel=\"noopener\">Energy Muse</a> offer specially crafted <a href=\"/shop/\" rel=\"noopener\"><strong>Protection Jewelry</strong></a>, such as crystal bracelets or necklaces, designed to keep you protected throughout the day. </p>"
+    "x": "<p>One of the easiest ways to stay protected is by carrying protective crystals with you. Keep them in your pocket, purse, or wear them as jewelry to create a continuous energetic shield. Stores like <a href=\"https://energymuse.com/\" rel=\"noopener\">Energy Muse</a> offer specially crafted <a href=\"https://energymuse.com/collections/protection-clearing\" rel=\"noopener\" target=\"_blank\"><strong>Protection Jewelry</strong></a>, such as crystal bracelets or necklaces, designed to keep you protected throughout the day. </p>"
    },
    {
     "t": "html",
@@ -772,7 +772,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>By using protective crystals such as <a href=\"/shop/\" rel=\"noopener\">Black Tourmaline</a>, <a href=\"/shop/\" rel=\"noopener\">Labradorite</a>, <a href=\"/shop/\" rel=\"noopener\">Smoky Quartz</a>, and <a href=\"/shop/\" rel=\"noopener\">Obsidian</a>, you can create a powerful energetic shield around yourself, ensuring that you remain balanced, grounded, and protected. These crystals not only safeguard your energy but also enhance your spiritual work, allowing you to explore deeper layers of your intuition and spiritual connection with confidence and clarity.</p>"
+    "x": "<p>By using protective crystals such as <a href=\"/product/?id=protection\" rel=\"noopener\">Black Tourmaline</a>, <a href=\"/product/?id=labradorite-stone\" rel=\"noopener\">Labradorite</a>, <a href=\"https://energymuse.com/collections/smoky-quartz-crystals\" rel=\"noopener\" target=\"_blank\">Smoky Quartz</a>, and <a href=\"https://energymuse.com/collections/obsidian-crystals\" rel=\"noopener\" target=\"_blank\">Obsidian</a>, you can create a powerful energetic shield around yourself, ensuring that you remain balanced, grounded, and protected. These crystals not only safeguard your energy but also enhance your spiritual work, allowing you to explore deeper layers of your intuition and spiritual connection with confidence and clarity.</p>"
    },
    {
     "t": "html",
@@ -818,7 +818,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3>1. <a href=\"/shop/\" rel=\"noopener\">Obsidian (Black and Silver-Sheen)</a></h3>"
+    "x": "<h3>1. <a href=\"https://energymuse.com/collections/obsidian-crystals\" rel=\"noopener\" target=\"_blank\">Obsidian (Black and Silver-Sheen)</a></h3>"
    },
    {
     "t": "html",
@@ -830,15 +830,15 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3>Using<a href=\"/shop/\" rel=\"noopener\"> Obsidian</a> in Practice:</strong> Meditating with black or silver-sheen obsidian while setting the intention to uncover repressed emotions or unresolved conflicts can be a powerful first step in shadow work. Journaling with an obsidian crystal nearby can also enhance clarity and reflection, guiding the mind toward deeper self-awareness. </h3>"
+    "x": "<h3>Using<a href=\"https://energymuse.com/collections/obsidian-crystals\" rel=\"noopener\" target=\"_blank\"> Obsidian</a> in Practice:</strong> Meditating with black or silver-sheen obsidian while setting the intention to uncover repressed emotions or unresolved conflicts can be a powerful first step in shadow work. Journaling with an obsidian crystal nearby can also enhance clarity and reflection, guiding the mind toward deeper self-awareness. </h3>"
    },
    {
     "t": "html",
-    "x": "<h3><strong>2. <a href=\"/shop/\" rel=\"noopener\">Black Kyanite</a></h3>"
+    "x": "<h3><strong>2. <a href=\"/product/?id=black-kyanite-crystal\" rel=\"noopener\">Black Kyanite</a></h3>"
    },
    {
     "t": "html",
-    "x": "<p>Black Kyanite is a crystal of protection, grounding, and cutting through emotional and energetic blockages. Its unique blade-like formation allows it to slice through negative attachments and patterns that hold you back. <a href=\"/shop/\" rel=\"noopener\">Black Kyanite</a> is known for its powerful cleansing abilities, making it a wonderful tool for clearing out stagnant energy and creating space for new insights during inner reflection.</p>"
+    "x": "<p>Black Kyanite is a crystal of protection, grounding, and cutting through emotional and energetic blockages. Its unique blade-like formation allows it to slice through negative attachments and patterns that hold you back. <a href=\"/product/?id=black-kyanite-crystal\" rel=\"noopener\">Black Kyanite</a> is known for its powerful cleansing abilities, making it a wonderful tool for clearing out stagnant energy and creating space for new insights during inner reflection.</p>"
    },
    {
     "t": "html",
@@ -846,15 +846,15 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3>Using <a href=\"/shop/\" rel=\"noopener\">Black Kyanite</a> in Practice:</strong> Hold black kyanite during a grounding meditation to feel stable and secure before engaging in shadow work. You can also use the crystal to “cut” energetic cords after confronting a difficult memory or pattern, symbolically releasing attachment to past hurts. </h3>"
+    "x": "<h3>Using <a href=\"/product/?id=black-kyanite-crystal\" rel=\"noopener\">Black Kyanite</a> in Practice:</strong> Hold black kyanite during a grounding meditation to feel stable and secure before engaging in shadow work. You can also use the crystal to “cut” energetic cords after confronting a difficult memory or pattern, symbolically releasing attachment to past hurts. </h3>"
    },
    {
     "t": "html",
-    "x": "<h3><strong>3. <a href=\"/shop/\" rel=\"noopener\">Labradorite</a></h3>"
+    "x": "<h3><strong>3. <a href=\"/product/?id=labradorite-stone\" rel=\"noopener\">Labradorite</a></h3>"
    },
    {
     "t": "html",
-    "x": "<p>Labradorite is often referred to as the \"Stone of Transformation\" due to its powerful metaphysical properties. With its iridescent flashes of color, <a href=\"/shop/\" rel=\"noopener\">labradorite</a> awakens the mystical and psychic parts of the mind, making it a wonderful stone for enhancing inner reflection. It is particularly useful for accessing hidden layers of the self, including unconscious fears and repressed emotions.<a href=\"/shop/\" rel=\"noopener\"> Labradorite’s</a> energy is deeply connected to the third eye chakra, which governs intuition, psychic insight, and higher consciousness.</p>"
+    "x": "<p>Labradorite is often referred to as the \"Stone of Transformation\" due to its powerful metaphysical properties. With its iridescent flashes of color, <a href=\"/product/?id=labradorite-stone\" rel=\"noopener\">labradorite</a> awakens the mystical and psychic parts of the mind, making it a wonderful stone for enhancing inner reflection. It is particularly useful for accessing hidden layers of the self, including unconscious fears and repressed emotions.<a href=\"/product/?id=labradorite-stone\" rel=\"noopener\"> Labradorite’s</a> energy is deeply connected to the third eye chakra, which governs intuition, psychic insight, and higher consciousness.</p>"
    },
    {
     "t": "html",
@@ -862,23 +862,23 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3>Using <a href=\"/shop/\" rel=\"noopener\">Labradorite</a> in Practice: </strong>To harness the power of labradorite, place a stone on your third eye during meditation to enhance intuition and promote emotional clarity. You can also place it under your pillow before sleep to encourage lucid dreaming and insights from your subconscious mind. </h3>"
+    "x": "<h3>Using <a href=\"/product/?id=labradorite-stone\" rel=\"noopener\">Labradorite</a> in Practice: </strong>To harness the power of labradorite, place a stone on your third eye during meditation to enhance intuition and promote emotional clarity. You can also place it under your pillow before sleep to encourage lucid dreaming and insights from your subconscious mind. </h3>"
    },
    {
     "t": "html",
-    "x": "<h3><strong>4. <a href=\"/shop/\" rel=\"noopener\">Smoky Quartz</a></h3>"
+    "x": "<h3><strong>4. <a href=\"https://energymuse.com/collections/smoky-quartz-crystals\" rel=\"noopener\" target=\"_blank\">Smoky Quartz</a></h3>"
    },
    {
     "t": "html",
-    "x": "<p><a href=\"/shop/\" rel=\"noopener\">Smoky Quartz</a> is a grounding stone known for its ability to absorb and transmute negative energies. It offers protection and emotional stability, making it an excellent companion for shadow work. <a href=\"/shop/\" rel=\"noopener\">Smoky quartz </a>works closely with the root and solar plexus chakras, helping individuals confront their fears, anxieties, and unresolved emotional wounds with courage and resilience.</p>"
+    "x": "<p><a href=\"https://energymuse.com/collections/smoky-quartz-crystals\" rel=\"noopener\" target=\"_blank\">Smoky Quartz</a> is a grounding stone known for its ability to absorb and transmute negative energies. It offers protection and emotional stability, making it an excellent companion for shadow work. <a href=\"https://energymuse.com/collections/smoky-quartz-crystals\" rel=\"noopener\" target=\"_blank\">Smoky quartz </a>works closely with the root and solar plexus chakras, helping individuals confront their fears, anxieties, and unresolved emotional wounds with courage and resilience.</p>"
    },
    {
     "t": "html",
-    "x": "<p>One of the key benefits of <a href=\"/shop/\" rel=\"noopener\">smoky quartz</a> is its ability to bring hidden truths to the surface gently. Unlike more intense stones like black obsidian, smoky quartz eases the process of introspection, allowing the individual to confront their shadow without feeling overwhelmed. It encourages self-compassion and patience, two qualities that are essential for inner reflection and emotional healing.</p>"
+    "x": "<p>One of the key benefits of <a href=\"https://energymuse.com/collections/smoky-quartz-crystals\" rel=\"noopener\" target=\"_blank\">smoky quartz</a> is its ability to bring hidden truths to the surface gently. Unlike more intense stones like black obsidian, smoky quartz eases the process of introspection, allowing the individual to confront their shadow without feeling overwhelmed. It encourages self-compassion and patience, two qualities that are essential for inner reflection and emotional healing.</p>"
    },
    {
     "t": "html",
-    "x": "<h3>Using <a href=\"/shop/\" rel=\"noopener\">Smoky Quartz</a> in Practice: </strong>Meditate with smoky quartz to ground yourself before or after deep emotional work. Its calming energy can help you process difficult emotions, and its protective nature ensures that you don’t feel energetically drained after a session of shadow work. </h3>"
+    "x": "<h3>Using <a href=\"https://energymuse.com/collections/smoky-quartz-crystals\" rel=\"noopener\" target=\"_blank\">Smoky Quartz</a> in Practice: </strong>Meditate with smoky quartz to ground yourself before or after deep emotional work. Its calming energy can help you process difficult emotions, and its protective nature ensures that you don’t feel energetically drained after a session of shadow work. </h3>"
    },
    {
     "t": "html",
@@ -966,7 +966,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>After engaging in shadow work, it’s crucial to clear your energy field of any negative or stagnant emotions that may have surfaced. Crystals like selenite are ideal for this purpose due to their powerful cleansing properties. <a href=\"/shop/\" rel=\"noopener\">Selenite’s</a> ability to purify energy makes it a perfect tool for post-shadow work sessions. </p>"
+    "x": "<p>After engaging in shadow work, it’s crucial to clear your energy field of any negative or stagnant emotions that may have surfaced. Crystals like selenite are ideal for this purpose due to their powerful cleansing properties. <a href=\"/product/?id=selenite-stone\" rel=\"noopener\">Selenite’s</a> ability to purify energy makes it a perfect tool for post-shadow work sessions. </p>"
    },
    {
     "t": "html",
@@ -974,7 +974,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>Energy clearing can also be performed by placing <a href=\"/shop/\" rel=\"noopener\">selenite</a> in your space to continuously purify the environment. After a particularly intense shadow work session, spending time in a room with selenite can help you feel lighter and more at peace.</p>"
+    "x": "<p>Energy clearing can also be performed by placing <a href=\"/product/?id=selenite-stone\" rel=\"noopener\">selenite</a> in your space to continuously purify the environment. After a particularly intense shadow work session, spending time in a room with selenite can help you feel lighter and more at peace.</p>"
    },
    {
     "t": "html",
@@ -982,7 +982,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>Dreams are powerful gateways into the subconscious, making dream work a useful practice for shadow work. Certain crystals, such as<a href=\"/shop/\" rel=\"noopener\"> labradorite</a> or black moonstone, are particularly effective for enhancing dream recall and facilitating insight into the hidden parts of the psyche. When you place these crystals under your pillow before sleep, they can aid in lucid dreaming, providing you with valuable symbols, images, or emotions to explore further. </p>"
+    "x": "<p>Dreams are powerful gateways into the subconscious, making dream work a useful practice for shadow work. Certain crystals, such as<a href=\"/product/?id=labradorite-stone\" rel=\"noopener\"> labradorite</a> or black moonstone, are particularly effective for enhancing dream recall and facilitating insight into the hidden parts of the psyche. When you place these crystals under your pillow before sleep, they can aid in lucid dreaming, providing you with valuable symbols, images, or emotions to explore further. </p>"
    },
    {
     "t": "html",
@@ -990,7 +990,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>Dreamwork allows you to engage with the subconscious in a gentle and often symbolic way, giving you a unique opportunity to process emotions that may be difficult to access in waking life.<a href=\"/shop/\" rel=\"noopener\"> Labradorite’s</a> mystical energy, in particular, encourages dreams that reveal profound truths about yourself. </p>"
+    "x": "<p>Dreamwork allows you to engage with the subconscious in a gentle and often symbolic way, giving you a unique opportunity to process emotions that may be difficult to access in waking life.<a href=\"/product/?id=labradorite-stone\" rel=\"noopener\"> Labradorite’s</a> mystical energy, in particular, encourages dreams that reveal profound truths about yourself. </p>"
    },
    {
     "t": "html",
@@ -1044,7 +1044,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"/shop/\" rel=\"noopener\"><strong>Golden Healer Quartz: The Stone of Universal Life Force</strong></a></h3>"
+    "x": "<h3><a href=\"/product/?id=golden-healer-quartz-stone\" rel=\"noopener\"><strong>Golden Healer Quartz: The Stone of Universal Life Force</strong></a></h3>"
    },
    {
     "t": "html",
@@ -1064,7 +1064,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"/shop/\" rel=\"noopener\"><strong>Garnet: The Stone of Commitment and Passion</strong></a></h3>"
+    "x": "<h3><a href=\"https://energymuse.com/collections/golden-healer-quartz-crystals\" rel=\"noopener\" target=\"_blank\"><strong>Garnet: The Stone of Commitment and Passion</strong></a></h3>"
    },
    {
     "t": "html",
@@ -1084,7 +1084,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"/shop/\" rel=\"noopener\"><strong>Carnelian: The Stone of Courage and Creativity</strong></a></h3>"
+    "x": "<h3><a href=\"https://energymuse.com/collections/golden-healer-quartz-crystals\" rel=\"noopener\" target=\"_blank\"><strong>Carnelian: The Stone of Courage and Creativity</strong></a></h3>"
    },
    {
     "t": "html",
@@ -1104,7 +1104,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"/shop/\" rel=\"noopener\"><strong>Smoky Quartz: The Stone of Grounding and Protection</strong></a></h3>"
+    "x": "<h3><a href=\"https://energymuse.com/collections/golden-healer-quartz-crystals\" rel=\"noopener\" target=\"_blank\"><strong>Smoky Quartz: The Stone of Grounding and Protection</strong></a></h3>"
    },
    {
     "t": "html",
@@ -1124,7 +1124,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"/shop/\" rel=\"noopener\"><strong>Tiger’s Eye: The Stone of Balance and Insight</strong></a></h3>"
+    "x": "<h3><a href=\"/product/?id=tiger-s-eye-stone\" rel=\"noopener\"><strong>Tiger’s Eye: The Stone of Balance and Insight</strong></a></h3>"
    },
    {
     "t": "html",
@@ -1232,7 +1232,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>For beautifully crafted crystal bracelets that embody the qualities discussed above, you can explore options at Energy Muse:<a href=\"/shop/\" rel=\"noopener\"> Energy Muse Single Stone Bracelets</a>. Each bracelet is designed to help you harness the energy of these powerful crystals, supporting you throughout the transformative season of the Fall Equinox.</p>"
+    "x": "<p>For beautifully crafted crystal bracelets that embody the qualities discussed above, you can explore options at Energy Muse:<a href=\"https://energymuse.com/collections/single-stone-bracelets\" rel=\"noopener\" target=\"_blank\"> Energy Muse Single Stone Bracelets</a>. Each bracelet is designed to help you harness the energy of these powerful crystals, supporting you throughout the transformative season of the Fall Equinox.</p>"
    },
    {
     "t": "html",
@@ -1828,31 +1828,31 @@ window.EM_JOURNAL = [
   "body": [
    {
     "t": "html",
-    "x": "<p><a href=\"/shop/\" rel=\"noopener\">Gemini,</a> the third sign of the zodiac, is represented by the symbol of the Twins, reflecting their multifaceted nature and duality of personality. People born between May 21st and June 20th, under this sign, are known for their quick wit, intellectual curiosity, adaptability, and love for communication and social interaction. </p>"
+    "x": "<p><a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Gemini,</a> the third sign of the zodiac, is represented by the symbol of the Twins, reflecting their multifaceted nature and duality of personality. People born between May 21st and June 20th, under this sign, are known for their quick wit, intellectual curiosity, adaptability, and love for communication and social interaction. </p>"
    },
    {
     "t": "html",
-    "x": "<p>As each zodiac sign has its own set of attributes, crystals too possess distinct energies and properties that can resonate with and support specific aspects of our being. By harnessing the power of crystals, <a href=\"/shop/\" rel=\"noopener\">Geminis</a> can tap into their innate strengths, navigate challenges, and foster personal growth and balance.</p>"
+    "x": "<p>As each zodiac sign has its own set of attributes, crystals too possess distinct energies and properties that can resonate with and support specific aspects of our being. By harnessing the power of crystals, <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a> can tap into their innate strengths, navigate challenges, and foster personal growth and balance.</p>"
    },
    {
     "t": "html",
-    "x": "<p>Our guide provides a comprehensive list of the best crystals suited for the Gemini zodiac sign, exploring their metaphysical properties and how they align with the traits associated with Geminis. Whether you are a <a href=\"/shop/\" rel=\"noopener\">Gemini </a>looking to deepen your self-awareness or a friend or loved one searching for the perfect crystal gift, this guide offers valuable insights and recommendations.</p>"
+    "x": "<p>Our guide provides a comprehensive list of the best crystals suited for the Gemini zodiac sign, exploring their metaphysical properties and how they align with the traits associated with Geminis. Whether you are a <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Gemini </a>looking to deepen your self-awareness or a friend or loved one searching for the perfect crystal gift, this guide offers valuable insights and recommendations.</p>"
    },
    {
     "t": "html",
-    "x": "<p>We uncover the transformative potential of crystals for <a href=\"/shop/\" rel=\"noopener\">Geminis</a> and discover how these radiant gems can serve as powerful allies on the path to self-discovery, enlightenment, and inner harmony.</p>"
+    "x": "<p>We uncover the transformative potential of crystals for <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a> and discover how these radiant gems can serve as powerful allies on the path to self-discovery, enlightenment, and inner harmony.</p>"
    },
    {
     "t": "html",
-    "x": "<h2>What are words that best describe the <a href=\"/shop/\" rel=\"noopener\">Gemini</a> astrology sign?</h2>"
+    "x": "<h2>What are words that best describe the <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Gemini</a> astrology sign?</h2>"
    },
    {
     "t": "html",
-    "x": "<p>As we delve into the dynamic world of <a href=\"/shop/\" rel=\"noopener\">Geminis</a>, we uncover the profound impact of these words on their personality, behavior, and relationships. These five fundamental words serve as the pillars upon which the vibrant personality of Geminis is built, influencing their every thought, action, and interaction. </p>"
+    "x": "<p>As we delve into the dynamic world of <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a>, we uncover the profound impact of these words on their personality, behavior, and relationships. These five fundamental words serve as the pillars upon which the vibrant personality of Geminis is built, influencing their every thought, action, and interaction. </p>"
    },
    {
     "t": "html",
-    "x": "<p>Let’s unravel the layers of communication, versatility, dualism, intellect, and adaptability that define the essence of <a href=\"/shop/\" rel=\"noopener\">Geminis</a> and shape their unique path in life.</p>"
+    "x": "<p>Let’s unravel the layers of communication, versatility, dualism, intellect, and adaptability that define the essence of <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a> and shape their unique path in life.</p>"
    },
    {
     "t": "html",
@@ -1860,7 +1860,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>Communication is fundamental to <a href=\"/shop/\" rel=\"noopener\">Geminis</a>, who excel in expressing themselves verbally and intellectually. Their natural gift for articulation and quick wit enables them to connect effortlessly with others, forming bonds through lively conversations and exchanges of ideas.</p>"
+    "x": "<p>Communication is fundamental to <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a>, who excel in expressing themselves verbally and intellectually. Their natural gift for articulation and quick wit enables them to connect effortlessly with others, forming bonds through lively conversations and exchanges of ideas.</p>"
    },
    {
     "t": "html",
@@ -1868,7 +1868,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p><a href=\"/shop/\" rel=\"noopener\">Geminis</a> thrive in diverse environments and enjoy exploring a variety of interests and pursuits. Their versatile nature allows them to adapt easily to changing circumstances and embrace new experiences, fostering a sense of curiosity and openness to the world around them.</p>"
+    "x": "<p><a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a> thrive in diverse environments and enjoy exploring a variety of interests and pursuits. Their versatile nature allows them to adapt easily to changing circumstances and embrace new experiences, fostering a sense of curiosity and openness to the world around them.</p>"
    },
    {
     "t": "html",
@@ -1876,7 +1876,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>The symbol of the Twins represents the dualistic nature of <a href=\"/shop/\" rel=\"noopener\">Geminis</a>, who often exhibit contrasting traits and personalities. This duality can manifest as a constant inner dialogue between opposing forces, such as logic and emotion, leading to a multifaceted and complex identity.</p>"
+    "x": "<p>The symbol of the Twins represents the dualistic nature of <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a>, who often exhibit contrasting traits and personalities. This duality can manifest as a constant inner dialogue between opposing forces, such as logic and emotion, leading to a multifaceted and complex identity.</p>"
    },
    {
     "t": "html",
@@ -1884,7 +1884,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p><a href=\"/shop/\" rel=\"noopener\">Geminis</a> are known for their sharp intellect and insatiable curiosity, constantly seeking knowledge and mental stimulation. Their agile minds enable them to grasp complex concepts quickly and engage in thought-provoking discussions, driving their quest for continuous learning and growth.</p>"
+    "x": "<p><a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a> are known for their sharp intellect and insatiable curiosity, constantly seeking knowledge and mental stimulation. Their agile minds enable them to grasp complex concepts quickly and engage in thought-provoking discussions, driving their quest for continuous learning and growth.</p>"
    },
    {
     "t": "html",
@@ -1892,71 +1892,71 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p><a href=\"/shop/\" rel=\"noopener\">Geminis</a> possess a remarkable ability to adapt to changing circumstances and thrive in unpredictable situations. Their flexible nature allows them to navigate life's twists and turns with ease, embracing challenges as opportunities for growth and evolution. </p>"
+    "x": "<p><a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a> possess a remarkable ability to adapt to changing circumstances and thrive in unpredictable situations. Their flexible nature allows them to navigate life's twists and turns with ease, embracing challenges as opportunities for growth and evolution. </p>"
    },
    {
     "t": "html",
-    "x": "<p>These words not only capture the essence of the<a href=\"/shop/\" rel=\"noopener\"> Gemini</a> zodiac sign but also highlight how these qualities influence and connect with Geminis on a deeper level, shaping their personality, behavior, and interactions with the world.</p>"
+    "x": "<p>These words not only capture the essence of the<a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\"> Gemini</a> zodiac sign but also highlight how these qualities influence and connect with Geminis on a deeper level, shaping their personality, behavior, and interactions with the world.</p>"
    },
    {
     "t": "html",
-    "x": "<h2>What are the best crystals for <a href=\"/shop/\" rel=\"noopener\">Gemini</a>?</h2>"
+    "x": "<h2>What are the best crystals for <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Gemini</a>?</h2>"
    },
    {
     "t": "html",
-    "x": "<p>The following crystals collectively offer support to <a href=\"/shop/\" rel=\"noopener\">Geminis</a> in various aspects of their lives, including communication, mental clarity, emotional balance, and personal growth.</p>"
+    "x": "<p>The following crystals collectively offer support to <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a> in various aspects of their lives, including communication, mental clarity, emotional balance, and personal growth.</p>"
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"/shop/\" rel=\"noopener\">Citrine: </a> </h3>"
+    "x": "<h3><a href=\"https://energymuse.com/collections/citrine-crystals\" rel=\"noopener\" target=\"_blank\">Citrine: </a> </h3>"
    },
    {
     "t": "html",
-    "x": "<p><a href=\"/shop/\" rel=\"noopener\">Citrine</a>, with its vibrant golden hues, emerges as a potent ally for Geminis, amplifying their innate qualities and fortifying their journey. This crystal serves as a catalyst for creativity, emboldening <a href=\"/shop/\" rel=\"noopener\">Geminis</a> to explore new realms of self-expression with confidence and flair. Its energizing properties spark mental clarity, illuminating pathways to clarity amidst the chatter of the mind. Not only does <a href=\"/shop/\" rel=\"noopener\">Citrine</a> banish the shadows of negativity, but it also cultivates a radiant aura of positivity, infusing Geminis with the courage to welcome fresh ideas and seize promising opportunities on their unique path of growth and discovery.</p>"
+    "x": "<p><a href=\"https://energymuse.com/collections/citrine-crystals\" rel=\"noopener\" target=\"_blank\">Citrine</a>, with its vibrant golden hues, emerges as a potent ally for Geminis, amplifying their innate qualities and fortifying their journey. This crystal serves as a catalyst for creativity, emboldening <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a> to explore new realms of self-expression with confidence and flair. Its energizing properties spark mental clarity, illuminating pathways to clarity amidst the chatter of the mind. Not only does <a href=\"https://energymuse.com/collections/citrine-crystals\" rel=\"noopener\" target=\"_blank\">Citrine</a> banish the shadows of negativity, but it also cultivates a radiant aura of positivity, infusing Geminis with the courage to welcome fresh ideas and seize promising opportunities on their unique path of growth and discovery.</p>"
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"/shop/\" rel=\"noopener\"><strong>Tourmalinated Quartz:</strong></a></h3>"
+    "x": "<h3><a href=\"/product/?id=tourmalinated-quartz-stone\" rel=\"noopener\"><strong>Tourmalinated Quartz:</strong></a></h3>"
    },
    {
     "t": "html",
-    "x": "<p><a href=\"/shop/\" rel=\"noopener\">Tourmalinated Quartz</a>, a unique fusion of clear quartz and black tourmaline, emerges as a powerful ally for <a href=\"/shop/\" rel=\"noopener\">Geminis</a> seeking balance and protection. Beyond its grounding qualities, this crystal serves as a catalyst for mental clarity, harmonizing conflicting energies within the Gemini psyche. By forming a shield against negativity, <a href=\"/shop/\" rel=\"noopener\">Tourmalinated Quartz</a> empowers Geminis to maintain focus and alignment with their aspirations, navigating life's twists and turns with steadfast determination.</p>"
+    "x": "<p><a href=\"/product/?id=tourmalinated-quartz-stone\" rel=\"noopener\">Tourmalinated Quartz</a>, a unique fusion of clear quartz and black tourmaline, emerges as a powerful ally for <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a> seeking balance and protection. Beyond its grounding qualities, this crystal serves as a catalyst for mental clarity, harmonizing conflicting energies within the Gemini psyche. By forming a shield against negativity, <a href=\"/product/?id=tourmalinated-quartz-stone\" rel=\"noopener\">Tourmalinated Quartz</a> empowers Geminis to maintain focus and alignment with their aspirations, navigating life's twists and turns with steadfast determination.</p>"
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"/shop/\" rel=\"noopener\"><strong>Sodalite:</strong></a></h3>"
+    "x": "<h3><a href=\"/product/?id=sodalite-stone\" rel=\"noopener\"><strong>Sodalite:</strong></a></h3>"
    },
    {
     "t": "html",
-    "x": "<p>Sodalite, renowned as a stone of communication and self-expression, holds a special resonance for <a href=\"/shop/\" rel=\"noopener\">Geminis</a> seeking to harness the power of their voice and intellect. Beyond its surface allure, <a href=\"/shop/\" rel=\"noopener\">Sodalite</a> delves deep into the realms of rational thought, empowering Geminis to navigate complex ideas with clarity and precision. This gemstone not only encourages honesty and authenticity in communication but also fosters a sense of harmony and understanding in interpersonal relationships. By promoting empathy and compassion, <a href=\"/shop/\" rel=\"noopener\">Sodalite</a> enables Geminis to express themselves with both clarity and empathy, forging deeper connections and fostering mutual respect in their interactions with others.</p>"
+    "x": "<p>Sodalite, renowned as a stone of communication and self-expression, holds a special resonance for <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a> seeking to harness the power of their voice and intellect. Beyond its surface allure, <a href=\"/product/?id=sodalite-stone\" rel=\"noopener\">Sodalite</a> delves deep into the realms of rational thought, empowering Geminis to navigate complex ideas with clarity and precision. This gemstone not only encourages honesty and authenticity in communication but also fosters a sense of harmony and understanding in interpersonal relationships. By promoting empathy and compassion, <a href=\"/product/?id=sodalite-stone\" rel=\"noopener\">Sodalite</a> enables Geminis to express themselves with both clarity and empathy, forging deeper connections and fostering mutual respect in their interactions with others.</p>"
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"/shop/\" rel=\"noopener\"><strong>Tiger's Eye:</strong></a></h3>"
+    "x": "<h3><a href=\"/product/?id=tiger-s-eye-stone\" rel=\"noopener\"><strong>Tiger's Eye:</strong></a></h3>"
    },
    {
     "t": "html",
-    "x": "<p><a href=\"/shop/\" rel=\"noopener\">Tiger's Eye</a>, a captivating stone revered for its grounding properties, serves as a steadfast companion for <a href=\"/shop/\" rel=\"noopener\">Geminis</a> embarking on their journey of self-discovery and growth. Beyond its surface allure, Tiger's Eye embodies the essence of courage, strength, and unwavering determination, qualities that resonate deeply with the Gemini spirit. This remarkable gemstone acts as a guiding light, illuminating the path forward and instilling a sense of clarity amidst the chaos of indecision. With <a href=\"/shop/\" rel=\"noopener\">Tiger's Eye</a> by their side, Geminis find the fortitude to stay focused on their goals, trusting in their intuition and innate wisdom to steer them toward success.</p>"
+    "x": "<p><a href=\"/product/?id=tiger-s-eye-stone\" rel=\"noopener\">Tiger's Eye</a>, a captivating stone revered for its grounding properties, serves as a steadfast companion for <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a> embarking on their journey of self-discovery and growth. Beyond its surface allure, Tiger's Eye embodies the essence of courage, strength, and unwavering determination, qualities that resonate deeply with the Gemini spirit. This remarkable gemstone acts as a guiding light, illuminating the path forward and instilling a sense of clarity amidst the chaos of indecision. With <a href=\"/product/?id=tiger-s-eye-stone\" rel=\"noopener\">Tiger's Eye</a> by their side, Geminis find the fortitude to stay focused on their goals, trusting in their intuition and innate wisdom to steer them toward success.</p>"
    },
    {
     "t": "html",
-    "x": "<h3>Blue Lace <a href=\"/shop/\" rel=\"noopener\">Agate</a>:</h3>"
+    "x": "<h3>Blue Lace <a href=\"https://energymuse.com/collections/agate-crystals\" rel=\"noopener\" target=\"_blank\">Agate</a>:</h3>"
    },
    {
     "t": "html",
-    "x": "<p>Blue Lace Agate, with its gentle and serene energy, emerges as a vital ally for Geminis seeking inner peace and tranquility amidst life's bustling chaos. This exquisite crystal not only soothes the restless mind but also serves as a beacon of calmness, offering respite from the storms of stress and anxiety that may plague the Gemini spirit. As <a href=\"/shop/\" rel=\"noopener\">Geminis</a> harness the nurturing energy of Blue Lace Agate, they find solace in its tranquil embrace, paving the way for a journey of inner harmony and emotional well-being.</p>"
+    "x": "<p>Blue Lace Agate, with its gentle and serene energy, emerges as a vital ally for Geminis seeking inner peace and tranquility amidst life's bustling chaos. This exquisite crystal not only soothes the restless mind but also serves as a beacon of calmness, offering respite from the storms of stress and anxiety that may plague the Gemini spirit. As <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a> harness the nurturing energy of Blue Lace Agate, they find solace in its tranquil embrace, paving the way for a journey of inner harmony and emotional well-being.</p>"
    },
    {
     "t": "html",
-    "x": "<p>You can integrate these crystals into daily practices such as meditation, wearing them as jewelry, or placing them in the environment can amplify their beneficial effects and help <a href=\"/shop/\" rel=\"noopener\">Geminis</a> thrive.</p>"
+    "x": "<p>You can integrate these crystals into daily practices such as meditation, wearing them as jewelry, or placing them in the environment can amplify their beneficial effects and help <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a> thrive.</p>"
    },
    {
     "t": "html",
-    "x": "<h2>What are the colors of the <a href=\"/shop/\" rel=\"noopener\">Gemini</a> birthstones?</h2>"
+    "x": "<h2>What are the colors of the <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Gemini</a> birthstones?</h2>"
    },
    {
     "t": "html",
-    "x": "<p>The colors associated with <a href=\"/shop/\" rel=\"noopener\">Gemini</a> birthstones vary depending on different sources and interpretations. However, here are some commonly recognized Gemini birthstones along with their corresponding colors:</p>"
+    "x": "<p>The colors associated with <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Gemini</a> birthstones vary depending on different sources and interpretations. However, here are some commonly recognized Gemini birthstones along with their corresponding colors:</p>"
    },
    {
     "t": "html",
@@ -1964,7 +1964,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>Agate occurs in a variety of colors, including shades of blue, green, pink, purple, and brown. For <a href=\"/shop/\" rel=\"noopener\">Gemini</a>, blue agate may be particularly relevant due to its soothing and harmonizing properties.</p>"
+    "x": "<p>Agate occurs in a variety of colors, including shades of blue, green, pink, purple, and brown. For <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Gemini</a>, blue agate may be particularly relevant due to its soothing and harmonizing properties.</p>"
    },
    {
     "t": "html",
@@ -1972,7 +1972,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>Pearls are often associated with purity and wisdom. While classic pearls are white or cream-colored, they can also come in various shades such as pink, blue, black, and lavender. <a href=\"/shop/\" rel=\"noopener\">Geminis</a> may resonate with the versatility and elegance of pearl jewelry.</p>"
+    "x": "<p>Pearls are often associated with purity and wisdom. While classic pearls are white or cream-colored, they can also come in various shades such as pink, blue, black, and lavender. <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a> may resonate with the versatility and elegance of pearl jewelry.</p>"
    },
    {
     "t": "html",
@@ -1980,7 +1980,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>Moonstone is known for its mesmerizing iridescence, displaying hues of blue, white, and gray. Its connection to the moon and intuition makes it a fitting birthstone for <a href=\"/shop/\" rel=\"noopener\">Gemini</a>, symbolizing emotional balance and intuition.</p>"
+    "x": "<p>Moonstone is known for its mesmerizing iridescence, displaying hues of blue, white, and gray. Its connection to the moon and intuition makes it a fitting birthstone for <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Gemini</a>, symbolizing emotional balance and intuition.</p>"
    },
    {
     "t": "html",
@@ -1988,19 +1988,19 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>Emeralds are prized for their vivid green color, representing growth, vitality, and renewal. While traditionally associated with Taurus, emeralds can also resonate with <a href=\"/shop/\" rel=\"noopener\">Geminis</a> born in late May, infusing them with abundance and vitality.</p>"
+    "x": "<p>Emeralds are prized for their vivid green color, representing growth, vitality, and renewal. While traditionally associated with Taurus, emeralds can also resonate with <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a> born in late May, infusing them with abundance and vitality.</p>"
    },
    {
     "t": "html",
-    "x": "<p>These birthstones offer Geminis a range of colors to choose from, each carrying its own symbolic meaning and energy. Whether worn as jewelry or kept as talismans, these stones can serve as reminders of the <a href=\"/shop/\" rel=\"noopener\">Gemini's</a> unique qualities and strengths. </p>"
+    "x": "<p>These birthstones offer Geminis a range of colors to choose from, each carrying its own symbolic meaning and energy. Whether worn as jewelry or kept as talismans, these stones can serve as reminders of the <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Gemini's</a> unique qualities and strengths. </p>"
    },
    {
     "t": "html",
-    "x": "<h2>How do you use your crystals for <a href=\"/shop/\" rel=\"noopener\">Gemini</a>?</h2>"
+    "x": "<h2>How do you use your crystals for <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Gemini</a>?</h2>"
    },
    {
     "t": "html",
-    "x": "<p>As a <a href=\"/shop/\" rel=\"noopener\">Gemini</a>, your birthday month is a special time to align with the energies of crystals associated with your astrological sign. Here's a simple ritual to infuse your birthday with positivity, celebration, and blessings:</p>"
+    "x": "<p>As a <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Gemini</a>, your birthday month is a special time to align with the energies of crystals associated with your astrological sign. Here's a simple ritual to infuse your birthday with positivity, celebration, and blessings:</p>"
    },
    {
     "t": "html",
@@ -2008,7 +2008,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>On the morning of your birthday, gather your <a href=\"/shop/\" rel=\"noopener\">Gemini</a> crystals and find a quiet space where you can focus your intentions.</p>"
+    "x": "<p>On the morning of your birthday, gather your <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Gemini</a> crystals and find a quiet space where you can focus your intentions.</p>"
    },
    {
     "t": "html",
@@ -2052,11 +2052,11 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>By weaving these simple yet potent rituals into your birthday celebration, you can deepen your connection with your <a href=\"/shop/\" rel=\"noopener\">Gemini</a> crystals and experience their transformative effects throughout your birthday month and beyond.</p>"
+    "x": "<p>By weaving these simple yet potent rituals into your birthday celebration, you can deepen your connection with your <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Gemini</a> crystals and experience their transformative effects throughout your birthday month and beyond.</p>"
    },
    {
     "t": "html",
-    "x": "<h2>What are the best crystals to wear for <a href=\"/shop/\" rel=\"noopener\">Gemini</a>?</h2>"
+    "x": "<h2>What are the best crystals to wear for <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Gemini</a>?</h2>"
    },
    {
     "t": "html",
@@ -2068,7 +2068,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>Citrine bracelets can significantly impact Geminis, enhancing their innate qualities and supporting their personal growth. This vibrant crystal promotes clear and effective communication, helping <a href=\"/shop/\" rel=\"noopener\">Geminis</a> articulate their thoughts with confidence. With improved mental clarity, Geminis can make decisions more confidently and navigate life's challenges with ease. Furthermore, citrine stimulates creativity, inspiring Geminis to explore new ideas and express themselves freely.</p>"
+    "x": "<p>Citrine bracelets can significantly impact Geminis, enhancing their innate qualities and supporting their personal growth. This vibrant crystal promotes clear and effective communication, helping <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a> articulate their thoughts with confidence. With improved mental clarity, Geminis can make decisions more confidently and navigate life's challenges with ease. Furthermore, citrine stimulates creativity, inspiring Geminis to explore new ideas and express themselves freely.</p>"
    },
    {
     "t": "html",
@@ -2076,7 +2076,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>Combining the properties of tourmaline and clear quartz, this crystal enhances communication, mental clarity, and intuition—qualities that resonate well with <a href=\"/shop/\" rel=\"noopener\">Geminis'</a> dynamic nature. <a href=\"/shop/\" rel=\"noopener\">Tourmalinated Quartz</a> provides grounding energy and protection against negativity, supporting Geminis in staying balanced and centered amidst life's challenges. With its powerful combination of properties, wearing a Tourmalinated Quartz bracelet can help Geminis navigate their busy lives with clarity, confidence, and grace.</p>"
+    "x": "<p>Combining the properties of tourmaline and clear quartz, this crystal enhances communication, mental clarity, and intuition—qualities that resonate well with <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis'</a> dynamic nature. <a href=\"/product/?id=tourmalinated-quartz-stone\" rel=\"noopener\">Tourmalinated Quartz</a> provides grounding energy and protection against negativity, supporting Geminis in staying balanced and centered amidst life's challenges. With its powerful combination of properties, wearing a Tourmalinated Quartz bracelet can help Geminis navigate their busy lives with clarity, confidence, and grace.</p>"
    },
    {
     "t": "html",
@@ -2084,11 +2084,11 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>This crystal enhances communication skills, mental clarity, and intuition—traits that align perfectly with <a href=\"/shop/\" rel=\"noopener\">Geminis'</a> dynamic nature. <a href=\"/shop/\" rel=\"noopener\">Sodalite</a> also promotes emotional balance and creativity, empowering Geminis to express themselves openly and navigate life's challenges with confidence. With its combination of properties, wearing a Sodalite bracelet can help Geminis thrive in both their personal and professional endeavors.</p>"
+    "x": "<p>This crystal enhances communication skills, mental clarity, and intuition—traits that align perfectly with <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis'</a> dynamic nature. <a href=\"/product/?id=sodalite-stone\" rel=\"noopener\">Sodalite</a> also promotes emotional balance and creativity, empowering Geminis to express themselves openly and navigate life's challenges with confidence. With its combination of properties, wearing a Sodalite bracelet can help Geminis thrive in both their personal and professional endeavors.</p>"
    },
    {
     "t": "html",
-    "x": "<p>In conclusion, <a href=\"/shop/\" rel=\"noopener\">Geminis</a> can benefit greatly from incorporating specific crystals into their daily lives to enhance their natural strengths and navigate life's challenges with ease. Among the top choices are <a href=\"/shop/\" rel=\"noopener\">Citrine</a>, <a href=\"/shop/\" rel=\"noopener\">Tourmalinated Quartz</a>, and <a href=\"/shop/\" rel=\"noopener\">Sodalite</a> bracelets. <a href=\"/shop/\" rel=\"noopener\">Citrine</a> amplifies communication and creativity while boosting energy levels, <a href=\"/shop/\" rel=\"noopener\">Tourmalinated Quartz </a>offers balance, protection, and clarity, and <a href=\"/shop/\" rel=\"noopener\">Sodalite</a> enhances communication skills, mental clarity, and emotional balance. Whether seeking to improve communication, enhance mental clarity, or foster emotional balance, Geminis can find support and empowerment through the healing energies of these crystals. </p>"
+    "x": "<p>In conclusion, <a href=\"https://energymuse.com/collections/crystals-for-gemini-season\" rel=\"noopener\" target=\"_blank\">Geminis</a> can benefit greatly from incorporating specific crystals into their daily lives to enhance their natural strengths and navigate life's challenges with ease. Among the top choices are <a href=\"https://energymuse.com/collections/citrine-crystals\" rel=\"noopener\" target=\"_blank\">Citrine</a>, <a href=\"/product/?id=tourmalinated-quartz-stone\" rel=\"noopener\">Tourmalinated Quartz</a>, and <a href=\"/product/?id=sodalite-stone\" rel=\"noopener\">Sodalite</a> bracelets. <a href=\"https://energymuse.com/collections/citrine-crystals\" rel=\"noopener\" target=\"_blank\">Citrine</a> amplifies communication and creativity while boosting energy levels, <a href=\"/product/?id=tourmalinated-quartz-stone\" rel=\"noopener\">Tourmalinated Quartz </a>offers balance, protection, and clarity, and <a href=\"/product/?id=sodalite-stone\" rel=\"noopener\">Sodalite</a> enhances communication skills, mental clarity, and emotional balance. Whether seeking to improve communication, enhance mental clarity, or foster emotional balance, Geminis can find support and empowerment through the healing energies of these crystals. </p>"
    }
   ]
  }

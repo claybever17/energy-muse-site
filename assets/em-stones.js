@@ -28,7 +28,7 @@
  * with an optional caption: '...'. The stone's own photograph is the poster
  * unless one is given. */
 window.EM_STONES = {
-  "black-tourmaline": {photo2:"black-tourmaline-2",howto:"The most powerful way to use the Black Tourmaline crystal properties for protection is to create a crystal program for yourself. By wearing Black Tourmaline crystal jewelry, carrying the stone, and bringing it into your environment, you can protect yourself and your space.",
+  "black-tourmaline": {shop:["protection", "protection-bracelet", "the-millionaire-mindset-bracelet", "tourmalinated-quartz-stone", "174hz-frequency-ring-for-tension-stress-reli", "174hz-frequency-bracelet"],photo2:"black-tourmaline-2",howto:"The most powerful way to use the Black Tourmaline crystal properties for protection is to create a crystal program for yourself. By wearing Black Tourmaline crystal jewelry, carrying the stone, and bringing it into your environment, you can protect yourself and your space.",
     "name": "Black Tourmaline",
     "product": "protection",
     "photo": "black-tourmaline",
@@ -47,7 +47,7 @@ window.EM_STONES = {
     "history": "Tourmaline has been around since Medieval times, but it wasn’t until the late 1800s, when mineralogist George Kunz sold Tourmaline to Tiffany & Co., that it gained popularity. Before it made a name for itself in popular culture, the power of Black Tourmaline was known only to those who worked with it.",
     "origin": "Black Tourmaline is found in Africa, Brazil, Pakistan, the United States and many other places around the world."
   },
-  "clear-quartz": {photo2:"clear-quartz-2",howto:"To gain a clear perspective on a situation or your overall life, create a crystal program for gaining clarity using your Clear Quartz crystal. By wearing Clear Quartz jewelry , carrying the stone, and incorporating it into your space, you can surround yourself with crystal-level clarity. No matter what distractions or decisions arise, your Clear Quartz will be easily accessible to help you identify and stay true to your ultimate goals.",
+  "clear-quartz": {shop:["diamantina-etched-quartz-point", "fresh-start", "merkaba", "seven-stone-necklace", "diy-bracelet-kit", "clear-quartz-stone", "tourmalinated-quartz-stone", "639hz-frequency-ring", "abundance-attractor-necklace", "963hz-frequency-ring-for-mental-focus"],photo2:"clear-quartz-2",howto:"To gain a clear perspective on a situation or your overall life, create a crystal program for gaining clarity using your Clear Quartz crystal. By wearing Clear Quartz jewelry , carrying the stone, and incorporating it into your space, you can surround yourself with crystal-level clarity. No matter what distractions or decisions arise, your Clear Quartz will be easily accessible to help you identify and stay true to your ultimate goals.",
     "name": "Clear Quartz",
     "product": "clear-quartz-stone",
     "photo": "clear-quartz",
@@ -62,7 +62,7 @@ window.EM_STONES = {
     "history": "Because Clear Crystal Quartz is such a worldly crystal, cultures from around the world have their own mythology related to the Quartz stone meaning. The term “quartz” comes from the Greek word for “ice.” Ancient Greek philosophers like Theophrastus believed that the transparent stone was a form of permanent ice, so cold, it kept from thawing.",
     "origin": "One of the most abundant minerals in the world, Clear Quartz can develop in a wide range of environments and can be found on every continent"
   },
-  "pyrite": {photo2:"pyrite-2",
+  "pyrite": {shop:["wealth", "breakthrough-bracelet-1", "diy-bracelet-kit", "417hz-frequency-ring-for-energy-clearing", "pyrite-money-sign", "417hz-frequency-bracelet"],photo2:"pyrite-2",
     "name": "Pyrite",
     "product": "pyrite-money-sign",
     "photo": "pyrite",
@@ -77,7 +77,7 @@ window.EM_STONES = {
     "history": "Treasured in many ancient civilizations, the Pyrite stone meaning comes from the Greek word ‘pyr,’ which means fire. The Pyrite meaning symbolizes male energy, that burning cauldron of passion that exists deep within the solar plexus chakra.",
     "origin": "Pyrite is easily obtainable from many different geographical sources, including Germany, Italy, Peru, Russia, South America, Spain, and the US. The largest producers of Pyrite are Italy, China, and Spain."
   },
-  "angelite": {photo2:"angelite-2",howto:"An effective way to align yourself with the gentle, angelic frequencies of the Angelite stone meaning is by creating a crystal program that includes wearing it, carrying it, and placing it in your environment.",
+  "angelite": {shop:["angelite-stone", "manifestation-intention-hanger"],photo2:"angelite-2",howto:"An effective way to align yourself with the gentle, angelic frequencies of the Angelite stone meaning is by creating a crystal program that includes wearing it, carrying it, and placing it in your environment.",
     "name": "Angelite",
     "product": "angelite-stone",
     "photo": "angelite",
@@ -91,7 +91,7 @@ window.EM_STONES = {
     ],
     "history": "The Angelite stone is a relatively new crystal, discovered in Peru in 1987. It is also sometimes referred to as Blue Anhydrite."
   },
-  "apatite": {photo2:"apatite-2",
+  "apatite": {shop:["apatite-stone", "639hz-frequency-ring", "7-83hz-frequency-ring-for-nervous-system-res"],photo2:"apatite-2",
     "name": "Apatite",
     "product": "apatite-stone",
     "photo": "apatite",
@@ -108,7 +108,7 @@ window.EM_STONES = {
       }
     ]
   },
-  "jade": {photo2:"jade-2",howto:"Our favorite way to use the Jade crystal properties for living a prosperous life is to create a crystal program for yourself. By wearing Jade crystal jewelry, carrying the stone with you, and incorporating it into your space, you will have the perfect recipe for prosperity. Wear: Wearing Jade in the form of jewelry is a powerful way to connect with the energy of prosperity and abundance throughout the day.",
+  "jade": {shop:["infinite-prosperity-bracelet", "infinite-prosperity-necklace", "jade-bracelet", "963hz-frequency-bracelet"],photo2:"jade-2",howto:"Our favorite way to use the Jade crystal properties for living a prosperous life is to create a crystal program for yourself. By wearing Jade crystal jewelry, carrying the stone with you, and incorporating it into your space, you will have the perfect recipe for prosperity. Wear: Wearing Jade in the form of jewelry is a powerful way to connect with the energy of prosperity and abundance throughout the day.",
     "name": "Jade",
     "product": "jade-bracelet",
     "photo": "jade",
@@ -127,7 +127,7 @@ window.EM_STONES = {
     "history": "For centuries, Jade has been thought to bring good fortune. Cultures all over the world believe that Jade represents a wealth of virtues, including happiness, courage, purity, longevity, and wisdom.",
     "origin": "Jade is found in Canada, China, Mexico, New Zealand, the United States, and many other places."
   },
-  "shungite": {photo2:"shungite-2",howto:"Our favorite way to use the Shungite meaning for EMF protection is to create a crystal program for yourself. By wearing Shungite jewelry, carrying the stone, and incorporating it into your space, you minimize and harmonize the effects of EMFs in your home and on-the-go.",
+  "shungite": {shop:["tall-shungite-pyramid"],photo2:"shungite-2",howto:"Our favorite way to use the Shungite meaning for EMF protection is to create a crystal program for yourself. By wearing Shungite jewelry, carrying the stone, and incorporating it into your space, you minimize and harmonize the effects of EMFs in your home and on-the-go.",
     "name": "Shungite",
     "product": "tall-shungite-pyramid",
     "photo": "shungite",
@@ -145,7 +145,7 @@ window.EM_STONES = {
     ],
     "history": "Shungite has been around for an estimated two billion years, but what is shungite and its healing potential was recognized through the 1996 Nobel Prize-winning research that discovered fullerenes within the stone. Shungite is composed mostly of pure carbon and is the only known natural mineral to contain fullerenes, which are specific molecular formations of carbon that act as powerful, long-lasting antioxidants."
   },
-  "turquoise": {photo2:"turquoise-2",howto:"Our favorite way to use the Turquoise crystal properties for health is to create a crystal program for yourself. By wearing Turquoise crystal jewelry, carrying the stone, and incorporating it into your space, you can make your health and well-being a top priority in your life.",
+  "turquoise": {shop:["mexican-turquoise-stone"],photo2:"turquoise-2",howto:"Our favorite way to use the Turquoise crystal properties for health is to create a crystal program for yourself. By wearing Turquoise crystal jewelry, carrying the stone, and incorporating it into your space, you can make your health and well-being a top priority in your life.",
     "name": "Turquoise",
     "product": "mexican-turquoise-stone",
     "photo": "turquoise",
@@ -164,7 +164,7 @@ window.EM_STONES = {
     "history": "Adored for centuries, Turquoise rocks have been carved and set into everything from royal thrones and daggers to jewelry and cups. The Egyptians believed the Turquoise crystal meaning brought good fortune and made them invulnerable.",
     "origin": "Turquoise is found in Africa, Belgium, China, France, Iran, Mexico, the United States, and many other places."
   },
-  "chrysocolla": {photo2:"chrysocolla-2",howto:"To start fresh in any area of your life, create a 3-step crystal program using Chrysocolla. By wearing Chrysocolla jewelry, carrying the stone with you throughout the day, and incorporating it into your space, you can surround yourself with its uplifting vibrations.",
+  "chrysocolla": {shop:["chrysocolla-stone", "wellness"],photo2:"chrysocolla-2",howto:"To start fresh in any area of your life, create a 3-step crystal program using Chrysocolla. By wearing Chrysocolla jewelry, carrying the stone with you throughout the day, and incorporating it into your space, you can surround yourself with its uplifting vibrations.",
     "name": "Chrysocolla",
     "product": "chrysocolla-stone",
     "photo": "chrysocolla",

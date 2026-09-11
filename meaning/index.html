@@ -19,8 +19,8 @@
 <link rel="icon" type="image/svg+xml" href="/assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
 <link rel="stylesheet" href="/assets/em-page.css?v=18">
-<script src="/assets/em-catalog.js?v=31"></script>
-<script src="/assets/em-stones.js?v=4"></script>
+<script src="/assets/em-catalog.js?v=32"></script>
+<script src="/assets/em-stones.js?v=5"></script>
 <script src="/assets/em-header.js?v=55" defer></script>
 <script src="/assets/em-bag.js?v=11" defer></script>
 <script src="/assets/em-prices.js?v=4" defer></script>
@@ -309,6 +309,10 @@
   if (window.EM_CATALOG) {
     var nm = S.name.toLowerCase();
     var mine = EM_CATALOG.all().filter(function (q) { return q.name.toLowerCase().indexOf(nm) >= 0 && q.id !== (p && p.id); });
+    /* Sept 11: the pieces whose name, first sentence or long copy names the stone,
+       listed on the stone's record (S.shop) - Black Tourmaline's bracelets were
+       not found by name alone (Sara: "a feed that has all of the black tourmaline stuff") */
+    (S.shop || []).forEach(function (id) { var q = EM_CATALOG.get(id); if (q && q.cat !== 'Class' && q.id !== (p && p.id) && mine.indexOf(q) < 0) mine.push(q); });
     if (mine.length) shopAll = '<section class="msec"><h2>Shop all ' + esc(S.name) + '</h2><div class="mrail">'
       + mine.slice(0, 8).map(function (q) {
           return '<a class="mprod" href="/product/?id=' + encodeURIComponent(q.id) + '"><span class="shot"><img src="' + q.img + '" alt="" loading="lazy"></span>'

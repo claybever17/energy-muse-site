@@ -17,9 +17,10 @@
 <meta name="twitter:image" content="https://energy-muse-workingfolder.vercel.app/assets/og.jpg">
 <link rel="icon" type="image/svg+xml" href="../../assets/img/mark.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="../../assets/img/favicon.png">
+<script src="../../assets/em-frequencies.js?v=6" defer></script>
 <script src="../../assets/em-header.js?v=55" defer></script>
 <script src="/assets/em-search.js?v=12" defer></script>
-<script src="../../assets/em-catalog.js?v=31" defer></script>
+<script src="../../assets/em-catalog.js?v=32" defer></script>
 <script src="/assets/em-more.js?v=1"></script>
 <script src="../../assets/em-bag.js?v=11" defer></script>
 <script src="../../assets/em-prices.js?v=4" defer></script>
@@ -522,5 +523,14 @@ document.querySelectorAll('.radd').forEach(function(b){
    card's button already names */
 (function(){function go(){if(!window.EM_CATALOG)return;document.querySelectorAll('.hcard').forEach(function(c){var b=c.querySelector('button[data-id]'),st=c.querySelector('strong');if(!b||!st||c.querySelector('.tw'))return;var q=EM_CATALOG.get(b.getAttribute('data-id'));if(q&&q.three){var t=document.createElement('span');t.className='tw';t.textContent=q.three.join(' \u00b7 ');st.insertAdjacentElement('afterend',t);}});}
 if(window.EM_CATALOG)go();else window.addEventListener('load',go);})();
+</script>
+<script>
+/* Sept 11 (QA pass): the Amplify it card had no three words - the generators live in
+   em-frequencies, not the catalogue. Their purpose words, in the same line. */
+(function(){function go(){var F=window.EM_FREQ;if(!F)return;var list=Array.isArray(F)?F:(F.all?F.all():Object.keys(F).map(function(k){return F[k];}));
+document.querySelectorAll('.hcard button[data-id^="gen-"]').forEach(function(b){var c=b.closest('.hcard');if(!c||c.querySelector('.tw'))return;var id=b.getAttribute('data-id');
+var g=list.filter(function(x){return x&&x.id===id;})[0];if(!g||!g.purpose)return;var st=c.querySelector('strong');if(!st)return;
+var sp=document.createElement('span');sp.className='tw gen-purpose';sp.textContent=g.purpose.join(' \u00b7 ');st.insertAdjacentElement('afterend',sp);});}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();})();
 </script>
 </body></html>
