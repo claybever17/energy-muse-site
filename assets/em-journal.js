@@ -80,7 +80,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p> For those born under Aries (March 21 - April 19), the ideal placement for harnessing their dynamic energies is the index finger. The crystals <a href=\"https://energymuse.com/collections/carnelian-crystals\" rel=\"noopener\" target=\"_blank\">Carnelian</a> and Red Jasper are particularly effective. <a href=\"https://energymuse.com/collections/carnelian-crystals\" rel=\"noopener\" target=\"_blank\">Carnelian</a> stimulates bravery and motivation, amplifying courage and drive, while Red Jasper offers grounding and revitalization, enhancing determination and persistence. Together, these crystals support Aries' inherent leadership qualities and energetic nature, helping them tackle challenges with confidence and resolve. The <a href=\"https://energymuse.com/products/carnelian-crystal-ring?_pos=1&amp;_sid=e68d003f4&amp;_ss=r\" rel=\"noopener\"><strong>Carnelian Crystal Ring</strong></a> and <a href=\"https://energymuse.com/products/wealth-crystal-ring?_pos=1&amp;_sid=88091da2e&amp;_ss=r\" rel=\"noopener\"><strong>Wealth Crystal Ring</strong></a> are ideal for amplifying Aries' boldness and leadership, making them unstoppable in their pursuits.</p>"
+    "x": "<p> For those born under Aries (March 21 - April 19), the ideal placement for harnessing their dynamic energies is the index finger. The crystals <a href=\"https://energymuse.com/collections/carnelian-crystals\" rel=\"noopener\" target=\"_blank\">Carnelian</a> and Red Jasper are particularly effective. <a href=\"https://energymuse.com/collections/carnelian-crystals\" rel=\"noopener\" target=\"_blank\">Carnelian</a> stimulates bravery and motivation, amplifying courage and drive, while Red Jasper offers grounding and revitalization, enhancing determination and persistence. Together, these crystals support Aries' inherent leadership qualities and energetic nature, helping them tackle challenges with confidence and resolve. The <a href=\"https://energymuse.com/products/carnelian-crystal-ring?amp;_sid=e68d003f4&amp;_ss=r\" rel=\"noopener\"><strong>Carnelian Crystal Ring</strong></a> and <a href=\"https://energymuse.com/products/wealth-crystal-ring?amp;_sid=88091da2e&amp;_ss=r\" rel=\"noopener\"><strong>Wealth Crystal Ring</strong></a> are ideal for amplifying Aries' boldness and leadership, making them unstoppable in their pursuits.</p>"
    },
    {
     "t": "html",
@@ -88,7 +88,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p> For those born under Taurus (April 20 - May 20), the ring finger is the ideal placement for their crystals. Rose Quartz and Emerald are particularly beneficial. Rose Quartz supports emotional stability and nurturing relationships, fostering love and compassion. Emerald enhances appreciation of comfort and beauty while also providing stability and sensuality. The <a href=\"https://energymuse.com/products/love-crystal-ring?_pos=1&amp;_sid=6eabfd596&amp;_ss=r\" rel=\"noopener\"><strong>Love Crystal Ring</strong></a> and <a href=\"https://energymuse.com/search?q=health+crystal+ring*&amp;type=product%2Carticle&amp;options%5Bprefix%5D=last\" rel=\"noopener\"><strong>Health Crystal Ring</strong></a> are perfect for Taurus, enhancing their natural affinity for comfort, beauty, and enduring relationships.</p>"
+    "x": "<p> For those born under Taurus (April 20 - May 20), the ring finger is the ideal placement for their crystals. Rose Quartz and Emerald are particularly beneficial. Rose Quartz supports emotional stability and nurturing relationships, fostering love and compassion. Emerald enhances appreciation of comfort and beauty while also providing stability and sensuality. The <a href=\"https://energymuse.com/products/love-crystal-ring?amp;_sid=6eabfd596&amp;_ss=r\" rel=\"noopener\"><strong>Love Crystal Ring</strong></a> and <a href=\"https://energymuse.com/search?q=health+crystal+ring*&amp;type=product%2Carticle&amp;options%5Bprefix%5D=last\" rel=\"noopener\"><strong>Health Crystal Ring</strong></a> are perfect for Taurus, enhancing their natural affinity for comfort, beauty, and enduring relationships.</p>"
    },
    {
     "t": "html",
@@ -96,7 +96,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p> For those born under Gemini (May 21 - June 20), the little finger is the optimal placement for their crystals. Aquamarine and Citrine are especially effective. Aquamarine enhances communication and mental clarity, aiding in clear expression, while Citrine boosts adaptability and positivity. The <a href=\"https://energymuse.com/products/citrine-crystal-ring?_pos=1&amp;_psq=citrine-cr&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\"><strong>Citrine Crystal Ring</strong></a> and <a href=\"https://energymuse.com/products/sapphire-crystal-ring?_pos=1&amp;_psq=blue-sapphire-crystal-ring&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\"><strong>Blue Sapphire Crystal Ring</strong></a> align with Gemini's versatile and communicative nature, enhancing their ability to connect and adapt in various situations.</p>"
+    "x": "<p> For those born under Gemini (May 21 - June 20), the little finger is the optimal placement for their crystals. Aquamarine and Citrine are especially effective. Aquamarine enhances communication and mental clarity, aiding in clear expression, while Citrine boosts adaptability and positivity. The <a href=\"https://energymuse.com/products/citrine-crystal-ring?amp;_psq=citrine-cr&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\"><strong>Citrine Crystal Ring</strong></a> and <a href=\"https://energymuse.com/products/sapphire-crystal-ring?amp;_psq=blue-sapphire-crystal-ring&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\"><strong>Blue Sapphire Crystal Ring</strong></a> align with Gemini's versatile and communicative nature, enhancing their ability to connect and adapt in various situations.</p>"
    },
    {
     "t": "html",
@@ -104,7 +104,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p> For those born under Cancer (June 21 - July 22), the ring finger is the ideal placement for their crystals. Moonstone and Pearl are particularly supportive. Moonstone fosters emotional balance and enhances intuition, while Pearl reinforces inner security and supports Cancer’s nurturing nature. These crystals help deepen emotional understanding and provide a sense of stability and emotional depth. The <a href=\"https://energymuse.com/products/rainbow-moonstone-crystal-ring?_pos=1&amp;_psq=rainbow-moonstone-crystal&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\"><strong>Rainbow Moonstone Crystal Ring</strong></a> and <a href=\"https://energymuse.com/products/protection-crystal-ring?_pos=1&amp;_psq=protection-crystal-ring&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\"><strong>Protection Crystal Ring</strong></a> are ideal for Cancer, offering emotional support and security.</p>"
+    "x": "<p> For those born under Cancer (June 21 - July 22), the ring finger is the ideal placement for their crystals. Moonstone and Pearl are particularly supportive. Moonstone fosters emotional balance and enhances intuition, while Pearl reinforces inner security and supports Cancer’s nurturing nature. These crystals help deepen emotional understanding and provide a sense of stability and emotional depth. The <a href=\"https://energymuse.com/products/rainbow-moonstone-crystal-ring?amp;_psq=rainbow-moonstone-crystal&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\"><strong>Rainbow Moonstone Crystal Ring</strong></a> and <a href=\"https://energymuse.com/products/protection-crystal-ring?amp;_psq=protection-crystal-ring&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\"><strong>Protection Crystal Ring</strong></a> are ideal for Cancer, offering emotional support and security.</p>"
    },
    {
     "t": "html",
@@ -120,7 +120,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p> For those born under Virgo (August 23 - September 22), the little finger is the ideal placement for their crystals. Amethyst and Peridot are particularly beneficial. Amethyst supports mental clarity and enhances analytical abilities, while Peridot promotes organization and attention to detail. These crystals help Virgo refine their focus and precision, supporting their natural inclination for thoroughness and clarity. The <a href=\"https://energymuse.com/products/amethyst-crystal-ring?_pos=3&amp;_psq=amethyst-cry&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\"><strong>Amethyst Crystal Ring</strong></a> and <a href=\"https://energymuse.com/products/peridot-crystal-ring?_pos=1&amp;_psq=perid&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\"><strong>Peridot Crystal Ring</strong></a> align perfectly with Virgo's analytical and meticulous nature, helping them stay focused and organized.</p>"
+    "x": "<p> For those born under Virgo (August 23 - September 22), the little finger is the ideal placement for their crystals. Amethyst and Peridot are particularly beneficial. Amethyst supports mental clarity and enhances analytical abilities, while Peridot promotes organization and attention to detail. These crystals help Virgo refine their focus and precision, supporting their natural inclination for thoroughness and clarity. The <a href=\"https://energymuse.com/products/amethyst-crystal-ring?amp;_psq=amethyst-cry&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\"><strong>Amethyst Crystal Ring</strong></a> and <a href=\"https://energymuse.com/products/peridot-crystal-ring?amp;_psq=perid&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\"><strong>Peridot Crystal Ring</strong></a> align perfectly with Virgo's analytical and meticulous nature, helping them stay focused and organized.</p>"
    },
    {
     "t": "html",
@@ -128,7 +128,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p> For those born under Libra (September 23 - October 22), the ring finger is the ideal placement for their crystals. Lapis Lazuli and Blue Topaz are especially effective. Lapis Lazuli promotes harmony and balance, while Blue Topaz enhances aesthetic appreciation and equilibrium. These crystals support Libra’s natural sense of beauty and help maintain a harmonious and balanced outlook on life. The <a href=\"https://energymuse.com/products/protection-crystal-ring?_pos=1&amp;_sid=57a26392a&amp;_ss=r\" rel=\"noopener\"><strong>Lapis Lazuli Crystal Ring</strong></a> and <strong>Blue Topaz Crystal Ring</strong> are perfect for Libra, enhancing their pursuit of balance, beauty, and harmony.</p>"
+    "x": "<p> For those born under Libra (September 23 - October 22), the ring finger is the ideal placement for their crystals. Lapis Lazuli and Blue Topaz are especially effective. Lapis Lazuli promotes harmony and balance, while Blue Topaz enhances aesthetic appreciation and equilibrium. These crystals support Libra’s natural sense of beauty and help maintain a harmonious and balanced outlook on life. The <a href=\"https://energymuse.com/products/protection-crystal-ring?amp;_sid=57a26392a&amp;_ss=r\" rel=\"noopener\"><strong>Lapis Lazuli Crystal Ring</strong></a> and <strong>Blue Topaz Crystal Ring</strong> are perfect for Libra, enhancing their pursuit of balance, beauty, and harmony.</p>"
    },
    {
     "t": "html",
@@ -136,7 +136,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p> For those born under Scorpio (October 23 - November 21), the middle finger is the ideal placement for their crystals. Black Tourmaline and Obsidian are especially effective. Black Tourmaline deepens intuition and provides protection, while Obsidian facilitates personal growth and transformative experiences. These crystals support Scorpio’s journey of self-discovery and transformation, aiding in their quest for deeper understanding and change. The <a href=\"https://energymuse.com/products/black-tourmaline-crystal-ring?_pos=2&amp;_psq=black-tourmaline&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\"><strong>Black Tourmaline Crystal Ring</strong></a> and <a href=\"https://energymuse.com/products/health-crystal-ring\" rel=\"noopener\"><strong>Protection Crystal Ring</strong></a> are ideal for Scorpios seeking to enhance their intuitive and transformative abilities.</p>"
+    "x": "<p> For those born under Scorpio (October 23 - November 21), the middle finger is the ideal placement for their crystals. Black Tourmaline and Obsidian are especially effective. Black Tourmaline deepens intuition and provides protection, while Obsidian facilitates personal growth and transformative experiences. These crystals support Scorpio’s journey of self-discovery and transformation, aiding in their quest for deeper understanding and change. The <a href=\"https://energymuse.com/products/black-tourmaline-crystal-ring?amp;_psq=black-tourmaline&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\"><strong>Black Tourmaline Crystal Ring</strong></a> and <a href=\"https://energymuse.com/products/health-crystal-ring\" rel=\"noopener\"><strong>Protection Crystal Ring</strong></a> are ideal for Scorpios seeking to enhance their intuitive and transformative abilities.</p>"
    },
    {
     "t": "html",
@@ -144,7 +144,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p> For those born under Sagittarius (November 22 - December 21), the index finger is the ideal placement for their crystals. Turquoise and Amethyst are particularly beneficial. Turquoise supports exploration and growth, while Amethyst enhances optimism and intellectual curiosity. These crystals bolster Sagittarius' adventurous spirit and their quest for knowledge, encouraging both personal and intellectual expansion. The <a href=\"https://energymuse.com/products/health-crystal-ring?_pos=1&amp;_sid=8e45a3075&amp;_ss=r\" rel=\"noopener\"><strong>Turquoise Crystal Ring</strong></a> and <a href=\"https://energymuse.com/products/amethyst-crystal-ring?_pos=1&amp;_sid=81b5eb82c&amp;_ss=r\" rel=\"noopener\"><strong>Amethyst Crystal Ring</strong></a> are perfect for Sagittarius, supporting their love for adventure and intellectual growth.</p>"
+    "x": "<p> For those born under Sagittarius (November 22 - December 21), the index finger is the ideal placement for their crystals. Turquoise and Amethyst are particularly beneficial. Turquoise supports exploration and growth, while Amethyst enhances optimism and intellectual curiosity. These crystals bolster Sagittarius' adventurous spirit and their quest for knowledge, encouraging both personal and intellectual expansion. The <a href=\"https://energymuse.com/products/health-crystal-ring?amp;_sid=8e45a3075&amp;_ss=r\" rel=\"noopener\"><strong>Turquoise Crystal Ring</strong></a> and <a href=\"https://energymuse.com/products/amethyst-crystal-ring?amp;_sid=81b5eb82c&amp;_ss=r\" rel=\"noopener\"><strong>Amethyst Crystal Ring</strong></a> are perfect for Sagittarius, supporting their love for adventure and intellectual growth.</p>"
    },
    {
     "t": "html",
@@ -152,7 +152,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>For those born under Capricorn (December 22 - January 19), the middle finger is the ideal placement for their crystals. Garnet and Onyx are particularly effective. Garnet reinforces stability and perseverance, while Onyx enhances discipline and ambition. These crystals support Capricorn’s drive to achieve goals and maintain a disciplined approach to their endeavors. The <a href=\"https://energymuse.com/products/garnet-crystal-ring?_pos=1&amp;_sid=e0267a843&amp;_ss=r\" rel=\"noopener\"><strong>Garnet Crystal Ring</strong></a> and <strong>Onyx Crystal Ring</strong> are ideal for Capricorns who value discipline, perseverance, and goal achievement.</p>"
+    "x": "<p>For those born under Capricorn (December 22 - January 19), the middle finger is the ideal placement for their crystals. Garnet and Onyx are particularly effective. Garnet reinforces stability and perseverance, while Onyx enhances discipline and ambition. These crystals support Capricorn’s drive to achieve goals and maintain a disciplined approach to their endeavors. The <a href=\"https://energymuse.com/products/garnet-crystal-ring?amp;_sid=e0267a843&amp;_ss=r\" rel=\"noopener\"><strong>Garnet Crystal Ring</strong></a> and <strong>Onyx Crystal Ring</strong> are ideal for Capricorns who value discipline, perseverance, and goal achievement.</p>"
    },
    {
     "t": "html",
@@ -160,7 +160,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>For those born under Aquarius (January 20 - February 18), the middle finger is the optimal placement for their crystals. Amethyst and Aquamarine are particularly supportive. Amethyst fosters innovation and creativity, while Aquamarine enhances independence and visionary thinking. These crystals support Aquarius' unique approach to problem-solving and encourage the expression of unconventional ideas. The <strong><a href=\"https://energymuse.com/products/amethyst-crystal-ring?_pos=1&amp;_psq=amethy-crystal-ring&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Amethyst Crystal</a></strong><strong><a href=\"https://energymuse.com/products/amethyst-crystal-ring?_pos=1&amp;_psq=amethy-crystal-ring&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\"> Ring</a></strong> and <a href=\"https://energymuse.com/products/stress-relief-crystal-ring?_pos=1&amp;_sid=4b7bd5655&amp;_ss=r\" rel=\"noopener\"><strong>Aquamarine Crystal Ring</strong></a> are perfect for Aquarians, encouraging their innovative spirit and independence.</p>"
+    "x": "<p>For those born under Aquarius (January 20 - February 18), the middle finger is the optimal placement for their crystals. Amethyst and Aquamarine are particularly supportive. Amethyst fosters innovation and creativity, while Aquamarine enhances independence and visionary thinking. These crystals support Aquarius' unique approach to problem-solving and encourage the expression of unconventional ideas. The <strong><a href=\"https://energymuse.com/products/amethyst-crystal-ring?amp;_psq=amethy-crystal-ring&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Amethyst Crystal</a></strong><strong><a href=\"https://energymuse.com/products/amethyst-crystal-ring?amp;_psq=amethy-crystal-ring&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\"> Ring</a></strong> and <a href=\"https://energymuse.com/products/stress-relief-crystal-ring?amp;_sid=4b7bd5655&amp;_ss=r\" rel=\"noopener\"><strong>Aquamarine Crystal Ring</strong></a> are perfect for Aquarians, encouraging their innovative spirit and independence.</p>"
    },
    {
     "t": "html",
@@ -168,7 +168,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p>For those born under Pisces (February 19 - March 20), the ring finger is the ideal placement for their crystals. Fluorite and Aquamarine are particularly beneficial. Fluorite supports emotional depth and spiritual growth, while Aquamarine enhances compassion and intuition. These crystals bolster Pisces' empathetic nature and promote a deeper connection to their spiritual and emotional selves. The <a href=\"https://energymuse.com/products/stress-relief-crystal-ring?_pos=1&amp;_sid=266d7c237&amp;_ss=r\" rel=\"noopener\"><strong>Fluorite Crystal Ring</strong></a> and <a href=\"https://energymuse.com/products/stress-relief-crystal-ring?_pos=1&amp;_sid=4b7bd5655&amp;_ss=r\" rel=\"noopener\"><strong>Aquamarine Crystal Ring</strong></a> are ideal for Pisces, enhancing their intuitive and compassionate qualities.</p>"
+    "x": "<p>For those born under Pisces (February 19 - March 20), the ring finger is the ideal placement for their crystals. Fluorite and Aquamarine are particularly beneficial. Fluorite supports emotional depth and spiritual growth, while Aquamarine enhances compassion and intuition. These crystals bolster Pisces' empathetic nature and promote a deeper connection to their spiritual and emotional selves. The <a href=\"https://energymuse.com/products/stress-relief-crystal-ring?amp;_sid=266d7c237&amp;_ss=r\" rel=\"noopener\"><strong>Fluorite Crystal Ring</strong></a> and <a href=\"https://energymuse.com/products/stress-relief-crystal-ring?amp;_sid=4b7bd5655&amp;_ss=r\" rel=\"noopener\"><strong>Aquamarine Crystal Ring</strong></a> are ideal for Pisces, enhancing their intuitive and compassionate qualities.</p>"
    },
    {
     "t": "html",
@@ -196,7 +196,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"https://energymuse.com/products/health-crystal-ring?_pos=1&amp;_sid=a674d57d4&amp;_ss=r\" rel=\"noopener\"><strong>Health Ring </strong></a></h3>"
+    "x": "<h3><a href=\"https://energymuse.com/products/health-crystal-ring?amp;_sid=a674d57d4&amp;_ss=r\" rel=\"noopener\"><strong>Health Ring </strong></a></h3>"
    },
    {
     "t": "html",
@@ -212,7 +212,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"https://energymuse.com/products/stress-relief-crystal-ring?_pos=10&amp;_sid=a674d57d4&amp;_ss=r\" rel=\"noopener\"><strong>Stress-Relief Ring </strong></a></h3>"
+    "x": "<h3><a href=\"https://energymuse.com/products/stress-relief-crystal-ring?amp;_sid=a674d57d4&amp;_ss=r\" rel=\"noopener\"><strong>Stress-Relief Ring </strong></a></h3>"
    },
    {
     "t": "html",
@@ -224,7 +224,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<p><a href=\"https://energymuse.com/products/garnet-crystal-ring?_pos=1&amp;_psq=garnet-crystal-rin&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">The Garnet Crystal Ring</a> is best suited for the middle finger, where it supports emotional strength and stability. For those seeking protection and an enhancement in courage, the <a href=\"https://energymuse.com/products/black-tourmaline-crystal-ring?_pos=2&amp;_psq=black-tourmaline&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Black Tourmaline Ring</a> is ideally worn on the index finger. The <a href=\"https://energymuse.com/products/watermelon-tourmaline-crystal-ring?_pos=1&amp;_psq=watermelon-to&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Watermelon Tourmaline Crystal Ring</a>, worn on the ring finger, is known for enhancing emotional well-being and balance. To boost intuition and communication, the <a href=\"https://energymuse.com/products/rainbow-moonstone-crystal-ring?_pos=3&amp;_psq=rainbow-moonstone&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Rainbow Moonstone Crystal Ring</a> is most effective on the little finger. The <a href=\"https://energymuse.com/products/carnelian-crystal-ring?_pos=2&amp;_psq=carnel&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Carnelian Crystal Ring</a>, also ideal for the index finger, stimulates creativity and motivation. On the ring finger, the <a href=\"https://energymuse.com/products/citrine-crystal-ring?_pos=1&amp;_psq=citrine&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Citrine Crystal Ring</a> attracts abundance and amplifies personal power. The <a href=\"https://energymuse.com/products/amethyst-crystal-ring?_pos=1&amp;_psq=amethyst-crystal-ring&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Amethyst Crystal Ring</a>, worn on the middle finger, promotes balance and emotional stability. To enhance communication and mental clarity, the <a href=\"https://energymuse.com/products/sapphire-crystal-ring?_pos=1&amp;_psq=blue-sapphi&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Blue Sapphire Crystal Ring</a> is best placed on the little finger. Finally, the <a href=\"https://energymuse.com/products/peridot-crystal-ring?_pos=1&amp;_psq=perio&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Peridot Crystal Ring</a>, also suited for the ring finger, supports vitality and emotional growth.</p>"
+    "x": "<p><a href=\"https://energymuse.com/products/garnet-crystal-ring?amp;_psq=garnet-crystal-rin&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">The Garnet Crystal Ring</a> is best suited for the middle finger, where it supports emotional strength and stability. For those seeking protection and an enhancement in courage, the <a href=\"https://energymuse.com/products/black-tourmaline-crystal-ring?amp;_psq=black-tourmaline&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Black Tourmaline Ring</a> is ideally worn on the index finger. The <a href=\"https://energymuse.com/products/watermelon-tourmaline-crystal-ring?amp;_psq=watermelon-to&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Watermelon Tourmaline Crystal Ring</a>, worn on the ring finger, is known for enhancing emotional well-being and balance. To boost intuition and communication, the <a href=\"https://energymuse.com/products/rainbow-moonstone-crystal-ring?amp;_psq=rainbow-moonstone&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Rainbow Moonstone Crystal Ring</a> is most effective on the little finger. The <a href=\"https://energymuse.com/products/carnelian-crystal-ring?amp;_psq=carnel&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Carnelian Crystal Ring</a>, also ideal for the index finger, stimulates creativity and motivation. On the ring finger, the <a href=\"https://energymuse.com/products/citrine-crystal-ring?amp;_psq=citrine&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Citrine Crystal Ring</a> attracts abundance and amplifies personal power. The <a href=\"https://energymuse.com/products/amethyst-crystal-ring?amp;_psq=amethyst-crystal-ring&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Amethyst Crystal Ring</a>, worn on the middle finger, promotes balance and emotional stability. To enhance communication and mental clarity, the <a href=\"https://energymuse.com/products/sapphire-crystal-ring?amp;_psq=blue-sapphi&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Blue Sapphire Crystal Ring</a> is best placed on the little finger. Finally, the <a href=\"https://energymuse.com/products/peridot-crystal-ring?amp;_psq=perio&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">Peridot Crystal Ring</a>, also suited for the ring finger, supports vitality and emotional growth.</p>"
    },
    {
     "t": "html",
@@ -1462,7 +1462,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"https://energymuse.com/products/blood-stone?_pos=2&amp;_sid=d0a6399a6&amp;_ss=r\" rel=\"noopener\">Bloodstone</a>: Dark green with red or brownish-red flecks or spots.</h3>"
+    "x": "<h3><a href=\"https://energymuse.com/products/blood-stone?amp;_sid=d0a6399a6&amp;_ss=r\" rel=\"noopener\">Bloodstone</a>: Dark green with red or brownish-red flecks or spots.</h3>"
    },
    {
     "t": "html",
@@ -1470,7 +1470,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"https://energymuse.com/products/garnet-stone?_pos=2&amp;_sid=a2750be4a&amp;_ss=r\" rel=\"noopener\">Garnet</a>: Deep red, although garnets come in various colors including orange and green.</h3>"
+    "x": "<h3><a href=\"https://energymuse.com/products/garnet-stone?amp;_sid=a2750be4a&amp;_ss=r\" rel=\"noopener\">Garnet</a>: Deep red, although garnets come in various colors including orange and green.</h3>"
    },
    {
     "t": "html",
@@ -1478,7 +1478,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3><a href=\"https://energymuse.com/products/red-jasper-bracelet?_pos=1&amp;_sid=8fd6a6eda&amp;_ss=r\" rel=\"noopener\">Jasper</a>: Various colors and patterns, with Red Jasper being particularly relevant for Aries.</h3>"
+    "x": "<h3><a href=\"https://energymuse.com/products/red-jasper-bracelet?amp;_sid=8fd6a6eda&amp;_ss=r\" rel=\"noopener\">Jasper</a>: Various colors and patterns, with Red Jasper being particularly relevant for Aries.</h3>"
    },
    {
     "t": "html",
@@ -1546,7 +1546,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3> - <a href=\"https://energymuse.com/products/garnet-bracelet?_pos=1&amp;_sid=9f539b6f2&amp;_ss=r\" rel=\"noopener\">Garnet Bracelet</a> </h3>"
+    "x": "<h3> - <a href=\"https://energymuse.com/products/garnet-bracelet?amp;_sid=9f539b6f2&amp;_ss=r\" rel=\"noopener\">Garnet Bracelet</a> </h3>"
    },
    {
     "t": "html",
@@ -1554,7 +1554,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3> - <a href=\"https://energymuse.com/products/bloodstone-bracelet?_pos=1&amp;_sid=617173f7b&amp;_ss=r\" rel=\"noopener\">Bloodstone Bracelet</a> </h3>"
+    "x": "<h3> - <a href=\"https://energymuse.com/products/bloodstone-bracelet?amp;_sid=617173f7b&amp;_ss=r\" rel=\"noopener\">Bloodstone Bracelet</a> </h3>"
    },
    {
     "t": "html",
@@ -1562,7 +1562,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3> - <a href=\"https://energymuse.com/products/citrine-bracelet?_pos=1&amp;_sid=c4fb457b6&amp;_ss=r\" rel=\"noopener\">Citrine Bracelet</a> </h3>"
+    "x": "<h3> - <a href=\"https://energymuse.com/products/citrine-bracelet?amp;_sid=c4fb457b6&amp;_ss=r\" rel=\"noopener\">Citrine Bracelet</a> </h3>"
    },
    {
     "t": "html",
@@ -1570,7 +1570,7 @@ window.EM_JOURNAL = [
    },
    {
     "t": "html",
-    "x": "<h3> - <a href=\"https://energymuse.com/products/citrine-bracelet?_pos=1&amp;_sid=c4fb457b6&amp;_ss=r\" rel=\"noopener\">Carnelian Bracelet</a> </h3>"
+    "x": "<h3> - <a href=\"https://energymuse.com/products/citrine-bracelet?amp;_sid=c4fb457b6&amp;_ss=r\" rel=\"noopener\">Carnelian Bracelet</a> </h3>"
    },
    {
     "t": "html",
@@ -1806,7 +1806,7 @@ window.EM_JOURNAL = [
   "body": [
    {
     "t": "html",
-    "x": "<p>For centuries, people have been fascinated by the mesmerizing beauty and profound metaphysical properties of quartz. Every single formation of quartz is unique and holds a story that can reveal tales of resilience, harmony, and spiritual transformation. In this journey, we will delve into the world of <a href=\"https://energymuse.com/products/rare-quartz-formation-bundle?_pos=1&amp;_psq=quartz-form&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">quartz formations</a>, exploring their identifying characteristics, metaphysical significance, and practical applications for spiritual growth and healing. Join us as we embark on an enlightening journey of discovery.</p>"
+    "x": "<p>For centuries, people have been fascinated by the mesmerizing beauty and profound metaphysical properties of quartz. Every single formation of quartz is unique and holds a story that can reveal tales of resilience, harmony, and spiritual transformation. In this journey, we will delve into the world of <a href=\"https://energymuse.com/products/rare-quartz-formation-bundle?amp;_psq=quartz-form&amp;_ss=e&amp;_v=1.0\" rel=\"noopener\">quartz formations</a>, exploring their identifying characteristics, metaphysical significance, and practical applications for spiritual growth and healing. Join us as we embark on an enlightening journey of discovery.</p>"
    },
    {
     "t": "html",
